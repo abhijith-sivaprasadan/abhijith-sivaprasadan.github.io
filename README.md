@@ -9,7 +9,7 @@ Open this folder in VS Code and edit:
 - `index.html` for the homepage
 - `styles.css` for styling
 - `projects/*.html` for individual project case studies
-- `downloads/Abhijith_Sivaprasadan_CV.pdf` for the CV download
+- `downloads/Abhijith_Sivaprasadan_Birdview_Grid_Flow_Modeller_CV.pdf` for the CV download
 
 ## Publish
 
