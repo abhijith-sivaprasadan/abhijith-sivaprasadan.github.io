@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Portfolio preview for Abhijith Sivaprasadan">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="1" stop-color="#122238"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="160" cy="120" r="210" fill="#65d6c9" opacity="0.12"/>
+  <circle cx="1040" cy="500" r="260" fill="#8bb8ff" opacity="0.12"/>
+  <g fill="none" stroke="#65d6c9" stroke-width="6" opacity="0.85">
+    <path d="M705 178h100l76 76h116"/>
+    <path d="M705 318h146l78-58h130"/>
+    <path d="M705 452h110l70-84h174"/>
+  </g>
+  <g fill="#122238" stroke="#8bb8ff" stroke-width="5">
+    <rect x="666" y="138" width="92" height="80" rx="12"/>
+    <rect x="806" y="276" width="108" height="84" rx="12"/>
+    <rect x="650" y="412" width="120" height="78" rx="12"/>
+    <rect x="990" y="216" width="96" height="76" rx="12"/>
+    <rect x="1002" y="334" width="92" height="78" rx="12"/>
+  </g>
+  <text x="86" y="190" fill="#65d6c9" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="4">ENERGY SYSTEMS PORTFOLIO</text>
+  <text x="86" y="286" fill="#e7edf7" font-family="Arial, sans-serif" font-size="68" font-weight="800">Abhijith Sivaprasadan</text>
+  <text x="90" y="360" fill="#a8b3c7" font-family="Arial, sans-serif" font-size="36">Grid flexibility, BESS, PyPSA, CFD/CHT</text>
+  <text x="90" y="414" fill="#a8b3c7" font-family="Arial, sans-serif" font-size="36">and Python energy analytics</text>
+</svg>

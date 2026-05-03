@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="CFD and test validation workflow">
+  <rect width="960" height="540" fill="#0b1728"/>
+  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
+  <path d="M116 352c92-120 190-120 292 0s198 120 310 0" fill="none" stroke="#65d6c9" stroke-width="8"/>
+  <path d="M150 250c80-76 170-76 270 0s188 76 300 0" fill="none" stroke="#8bb8ff" stroke-width="7" opacity="0.8"/>
+  <g fill="#07111f" stroke="#22344f" stroke-width="4">
+    <rect x="114" y="112" width="180" height="80" rx="14"/>
+    <rect x="390" y="112" width="180" height="80" rx="14"/>
+    <rect x="666" y="112" width="180" height="80" rx="14"/>
+  </g>
+  <text x="150" y="162" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">DAQ</text>
+  <text x="424" y="162" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">CFD/CHT</text>
+  <text x="704" y="162" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Validate</text>
+  <g stroke="#ffd166" stroke-width="5">
+    <path d="M296 152h82"/>
+    <path d="M572 152h82"/>
+  </g>
+</svg>

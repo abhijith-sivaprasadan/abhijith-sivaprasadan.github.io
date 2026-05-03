@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Distribution grid power-flow study">
+  <rect width="960" height="540" fill="#0b1728"/>
+  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
+  <g stroke="#65d6c9" stroke-width="6" fill="none">
+    <path d="M172 270h190l110-86 118 86h190"/>
+    <path d="M472 184v190"/>
+    <path d="M362 270v120"/>
+    <path d="M590 270v120"/>
+  </g>
+  <g fill="#8bb8ff" stroke="#e7edf7" stroke-width="4">
+    <circle cx="172" cy="270" r="28"/>
+    <circle cx="362" cy="270" r="28"/>
+    <circle cx="472" cy="184" r="28"/>
+    <circle cx="590" cy="270" r="28"/>
+    <circle cx="780" cy="270" r="28"/>
+    <circle cx="362" cy="390" r="22"/>
+    <circle cx="472" cy="374" r="22"/>
+    <circle cx="590" cy="390" r="22"/>
+  </g>
+  <text x="116" y="138" fill="#e7edf7" font-family="Arial, sans-serif" font-size="30" font-weight="700">N-1 + 24h flow screening</text>
+  <text x="642" y="396" fill="#65d6c9" font-family="Arial, sans-serif" font-size="25" font-weight="700">EV / PV / storage</text>
+</svg>

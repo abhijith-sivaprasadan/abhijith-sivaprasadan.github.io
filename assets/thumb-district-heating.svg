@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="District heating dispatch optimisation">
+  <rect width="960" height="540" fill="#0b1728"/>
+  <rect x="54" y="58" width="852" height="424" rx="24" fill="#122238" stroke="#22344f"/>
+  <g fill="none" stroke-width="7">
+    <path d="M128 360h704" stroke="#22344f"/>
+    <path d="M148 354c84-110 164-112 244-16s162 92 248-28 132-118 178-42" stroke="#65d6c9"/>
+    <path d="M148 394c112-38 216-56 322-28s206 24 348-62" stroke="#8bb8ff"/>
+  </g>
+  <g fill="#07111f" stroke="#22344f" stroke-width="4">
+    <rect x="124" y="118" width="140" height="86" rx="14"/>
+    <rect x="310" y="118" width="140" height="86" rx="14"/>
+    <rect x="496" y="118" width="140" height="86" rx="14"/>
+    <rect x="682" y="118" width="140" height="86" rx="14"/>
+  </g>
+  <text x="154" y="170" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">CHP</text>
+  <text x="340" y="170" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">HP</text>
+  <text x="520" y="170" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">Storage</text>
+  <text x="716" y="170" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">Cost</text>
+</svg>

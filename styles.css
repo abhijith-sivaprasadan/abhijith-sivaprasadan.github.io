@@ -274,6 +274,21 @@ p {
   padding: 26px;
 }
 
+.project-thumb,
+.case-visual {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.project-thumb {
+  margin-bottom: 18px;
+}
+
 .project-card.featured {
   grid-column: span 2;
 }
@@ -281,6 +296,15 @@ p {
 .project-card p,
 .project-card li {
   color: var(--muted);
+}
+
+.evidence-list {
+  padding-left: 18px;
+  margin: 16px 0 0;
+}
+
+.evidence-list li {
+  margin: 7px 0;
 }
 
 .tag-row {
@@ -400,6 +424,10 @@ code {
 .case-panel li {
   color: var(--muted);
   margin: 8px 0;
+}
+
+.case-visual {
+  margin-top: 28px;
 }
 
 .metric-grid {

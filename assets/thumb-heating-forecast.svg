@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Heating demand forecasting model">
+  <rect width="960" height="540" fill="#0b1728"/>
+  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
+  <g fill="none" stroke-width="7">
+    <path d="M130 382h700" stroke="#22344f"/>
+    <path d="M140 342c62-86 112-86 170 0s116 86 178-8 124-96 188 0 100 78 146 14" stroke="#65d6c9"/>
+    <path d="M140 306c72-38 136-52 198-40s118 62 184 48 120-90 188-56 92 74 112 62" stroke="#8bb8ff"/>
+  </g>
+  <g fill="#07111f" stroke="#22344f" stroke-width="4">
+    <rect x="132" y="118" width="172" height="72" rx="14"/>
+    <rect x="394" y="118" width="172" height="72" rx="14"/>
+    <rect x="656" y="118" width="172" height="72" rx="14"/>
+  </g>
+  <text x="166" y="163" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">Weather</text>
+  <text x="430" y="163" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">Features</text>
+  <text x="690" y="163" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">Forecast</text>
+</svg>

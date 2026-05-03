@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Backend API and automated testing workflow">
+  <rect width="960" height="540" fill="#0b1728"/>
+  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
+  <g fill="#07111f" stroke="#22344f" stroke-width="4">
+    <rect x="112" y="122" width="176" height="96" rx="16"/>
+    <rect x="392" y="122" width="176" height="96" rx="16"/>
+    <rect x="672" y="122" width="176" height="96" rx="16"/>
+    <rect x="250" y="322" width="176" height="96" rx="16"/>
+    <rect x="532" y="322" width="176" height="96" rx="16"/>
+  </g>
+  <g fill="none" stroke="#65d6c9" stroke-width="7">
+    <path d="M288 170h104"/>
+    <path d="M568 170h104"/>
+    <path d="M480 218 338 322"/>
+    <path d="M480 218 620 322"/>
+  </g>
+  <text x="146" y="180" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">REST API</text>
+  <text x="428" y="180" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Services</text>
+  <text x="708" y="180" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Data</text>
+  <text x="292" y="380" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Tests</text>
+  <text x="568" y="380" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Docs</text>
+  <circle cx="480" cy="218" r="16" fill="#ffd166"/>
+</svg>
