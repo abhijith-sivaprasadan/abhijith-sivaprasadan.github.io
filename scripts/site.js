@@ -1,10 +1,37 @@
 const progressBar = document.querySelector(".scroll-progress");
+const scenes = document.querySelectorAll(".scroll-scene");
 
 const updateProgress = () => {
   if (!progressBar) return;
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
   const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
   document.documentElement.style.setProperty("--scroll-progress", progress.toString());
+};
+
+const updateScenes = () => {
+  if (!scenes.length) return;
+
+  let activeScene = scenes[0];
+  let activeDistance = Number.POSITIVE_INFINITY;
+  const viewportCenter = window.innerHeight / 2;
+
+  scenes.forEach((scene) => {
+    const rect = scene.getBoundingClientRect();
+    const progress = Math.min(1, Math.max(0, (viewportCenter - rect.top) / Math.max(rect.height, 1)));
+    const sceneCenter = rect.top + rect.height / 2;
+    const distance = Math.abs(sceneCenter - viewportCenter);
+
+    scene.style.setProperty("--scene-progress", progress.toFixed(4));
+
+    if (distance < activeDistance && rect.bottom > 0 && rect.top < window.innerHeight) {
+      activeDistance = distance;
+      activeScene = scene;
+    }
+  });
+
+  if (activeScene?.dataset.scene) {
+    document.body.dataset.scene = activeScene.dataset.scene;
+  }
 };
 
 const revealTargets = document.querySelectorAll(
@@ -34,6 +61,12 @@ if ("IntersectionObserver" in window) {
   revealTargets.forEach((element) => element.classList.add("is-visible"));
 }
 
-window.addEventListener("scroll", updateProgress, { passive: true });
-window.addEventListener("resize", updateProgress);
+const updateScrollState = () => {
+  updateProgress();
+  updateScenes();
+};
+
+window.addEventListener("scroll", updateScrollState, { passive: true });
+window.addEventListener("resize", updateScrollState);
 updateProgress();
+updateScenes();
