@@ -1,27 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Portfolio preview for Abhijith Sivaprasadan">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Portfolio preview for Abhijith Sivaprasadan">
   <defs>
     <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#07111f"/>
-      <stop offset="1" stop-color="#122238"/>
+      <stop offset="0.55" stop-color="#0f2137"/>
+      <stop offset="1" stop-color="#172b46"/>
     </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1">
+      <stop offset="0" stop-color="#65d6c9"/>
+      <stop offset="1" stop-color="#ffb86b"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
   </defs>
+
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="160" cy="120" r="210" fill="#65d6c9" opacity="0.12"/>
-  <circle cx="1040" cy="500" r="260" fill="#8bb8ff" opacity="0.12"/>
-  <g fill="none" stroke="#65d6c9" stroke-width="6" opacity="0.85">
-    <path d="M705 178h100l76 76h116"/>
-    <path d="M705 318h146l78-58h130"/>
-    <path d="M705 452h110l70-84h174"/>
+  <circle cx="88" cy="90" r="270" fill="#65d6c9" opacity="0.14"/>
+  <circle cx="1110" cy="548" r="330" fill="#8bb8ff" opacity="0.13"/>
+  <circle cx="786" cy="70" r="180" fill="#ffb86b" opacity="0.08"/>
+
+  <g filter="url(#softShadow)">
+    <rect x="706" y="104" width="398" height="392" rx="28" fill="#122238" stroke="#2b4667" stroke-width="2"/>
+    <rect x="738" y="138" width="334" height="72" rx="16" fill="#07111f" stroke="#22344f" stroke-width="2"/>
+    <text x="762" y="181" fill="#65d6c9" font-family="Arial, sans-serif" font-size="24" font-weight="700">PyPSA + BESS model</text>
+    <rect x="960" y="154" width="86" height="28" rx="14" fill="#65d6c9"/>
+    <text x="982" y="175" fill="#06101f" font-family="Arial, sans-serif" font-size="15" font-weight="800">ACTIVE</text>
+
+    <g fill="none" stroke-linecap="round" stroke-width="8">
+      <path d="M786 332 858 250l100 56 82-108" stroke="#65d6c9"/>
+      <path d="M786 332h128l44-26h88" stroke="#8bb8ff" opacity="0.78"/>
+      <path d="M858 250v142l100-86v118" stroke="#ffb86b" opacity="0.78"/>
+    </g>
+    <g fill="#8bb8ff" stroke="#e7edf7" stroke-width="5">
+      <circle cx="786" cy="332" r="22"/>
+      <circle cx="858" cy="250" r="22"/>
+      <circle cx="958" cy="306" r="22"/>
+      <circle cx="1040" cy="198" r="22"/>
+      <circle cx="1046" cy="424" r="18"/>
+    </g>
+
+    <g>
+      <rect x="746" y="424" width="42" height="42" rx="10" fill="#07111f"/>
+      <rect x="806" y="396" width="42" height="70" rx="10" fill="#07111f"/>
+      <rect x="866" y="366" width="42" height="100" rx="10" fill="#07111f"/>
+      <rect x="926" y="410" width="42" height="56" rx="10" fill="#07111f"/>
+      <rect x="986" y="344" width="42" height="122" rx="10" fill="#07111f"/>
+      <rect x="746" y="446" width="42" height="20" rx="10" fill="#65d6c9"/>
+      <rect x="806" y="424" width="42" height="42" rx="10" fill="#65d6c9"/>
+      <rect x="866" y="396" width="42" height="70" rx="10" fill="#65d6c9"/>
+      <rect x="926" y="434" width="42" height="32" rx="10" fill="#65d6c9"/>
+      <rect x="986" y="378" width="42" height="88" rx="10" fill="#65d6c9"/>
+    </g>
   </g>
-  <g fill="#122238" stroke="#8bb8ff" stroke-width="5">
-    <rect x="666" y="138" width="92" height="80" rx="12"/>
-    <rect x="806" y="276" width="108" height="84" rx="12"/>
-    <rect x="650" y="412" width="120" height="78" rx="12"/>
-    <rect x="990" y="216" width="96" height="76" rx="12"/>
-    <rect x="1002" y="334" width="92" height="78" rx="12"/>
+
+  <g>
+    <text x="84" y="142" fill="#65d6c9" font-family="Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="5">ENERGY SYSTEMS PORTFOLIO</text>
+    <text x="84" y="242" fill="#e7edf7" font-family="Arial, sans-serif" font-size="76" font-weight="900">Abhijith</text>
+    <text x="84" y="324" fill="#e7edf7" font-family="Arial, sans-serif" font-size="76" font-weight="900">Sivaprasadan</text>
+    <rect x="84" y="362" width="430" height="5" rx="3" fill="url(#accent)"/>
+    <text x="86" y="424" fill="#c5d0e3" font-family="Arial, sans-serif" font-size="34">Grid flexibility, BESS, PyPSA,</text>
+    <text x="86" y="472" fill="#c5d0e3" font-family="Arial, sans-serif" font-size="34">CFD/CHT and Python analytics</text>
   </g>
-  <text x="86" y="190" fill="#65d6c9" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="4">ENERGY SYSTEMS PORTFOLIO</text>
-  <text x="86" y="286" fill="#e7edf7" font-family="Arial, sans-serif" font-size="68" font-weight="800">Abhijith Sivaprasadan</text>
-  <text x="90" y="360" fill="#a8b3c7" font-family="Arial, sans-serif" font-size="36">Grid flexibility, BESS, PyPSA, CFD/CHT</text>
-  <text x="90" y="414" fill="#a8b3c7" font-family="Arial, sans-serif" font-size="36">and Python energy analytics</text>
+
+  <g font-family="Arial, sans-serif" font-weight="800">
+    <rect x="86" y="474" width="148" height="48" rx="24" fill="#65d6c9"/>
+    <text x="122" y="507" fill="#06101f" font-size="21">Projects</text>
+    <rect x="252" y="474" width="164" height="48" rx="24" fill="#ffffff" opacity="0.08" stroke="#2b4667"/>
+    <text x="286" y="507" fill="#e7edf7" font-size="21">Experience</text>
+    <rect x="434" y="474" width="150" height="48" rx="24" fill="#ffffff" opacity="0.08" stroke="#2b4667"/>
+    <text x="471" y="507" fill="#e7edf7" font-size="21">Models</text>
+  </g>
 </svg>
