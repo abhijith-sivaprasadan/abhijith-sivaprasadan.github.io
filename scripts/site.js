@@ -11,12 +11,18 @@ const pageKey = document.body.dataset.pageKey || inferredPageKey;
 const storeKey = "abhijith-portfolio-edit-v1";
 const authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 const newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
-const adminEmails = new Set(
-  (window.PORTFOLIO_ADMIN_EMAILS || [
-    "abhijithsivaprasadn@gmail.com",
-    "prasadabhijith77@gmail.com",
-  ]).map((email) => email.toLowerCase())
+const adminEmailHashes = new Set(
+  window.PORTFOLIO_ADMIN_EMAIL_HASHES || [
+    "82ff3995db9c955db8a17b3565c7b354a53bb6d0b6351e783e3ff8b2a5910b8f",
+    "ad42bd9249794a48b4f0b94bff7e0c54a330fac37ee239db64441448a901cf2d",
+  ]
 );
+
+const hashEmail = async (email) => {
+  const data = new TextEncoder().encode(email.toLowerCase());
+  const buffer = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(buffer)).map((b) => b.toString(16).padStart(2, "0")).join("");
+};
 const editableFields = document.querySelectorAll("[data-editable]");
 const collections = document.querySelectorAll("[data-collection]");
 let editorToolbar = null;
@@ -87,18 +93,16 @@ const applySavedState = () => {
 };
 
 const makeEditable = (enabled) => {
-  if (!authState.admin) {
-    enabled = false;
-  }
-  document.body.classList.toggle("is-edit-mode", enabled);
+  const active = authState.admin && enabled;
+  document.body.classList.toggle("is-edit-mode", active);
   editableFields.forEach((field) => {
-    field.contentEditable = enabled ? "true" : "false";
-    field.spellcheck = enabled;
+    field.contentEditable = active ? "true" : "false";
+    field.spellcheck = active;
   });
   collections.forEach((collection) => {
     collection.querySelectorAll("[data-editable]").forEach((field) => {
-      field.contentEditable = enabled ? "true" : "false";
-      field.spellcheck = enabled;
+      field.contentEditable = active ? "true" : "false";
+      field.spellcheck = active;
     });
   });
 };
@@ -211,7 +215,7 @@ const updateEditorToolbar = () => {
     return;
   }
 
-  status.textContent = `Admin: ${email}`;
+  status.textContent = `Admin: ${email} · edits saved in this browser only`;
   authButton.textContent = "Sign out";
   authButton.disabled = false;
   editButton.hidden = false;
@@ -243,9 +247,14 @@ const initializeAdminAuth = async () => {
     authState.signOut = () => signOut(auth);
     authState.ready = true;
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       authState.user = user;
-      authState.admin = !!user && adminEmails.has((user.email || "").toLowerCase());
+      if (user?.email) {
+        const hash = await hashEmail(user.email);
+        authState.admin = adminEmailHashes.has(hash);
+      } else {
+        authState.admin = false;
+      }
       if (!authState.admin) {
         document.body.classList.remove("is-edit-mode");
       } else {
@@ -306,10 +315,10 @@ const injectEditor = () => {
 
     if (action === "save" && authState.admin) {
       savePageState();
-      button.textContent = "Saved";
+      button.textContent = "Saved (this browser only)";
       window.setTimeout(() => {
         updateEditorToolbar();
-      }, 900);
+      }, 1800);
     }
 
     if (action === "reset" && authState.admin) {

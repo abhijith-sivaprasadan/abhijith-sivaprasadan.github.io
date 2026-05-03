@@ -1,4 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap");
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
 
 :root {
   --bg: #101114;
@@ -21,6 +23,10 @@
   --radius: 22px;
   --max-width: 1180px;
 }
+
+/* ============================================================
+   RESET & BASE STYLES
+   ============================================================ */
 
 * {
   box-sizing: border-box;
@@ -82,6 +88,10 @@ body[data-scene="newsletter"] {
   --scene-wash: rgba(255, 106, 74, 0.13);
   --scene-wash-2: rgba(142, 200, 255, 0.1);
 }
+
+/* ============================================================
+   ACCESSIBILITY & NAVIGATION
+   ============================================================ */
 
 .skip-link {
   position: absolute;
@@ -178,6 +188,10 @@ a:focus-visible,
 .logo:focus-visible {
   color: var(--scene-accent);
 }
+
+/* ============================================================
+   HOME PAGE — SCROLL SCENES & HERO
+   ============================================================ */
 
 .home-flow {
   overflow: clip;
@@ -328,6 +342,10 @@ p {
   margin-top: 28px;
 }
 
+/* ============================================================
+   COMPONENTS — BUTTONS, CARDS, TAGS
+   ============================================================ */
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -373,6 +391,10 @@ p {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
+
+/* ============================================================
+   ADMIN EDITOR TOOLBAR
+   ============================================================ */
 
 .editor-toolbar {
   position: fixed;
@@ -811,6 +833,13 @@ p {
   min-height: 100svh;
 }
 
+.newsletter-cta-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+}
+
 .newsletter-form {
   display: grid;
   gap: 12px;
@@ -1097,7 +1126,10 @@ code {
   border-radius: 8px;
 }
 
-/* Project pages */
+/* ============================================================
+   PROJECT CASE STUDY PAGES
+   ============================================================ */
+
 .case-hero {
   padding: 78px 0 44px;
 }
@@ -1161,6 +1193,10 @@ code {
   font-weight: 850;
 }
 
+/* ============================================================
+   ANIMATIONS & SCROLL REVEAL
+   ============================================================ */
+
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -1183,6 +1219,10 @@ code {
 .showcase-panel.reveal.is-visible:hover {
   transform: translateY(-3px);
 }
+
+/* ============================================================
+   RESPONSIVE — MOBILE & TABLET
+   ============================================================ */
 
 @media (max-width: 900px) {
   .hero-grid,
@@ -1236,6 +1276,10 @@ code {
   }
 }
 
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1252,5 +1296,67 @@ code {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ============================================================
+   LIGHT MODE
+   ============================================================ */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f5f3ee;
+    --bg-soft: #ede9e0;
+    --card: #ffffff;
+    --card-2: #f0ede5;
+    --text: #1a1b1e;
+    --muted: #5a5650;
+    --line: #d8d3c8;
+    --shadow: 0 18px 60px rgba(0, 0, 0, 0.10);
+    --shadow-strong: 0 28px 90px rgba(0, 0, 0, 0.14);
+  }
+
+  body {
+    background:
+      linear-gradient(135deg, rgba(255, 106, 74, 0.06), transparent 30rem),
+      radial-gradient(ellipse at top left, rgba(199, 243, 111, 0.09), transparent 34rem),
+      radial-gradient(ellipse at top right, rgba(142, 200, 255, 0.11), transparent 36rem),
+      var(--bg);
+  }
+
+  .site-header {
+    background: rgba(245, 243, 238, 0.88);
+  }
+
+  .subtle {
+    background: linear-gradient(180deg, rgba(237, 233, 224, 0.6), rgba(237, 233, 224, 0.2));
+  }
+
+  .hero-card,
+  .card,
+  .project-card,
+  .skill-block,
+  .timeline-item,
+  .contact-card,
+  .case-panel,
+  .page-panel,
+  .newsletter-form,
+  .showcase-panel {
+    background:
+      linear-gradient(145deg, color-mix(in srgb, var(--scene-accent) 7%, transparent), transparent 42%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(240, 237, 229, 0.96));
+  }
+
+  .newsletter-form input {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--text);
+  }
+
+  .editor-toolbar {
+    background: rgba(245, 243, 238, 0.92);
+  }
+
+  code {
+    background: color-mix(in srgb, var(--scene-accent) 10%, transparent);
   }
 }
