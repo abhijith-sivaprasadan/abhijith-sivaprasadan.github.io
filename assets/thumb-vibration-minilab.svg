@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Vibration frequency analysis">
+  <rect width="960" height="540" fill="#0b1728"/>
+  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
+  <g fill="none" stroke-linecap="round" stroke-width="6">
+    <path d="M118 276c20-76 42-76 62 0s42 76 62 0 42-76 62 0 42 76 62 0 42-76 62 0" stroke="#65d6c9"/>
+    <path d="M498 386V162" stroke="#22344f"/>
+    <path d="M542 386V254" stroke="#65d6c9"/>
+    <path d="M596 386V202" stroke="#8bb8ff"/>
+    <path d="M650 386V294" stroke="#ffb86b"/>
+    <path d="M704 386V232" stroke="#65d6c9"/>
+    <path d="M758 386V322" stroke="#8bb8ff"/>
+    <path d="M812 386V278" stroke="#ffb86b"/>
+  </g>
+  <text x="122" y="156" fill="#e7edf7" font-family="Arial, sans-serif" font-size="28" font-weight="700">Time trace</text>
+  <text x="540" y="156" fill="#e7edf7" font-family="Arial, sans-serif" font-size="28" font-weight="700">FFT / PSD</text>
+  <rect x="118" y="338" width="286" height="54" rx="14" fill="#07111f" stroke="#22344f" stroke-width="4"/>
+  <text x="144" y="374" fill="#65d6c9" font-family="Arial, sans-serif" font-size="22" font-weight="700">RMS + spectrogram report</text>
+</svg>

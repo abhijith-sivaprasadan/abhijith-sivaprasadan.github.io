@@ -28,6 +28,7 @@
       <div class="nav-links">
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
         <a href="#experience">Experience</a>
         <a href="#cv">CV</a>
         <a href="#contact">Contact</a>
@@ -42,9 +43,9 @@
           <p class="eyebrow">Energy systems modelling &middot; Grid flexibility &middot; BESS &middot; PyPSA &middot; Python</p>
           <h1>Energy systems engineer building decision-support models for grid flexibility, storage and renewable integration.</h1>
           <p class="hero-text">
-            I am an M.Sc. Sustainable Energy Engineering student at KTH Royal Institute of Technology with experience across
-            PyPSA grid-flow modelling, BESS siting, energy optimisation, CFD/CHT, industrial testing, energy efficiency mapping
-            and Python-based analytics.
+            I am an M.Sc. Sustainable Energy Engineering candidate at KTH Royal Institute of Technology with experience across
+            thermal-fluid modelling, test-rig validation, industrial energy efficiency, grid and hydrogen modelling, optimisation
+            and Python-based engineering analytics.
           </p>
           <div class="button-row">
             <a class="button primary" href="#projects">View projects</a>
@@ -52,7 +53,7 @@
             <a class="button secondary" href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noreferrer">GitHub</a>
           </div>
           <div class="hero-stats" aria-label="Portfolio highlights">
-            <div><strong>6</strong><span>technical case studies</span></div>
+            <div><strong>10</strong><span>technical case studies</span></div>
             <div><strong>3</strong><span>experience deep dives</span></div>
             <div><strong>100</strong><span>Lighthouse score</span></div>
           </div>
@@ -100,22 +101,22 @@
           <article class="card">
             <h3>Grid &amp; energy modelling</h3>
             <p>
-              PyPSA, optimisation workflows, dispatch modelling, scenario comparison, congestion proxies, BESS studies,
-              district-heating dispatch and distribution-grid analysis.
+              PyPSA, Pyomo, PuLP, dispatch optimisation, grid-flow studies, BESS siting, EV/PV/storage impacts,
+              hydrogen network modelling and district-heating scenarios.
             </p>
           </article>
           <article class="card">
             <h3>Thermal-fluid engineering</h3>
             <p>
-              Siemens Energy thesis experience with CFD/CHT, ANSYS Fluent, measurement-chain commissioning, LabVIEW/NI-DAQ,
-              validation planning and technical documentation.
+              Siemens Energy Fluid Dynamic Lab experience with ANSYS Fluent CFD/CHT, k-omega SST, pressure-loss analysis,
+              NI-DAQ/LabVIEW measurement chains and validation planning.
             </p>
           </article>
           <article class="card">
             <h3>Data &amp; software mindset</h3>
             <p>
-              Python, pandas, NumPy, SciPy, matplotlib, Plotly, Streamlit, Git, Docker, API/backend experience and reproducible
-              project packaging.
+              Python, pandas, NumPy, SciPy, matplotlib, Plotly, Streamlit, Git, Docker, REST APIs, automated testing,
+              reproducible project packaging and decision-support dashboards.
             </p>
           </article>
         </div>
@@ -215,6 +216,7 @@
             </ul>
             <div class="project-links">
               <a href="projects/distribution-grid-study.html">Case study</a>
+              <a href="https://github.com/abhijith-sivaprasadan/PRO1_network" target="_blank" rel="noreferrer">GitHub</a>
             </div>
           </article>
 
@@ -233,6 +235,74 @@
               <a href="projects/heating-demand-forecasting.html">Case study</a>
             </div>
           </article>
+
+          <article class="project-card">
+            <img class="project-thumb" src="assets/thumb-pynexus.svg" alt="Green hydrogen wind electrolyzer and pipeline model visual" loading="lazy" width="960" height="540" />
+            <div class="tag-row"><span>Hydrogen</span><span>Pyomo</span><span>Dispatch</span></div>
+            <h3>PyNEXUS Green Hydrogen Network Model</h3>
+            <p>
+              Coupled offshore wind, PEM electrolyzer and hydrogen-pipeline model with MILP dispatch optimisation.
+            </p>
+            <ul class="evidence-list">
+              <li>Models wind-to-hydrogen conversion, pipeline delivery and curtailment KPIs.</li>
+              <li>Compares cost and emissions objectives with HiGHS/Pyomo optimisation.</li>
+            </ul>
+            <div class="project-links">
+              <a href="projects/pynexus-green-hydrogen.html">Case study</a>
+              <a href="https://github.com/abhijith-sivaprasadan/PyNEXUS" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <img class="project-thumb" src="assets/thumb-eu-ets.svg" alt="EU ETS emissions and allowance exposure dashboard visual" loading="lazy" width="960" height="540" />
+            <div class="tag-row"><span>EU ETS</span><span>Streamlit</span><span>Excel</span></div>
+            <h3>EU ETS Exposure Calculator</h3>
+            <p>
+              Excel and Streamlit toolkit for estimating Scope 1 emissions, EUA cost exposure and carbon-intensity trends.
+            </p>
+            <ul class="evidence-list">
+              <li>Calculates ETS scenario summaries and EUA price sensitivity.</li>
+              <li>Includes workbook parsing, CLI runner, PDF export and regression tests.</li>
+            </ul>
+            <div class="project-links">
+              <a href="projects/eu-ets-exposure-calculator.html">Case study</a>
+              <a href="https://github.com/abhijith-sivaprasadan/EU-ETS-Exposure-Calculator-Package" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <img class="project-thumb" src="assets/thumb-industrial-kpi-toolkit.svg" alt="Industrial energy KPI and normalisation dashboard visual" loading="lazy" width="960" height="540" />
+            <div class="tag-row"><span>Energy KPIs</span><span>ISO 50001</span><span>Reporting</span></div>
+            <h3>Industrial Energy KPI Toolkit</h3>
+            <p>
+              Python, Excel and Streamlit toolkit for industrial EnPIs, baseline normalisation, anomaly flags and management reporting.
+            </p>
+            <ul class="evidence-list">
+              <li>Generates KPI results, actions logs, plots and one-page PDF reports.</li>
+              <li>Includes guided Streamlit flow, diagnostics and CI quality checks.</li>
+            </ul>
+            <div class="project-links">
+              <a href="projects/industrial-energy-kpi-toolkit.html">Case study</a>
+              <a href="https://github.com/abhijith-sivaprasadan/Energy-KPI-Toolkit" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <img class="project-thumb" src="assets/thumb-vibration-minilab.svg" alt="Rotating machinery vibration frequency analysis visual" loading="lazy" width="960" height="540" />
+            <div class="tag-row"><span>Vibration</span><span>FFT/PSD</span><span>Python</span></div>
+            <h3>Rotating Machinery Vibration Mini-Lab</h3>
+            <p>
+              Low-cost vibration workflow using phone accelerometer data, filtering, FFT/PSD, spectrograms and report generation.
+            </p>
+            <ul class="evidence-list">
+              <li>Compares operating points through frequency fingerprints and RMS metrics.</li>
+              <li>Packages outputs as HTML reports, plots and summary CSVs.</li>
+            </ul>
+            <div class="project-links">
+              <a href="projects/rotating-machinery-vibration-minilab.html">Case study</a>
+              <a href="https://github.com/abhijith-sivaprasadan/rotating-machinery-vibration-minilab" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -247,20 +317,64 @@
         <div class="skill-grid">
           <div class="skill-block">
             <h3>Energy &amp; power systems</h3>
-            <p>Grid-flow modelling, PyPSA, BESS siting, renewable curtailment, connection capacity, flexibility, power-flow studies, N-1 screening, district heating, energy markets basics.</p>
+            <p>PyPSA, Pyomo, PuLP, BESS siting, renewable curtailment, flexible connection logic, power-flow studies, N-1 screening, EV/PV/storage impacts, district heating, hydrogen networks.</p>
           </div>
           <div class="skill-block">
             <h3>Optimisation &amp; data</h3>
-            <p>Python, pandas, NumPy, SciPy, PuLP, time-series analysis, scenario modelling, KPI reporting, Streamlit, Plotly, matplotlib, basic scikit-learn.</p>
+            <p>Python, pandas, NumPy, SciPy, time-series analysis, scenario modelling, KPI reporting, Streamlit, Plotly, matplotlib, regression/classification basics, model evaluation.</p>
           </div>
           <div class="skill-block">
             <h3>Thermal &amp; testing</h3>
-            <p>ANSYS Fluent, CFD/CHT, k-omega SST, mesh/near-wall validation, NI-DAQ, LabVIEW, thermocouples, pressure sensors, uncertainty/repeatability basics.</p>
+            <p>ANSYS Fluent, CFD/CHT, k-omega SST, pressure-loss and thermal-delivery analysis, mesh/near-wall checks, NI-DAQ, LabVIEW, thermocouples, static/dynamic pressure sensors.</p>
           </div>
           <div class="skill-block">
             <h3>Software workflow</h3>
-            <p>Git, Docker, REST APIs, automated testing, backend engineering experience, reproducible repositories, documentation and dashboarding.</p>
+            <p>Git, Docker, REST APIs, Postman, automated endpoint tests, structured debugging, reproducible repositories, documentation, CI-oriented workflows and dashboarding.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Education</p>
+          <h2>Academic foundation</h2>
+          <p>
+            Formal training across sustainable energy systems, heat and power technology, optimisation, built-environment energy, storage and mechanical engineering.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <div>
+              <h3>M.Sc. Sustainable Energy Engineering - KTH Royal Institute of Technology</h3>
+              <p class="meta">Stockholm, Sweden &middot; 2023 - 2026</p>
+            </div>
+            <p>
+              Focus areas include thermodynamics, heat and mass transfer, thermal systems, energy systems modelling, practical optimisation, data-driven forecasting, power systems fundamentals and techno-economic analysis.
+            </p>
+          </article>
+
+          <article class="timeline-item">
+            <div>
+              <h3>Circular Economy for Energy Storage - Aalto University / Unite! Virtual Exchange</h3>
+              <p class="meta">Finland &middot; Oct 2024 - Dec 2024</p>
+            </div>
+            <p>
+              Coursework on circular economy concepts for energy storage systems, supporting battery, lifecycle and sustainability analysis work.
+            </p>
+          </article>
+
+          <article class="timeline-item">
+            <div>
+              <h3>B.Tech Mechanical Engineering - APJ Abdul Kalam Technological University</h3>
+              <p class="meta">Kerala, India &middot; 2017 - 2021</p>
+            </div>
+            <p>
+              Mechanical engineering foundation in thermodynamics, fluid mechanics, heat transfer, CAD/CAE, manufacturing and machine design, with SAE Collegiate Club and NSS activities.
+            </p>
+          </article>
         </div>
       </div>
     </section>
@@ -279,8 +393,7 @@
               <p class="meta">Finsp&aring;ng, Sweden &middot; Apr 2025 - Nov 2025</p>
             </div>
             <p>
-              Worked on measurement-chain commissioning, LabVIEW/NI-DAQ acquisition workflows and CFD/CHT simulation for a high-temperature thermal-fluid system.
-              Produced validation-oriented documentation and design-iteration analysis.
+              Commissioned NI-DAQ measurement-chain elements for thermocouple and pressure-sensor rig tests, refined LabVIEW acquisition workflows, and developed ANSYS Fluent CFD/CHT models for pressure-loss and thermal-delivery assessment.
             </p>
             <div class="project-links">
               <a href="experience/siemens-energy.html">Experience details</a>
@@ -293,7 +406,7 @@
               <p class="meta">Remote / Sandviken, Sweden &middot; Dec 2024 - Jun 2025</p>
             </div>
             <p>
-              Developed energy-performance mapping logic, KPI/EnPI thinking, metering-readiness framing and improvement-roadmap concepts aligned with energy efficiency and ISO 50001-style practices.
+              Built ISO 50001/EED-aligned energy performance mapping logic covering KPIs/EnPIs, load drivers, normalisation, metering readiness, measurement planning and improvement-roadmap concepts.
             </p>
             <div class="project-links">
               <a href="experience/alleima.html">Experience details</a>
@@ -303,14 +416,24 @@
           <article class="timeline-item">
             <div>
               <h3>Backend Engineer - QBurst</h3>
-              <p class="meta">India &middot; Aug 2021 - Jul 2023</p>
+              <p class="meta">Thiruvananthapuram, India &middot; Sep 2021 - Jun 2023</p>
             </div>
             <p>
-              Built backend APIs, automated tests and maintainable software in agile teams. This experience now supports energy-analytics pipelines, dashboards and reproducible modelling tools.
+              Implemented and maintained backend API endpoints, delivered reliability fixes, built endpoint tests including negative-path validation, and used Postman automation in production-oriented agile teams.
             </p>
             <div class="project-links">
               <a href="experience/qburst.html">Experience details</a>
             </div>
+          </article>
+
+          <article class="timeline-item">
+            <div>
+              <h3>Student Intern (Pyrolysis) - KTH Royal Institute of Technology</h3>
+              <p class="meta">Stockholm, Sweden &middot; Feb 2024 - Jun 2024</p>
+            </div>
+            <p>
+              Conducted cost-analysis research on oil extraction from polymers and reviewed plastic-pyrolysis reactor concepts to support early-stage process evaluation.
+            </p>
           </article>
         </div>
       </div>

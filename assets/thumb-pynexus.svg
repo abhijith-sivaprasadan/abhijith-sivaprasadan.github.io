@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Green hydrogen network model">
+  <rect width="960" height="540" fill="#0b1728"/>
+  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
+  <g fill="#07111f" stroke="#22344f" stroke-width="4">
+    <rect x="104" y="124" width="176" height="92" rx="16"/>
+    <rect x="392" y="124" width="176" height="92" rx="16"/>
+    <rect x="680" y="124" width="176" height="92" rx="16"/>
+    <rect x="248" y="338" width="176" height="92" rx="16"/>
+    <rect x="536" y="338" width="176" height="92" rx="16"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-width="8">
+    <path d="M280 170h112" stroke="#65d6c9"/>
+    <path d="M568 170h112" stroke="#8bb8ff"/>
+    <path d="M480 216 336 338" stroke="#ffb86b"/>
+    <path d="M480 216 624 338" stroke="#65d6c9"/>
+  </g>
+  <text x="134" y="178" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">Wind</text>
+  <text x="418" y="178" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">PEM</text>
+  <text x="716" y="178" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">H2 pipe</text>
+  <text x="286" y="392" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">MILP</text>
+  <text x="570" y="392" fill="#e7edf7" font-family="Arial, sans-serif" font-size="23" font-weight="700">KPIs</text>
+  <circle cx="480" cy="216" r="18" fill="#ffd166"/>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="EU ETS exposure calculator">
+  <rect width="960" height="540" fill="#0b1728"/>
+  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
+  <g fill="#07111f" stroke="#22344f" stroke-width="4">
+    <rect x="108" y="118" width="230" height="300" rx="18"/>
+    <rect x="386" y="118" width="466" height="300" rx="18"/>
+  </g>
+  <text x="138" y="166" fill="#65d6c9" font-family="Arial, sans-serif" font-size="26" font-weight="700">EUA scenarios</text>
+  <text x="424" y="166" fill="#e7edf7" font-family="Arial, sans-serif" font-size="26" font-weight="700">Emissions and cost exposure</text>
+  <g fill="#65d6c9">
+    <rect x="142" y="320" width="42" height="58" rx="8"/>
+    <rect x="214" y="274" width="42" height="104" rx="8"/>
+    <rect x="286" y="220" width="42" height="158" rx="8"/>
+  </g>
+  <g fill="none" stroke-width="7">
+    <path d="M430 350c66-92 120-92 178 0s110 88 184-50" stroke="#65d6c9"/>
+    <path d="M430 300c74-34 126-42 184-20s106 42 178-10" stroke="#8bb8ff"/>
+    <path d="M430 250c82-20 146-6 196 36s98 36 166-18" stroke="#ffb86b"/>
+  </g>
+  <text x="140" y="404" fill="#a8b3c7" font-family="Arial, sans-serif" font-size="20">Low / Mid / High</text>
+</svg>
