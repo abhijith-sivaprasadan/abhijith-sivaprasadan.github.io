@@ -75,7 +75,8 @@ body[data-scene="education"] {
 
 body[data-scene="experience"],
 body[data-scene="cv"],
-body[data-scene="contact"] {
+body[data-scene="contact"],
+body[data-scene="newsletter"] {
   --scene-accent: #ff6a4a;
   --scene-accent-2: #8ec8ff;
   --scene-wash: rgba(255, 106, 74, 0.13);
@@ -387,6 +388,12 @@ p {
   background: rgba(16, 17, 20, 0.9);
   box-shadow: var(--shadow-strong);
   backdrop-filter: blur(14px);
+}
+
+.editor-toolbar[disabled],
+.editor-action:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .editor-label {
@@ -796,6 +803,49 @@ p {
   margin-top: 12px;
 }
 
+.newsletter-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
+  gap: 28px;
+  align-items: center;
+  min-height: 100svh;
+}
+
+.newsletter-form {
+  display: grid;
+  gap: 12px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(29, 32, 39, 0.94), rgba(18, 19, 24, 0.94));
+}
+
+.newsletter-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.newsletter-form input {
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font: inherit;
+}
+
+.newsletter-form input::placeholder {
+  color: var(--muted);
+}
+
+.newsletter-form input:focus {
+  outline: 3px solid color-mix(in srgb, var(--scene-accent) 35%, transparent);
+  outline-offset: 2px;
+}
+
 .collection-grid {
   display: grid;
   gap: 16px;
@@ -1141,7 +1191,8 @@ code {
   .sticky-showcase,
   .page-hero-grid,
   .split-layout,
-  .page-shell-grid {
+  .page-shell-grid,
+  .newsletter-panel {
     grid-template-columns: 1fr;
   }
 

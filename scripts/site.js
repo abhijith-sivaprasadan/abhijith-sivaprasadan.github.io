@@ -1,6 +1,7 @@
 const progressBar = document.querySelector(".scroll-progress");
 const scenes = document.querySelectorAll(".scroll-scene");
 const navLinks = document.querySelector(".nav-links");
+const newsletterForm = document.querySelector("[data-newsletter-form]");
 const inferredPageKey = (() => {
   const currentFile = location.pathname.split("/").pop() || "index.html";
   if (currentFile === "index.html") return "home";
@@ -8,8 +9,27 @@ const inferredPageKey = (() => {
 })();
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
 const storeKey = "abhijith-portfolio-edit-v1";
+const authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
+const newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
+const adminEmails = new Set(
+  (window.PORTFOLIO_ADMIN_EMAILS || [
+    "abhijithsivaprasadn@gmail.com",
+    "prasadabhijith77@gmail.com",
+  ]).map((email) => email.toLowerCase())
+);
 const editableFields = document.querySelectorAll("[data-editable]");
 const collections = document.querySelectorAll("[data-collection]");
+let editorToolbar = null;
+const authState = {
+  ready: false,
+  user: null,
+  admin: false,
+  auth: null,
+  provider: null,
+  signIn: null,
+  signOut: null,
+  error: null,
+};
 
 const isNestedPage = location.pathname.includes("/projects/") || location.pathname.includes("/experience/");
 const basePath = isNestedPage ? "../" : "";
@@ -27,7 +47,7 @@ const setStore = (store) => {
 };
 
 const savePageState = () => {
-  if (!pageKey) return;
+  if (!pageKey || !authState.admin) return;
 
   const store = getStore();
   const fields = {};
@@ -46,7 +66,7 @@ const savePageState = () => {
 };
 
 const applySavedState = () => {
-  if (!pageKey) return;
+  if (!pageKey || !authState.admin) return;
 
   const saved = getStore()[pageKey];
   if (!saved) return;
@@ -67,6 +87,9 @@ const applySavedState = () => {
 };
 
 const makeEditable = (enabled) => {
+  if (!authState.admin) {
+    enabled = false;
+  }
   document.body.classList.toggle("is-edit-mode", enabled);
   editableFields.forEach((field) => {
     field.contentEditable = enabled ? "true" : "false";
@@ -126,41 +149,170 @@ const syncCollectionEditability = () => {
   });
 };
 
+const updateEditorToolbar = () => {
+  if (!editorToolbar) return;
+
+  const status = editorToolbar.querySelector("[data-editor-status]");
+  const authButton = editorToolbar.querySelector("[data-editor-action='auth']");
+  const editButton = editorToolbar.querySelector("[data-editor-action='toggle']");
+  const saveButton = editorToolbar.querySelector("[data-editor-action='save']");
+  const resetButton = editorToolbar.querySelector("[data-editor-action='reset']");
+  const email = authState.user?.email?.toLowerCase() || "";
+
+  if (!authConfig.apiKey || !authConfig.authDomain || !authConfig.projectId || !authConfig.appId) {
+    status.textContent = "Admin login needs Firebase config";
+    authButton.textContent = "Configure";
+    authButton.disabled = true;
+    editButton.hidden = true;
+    saveButton.hidden = true;
+    resetButton.hidden = true;
+    return;
+  }
+
+  if (authState.error) {
+    status.textContent = "Admin auth unavailable";
+    authButton.textContent = "Retry";
+    authButton.disabled = false;
+    editButton.hidden = true;
+    saveButton.hidden = true;
+    resetButton.hidden = true;
+    return;
+  }
+
+  if (!authState.ready) {
+    status.textContent = "Connecting admin login";
+    authButton.textContent = "Loading";
+    authButton.disabled = true;
+    editButton.hidden = true;
+    saveButton.hidden = true;
+    resetButton.hidden = true;
+    return;
+  }
+
+  if (!authState.user) {
+    status.textContent = "Sign in with Google to edit";
+    authButton.textContent = "Sign in";
+    authButton.disabled = false;
+    editButton.hidden = true;
+    saveButton.hidden = true;
+    resetButton.hidden = true;
+    document.body.classList.remove("is-edit-mode");
+    return;
+  }
+
+  if (!authState.admin) {
+    status.textContent = `Signed in as ${email}. Not in admin list.`;
+    authButton.textContent = "Sign out";
+    authButton.disabled = false;
+    editButton.hidden = true;
+    saveButton.hidden = true;
+    resetButton.hidden = true;
+    document.body.classList.remove("is-edit-mode");
+    return;
+  }
+
+  status.textContent = `Admin: ${email}`;
+  authButton.textContent = "Sign out";
+  authButton.disabled = false;
+  editButton.hidden = false;
+  saveButton.hidden = false;
+  resetButton.hidden = false;
+  editButton.textContent = document.body.classList.contains("is-edit-mode") ? "Disable edit" : "Edit page";
+};
+
+const initializeAdminAuth = async () => {
+  if (!authConfig.apiKey || !authConfig.authDomain || !authConfig.projectId || !authConfig.appId) {
+    updateEditorToolbar();
+    return;
+  }
+
+  try {
+    const [{ initializeApp }, { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js"),
+    ]);
+
+    const app = initializeApp(authConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
+
+    authState.auth = auth;
+    authState.provider = provider;
+    authState.signIn = () => signInWithPopup(auth, provider);
+    authState.signOut = () => signOut(auth);
+    authState.ready = true;
+
+    onAuthStateChanged(auth, (user) => {
+      authState.user = user;
+      authState.admin = !!user && adminEmails.has((user.email || "").toLowerCase());
+      if (!authState.admin) {
+        document.body.classList.remove("is-edit-mode");
+      } else {
+        applySavedState();
+      }
+      updateEditorToolbar();
+      syncCollectionEditability();
+    });
+  } catch (error) {
+    authState.error = error;
+    updateEditorToolbar();
+  }
+};
+
 const injectEditor = () => {
   if (!pageKey) return;
 
   const editor = document.createElement("div");
   editor.className = "editor-toolbar";
   editor.innerHTML = `
-    <span class="editor-label">Edit mode</span>
-    <button type="button" class="editor-action" data-editor-action="toggle">Enable</button>
+    <span class="editor-label" data-editor-status>Admin login</span>
+    <button type="button" class="editor-action" data-editor-action="auth">Sign in</button>
+    <button type="button" class="editor-action" data-editor-action="toggle">Edit page</button>
     <button type="button" class="editor-action" data-editor-action="save">Save</button>
     <button type="button" class="editor-action" data-editor-action="reset">Reset</button>
   `;
   document.body.append(editor);
+  editorToolbar = editor;
 
-  editor.addEventListener("click", (event) => {
+  editor.addEventListener("click", async (event) => {
     const button = event.target.closest("[data-editor-action]");
     if (!button) return;
 
     const action = button.dataset.editorAction;
-    if (action === "toggle") {
+    if (action === "auth") {
+      if (!authState.ready && authConfig.apiKey) {
+        await initializeAdminAuth();
+      }
+      if (!authState.user) {
+        try {
+          await authState.signIn?.();
+        } catch (error) {
+          authState.error = error;
+          updateEditorToolbar();
+        }
+      } else {
+        await authState.signOut?.();
+      }
+    }
+
+    if (action === "toggle" && authState.admin) {
       const enabled = !document.body.classList.contains("is-edit-mode");
       makeEditable(enabled);
       syncCollectionEditability();
-      button.textContent = enabled ? "Disable" : "Enable";
+      updateEditorToolbar();
       savePageState();
     }
 
-    if (action === "save") {
+    if (action === "save" && authState.admin) {
       savePageState();
       button.textContent = "Saved";
       window.setTimeout(() => {
-        button.textContent = "Save";
+        updateEditorToolbar();
       }, 900);
     }
 
-    if (action === "reset") {
+    if (action === "reset" && authState.admin) {
       const store = getStore();
       delete store[pageKey];
       setStore(store);
@@ -169,13 +321,14 @@ const injectEditor = () => {
   });
 
   document.addEventListener("input", () => {
-    if (!document.body.classList.contains("is-edit-mode")) return;
+    if (!document.body.classList.contains("is-edit-mode") || !authState.admin) return;
     savePageState();
   });
 
   document.addEventListener("click", (event) => {
     const addButton = event.target.closest("[data-add-entry]");
     if (addButton) {
+      if (!authState.admin) return;
       const collection = document.querySelector(`[data-collection="${addButton.dataset.addEntry}"]`);
       if (!collection) return;
       collection.append(createCollectionItem(addButton.dataset.addEntry));
@@ -187,6 +340,7 @@ const injectEditor = () => {
 
     const removeButton = event.target.closest(".entry-remove");
     if (removeButton) {
+      if (!authState.admin) return;
       removeButton.closest(".entry-card")?.remove();
       savePageState();
     }
@@ -216,6 +370,27 @@ const injectNavLinks = () => {
         link.setAttribute("aria-current", "page");
       }
       navLinks.append(link);
+    }
+  });
+};
+
+const initializeNewsletter = () => {
+  if (!newsletterForm) return;
+  const action = newsletterAction || newsletterForm.dataset.fallbackAction || "";
+  if (action) {
+    newsletterForm.action = action;
+  }
+
+  const status = newsletterForm.querySelector("[data-newsletter-status]");
+  if (!action && status) {
+    status.textContent = "Newsletter endpoint to be connected.";
+  }
+
+  newsletterForm.addEventListener("submit", (event) => {
+    if (action) return;
+    event.preventDefault();
+    if (status) {
+      status.textContent = "Connect a newsletter endpoint to activate this form.";
     }
   });
 };
@@ -294,3 +469,5 @@ injectNavLinks();
 injectEditor();
 makeEditable(false);
 syncCollectionEditability();
+initializeNewsletter();
+initializeAdminAuth();
