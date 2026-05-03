@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="About Abhijith Sivaprasadan: energy systems, thermal-fluid engineering, grid flexibility, Python analytics and sustainable energy background." />
+  <meta name="description" content="About Abhijith Sivaprasadan with editable profile sections, current direction and background notes." />
   <meta property="og:title" content="About | Abhijith Sivaprasadan" />
-  <meta property="og:description" content="Technical profile, skills, tools and education for energy systems and engineering analytics roles." />
+  <meta property="og:description" content="Editable about page for profile narrative, current focus and background notes." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png" />
   <title>About | Abhijith Sivaprasadan</title>
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="styles.css" />
   <script src="scripts/site.js" defer></script>
 </head>
-<body>
+<body data-page-key="about">
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -23,95 +23,69 @@
         <a href="projects.html">Projects</a>
         <a href="experience.html">Experience</a>
         <a href="about.html" aria-current="page">About</a>
-        <a href="index.html#cv">CV</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="hobbies.html">Hobbies</a>
+        <a href="interests.html">Interests</a>
+        <a href="ideas.html">Ideas</a>
       </div>
     </nav>
   </header>
 
   <main id="main" tabindex="-1">
-    <section class="page-hero">
-      <div class="container page-hero-grid">
+    <section class="page-shell">
+      <div class="container page-shell-grid">
         <div>
-          <p class="eyebrow">About</p>
-          <h1>Thermal and energy systems engineer with a software-minded delivery style.</h1>
-          <p class="hero-text">
-            I work across thermal-fluid modelling, test and instrumentation, energy performance, grid studies,
-            optimisation and Python-based decision-support workflows.
-          </p>
-        </div>
-        <div class="profile-meter" aria-label="Profile focus">
-          <div><span style="--level: 88%"></span><strong>Energy systems</strong></div>
-          <div><span style="--level: 78%"></span><strong>Thermal / CFD</strong></div>
-          <div><span style="--level: 84%"></span><strong>Python analytics</strong></div>
-          <div><span style="--level: 74%"></span><strong>Testing / validation</strong></div>
-        </div>
-      </div>
-    </section>
+          <div class="hero-slab">
+            <p class="eyebrow" data-editable="eyebrow">About me</p>
+            <h1 data-editable="title">A working space for the story behind the portfolio.</h1>
+            <p class="hero-text" data-editable="lead">
+              Use this page to shape the personal narrative you want recruiters, collaborators or future clients to see.
+              The structure is ready now, and the copy can be edited directly in the browser.
+            </p>
+          </div>
 
-    <section class="section subtle">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Positioning</p>
-          <h2>Where the profile fits</h2>
-        </div>
-        <div class="cards three">
-          <article class="card">
-            <h3>Grid and flexibility modelling</h3>
-            <p>PyPSA, Pyomo, PuLP, BESS siting, renewable curtailment, connection capacity, power-flow studies, N-1 screening and scenario KPIs.</p>
-          </article>
-          <article class="card">
-            <h3>Thermal systems and validation</h3>
-            <p>ANSYS Fluent CFD/CHT, k-omega SST, pressure-loss analysis, thermal delivery, NI-DAQ, LabVIEW and measurement-chain thinking.</p>
-          </article>
-          <article class="card">
-            <h3>Energy efficiency and analytics</h3>
-            <p>ISO 50001/EED-aligned KPI/EnPI structures, baselines, load drivers, normalisation, metering readiness and reporting workflows.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+          <div class="collection-grid" style="margin-top: 22px;">
+            <article class="page-panel">
+              <p class="eyebrow">Current snapshot</p>
+              <h2 data-editable="snapshot-title">What this page can hold</h2>
+              <p data-editable="snapshot-copy">
+                A short paragraph about what you are working toward, what kind of roles you want next, and the kind of engineering problems you want to spend your time on.
+              </p>
+            </article>
 
-    <section class="section">
-      <div class="container split-layout">
-        <div>
-          <p class="eyebrow">Core skills</p>
-          <h2>Engineering plus data workflow discipline.</h2>
-          <p>
-            The portfolio is intentionally practical: each project is framed around assumptions, outputs, risks,
-            validation or decision-support value rather than only the tool used to build it.
-          </p>
-        </div>
-        <div class="skill-grid">
-          <div class="skill-block">
-            <h3>Energy and power systems</h3>
-            <p>Grid congestion, BESS, EV/PV/storage impacts, district heating, hydrogen networks, energy scenarios and techno-economic comparisons.</p>
-          </div>
-          <div class="skill-block">
-            <h3>Optimisation and data</h3>
-            <p>Python, pandas, NumPy, SciPy, PuLP, Pyomo, time-series features, model evaluation, Streamlit, Plotly and reproducible outputs.</p>
-          </div>
-          <div class="skill-block">
-            <h3>Thermal and testing</h3>
-            <p>Thermodynamics, heat transfer, CFD/CHT workflows, DAQ commissioning, thermocouples, pressure sensors and validation planning.</p>
-          </div>
-          <div class="skill-block">
-            <h3>Software delivery</h3>
-            <p>Git, Docker, REST APIs, Postman, automated tests, structured debugging, documentation and maintainable project packaging.</p>
+            <article class="page-panel">
+              <p class="eyebrow">Background notes</p>
+              <div class="collection-head">
+                <h2>Editable notes</h2>
+                <button type="button" class="collection-action" data-add-entry="about">Add note</button>
+              </div>
+              <div class="collection-grid" data-collection="about">
+                <article class="entry-card">
+                  <h3 data-editable="title">Engineering focus</h3>
+                  <p data-editable="summary">Energy systems, thermal-fluid modelling and structured analytics are the main threads that show up across the work so far.</p>
+                </article>
+                <article class="entry-card">
+                  <h3 data-editable="title">How I work</h3>
+                  <p data-editable="summary">I prefer projects where assumptions, constraints and validation matter as much as the final result.</p>
+                </article>
+                <article class="entry-card">
+                  <h3 data-editable="title">What to add later</h3>
+                  <p data-editable="summary">Insert a personal story, a short design philosophy or anything that makes the page feel more like you.</p>
+                </article>
+              </div>
+            </article>
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="section subtle">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Tools</p>
-          <h2>Technical toolbox</h2>
-        </div>
-        <div class="tool-cloud">
-          <span>Python</span><span>pandas</span><span>NumPy</span><span>SciPy</span><span>PyPSA</span><span>Pyomo</span><span>PuLP</span><span>Streamlit</span><span>Plotly</span><span>ANSYS Fluent</span><span>LabVIEW</span><span>NI-DAQ</span><span>IDA ICE</span><span>HOMER Pro</span><span>SAM</span><span>MATLAB</span><span>Git</span><span>Docker</span><span>Postman</span><span>Siemens NX</span><span>SolidWorks</span>
-        </div>
+        <aside class="content-rail">
+          <div class="page-panel">
+            <p class="eyebrow">Quick facts</p>
+            <ul class="clean-list">
+              <li data-editable="fact1">M.Sc. Sustainable Energy Engineering at KTH</li>
+              <li data-editable="fact2">Experience across CFD, testing, energy efficiency and Python analytics</li>
+              <li data-editable="fact3">Open to roles across energy systems, thermal engineering and data-led analysis</li>
+            </ul>
+          </div>
+        </aside>
       </div>
     </section>
   </main>
