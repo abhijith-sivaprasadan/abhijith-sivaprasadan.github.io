@@ -438,12 +438,16 @@ const updateScenes = () => {
 };
 
 const revealTargets = document.querySelectorAll(
-  ".section-heading, .card, .project-card, .skill-block, .timeline-item, .case-panel, .case-visual, .showcase-panel, .profile-meter, .page-orbit"
+  ".section-heading, .card, .project-card, .skill-block, .timeline-item, .case-panel, .case-visual, .showcase-panel, .profile-meter, .page-orbit, .hero-stats, .button-row, .newsletter-cta-stack, .contact-links, .hero-slab, .tag-row"
 );
 
 revealTargets.forEach((element, index) => {
   element.classList.add("reveal");
   element.style.setProperty("--reveal-delay", `${Math.min(index % 6, 5) * 70}ms`);
+});
+
+document.querySelectorAll(".profile-meter span").forEach((bar, i) => {
+  bar.style.setProperty("--bar-delay", `${i * 130}ms`);
 });
 
 if ("IntersectionObserver" in window) {
@@ -462,6 +466,46 @@ if ("IntersectionObserver" in window) {
   revealTargets.forEach((element) => revealObserver.observe(element));
 } else {
   revealTargets.forEach((element) => element.classList.add("is-visible"));
+}
+
+// Counter animation for hero stats
+const heroStatNumbers = document.querySelectorAll(".hero-stats strong");
+if (heroStatNumbers.length && "IntersectionObserver" in window) {
+  const counterObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.textContent, 10);
+        if (isNaN(target)) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const startTime = performance.now();
+        const duration = 1400;
+        const tick = (now) => {
+          const t = Math.min((now - startTime) / duration, 1);
+          const ease = 1 - (1 - t) ** 3;
+          el.textContent = t < 1 ? Math.round(target * ease) : target;
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        counterObserver.unobserve(el);
+      });
+    },
+    { threshold: 0.6 }
+  );
+  heroStatNumbers.forEach((el) => counterObserver.observe(el));
+}
+
+// Cursor spotlight on hero section
+const heroSection = document.querySelector(".hero");
+if (heroSection) {
+  heroSection.addEventListener("mousemove", (e) => {
+    const rect = heroSection.getBoundingClientRect();
+    heroSection.style.setProperty("--cursor-x", `${((e.clientX - rect.left) / rect.width * 100).toFixed(1)}%`);
+    heroSection.style.setProperty("--cursor-y", `${((e.clientY - rect.top) / rect.height * 100).toFixed(1)}%`);
+    heroSection.classList.add("cursor-glow");
+  }, { passive: true });
+  heroSection.addEventListener("mouseleave", () => heroSection.classList.remove("cursor-glow"));
 }
 
 const updateScrollState = () => {

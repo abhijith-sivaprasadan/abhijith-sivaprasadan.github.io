@@ -1,4 +1,32 @@
 /* ============================================================
+   CSS PROPERTY REGISTRATION — enables smooth scene transitions
+   ============================================================ */
+
+@property --scene-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ff6a4a;
+}
+
+@property --scene-accent-2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #c7f36f;
+}
+
+@property --scene-wash {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(255, 106, 74, 0.13);
+}
+
+@property --scene-wash-2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(199, 243, 111, 0.10);
+}
+
+/* ============================================================
    DESIGN TOKENS
    ============================================================ */
 
@@ -34,6 +62,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   --scroll-progress: 0;
 }
 
@@ -47,7 +76,7 @@ body {
     radial-gradient(ellipse at top right, rgba(142, 200, 255, 0.15), transparent 36rem),
     var(--bg);
   line-height: 1.6;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: background-color 0.5s ease, color 0.5s ease, --scene-accent 0.65s ease, --scene-accent-2 0.65s ease, --scene-wash 0.65s ease, --scene-wash-2 0.65s ease;
 }
 
 body[data-scene="portfolio"] {
@@ -161,6 +190,11 @@ a:focus-visible,
   font-weight: 800;
   text-decoration: none;
   letter-spacing: 0;
+  transition: color 0.2s ease;
+}
+
+.logo:hover {
+  color: var(--scene-accent);
 }
 
 .nav-links {
@@ -174,6 +208,25 @@ a:focus-visible,
   text-decoration: none;
   font-weight: 650;
   font-size: 0.95rem;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--scene-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-links a:hover::after,
+.nav-links a[aria-current="page"]::after {
+  transform: scaleX(1);
 }
 
 .nav-links a:hover {
@@ -215,9 +268,13 @@ a:focus-visible,
     linear-gradient(112deg, transparent 0 28%, var(--scene-wash) 36%, transparent 48% 100%),
     linear-gradient(292deg, transparent 0 32%, var(--scene-wash-2) 45%, transparent 58% 100%);
   transform:
-    translate3d(calc((var(--scene-progress, 0) - 0.5) * -7vw), calc((var(--scene-progress, 0) - 0.5) * 5vh), 0)
-    rotate(calc((var(--scene-progress, 0) - 0.5) * 8deg));
-  transition: background 0.5s ease;
+    translate3d(
+      calc((var(--scene-progress, 0) - 0.5) * -18vw),
+      calc((var(--scene-progress, 0) - 0.5) * 11vh),
+      0
+    )
+    rotate(calc((var(--scene-progress, 0) - 0.5) * 20deg))
+    scale(calc(1.06 + var(--scene-progress, 0) * 0.04));
   will-change: transform;
 }
 
@@ -248,6 +305,25 @@ a:focus-visible,
   position: relative;
   overflow: hidden;
   padding: 88px 0 78px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    600px circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+    color-mix(in srgb, var(--scene-accent) 10%, transparent),
+    transparent 46%
+  );
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.hero.cursor-glow::before {
+  opacity: 1;
 }
 
 .hero::after {
@@ -370,7 +446,15 @@ p {
 }
 
 .button:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.01);
+}
+
+.button.primary:hover {
+  box-shadow: 0 0 28px color-mix(in srgb, var(--scene-accent) 48%, transparent), 0 6px 20px rgba(0, 0, 0, 0.22);
+}
+
+.button.secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .section-actions {
@@ -561,6 +645,7 @@ p {
   padding: 7px 10px;
   font-size: 0.78rem;
   font-weight: 900;
+  animation: blink-badge 2.6s ease-in-out infinite;
 }
 
 .flow-map {
@@ -583,13 +668,14 @@ p {
   border-radius: 50%;
   background: var(--scene-accent-2);
   box-shadow: 0 0 0 8px color-mix(in srgb, var(--scene-accent-2) 18%, transparent);
+  animation: node-pulse 2.8s ease-in-out infinite;
 }
 
 .n1 { left: 13%; top: 57%; }
-.n2 { left: 30%; top: 24%; }
-.n3 { left: 50%; top: 45%; }
-.n4 { left: 70%; top: 20%; }
-.n5 { left: 82%; top: 62%; }
+.n2 { left: 30%; top: 24%; animation-delay: 560ms; }
+.n3 { left: 50%; top: 45%; animation-delay: 1120ms; }
+.n4 { left: 70%; top: 20%; animation-delay: 1680ms; }
+.n5 { left: 82%; top: 62%; animation-delay: 2240ms; }
 
 .mini-metrics {
   display: grid;
@@ -681,19 +767,21 @@ p {
     linear-gradient(135deg, var(--scene-wash), transparent 44%),
     linear-gradient(180deg, rgba(29, 32, 39, 0.95), rgba(18, 19, 24, 0.92));
   box-shadow: var(--shadow);
-  transform: translateY(calc((1 - var(--scene-progress, 0)) * 34px));
+  transform: translateY(calc((1 - var(--scene-progress, 0)) * 22px));
 }
 
 .showcase-panel:nth-child(2) {
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--scene-accent-2) 15%, transparent), transparent 42%),
     linear-gradient(180deg, rgba(29, 32, 39, 0.95), rgba(18, 19, 24, 0.92));
+  transform: translateY(calc((1 - var(--scene-progress, 0)) * 44px));
 }
 
 .showcase-panel:nth-child(3) {
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--warm) 15%, transparent), transparent 42%),
     linear-gradient(180deg, rgba(29, 32, 39, 0.95), rgba(18, 19, 24, 0.92));
+  transform: translateY(calc((1 - var(--scene-progress, 0)) * 66px));
 }
 
 .showcase-panel span {
@@ -977,10 +1065,15 @@ p {
 .profile-meter span::before {
   content: "";
   display: block;
-  width: var(--level);
+  width: 0;
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1) var(--bar-delay, 0ms);
+}
+
+.profile-meter.is-visible span::before {
+  width: var(--level);
 }
 
 .tool-cloud {
@@ -1199,17 +1292,17 @@ code {
 
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(34px) scale(0.97);
   transition:
-    opacity 0.72s ease var(--reveal-delay, 0ms),
-    transform 0.72s ease var(--reveal-delay, 0ms),
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
     border-color 0.16s ease,
     box-shadow 0.16s ease;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .card.reveal.is-visible:hover,
@@ -1218,6 +1311,25 @@ code {
 .timeline-item.reveal.is-visible:hover,
 .showcase-panel.reveal.is-visible:hover {
   transform: translateY(-3px);
+}
+
+/* Timeline items — alternating left/right entrance */
+.timeline-item:nth-child(odd).reveal {
+  transform: translateX(-28px) translateY(14px) scale(0.98);
+}
+
+.timeline-item:nth-child(even).reveal {
+  transform: translateX(28px) translateY(14px) scale(0.98);
+}
+
+.timeline-item:nth-child(odd).reveal.is-visible,
+.timeline-item:nth-child(even).reveal.is-visible {
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.timeline-item:nth-child(odd).reveal.is-visible:hover,
+.timeline-item:nth-child(even).reveal.is-visible:hover {
+  transform: translateX(0) translateY(-3px) scale(1);
 }
 
 /* ============================================================
@@ -1277,6 +1389,26 @@ code {
 }
 
 /* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
+
+@keyframes node-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--scene-accent-2) 22%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 18px color-mix(in srgb, var(--scene-accent-2) 0%, transparent),
+      0 0 0 6px color-mix(in srgb, var(--scene-accent-2) 34%, transparent);
+  }
+}
+
+@keyframes blink-badge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.58; }
+}
+
+/* ============================================================
    REDUCED MOTION
    ============================================================ */
 
@@ -1296,6 +1428,11 @@ code {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .profile-meter span::before {
+    width: var(--level) !important;
+    transition: none;
   }
 }
 
