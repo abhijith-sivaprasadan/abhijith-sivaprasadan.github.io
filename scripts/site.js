@@ -215,7 +215,7 @@ const updateEditorToolbar = () => {
     return;
   }
 
-  status.textContent = `Admin: ${email} · edits saved in this browser only`;
+  status.textContent = `Admin: ${email} - edits saved in this browser only`;
   authButton.textContent = "Sign out";
   authButton.disabled = false;
   editButton.hidden = false;
