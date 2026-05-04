@@ -14,8 +14,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="scripts/public-config.js?v=20260504-data-v5" defer></script>
-  <script src="scripts/site.js?v=20260504-data-v5" defer></script>
+  <script src="scripts/public-config.js?v=20260504-data-v6" defer></script>
+  <script src="scripts/site.js?v=20260504-data-v6" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body data-page-key="about">
@@ -92,7 +92,10 @@
             </article>
 
             <article class="page-panel">
-              <p class="eyebrow">Licenses &amp; certifications</p>
+              <div class="collection-head">
+                <p class="eyebrow">Licenses &amp; certifications</p>
+                <a class="collection-action" href="admin.html#certifications">Manage certifications</a>
+              </div>
               <div class="certification-list" data-api-resource="certifications" data-certifications-endpoint="api/certifications.json">
                 <article class="certification-item">
                   <div>
@@ -104,7 +107,10 @@
             </article>
 
             <article class="page-panel">
-              <p class="eyebrow">Tools and courses</p>
+              <div class="collection-head">
+                <p class="eyebrow">Tools and courses</p>
+                <a class="collection-action" href="admin.html#courses">Manage courses</a>
+              </div>
               <div class="compact-list" data-dynamic-courses data-api-resource="courses" data-limit="12">
                 <article class="compact-item">
                   <h3>Loading courses</h3>

@@ -1,18 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="CFD and test validation workflow">
-  <rect width="960" height="540" fill="#0b1728"/>
-  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
-  <path d="M116 352c92-120 190-120 292 0s198 120 310 0" fill="none" stroke="#65d6c9" stroke-width="8"/>
-  <path d="M150 250c80-76 170-76 270 0s188 76 300 0" fill="none" stroke="#8bb8ff" stroke-width="7" opacity="0.8"/>
-  <g fill="#07111f" stroke="#22344f" stroke-width="4">
-    <rect x="114" y="112" width="180" height="80" rx="14"/>
-    <rect x="390" y="112" width="180" height="80" rx="14"/>
-    <rect x="666" y="112" width="180" height="80" rx="14"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Gas turbine reducer CFD CHT and instrumentation dashboard">
+  <defs>
+    <linearGradient id="hot" x1="0" x2="1">
+      <stop offset="0" stop-color="#1b5cff"/>
+      <stop offset="0.42" stop-color="#45d6c5"/>
+      <stop offset="0.7" stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#ff6a4a"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8ec8ff"/>
+    </marker>
+  </defs>
+  <rect width="960" height="540" fill="#0d1016"/>
+  <rect x="26" y="24" width="908" height="492" rx="18" fill="#141923" stroke="#343640"/>
+  <text x="54" y="58" fill="#8ec8ff" font-family="ui-monospace,monospace" font-size="13" font-weight="700">SIEMENS ENERGY - REDUCER THERMO-FLUID ANALYSIS</text>
+  <text x="54" y="78" fill="#b9b4aa" font-family="ui-monospace,monospace" font-size="10">Compressible CFD / CHT - k-omega SST - NI-DAQ / LabVIEW - 673 K inlet</text>
+
+  <rect x="54" y="104" width="554" height="284" rx="14" fill="#0f131b" stroke="#2f3542"/>
+  <g opacity="0.25" stroke="#343640" stroke-width="1">
+    <path d="M78 136h506M78 176h506M78 216h506M78 256h506M78 296h506M78 336h506"/>
+    <path d="M120 124v242M176 124v242M232 124v242M288 124v242M344 124v242M400 124v242M456 124v242M512 124v242"/>
   </g>
-  <text x="150" y="162" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">DAQ</text>
-  <text x="424" y="162" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">CFD/CHT</text>
-  <text x="704" y="162" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Validate</text>
-  <g stroke="#ffd166" stroke-width="5">
-    <path d="M296 152h82"/>
-    <path d="M572 152h82"/>
+  <path d="M118 246 C198 178 292 178 358 246 C390 280 452 280 526 246 L526 308 C452 340 388 340 354 308 C290 246 206 246 118 308 Z" fill="url(#hot)" opacity="0.92"/>
+  <path d="M118 246 C198 178 292 178 358 246 C390 280 452 280 526 246" fill="none" stroke="#f4f1ea" stroke-width="3"/>
+  <path d="M118 308 C206 246 290 246 354 308 C388 340 452 340 526 308" fill="none" stroke="#111114" stroke-width="2" opacity="0.7"/>
+  <g stroke="#8ec8ff" stroke-width="3" marker-end="url(#arrow)" opacity="0.82">
+    <path d="M86 266h84"/>
+    <path d="M244 214c42-12 82-8 116 20"/>
+    <path d="M408 286c32 10 68 4 112-18"/>
+  </g>
+  <g fill="#0d1016" stroke="#343640">
+    <rect x="76" y="338" width="96" height="32" rx="8"/>
+    <rect x="184" y="338" width="96" height="32" rx="8"/>
+    <rect x="292" y="338" width="96" height="32" rx="8"/>
+    <rect x="400" y="338" width="96" height="32" rx="8"/>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="11" font-weight="700" text-anchor="middle">
+    <text x="124" y="359" fill="#ff6a4a">673 K</text>
+    <text x="232" y="359" fill="#c7f36f">Bi .003</text>
+    <text x="340" y="359" fill="#ffd166">Ma .990</text>
+    <text x="448" y="359" fill="#8ec8ff">Ma 1.006</text>
+  </g>
+
+  <rect x="628" y="104" width="274" height="122" rx="14" fill="#0f131b" stroke="#2f3542"/>
+  <text x="650" y="132" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Simulation campaign</text>
+  <g font-family="ui-monospace,monospace" font-size="12" fill="#b9b4aa">
+    <text x="650" y="160">6 adiabatic + 6 CHT cases</text>
+    <text x="650" y="184">3 outlet pressures / geometry</text>
+    <text x="650" y="208">3-level mesh independence &lt;2%</text>
+  </g>
+
+  <rect x="628" y="246" width="274" height="122" rx="14" fill="#0f131b" stroke="#2f3542"/>
+  <text x="650" y="274" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Instrumentation</text>
+  <polyline points="650,342 678,330 704,336 732,316 760,326 788,292 816,308 842,300 874,286" fill="none" stroke="#c7f36f" stroke-width="3"/>
+  <g font-family="ui-monospace,monospace" font-size="11" fill="#b9b4aa">
+    <text x="650" y="300">NI-DAQ / LabVIEW / thermocouples</text>
+    <text x="650" y="320">thermal testing up to 700 C</text>
+  </g>
+
+  <rect x="54" y="414" width="848" height="62" rx="14" fill="#0f131b" stroke="#2f3542"/>
+  <g font-family="ui-monospace,monospace" font-size="11" font-weight="700">
+    <text x="78" y="448" fill="#8ec8ff">SPACECLAIM</text>
+    <text x="198" y="448" fill="#b9b4aa">geometry</text>
+    <text x="302" y="448" fill="#c7f36f">MESH</text>
+    <text x="374" y="448" fill="#b9b4aa">inflation layers</text>
+    <text x="522" y="448" fill="#ffd166">FLUENT</text>
+    <text x="608" y="448" fill="#b9b4aa">solver / CHT</text>
+    <text x="740" y="448" fill="#ff6a4a">RCA</text>
+    <text x="786" y="448" fill="#b9b4aa">heater failure</text>
   </g>
 </svg>

@@ -29,6 +29,7 @@ const copyJsonButton = document.querySelector("[data-copy-json]");
 const moveRecordButtons = document.querySelectorAll("[data-move-record]");
 
 const storageKey = "portfolio-admin-api";
+const requestedCollection = decodeURIComponent(window.location.hash.replace(/^#/, "")).trim();
 
 const state = {
   collections: [],
@@ -143,6 +144,7 @@ const fieldHints = {
   "link.url": "Paste the full URL starting with https://",
   order: "Lower numbers appear first.",
   highlights: "Write short proof points separated by commas.",
+  image: "Use an asset path such as assets/thumb-siemens-validation.svg.",
 };
 
 const fieldLabel = (field) => fieldLabels[field] || field.replaceAll(".", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
@@ -249,6 +251,9 @@ const loadConnection = async () => {
   const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
   apiBaseInput.value = saved.apiBaseUrl || globalThis.PORTFOLIO_API_BASE_URL || "http://127.0.0.1:3000";
   tokenInput.value = saved.token || "";
+  if (requestedCollection && schemaFields[requestedCollection]) {
+    state.activeCollection = requestedCollection;
+  }
 };
 
 const initializeGoogleAuth = async () => {
@@ -489,7 +494,9 @@ const loadCollections = async () => {
 
   const data = await requestJson(`${apiBase()}/api`);
   state.collections = Array.isArray(data.collections) ? data.collections : [];
-  state.activeCollection = state.activeCollection || state.collections[0]?.name || "";
+  if (!state.collections.some((collection) => collection.name === state.activeCollection)) {
+    state.activeCollection = state.collections[0]?.name || "";
+  }
   state.activeKey = state.collections.find((collection) => collection.name === state.activeCollection)?.key || "";
   renderCollections();
 
@@ -515,7 +522,9 @@ const loadRecords = async (collection, key) => {
 };
 
 collectionList.addEventListener("click", async (event) => {
-  const button = event.target.closest("[data-collection-name]");
+  const target = event.target;
+  if (!(target instanceof Element)) return;
+  const button = target.closest("[data-collection-name]");
   if (!button) return;
 
   try {
@@ -541,14 +550,18 @@ recordSearch.addEventListener("input", () => {
 });
 
 recordList.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-record-id]");
+  const target = event.target;
+  if (!(target instanceof Element)) return;
+  const button = target.closest("[data-record-id]");
   if (!button) return;
   state.activeId = button.dataset.recordId;
   renderRecords();
 });
 
 recordForm.addEventListener("input", (event) => {
-  const field = event.target.closest("[data-form-field]");
+  const target = event.target;
+  if (!(target instanceof Element)) return;
+  const field = target.closest("[data-form-field]");
   if (!field) return;
 
   try {
@@ -567,7 +580,7 @@ newRecordButton.addEventListener("click", () => {
   recordSelect.value = "";
   const defaults = {
     certifications: { status: "draft", featured: false, order: state.records.length + 1, title: "New certification", issuer: "", issued: "", credentialId: "", link: { label: "Credential", url: "" } },
-    projects: { status: "draft", featured: false, order: state.records.length + 1, category: "Energy Systems", title: "New project", period: "", associatedWith: "", summary: "", tools: [], skills: [], highlights: [] },
+    projects: { status: "draft", featured: false, order: state.records.length + 1, category: "Energy Systems", title: "New project", period: "", associatedWith: "", summary: "", tools: [], skills: [], image: "assets/thumb-energy-kpi.svg", highlights: [] },
     experience: { status: "draft", featured: false, order: state.records.length + 1, role: "New role", company: "", period: "", location: "", summary: "", tools: [], skills: [] },
     courses: { status: "draft", featured: false, order: state.records.length + 1, title: "New course", code: "", associatedWith: "" },
     skills: { status: "draft", featured: false, order: state.records.length + 1, name: "New skill group", skills: [] },
