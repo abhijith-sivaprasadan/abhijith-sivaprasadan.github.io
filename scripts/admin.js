@@ -2,8 +2,11 @@ const apiBaseInput = document.querySelector("[data-api-base]");
 const tokenInput = document.querySelector("[data-api-token]");
 const connectButton = document.querySelector("[data-connect-api]");
 const clearTokenButton = document.querySelector("[data-clear-token]");
+const googleSignInButton = document.querySelector("[data-google-sign-in]");
+const googleSignOutButton = document.querySelector("[data-google-sign-out]");
 const collectionList = document.querySelector("[data-collection-list]");
 const statusEl = document.querySelector("[data-admin-status]");
+const authStatusEl = document.querySelector("[data-auth-status]");
 const editorTitle = document.querySelector("[data-editor-title]");
 const recordSelect = document.querySelector("[data-record-select]");
 const jsonEditor = document.querySelector("[data-json-editor]");
@@ -20,6 +23,11 @@ const state = {
   activeKey: "",
   records: [],
   activeId: "",
+  firebaseReady: false,
+  auth: null,
+  provider: null,
+  user: null,
+  idToken: "",
 };
 
 const setStatus = (message, isError = false) => {
@@ -28,10 +36,19 @@ const setStatus = (message, isError = false) => {
 };
 
 const apiBase = () => apiBaseInput.value.trim().replace(/\/$/, "");
-const token = () => tokenInput.value.trim();
+const token = () => state.idToken || tokenInput.value.trim();
 const collectionUrl = (collection, id = "") => `${apiBase()}/api/${collection}${id ? `/${encodeURIComponent(id)}` : ""}`;
 
+const setAuthStatus = (message, isError = false) => {
+  authStatusEl.textContent = message;
+  authStatusEl.classList.toggle("is-error", isError);
+};
+
 const requestJson = async (url, options = {}) => {
+  if (state.user) {
+    state.idToken = await state.user.getIdToken();
+  }
+
   const headers = {
     Accept: "application/json",
     ...(options.body ? { "Content-Type": "application/json" } : {}),
@@ -51,12 +68,18 @@ const saveConnection = () => {
     storageKey,
     JSON.stringify({
       apiBaseUrl: apiBaseInput.value.trim(),
-      token: token(),
+      token: tokenInput.value.trim(),
     })
   );
 };
 
 const loadConnection = async () => {
+  try {
+    await import("./public-config.js");
+  } catch {
+    // Optional committed config.
+  }
+
   try {
     await import("./config.js");
   } catch {
@@ -66,6 +89,42 @@ const loadConnection = async () => {
   const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
   apiBaseInput.value = saved.apiBaseUrl || globalThis.PORTFOLIO_API_BASE_URL || "http://127.0.0.1:3000";
   tokenInput.value = saved.token || "";
+};
+
+const initializeGoogleAuth = async () => {
+  const config = globalThis.PORTFOLIO_AUTH_CONFIG || {};
+  if (!config.apiKey || !config.authDomain || !config.projectId || !config.appId) {
+    googleSignInButton.disabled = true;
+    googleSignOutButton.disabled = true;
+    setAuthStatus("Google admin login needs Firebase config. Token fallback is available.");
+    return;
+  }
+
+  try {
+    const [{ initializeApp }, { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }] =
+      await Promise.all([
+        import("https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"),
+        import("https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js"),
+      ]);
+
+    const app = initializeApp(config);
+    state.auth = getAuth(app);
+    state.provider = new GoogleAuthProvider();
+    state.provider.setCustomParameters({ prompt: "select_account" });
+    state.firebaseReady = true;
+
+    onAuthStateChanged(state.auth, async (user) => {
+      state.user = user;
+      state.idToken = user ? await user.getIdToken() : "";
+      googleSignInButton.disabled = Boolean(user);
+      googleSignOutButton.disabled = !user;
+      setAuthStatus(user?.email ? `Signed in as ${user.email}` : "Not signed in with Google.");
+    });
+  } catch (error) {
+    googleSignInButton.disabled = true;
+    googleSignOutButton.disabled = true;
+    setAuthStatus(error instanceof Error ? error.message : "Google admin login failed to load.", true);
+  }
 };
 
 const renderCollections = () => {
@@ -221,4 +280,21 @@ clearTokenButton.addEventListener("click", () => {
   setStatus("Token cleared from this browser.");
 });
 
+googleSignInButton.addEventListener("click", async () => {
+  if (!state.firebaseReady) return;
+  const { signInWithPopup } = await import("https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js");
+  try {
+    await signInWithPopup(state.auth, state.provider);
+  } catch (error) {
+    setAuthStatus(error instanceof Error ? error.message : "Google sign-in failed.", true);
+  }
+});
+
+googleSignOutButton.addEventListener("click", async () => {
+  if (!state.firebaseReady) return;
+  const { signOut } = await import("https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js");
+  await signOut(state.auth);
+});
+
 await loadConnection();
+await initializeGoogleAuth();

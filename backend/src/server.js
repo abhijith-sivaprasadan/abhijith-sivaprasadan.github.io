@@ -1,4 +1,5 @@
 import http from "node:http";
+import { authorizeAdmin } from "./auth.js";
 import {
   createItem,
   deleteItem,
@@ -6,14 +7,16 @@ import {
   getCollectionConfig,
   getItem,
   listCollections,
+  readAllCollections,
   readCollection,
+  replaceAllCollections,
+  replaceCollection,
   replaceItem,
   updateItem,
 } from "./store.js";
 
 const PORT = Number.parseInt(process.env.PORT || "3000", 10);
 const HOST = process.env.HOST || "127.0.0.1";
-const ADMIN_API_TOKEN = process.env.ADMIN_API_TOKEN || "";
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "*";
 
 const json = (res, status, payload) => {
@@ -30,10 +33,14 @@ const json = (res, status, payload) => {
 
 const notFound = (res) => json(res, 404, { error: "Not found" });
 
-const isAuthorized = (req) => {
-  if (!ADMIN_API_TOKEN) return false;
-  const header = req.headers.authorization || "";
-  return header === `Bearer ${ADMIN_API_TOKEN}`;
+const requireAdmin = async (req, res) => {
+  const authorization = await authorizeAdmin(req);
+  if (authorization.ok) return authorization;
+  json(res, authorization.status || 401, {
+    error: authorization.error,
+    detail: authorization.detail,
+  });
+  return null;
 };
 
 const readJsonBody = async (req) => {
@@ -61,12 +68,8 @@ const handleCollection = async (req, res, collection, id) => {
     return item ? json(res, 200, item) : notFound(res);
   }
 
-  if (!isAuthorized(req)) {
-    return json(res, 401, {
-      error: "Admin API token required",
-      detail: "Set ADMIN_API_TOKEN on the backend and send Authorization: Bearer <token>.",
-    });
-  }
+  const admin = await requireAdmin(req, res);
+  if (!admin) return null;
 
   if (req.method === "POST" && !id) {
     const body = await readJsonBody(req);
@@ -78,6 +81,12 @@ const handleCollection = async (req, res, collection, id) => {
     const body = await readJsonBody(req);
     const item = await replaceItem(collection, id, body);
     return item ? json(res, 200, item) : notFound(res);
+  }
+
+  if (req.method === "PUT" && !id) {
+    const body = await readJsonBody(req);
+    const payload = await replaceCollection(collection, body);
+    return json(res, 200, payload);
   }
 
   if (req.method === "PATCH" && id) {
@@ -106,6 +115,29 @@ const server = http.createServer(async (req, res) => {
 
     if (req.method === "GET" && parts.length === 1 && parts[0] === "api") {
       return json(res, 200, { collections: listCollections() });
+    }
+
+    if (parts[0] === "api" && parts[1] === "content" && parts.length === 2) {
+      if (req.method === "GET") {
+        return json(res, 200, await readAllCollections());
+      }
+
+      if (req.method === "PUT") {
+        const admin = await requireAdmin(req, res);
+        if (!admin) return null;
+        const body = await readJsonBody(req);
+        return json(res, 200, await replaceAllCollections(body));
+      }
+    }
+
+    if (parts[0] === "api" && parts[1] === "admin" && parts[2] === "session") {
+      const admin = await requireAdmin(req, res);
+      if (!admin) return null;
+      return json(res, 200, {
+        ok: true,
+        method: admin.method,
+        user: admin.user || null,
+      });
     }
 
     if (parts[0] === "api" && parts[1]) {

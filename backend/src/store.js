@@ -51,6 +51,17 @@ export const readCollection = async (collection) => {
   return { config, items };
 };
 
+export const readAllCollections = async () => {
+  const entries = await Promise.all(
+    Object.keys(COLLECTIONS).map(async (collection) => {
+      await ensureItemIds(collection);
+      const result = await readCollection(collection);
+      return [result.config.key, result.items];
+    })
+  );
+  return Object.fromEntries(entries);
+};
+
 export const writeCollection = async (collection, items) => {
   const config = getCollectionConfig(collection);
   const filePath = collectionPath(collection);
@@ -62,6 +73,32 @@ export const writeCollection = async (collection, items) => {
   };
   await writeFile(filePath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
   return payload;
+};
+
+export const replaceCollection = async (collection, payload) => {
+  const config = getCollectionConfig(collection);
+  if (!config) return null;
+
+  const items = Array.isArray(payload) ? payload : payload?.[config.key];
+  if (!Array.isArray(items)) {
+    throw new Error(`Expected an array or an object with "${config.key}" array.`);
+  }
+
+  await writeCollection(collection, items);
+  await ensureItemIds(collection);
+  const result = await readCollection(collection);
+  return { [config.key]: result.items };
+};
+
+export const replaceAllCollections = async (payload) => {
+  const result = {};
+
+  for (const [collection, config] of Object.entries(COLLECTIONS)) {
+    if (!Object.hasOwn(payload, config.key)) continue;
+    result[config.key] = (await replaceCollection(collection, payload[config.key]))[config.key];
+  }
+
+  return result;
 };
 
 export const ensureItemIds = async (collection) => {

@@ -1,6 +1,6 @@
 # Portfolio REST API
 
-Dependency-free Node REST API for the portfolio data.
+Node REST API for portfolio data with public read endpoints and protected admin write endpoints.
 
 ## Run locally
 
@@ -36,16 +36,26 @@ GET    /api/experience
 GET    /api/courses
 GET    /api/skills
 GET    /api/:collection/:id
+GET    /api/content
+GET    /api/admin/session
 POST   /api/:collection
+PUT    /api/:collection
 PUT    /api/:collection/:id
 PATCH  /api/:collection/:id
 DELETE /api/:collection/:id
+PUT    /api/content
 ```
 
 Write requests require:
 
 ```text
 Authorization: Bearer <ADMIN_API_TOKEN>
+```
+
+Google admin login can also authorize write requests:
+
+```text
+Authorization: Bearer <FIREBASE_ID_TOKEN>
 ```
 
 ## Deploy
@@ -60,6 +70,8 @@ HOST=0.0.0.0
 ADMIN_API_TOKEN=<long-random-token>
 FRONTEND_ORIGIN=https://abhijith-sivaprasadan.github.io
 DATA_DIR=/var/data
+FIREBASE_PROJECT_ID=<firebase-project-id>
+ADMIN_EMAIL_HASHES=<sha256-admin-email-hash>
 ```
 
 `DATA_DIR` is optional. Without it, the API writes to `backend/data`. On many hosts that filesystem is ephemeral, so production edits may disappear after restarts or redeploys unless you attach persistent storage or move the data to a database.
@@ -67,3 +79,5 @@ DATA_DIR=/var/data
 ## Render blueprint
 
 The repository root includes `render.yaml`. On Render, create a new Blueprint from this GitHub repository and Render will use the `backend` folder as the Node service root.
+
+Set `FIREBASE_PROJECT_ID` and `ADMIN_EMAIL_HASHES` in Render before using Google login for write operations. `ADMIN_API_TOKEN` remains available as a fallback for local testing or emergency admin access.

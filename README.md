@@ -43,10 +43,14 @@ GET    /api/projects
 GET    /api/experience
 GET    /api/courses
 GET    /api/skills
+GET    /api/content
+GET    /api/admin/session
 POST   /api/:collection
+PUT    /api/:collection
 PUT    /api/:collection/:id
 PATCH  /api/:collection/:id
 DELETE /api/:collection/:id
+PUT    /api/content
 ```
 
 Write requests require this header:
@@ -54,6 +58,8 @@ Write requests require this header:
 ```text
 Authorization: Bearer <ADMIN_API_TOKEN>
 ```
+
+The same write endpoints also accept a Firebase Google ID token when the backend has `FIREBASE_PROJECT_ID` and admin email hashes configured.
 
 ## Localhost setup
 
@@ -111,11 +117,11 @@ Open the admin editor at:
 http://127.0.0.1:8000/admin.html
 ```
 
-Paste the same `ADMIN_API_TOKEN` value into the admin page to create, update and delete backend records.
+Use Google sign-in or paste the same `ADMIN_API_TOKEN` value into the admin page to create, update and delete backend records.
 
 ## Admin login setup
 
-The admin editor uses Firebase Google sign-in only to decide whether edit controls should unlock. Edits are saved to this browser's `localStorage`; they are not committed back to GitHub automatically.
+The admin editor can use Firebase Google sign-in. The backend verifies the Google ID token before allowing insert, update, delete or full-collection write operations.
 
 1. Create a Firebase project.
 2. In Firebase Authentication, enable Google as a sign-in provider.
@@ -124,20 +130,23 @@ The admin editor uses Firebase Google sign-in only to decide whether edit contro
    - `127.0.0.1`
    - `abhijith-sivaprasadan.github.io`
 4. Copy the web app config from Firebase project settings.
-5. Copy the example config:
+5. Set these Render backend environment variables:
+   - `FIREBASE_PROJECT_ID`
+   - `ADMIN_EMAIL_HASHES`
+6. Copy the example config for local testing:
 
 ```powershell
 Copy-Item scripts/config.example.js scripts/config.js
 ```
 
-6. Edit `scripts/config.js` and fill `window.PORTFOLIO_AUTH_CONFIG`.
-7. Generate the SHA-256 hash of each admin email and add it to `window.PORTFOLIO_ADMIN_EMAIL_HASHES`:
+7. Edit `scripts/config.js` and fill `globalThis.PORTFOLIO_AUTH_CONFIG`.
+8. Generate the SHA-256 hash of each admin email and add it to backend `ADMIN_EMAIL_HASHES`:
 
 ```powershell
 node -e "crypto.subtle.digest('SHA-256', new TextEncoder().encode('your.email@example.com'.toLowerCase())).then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))"
 ```
 
-`scripts/config.js` is ignored by git, so local Firebase keys and admin hashes are not committed by accident. Firebase web config is not a private server secret, but commit it deliberately only if you want admin login enabled on GitHub Pages:
+`scripts/config.js` is ignored by git, so local Firebase config is not committed by accident. Firebase web config is not a private server secret, but commit it deliberately only if you want Google admin login enabled on GitHub Pages:
 
 ```powershell
 git add -f scripts/config.js
