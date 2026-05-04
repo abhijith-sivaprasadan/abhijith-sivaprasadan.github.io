@@ -307,7 +307,7 @@
         "Self-consumption",
         "Techno-economics"
       ],
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-hylkysaari-energy-island.svg",
       "highlights": [
         "Coupled component-level thermal behaviour to system-level KPIs.",
         "Evaluated autonomy, self-consumption and techno-economics across BAU and renewable-plus-storage scenarios."
@@ -334,7 +334,7 @@
         "LCOE",
         "Payback"
       ],
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-residential-heating-technoeconomics.svg",
       "highlights": [
         "Built CAPEX, OPEX, LCOE and payback KPIs with sensitivity analysis using IDA ICE and SAM."
       ]
@@ -359,7 +359,7 @@
         "Storage sizing",
         "Trade-off analysis"
       ],
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-tes-peak-shaving.svg",
       "highlights": [
         "Sized storage and compared ice storage versus phase-change material options across efficiency, cost and volume constraints."
       ]
@@ -384,7 +384,7 @@
         "Scenario modelling",
         "Carbon implications"
       ],
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-germany-leap-transition.svg",
       "highlights": [
         "Evaluated electricity cost and carbon implications across technology scenarios relevant to EPBD and energy policy context."
       ]
@@ -411,7 +411,7 @@
       "featured": false,
       "order": 100,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-hylkysaari-energy-island.svg",
       "highlights": []
     },
     {
@@ -434,7 +434,7 @@
       "featured": false,
       "order": 101,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-residential-heating-technoeconomics.svg",
       "highlights": []
     },
     {
@@ -457,7 +457,7 @@
       "featured": false,
       "order": 102,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-germany-leap-transition.svg",
       "highlights": []
     },
     {
@@ -476,7 +476,7 @@
       "featured": false,
       "order": 103,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-mechanical-design.svg",
       "highlights": []
     },
     {
@@ -496,7 +496,7 @@
       "featured": false,
       "order": 104,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-thermal-prototype.svg",
       "highlights": []
     },
     {
@@ -513,7 +513,7 @@
       "featured": false,
       "order": 105,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-thermal-prototype.svg",
       "highlights": []
     },
     {
@@ -530,7 +530,7 @@
       "featured": false,
       "order": 106,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-thermal-prototype.svg",
       "highlights": []
     },
     {
@@ -548,7 +548,7 @@
       "featured": false,
       "order": 107,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-mechanical-design.svg",
       "highlights": []
     },
     {
@@ -566,7 +566,7 @@
       "featured": false,
       "order": 108,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/thumb-mechanical-design.svg",
       "highlights": []
     }
   ]

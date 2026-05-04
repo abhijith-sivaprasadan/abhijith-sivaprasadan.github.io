@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Mechanical design CAE and competition project visual">
+  <rect width="960" height="540" fill="#0d1016"/>
+  <rect x="28" y="26" width="904" height="488" rx="18" fill="#141923" stroke="#343640"/>
+  <text x="56" y="62" fill="#8ec8ff" font-family="ui-monospace,monospace" font-size="13" font-weight="700">MECHANICAL DESIGN / CAE / COMPETITION PROJECTS</text>
+  <text x="56" y="82" fill="#b9b4aa" font-family="ui-monospace,monospace" font-size="10">student teams - design constraints - CAE checks - documentation - leadership</text>
+  <g transform="translate(80 130)" fill="none" stroke="#8ec8ff" stroke-width="5">
+    <circle cx="118" cy="212" r="66"/>
+    <circle cx="382" cy="212" r="66"/>
+    <path d="M118 212 L210 86 L282 212 Z"/>
+    <path d="M210 86 L382 212"/>
+    <path d="M210 86 L300 112 L382 212"/>
+    <path d="M282 212 H382"/>
+    <path d="M210 86 L250 212 H118"/>
+  </g>
+  <rect x="612" y="130" width="256" height="268" rx="16" fill="#0f131b" stroke="#343640"/>
+  <text x="638" y="164" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Engineering workflow</text>
+  <g font-family="ui-monospace,monospace" font-size="12" fill="#b9b4aa">
+    <text x="638" y="202">requirements</text>
+    <text x="638" y="238">concept design</text>
+    <text x="638" y="274">CAE validation</text>
+    <text x="638" y="310">team planning</text>
+    <text x="638" y="346">competition package</text>
+  </g>
+  <g stroke="#c7f36f" stroke-width="3">
+    <line x1="760" y1="198" x2="832" y2="198"/>
+    <line x1="760" y1="234" x2="816" y2="234"/>
+    <line x1="760" y1="270" x2="850" y2="270"/>
+    <line x1="760" y1="306" x2="802" y2="306"/>
+    <line x1="760" y1="342" x2="840" y2="342"/>
+  </g>
+  <text x="56" y="468" fill="#b9b4aa" font-family="ui-monospace,monospace" font-size="11">Mechanical foundation: CAD / CAE / team delivery / competition documentation</text>
+</svg>

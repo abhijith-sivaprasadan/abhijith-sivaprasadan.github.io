@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Residential heating techno-economic comparison">
+  <rect width="960" height="540" fill="#0d1016"/>
+  <rect x="28" y="26" width="904" height="488" rx="18" fill="#141923" stroke="#343640"/>
+  <text x="56" y="62" fill="#8ec8ff" font-family="ui-monospace,monospace" font-size="13" font-weight="700">RESIDENTIAL HEATING TECHNO-ECONOMIC COMPARISON</text>
+  <text x="56" y="82" fill="#b9b4aa" font-family="ui-monospace,monospace" font-size="10">district heating - PV + heat pump - PV + electric boiler - solar thermal + TES</text>
+  <rect x="56" y="120" width="520" height="304" rx="16" fill="#0f131b" stroke="#2f3542"/>
+  <g stroke="#343640" font-family="ui-monospace,monospace" font-size="10" fill="#b9b4aa">
+    <line x1="96" y1="370" x2="540" y2="370"/>
+    <line x1="96" y1="310" x2="540" y2="310"/>
+    <line x1="96" y1="250" x2="540" y2="250"/>
+    <line x1="96" y1="190" x2="540" y2="190"/>
+    <text x="70" y="374">0</text><text x="64" y="314">50</text><text x="58" y="254">100</text><text x="58" y="194">150</text>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="10" text-anchor="middle">
+    <rect x="128" y="234" width="34" height="136" rx="6" fill="#8ec8ff"/><text x="145" y="392" fill="#b9b4aa">DH</text>
+    <rect x="214" y="182" width="34" height="188" rx="6" fill="#c7f36f"/><text x="231" y="392" fill="#b9b4aa">PV+HP</text>
+    <rect x="300" y="260" width="34" height="110" rx="6" fill="#ffd166"/><text x="317" y="392" fill="#b9b4aa">PV+EB</text>
+    <rect x="386" y="214" width="34" height="156" rx="6" fill="#ff6a4a"/><text x="403" y="392" fill="#b9b4aa">ST+TES</text>
+    <rect x="472" y="202" width="34" height="168" rx="6" fill="#d6b4ff"/><text x="489" y="392" fill="#b9b4aa">sens.</text>
+  </g>
+  <polyline points="122,316 164,296 206,276 248,270 290,286 332,304 374,292 416,270 458,262 520,248" fill="none" stroke="#f4f1ea" stroke-width="3"/>
+  <rect x="616" y="120" width="288" height="304" rx="16" fill="#0f131b" stroke="#2f3542"/>
+  <text x="642" y="154" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Decision frame</text>
+  <g font-family="ui-monospace,monospace" font-size="12" fill="#b9b4aa">
+    <text x="642" y="190">CAPEX / OPEX / LCOE</text>
+    <text x="642" y="226">hourly demand + irradiance</text>
+    <text x="642" y="262">payback + sensitivity</text>
+    <text x="642" y="298">IDA ICE + SAM workflow</text>
+  </g>
+  <g fill="none" stroke-width="3">
+    <circle cx="710" cy="360" r="38" stroke="#c7f36f"/>
+    <path d="M710 322a38 38 0 0 1 30 61" stroke="#ff6a4a"/>
+    <circle cx="806" cy="360" r="38" stroke="#8ec8ff"/>
+    <path d="M806 322a38 38 0 0 1 12 74" stroke="#ffd166"/>
+  </g>
+  <text x="56" y="468" fill="#b9b4aa" font-family="ui-monospace,monospace" font-size="11">Hourly energy model -> cost stack -> sensitivity -> technology choice</text>
+</svg>

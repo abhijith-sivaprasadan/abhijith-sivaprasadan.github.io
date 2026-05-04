@@ -27,8 +27,8 @@ const inferredPageKey = (() => {
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260504-data-v5";
-const apiVersion = "20260504-api-v2";
+const assetVersion = "20260504-data-v6";
+const apiVersion = "20260504-api-v3";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
 let apiBaseUrl = window.PORTFOLIO_API_BASE_URL || "https://abhijith-portfolio-api.onrender.com";
@@ -474,7 +474,9 @@ const injectEditor = () => {
   editorToolbar = editor;
 
   editor.addEventListener("click", async (event) => {
-    const button = event.target.closest("[data-editor-action]");
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const button = target.closest("[data-editor-action]");
     if (!button) return;
 
     const action = button.dataset.editorAction;
@@ -524,7 +526,9 @@ const injectEditor = () => {
   });
 
   document.addEventListener("click", (event) => {
-    const addButton = event.target.closest("[data-add-entry]");
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const addButton = target.closest("[data-add-entry]");
     if (addButton) {
       if (!authState.admin) return;
       const collection = document.querySelector(`[data-collection="${addButton.dataset.addEntry}"]`);
@@ -536,7 +540,7 @@ const injectEditor = () => {
       return;
     }
 
-    const removeButton = event.target.closest(".entry-remove");
+    const removeButton = target.closest(".entry-remove");
     if (removeButton) {
       if (!authState.admin) return;
       removeButton.closest(".entry-card")?.remove();
@@ -644,6 +648,27 @@ const visibleItems = (items = []) =>
 
 const itemTags = (item) => [...(item.tools || []), ...(item.skills || [])].slice(0, 5);
 
+const projectImageOverrides = {
+  "hylkysaari-smart-energy-island-modelling": "assets/thumb-hylkysaari-energy-island.svg",
+  "residential-heating-techno-economic-comparison": "assets/thumb-residential-heating-technoeconomics.svg",
+  "thermal-energy-storage-peak-shaving": "assets/thumb-tes-peak-shaving.svg",
+  "germany-energy-transition-analysis-leap": "assets/thumb-germany-leap-transition.svg",
+  "techno-economic-analysis-and-development-of-hylkysaari-island-for-smart-": "assets/thumb-hylkysaari-energy-island.svg",
+  "techno-economic-comparative-assessment-of-residential-heating-solutions-": "assets/thumb-residential-heating-technoeconomics.svg",
+  "energy-environment-economy-analysis-of-germany": "assets/thumb-germany-leap-transition.svg",
+  "bicycle-design-competition-sae-india": "assets/thumb-mechanical-design.svg",
+  "tractor-design-competition-2019": "assets/thumb-mechanical-design.svg",
+  "baja-sae-2019": "assets/thumb-mechanical-design.svg",
+  "automatic-sanitizer-dispenser": "assets/thumb-thermal-prototype.svg",
+  "wireless-charging-technology-and-application-in-automobile-industry": "assets/thumb-thermal-prototype.svg",
+  "peltier-refrigerator": "assets/thumb-thermal-prototype.svg",
+};
+
+const projectImageSrc = (project) => {
+  const image = projectImageOverrides[project.id] || project.image || `${basePath}assets/thumb-energy-kpi.svg`;
+  return image.startsWith("http") || image.startsWith("../") ? image : `${basePath}${image}`;
+};
+
 const projectMatches = (project) => {
   const query = pageState.projectSearch.trim().toLowerCase();
   const filter = pageState.activeProjectFilter;
@@ -654,8 +679,7 @@ const projectMatches = (project) => {
 
 const renderProjectCard = (project) => {
   const tags = itemTags(project);
-  const image = project.image || `${basePath}assets/thumb-energy-kpi.svg`;
-  const imageSrc = image.startsWith("http") || image.startsWith("../") ? image : `${basePath}${image}`;
+  const imageSrc = projectImageSrc(project);
   const highlights = Array.isArray(project.highlights) ? project.highlights : [];
   const links = [
     project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}">Case study</a>` : "",
@@ -685,8 +709,7 @@ const renderProjectBrowserItem = (project, index) => {
     project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}">Case study</a>` : "",
     project.repoUrl ? `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noreferrer">GitHub</a>` : "",
   ].filter(Boolean);
-  const image = project.image || `${basePath}assets/thumb-energy-kpi.svg`;
-  const imageSrc = image.startsWith("http") || image.startsWith("../") ? image : `${basePath}${image}`;
+  const imageSrc = projectImageSrc(project);
 
   return `
     <details class="project-browser-item ${project.featured ? "is-featured" : ""}" ${index === 0 ? "open" : ""} data-project-id="${escapeHtml(project.id)}">
@@ -1020,7 +1043,9 @@ loadPortfolioConfig().then(() => {
 });
 
 projectFilters?.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-project-filter]");
+  const target = event.target;
+  if (!(target instanceof Element)) return;
+  const button = target.closest("[data-project-filter]");
   if (!button) return;
   pageState.activeProjectFilter = button.dataset.projectFilter;
   renderProjectFilters();

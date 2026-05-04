@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="scripts/public-config.js?v=20260504-data-v5" defer></script>
+  <script src="scripts/public-config.js?v=20260504-data-v6" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -42,7 +42,7 @@
     "knowsAbout": ["Gas turbine CFD/CHT", "Instrumentation", "Energy management", "Energy systems modelling", "Python analytics", "District heating", "Green hydrogen"]
   }
   </script>
-  <script src="scripts/site.js?v=20260504-data-v5" defer></script>
+  <script src="scripts/site.js?v=20260504-data-v6" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
@@ -285,6 +285,7 @@
           </p>
           <div class="section-actions">
             <a class="button secondary" href="projects.html">Open full project library</a>
+            <a class="button secondary" href="admin.html#projects">Manage projects</a>
           </div>
         </div>
 
@@ -468,6 +469,9 @@
         <div class="section-heading">
           <p class="eyebrow" data-editable="skills-eyebrow">Capabilities</p>
           <h2 data-editable="skills-title">Skills matrix</h2>
+          <div class="section-actions">
+            <a class="button secondary" href="admin.html#skills">Manage skills</a>
+          </div>
         </div>
 
         <div class="skill-grid" data-dynamic-skills data-api-resource="skills">
@@ -525,6 +529,9 @@
           <p data-editable="education-lead">
             Formal training across sustainable energy systems, heat and power technology, optimisation, built-environment energy, storage and mechanical engineering.
           </p>
+          <div class="section-actions">
+            <a class="button secondary" href="admin.html#courses">Manage courses</a>
+          </div>
         </div>
 
         <div class="timeline">
@@ -566,6 +573,9 @@
         <div class="section-heading">
           <p class="eyebrow" data-editable="experience-eyebrow">Background</p>
           <h2 data-editable="experience-title">Experience</h2>
+          <div class="section-actions">
+            <a class="button secondary" href="admin.html#experience">Manage experience</a>
+          </div>
         </div>
 
         <div class="timeline">
@@ -627,27 +637,40 @@
           <p class="eyebrow" data-editable="cv-eyebrow">CV</p>
           <h2 data-editable="cv-title">Role-specific CV downloads</h2>
           <p data-editable="cv-lead">
-            Download the CV that matches the role. The files are named for the target track so recruiters can open the right version fast.
+            Download the CV that matches the role. Labels stay recruiter-friendly; file names are kept out of the page copy.
           </p>
         </div>
         <div class="cards three">
           <article class="card">
             <h3>Gas Turbine Heat Transfer &amp; CFD</h3>
-            <p>Abhijith_CV_SiemensEnergyIndia_TurbineHeatTransfer.pdf</p>
+            <p>For turbine heat transfer, compressible CFD, CHT and gas turbine hardware roles.</p>
+            <div class="project-links">
+              <span class="button secondary is-disabled" aria-disabled="true">Gas Turbine Heat Transfer &amp; CFD CV</span>
+            </div>
           </article>
           <article class="card">
             <h3>Test &amp; Instrumentation Engineer</h3>
-            <p>Abhijith_CV_SiemensEnergy_TestEngineer_Berlin.pdf</p>
+            <p>For measurement chains, NI-DAQ, LabVIEW, validation and test engineering roles.</p>
+            <div class="project-links">
+              <span class="button secondary is-disabled" aria-disabled="true">Test &amp; Instrumentation CV</span>
+            </div>
           </article>
           <article class="card">
             <h3>Energy Coordinator / Management</h3>
-            <p>Abhijith_CV_Hemso_EnergyCoordinator.pdf</p>
+            <p>For ISO 50001, KPI/EnPI, building energy and operational energy management roles.</p>
+            <div class="project-links">
+              <span class="button secondary is-disabled" aria-disabled="true">Energy Coordinator CV</span>
+            </div>
           </article>
           <article class="card">
             <h3>PhD Academic CV</h3>
-            <p>Abhijith_CV_KULeuven_PhD_TurbulentHX.pdf</p>
+            <p>For heat transfer, heat exchanger optimisation, heat pumps and academic research roles.</p>
+            <div class="project-links">
+              <span class="button secondary is-disabled" aria-disabled="true">PhD Academic CV</span>
+            </div>
           </article>
         </div>
+        <p class="page-note">Role-specific PDF files are not in the repository yet. Add them to <code>downloads/</code> to enable direct downloads.</p>
       </div>
     </section>
 

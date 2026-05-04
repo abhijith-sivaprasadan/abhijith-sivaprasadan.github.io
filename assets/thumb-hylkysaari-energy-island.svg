@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Hylkysaari smart energy island system model">
+  <rect width="960" height="540" fill="#0d1016"/>
+  <rect x="28" y="26" width="904" height="488" rx="18" fill="#141923" stroke="#343640"/>
+  <text x="56" y="62" fill="#c7f36f" font-family="ui-monospace,monospace" font-size="13" font-weight="700">HYLKYSAARI SMART ENERGY ISLAND</text>
+  <text x="56" y="82" fill="#b9b4aa" font-family="ui-monospace,monospace" font-size="10">IDA ICE - HOMER Pro - PV - heat pump - battery - near-zero-energy scenarios</text>
+  <rect x="56" y="116" width="390" height="302" rx="16" fill="#0f131b" stroke="#2f3542"/>
+  <path d="M92 338 C128 260 182 216 252 224 C326 232 366 286 410 338 Z" fill="#183023" stroke="#3f6f4b"/>
+  <path d="M128 340 C170 298 214 300 250 340" fill="none" stroke="#8ec8ff" stroke-width="4"/>
+  <rect x="188" y="252" width="74" height="54" rx="6" fill="#1d2027" stroke="#8ec8ff"/>
+  <path d="M202 252v54M216 252v54M230 252v54M244 252v54M188 270h74M188 288h74" stroke="#8ec8ff" opacity="0.45"/>
+  <rect x="286" y="238" width="70" height="68" rx="8" fill="#1d2027" stroke="#ffb86f"/>
+  <path d="M298 252h46M298 266h46M298 280h46" stroke="#ffb86f" opacity="0.55"/>
+  <circle cx="340" cy="180" r="34" fill="#ffd166" opacity="0.88"/>
+  <g stroke="#c7f36f" stroke-width="4" fill="none">
+    <path d="M356 270h78"/>
+    <path d="M262 280h24"/>
+    <path d="M224 252v-54h94"/>
+  </g>
+  <rect x="486" y="116" width="390" height="302" rx="16" fill="#0f131b" stroke="#2f3542"/>
+  <text x="514" y="150" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Scenario KPIs</text>
+  <g font-family="ui-monospace,monospace" font-size="11">
+    <text x="514" y="184" fill="#b9b4aa">Annual demand</text>
+    <rect x="652" y="172" width="142" height="14" rx="7" fill="#343640"/>
+    <rect x="652" y="172" width="92" height="14" rx="7" fill="#8ec8ff"/>
+    <text x="812" y="184" fill="#8ec8ff">BAU</text>
+    <text x="514" y="222" fill="#b9b4aa">Self-consumption</text>
+    <rect x="652" y="210" width="142" height="14" rx="7" fill="#343640"/>
+    <rect x="652" y="210" width="118" height="14" rx="7" fill="#c7f36f"/>
+    <text x="812" y="222" fill="#c7f36f">PV+TES</text>
+    <text x="514" y="260" fill="#b9b4aa">Autonomy</text>
+    <rect x="652" y="248" width="142" height="14" rx="7" fill="#343640"/>
+    <rect x="652" y="248" width="104" height="14" rx="7" fill="#ffd166"/>
+    <text x="812" y="260" fill="#ffd166">storage</text>
+  </g>
+  <rect x="514" y="294" width="322" height="86" rx="10" fill="#0d1016" stroke="#343640"/>
+  <polyline points="530,360 556,350 582,338 608,316 634,300 660,308 686,328 712,344 738,352 764,348 790,332 820,318" fill="none" stroke="#c7f36f" stroke-width="3"/>
+  <polyline points="530,358 556,356 582,354 608,350 634,342 660,330 686,310 712,294 738,296 764,316 790,342 820,356" fill="none" stroke="#8ec8ff" stroke-width="3"/>
+  <text x="56" y="468" fill="#b9b4aa" font-family="ui-monospace,monospace" font-size="11">Component thermal behaviour -> system KPIs -> techno-economic comparison</text>
+</svg>

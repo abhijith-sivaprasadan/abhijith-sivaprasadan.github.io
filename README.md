@@ -1,6 +1,6 @@
 # Abhijith Sivaprasadan Portfolio
 
-Static GitHub Pages portfolio for energy systems modelling, grid flexibility, BESS, PyPSA, CFD/CHT and energy analytics applications.
+Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
 ## Local editing
 
@@ -13,7 +13,8 @@ Open this folder in VS Code and edit:
 - `api/certifications.json` for the read-only certifications data endpoint
 - `backend/data/*.json` for REST API-backed editable data
 - `admin.html` for the backend record editor
-- `downloads/Abhijith_Sivaprasadan_Birdview_Grid_Flow_Modeller_CV.pdf` for the CV download
+- `downloads/` for role-specific CV PDFs. The homepage expects title-led CV cards for gas turbine CFD, test/instrumentation, energy coordination and PhD tracks.
+- `assets/thumb-*.svg` for project visuals and data-rich thumbnail figures
 
 ## Static API
 
@@ -117,7 +118,7 @@ Open the admin editor at:
 http://127.0.0.1:8000/admin.html
 ```
 
-Use Google sign-in or paste the same `ADMIN_API_TOKEN` value into the admin page to create, update and delete backend records.
+Use Google sign-in or paste the same `ADMIN_API_TOKEN` value into the admin page to create, update and delete backend records. Public "Manage" links use hashes such as `admin.html#projects` so the admin page opens the relevant collection after connecting.
 
 ## Admin login setup
 
