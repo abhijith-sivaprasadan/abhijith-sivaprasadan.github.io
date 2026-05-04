@@ -227,6 +227,12 @@ const updateEditorToolbar = () => {
 
 const loadPortfolioConfig = async () => {
   try {
+    await import(`${basePath}scripts/public-config.js`);
+  } catch {
+    // Optional committed public config. Static JSON remains the fallback.
+  }
+
+  try {
     await import(`${basePath}scripts/config.js`);
   } catch {
     // Optional local config. Missing config keeps the admin editor disabled.

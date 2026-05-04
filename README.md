@@ -103,6 +103,8 @@ Then set this in `scripts/config.js`:
 globalThis.PORTFOLIO_API_BASE_URL = "http://127.0.0.1:3000";
 ```
 
+The live GitHub Pages site reads its production API URL from `scripts/public-config.js`.
+
 Open the admin editor at:
 
 ```text
@@ -171,7 +173,7 @@ The repo includes `render.yaml`, so Render can create the backend from the repos
 https://abhijith-portfolio-api.onrender.com
 ```
 
-6. Put that URL in `scripts/config.js`:
+6. Put that URL in `scripts/public-config.js` for the public GitHub Pages site:
 
 ```js
 globalThis.PORTFOLIO_API_BASE_URL = "https://abhijith-portfolio-api.onrender.com";
