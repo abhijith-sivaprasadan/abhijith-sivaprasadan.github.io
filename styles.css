@@ -776,6 +776,30 @@ p {
   border-bottom: 0;
 }
 
+.page-summary-note {
+  margin-top: 18px;
+}
+
+.path-links {
+  display: grid;
+  gap: 8px;
+}
+
+.path-links li {
+  padding: 0;
+  border-bottom: 0;
+}
+
+.path-links a {
+  color: var(--scene-accent);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.path-links a:hover {
+  text-decoration: underline;
+}
+
 .section-heading {
   max-width: 850px;
   margin-bottom: 32px;
