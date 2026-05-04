@@ -22,7 +22,8 @@ const inferredPageKey = (() => {
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260504-data-v2";
+const assetVersion = "20260504-data-v3";
+const apiVersion = "20260504-api-v2";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
 let apiBaseUrl = window.PORTFOLIO_API_BASE_URL || "";
@@ -474,7 +475,7 @@ const renderCertification = (certification) => {
 
 const apiUrl = (resource, fallback) => {
   if (!apiBaseUrl || !resource) return fallback;
-  return `${apiBaseUrl.replace(/\/$/, "")}/api/${resource.replace(/^\//, "")}`;
+    return `${apiBaseUrl.replace(/\/$/, "")}/api/${resource.replace(/^\//, "")}?v=${apiVersion}`;
 };
 
 const fetchCollection = async (resource, fallback) => {
@@ -679,7 +680,7 @@ const initializeCertifications = async () => {
       certificationsList.dataset.apiResource,
       certificationsList.dataset.certificationsEndpoint
     );
-    const response = await fetch(endpoint, { cache: "no-cache" });
+    const response = await fetch(endpoint, { cache: "no-store" });
     if (!response.ok) throw new Error(`Certification API returned ${response.status}`);
 
     const data = await response.json();
