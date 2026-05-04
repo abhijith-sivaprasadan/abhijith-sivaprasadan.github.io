@@ -7,7 +7,8 @@
       "institution": "KTH Royal Institute of Technology",
       "status": "published",
       "featured": true,
-      "order": 1
+      "order": 1,
+      "grade": "A"
     },
     {
       "id": "applied-heat-and-power-technology",
@@ -43,7 +44,8 @@
       "institution": "KTH Royal Institute of Technology",
       "status": "published",
       "featured": false,
-      "order": 5
+      "order": 5,
+      "grade": "B"
     },
     {
       "id": "energy-systems-for-sustainable-development",
@@ -97,7 +99,8 @@
       "institution": "KTH Royal Institute of Technology",
       "status": "published",
       "featured": false,
-      "order": 11
+      "order": 11,
+      "grade": "A"
     },
     {
       "id": "practical-optimization-of-energy-networks",
@@ -115,7 +118,8 @@
       "institution": "KTH Royal Institute of Technology",
       "status": "published",
       "featured": false,
-      "order": 13
+      "order": 13,
+      "grade": "B"
     },
     {
       "id": "small-scale-polygeneration",
@@ -136,13 +140,23 @@
       "order": 15
     },
     {
+      "id": "degree-project-in-heat-and-power-technology",
+      "name": "Degree Project in Heat and Power Technology",
+      "code": "MJ232X",
+      "credits": "30 credits",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": true,
+      "order": 16
+    },
+    {
       "id": "advanced-energy-engineering",
       "name": "Advanced Energy Engineering",
       "code": "ME403",
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 16
+      "order": 17
     },
     {
       "id": "advanced-manufacturing-technology",
@@ -151,7 +165,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 17
+      "order": 18
     },
     {
       "id": "advanced-mechanics-of-solids",
@@ -160,7 +174,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 18
+      "order": 19
     },
     {
       "id": "automobile-engineering",
@@ -169,7 +183,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 19
+      "order": 20
     },
     {
       "id": "calculus",
@@ -178,7 +192,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 20
+      "order": 21
     },
     {
       "id": "compressible-fluid-flow",
@@ -187,7 +201,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 21
+      "order": 22
     },
     {
       "id": "computer-aided-design-analysis",
@@ -196,7 +210,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 22
+      "order": 23
     },
     {
       "id": "design-of-machine-elements-i",
@@ -205,7 +219,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 23
+      "order": 24
     },
     {
       "id": "design-of-machine-elements-ii",
@@ -214,7 +228,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 24
+      "order": 25
     },
     {
       "id": "differential-equations",
@@ -223,7 +237,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 25
+      "order": 26
     },
     {
       "id": "dynamics-of-machinery",
@@ -232,7 +246,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 26
+      "order": 27
     },
     {
       "id": "electrical-drives-control-for-automation",
@@ -241,7 +255,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 27
+      "order": 28
     },
     {
       "id": "engineering-graphics",
@@ -250,7 +264,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 28
+      "order": 29
     },
     {
       "id": "engineering-mechanics",
@@ -259,7 +273,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 29
+      "order": 30
     },
     {
       "id": "environmental-impact-assessment",
@@ -268,7 +282,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 30
+      "order": 31
     },
     {
       "id": "fluid-machinery",
@@ -277,7 +291,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 31
+      "order": 32
     },
     {
       "id": "heat-mass-transfer",
@@ -286,7 +300,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 32
+      "order": 33
     },
     {
       "id": "industrial-engineering",
@@ -295,7 +309,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 33
+      "order": 34
     },
     {
       "id": "introduction-to-mechanical-engineering",
@@ -304,7 +318,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 34
+      "order": 35
     },
     {
       "id": "introduction-to-sustainable-engineering",
@@ -313,7 +327,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 35
+      "order": 36
     },
     {
       "id": "linear-algebra-complex-analysis",
@@ -322,7 +336,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 36
+      "order": 37
     },
     {
       "id": "machine-tools-digital-manufacturing",
@@ -331,7 +345,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 37
+      "order": 38
     },
     {
       "id": "maintenance-engineering",
@@ -340,7 +354,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 38
+      "order": 39
     },
     {
       "id": "manufacturing-technology",
@@ -349,7 +363,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 39
+      "order": 40
     },
     {
       "id": "material-handling-facilities-planning",
@@ -358,7 +372,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 40
+      "order": 41
     },
     {
       "id": "mechanics-of-fluids",
@@ -367,7 +381,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 41
+      "order": 42
     },
     {
       "id": "mechanics-of-machinery",
@@ -376,7 +390,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 42
+      "order": 43
     },
     {
       "id": "mechanics-of-solids",
@@ -385,7 +399,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 43
+      "order": 44
     },
     {
       "id": "mechatronics",
@@ -394,7 +408,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 44
+      "order": 45
     },
     {
       "id": "metallurgy-materials-engineering",
@@ -403,7 +417,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 45
+      "order": 46
     },
     {
       "id": "metrology-instrumentation",
@@ -412,7 +426,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 46
+      "order": 47
     },
     {
       "id": "probability-distributions-transforms-numerical-methods",
@@ -421,7 +435,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 47
+      "order": 48
     },
     {
       "id": "refrigeration-air-conditioning",
@@ -430,7 +444,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 48
+      "order": 49
     },
     {
       "id": "thermal-engineering",
@@ -439,7 +453,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 49
+      "order": 50
     },
     {
       "id": "thermodynamics",
@@ -448,7 +462,7 @@
       "institution": "APJ Abdul Kalam Technological University",
       "status": "published",
       "featured": false,
-      "order": 50
+      "order": 51
     }
   ]
 }

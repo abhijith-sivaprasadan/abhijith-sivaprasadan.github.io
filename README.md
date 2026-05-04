@@ -118,7 +118,7 @@ Open the admin editor at:
 http://127.0.0.1:8000/admin.html
 ```
 
-Use Google sign-in or paste the same `ADMIN_API_TOKEN` value into the admin page to create, update and delete backend records. Public "Manage" links use hashes such as `admin.html#projects` so the admin page opens the relevant collection after connecting.
+Use Google sign-in or paste the same `ADMIN_API_TOKEN` value into the admin page to create, update and delete backend records. The admin editor supports hashes such as `admin.html#projects` so you can open a specific collection directly.
 
 ## Admin login setup
 

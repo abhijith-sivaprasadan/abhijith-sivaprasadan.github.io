@@ -20,7 +20,7 @@
   </g>
   <polyline points="122,316 164,296 206,276 248,270 290,286 332,304 374,292 416,270 458,262 520,248" fill="none" stroke="#f4f1ea" stroke-width="3"/>
   <rect x="616" y="120" width="288" height="304" rx="16" fill="#0f131b" stroke="#2f3542"/>
-  <text x="642" y="154" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Decision frame</text>
+  <text x="642" y="154" fill="#f4f1ea" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700">Decision frame</text>
   <g font-family="ui-monospace,monospace" font-size="12" fill="#b9b4aa">
     <text x="642" y="190">CAPEX / OPEX / LCOE</text>
     <text x="642" y="226">hourly demand + irradiance</text>

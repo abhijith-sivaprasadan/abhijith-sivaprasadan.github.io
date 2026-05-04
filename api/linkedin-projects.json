@@ -288,19 +288,18 @@
     },
     {
       "id": "hylkysaari-smart-energy-island-modelling",
-      "title": "Hylkysaari Smart Energy Island Modelling",
+      "title": "Hylkisaari Smart Energy Island Modelling",
       "category": "Energy Systems",
       "status": "published",
       "featured": true,
       "order": 4,
       "associatedWith": "KTH Royal Institute of Technology",
-      "summary": "Building energy demand modelling, PV generation, battery storage and heat pump scenario analysis for a near-zero energy island concept using IDA ICE and HOMER Pro.",
+      "summary": "Building energy demand modelling, PV generation, battery storage, and heat pump scenario analysis for a near-zero energy island concept.",
       "tools": [
         "IDA ICE",
         "HOMER Pro",
         "Heat Pumps",
-        "Building Energy",
-        "KPI"
+        "Building Energy"
       ],
       "skills": [
         "Autonomy",
@@ -309,24 +308,25 @@
       ],
       "image": "assets/thumb-hylkysaari-energy-island.svg",
       "highlights": [
-        "Coupled component-level thermal behaviour to system-level KPIs.",
-        "Evaluated autonomy, self-consumption and techno-economics across BAU and renewable-plus-storage scenarios."
-      ]
+        "Modelled building heat demand, PV generation, and battery storage using IDA ICE and HOMER Pro across BAU and renewable-plus-storage scenarios.",
+        "Built KPI framework covering energy autonomy, self-consumption, and techno-economic performance across configurations."
+      ],
+      "repoUrl": ""
     },
     {
       "id": "residential-heating-techno-economic-comparison",
-      "title": "Residential Heating Techno-Economic Comparison",
+      "title": "Residential Heating Systems Techno-Economic Comparison",
       "category": "Energy Systems",
       "status": "published",
       "featured": true,
       "order": 5,
       "associatedWith": "KTH Royal Institute of Technology",
-      "summary": "Compared district heating, PV with heat pump, PV with electric boiler and solar thermal with TES configurations using hourly demand and irradiance data.",
+      "summary": "Comparison of district heating, PV with heat pump, PV with electric boiler, and solar thermal with TES using hourly demand and irradiance data.",
       "tools": [
         "IDA ICE",
         "SAM",
         "Heat Pumps",
-        "Techno-Economic Analysis"
+        "Techno-Economic"
       ],
       "skills": [
         "CAPEX",
@@ -336,23 +336,25 @@
       ],
       "image": "assets/thumb-residential-heating-technoeconomics.svg",
       "highlights": [
-        "Built CAPEX, OPEX, LCOE and payback KPIs with sensitivity analysis using IDA ICE and SAM."
-      ]
+        "Built CAPEX/OPEX/LCOE/payback KPIs with sensitivity analysis using IDA ICE and SAM.",
+        "Evaluated optimal configuration for summer hot water production and heat pump integration at building scale."
+      ],
+      "repoUrl": ""
     },
     {
       "id": "thermal-energy-storage-peak-shaving",
-      "title": "Thermal Energy Storage Peak Shaving",
+      "title": "Thermal Energy Storage for District Cooling Peak Shaving",
       "category": "Thermal Systems",
       "status": "published",
       "featured": true,
       "order": 6,
       "associatedWith": "Portfolio project",
-      "summary": "Simulated TES control logic to cap peak cooling demand and compared ice storage versus phase-change materials on efficiency, cost and volume trade-offs.",
+      "summary": "TES control logic simulation to cap peak cooling demand with comparison of ice storage vs phase-change material options.",
       "tools": [
         "Python",
         "TES",
         "Phase Change Materials",
-        "District Cooling"
+        "Thermal Analysis"
       ],
       "skills": [
         "Control logic",
@@ -361,18 +363,19 @@
       ],
       "image": "assets/thumb-tes-peak-shaving.svg",
       "highlights": [
-        "Sized storage and compared ice storage versus phase-change material options across efficiency, cost and volume constraints."
+        "Simulated TES control to cap peak demand and sized storage for a district cooling scenario.",
+        "Compared ice vs PCM options on efficiency, cost, and volume trade-offs using Python."
       ]
     },
     {
       "id": "germany-energy-transition-analysis-leap",
-      "title": "Germany Energy Transition Analysis (LEAP)",
+      "title": "Germany Energy-Environment-Economy Transition Analysis",
       "category": "Energy Systems",
       "status": "published",
       "featured": true,
       "order": 7,
       "associatedWith": "KTH Royal Institute of Technology",
-      "summary": "Structured analysis of Germany's energy transition pathways using LEAP modelling tool, with electricity cost and carbon implications across technology scenarios.",
+      "summary": "Structured analysis of Germany's energy transition pathways using LEAP modelling tool, evaluating electricity cost and carbon implications across technology scenarios.",
       "tools": [
         "LEAP",
         "Energy Policy",
@@ -386,7 +389,8 @@
       ],
       "image": "assets/thumb-germany-leap-transition.svg",
       "highlights": [
-        "Evaluated electricity cost and carbon implications across technology scenarios relevant to EPBD and energy policy context."
+        "Modelled energy transition scenarios using LEAP with focus on cost and carbon trade-offs.",
+        "Evaluated technology mix, policy implications, and pathway sensitivities relevant to EPBD and EKL regulatory context."
       ]
     },
     {

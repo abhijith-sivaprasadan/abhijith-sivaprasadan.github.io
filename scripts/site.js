@@ -27,8 +27,8 @@ const inferredPageKey = (() => {
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260504-data-v6";
-const apiVersion = "20260504-api-v3";
+const assetVersion = "20260504-data-v7";
+const apiVersion = "20260504-api-v4";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
 let apiBaseUrl = window.PORTFOLIO_API_BASE_URL || "https://abhijith-portfolio-api.onrender.com";
@@ -694,6 +694,18 @@ const projectMatches = (project) => {
   return filterMatch && searchMatch;
 };
 
+const projectTone = (project) => {
+  const text = `${project.category || ""} ${(project.tools || []).join(" ")} ${(project.title || "")}`.toLowerCase();
+  if (/cfd|cht|thermal|heat|turbine|tes|vibration|instrument|daq|labview/.test(text)) return "thermal";
+  if (/grid|bess|energy|hydrogen|district|leap|homer|ida|iso|heating/.test(text)) return "energy";
+  return "analytics";
+};
+
+const renderLinkedTitle = (project) => {
+  const title = escapeHtml(project.title || "Untitled project");
+  return project.caseStudyUrl ? `<a class="title-link" href="${escapeHtml(project.caseStudyUrl)}">${title}</a>` : title;
+};
+
 const renderProjectCard = (project) => {
   const tags = itemTags(project);
   const imageSrc = projectImageSrc(project);
@@ -702,13 +714,14 @@ const renderProjectCard = (project) => {
     project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}">Case study</a>` : "",
     project.repoUrl ? `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noreferrer">GitHub</a>` : "",
   ].filter(Boolean);
+  const tone = projectTone(project);
 
   return `
-    <article class="project-card ${project.featured ? "featured" : ""}">
+    <article class="project-card tone-${tone} ${project.featured ? "featured" : ""}">
       <img class="project-thumb" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(project.title)} visual" loading="lazy" width="960" height="540" />
       <div class="tag-row">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
       <p class="project-category">${escapeHtml(project.category || "Project")}</p>
-      <h3>${escapeHtml(project.title)}</h3>
+      <h3>${renderLinkedTitle(project)}</h3>
       <p>${escapeHtml(project.summary || "")}</p>
       ${
         highlights.length
@@ -727,13 +740,14 @@ const renderProjectBrowserItem = (project, index) => {
     project.repoUrl ? `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noreferrer">GitHub</a>` : "",
   ].filter(Boolean);
   const imageSrc = projectImageSrc(project);
+  const tone = projectTone(project);
 
   return `
-    <details class="project-browser-item ${project.featured ? "is-featured" : ""}" ${index === 0 ? "open" : ""} data-project-id="${escapeHtml(project.id)}">
+    <details class="project-browser-item tone-${tone} ${project.featured ? "is-featured" : ""}" ${index === 0 ? "open" : ""} data-project-id="${escapeHtml(project.id)}">
       <summary class="project-browser-summary">
         <div class="project-browser-summary-text">
           <span class="project-browser-kicker">${escapeHtml(project.category || "Project")}</span>
-          <h3>${escapeHtml(project.title)}</h3>
+          <h3>${renderLinkedTitle(project)}</h3>
           <p>${escapeHtml(project.summary || "")}</p>
         </div>
         <div class="project-browser-meta">
@@ -802,10 +816,12 @@ const initializeProjects = async () => {
 const renderExperienceItem = (item) => {
   const tags = item.tools || item.skills || [];
   const links = item.detailUrl ? `<div class="project-links"><a href="${escapeHtml(item.detailUrl)}">Experience details</a></div>` : "";
+  const title = `${escapeHtml(item.role)} - ${escapeHtml(item.company)}`;
+  const titleMarkup = item.detailUrl ? `<a class="title-link" href="${escapeHtml(item.detailUrl)}">${title}</a>` : title;
   return `
     <article class="timeline-item ${item.featured ? "timeline-feature" : ""}">
       <div>
-        <h2>${escapeHtml(item.role)} - ${escapeHtml(item.company)}</h2>
+        <h2>${titleMarkup}</h2>
         <p class="meta">${escapeHtml([item.type, item.period, item.location].filter(Boolean).join(" - "))}</p>
       </div>
       <p>${escapeHtml(item.summary || "")}</p>
@@ -828,6 +844,84 @@ const initializeExperience = async () => {
       block.innerHTML = `<article class="timeline-item"><h2>Experience unavailable</h2><p>Experience data could not be loaded from the API.</p></article>`;
     });
   }
+};
+
+const initializeCvLinks = () => {
+  const links = document.querySelectorAll("[data-cv-link]");
+  if (!links.length || location.protocol === "file:") return;
+
+  links.forEach(async (link) => {
+    const fallbackHref = link.dataset.fallbackHref;
+    if (!fallbackHref) return;
+
+    try {
+      const response = await fetch(link.href, { method: "HEAD", cache: "no-store" });
+      if (response.ok) return;
+    } catch {
+      // Fall through to mail fallback.
+    }
+
+    link.href = fallbackHref;
+    link.removeAttribute("download");
+    link.textContent = link.dataset.fallbackLabel || "Request via email";
+    link.classList.add("is-fallback");
+  });
+};
+
+const initializeNavToggle = () => {
+  if (!navLinks) return;
+  const nav = navLinks.closest(".nav");
+  if (!nav || nav.querySelector(".nav-toggle")) return;
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "nav-toggle";
+  button.setAttribute("aria-expanded", "false");
+  button.setAttribute("aria-label", "Toggle navigation");
+  button.innerHTML = "<span></span><span></span><span></span>";
+  nav.insertBefore(button, navLinks);
+
+  button.addEventListener("click", () => {
+    const open = !document.body.classList.contains("nav-open");
+    document.body.classList.toggle("nav-open", open);
+    button.setAttribute("aria-expanded", String(open));
+  });
+
+  navLinks.addEventListener("click", () => {
+    document.body.classList.remove("nav-open");
+    button.setAttribute("aria-expanded", "false");
+  });
+};
+
+const initializeFooter = () => {
+  const footerContainer = document.querySelector(".footer .container");
+  if (!footerContainer || footerContainer.dataset.enhanced === "true") return;
+  footerContainer.dataset.enhanced = "true";
+  footerContainer.innerHTML = `
+    <div class="footer-grid">
+      <div>
+        <h2>Abhijith Sivaprasadan</h2>
+        <p>Thermal-fluid, gas turbine CFD, instrumentation and energy systems engineering.</p>
+        <p><a href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a></p>
+        <p><a href="tel:+46769692014">Sweden: +46 76 969 2014</a></p>
+        <p><a href="tel:+918129750386">India: +91 8129750386</a></p>
+      </div>
+      <nav aria-label="Footer quick links">
+        <h3>Quick links</h3>
+        <a href="${basePath}projects.html">Projects</a>
+        <a href="${basePath}experience.html">Experience</a>
+        <a href="${basePath}about.html">About</a>
+        <a href="${basePath}index.html#cv">CV</a>
+      </nav>
+      <div>
+        <h3>Social</h3>
+        <div class="social-buttons">
+          <a href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noreferrer" aria-label="GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/in/abhijith-sivaprasadan/" target="_blank" rel="noreferrer" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Abhijith Sivaprasadan. Built with GitHub Pages.</div>`;
 };
 
 const renderSkills = (items, compact = false) =>
@@ -865,7 +959,7 @@ const initializeCourses = async () => {
         .slice(0, limit)
         .map(
           (course) =>
-            `<article class="compact-item"><h3>${escapeHtml(course.title)}</h3><p>${escapeHtml([course.code, course.associatedWith].filter(Boolean).join(" - "))}</p></article>`
+            `<article class="compact-item"><h3>${escapeHtml(course.name || course.title || "Course")}</h3><p>${escapeHtml([course.code, course.grade ? `Grade ${course.grade}` : "", course.credits, course.institution || course.associatedWith].filter(Boolean).join(" - "))}</p></article>`
         )
         .join("");
     });
@@ -965,7 +1059,7 @@ const updateScenes = () => {
 };
 
 const revealTargets = document.querySelectorAll(
-  ".section-heading, .card, .project-card, .skill-block, .timeline-item, .case-panel, .case-visual, .showcase-panel, .profile-meter, .page-orbit, .hero-stats, .button-row, .newsletter-cta-stack, .contact-links, .hero-slab, .tag-row"
+  ".section-heading, .card, .project-card, .skill-block, .timeline-item, .case-panel, .case-visual, .showcase-panel, .profile-meter, .page-orbit, .hero-stats, .button-row, .newsletter-cta-stack, .contact-links, .hero-slab, .tag-row, .thermal-visual, .role-signal, .tool-icon-card, .cv-card"
 );
 
 revealTargets.forEach((element, index) => {
@@ -1045,6 +1139,8 @@ window.addEventListener("resize", updateScrollState);
 updateProgress();
 updateScenes();
 injectNavLinks();
+initializeNavToggle();
+initializeFooter();
 if (localEditorEnabled) {
   applySavedState();
   injectEditor();
@@ -1060,6 +1156,7 @@ loadPortfolioConfig().then(() => {
   initializeIdeaSubmission();
   initializeCertifications();
   initializeNewsletter();
+  initializeCvLinks();
   if (localEditorEnabled) {
     initializeAdminAuth();
   }

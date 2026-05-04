@@ -13,7 +13,7 @@
   </g>
   <path d="M112 330 C166 300 206 354 260 324 C292 306 318 314 346 336" fill="none" stroke="#ff6a4a" stroke-width="4"/>
   <rect x="438" y="132" width="420" height="246" rx="18" fill="#0f131b" stroke="#343640"/>
-  <text x="470" y="168" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Prototype signal chain</text>
+  <text x="470" y="168" fill="#f4f1ea" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700">Prototype signal chain</text>
   <g fill="#1d2027" stroke="#343640">
     <rect x="476" y="212" width="92" height="58" rx="10"/>
     <rect x="608" y="212" width="92" height="58" rx="10"/>

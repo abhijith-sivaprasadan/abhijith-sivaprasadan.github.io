@@ -13,7 +13,7 @@
     <path d="M210 86 L250 212 H118"/>
   </g>
   <rect x="612" y="130" width="256" height="268" rx="16" fill="#0f131b" stroke="#343640"/>
-  <text x="638" y="164" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Engineering workflow</text>
+  <text x="638" y="164" fill="#f4f1ea" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700">Engineering workflow</text>
   <g font-family="ui-monospace,monospace" font-size="12" fill="#b9b4aa">
     <text x="638" y="202">requirements</text>
     <text x="638" y="238">concept design</text>
