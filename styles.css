@@ -1407,10 +1407,10 @@ p {
   height: 42px;
   display: inline-grid;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--scene-accent) 45%, var(--line));
+  border: 1px solid color-mix(in srgb, var(--mark-color, var(--scene-accent)) 45%, var(--line));
   border-radius: 12px;
-  color: var(--scene-accent);
-  background: color-mix(in srgb, var(--scene-accent) 10%, transparent);
+  color: var(--mark-color, var(--scene-accent));
+  background: color-mix(in srgb, var(--mark-color, var(--scene-accent)) 10%, transparent);
   font-size: 0.82rem;
   font-weight: 900;
   line-height: 1;
