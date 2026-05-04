@@ -2120,7 +2120,6 @@ code {
   padding-top: 80px;
   padding-bottom: 80px;
 }
-
 .hero {
   padding: 72px 0 56px;
 }
@@ -2239,7 +2238,6 @@ h3 {
   background: linear-gradient(180deg, var(--scene-accent), color-mix(in srgb, var(--scene-accent-2) 60%, #fff));
   opacity: 0.9;
 }
-
 .page-panel,
 .hero-slab,
 .entry-card,
@@ -2411,7 +2409,6 @@ h3 {
     linear-gradient(180deg, color-mix(in srgb, var(--scene-accent-2) 5%, #fff), #fff 70%),
     #fff;
 }
-
 .footer {
   border-top: 1px solid rgba(22, 24, 29, 0.08);
 }
