@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { Pool } from "pg";
 
 const DATA_DIR = path.resolve(process.env.DATA_DIR || path.join(process.cwd(), "data"));
 const DATABASE_URL = process.env.DATABASE_URL || "";
@@ -50,10 +51,13 @@ export const getStorageMode = () => (DATABASE_URL ? "postgres" : "json");
 const getPool = async () => {
   if (!DATABASE_URL) return null;
   if (pool) return pool;
-  const { Pool } = await import("pg");
   pool = new Pool({
     connectionString: DATABASE_URL,
     ssl: DATABASE_SSL ? { rejectUnauthorized: false } : false,
+    connectionTimeoutMillis: 10000,
+  });
+  pool.on("error", (error) => {
+    console.error("Postgres pool error", error);
   });
   return pool;
 };
