@@ -1,0 +1,402 @@
+{
+  "certifications": [
+    {
+      "id": "noise-vibration-harshness-nvh-testing",
+      "title": "Noise, Vibration & Harshness (NVH) Testing",
+      "issuer": "Coursera",
+      "issued": "Feb 2026",
+      "credentialId": "LVARXN8ASWI6",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/LVARXN8ASWI6"
+      }
+    },
+    {
+      "id": "damping-strategies-for-nvh",
+      "title": "Damping Strategies for NVH",
+      "issuer": "Coursera",
+      "issued": "Feb 2026",
+      "credentialId": "LYNIU91SBZKI",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/LYNIU91SBZKI"
+      }
+    },
+    {
+      "id": "engineering-and-product-design-processes",
+      "title": "Engineering and Product Design Processes",
+      "issuer": "Arizona State University",
+      "issued": "Sep 2025",
+      "credentialId": "7AEKFKC6B8YN",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/7AEKFKC6B8YN"
+      }
+    },
+    {
+      "id": "ssg-entre-siemens-energy-ab",
+      "title": "SSG Entre Siemens Energy AB",
+      "issuer": "SSG Standard Solutions Group",
+      "issued": "Jan 2025",
+      "expires": "Jan 2028",
+      "credentialId": "1838136",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.ssgsolutions.com/"
+      }
+    },
+    {
+      "id": "assessing-a-commercial-product-s-sustainability",
+      "title": "Assessing a Commercial Product's Sustainability",
+      "issuer": "Schneider Electric",
+      "issued": "Jun 2024",
+      "credentialId": "05679fd101c477d0fe46fe4321f834be",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.se.com/"
+      }
+    },
+    {
+      "id": "aws-machine-learning-foundations",
+      "title": "AWS Machine Learning Foundations",
+      "issuer": "Udacity",
+      "issued": "Oct 2021",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.udacity.com/"
+      }
+    },
+    {
+      "id": "ai-for-india",
+      "title": "AI for India",
+      "issuer": "HCL GUVI",
+      "issued": "May 2021",
+      "credentialId": "Q8p075Zv7V51692M15",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.guvi.in/"
+      }
+    },
+    {
+      "id": "python-for-data-science",
+      "title": "Python for Data Science",
+      "issuer": "IBM",
+      "issued": "Nov 2020",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.ibm.com/training/"
+      }
+    },
+    {
+      "id": "python-101-for-data-science",
+      "title": "Python 101 for Data Science",
+      "issuer": "IBM",
+      "issued": "Nov 2020",
+      "credentialId": "f8325d184c04416d99d1e0d5d955cf6a",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.ibm.com/training/"
+      }
+    },
+    {
+      "id": "3d-printing",
+      "title": "3D Printing",
+      "issuer": "Skyfi Labs",
+      "issued": "Mar 2019",
+      "credentialId": "50940008",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.skyfilabs.com/"
+      }
+    },
+    {
+      "id": "coding-fundamentals",
+      "title": "Coding Fundamentals",
+      "issuer": "Google",
+      "issued": "Nov 2020",
+      "link": {
+        "label": "Issuer",
+        "url": "https://grow.google/"
+      }
+    },
+    {
+      "id": "breaking-free-from-legacy-databases",
+      "title": "Breaking Free from Legacy Databases",
+      "issuer": "Amazon Web Services (AWS)",
+      "issued": "Nov 2020",
+      "link": {
+        "label": "Issuer",
+        "url": "https://aws.amazon.com/training/"
+      }
+    },
+    {
+      "id": "introduction-to-git-and-github",
+      "title": "Introduction to Git and GitHub",
+      "issuer": "Gymnasium",
+      "issued": "Nov 2020",
+      "credentialId": "25567635",
+      "link": {
+        "label": "Issuer",
+        "url": "https://thegymnasium.com/"
+      }
+    },
+    {
+      "id": "the-data-scientist-s-toolbox",
+      "title": "The Data Scientist's Toolbox",
+      "issuer": "Johns Hopkins University",
+      "issued": "Nov 2020",
+      "credentialId": "8KBGTU8YCTH4",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/8KBGTU8YCTH4"
+      }
+    },
+    {
+      "id": "the-art-of-music-production",
+      "title": "The Art of Music Production",
+      "issuer": "Berklee Online",
+      "issued": "Nov 2020",
+      "credentialId": "DK5R3VQ97FYR",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/DK5R3VQ97FYR"
+      }
+    },
+    {
+      "id": "introduction-to-enterprise-computing",
+      "title": "Introduction to Enterprise Computing",
+      "issuer": "IBM",
+      "issued": "Nov 2020",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.ibm.com/training/"
+      }
+    },
+    {
+      "id": "git-for-developers-using-github",
+      "title": "Git for Developers Using Github",
+      "issuer": "Coursera",
+      "issued": "Oct 2020",
+      "credentialId": "VEJSKGVCDDJA",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/VEJSKGVCDDJA"
+      }
+    },
+    {
+      "id": "introduction-to-enterprise-computing-2",
+      "title": "Introduction to Enterprise Computing",
+      "issuer": "IBM",
+      "issued": "Oct 2020",
+      "credentialId": "YPCKVMERZDE4",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/YPCKVMERZDE4"
+      }
+    },
+    {
+      "id": "roadmap-to-success-in-digital-manufacturing-design",
+      "title": "Roadmap to Success in Digital Manufacturing & Design",
+      "issuer": "The State University of New York",
+      "issued": "Oct 2020",
+      "credentialId": "6XG55U7YZZX8",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/6XG55U7YZZX8"
+      }
+    },
+    {
+      "id": "introduction-to-augmented-reality-and-arcore",
+      "title": "Introduction to Augmented Reality and ARCore",
+      "issuer": "Google",
+      "issued": "Oct 2020",
+      "credentialId": "2PRQL59F44UT",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/2PRQL59F44UT"
+      }
+    },
+    {
+      "id": "succeeding-in-web-development-full-stack-and-front-end",
+      "title": "Succeeding in Web Development: Full Stack and Front End",
+      "issuer": "LinkedIn",
+      "issued": "Oct 2020",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.linkedin.com/learning/"
+      }
+    },
+    {
+      "id": "working-and-collaborating-online",
+      "title": "Working and Collaborating Online",
+      "issuer": "LinkedIn",
+      "issued": "Oct 2020",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.linkedin.com/learning/"
+      }
+    },
+    {
+      "id": "working-with-computers-and-devices",
+      "title": "Working with Computers and Devices",
+      "issuer": "LinkedIn",
+      "issued": "Oct 2020",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.linkedin.com/learning/"
+      }
+    },
+    {
+      "id": "baseline-data-ml-ai",
+      "title": "Baseline: Data, ML, AI",
+      "issuer": "Google Cloud Training Online",
+      "issued": "Oct 2020",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.cloudskillsboost.google/"
+      }
+    },
+    {
+      "id": "google-cloud-essentials",
+      "title": "Google Cloud Essentials",
+      "issuer": "Google Cloud Training Online",
+      "issued": "Sep 2020",
+      "link": {
+        "label": "Issuer",
+        "url": "https://www.cloudskillsboost.google/"
+      }
+    },
+    {
+      "id": "digital-manufacturing-design-technology-specialization",
+      "title": "Digital Manufacturing & Design Technology Specialization",
+      "issuer": "University at Buffalo",
+      "issued": "Sep 2020",
+      "credentialId": "GJXV4XUMRY6Z",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/specialization/GJXV4XUMRY6Z"
+      }
+    },
+    {
+      "id": "mbse-model-based-systems-engineering",
+      "title": "MBSE: Model-Based Systems Engineering",
+      "issuer": "University at Buffalo",
+      "issued": "Sep 2020",
+      "credentialId": "NZX9GX7SBBNA",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/NZX9GX7SBBNA"
+      }
+    },
+    {
+      "id": "cyber-security-in-manufacturing",
+      "title": "Cyber Security in Manufacturing",
+      "issuer": "University at Buffalo",
+      "issued": "Sep 2020",
+      "credentialId": "MQHMDGX8V855",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/MQHMDGX8V855"
+      }
+    },
+    {
+      "id": "advanced-manufacturing-enterprise",
+      "title": "Advanced Manufacturing Enterprise",
+      "issuer": "University at Buffalo",
+      "issued": "Sep 2020",
+      "credentialId": "AU6JNLER6FXA",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/AU6JNLER6FXA"
+      }
+    },
+    {
+      "id": "intelligent-machining",
+      "title": "Intelligent Machining",
+      "issuer": "University at Buffalo",
+      "issued": "Aug 2020",
+      "credentialId": "T9QTHJPZ4XV9",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/T9QTHJPZ4XV9"
+      }
+    },
+    {
+      "id": "digital-thread-implementation",
+      "title": "Digital Thread: Implementation",
+      "issuer": "The State University of New York",
+      "issued": "Aug 2020",
+      "credentialId": "6Q74XNNVQVSW",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/6Q74XNNVQVSW"
+      }
+    },
+    {
+      "id": "advanced-manufacturing-process-analysis",
+      "title": "Advanced Manufacturing Process Analysis",
+      "issuer": "University at Buffalo",
+      "issued": "Aug 2020",
+      "credentialId": "LE2WNQS3WEST",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/LE2WNQS3WEST"
+      }
+    },
+    {
+      "id": "digital-thread-components",
+      "title": "Digital Thread: Components",
+      "issuer": "The State University of New York",
+      "issued": "Aug 2020",
+      "credentialId": "8NMWZMH4MZGU",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/8NMWZMH4MZGU"
+      }
+    },
+    {
+      "id": "digital-manufacturing-design",
+      "title": "Digital Manufacturing & Design",
+      "issuer": "University at Buffalo",
+      "issued": "Aug 2020",
+      "credentialId": "7YUG5GDX5VEL",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/7YUG5GDX5VEL"
+      }
+    },
+    {
+      "id": "introduction-to-artificial-intelligence-ai",
+      "title": "Introduction to Artificial Intelligence (AI)",
+      "issuer": "IBM",
+      "issued": "Aug 2020",
+      "credentialId": "MNMBQU9RAMKZ",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/MNMBQU9RAMKZ"
+      }
+    },
+    {
+      "id": "introduction-to-mechanical-engineering-design-and-manufacturing-with-fus",
+      "title": "Introduction to Mechanical Engineering Design and Manufacturing with Fusion 360",
+      "issuer": "Autodesk",
+      "issued": "Aug 2020",
+      "credentialId": "H8HD3ERZ66W2",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/H8HD3ERZ66W2"
+      }
+    },
+    {
+      "id": "aws-fundamentals-going-cloud-native",
+      "title": "AWS Fundamentals: Going Cloud-Native",
+      "issuer": "Amazon Web Services (AWS)",
+      "issued": "Aug 2020",
+      "credentialId": "BKRU4DKWYJ7Q",
+      "link": {
+        "label": "Credential",
+        "url": "https://www.coursera.org/account/accomplishments/verify/BKRU4DKWYJ7Q"
+      }
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Admin | Abhijith Sivaprasadan Portfolio</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="module" src="scripts/admin.js"></script>
+</head>
+<body data-page-key="admin">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="projects.html">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a href="about.html">About</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="page-shell">
+      <div class="container">
+        <div class="hero-slab">
+          <p class="eyebrow">Portfolio admin</p>
+          <h1>REST API content editor</h1>
+          <p class="hero-text">Edit API-backed profile data from one place. Public visitors only see the published JSON returned by the backend.</p>
+        </div>
+
+        <div class="admin-grid" data-admin-root>
+          <section class="page-panel">
+            <p class="eyebrow">Connection</p>
+            <label class="admin-field">
+              <span>API base URL</span>
+              <input type="url" data-api-base placeholder="http://127.0.0.1:3000" />
+            </label>
+            <label class="admin-field">
+              <span>Admin API token</span>
+              <input type="password" data-api-token autocomplete="current-password" placeholder="Bearer token from backend env" />
+            </label>
+            <div class="button-row">
+              <button type="button" class="button primary" data-connect-api>Connect</button>
+              <button type="button" class="button ghost" data-clear-token>Clear token</button>
+            </div>
+            <p class="admin-status" data-admin-status>Set the backend URL and token to begin.</p>
+          </section>
+
+          <section class="page-panel">
+            <p class="eyebrow">Collections</p>
+            <div class="admin-collection-list" data-collection-list></div>
+          </section>
+
+          <section class="page-panel admin-editor-panel">
+            <div class="collection-head">
+              <div>
+                <p class="eyebrow">Record editor</p>
+                <h2 data-editor-title>Select a collection</h2>
+              </div>
+              <button type="button" class="collection-action" data-new-record>New record</button>
+            </div>
+            <select class="admin-select" data-record-select aria-label="Select record"></select>
+            <textarea class="admin-json-editor" data-json-editor spellcheck="false" placeholder="Select or create a record to edit JSON."></textarea>
+            <div class="button-row">
+              <button type="button" class="button primary" data-save-record>Save</button>
+              <button type="button" class="button ghost" data-delete-record>Delete</button>
+              <button type="button" class="button ghost" data-refresh-records>Refresh</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

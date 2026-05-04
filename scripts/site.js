@@ -2,6 +2,9 @@ const progressBar = document.querySelector(".scroll-progress");
 const scenes = document.querySelectorAll(".scroll-scene");
 const navLinks = document.querySelector(".nav-links");
 const newsletterForm = document.querySelector("[data-newsletter-form]");
+const certificationsList = document.querySelector("[data-certifications-endpoint]");
+const isNestedPage = location.pathname.includes("/projects/") || location.pathname.includes("/experience/");
+const basePath = isNestedPage ? "../" : "";
 const inferredPageKey = (() => {
   const currentFile = location.pathname.split("/").pop() || "index.html";
   if (currentFile === "index.html") return "home";
@@ -9,9 +12,10 @@ const inferredPageKey = (() => {
 })();
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
 const storeKey = "abhijith-portfolio-edit-v1";
-const authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
-const newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
-const adminEmailHashes = new Set(
+let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
+let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
+let apiBaseUrl = window.PORTFOLIO_API_BASE_URL || "";
+let adminEmailHashes = new Set(
   window.PORTFOLIO_ADMIN_EMAIL_HASHES || [
     "82ff3995db9c955db8a17b3565c7b354a53bb6d0b6351e783e3ff8b2a5910b8f",
     "ad42bd9249794a48b4f0b94bff7e0c54a330fac37ee239db64441448a901cf2d",
@@ -36,9 +40,6 @@ const authState = {
   signOut: null,
   error: null,
 };
-
-const isNestedPage = location.pathname.includes("/projects/") || location.pathname.includes("/experience/");
-const basePath = isNestedPage ? "../" : "";
 
 const getStore = () => {
   try {
@@ -224,6 +225,19 @@ const updateEditorToolbar = () => {
   editButton.textContent = document.body.classList.contains("is-edit-mode") ? "Disable edit" : "Edit page";
 };
 
+const loadPortfolioConfig = async () => {
+  try {
+    await import(`${basePath}scripts/config.js`);
+  } catch {
+    // Optional local config. Missing config keeps the admin editor disabled.
+  }
+
+  authConfig = window.PORTFOLIO_AUTH_CONFIG || authConfig;
+  newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || newsletterAction;
+  apiBaseUrl = window.PORTFOLIO_API_BASE_URL || apiBaseUrl;
+  adminEmailHashes = new Set(window.PORTFOLIO_ADMIN_EMAIL_HASHES || Array.from(adminEmailHashes));
+};
+
 const initializeAdminAuth = async () => {
   if (!authConfig.apiKey || !authConfig.authDomain || !authConfig.projectId || !authConfig.appId) {
     updateEditorToolbar();
@@ -404,6 +418,70 @@ const initializeNewsletter = () => {
   });
 };
 
+const escapeHtml = (value = "") =>
+  value
+    .toString()
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
+const renderCertification = (certification) => {
+  const meta = [
+    certification.issuer,
+    certification.issued ? `Issued ${certification.issued}` : "",
+    certification.expires ? `Expires ${certification.expires}` : "",
+    certification.credentialId ? `ID ${certification.credentialId}` : "",
+  ].filter(Boolean);
+  const link = certification.link || {};
+
+  return `
+    <article class="certification-item">
+      <div>
+        <h3>${escapeHtml(certification.title)}</h3>
+        <p>${meta.map(escapeHtml).join(" &middot; ")}</p>
+      </div>
+      ${
+        link.url
+          ? `<a href="${escapeHtml(link.url)}" target="_blank" rel="noreferrer">${escapeHtml(link.label || "Credential")}</a>`
+          : ""
+      }
+    </article>`;
+};
+
+const apiUrl = (resource, fallback) => {
+  if (!apiBaseUrl || !resource) return fallback;
+  return `${apiBaseUrl.replace(/\/$/, "")}/api/${resource.replace(/^\//, "")}`;
+};
+
+const initializeCertifications = async () => {
+  if (!certificationsList) return;
+
+  try {
+    const endpoint = apiUrl(
+      certificationsList.dataset.apiResource,
+      certificationsList.dataset.certificationsEndpoint
+    );
+    const response = await fetch(endpoint, { cache: "no-cache" });
+    if (!response.ok) throw new Error(`Certification API returned ${response.status}`);
+
+    const data = await response.json();
+    const certifications = Array.isArray(data.certifications) ? data.certifications : [];
+    certificationsList.innerHTML = certifications.length
+      ? certifications.map(renderCertification).join("")
+      : `<article class="certification-item"><div><h3>No certifications found</h3><p>The certifications API returned an empty list.</p></div></article>`;
+  } catch (error) {
+    certificationsList.innerHTML = `
+      <article class="certification-item">
+        <div>
+          <h3>Certifications unavailable</h3>
+          <p>The certifications API could not be loaded in this browser session.</p>
+        </div>
+      </article>`;
+  }
+};
+
 const updateProgress = () => {
   if (!progressBar) return;
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -522,5 +600,8 @@ injectNavLinks();
 injectEditor();
 makeEditable(false);
 syncCollectionEditability();
-initializeNewsletter();
-initializeAdminAuth();
+loadPortfolioConfig().then(() => {
+  initializeCertifications();
+  initializeNewsletter();
+  initializeAdminAuth();
+});

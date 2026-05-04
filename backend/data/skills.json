@@ -1,0 +1,117 @@
+{
+  "skillGroups": [
+    {
+      "id": "energy-systems-and-sustainability",
+      "name": "Energy systems and sustainability",
+      "skills": [
+        "Renewable Energy",
+        "Sustainable Power Generation",
+        "Techno-economic Analysis",
+        "Energy Systems Analysis",
+        "Energy Modeling",
+        "Energy Optimization",
+        "Energy Management",
+        "Energy Efficiency",
+        "Energy Audits",
+        "ISO 50001",
+        "Energy Regulatory",
+        "Low Emissions Analysis Platform (LEAP)",
+        "HOMER Pro",
+        "IDA ICE 4.8",
+        "Thermal Energy Storage (TES)",
+        "Heat Pumps",
+        "Batteries",
+        "Circular Economy"
+      ]
+    },
+    {
+      "id": "thermal-cfd-and-testing",
+      "name": "Thermal, CFD and testing",
+      "skills": [
+        "Ansys Fluent",
+        "Numerical Simulation",
+        "CFD",
+        "Conjugate Heat Transfer",
+        "Gas Turbines",
+        "Pressure Sensors",
+        "LabVIEW",
+        "Test & Measurement Instrumentation",
+        "Test Rig Operation & Design",
+        "High-Temperature Measurement",
+        "Sensor Technology",
+        "Meshing",
+        "Combustion Analysis",
+        "Technical Documentation",
+        "Root Cause Analysis",
+        "ISO 31000"
+      ]
+    },
+    {
+      "id": "design-manufacturing-and-mechanical-engineering",
+      "name": "Design, manufacturing and mechanical engineering",
+      "skills": [
+        "Computer-Aided Design (CAD)",
+        "Siemens NX",
+        "SOLIDWORKS",
+        "COMSOL",
+        "Star-CCM+",
+        "ANSYS",
+        "Hyperworks",
+        "Finite Element Analysis (FEA)",
+        "Computer-Aided Engineering (CAE)",
+        "Technical Drawing",
+        "Mechanical Engineering",
+        "Automotive Engineering",
+        "Plant Maintenance",
+        "3D Printing",
+        "Ultimaker Cura"
+      ]
+    },
+    {
+      "id": "data-ai-and-software",
+      "name": "Data, AI and software",
+      "skills": [
+        "Python (Programming Language)",
+        "Pandas",
+        "TensorFlow",
+        "PyTorch",
+        "Artificial Neural Networks",
+        "Deep Neural Networks (DNN)",
+        "Logistic Regression",
+        "NestJS",
+        "TypeScript",
+        "Node.js",
+        "JavaScript",
+        "PostgreSQL",
+        "Postman API",
+        "REST APIs",
+        "Git",
+        "Go (Programming Language)",
+        "Back-End Web Development",
+        "C",
+        "C++"
+      ]
+    },
+    {
+      "id": "research-operations-and-leadership",
+      "name": "Research, operations and leadership",
+      "skills": [
+        "Research",
+        "Research Skills",
+        "Literature Reviews",
+        "Cost-Benefit Analysis",
+        "Market Research",
+        "Project Planning",
+        "Team Leadership",
+        "Strategic Planning",
+        "Management",
+        "Emergency Management",
+        "Operations Management",
+        "Logistics",
+        "Supply Chain",
+        "Volunteering",
+        "Problem Solving"
+      ]
+    }
+  ]
+}

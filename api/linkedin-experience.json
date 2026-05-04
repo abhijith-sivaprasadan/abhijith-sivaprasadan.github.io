@@ -1,0 +1,91 @@
+{
+  "experience": [
+    {
+      "role": "Test Engineer - Master Thesis Student",
+      "company": "Siemens Energy",
+      "type": "Contract",
+      "period": "Apr 2025 - Nov 2025",
+      "location": "Finspang, Ostergotland County, Sweden",
+      "summary": "Worked in the Fluid Dynamic Lab on thermo-fluid analysis of a high-temperature gas turbine test rig, focusing on heat-loss and pressure-loss mechanisms in the heater-to-sensor flow path.",
+      "tools": ["ANSYS Fluent", "NI-DAQ", "LabVIEW", "Siemens NX", "Conjugate Heat Transfer", "CFD", "Technical Reporting"]
+    },
+    {
+      "role": "Energy Efficiency Intern",
+      "company": "Alleima",
+      "type": "Internship",
+      "period": "Dec 2024 - Jun 2025",
+      "location": "Sandviken, Gavleborg County, Sweden / Remote",
+      "summary": "Worked with the energy team on ISO 50001 and EU EED-aligned energy performance analysis for industrial operations, focusing on structured measurement, follow-up and improvement prioritisation.",
+      "tools": ["Python", "ISO 50001", "EU EED", "KPI/EnPI Design", "Energy Performance Mapping", "Industrial Energy Analysis", "Structured Reporting"]
+    },
+    {
+      "role": "Evening Shift Rider | Last Mile Delivery",
+      "company": "Velove",
+      "type": "Part-time",
+      "period": "Jan 2024 - Jan 2025",
+      "location": "Stockholm, Sweden",
+      "summary": "Worked evening delivery shifts across Stockholm hubs, operating cargo bikes for last-mile logistics while studying.",
+      "skills": ["Supply Chain", "Operations Management", "Logistics"]
+    },
+    {
+      "role": "Student Intern (Pyrolysis)",
+      "company": "KTH Royal Institute of Technology",
+      "type": "Part-time",
+      "period": "Feb 2024 - Jun 2024",
+      "location": "Stockholm, Sweden",
+      "summary": "Contributed to research on plastic pyrolysis, focusing on economics and technical feasibility of oil extraction from polymer waste.",
+      "skills": ["Literature Review", "Chemical Process Analysis", "Research Methodology", "Technical Writing"]
+    },
+    {
+      "role": "Wardrobe Manager | ETF Head | Guest and Safety",
+      "company": "Students' Nobel NightCap",
+      "type": "Part-time",
+      "period": "Sep 2023 - Dec 2023",
+      "location": "Stockholm, Sweden",
+      "summary": "Managed wardrobe operations, led the Entre team as ETF Head and contributed to guest and safety processes for a large student event.",
+      "skills": ["Management", "Volunteering", "Strategic Planning", "Emergency Management"]
+    },
+    {
+      "role": "Engineer | Backend Developer | TypeScript | NestJS",
+      "company": "QBurst",
+      "type": "Full-time",
+      "period": "Sep 2021 - Jun 2023",
+      "location": "Thiruvananthapuram, Kerala, India",
+      "summary": "Contributed to API development, testing and cross-functional delivery across backend services.",
+      "tools": ["TypeScript", "NestJS", "PostgreSQL", "Postman", "REST APIs", "Agile Development"]
+    },
+    {
+      "role": "Secretary | Minutes | Student Convention",
+      "company": "SAEINDIA Collegiate Club",
+      "type": "Part-time",
+      "period": "Oct 2020 - Jul 2021",
+      "location": "Kollam, Kerala, India",
+      "summary": "Managed meeting minutes, coordinated student convention logistics and supported club administration."
+    },
+    {
+      "role": "Project Team Lead | Captain",
+      "company": "SAEINDIA",
+      "type": "Part-time",
+      "period": "Jul 2019 - Dec 2020",
+      "location": "Kerala, India",
+      "summary": "Led Team TRAMS in the SAE India Bicycle Design Competition 2020 through design, analysis, documentation and competition submission.",
+      "skills": ["Team Leadership", "HyperWorks", "CAE", "Engineering Design", "Project Management"]
+    },
+    {
+      "role": "Student Intern | Automotive Intern | Case Study",
+      "company": "Kerala Automobiles Limited",
+      "type": "Internship",
+      "period": "Jul 2019",
+      "location": "Thiruvananthapuram, Kerala, India",
+      "summary": "Completed an industrial internship covering automotive manufacturing processes and operational workflows."
+    },
+    {
+      "role": "Student Intern | Automation | Hydraulics & Pneumatics",
+      "company": "Bosch Rexroth India Limited",
+      "type": "Internship",
+      "period": "Jun 2018",
+      "location": "Kerala, India",
+      "summary": "Industrial exposure to automation, hydraulics and pneumatics."
+    }
+  ]
+}
