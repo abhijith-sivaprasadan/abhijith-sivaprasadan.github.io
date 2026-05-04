@@ -16,7 +16,10 @@
         "Conjugate Heat Transfer",
         "CFD",
         "Technical Reporting"
-      ]
+      ],
+      "status": "published",
+      "featured": true,
+      "order": 1
     },
     {
       "id": "energy-efficiency-intern",
@@ -34,7 +37,10 @@
         "Energy Performance Mapping",
         "Industrial Energy Analysis",
         "Structured Reporting"
-      ]
+      ],
+      "status": "published",
+      "featured": true,
+      "order": 2
     },
     {
       "id": "evening-shift-rider-last-mile-delivery",
@@ -48,7 +54,10 @@
         "Supply Chain",
         "Operations Management",
         "Logistics"
-      ]
+      ],
+      "status": "published",
+      "featured": true,
+      "order": 3
     },
     {
       "id": "student-intern-pyrolysis",
@@ -63,7 +72,10 @@
         "Chemical Process Analysis",
         "Research Methodology",
         "Technical Writing"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 4
     },
     {
       "id": "wardrobe-manager-etf-head-guest-and-safety",
@@ -78,7 +90,10 @@
         "Volunteering",
         "Strategic Planning",
         "Emergency Management"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 5
     },
     {
       "id": "engineer-backend-developer-typescript-nestjs",
@@ -95,7 +110,10 @@
         "Postman",
         "REST APIs",
         "Agile Development"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 6
     },
     {
       "id": "secretary-minutes-student-convention",
@@ -104,7 +122,10 @@
       "type": "Part-time",
       "period": "Oct 2020 - Jul 2021",
       "location": "Kollam, Kerala, India",
-      "summary": "Managed meeting minutes, coordinated student convention logistics and supported club administration."
+      "summary": "Managed meeting minutes, coordinated student convention logistics and supported club administration.",
+      "status": "published",
+      "featured": false,
+      "order": 7
     },
     {
       "id": "project-team-lead-captain",
@@ -120,7 +141,10 @@
         "CAE",
         "Engineering Design",
         "Project Management"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 8
     },
     {
       "id": "student-intern-automotive-intern-case-study",
@@ -129,7 +153,10 @@
       "type": "Internship",
       "period": "Jul 2019",
       "location": "Thiruvananthapuram, Kerala, India",
-      "summary": "Completed an industrial internship covering automotive manufacturing processes and operational workflows."
+      "summary": "Completed an industrial internship covering automotive manufacturing processes and operational workflows.",
+      "status": "published",
+      "featured": false,
+      "order": 9
     },
     {
       "id": "student-intern-automation-hydraulics-pneumatics",
@@ -138,7 +165,10 @@
       "type": "Internship",
       "period": "Jun 2018",
       "location": "Kerala, India",
-      "summary": "Industrial exposure to automation, hydraulics and pneumatics."
+      "summary": "Industrial exposure to automation, hydraulics and pneumatics.",
+      "status": "published",
+      "featured": false,
+      "order": 10
     }
   ]
 }

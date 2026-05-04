@@ -1,54 +1,454 @@
 {
   "courses": [
-    { "name": "AI applications in Sustainable Energy Engineering", "code": "MJ2507", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Applied Heat and Power Technology", "code": "MJ2426", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Circular Economy for Energy Storage", "code": "AAE-E3121", "institution": "Aalto University" },
-    { "name": "Energy Management", "code": "MJ2511", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Energy Storage Technology", "code": "MJ2386", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Energy Systems for Sustainable Development", "code": "MJ2508", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Energy in the Built Environment", "code": "MJ2509", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Entrepreneurship for Engineers", "code": "ME2072", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Methods of Research in Sustainable Energy", "code": "MJ2510", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Modeling of Energy Systems - Heat and Power Generation", "code": "MJ2438", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Numerical Heat Transfer in Energy Technology", "code": "MJ2515", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Practical Optimization of Energy Networks", "code": "MJ2505", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Renewable Energy Technology", "code": "MJ2411", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Small Scale Polygeneration", "code": "MJ2503", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Sustainable Power Generation", "code": "MJ2405", "institution": "KTH Royal Institute of Technology" },
-    { "name": "Advanced Energy Engineering", "code": "ME403", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Advanced Manufacturing Technology", "code": "ME306", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Advanced Mechanics of Solids", "code": "ME202", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Automobile Engineering", "code": "ME463", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Calculus", "code": "MA101", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Compressible Fluid Flow", "code": "ME409", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Computer Aided Design & Analysis", "code": "ME308", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Design of Machine Elements I", "code": "ME401", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Design of Machine Elements II", "code": "ME402", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Differential Equations", "code": "MA102", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Dynamics of Machinery", "code": "ME304", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Electrical Drives & Control for Automation", "code": "EE311", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Engineering Graphics", "code": "BE110", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Engineering Mechanics", "code": "BE100", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Environmental Impact Assessment", "code": "CE482", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Fluid Machinery", "code": "ME206", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Heat & Mass Transfer", "code": "ME302", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Industrial Engineering", "code": "ME404", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Introduction to Mechanical Engineering", "code": "BE101-02", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Introduction to Sustainable Engineering", "code": "BE103", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Linear Algebra & Complex Analysis", "code": "MA201", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Machine Tools & Digital Manufacturing", "code": "ME303", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Maintenance Engineering", "code": "ME376", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Manufacturing Technology", "code": "ME220", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Material Handling & Facilities Planning", "code": "ME476", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Mechanics of Fluids", "code": "ME203", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Mechanics of Machinery", "code": "ME301", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Mechanics of Solids", "code": "ME201", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Mechatronics", "code": "ME407", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Metallurgy & Materials Engineering", "code": "ME210", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Metrology & Instrumentation", "code": "ME312", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Probability Distributions, Transforms & Numerical Methods", "code": "MA202", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Refrigeration & Air Conditioning", "code": "ME405", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Thermal Engineering", "code": "ME204", "institution": "APJ Abdul Kalam Technological University" },
-    { "name": "Thermodynamics", "code": "ME205", "institution": "APJ Abdul Kalam Technological University" }
+    {
+      "id": "ai-applications-in-sustainable-energy-engineering",
+      "name": "AI applications in Sustainable Energy Engineering",
+      "code": "MJ2507",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": true,
+      "order": 1
+    },
+    {
+      "id": "applied-heat-and-power-technology",
+      "name": "Applied Heat and Power Technology",
+      "code": "MJ2426",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": true,
+      "order": 2
+    },
+    {
+      "id": "circular-economy-for-energy-storage",
+      "name": "Circular Economy for Energy Storage",
+      "code": "AAE-E3121",
+      "institution": "Aalto University",
+      "status": "published",
+      "featured": true,
+      "order": 3
+    },
+    {
+      "id": "energy-management",
+      "name": "Energy Management",
+      "code": "MJ2511",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 4
+    },
+    {
+      "id": "energy-storage-technology",
+      "name": "Energy Storage Technology",
+      "code": "MJ2386",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 5
+    },
+    {
+      "id": "energy-systems-for-sustainable-development",
+      "name": "Energy Systems for Sustainable Development",
+      "code": "MJ2508",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 6
+    },
+    {
+      "id": "energy-in-the-built-environment",
+      "name": "Energy in the Built Environment",
+      "code": "MJ2509",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 7
+    },
+    {
+      "id": "entrepreneurship-for-engineers",
+      "name": "Entrepreneurship for Engineers",
+      "code": "ME2072",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 8
+    },
+    {
+      "id": "methods-of-research-in-sustainable-energy",
+      "name": "Methods of Research in Sustainable Energy",
+      "code": "MJ2510",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 9
+    },
+    {
+      "id": "modeling-of-energy-systems-heat-and-power-generation",
+      "name": "Modeling of Energy Systems - Heat and Power Generation",
+      "code": "MJ2438",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 10
+    },
+    {
+      "id": "numerical-heat-transfer-in-energy-technology",
+      "name": "Numerical Heat Transfer in Energy Technology",
+      "code": "MJ2515",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 11
+    },
+    {
+      "id": "practical-optimization-of-energy-networks",
+      "name": "Practical Optimization of Energy Networks",
+      "code": "MJ2505",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 12
+    },
+    {
+      "id": "renewable-energy-technology",
+      "name": "Renewable Energy Technology",
+      "code": "MJ2411",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 13
+    },
+    {
+      "id": "small-scale-polygeneration",
+      "name": "Small Scale Polygeneration",
+      "code": "MJ2503",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 14
+    },
+    {
+      "id": "sustainable-power-generation",
+      "name": "Sustainable Power Generation",
+      "code": "MJ2405",
+      "institution": "KTH Royal Institute of Technology",
+      "status": "published",
+      "featured": false,
+      "order": 15
+    },
+    {
+      "id": "advanced-energy-engineering",
+      "name": "Advanced Energy Engineering",
+      "code": "ME403",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 16
+    },
+    {
+      "id": "advanced-manufacturing-technology",
+      "name": "Advanced Manufacturing Technology",
+      "code": "ME306",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 17
+    },
+    {
+      "id": "advanced-mechanics-of-solids",
+      "name": "Advanced Mechanics of Solids",
+      "code": "ME202",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 18
+    },
+    {
+      "id": "automobile-engineering",
+      "name": "Automobile Engineering",
+      "code": "ME463",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 19
+    },
+    {
+      "id": "calculus",
+      "name": "Calculus",
+      "code": "MA101",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 20
+    },
+    {
+      "id": "compressible-fluid-flow",
+      "name": "Compressible Fluid Flow",
+      "code": "ME409",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 21
+    },
+    {
+      "id": "computer-aided-design-analysis",
+      "name": "Computer Aided Design & Analysis",
+      "code": "ME308",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 22
+    },
+    {
+      "id": "design-of-machine-elements-i",
+      "name": "Design of Machine Elements I",
+      "code": "ME401",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 23
+    },
+    {
+      "id": "design-of-machine-elements-ii",
+      "name": "Design of Machine Elements II",
+      "code": "ME402",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 24
+    },
+    {
+      "id": "differential-equations",
+      "name": "Differential Equations",
+      "code": "MA102",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 25
+    },
+    {
+      "id": "dynamics-of-machinery",
+      "name": "Dynamics of Machinery",
+      "code": "ME304",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 26
+    },
+    {
+      "id": "electrical-drives-control-for-automation",
+      "name": "Electrical Drives & Control for Automation",
+      "code": "EE311",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 27
+    },
+    {
+      "id": "engineering-graphics",
+      "name": "Engineering Graphics",
+      "code": "BE110",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 28
+    },
+    {
+      "id": "engineering-mechanics",
+      "name": "Engineering Mechanics",
+      "code": "BE100",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 29
+    },
+    {
+      "id": "environmental-impact-assessment",
+      "name": "Environmental Impact Assessment",
+      "code": "CE482",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 30
+    },
+    {
+      "id": "fluid-machinery",
+      "name": "Fluid Machinery",
+      "code": "ME206",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 31
+    },
+    {
+      "id": "heat-mass-transfer",
+      "name": "Heat & Mass Transfer",
+      "code": "ME302",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 32
+    },
+    {
+      "id": "industrial-engineering",
+      "name": "Industrial Engineering",
+      "code": "ME404",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 33
+    },
+    {
+      "id": "introduction-to-mechanical-engineering",
+      "name": "Introduction to Mechanical Engineering",
+      "code": "BE101-02",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 34
+    },
+    {
+      "id": "introduction-to-sustainable-engineering",
+      "name": "Introduction to Sustainable Engineering",
+      "code": "BE103",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 35
+    },
+    {
+      "id": "linear-algebra-complex-analysis",
+      "name": "Linear Algebra & Complex Analysis",
+      "code": "MA201",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 36
+    },
+    {
+      "id": "machine-tools-digital-manufacturing",
+      "name": "Machine Tools & Digital Manufacturing",
+      "code": "ME303",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 37
+    },
+    {
+      "id": "maintenance-engineering",
+      "name": "Maintenance Engineering",
+      "code": "ME376",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 38
+    },
+    {
+      "id": "manufacturing-technology",
+      "name": "Manufacturing Technology",
+      "code": "ME220",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 39
+    },
+    {
+      "id": "material-handling-facilities-planning",
+      "name": "Material Handling & Facilities Planning",
+      "code": "ME476",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 40
+    },
+    {
+      "id": "mechanics-of-fluids",
+      "name": "Mechanics of Fluids",
+      "code": "ME203",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 41
+    },
+    {
+      "id": "mechanics-of-machinery",
+      "name": "Mechanics of Machinery",
+      "code": "ME301",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 42
+    },
+    {
+      "id": "mechanics-of-solids",
+      "name": "Mechanics of Solids",
+      "code": "ME201",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 43
+    },
+    {
+      "id": "mechatronics",
+      "name": "Mechatronics",
+      "code": "ME407",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 44
+    },
+    {
+      "id": "metallurgy-materials-engineering",
+      "name": "Metallurgy & Materials Engineering",
+      "code": "ME210",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 45
+    },
+    {
+      "id": "metrology-instrumentation",
+      "name": "Metrology & Instrumentation",
+      "code": "ME312",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 46
+    },
+    {
+      "id": "probability-distributions-transforms-numerical-methods",
+      "name": "Probability Distributions, Transforms & Numerical Methods",
+      "code": "MA202",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 47
+    },
+    {
+      "id": "refrigeration-air-conditioning",
+      "name": "Refrigeration & Air Conditioning",
+      "code": "ME405",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 48
+    },
+    {
+      "id": "thermal-engineering",
+      "name": "Thermal Engineering",
+      "code": "ME204",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 49
+    },
+    {
+      "id": "thermodynamics",
+      "name": "Thermodynamics",
+      "code": "ME205",
+      "institution": "APJ Abdul Kalam Technological University",
+      "status": "published",
+      "featured": false,
+      "order": 50
+    }
   ]
 }

@@ -22,7 +22,10 @@
         "Heat Pumps",
         "Batteries",
         "Circular Economy"
-      ]
+      ],
+      "status": "published",
+      "featured": true,
+      "order": 1
     },
     {
       "id": "thermal-cfd-and-testing",
@@ -44,7 +47,10 @@
         "Technical Documentation",
         "Root Cause Analysis",
         "ISO 31000"
-      ]
+      ],
+      "status": "published",
+      "featured": true,
+      "order": 2
     },
     {
       "id": "design-manufacturing-and-mechanical-engineering",
@@ -65,7 +71,10 @@
         "Plant Maintenance",
         "3D Printing",
         "Ultimaker Cura"
-      ]
+      ],
+      "status": "published",
+      "featured": true,
+      "order": 3
     },
     {
       "id": "data-ai-and-software",
@@ -90,7 +99,10 @@
         "Back-End Web Development",
         "C",
         "C++"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 4
     },
     {
       "id": "research-operations-and-leadership",
@@ -111,7 +123,10 @@
         "Supply Chain",
         "Volunteering",
         "Problem Solving"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 5
     }
   ]
 }

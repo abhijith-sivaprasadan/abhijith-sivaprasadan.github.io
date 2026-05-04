@@ -3,6 +3,14 @@ const scenes = document.querySelectorAll(".scroll-scene");
 const navLinks = document.querySelector(".nav-links");
 const newsletterForm = document.querySelector("[data-newsletter-form]");
 const certificationsList = document.querySelector("[data-certifications-endpoint]");
+const dynamicProjects = document.querySelector("[data-dynamic-projects]");
+const featuredProjects = document.querySelector("[data-featured-projects]");
+const projectFilters = document.querySelector("[data-project-filters]");
+const projectSearch = document.querySelector("[data-project-search]");
+const projectCount = document.querySelector("[data-project-count]");
+const dynamicExperienceBlocks = document.querySelectorAll("[data-dynamic-experience]");
+const dynamicSkillBlocks = document.querySelectorAll("[data-dynamic-skills]");
+const dynamicCourseBlocks = document.querySelectorAll("[data-dynamic-courses]");
 const isNestedPage = location.pathname.includes("/projects/") || location.pathname.includes("/experience/");
 const basePath = isNestedPage ? "../" : "";
 const inferredPageKey = (() => {
@@ -22,6 +30,11 @@ let adminEmailHashes = new Set(
     "ad42bd9249794a48b4f0b94bff7e0c54a330fac37ee239db64441448a901cf2d",
   ]
 );
+const pageState = {
+  projects: [],
+  activeProjectFilter: "All",
+  projectSearch: "",
+};
 
 const hashEmail = async (email) => {
   const data = new TextEncoder().encode(email.toLowerCase());
@@ -462,6 +475,172 @@ const apiUrl = (resource, fallback) => {
   return `${apiBaseUrl.replace(/\/$/, "")}/api/${resource.replace(/^\//, "")}`;
 };
 
+const fetchCollection = async (resource, fallback) => {
+  const endpoint = apiUrl(resource, fallback || `${basePath}api/${resource}.json`);
+  const response = await fetch(endpoint, { cache: "no-cache" });
+  if (!response.ok) throw new Error(`${resource} API returned ${response.status}`);
+  return response.json();
+};
+
+const visibleItems = (items = []) =>
+  items
+    .filter((item) => item.status !== "draft")
+    .sort((a, b) => (Number(a.order) || 999) - (Number(b.order) || 999));
+
+const itemTags = (item) => [...(item.tools || []), ...(item.skills || [])].slice(0, 5);
+
+const projectMatches = (project) => {
+  const query = pageState.projectSearch.trim().toLowerCase();
+  const filter = pageState.activeProjectFilter;
+  const filterMatch = filter === "All" || project.category === filter;
+  const searchMatch = !query || JSON.stringify(project).toLowerCase().includes(query);
+  return filterMatch && searchMatch;
+};
+
+const renderProjectCard = (project) => {
+  const tags = itemTags(project);
+  const image = project.image || `${basePath}assets/thumb-energy-kpi.svg`;
+  const imageSrc = image.startsWith("http") || image.startsWith("../") ? image : `${basePath}${image}`;
+  const highlights = Array.isArray(project.highlights) ? project.highlights : [];
+  const links = [
+    project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}">Case study</a>` : "",
+    project.repoUrl ? `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noreferrer">GitHub</a>` : "",
+  ].filter(Boolean);
+
+  return `
+    <article class="project-card ${project.featured ? "featured" : ""}">
+      <img class="project-thumb" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(project.title)} visual" loading="lazy" width="960" height="540" />
+      <div class="tag-row">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
+      <p class="project-category">${escapeHtml(project.category || "Project")}</p>
+      <h3>${escapeHtml(project.title)}</h3>
+      <p>${escapeHtml(project.summary || "")}</p>
+      ${
+        highlights.length
+          ? `<ul class="evidence-list">${highlights.slice(0, 3).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
+          : ""
+      }
+      ${links.length ? `<div class="project-links">${links.join("")}</div>` : ""}
+    </article>`;
+};
+
+const renderProjectFilters = () => {
+  if (!projectFilters) return;
+  const categories = ["All", ...new Set(pageState.projects.map((project) => project.category).filter(Boolean))];
+  projectFilters.innerHTML = categories
+    .map(
+      (category) =>
+        `<button type="button" class="filter-chip ${category === pageState.activeProjectFilter ? "is-active" : ""}" data-project-filter="${escapeHtml(category)}">${escapeHtml(category)}</button>`
+    )
+    .join("");
+};
+
+const renderProjectList = () => {
+  if (!dynamicProjects) return;
+  const filtered = pageState.projects.filter(projectMatches);
+  dynamicProjects.innerHTML = filtered.length
+    ? filtered.map(renderProjectCard).join("")
+    : `<article class="project-card"><h3>No matching projects</h3><p>Try a different search or category filter.</p></article>`;
+  if (projectCount) {
+    projectCount.textContent = `${filtered.length} project${filtered.length === 1 ? "" : "s"} shown`;
+  }
+};
+
+const initializeProjects = async () => {
+  if (!dynamicProjects && !featuredProjects) return;
+  try {
+    const data = await fetchCollection("projects", `${basePath}api/linkedin-projects.json`);
+    const projects = visibleItems(Array.isArray(data.projects) ? data.projects : []);
+    pageState.projects = projects;
+
+    if (featuredProjects) {
+      const selected = projects.filter((project) => project.featured).slice(0, 6);
+      featuredProjects.innerHTML = (selected.length ? selected : projects.slice(0, 6)).map(renderProjectCard).join("");
+    }
+
+    renderProjectFilters();
+    renderProjectList();
+  } catch (error) {
+    if (projectCount) projectCount.textContent = "Project data could not be loaded from the API.";
+  }
+};
+
+const renderExperienceItem = (item) => {
+  const tags = item.tools || item.skills || [];
+  const links = item.detailUrl ? `<div class="project-links"><a href="${escapeHtml(item.detailUrl)}">Experience details</a></div>` : "";
+  return `
+    <article class="timeline-item ${item.featured ? "timeline-feature" : ""}">
+      <div>
+        <h2>${escapeHtml(item.role)} - ${escapeHtml(item.company)}</h2>
+        <p class="meta">${escapeHtml([item.type, item.period, item.location].filter(Boolean).join(" - "))}</p>
+      </div>
+      <p>${escapeHtml(item.summary || "")}</p>
+      ${tags.length ? `<div class="tag-row">${tags.slice(0, 6).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+      ${links}
+    </article>`;
+};
+
+const initializeExperience = async () => {
+  if (!dynamicExperienceBlocks.length) return;
+  try {
+    const data = await fetchCollection("experience", `${basePath}api/linkedin-experience.json`);
+    const items = visibleItems(Array.isArray(data.experience) ? data.experience : []);
+    dynamicExperienceBlocks.forEach((block) => {
+      const limit = Number(block.dataset.limit) || items.length;
+      block.innerHTML = items.slice(0, limit).map(renderExperienceItem).join("");
+    });
+  } catch {
+    dynamicExperienceBlocks.forEach((block) => {
+      block.innerHTML = `<article class="timeline-item"><h2>Experience unavailable</h2><p>Experience data could not be loaded from the API.</p></article>`;
+    });
+  }
+};
+
+const renderSkills = (items, compact = false) =>
+  items
+    .map((group) =>
+      compact
+        ? `<article class="compact-item"><h3>${escapeHtml(group.name)}</h3><p>${escapeHtml((group.skills || []).slice(0, 8).join(", "))}</p></article>`
+        : `<div class="skill-block"><h3>${escapeHtml(group.name)}</h3><p>${escapeHtml((group.skills || []).join(", "))}</p></div>`
+    )
+    .join("");
+
+const initializeSkills = async () => {
+  if (!dynamicSkillBlocks.length) return;
+  try {
+    const data = await fetchCollection("skills", `${basePath}api/skills.json`);
+    const items = visibleItems(Array.isArray(data.skillGroups) ? data.skillGroups : []);
+    dynamicSkillBlocks.forEach((block) => {
+      block.innerHTML = renderSkills(items, block.dataset.compact === "true");
+    });
+  } catch {
+    dynamicSkillBlocks.forEach((block) => {
+      block.innerHTML = `<article class="compact-item"><h3>Skills unavailable</h3><p>Skill data could not be loaded from the API.</p></article>`;
+    });
+  }
+};
+
+const initializeCourses = async () => {
+  if (!dynamicCourseBlocks.length) return;
+  try {
+    const data = await fetchCollection("courses", `${basePath}api/courses.json`);
+    const items = visibleItems(Array.isArray(data.courses) ? data.courses : []);
+    dynamicCourseBlocks.forEach((block) => {
+      const limit = Number(block.dataset.limit) || items.length;
+      block.innerHTML = items
+        .slice(0, limit)
+        .map(
+          (course) =>
+            `<article class="compact-item"><h3>${escapeHtml(course.title)}</h3><p>${escapeHtml([course.code, course.associatedWith].filter(Boolean).join(" - "))}</p></article>`
+        )
+        .join("");
+    });
+  } catch {
+    dynamicCourseBlocks.forEach((block) => {
+      block.innerHTML = `<article class="compact-item"><h3>Courses unavailable</h3><p>Course data could not be loaded from the API.</p></article>`;
+    });
+  }
+};
+
 const initializeCertifications = async () => {
   if (!certificationsList) return;
 
@@ -610,9 +789,26 @@ if (localEditorEnabled) {
   syncCollectionEditability();
 }
 loadPortfolioConfig().then(() => {
+  initializeProjects();
+  initializeExperience();
+  initializeSkills();
+  initializeCourses();
   initializeCertifications();
   initializeNewsletter();
   if (localEditorEnabled) {
     initializeAdminAuth();
   }
+});
+
+projectFilters?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-project-filter]");
+  if (!button) return;
+  pageState.activeProjectFilter = button.dataset.projectFilter;
+  renderProjectFilters();
+  renderProjectList();
+});
+
+projectSearch?.addEventListener("input", () => {
+  pageState.projectSearch = projectSearch.value;
+  renderProjectList();
 });

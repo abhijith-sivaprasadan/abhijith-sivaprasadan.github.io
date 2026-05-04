@@ -56,7 +56,15 @@
 
     <section class="section">
       <div class="container">
-        <div class="project-grid">
+        <div class="content-controls" data-project-controls>
+          <label class="content-search">
+            <span>Search projects</span>
+            <input type="search" data-project-search placeholder="Search tools, methods, outcomes..." />
+          </label>
+          <div class="filter-chip-row" data-project-filters aria-label="Project filters"></div>
+        </div>
+        <p class="content-count" data-project-count></p>
+        <div class="project-grid" data-dynamic-projects data-api-resource="projects">
           <article class="project-card featured">
             <img class="project-thumb" src="assets/thumb-pypsa-grid.svg" alt="Grid congestion dashboard concept for PyPSA, BESS and flexible connection analysis" loading="lazy" width="960" height="540" />
             <div class="tag-row"><span>PyPSA</span><span>BESS</span><span>Grid congestion</span><span>Streamlit</span></div>

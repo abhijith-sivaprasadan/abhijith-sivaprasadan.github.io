@@ -13,6 +13,7 @@ const recordSelect = document.querySelector("[data-record-select]");
 const recordSearch = document.querySelector("[data-record-search]");
 const recordList = document.querySelector("[data-record-list]");
 const recordForm = document.querySelector("[data-record-form]");
+const recordPreview = document.querySelector("[data-record-preview]");
 const jsonEditor = document.querySelector("[data-json-editor]");
 const newRecordButton = document.querySelector("[data-new-record]");
 const saveRecordButton = document.querySelector("[data-save-record]");
@@ -21,6 +22,7 @@ const refreshRecordsButton = document.querySelector("[data-refresh-records]");
 const formatJsonButton = document.querySelector("[data-format-json]");
 const duplicateRecordButton = document.querySelector("[data-duplicate-record]");
 const copyJsonButton = document.querySelector("[data-copy-json]");
+const moveRecordButtons = document.querySelectorAll("[data-move-record]");
 
 const storageKey = "portfolio-admin-api";
 
@@ -72,11 +74,11 @@ const filteredRecords = () => {
 };
 
 const schemaFields = {
-  certifications: ["title", "issuer", "issued", "expires", "credentialId", "link.label", "link.url"],
-  projects: ["title", "period", "associatedWith", "summary", "tools", "skills"],
-  experience: ["role", "company", "type", "period", "location", "summary", "tools", "skills"],
-  courses: ["title", "code", "associatedWith"],
-  skills: ["name", "skills"],
+  certifications: ["status", "featured", "order", "title", "issuer", "issued", "expires", "credentialId", "link.label", "link.url"],
+  projects: ["status", "featured", "order", "category", "title", "period", "associatedWith", "summary", "tools", "skills", "image", "caseStudyUrl", "repoUrl", "highlights"],
+  experience: ["status", "featured", "order", "role", "company", "type", "period", "location", "summary", "tools", "skills", "detailUrl"],
+  courses: ["status", "featured", "order", "title", "code", "associatedWith"],
+  skills: ["status", "featured", "order", "name", "skills"],
 };
 
 const getPath = (object, path) =>
@@ -100,6 +102,14 @@ const fieldLabels = {
   credentialId: "Credential ID",
   "link.label": "Link button text",
   "link.url": "Credential link",
+  status: "Visibility",
+  featured: "Featured",
+  order: "Display order",
+  category: "Category",
+  image: "Image path",
+  caseStudyUrl: "Case study link",
+  repoUrl: "GitHub link",
+  highlights: "Highlights, separated by commas",
   period: "Timeline",
   associatedWith: "Associated with",
   summary: "Description",
@@ -118,6 +128,8 @@ const fieldHints = {
   tools: "Example: Python, ANSYS Fluent, LabVIEW",
   skills: "Example: Energy systems analysis, CFD, Technical reporting",
   "link.url": "Paste the full URL starting with https://",
+  order: "Lower numbers appear first.",
+  highlights: "Write short proof points separated by commas.",
 };
 
 const fieldLabel = (field) => fieldLabels[field] || field.replaceAll(".", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
@@ -128,12 +140,55 @@ const parseFieldValue = (value) =>
     .map((entry) => entry.trim())
     .filter(Boolean);
 
+const parseTypedValue = (field, value, element) => {
+  if (field === "featured") return element.checked;
+  if (field === "order") return Number(value) || 999;
+  if (element.dataset.arrayField === "true") return parseFieldValue(value);
+  return value;
+};
+
 const syncJsonEditorToForm = () => {
   try {
-    renderRecordForm(JSON.parse(jsonEditor.value || "{}"));
+    const record = JSON.parse(jsonEditor.value || "{}");
+    renderRecordForm(record);
+    renderPreview(record);
   } catch {
     // Keep the raw editor usable while invalid JSON is being typed.
   }
+};
+
+const validatePayload = (payload) => {
+  const title = payload.title || payload.role || payload.name;
+  if (!title?.trim()) return "Title, role or group name is required.";
+  if (payload.link?.url && !/^https?:\/\//i.test(payload.link.url)) return "Credential link must start with http:// or https://.";
+  if (payload.caseStudyUrl && !/^(https?:\/\/|projects\/)/i.test(payload.caseStudyUrl)) return "Case study link must be a URL or projects/... path.";
+  if (payload.repoUrl && !/^https?:\/\//i.test(payload.repoUrl)) return "GitHub link must start with http:// or https://.";
+  return "";
+};
+
+const renderPreview = (record) => {
+  if (!recordPreview) return;
+  if (!record || !Object.keys(record).length) {
+    recordPreview.innerHTML = `<p class="admin-empty">Select or create an item to preview how it will look publicly.</p>`;
+    return;
+  }
+
+  const tags = [...(record.tools || []), ...(record.skills || [])].slice(0, 5);
+  const title = record.title || record.role || record.name || "Untitled item";
+  const subtitle = [record.company, record.issuer, record.associatedWith, record.period, record.code].filter(Boolean).join(" - ");
+
+  recordPreview.innerHTML = `
+    <article class="admin-preview-card">
+      <div class="tag-row">
+        <span>${escapeHtml(record.status || "published")}</span>
+        ${record.featured ? "<span>Featured</span>" : ""}
+        ${record.category ? `<span>${escapeHtml(record.category)}</span>` : ""}
+      </div>
+      <h3>${escapeHtml(title)}</h3>
+      ${subtitle ? `<p class="meta">${escapeHtml(subtitle)}</p>` : ""}
+      <p>${escapeHtml(record.summary || (record.skills || []).join(", ") || "")}</p>
+      ${tags.length ? `<div class="tag-row">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+    </article>`;
 };
 
 const requestJson = async (url, options = {}) => {
@@ -277,14 +332,27 @@ const renderRecordForm = (record) => {
   recordForm.innerHTML = fields
     .map((field) => {
       const value = getPath(record, field);
-      const isArray = Array.isArray(value) || ["tools", "skills"].includes(field);
+      const isArray = Array.isArray(value) || ["tools", "skills", "highlights"].includes(field);
       const isLong = field === "summary";
       const stringValue = Array.isArray(value) ? value.join(", ") : value || "";
-      const control = isLong
-        ? `<textarea data-form-field="${field}" rows="4">${escapeHtml(stringValue)}</textarea>`
-        : `<input type="text" data-form-field="${field}" value="${escapeHtml(stringValue)}" ${
-            isArray ? 'data-array-field="true"' : ""
-          } />`;
+      let control = "";
+      if (field === "status") {
+        control = `<select data-form-field="${field}"><option value="published" ${
+          value !== "draft" ? "selected" : ""
+        }>Published</option><option value="draft" ${value === "draft" ? "selected" : ""}>Draft</option></select>`;
+      } else if (field === "featured") {
+        control = `<label class="admin-check"><input type="checkbox" data-form-field="${field}" ${
+          value ? "checked" : ""
+        } /> Show as featured</label>`;
+      } else if (field === "order") {
+        control = `<input type="number" data-form-field="${field}" value="${escapeHtml(value || 999)}" min="1" step="1" />`;
+      } else {
+        control = isLong
+          ? `<textarea data-form-field="${field}" rows="4">${escapeHtml(stringValue)}</textarea>`
+          : `<input type="text" data-form-field="${field}" value="${escapeHtml(stringValue)}" ${
+              isArray ? 'data-array-field="true"' : ""
+            } />`;
+      }
 
       return `
         <label class="admin-field">
@@ -314,6 +382,7 @@ const renderRecords = () => {
   editorTitle.textContent = state.activeCollection ? `${state.activeCollection} records` : "Select a collection";
   renderRecordList();
   renderRecordForm(record);
+  renderPreview(record);
 };
 
 const loadCollections = async () => {
@@ -387,9 +456,10 @@ recordForm.addEventListener("input", (event) => {
 
   try {
     const record = JSON.parse(jsonEditor.value || "{}");
-    const value = field.dataset.arrayField === "true" ? parseFieldValue(field.value) : field.value;
+    const value = parseTypedValue(field.dataset.formField, field.type === "checkbox" ? field.checked : field.value, field);
     setPath(record, field.dataset.formField, value);
     jsonEditor.value = JSON.stringify(record, null, 2);
+    renderPreview(record);
   } catch (error) {
     setStatus(error instanceof Error ? error.message : "Could not update JSON from form.", true);
   }
@@ -399,14 +469,14 @@ newRecordButton.addEventListener("click", () => {
   state.activeId = "";
   recordSelect.value = "";
   const defaults = {
-    certifications: { title: "New certification", issuer: "", issued: "", credentialId: "", link: { label: "Credential", url: "" } },
-    projects: { title: "New project", period: "", associatedWith: "", summary: "", tools: [], skills: [] },
-    experience: { role: "New role", company: "", period: "", location: "", summary: "", tools: [], skills: [] },
-    courses: { title: "New course", code: "", associatedWith: "" },
-    skills: { name: "New skill group", skills: [] },
+    certifications: { status: "draft", featured: false, order: state.records.length + 1, title: "New certification", issuer: "", issued: "", credentialId: "", link: { label: "Credential", url: "" } },
+    projects: { status: "draft", featured: false, order: state.records.length + 1, category: "Energy Systems", title: "New project", period: "", associatedWith: "", summary: "", tools: [], skills: [], highlights: [] },
+    experience: { status: "draft", featured: false, order: state.records.length + 1, role: "New role", company: "", period: "", location: "", summary: "", tools: [], skills: [] },
+    courses: { status: "draft", featured: false, order: state.records.length + 1, title: "New course", code: "", associatedWith: "" },
+    skills: { status: "draft", featured: false, order: state.records.length + 1, name: "New skill group", skills: [] },
   };
   jsonEditor.value = JSON.stringify(defaults[state.activeCollection] || { title: "New record" }, null, 2);
-  renderRecordForm(JSON.parse(jsonEditor.value));
+  syncJsonEditorToForm();
   editorTitle.textContent = `New ${state.activeCollection || "record"}`;
 });
 
@@ -445,6 +515,23 @@ copyJsonButton.addEventListener("click", async () => {
 
 jsonEditor.addEventListener("input", syncJsonEditorToForm);
 
+moveRecordButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const record = activeRecord();
+    if (!record) {
+      setStatus("Select an item before changing order.", true);
+      return;
+    }
+
+    const direction = button.dataset.moveRecord === "up" ? -1 : 1;
+    const currentOrder = Number(record.order) || state.records.findIndex((item) => item.id === record.id) + 1;
+    record.order = Math.max(1, currentOrder + direction);
+    jsonEditor.value = JSON.stringify(record, null, 2);
+    syncJsonEditorToForm();
+    setStatus("Order changed. Publish changes to save it.");
+  });
+});
+
 saveRecordButton.addEventListener("click", async () => {
   if (!state.activeCollection) {
     setStatus("Select a collection before saving.", true);
@@ -453,6 +540,11 @@ saveRecordButton.addEventListener("click", async () => {
 
   try {
     const payload = JSON.parse(jsonEditor.value);
+    const validationError = validatePayload(payload);
+    if (validationError) {
+      setStatus(validationError, true);
+      return;
+    }
     const existingId = payload.id && state.records.some((record) => record.id === payload.id) ? payload.id : "";
     const method = existingId ? "PUT" : "POST";
     const url = existingId ? collectionUrl(state.activeCollection, existingId) : collectionUrl(state.activeCollection);

@@ -1,6 +1,288 @@
 {
   "projects": [
     {
+      "id": "pypsa-nl-grid-flexibility",
+      "title": "PyPSA-NL Grid Congestion, BESS & Flexible Connection Platform",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": true,
+      "order": 1,
+      "period": "2026",
+      "associatedWith": "Portfolio project",
+      "summary": "Netherlands-inspired constrained-grid workflow comparing renewable growth, bottlenecks, connection-capacity limits, BESS siting, flexible connection contracts and targeted reinforcement.",
+      "tools": [
+        "PyPSA",
+        "Linopy",
+        "HiGHS",
+        "Streamlit",
+        "Python"
+      ],
+      "skills": [
+        "Grid congestion",
+        "BESS siting",
+        "Renewable curtailment",
+        "Flexible connections"
+      ],
+      "image": "assets/thumb-pypsa-grid.svg",
+      "caseStudyUrl": "projects/pypsa-nl-grid-flexibility.html",
+      "repoUrl": "https://github.com/abhijith-sivaprasadan/pypsa-nl-grid-flexibility",
+      "highlights": [
+        "Hourly PyPSA/Linopy/HiGHS dispatch model with constrained regional corridors.",
+        "BESS siting and sizing sweep across candidate regions, MW ratings and storage durations.",
+        "Streamlit dashboard with scenario KPIs, bottleneck diagnostics, validation checks and reports."
+      ]
+    },
+    {
+      "id": "siemens-thesis",
+      "title": "Siemens Energy CFD/CHT and Test Validation Thesis",
+      "category": "CFD & Testing",
+      "status": "published",
+      "featured": true,
+      "order": 2,
+      "period": "Apr 2025 - Nov 2025",
+      "associatedWith": "Siemens Energy",
+      "summary": "Measurement-chain commissioning and thermo-fluid modelling work around high-temperature gas-turbine-related test rigs.",
+      "tools": [
+        "ANSYS Fluent",
+        "NI-DAQ",
+        "LabVIEW",
+        "Siemens NX"
+      ],
+      "skills": [
+        "CFD/CHT",
+        "Testing",
+        "Validation",
+        "Gas turbines"
+      ],
+      "image": "assets/thumb-siemens-validation.svg",
+      "caseStudyUrl": "projects/siemens-thesis.html",
+      "highlights": [
+        "Connected simulation setup, measurement chain checks and validation planning.",
+        "Worked with ANSYS Fluent, NI-DAQ, LabVIEW and technical documentation."
+      ]
+    },
+    {
+      "id": "alleima-energy-efficiency",
+      "title": "Alleima Energy Efficiency Mapping",
+      "category": "Sustainability",
+      "status": "published",
+      "featured": true,
+      "order": 3,
+      "period": "Dec 2024 - Jun 2025",
+      "associatedWith": "Alleima",
+      "summary": "Energy performance mapping, KPI/EnPI thinking, metering readiness, loss analysis and improvement-roadmap work.",
+      "tools": [
+        "Python",
+        "ISO 50001",
+        "EU EED",
+        "Excel"
+      ],
+      "skills": [
+        "Energy KPIs",
+        "Industrial efficiency",
+        "Metering readiness",
+        "Energy audits"
+      ],
+      "image": "assets/thumb-energy-kpi.svg",
+      "caseStudyUrl": "projects/alleima-energy-efficiency.html",
+      "highlights": [
+        "Translated energy data readiness into KPI and metering-improvement structure.",
+        "Framed audit logic around ISO 50001-style continuous improvement."
+      ]
+    },
+    {
+      "id": "district-heating-optimisation",
+      "title": "District Heating Dispatch Optimisation",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": false,
+      "order": 4,
+      "associatedWith": "Portfolio project",
+      "summary": "Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass/geothermal assets, outages, CO2 and electricity-price coupling.",
+      "tools": [
+        "PuLP",
+        "HiGHS",
+        "Python",
+        "MILP"
+      ],
+      "skills": [
+        "District heating",
+        "Dispatch optimisation",
+        "CO2 analysis"
+      ],
+      "image": "assets/thumb-district-heating.svg",
+      "caseStudyUrl": "projects/district-heating-optimisation.html",
+      "highlights": [
+        "Modelled constrained heat-supply scheduling across assets and outage windows.",
+        "Compared cost-led and emissions-aware dispatch outcomes."
+      ]
+    },
+    {
+      "id": "distribution-grid-study",
+      "title": "Distribution Grid Study",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": false,
+      "order": 5,
+      "associatedWith": "Portfolio project",
+      "summary": "CIGRE MV network-style power-flow, N-1 and 24-hour simulation study with EV charging, PV and storage impacts.",
+      "tools": [
+        "Python",
+        "Power flow",
+        "Scenario analysis"
+      ],
+      "skills": [
+        "N-1 screening",
+        "EV charging",
+        "PV/storage impacts"
+      ],
+      "image": "assets/thumb-distribution-grid.svg",
+      "caseStudyUrl": "projects/distribution-grid-study.html",
+      "repoUrl": "https://github.com/abhijith-sivaprasadan/PRO1_network",
+      "highlights": [
+        "Screened line loading, voltage behaviour and contingency sensitivity.",
+        "Compared EV, PV and storage assumptions across time-varying demand."
+      ]
+    },
+    {
+      "id": "heating-demand-forecasting",
+      "title": "Heating Demand Forecasting",
+      "category": "Data & AI",
+      "status": "published",
+      "featured": false,
+      "order": 6,
+      "associatedWith": "Portfolio project",
+      "summary": "Day-ahead building heating-demand forecasting using weather and temporal features, baseline models and neural networks.",
+      "tools": [
+        "Python",
+        "Machine learning",
+        "Time series"
+      ],
+      "skills": [
+        "Forecasting",
+        "Feature engineering",
+        "Model evaluation"
+      ],
+      "image": "assets/thumb-heating-forecast.svg",
+      "caseStudyUrl": "projects/heating-demand-forecasting.html",
+      "highlights": [
+        "Built weather and calendar feature sets for day-ahead prediction.",
+        "Compared baseline and neural-network approaches with documented assumptions."
+      ]
+    },
+    {
+      "id": "pynexus-green-hydrogen",
+      "title": "PyNEXUS Green Hydrogen Network Model",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": false,
+      "order": 7,
+      "associatedWith": "Portfolio project",
+      "summary": "Coupled offshore wind, PEM electrolyzer and hydrogen-pipeline model with MILP dispatch optimisation.",
+      "tools": [
+        "Pyomo",
+        "HiGHS",
+        "Python",
+        "Hydrogen"
+      ],
+      "skills": [
+        "Hydrogen networks",
+        "MILP dispatch",
+        "Curtailment KPIs"
+      ],
+      "image": "assets/thumb-pynexus.svg",
+      "caseStudyUrl": "projects/pynexus-green-hydrogen.html",
+      "repoUrl": "https://github.com/abhijith-sivaprasadan/PyNEXUS",
+      "highlights": [
+        "Models wind-to-hydrogen conversion, pipeline delivery and curtailment KPIs.",
+        "Compares cost and emissions objectives with HiGHS/Pyomo optimisation."
+      ]
+    },
+    {
+      "id": "eu-ets-exposure-calculator",
+      "title": "EU ETS Exposure Calculator",
+      "category": "Sustainability",
+      "status": "published",
+      "featured": false,
+      "order": 8,
+      "associatedWith": "Portfolio project",
+      "summary": "Excel and Streamlit toolkit for estimating Scope 1 emissions, EUA cost exposure and carbon-intensity trends.",
+      "tools": [
+        "Streamlit",
+        "Excel",
+        "Python",
+        "EU ETS"
+      ],
+      "skills": [
+        "Carbon accounting",
+        "Scenario analysis",
+        "Reporting"
+      ],
+      "image": "assets/thumb-eu-ets.svg",
+      "caseStudyUrl": "projects/eu-ets-exposure-calculator.html",
+      "repoUrl": "https://github.com/abhijith-sivaprasadan/EU-ETS-Exposure-Calculator-Package",
+      "highlights": [
+        "Calculates ETS scenario summaries and EUA price sensitivity.",
+        "Includes workbook parsing, CLI runner, PDF export and regression tests."
+      ]
+    },
+    {
+      "id": "industrial-energy-kpi-toolkit",
+      "title": "Industrial Energy KPI Toolkit",
+      "category": "Sustainability",
+      "status": "published",
+      "featured": false,
+      "order": 9,
+      "associatedWith": "Portfolio project",
+      "summary": "Python, Excel and Streamlit toolkit for industrial EnPIs, baseline normalisation, anomaly flags and management reporting.",
+      "tools": [
+        "Python",
+        "Streamlit",
+        "Excel",
+        "PDF reporting"
+      ],
+      "skills": [
+        "ISO 50001",
+        "EnPI normalisation",
+        "Anomaly detection"
+      ],
+      "image": "assets/thumb-industrial-kpi-toolkit.svg",
+      "caseStudyUrl": "projects/industrial-energy-kpi-toolkit.html",
+      "repoUrl": "https://github.com/abhijith-sivaprasadan/Energy-KPI-Toolkit",
+      "highlights": [
+        "Generates KPI results, actions logs, plots and one-page PDF reports.",
+        "Includes guided Streamlit flow, diagnostics and CI quality checks."
+      ]
+    },
+    {
+      "id": "rotating-machinery-vibration-minilab",
+      "title": "Rotating Machinery Vibration Mini-Lab",
+      "category": "Mechanical & Diagnostics",
+      "status": "published",
+      "featured": false,
+      "order": 10,
+      "associatedWith": "Portfolio project",
+      "summary": "Low-cost vibration workflow using phone accelerometer data, filtering, FFT/PSD, spectrograms and report generation.",
+      "tools": [
+        "Python",
+        "FFT",
+        "PSD",
+        "HTML reports"
+      ],
+      "skills": [
+        "Vibration diagnostics",
+        "Signal processing",
+        "Rotating machinery"
+      ],
+      "image": "assets/thumb-vibration-minilab.svg",
+      "caseStudyUrl": "projects/rotating-machinery-vibration-minilab.html",
+      "repoUrl": "https://github.com/abhijith-sivaprasadan/rotating-machinery-vibration-minilab",
+      "highlights": [
+        "Compares operating points through frequency fingerprints and RMS metrics.",
+        "Packages outputs as HTML reports, plots and summary CSVs."
+      ]
+    },
+    {
       "id": "techno-economic-analysis-and-development-of-hylkysaari-island-for-smart-",
       "title": "Techno-Economic Analysis and Development of Hylkysaari Island for Smart and Sustainable Tourism",
       "period": "Jan 2024 - Jun 2024",
@@ -17,7 +299,13 @@
         "Renewable energy systems",
         "Energy regulatory",
         "Market research"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 100,
+      "category": "Academic & Mechanical",
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": []
     },
     {
       "id": "techno-economic-comparative-assessment-of-residential-heating-solutions-",
@@ -34,7 +322,13 @@
         "Energy modeling",
         "Systems modeling",
         "Research"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 101,
+      "category": "Academic & Mechanical",
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": []
     },
     {
       "id": "energy-environment-economy-analysis-of-germany",
@@ -51,7 +345,13 @@
         "Research",
         "Low-emissions analysis",
         "Energy systems"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 102,
+      "category": "Academic & Mechanical",
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": []
     },
     {
       "id": "bicycle-design-competition-sae-india",
@@ -64,7 +364,13 @@
         "Design",
         "Team leadership",
         "Computer-aided engineering"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 103,
+      "category": "Academic & Mechanical",
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": []
     },
     {
       "id": "automatic-sanitizer-dispenser",
@@ -78,7 +384,13 @@
       "skills": [
         "Team leadership",
         "Prototyping"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 104,
+      "category": "Academic & Mechanical",
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": []
     },
     {
       "id": "wireless-charging-technology-and-application-in-automobile-industry",
@@ -89,7 +401,13 @@
       "skills": [
         "Automotive engineering",
         "Research"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 105,
+      "category": "Academic & Mechanical",
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": []
     },
     {
       "id": "peltier-refrigerator",
@@ -100,7 +418,13 @@
       "skills": [
         "Thermal engineering",
         "Mechanical engineering"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 106,
+      "category": "Academic & Mechanical",
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": []
     },
     {
       "id": "tractor-design-competition-2019",
@@ -112,7 +436,13 @@
         "Research",
         "Design",
         "Computer-aided engineering"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 107,
+      "category": "Academic & Mechanical",
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": []
     },
     {
       "id": "baja-sae-2019",
@@ -124,7 +454,13 @@
         "Design",
         "Computer-aided engineering",
         "Automotive engineering"
-      ]
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 108,
+      "category": "Academic & Mechanical",
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": []
     }
   ]
 }
