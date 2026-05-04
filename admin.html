@@ -59,6 +59,7 @@
 
           <section class="page-panel">
             <p class="eyebrow">Collections</p>
+            <div class="admin-summary-grid" data-admin-summary></div>
             <div class="admin-collection-list" data-collection-list></div>
           </section>
 
@@ -70,7 +71,27 @@
               </div>
               <button type="button" class="collection-action" data-new-record>New record</button>
             </div>
-            <select class="admin-select" data-record-select aria-label="Select record"></select>
+
+            <div class="admin-toolbar">
+              <label class="admin-field">
+                <span>Search records</span>
+                <input type="search" data-record-search placeholder="Search title, issuer, company, skills..." />
+              </label>
+              <label class="admin-field">
+                <span>Select record</span>
+                <select class="admin-select" data-record-select aria-label="Select record"></select>
+              </label>
+            </div>
+
+            <div class="admin-record-list" data-record-list></div>
+
+            <div class="admin-form" data-record-form></div>
+
+            <div class="admin-editor-tools">
+              <button type="button" class="collection-action" data-format-json>Format JSON</button>
+              <button type="button" class="collection-action" data-duplicate-record>Duplicate</button>
+              <button type="button" class="collection-action" data-copy-json>Copy JSON</button>
+            </div>
             <textarea class="admin-json-editor" data-json-editor spellcheck="false" placeholder="Select or create a record to edit JSON."></textarea>
             <div class="button-row">
               <button type="button" class="button primary" data-save-record>Save</button>

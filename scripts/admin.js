@@ -5,15 +5,22 @@ const clearTokenButton = document.querySelector("[data-clear-token]");
 const googleSignInButton = document.querySelector("[data-google-sign-in]");
 const googleSignOutButton = document.querySelector("[data-google-sign-out]");
 const collectionList = document.querySelector("[data-collection-list]");
+const adminSummary = document.querySelector("[data-admin-summary]");
 const statusEl = document.querySelector("[data-admin-status]");
 const authStatusEl = document.querySelector("[data-auth-status]");
 const editorTitle = document.querySelector("[data-editor-title]");
 const recordSelect = document.querySelector("[data-record-select]");
+const recordSearch = document.querySelector("[data-record-search]");
+const recordList = document.querySelector("[data-record-list]");
+const recordForm = document.querySelector("[data-record-form]");
 const jsonEditor = document.querySelector("[data-json-editor]");
 const newRecordButton = document.querySelector("[data-new-record]");
 const saveRecordButton = document.querySelector("[data-save-record]");
 const deleteRecordButton = document.querySelector("[data-delete-record]");
 const refreshRecordsButton = document.querySelector("[data-refresh-records]");
+const formatJsonButton = document.querySelector("[data-format-json]");
+const duplicateRecordButton = document.querySelector("[data-duplicate-record]");
+const copyJsonButton = document.querySelector("[data-copy-json]");
 
 const storageKey = "portfolio-admin-api";
 
@@ -23,6 +30,7 @@ const state = {
   activeKey: "",
   records: [],
   activeId: "",
+  search: "",
   firebaseReady: false,
   auth: null,
   provider: null,
@@ -42,6 +50,62 @@ const collectionUrl = (collection, id = "") => `${apiBase()}/api/${collection}${
 const setAuthStatus = (message, isError = false) => {
   authStatusEl.textContent = message;
   authStatusEl.classList.toggle("is-error", isError);
+};
+
+const escapeHtml = (value = "") =>
+  value
+    .toString()
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
+const recordLabel = (record) => record.title || record.name || record.role || record.company || record.id || "Untitled";
+const recordMeta = (record) =>
+  [record.issuer, record.company, record.associatedWith, record.period, record.issued, record.code].filter(Boolean).join(" · ");
+
+const filteredRecords = () => {
+  const query = state.search.trim().toLowerCase();
+  if (!query) return state.records;
+  return state.records.filter((record) => JSON.stringify(record).toLowerCase().includes(query));
+};
+
+const schemaFields = {
+  certifications: ["title", "issuer", "issued", "expires", "credentialId", "link.label", "link.url"],
+  projects: ["title", "period", "associatedWith", "summary", "tools", "skills"],
+  experience: ["role", "company", "type", "period", "location", "summary", "tools", "skills"],
+  courses: ["title", "code", "associatedWith"],
+  skills: ["name", "skills"],
+};
+
+const getPath = (object, path) =>
+  path.split(".").reduce((current, key) => (current && Object.hasOwn(current, key) ? current[key] : ""), object);
+
+const setPath = (object, path, value) => {
+  const keys = path.split(".");
+  const finalKey = keys.pop();
+  const target = keys.reduce((current, key) => {
+    current[key] = current[key] && typeof current[key] === "object" ? current[key] : {};
+    return current[key];
+  }, object);
+  target[finalKey] = value;
+};
+
+const fieldLabel = (field) => field.replaceAll(".", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
+
+const parseFieldValue = (value) =>
+  value
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+
+const syncJsonEditorToForm = () => {
+  try {
+    renderRecordForm(JSON.parse(jsonEditor.value || "{}"));
+  } catch {
+    // Keep the raw editor usable while invalid JSON is being typed.
+  }
 };
 
 const requestJson = async (url, options = {}) => {
@@ -128,6 +192,21 @@ const initializeGoogleAuth = async () => {
 };
 
 const renderCollections = () => {
+  const counts = new Map();
+  if (state.activeCollection) {
+    counts.set(state.activeCollection, state.records.length);
+  }
+
+  adminSummary.innerHTML = state.collections
+    .map(
+      (collection) => `
+        <div class="admin-summary-card">
+          <strong>${counts.get(collection.name) ?? "..."}</strong>
+          <span>${escapeHtml(collection.name)}</span>
+        </div>`
+    )
+    .join("");
+
   collectionList.innerHTML = state.collections
     .map(
       (collection) => `
@@ -143,22 +222,69 @@ const renderCollections = () => {
 
 const activeRecord = () => state.records.find((record) => record.id === state.activeId) || null;
 
+const renderRecordList = () => {
+  const records = filteredRecords();
+  recordList.innerHTML = records.length
+    ? records
+        .map(
+          (record) => `
+            <button type="button" class="admin-record-button ${
+              record.id === state.activeId ? "is-active" : ""
+            }" data-record-id="${escapeHtml(record.id)}">
+              <span>${escapeHtml(recordLabel(record))}</span>
+              <small>${escapeHtml(recordMeta(record) || record.id)}</small>
+            </button>`
+        )
+        .join("")
+    : `<p class="admin-empty">No records match the current search.</p>`;
+};
+
+const renderRecordForm = (record) => {
+  const fields = schemaFields[state.activeCollection] || [];
+  if (!record || !fields.length) {
+    recordForm.innerHTML = "";
+    return;
+  }
+
+  recordForm.innerHTML = fields
+    .map((field) => {
+      const value = getPath(record, field);
+      const isArray = Array.isArray(value) || ["tools", "skills"].includes(field);
+      const isLong = field === "summary";
+      const stringValue = Array.isArray(value) ? value.join(", ") : value || "";
+      const control = isLong
+        ? `<textarea data-form-field="${field}" rows="4">${escapeHtml(stringValue)}</textarea>`
+        : `<input type="text" data-form-field="${field}" value="${escapeHtml(stringValue)}" ${
+            isArray ? 'data-array-field="true"' : ""
+          } />`;
+
+      return `
+        <label class="admin-field">
+          <span>${escapeHtml(fieldLabel(field))}</span>
+          ${control}
+        </label>`;
+    })
+    .join("");
+};
+
 const renderRecords = () => {
-  recordSelect.innerHTML = state.records
+  const records = filteredRecords();
+  recordSelect.innerHTML = records
     .map((record) => {
-      const label = record.title || record.name || record.role || record.company || record.id;
-      return `<option value="${record.id}">${label}</option>`;
+      return `<option value="${record.id}">${escapeHtml(recordLabel(record))}</option>`;
     })
     .join("");
 
-  if (!state.activeId && state.records[0]) {
-    state.activeId = state.records[0].id;
+  if (!state.activeId && records[0]) {
+    state.activeId = records[0].id;
   }
 
   recordSelect.value = state.activeId;
   const record = activeRecord();
   jsonEditor.value = record ? JSON.stringify(record, null, 2) : "";
   editorTitle.textContent = state.activeCollection ? `${state.activeCollection} records` : "Select a collection";
+  renderRecordList();
+  renderRecordForm(record);
 };
 
 const loadCollections = async () => {
@@ -185,6 +311,8 @@ const loadRecords = async (collection, key) => {
   state.activeCollection = collection;
   state.activeKey = key;
   state.activeId = "";
+  state.search = "";
+  recordSearch.value = "";
   const data = await requestJson(collectionUrl(collection));
   state.records = Array.isArray(data[key]) ? data[key] : [];
   renderCollections();
@@ -208,12 +336,85 @@ recordSelect.addEventListener("change", () => {
   renderRecords();
 });
 
+recordSearch.addEventListener("input", () => {
+  state.search = recordSearch.value;
+  const records = filteredRecords();
+  if (!records.some((record) => record.id === state.activeId)) {
+    state.activeId = records[0]?.id || "";
+  }
+  renderRecords();
+});
+
+recordList.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-record-id]");
+  if (!button) return;
+  state.activeId = button.dataset.recordId;
+  renderRecords();
+});
+
+recordForm.addEventListener("input", (event) => {
+  const field = event.target.closest("[data-form-field]");
+  if (!field) return;
+
+  try {
+    const record = JSON.parse(jsonEditor.value || "{}");
+    const value = field.dataset.arrayField === "true" ? parseFieldValue(field.value) : field.value;
+    setPath(record, field.dataset.formField, value);
+    jsonEditor.value = JSON.stringify(record, null, 2);
+  } catch (error) {
+    setStatus(error instanceof Error ? error.message : "Could not update JSON from form.", true);
+  }
+});
+
 newRecordButton.addEventListener("click", () => {
   state.activeId = "";
   recordSelect.value = "";
-  jsonEditor.value = JSON.stringify({ title: "New record" }, null, 2);
+  const defaults = {
+    certifications: { title: "New certification", issuer: "", issued: "", credentialId: "", link: { label: "Credential", url: "" } },
+    projects: { title: "New project", period: "", associatedWith: "", summary: "", tools: [], skills: [] },
+    experience: { role: "New role", company: "", period: "", location: "", summary: "", tools: [], skills: [] },
+    courses: { title: "New course", code: "", associatedWith: "" },
+    skills: { name: "New skill group", skills: [] },
+  };
+  jsonEditor.value = JSON.stringify(defaults[state.activeCollection] || { title: "New record" }, null, 2);
+  renderRecordForm(JSON.parse(jsonEditor.value));
   editorTitle.textContent = `New ${state.activeCollection || "record"}`;
 });
+
+formatJsonButton.addEventListener("click", () => {
+  try {
+    const payload = JSON.parse(jsonEditor.value || "{}");
+    jsonEditor.value = JSON.stringify(payload, null, 2);
+    renderRecordForm(payload);
+    setStatus("JSON formatted.");
+  } catch (error) {
+    setStatus(error instanceof Error ? error.message : "Invalid JSON.", true);
+  }
+});
+
+duplicateRecordButton.addEventListener("click", () => {
+  const record = activeRecord();
+  if (!record) {
+    setStatus("Select a record before duplicating.", true);
+    return;
+  }
+
+  const copy = { ...record };
+  delete copy.id;
+  copy.title = copy.title ? `${copy.title} copy` : copy.title;
+  copy.name = copy.name ? `${copy.name} copy` : copy.name;
+  jsonEditor.value = JSON.stringify(copy, null, 2);
+  state.activeId = "";
+  renderRecordForm(copy);
+  setStatus("Duplicated into an unsaved new record.");
+});
+
+copyJsonButton.addEventListener("click", async () => {
+  await navigator.clipboard.writeText(jsonEditor.value);
+  setStatus("Copied JSON to clipboard.");
+});
+
+jsonEditor.addEventListener("input", syncJsonEditorToForm);
 
 saveRecordButton.addEventListener("click", async () => {
   if (!state.activeCollection) {
@@ -230,6 +431,8 @@ saveRecordButton.addEventListener("click", async () => {
       method,
       body: JSON.stringify(payload),
     });
+    state.search = "";
+    recordSearch.value = "";
     await loadRecords(state.activeCollection, state.activeKey);
     state.activeId = saved.id;
     renderRecords();

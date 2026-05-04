@@ -967,7 +967,7 @@ p {
 
 .admin-grid {
   display: grid;
-  grid-template-columns: minmax(260px, 0.8fr) minmax(240px, 0.7fr) minmax(320px, 1.5fr);
+  grid-template-columns: minmax(260px, 0.7fr) minmax(260px, 0.8fr) minmax(380px, 1.7fr);
   gap: 18px;
   margin-top: 22px;
   align-items: start;
@@ -983,6 +983,7 @@ p {
 }
 
 .admin-field input,
+.admin-field textarea,
 .admin-select,
 .admin-json-editor {
   width: 100%;
@@ -999,8 +1000,14 @@ p {
   padding: 0 12px;
 }
 
+.admin-field textarea {
+  min-height: 96px;
+  padding: 12px;
+  resize: vertical;
+}
+
 .admin-json-editor {
-  min-height: 420px;
+  min-height: 360px;
   margin-top: 14px;
   padding: 14px;
   resize: vertical;
@@ -1010,6 +1017,7 @@ p {
 }
 
 .admin-field input:focus,
+.admin-field textarea:focus,
 .admin-select:focus,
 .admin-json-editor:focus {
   outline: 3px solid color-mix(in srgb, var(--scene-accent) 35%, transparent);
@@ -1029,6 +1037,31 @@ p {
   display: grid;
   gap: 10px;
   margin-top: 16px;
+}
+
+.admin-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.admin-summary-card {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.admin-summary-card strong {
+  display: block;
+  color: var(--scene-accent);
+  font-size: 1.35rem;
+}
+
+.admin-summary-card span {
+  color: var(--muted);
+  font-size: 0.86rem;
 }
 
 .admin-collection-button {
@@ -1056,6 +1089,77 @@ p {
 .admin-collection-button.is-active {
   border-color: color-mix(in srgb, var(--scene-accent) 65%, var(--line));
   background: color-mix(in srgb, var(--scene-accent) 11%, transparent);
+}
+
+.admin-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.8fr);
+  gap: 12px;
+}
+
+.admin-record-list {
+  display: grid;
+  gap: 8px;
+  max-height: 240px;
+  margin-top: 14px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.admin-record-button {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-record-button span {
+  font-weight: 800;
+}
+
+.admin-record-button small {
+  color: var(--muted);
+}
+
+.admin-record-button:hover,
+.admin-record-button.is-active {
+  border-color: color-mix(in srgb, var(--scene-accent) 65%, var(--line));
+  background: color-mix(in srgb, var(--scene-accent) 10%, transparent);
+}
+
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 12px;
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.admin-form .admin-field:has(textarea),
+.admin-form .admin-field:has([data-array-field]) {
+  grid-column: 1 / -1;
+}
+
+.admin-editor-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.admin-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .collection-head {
@@ -1443,6 +1547,11 @@ code {
   .skill-grid,
   .metric-grid,
   .admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-toolbar,
+  .admin-form {
     grid-template-columns: 1fr;
   }
 
