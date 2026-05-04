@@ -320,6 +320,59 @@ const activeRecord = () => state.records.find((record) => record.id === state.ac
 
 const ideaDrafts = () => (state.activeCollection === "ideas" ? state.records.filter((record) => record.status === "draft") : []);
 
+const createTag = (label) => {
+  const tag = document.createElement("span");
+  tag.textContent = label;
+  return tag;
+};
+
+const createIdeaReviewCard = (record) => {
+  const article = document.createElement("article");
+  article.className = "admin-preview-card";
+
+  const tagRow = document.createElement("div");
+  tagRow.className = "tag-row";
+  tagRow.append(createTag("Draft"));
+  if (record.submissionStatus) tagRow.append(createTag(record.submissionStatus));
+  if (record.category) tagRow.append(createTag(record.category));
+  article.append(tagRow);
+
+  const title = document.createElement("h3");
+  title.textContent = record.title || "Untitled idea";
+  article.append(title);
+
+  if (record.submittedBy?.email) {
+    const meta = document.createElement("p");
+    meta.className = "meta";
+    meta.textContent = `Submitted by ${record.submittedBy.email}`;
+    article.append(meta);
+  }
+
+  const summary = document.createElement("p");
+  summary.textContent = record.summary || "";
+  article.append(summary);
+
+  const buttonRow = document.createElement("div");
+  buttonRow.className = "button-row";
+
+  const reviewButton = document.createElement("button");
+  reviewButton.type = "button";
+  reviewButton.className = "collection-action";
+  reviewButton.dataset.reviewIdea = record.id;
+  reviewButton.textContent = "Review";
+  buttonRow.append(reviewButton);
+
+  const approveButton = document.createElement("button");
+  approveButton.type = "button";
+  approveButton.className = "collection-action";
+  approveButton.dataset.approveIdea = record.id;
+  approveButton.textContent = "Approve";
+  buttonRow.append(approveButton);
+
+  article.append(buttonRow);
+  return article;
+};
+
 const renderIdeaReviewQueue = () => {
   if (!ideaReviewPanel) return;
 
@@ -335,27 +388,16 @@ const renderIdeaReviewQueue = () => {
 
   if (!ideaReviewList) return;
 
-  ideaReviewList.innerHTML = drafts.length
-    ? drafts
-        .map(
-          (record) => `
-            <article class="admin-preview-card">
-              <div class="tag-row">
-                <span>Draft</span>
-                ${record.submissionStatus ? `<span>${escapeHtml(record.submissionStatus)}</span>` : ""}
-                ${record.category ? `<span>${escapeHtml(record.category)}</span>` : ""}
-              </div>
-              <h3>${escapeHtml(record.title || "Untitled idea")}</h3>
-              ${record.submittedBy?.email ? `<p class="meta">Submitted by ${escapeHtml(record.submittedBy.email)}</p>` : ""}
-              <p>${escapeHtml(record.summary || "")}</p>
-              <div class="button-row">
-                <button type="button" class="collection-action" data-review-idea="${escapeHtml(record.id)}">Review</button>
-                <button type="button" class="collection-action" data-approve-idea="${escapeHtml(record.id)}">Approve</button>
-              </div>
-            </article>`
-        )
-        .join("")
-    : `<p class="admin-empty">No pending idea drafts.</p>`;
+  ideaReviewList.replaceChildren();
+  if (!drafts.length) {
+    const empty = document.createElement("p");
+    empty.className = "admin-empty";
+    empty.textContent = "No pending idea drafts.";
+    ideaReviewList.append(empty);
+    return;
+  }
+
+  drafts.forEach((record) => ideaReviewList.append(createIdeaReviewCard(record)));
 };
 
 const renderRecordList = () => {
@@ -565,7 +607,10 @@ duplicateRecordButton.addEventListener("click", () => {
 });
 
 document.addEventListener("click", async (event) => {
-  const reviewButton = event.target.closest("[data-review-idea]");
+  const target = event.target;
+  if (!(target instanceof Element)) return;
+
+  const reviewButton = target.closest("[data-review-idea]");
   if (reviewButton) {
     const idea = state.records.find((record) => record.id === reviewButton.dataset.reviewIdea);
     if (!idea) return;
@@ -575,7 +620,7 @@ document.addEventListener("click", async (event) => {
     return;
   }
 
-  const approveButton = event.target.closest("[data-approve-idea]");
+  const approveButton = target.closest("[data-approve-idea]");
   if (!approveButton) return;
 
   const idea = state.records.find((record) => record.id === approveButton.dataset.approveIdea);

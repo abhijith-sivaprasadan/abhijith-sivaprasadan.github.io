@@ -27,7 +27,7 @@ const inferredPageKey = (() => {
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260504-data-v4";
+const assetVersion = "20260504-data-v5";
 const apiVersion = "20260504-api-v2";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
@@ -280,7 +280,8 @@ const setIdeaSubmissionStatus = (message, isError = false) => {
 
 const ideaApiBase = () => apiBaseUrl.replace(/\/$/, "");
 
-const normalizeIdeaSubmissionList = (value) => {
+// Keep this in sync with backend/src/server.js normalizeCommaSeparatedList.
+const normalizeCommaSeparatedList = (value) => {
   if (Array.isArray(value)) {
     return value.map((entry) => entry.toString().trim()).filter(Boolean);
   }
@@ -369,8 +370,8 @@ const initializeIdeaSubmission = async () => {
           title: String(formData.get("title") || "").trim(),
           category: String(formData.get("category") || "").trim() || "Idea",
           summary: String(formData.get("summary") || "").trim(),
-          tools: normalizeIdeaSubmissionList(formData.get("tools") || ""),
-          skills: normalizeIdeaSubmissionList(formData.get("skills") || ""),
+          tools: normalizeCommaSeparatedList(formData.get("tools") || ""),
+          skills: normalizeCommaSeparatedList(formData.get("skills") || ""),
         };
 
         if (!payload.title || !payload.summary) {
