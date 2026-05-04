@@ -12,6 +12,11 @@ const dynamicExperienceBlocks = document.querySelectorAll("[data-dynamic-experie
 const dynamicSkillBlocks = document.querySelectorAll("[data-dynamic-skills]");
 const dynamicCourseBlocks = document.querySelectorAll("[data-dynamic-courses]");
 const dynamicIdeaBlocks = document.querySelectorAll("[data-dynamic-ideas]");
+const ideaSubmissionPanel = document.querySelector("[data-idea-submit-panel]");
+const ideaSubmissionStatus = document.querySelector("[data-idea-submit-status]");
+const ideaSubmissionForm = document.querySelector("[data-idea-submit-form]");
+const ideaSignInButton = document.querySelector("[data-idea-sign-in]");
+const ideaSignOutButton = document.querySelector("[data-idea-sign-out]");
 const isNestedPage = location.pathname.includes("/projects/") || location.pathname.includes("/experience/");
 const basePath = isNestedPage ? "../" : "";
 const inferredPageKey = (() => {
@@ -22,7 +27,7 @@ const inferredPageKey = (() => {
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260504-data-v3";
+const assetVersion = "20260504-data-v5";
 const apiVersion = "20260504-api-v2";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
@@ -33,6 +38,12 @@ let adminEmailHashes = new Set(
     "ad42bd9249794a48b4f0b94bff7e0c54a330fac37ee239db64441448a901cf2d",
   ]
 );
+const ideaSubmissionAuth = {
+  ready: false,
+  user: null,
+  auth: null,
+  provider: null,
+};
 const pageState = {
   projects: [],
   activeProjectFilter: "All",
@@ -261,6 +272,147 @@ const loadPortfolioConfig = async () => {
   adminEmailHashes = new Set(window.PORTFOLIO_ADMIN_EMAIL_HASHES || Array.from(adminEmailHashes));
 };
 
+const setIdeaSubmissionStatus = (message, isError = false) => {
+  if (!ideaSubmissionStatus) return;
+  ideaSubmissionStatus.textContent = message;
+  ideaSubmissionStatus.classList.toggle("is-error", isError);
+};
+
+const ideaApiBase = () => apiBaseUrl.replace(/\/$/, "");
+
+// Keep this in sync with backend/src/server.js normalizeCommaSeparatedList.
+const normalizeCommaSeparatedList = (value) => {
+  if (Array.isArray(value)) {
+    return value.map((entry) => entry.toString().trim()).filter(Boolean);
+  }
+  if (typeof value === "string") {
+    return value
+      .split(",")
+      .map((entry) => entry.trim())
+      .filter(Boolean);
+  }
+  return [];
+};
+
+const updateIdeaSubmissionUi = () => {
+  if (!ideaSubmissionPanel) return;
+
+  const signedIn = Boolean(ideaSubmissionAuth.user);
+  if (ideaSignInButton) ideaSignInButton.disabled = signedIn || !ideaSubmissionAuth.ready;
+  if (ideaSignOutButton) ideaSignOutButton.disabled = !signedIn;
+  if (ideaSubmissionForm) ideaSubmissionForm.hidden = !signedIn;
+
+  if (signedIn) {
+    setIdeaSubmissionStatus(`Signed in as ${ideaSubmissionAuth.user.email}. Submissions will be saved as drafts.`);
+  } else {
+    setIdeaSubmissionStatus("Sign in with Google to submit an idea for review.");
+  }
+};
+
+const initializeIdeaSubmission = async () => {
+  if (!ideaSubmissionPanel) return;
+
+  if (!authConfig.apiKey || !authConfig.authDomain || !authConfig.projectId || !authConfig.appId) {
+    setIdeaSubmissionStatus("Google submissions are unavailable until Firebase config is loaded.", true);
+    if (ideaSignInButton) ideaSignInButton.disabled = true;
+    if (ideaSignOutButton) ideaSignOutButton.disabled = true;
+    if (ideaSubmissionForm) ideaSubmissionForm.hidden = true;
+    return;
+  }
+
+  try {
+    const [{ initializeApp }, { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js"),
+    ]);
+
+    const app = initializeApp(authConfig, "idea-submission");
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
+
+    ideaSubmissionAuth.auth = auth;
+    ideaSubmissionAuth.provider = provider;
+    ideaSubmissionAuth.ready = true;
+
+    onAuthStateChanged(auth, (user) => {
+      ideaSubmissionAuth.user = user;
+      updateIdeaSubmissionUi();
+    });
+
+    ideaSignInButton?.addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (error) {
+        setIdeaSubmissionStatus(error instanceof Error ? error.message : "Google sign-in failed.", true);
+      }
+    });
+
+    ideaSignOutButton?.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        setIdeaSubmissionStatus(error instanceof Error ? error.message : "Sign-out failed.", true);
+      }
+    });
+
+    if (ideaSubmissionForm) {
+      ideaSubmissionForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const user = ideaSubmissionAuth.user;
+        if (!user) {
+          setIdeaSubmissionStatus("Sign in with Google first.", true);
+          return;
+        }
+
+        const formData = new FormData(ideaSubmissionForm);
+        const payload = {
+          title: String(formData.get("title") || "").trim(),
+          category: String(formData.get("category") || "").trim() || "Idea",
+          summary: String(formData.get("summary") || "").trim(),
+          tools: normalizeCommaSeparatedList(formData.get("tools") || ""),
+          skills: normalizeCommaSeparatedList(formData.get("skills") || ""),
+        };
+
+        if (!payload.title || !payload.summary) {
+          setIdeaSubmissionStatus("Title and summary are required.", true);
+          return;
+        }
+
+        try {
+          const token = await user.getIdToken();
+          const response = await fetch(`${ideaApiBase()}/api/ideas?v=${apiVersion}`, {
+            method: "POST",
+            cache: "no-store",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(data.detail || data.error || `Request failed with ${response.status}`);
+          }
+
+          ideaSubmissionForm.reset();
+          setIdeaSubmissionStatus(`Draft submitted for review: ${data.title || payload.title}`);
+        } catch (error) {
+          setIdeaSubmissionStatus(error instanceof Error ? error.message : "Failed to submit idea.", true);
+        }
+      });
+    }
+
+    updateIdeaSubmissionUi();
+  } catch (error) {
+    setIdeaSubmissionStatus(error instanceof Error ? error.message : "Google submissions failed to load.", true);
+    if (ideaSignInButton) ideaSignInButton.disabled = true;
+    if (ideaSignOutButton) ideaSignOutButton.disabled = true;
+    if (ideaSubmissionForm) ideaSubmissionForm.hidden = true;
+  }
+};
+
 const initializeAdminAuth = async () => {
   if (!authConfig.apiKey || !authConfig.authDomain || !authConfig.projectId || !authConfig.appId) {
     updateEditorToolbar();
@@ -475,12 +627,12 @@ const renderCertification = (certification) => {
 
 const apiUrl = (resource, fallback) => {
   if (!apiBaseUrl || !resource) return fallback;
-    return `${apiBaseUrl.replace(/\/$/, "")}/api/${resource.replace(/^\//, "")}?v=${apiVersion}`;
+  return `${apiBaseUrl.replace(/\/$/, "")}/api/${resource.replace(/^\//, "")}?v=${apiVersion}`;
 };
 
 const fetchCollection = async (resource, fallback) => {
   const endpoint = apiUrl(resource, fallback || `${basePath}api/${resource}.json`);
-  const response = await fetch(endpoint, { cache: "no-cache" });
+  const response = await fetch(endpoint, { cache: "no-store" });
   if (!response.ok) throw new Error(`${resource} API returned ${response.status}`);
   return response.json();
 };
@@ -825,6 +977,7 @@ loadPortfolioConfig().then(() => {
   initializeSkills();
   initializeCourses();
   initializeIdeas();
+  initializeIdeaSubmission();
   initializeCertifications();
   initializeNewsletter();
   if (localEditorEnabled) {

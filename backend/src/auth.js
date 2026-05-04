@@ -35,25 +35,15 @@ const getFirebaseAuth = async () => {
   return firebaseAuth;
 };
 
-const isAllowedEmail = (email = "") => {
-  const normalized = email.toLowerCase();
-  if (!normalized) return false;
-  return adminEmails.has(normalized) || adminEmailHashes.has(sha256(normalized));
-};
-
-export const authorizeAdmin = async (req) => {
+const verifyFirebaseIdentity = async (req) => {
   const token = bearerToken(req);
-
-  if (ADMIN_API_TOKEN && token === ADMIN_API_TOKEN) {
-    return { ok: true, method: "api-token" };
-  }
 
   if (!token) {
     return {
       ok: false,
       status: 401,
-      error: "Admin authorization required",
-      detail: "Send a Firebase Google ID token or ADMIN_API_TOKEN as Authorization: Bearer <token>.",
+      error: "Google sign-in required",
+      detail: "Send a Firebase Google ID token as Authorization: Bearer <token>.",
     };
   }
 
@@ -62,7 +52,7 @@ export const authorizeAdmin = async (req) => {
       ok: false,
       status: 401,
       error: "Firebase admin auth is not configured",
-      detail: "Set FIREBASE_PROJECT_ID and ADMIN_EMAILS or ADMIN_EMAIL_HASHES on the backend.",
+      detail: "Set FIREBASE_PROJECT_ID on the backend.",
     };
   }
 
@@ -73,10 +63,6 @@ export const authorizeAdmin = async (req) => {
 
     if (!decoded.email_verified) {
       return { ok: false, status: 403, error: "Google email is not verified" };
-    }
-
-    if (!isAllowedEmail(email)) {
-      return { ok: false, status: 403, error: "Signed-in Google account is not an admin" };
     }
 
     return {
@@ -98,3 +84,28 @@ export const authorizeAdmin = async (req) => {
     };
   }
 };
+
+const isAllowedEmail = (email = "") => {
+  const normalized = email.toLowerCase();
+  if (!normalized) return false;
+  return adminEmails.has(normalized) || adminEmailHashes.has(sha256(normalized));
+};
+
+export const authorizeAdmin = async (req) => {
+  const token = bearerToken(req);
+
+  if (ADMIN_API_TOKEN && token === ADMIN_API_TOKEN) {
+    return { ok: true, method: "api-token" };
+  }
+
+  const identity = await verifyFirebaseIdentity(req);
+  if (!identity.ok) return identity;
+
+  if (!isAllowedEmail(identity.user.email)) {
+    return { ok: false, status: 403, error: "Signed-in Google account is not an admin" };
+  }
+
+  return identity;
+};
+
+export const authorizeGoogleUser = async (req) => verifyFirebaseIdentity(req);

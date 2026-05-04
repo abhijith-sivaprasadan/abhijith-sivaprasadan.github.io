@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="scripts/site.js?v=20260504-data-v3" defer></script>
+  <script src="scripts/site.js?v=20260504-data-v5" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body data-page-key="ideas">
@@ -87,6 +87,41 @@
         </div>
 
         <aside class="content-rail">
+          <div class="page-panel" data-idea-submit-panel>
+            <p class="eyebrow">Suggest a draft</p>
+            <p class="admin-status" data-idea-submit-status>Sign in with Google to submit an idea for review.</p>
+            <div class="button-row">
+              <button type="button" class="button primary" data-idea-sign-in>Sign in with Google</button>
+              <button type="button" class="button ghost" data-idea-sign-out>Sign out</button>
+            </div>
+            <form class="admin-form" data-idea-submit-form hidden>
+              <label class="admin-field">
+                <span>Title</span>
+                <input type="text" name="title" placeholder="Describe the idea in a short title" />
+              </label>
+              <label class="admin-field">
+                <span>Category</span>
+                <input type="text" name="category" placeholder="Simulation, Data, Automation..." />
+              </label>
+              <label class="admin-field">
+                <span>Summary</span>
+                <textarea name="summary" rows="4" placeholder="Write the concept, why it matters, and the outcome you want."></textarea>
+              </label>
+              <label class="admin-field">
+                <span>Tools</span>
+                <input type="text" name="tools" placeholder="Comma-separated tools" />
+              </label>
+              <label class="admin-field">
+                <span>Skills</span>
+                <input type="text" name="skills" placeholder="Comma-separated skills" />
+              </label>
+              <p class="admin-status">Submitted ideas are saved as drafts until approved.</p>
+              <div class="button-row">
+                <button type="submit" class="button primary">Submit as draft</button>
+              </div>
+            </form>
+          </div>
+
           <div class="page-panel">
             <p class="eyebrow">Status</p>
             <ul class="clean-list">
