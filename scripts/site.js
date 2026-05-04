@@ -678,6 +678,40 @@ const renderProjectCard = (project) => {
     </article>`;
 };
 
+const renderProjectBrowserItem = (project, index) => {
+  const tags = itemTags(project);
+  const highlights = Array.isArray(project.highlights) ? project.highlights : [];
+  const links = [
+    project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}">Case study</a>` : "",
+    project.repoUrl ? `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noreferrer">GitHub</a>` : "",
+  ].filter(Boolean);
+  const image = project.image || `${basePath}assets/thumb-energy-kpi.svg`;
+  const imageSrc = image.startsWith("http") || image.startsWith("../") ? image : `${basePath}${image}`;
+
+  return `
+    <details class="project-browser-item ${project.featured ? "is-featured" : ""}" ${index === 0 ? "open" : ""} data-project-id="${escapeHtml(project.id)}">
+      <summary class="project-browser-summary">
+        <div class="project-browser-summary-text">
+          <span class="project-browser-kicker">${escapeHtml(project.category || "Project")}</span>
+          <h3>${escapeHtml(project.title)}</h3>
+          <p>${escapeHtml(project.summary || "")}</p>
+        </div>
+        <div class="project-browser-meta">
+          <span>${escapeHtml((project.tools || []).slice(0, 3).join(" / ") || "Details available")}</span>
+          ${project.featured ? "<span>Featured</span>" : ""}
+        </div>
+      </summary>
+      <div class="project-browser-body">
+        <img class="project-thumb" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(project.title)} visual" loading="lazy" width="960" height="540" />
+        <div class="project-browser-copy">
+          ${tags.length ? `<div class="tag-row">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+          ${highlights.length ? `<ul class="evidence-list">${highlights.slice(0, 4).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : ""}
+          ${links.length ? `<div class="project-links">${links.join("")}</div>` : ""}
+        </div>
+      </div>
+    </details>`;
+};
+
 const renderProjectFilters = () => {
   if (!projectFilters) return;
   const categories = ["All", ...new Set(pageState.projects.map((project) => project.category).filter(Boolean))];
@@ -693,8 +727,8 @@ const renderProjectList = () => {
   if (!dynamicProjects) return;
   const filtered = pageState.projects.filter(projectMatches);
   dynamicProjects.innerHTML = filtered.length
-    ? filtered.map(renderProjectCard).join("")
-    : `<article class="project-card"><h3>No matching projects</h3><p>Try a different search or category filter.</p></article>`;
+    ? filtered.map(renderProjectBrowserItem).join("")
+    : `<article class="project-browser-empty"><h3>No matching projects</h3><p>Try a different search or category filter.</p></article>`;
   if (projectCount) {
     projectCount.textContent = `${filtered.length} project${filtered.length === 1 ? "" : "s"} shown`;
   }
