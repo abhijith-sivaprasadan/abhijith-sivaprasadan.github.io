@@ -11,6 +11,7 @@ const projectCount = document.querySelector("[data-project-count]");
 const dynamicExperienceBlocks = document.querySelectorAll("[data-dynamic-experience]");
 const dynamicSkillBlocks = document.querySelectorAll("[data-dynamic-skills]");
 const dynamicCourseBlocks = document.querySelectorAll("[data-dynamic-courses]");
+const dynamicIdeaBlocks = document.querySelectorAll("[data-dynamic-ideas]");
 const isNestedPage = location.pathname.includes("/projects/") || location.pathname.includes("/experience/");
 const basePath = isNestedPage ? "../" : "";
 const inferredPageKey = (() => {
@@ -641,6 +642,34 @@ const initializeCourses = async () => {
   }
 };
 
+const renderIdeaItem = (idea) => {
+  const tags = [...(idea.tools || []), ...(idea.skills || [])].slice(0, 5);
+  return `
+    <article class="entry-card">
+      <span class="entry-status">${escapeHtml(idea.category || "Idea")}</span>
+      <h3>${escapeHtml(idea.title)}</h3>
+      <p>${escapeHtml(idea.summary || "")}</p>
+      ${tags.length ? `<div class="tag-row">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+    </article>`;
+};
+
+const initializeIdeas = async () => {
+  if (!dynamicIdeaBlocks.length) return;
+  try {
+    const data = await fetchCollection("ideas", `${basePath}api/ideas.json`);
+    const items = visibleItems(Array.isArray(data.ideas) ? data.ideas : []);
+    dynamicIdeaBlocks.forEach((block) => {
+      block.innerHTML = items.length
+        ? items.map(renderIdeaItem).join("")
+        : `<article class="entry-card"><h3>No ideas yet</h3><p>Add ideas from the admin content manager.</p></article>`;
+    });
+  } catch {
+    dynamicIdeaBlocks.forEach((block) => {
+      block.innerHTML = `<article class="entry-card"><h3>Ideas unavailable</h3><p>Idea data could not be loaded from the API.</p></article>`;
+    });
+  }
+};
+
 const initializeCertifications = async () => {
   if (!certificationsList) return;
 
@@ -793,6 +822,7 @@ loadPortfolioConfig().then(() => {
   initializeExperience();
   initializeSkills();
   initializeCourses();
+  initializeIdeas();
   initializeCertifications();
   initializeNewsletter();
   if (localEditorEnabled) {

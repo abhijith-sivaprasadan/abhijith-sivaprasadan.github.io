@@ -1,0 +1,88 @@
+{
+  "ideas": [
+    {
+      "id": "aircraft-de-icing-simulation-in-ansys",
+      "status": "published",
+      "featured": true,
+      "order": 1,
+      "category": "Simulation",
+      "title": "Aircraft de-icing simulation in ANSYS",
+      "summary": "A thermal-fluid project combining airflow, icing conditions and surface heat transfer with a practical engineering use case.",
+      "tools": [
+        "ANSYS Fluent",
+        "CFD",
+        "Heat transfer"
+      ]
+    },
+    {
+      "id": "power-engineering-dashboard-with-pandas-and-pandapower",
+      "status": "published",
+      "featured": true,
+      "order": 2,
+      "category": "Data",
+      "title": "Power engineering dashboard with Pandas and Pandapower",
+      "summary": "A reusable analysis tool for grid studies, load cases and visualising power-system behaviour in a cleaner way.",
+      "tools": [
+        "Python",
+        "pandas",
+        "pandapower"
+      ]
+    },
+    {
+      "id": "home-automation-orchestration-layer",
+      "status": "published",
+      "featured": false,
+      "order": 3,
+      "category": "Automation",
+      "title": "Home automation orchestration layer",
+      "summary": "A small system that ties together Google Home, NFC tags and SmartThings-style triggers in one place.",
+      "tools": [
+        "Node.js",
+        "REST APIs",
+        "NFC"
+      ]
+    },
+    {
+      "id": "sensor-logger-in-embedded-c",
+      "status": "published",
+      "featured": false,
+      "order": 4,
+      "category": "Embedded",
+      "title": "Sensor logger in embedded C",
+      "summary": "A low-level build to bridge software, electronics and real-time data collection.",
+      "tools": [
+        "Embedded C",
+        "Sensors",
+        "Data logging"
+      ]
+    },
+    {
+      "id": "r-notebooks-for-statistical-exploration",
+      "status": "published",
+      "featured": false,
+      "order": 5,
+      "category": "Analysis",
+      "title": "R notebooks for statistical exploration",
+      "summary": "A notebook set for comparison plots, cleaner statistical workflows and broader data-analysis tooling.",
+      "tools": [
+        "R",
+        "Statistics",
+        "Data visualisation"
+      ]
+    },
+    {
+      "id": "fmea-rca-toolkit-for-energy-systems",
+      "status": "published",
+      "featured": false,
+      "order": 6,
+      "category": "Reliability",
+      "title": "FMEA / RCA toolkit for energy systems",
+      "summary": "A structured way to catalogue failure modes, symptoms, causes and follow-up actions across thermal and process assets.",
+      "tools": [
+        "FMEA",
+        "RCA",
+        "Energy systems"
+      ]
+    }
+  ]
+}

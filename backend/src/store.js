@@ -9,6 +9,7 @@ const COLLECTIONS = {
   experience: { file: "experience.json", key: "experience" },
   courses: { file: "courses.json", key: "courses" },
   skills: { file: "skills.json", key: "skillGroups" },
+  ideas: { file: "ideas.json", key: "ideas" },
 };
 
 const slugify = (value) =>

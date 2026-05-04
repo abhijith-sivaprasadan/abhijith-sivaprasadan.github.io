@@ -79,6 +79,7 @@ const schemaFields = {
   experience: ["status", "featured", "order", "role", "company", "type", "period", "location", "summary", "tools", "skills", "detailUrl"],
   courses: ["status", "featured", "order", "title", "code", "associatedWith"],
   skills: ["status", "featured", "order", "name", "skills"],
+  ideas: ["status", "featured", "order", "category", "title", "summary", "tools", "skills"],
 };
 
 const getPath = (object, path) =>
@@ -474,6 +475,7 @@ newRecordButton.addEventListener("click", () => {
     experience: { status: "draft", featured: false, order: state.records.length + 1, role: "New role", company: "", period: "", location: "", summary: "", tools: [], skills: [] },
     courses: { status: "draft", featured: false, order: state.records.length + 1, title: "New course", code: "", associatedWith: "" },
     skills: { status: "draft", featured: false, order: state.records.length + 1, name: "New skill group", skills: [] },
+    ideas: { status: "draft", featured: false, order: state.records.length + 1, category: "Idea", title: "New idea", summary: "", tools: [], skills: [] },
   };
   jsonEditor.value = JSON.stringify(defaults[state.activeCollection] || { title: "New record" }, null, 2);
   syncJsonEditorToForm();
