@@ -641,6 +641,23 @@ const fetchCollection = async (resource, fallback) => {
   return response.json();
 };
 
+const fetchStaticCollection = async (fallback) => {
+  const response = await fetch(fallback, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Static data returned ${response.status}`);
+  return response.json();
+};
+
+const mergeById = (primary = [], secondary = []) => {
+  const records = new Map();
+  secondary.forEach((item) => {
+    if (item?.id) records.set(item.id, item);
+  });
+  primary.forEach((item) => {
+    if (item?.id) records.set(item.id, { ...(records.get(item.id) || {}), ...item });
+  });
+  return Array.from(records.values());
+};
+
 const visibleItems = (items = []) =>
   items
     .filter((item) => item.status !== "draft")
@@ -760,13 +777,19 @@ const renderProjectList = () => {
 const initializeProjects = async () => {
   if (!dynamicProjects && !featuredProjects) return;
   try {
-    const data = await fetchCollection("projects", `${basePath}api/linkedin-projects.json`);
-    const projects = visibleItems(Array.isArray(data.projects) ? data.projects : []);
+    const fallbackUrl = `${basePath}api/linkedin-projects.json`;
+    const [apiResult, staticResult] = await Promise.allSettled([
+      fetchCollection("projects", fallbackUrl),
+      fetchStaticCollection(fallbackUrl),
+    ]);
+    const apiData = apiResult.status === "fulfilled" ? apiResult.value : {};
+    const staticData = staticResult.status === "fulfilled" ? staticResult.value : {};
+    const projects = visibleItems(mergeById(Array.isArray(apiData.projects) ? apiData.projects : [], Array.isArray(staticData.projects) ? staticData.projects : []));
     pageState.projects = projects;
 
     if (featuredProjects) {
-      const selected = projects.filter((project) => project.featured).slice(0, 6);
-      featuredProjects.innerHTML = (selected.length ? selected : projects.slice(0, 6)).map(renderProjectCard).join("");
+      const selected = projects.filter((project) => project.featured).slice(0, 10);
+      featuredProjects.innerHTML = (selected.length ? selected : projects.slice(0, 10)).map(renderProjectCard).join("");
     }
 
     renderProjectFilters();

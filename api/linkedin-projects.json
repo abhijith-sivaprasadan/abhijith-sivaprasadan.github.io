@@ -100,7 +100,7 @@
       "category": "Energy Systems",
       "status": "published",
       "featured": false,
-      "order": 4,
+      "order": 8,
       "associatedWith": "Portfolio project",
       "summary": "Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass/geothermal assets, outages, CO2 and electricity-price coupling.",
       "tools": [
@@ -127,7 +127,7 @@
       "category": "Energy Systems",
       "status": "published",
       "featured": false,
-      "order": 5,
+      "order": 9,
       "associatedWith": "Portfolio project",
       "summary": "CIGRE MV network-style power-flow, N-1 and 24-hour simulation study with EV charging, PV and storage impacts.",
       "tools": [
@@ -154,7 +154,7 @@
       "category": "Data & AI",
       "status": "published",
       "featured": false,
-      "order": 6,
+      "order": 10,
       "associatedWith": "Portfolio project",
       "summary": "Day-ahead building heating-demand forecasting using weather and temporal features, baseline models and neural networks.",
       "tools": [
@@ -180,7 +180,7 @@
       "category": "Energy Systems",
       "status": "published",
       "featured": false,
-      "order": 7,
+      "order": 11,
       "associatedWith": "Portfolio project",
       "summary": "Coupled offshore wind, PEM electrolyzer and hydrogen-pipeline model with MILP dispatch optimisation.",
       "tools": [
@@ -208,7 +208,7 @@
       "category": "Sustainability",
       "status": "published",
       "featured": false,
-      "order": 8,
+      "order": 12,
       "associatedWith": "Portfolio project",
       "summary": "Excel and Streamlit toolkit for estimating Scope 1 emissions, EUA cost exposure and carbon-intensity trends.",
       "tools": [
@@ -236,7 +236,7 @@
       "category": "Sustainability",
       "status": "published",
       "featured": false,
-      "order": 9,
+      "order": 13,
       "associatedWith": "Portfolio project",
       "summary": "Python, Excel and Streamlit toolkit for industrial EnPIs, baseline normalisation, anomaly flags and management reporting.",
       "tools": [
@@ -264,7 +264,7 @@
       "category": "Mechanical & Diagnostics",
       "status": "published",
       "featured": false,
-      "order": 10,
+      "order": 14,
       "associatedWith": "Portfolio project",
       "summary": "Low-cost vibration workflow using phone accelerometer data, filtering, FFT/PSD, spectrograms and report generation.",
       "tools": [
@@ -291,8 +291,8 @@
       "title": "Hylkysaari Smart Energy Island Modelling",
       "category": "Energy Systems",
       "status": "published",
-      "featured": false,
-      "order": 11,
+      "featured": true,
+      "order": 4,
       "associatedWith": "KTH Royal Institute of Technology",
       "summary": "Building energy demand modelling, PV generation, battery storage and heat pump scenario analysis for a near-zero energy island concept using IDA ICE and HOMER Pro.",
       "tools": [
@@ -318,8 +318,8 @@
       "title": "Residential Heating Techno-Economic Comparison",
       "category": "Energy Systems",
       "status": "published",
-      "featured": false,
-      "order": 12,
+      "featured": true,
+      "order": 5,
       "associatedWith": "KTH Royal Institute of Technology",
       "summary": "Compared district heating, PV with heat pump, PV with electric boiler and solar thermal with TES configurations using hourly demand and irradiance data.",
       "tools": [
@@ -344,8 +344,8 @@
       "title": "Thermal Energy Storage Peak Shaving",
       "category": "Thermal Systems",
       "status": "published",
-      "featured": false,
-      "order": 13,
+      "featured": true,
+      "order": 6,
       "associatedWith": "Portfolio project",
       "summary": "Simulated TES control logic to cap peak cooling demand and compared ice storage versus phase-change materials on efficiency, cost and volume trade-offs.",
       "tools": [
@@ -369,8 +369,8 @@
       "title": "Germany Energy Transition Analysis (LEAP)",
       "category": "Energy Systems",
       "status": "published",
-      "featured": false,
-      "order": 14,
+      "featured": true,
+      "order": 7,
       "associatedWith": "KTH Royal Institute of Technology",
       "summary": "Structured analysis of Germany's energy transition pathways using LEAP modelling tool, with electricity cost and carbon implications across technology scenarios.",
       "tools": [

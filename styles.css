@@ -1382,6 +1382,52 @@ p {
   font-weight: 800;
 }
 
+.tool-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 10px;
+}
+
+.tool-icon-card {
+  min-height: 72px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--scene-accent) 11%, transparent), transparent 52%),
+    var(--surface);
+}
+
+.tool-mark {
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--scene-accent) 45%, var(--line));
+  border-radius: 12px;
+  color: var(--scene-accent);
+  background: color-mix(in srgb, var(--scene-accent) 10%, transparent);
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.tool-icon-card > span:last-child {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.course-highlight-list {
+  margin-top: 18px;
+  padding-top: 2px;
+}
+
 .content-controls {
   display: grid;
   grid-template-columns: minmax(240px, 0.7fr) minmax(0, 1.3fr);
