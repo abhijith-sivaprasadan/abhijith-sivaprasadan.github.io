@@ -2174,9 +2174,9 @@ h3 {
 }
 
 .primary {
-  background: var(--text);
-  border-color: var(--text);
-  color: #fff;
+  background: var(--scene-accent);
+  border-color: var(--scene-accent);
+  color: #111114;
 }
 
 .secondary,
