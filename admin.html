@@ -30,8 +30,8 @@
       <div class="container">
         <div class="hero-slab">
           <p class="eyebrow">Portfolio admin</p>
-          <h1>REST API content editor</h1>
-          <p class="hero-text">Edit API-backed profile data from one place. Public visitors only see the published JSON returned by the backend.</p>
+          <h1>Portfolio content manager</h1>
+          <p class="hero-text">Update projects, experience, courses, skills and certifications with plain-language fields. Advanced data controls are still available when needed.</p>
         </div>
 
         <div class="admin-grid" data-admin-root>
@@ -69,7 +69,7 @@
                 <p class="eyebrow">Record editor</p>
                 <h2 data-editor-title>Select a collection</h2>
               </div>
-              <button type="button" class="collection-action" data-new-record>New record</button>
+              <button type="button" class="collection-action" data-new-record>Add new item</button>
             </div>
 
             <div class="admin-toolbar">
@@ -88,14 +88,20 @@
             <div class="admin-form" data-record-form></div>
 
             <div class="admin-editor-tools">
-              <button type="button" class="collection-action" data-format-json>Format JSON</button>
-              <button type="button" class="collection-action" data-duplicate-record>Duplicate</button>
-              <button type="button" class="collection-action" data-copy-json>Copy JSON</button>
+              <button type="button" class="collection-action" data-duplicate-record>Duplicate item</button>
             </div>
-            <textarea class="admin-json-editor" data-json-editor spellcheck="false" placeholder="Select or create a record to edit JSON."></textarea>
+            <details class="admin-advanced">
+              <summary>Advanced data editor</summary>
+              <p>Use this only when you need to edit fields that are not shown in the plain-language form.</p>
+              <div class="admin-editor-tools">
+                <button type="button" class="collection-action" data-format-json>Format data</button>
+                <button type="button" class="collection-action" data-copy-json>Copy data</button>
+              </div>
+              <textarea class="admin-json-editor" data-json-editor spellcheck="false" placeholder="Select or create an item to edit advanced data."></textarea>
+            </details>
             <div class="button-row">
-              <button type="button" class="button primary" data-save-record>Save</button>
-              <button type="button" class="button ghost" data-delete-record>Delete</button>
+              <button type="button" class="button primary" data-save-record>Publish changes</button>
+              <button type="button" class="button ghost" data-delete-record>Delete item</button>
               <button type="button" class="button ghost" data-refresh-records>Refresh</button>
             </div>
           </section>

@@ -982,6 +982,13 @@ p {
   font-weight: 700;
 }
 
+.admin-field small {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
 .admin-field input,
 .admin-field textarea,
 .admin-select,
@@ -1154,6 +1161,26 @@ p {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 14px;
+}
+
+.admin-advanced {
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.admin-advanced summary {
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 850;
+}
+
+.admin-advanced p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .admin-empty {

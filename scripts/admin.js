@@ -63,7 +63,7 @@ const escapeHtml = (value = "") =>
 
 const recordLabel = (record) => record.title || record.name || record.role || record.company || record.id || "Untitled";
 const recordMeta = (record) =>
-  [record.issuer, record.company, record.associatedWith, record.period, record.issued, record.code].filter(Boolean).join(" · ");
+  [record.issuer, record.company, record.associatedWith, record.period, record.issued, record.code].filter(Boolean).join(" - ");
 
 const filteredRecords = () => {
   const query = state.search.trim().toLowerCase();
@@ -92,7 +92,35 @@ const setPath = (object, path, value) => {
   target[finalKey] = value;
 };
 
-const fieldLabel = (field) => field.replaceAll(".", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
+const fieldLabels = {
+  title: "Title",
+  issuer: "Issued by",
+  issued: "Issue date",
+  expires: "Expiry date",
+  credentialId: "Credential ID",
+  "link.label": "Link button text",
+  "link.url": "Credential link",
+  period: "Timeline",
+  associatedWith: "Associated with",
+  summary: "Description",
+  tools: "Tools, separated by commas",
+  skills: "Skills, separated by commas",
+  role: "Role title",
+  company: "Company or organisation",
+  type: "Employment type",
+  location: "Location",
+  code: "Course code",
+  name: "Group name",
+};
+
+const fieldHints = {
+  summary: "Write normal website copy. Keep it concise and outcome-focused.",
+  tools: "Example: Python, ANSYS Fluent, LabVIEW",
+  skills: "Example: Energy systems analysis, CFD, Technical reporting",
+  "link.url": "Paste the full URL starting with https://",
+};
+
+const fieldLabel = (field) => fieldLabels[field] || field.replaceAll(".", " ").replace(/([a-z])([A-Z])/g, "$1 $2");
 
 const parseFieldValue = (value) =>
   value
@@ -262,6 +290,7 @@ const renderRecordForm = (record) => {
         <label class="admin-field">
           <span>${escapeHtml(fieldLabel(field))}</span>
           ${control}
+          ${fieldHints[field] ? `<small>${escapeHtml(fieldHints[field])}</small>` : ""}
         </label>`;
     })
     .join("");
