@@ -74,6 +74,7 @@ FIREBASE_PROJECT_ID=<firebase-project-id>
 ADMIN_EMAIL_HASHES=<sha256-admin-email-hash>
 DATABASE_URL=<postgres-connection-url>
 DATABASE_SSL=true
+DATABASE_SSL_REJECT_UNAUTHORIZED=false
 DATABASE_CONNECTION_TIMEOUT_MS=10000
 ```
 
@@ -82,6 +83,8 @@ DATABASE_CONNECTION_TIMEOUT_MS=10000
 `DATA_DIR` is only used when `DATABASE_URL` is not set. Without a database, the API writes to JSON files. On many hosts that filesystem is ephemeral, so production edits may disappear after restarts or redeploys.
 
 `DATABASE_CONNECTION_TIMEOUT_MS` is optional and defaults to `10000`.
+
+`DATABASE_SSL_REJECT_UNAUTHORIZED=false` is the default production setting for managed Postgres URLs such as Aiven service URIs that include `sslmode=require`. Set it to `true` only when the runtime has the provider CA certificate chain available and certificate verification is required.
 
 ## Render blueprint
 

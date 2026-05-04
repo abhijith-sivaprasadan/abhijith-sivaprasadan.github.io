@@ -31,6 +31,7 @@ Required Render environment variables:
 ```text
 DATABASE_URL=<postgres-connection-url>
 DATABASE_SSL=true
+DATABASE_SSL_REJECT_UNAUTHORIZED=false
 DATABASE_CONNECTION_TIMEOUT_MS=10000
 FIREBASE_PROJECT_ID=abhijith-sivaprasadan
 ADMIN_EMAIL_HASHES=<comma-separated-sha256-email-hashes>
