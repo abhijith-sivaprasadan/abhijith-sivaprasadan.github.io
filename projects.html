@@ -73,10 +73,279 @@
         </div>
         <p class="content-count" data-project-count></p>
         <div class="project-browser" data-dynamic-projects data-api-resource="projects">
-          <article class="project-browser-empty">
-            <h3>Loading projects</h3>
-            <p>Project entries will appear here once the API responds.</p>
-          </article>
+
+          <details class="project-browser-item tone-thermal is-featured" open data-project-id="siemens-gas-turbine-thesis">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">CFD / CHT</span>
+                <h3><a class="title-link" href="projects/siemens-thesis.html">Siemens Energy CFD/CHT Thesis &ndash; Gas Turbine Reducer Thermo-Fluid Analysis</a></h3>
+                <p>Compressible CFD and conjugate heat transfer analysis of reducer geometries for the Pulsatorn high-temperature dynamic pressure sensor calibration rig at Siemens Energy Finsp&aring;ng.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>ANSYS Fluent / NI-DAQ / LabVIEW</span>
+                <span>Featured</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-siemens-validation.svg" alt="Gas turbine CFD and instrumentation workflow visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>ANSYS Fluent</span><span>CFD/CHT</span><span>Gas Turbines</span><span>NI-DAQ</span><span>LabVIEW</span><span>k-omega SST</span></div>
+                <ul class="evidence-list">
+                  <li>Built steady-state compressible CFD and CHT models in ANSYS Fluent (k-omega SST) at T = 673 K, P_gauge = 100 kPa across six adiabatic and six CHT simulations.</li>
+                  <li>Mesh independence study confirmed discretisation error below 2% on pressure-loss coefficient and peak Mach number.</li>
+                  <li>Biot number analysis (Bi = 0.003-0.004) separated thermal contributions from flow-regime differences between reducer designs.</li>
+                  <li>Commissioned NI-DAQ measurement chain, modified LabVIEW VI, and led root cause analysis of heater failure during 700°C testing.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/siemens-thesis.html">Case study</a>
+                  <a href="experience/siemens-energy.html">Experience</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy is-featured" data-project-id="pypsa-nl-grid-flexibility">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Grid modelling</span>
+                <h3><a class="title-link" href="projects/pypsa-nl-grid-flexibility.html">PyPSA-NL Grid Congestion, BESS &amp; Flexible Connection Platform</a></h3>
+                <p>Netherlands-inspired constrained-grid workflow comparing renewable growth, bottlenecks, BESS siting, flexible connection contracts and targeted reinforcement.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>PyPSA / HiGHS / Streamlit</span>
+                <span>Featured</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-pypsa-grid.svg" alt="PyPSA-NL grid congestion and BESS visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>PyPSA</span><span>BESS</span><span>Grid congestion</span><span>Streamlit</span><span>Linopy</span></div>
+                <ul class="evidence-list">
+                  <li>Hourly PyPSA/Linopy/HiGHS dispatch model with constrained regional corridors and congestion diagnostics.</li>
+                  <li>BESS siting and sizing sweep across candidate regions, MW ratings and storage durations.</li>
+                  <li>Streamlit dashboard with scenario KPIs, bottleneck maps, validation checks and automated reports.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/pypsa-nl-grid-flexibility.html">Case study</a>
+                  <a href="https://github.com/abhijith-sivaprasadan/pypsa-nl-grid-flexibility" target="_blank" rel="noreferrer">GitHub</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="alleima-energy-efficiency">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Energy management</span>
+                <h3><a class="title-link" href="projects/alleima-energy-efficiency.html">Alleima Energy Efficiency Mapping</a></h3>
+                <p>Energy performance mapping, KPI/EnPI framing, metering readiness assessment, loss analysis and improvement-roadmap work at an industrial steel site.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>ISO 50001 / Python / Excel</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-energy-kpi.svg" alt="Industrial energy KPI mapping visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>ISO 50001</span><span>Energy KPIs</span><span>Industrial efficiency</span><span>EnPI</span></div>
+                <ul class="evidence-list">
+                  <li>Translated energy data readiness into KPI and metering-improvement structure aligned to ISO 50001 continuous improvement.</li>
+                  <li>Identified significant energy users and mapped metering gaps against audit requirements.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/alleima-energy-efficiency.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="district-heating-optimisation">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Energy systems</span>
+                <h3><a class="title-link" href="projects/district-heating-optimisation.html">District Heating Dispatch Optimisation</a></h3>
+                <p>Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass and geothermal assets, planned outages, CO₂ and electricity-price coupling.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>PuLP / HiGHS / MILP</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-district-heating.svg" alt="District heating dispatch optimisation visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>PuLP</span><span>MILP</span><span>District heating</span><span>CHP</span><span>Heat pump</span></div>
+                <ul class="evidence-list">
+                  <li>Modelled constrained multi-asset heat-supply scheduling across 8760 hours with outage windows and re-optimisation.</li>
+                  <li>Compared cost-led and emissions-aware (CO₂-priced) dispatch outcomes, achieving −14% cost and −22% CO₂ in target scenario.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/district-heating-optimisation.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="distribution-grid-study">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Grid modelling</span>
+                <h3><a class="title-link" href="projects/distribution-grid-study.html">Distribution Grid Study</a></h3>
+                <p>CIGRE MV network-style power-flow, N-1 contingency and 24-hour simulation study with EV charging, PV and storage impact analysis.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Python / Power flow / N-1</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-distribution-grid.svg" alt="Distribution grid power-flow and N-1 study visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Power flow</span><span>N-1</span><span>EV/PV/storage</span><span>CIGRE MV</span></div>
+                <ul class="evidence-list">
+                  <li>Screened line loading, voltage behaviour and contingency sensitivity across the 24-hour demand profile.</li>
+                  <li>Compared EV charging, PV injection and battery storage assumptions on network stress indicators.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/distribution-grid-study.html">Case study</a>
+                  <a href="https://github.com/abhijith-sivaprasadan/PRO1_network" target="_blank" rel="noreferrer">GitHub</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-analytics" data-project-id="eu-ets-exposure-calculator">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Software / analytics</span>
+                <h3><a class="title-link" href="projects/eu-ets-exposure-calculator.html">EU ETS Exposure Calculator</a></h3>
+                <p>Excel and Streamlit toolkit for estimating Scope 1 emissions, EUA cost exposure and carbon-intensity trends for industrial sites.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Python / Streamlit / Excel</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-eu-ets.svg" alt="EU ETS emissions and allowance exposure dashboard visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>EU ETS</span><span>Streamlit</span><span>Excel</span><span>Carbon</span><span>Python</span></div>
+                <ul class="evidence-list">
+                  <li>Calculates ETS scenario summaries and EUA price sensitivity from workbook inputs.</li>
+                  <li>Includes workbook parsing, CLI runner, PDF export and automated regression tests.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/eu-ets-exposure-calculator.html">Case study</a>
+                  <a href="https://github.com/abhijith-sivaprasadan/EU-ETS-Exposure-Calculator-Package" target="_blank" rel="noreferrer">GitHub</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="heating-demand-forecasting">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Data / ML</span>
+                <h3><a class="title-link" href="projects/heating-demand-forecasting.html">Heating Demand Forecasting</a></h3>
+                <p>Day-ahead building heating-demand forecasting using weather and temporal features, baseline regression models and neural networks.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Python / scikit-learn / ML</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-heating-forecast.svg" alt="Heating demand forecasting model visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Forecasting</span><span>Python</span><span>ML</span><span>Neural networks</span></div>
+                <ul class="evidence-list">
+                  <li>Built weather and calendar feature sets for day-ahead prediction of building heat demand.</li>
+                  <li>Benchmarked baseline and neural-network approaches with documented assumptions and evaluation metrics.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/heating-demand-forecasting.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="industrial-energy-kpi-toolkit">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Energy management</span>
+                <h3><a class="title-link" href="projects/industrial-energy-kpi-toolkit.html">Industrial Energy KPI Toolkit</a></h3>
+                <p>Python, Excel and Streamlit toolkit for industrial EnPIs, baseline normalisation, anomaly detection and management reporting.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Python / Streamlit / ISO 50001</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-industrial-kpi-toolkit.svg" alt="Industrial energy KPI and normalisation dashboard visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Energy KPIs</span><span>ISO 50001</span><span>EnPI</span><span>Reporting</span><span>Streamlit</span></div>
+                <ul class="evidence-list">
+                  <li>Generates KPI results, anomaly flags, action logs, plots and one-page PDF reports from meter data inputs.</li>
+                  <li>Guided Streamlit flow with diagnostics, baseline normalisation and CI quality checks.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/industrial-energy-kpi-toolkit.html">Case study</a>
+                  <a href="https://github.com/abhijith-sivaprasadan/Energy-KPI-Toolkit" target="_blank" rel="noreferrer">GitHub</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="pynexus-green-hydrogen">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Energy systems</span>
+                <h3><a class="title-link" href="projects/pynexus-green-hydrogen.html">PyNEXUS Green Hydrogen Network Model</a></h3>
+                <p>Coupled offshore wind, PEM electrolyser and hydrogen-pipeline model with MILP dispatch optimisation and scenario comparison.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Pyomo / HiGHS / MILP</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-pynexus.svg" alt="Green hydrogen wind electrolyzer and pipeline model visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Hydrogen</span><span>Pyomo</span><span>MILP</span><span>Dispatch</span><span>Electrolyser</span></div>
+                <ul class="evidence-list">
+                  <li>Models wind-to-hydrogen conversion, pipeline delivery and curtailment KPIs across 8760-hour horizon.</li>
+                  <li>Compares cost and emissions objectives with HiGHS/Pyomo MILP optimisation and multi-scenario analysis.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/pynexus-green-hydrogen.html">Case study</a>
+                  <a href="https://github.com/abhijith-sivaprasadan/PyNEXUS" target="_blank" rel="noreferrer">GitHub</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-thermal" data-project-id="rotating-machinery-vibration-minilab">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Test / instrumentation</span>
+                <h3><a class="title-link" href="projects/rotating-machinery-vibration-minilab.html">Rotating Machinery Vibration Mini-Lab</a></h3>
+                <p>Low-cost vibration measurement workflow using phone accelerometer data, signal filtering, FFT/PSD analysis, spectrograms and automated report generation.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Python / FFT/PSD / SciPy</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-vibration-minilab.svg" alt="Rotating machinery vibration frequency analysis visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Vibration</span><span>FFT/PSD</span><span>Python</span><span>Spectrograms</span><span>SciPy</span></div>
+                <ul class="evidence-list">
+                  <li>Compares operating points through frequency fingerprints and RMS metrics from filtered accelerometer signals.</li>
+                  <li>Packages outputs as HTML reports, plots, spectrograms and summary CSVs.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/rotating-machinery-vibration-minilab.html">Case study</a>
+                  <a href="https://github.com/abhijith-sivaprasadan/rotating-machinery-vibration-minilab" target="_blank" rel="noreferrer">GitHub</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
         </div>
       </div>
     </section>

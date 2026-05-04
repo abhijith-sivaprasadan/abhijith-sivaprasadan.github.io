@@ -51,20 +51,43 @@
         <aside class="case-panel">
           <h2>Project snapshot</h2>
           <ul>
-            <li>Organisation: Siemens Energy AB, Fluid Dynamic Lab, Finsp&aring;ng</li>
-            <li>Tools: ANSYS Fluent, k-omega SST, NI-DAQ, LabVIEW, Siemens NX, Teamcenter PLM2020, ANSYS SpaceClaim</li>
-            <li>Focus: CFD/CHT, compressible flow, pressure-loss analysis, thermal delivery, thermocouple/pressure measurement, validation planning, design iteration</li>
+            <li><strong>Organisation:</strong> Siemens Energy AB, Fluid Dynamic Lab, Finsp&aring;ng</li>
+            <li><strong>Duration:</strong> 7 months (master&rsquo;s thesis)</li>
+            <li><strong>Simulation:</strong> ANSYS Fluent, ANSYS Meshing, ANSYS SpaceClaim</li>
+            <li><strong>Turbulence model:</strong> k-omega SST, enhanced near-wall treatment</li>
+            <li><strong>Instrumentation:</strong> NI-DAQ, NI MAX, LabVIEW VI</li>
+            <li><strong>PLM:</strong> Siemens NX, Teamcenter PLM2020</li>
+            <li><strong>Inlet conditions:</strong> T = 673 K, P_gauge = 100 kPa</li>
+            <li><strong>Campaign:</strong> 12 runs &mdash; 6 adiabatic, 6 CHT</li>
+            <li><strong>Biot number:</strong> Bi = 0.003&ndash;0.004 (lumped regime)</li>
           </ul>
         </aside>
         <article class="case-panel">
-          <h2>What I did</h2>
-          <ul>
-            <li>Commissioned and verified NI-DAQ measurement-chain elements for preliminary rig tests, including thermocouple and static/dynamic pressure channels.</li>
-            <li>Developed steady-state compressible CFD/CHT models in ANSYS Fluent using k-omega SST turbulence modelling at inlet T = 673 K and P_gauge = 100,000 Pa.</li>
-            <li>Ran a three-level mesh independence study and confirmed discretisation independence to within 2% before the full simulation campaign.</li>
-            <li>Applied Biot number analysis (Bi = 0.003-0.004) and compared baseline and redesign cases to separate thermal behaviour from flow-regime effects.</li>
-            <li>Documented assumptions and limitations, then defined next-step validation needs for transient/pulsating operation and experimental verification.</li>
-          </ul>
+          <h2>The rig and the problem</h2>
+          <p>
+            The Pulsatorn calibration rig at Siemens Energy Finsp&aring;ng conditions high-temperature, high-pressure air before it reaches the face of a dynamic pressure sensor used to characterise gas-turbine hot-section pulsation. Three reducer geometries sit immediately upstream of the sensor and determine the local flow regime and thermal environment at the measurement point. My task was to build CFD and conjugate heat transfer models of all three reducers, compare their pressure-loss, Mach-number distribution and thermal delivery, and determine whether the sensor-tip environment would remain within design limits.
+          </p>
+
+          <h2>CFD and CHT methodology</h2>
+          <p>
+            I built steady-state compressible RANS models in ANSYS Fluent using k-omega SST turbulence closure with enhanced wall treatment. Inlet conditions were T&nbsp;=&nbsp;673&nbsp;K and P_gauge&nbsp;=&nbsp;100&nbsp;kPa. For each reducer I ran two variants: an adiabatic case to isolate flow-regime behaviour &mdash; pressure loss, velocity field and vena contracta location &mdash; and a full conjugate heat transfer case that coupled the fluid domain to the solid reducer wall to resolve the temperature field through the metal and predict the thermal environment reaching the sensor.
+          </p>
+          <p>
+            Before the full campaign I conducted a three-level mesh independence study on the baseline geometry using prismatic inflation layers for near-wall resolution. Pressure-loss coefficient and peak Mach number both changed by less than 2% between the medium and fine meshes, confirming discretisation independence. Two geometries exhibited near-choked conditions at the vena contracta; one showed a localised supersonic acceleration followed by a weak normal shock &mdash; a flow regime that was not visible from pressure-loss coefficients alone and required Mach-number contour inspection to diagnose.
+          </p>
+
+          <h2>Thermal analysis &mdash; Biot number and redesign comparison</h2>
+          <p>
+            Biot number analysis yielded Bi&nbsp;=&nbsp;0.003&ndash;0.004, placing all three reducers firmly in the lumped-capacitance regime: internal temperature gradients within the metal are negligible compared to the surface-to-fluid temperature difference. This result allowed me to attribute temperature differences between the baseline and redesigned geometries primarily to flow-regime variation rather than to differences in conductive resistance, giving a cleaner basis for the redesign comparison.
+          </p>
+
+          <h2>Instrumentation and root cause analysis</h2>
+          <p>
+            In parallel with the simulation work I commissioned the NI-DAQ measurement chain for the rig: J- and K-type thermocouple channels, a static pressure channel, and the Pulsatorn dynamic pressure sensor itself. I modified an existing LabVIEW VI to synchronise and log all channels at the required acquisition rate. During preliminary thermal testing at temperatures up to 700&deg;C a heater element failed; I led the root cause investigation, traced the failure to thermal-cycling fatigue at a weld joint, and formally documented the finding and remediation recommendations for engineering review.
+          </p>
+          <p>
+            All domain choices, boundary conditions, turbulence model settings, assumptions and limitations were formally documented in the thesis submission, with next-step validation needs defined for transient and pulsating operation.
+          </p>
         </article>
       </div>
     </section>
@@ -76,7 +99,9 @@
           <h2>Why this matters</h2>
         </div>
         <div class="case-panel">
-          <p>This work strengthens my modelling profile with practical engineering validation experience: connecting simulations, measurements, uncertainty, test rigs and documentation. The experimental phase also included independent thermal testing up to 700&deg;C and formal root cause analysis after heater failure.</p>
+          <p>
+            This work covers the full simulation-to-hardware loop: geometry preparation in SpaceClaim, mesh design and independence verification in ANSYS Meshing, compressible RANS and CHT solving in Fluent, physical interpretation through Biot number analysis, measurement-chain commissioning in NI-DAQ and LabVIEW, and engineering-grade documentation of assumptions and limitations. The combined CFD and instrumentation scope maps directly onto gas turbine CFD, test engineering and high-temperature hardware roles. The root cause analysis experience and formal validation-planning methodology are additional differentiators for roles where numerical models need to be grounded in real rig data.
+          </p>
         </div>
       </div>
     </section>
