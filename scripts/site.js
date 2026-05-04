@@ -11,6 +11,7 @@ const inferredPageKey = (() => {
   return currentFile.replace(/\.html$/, "");
 })();
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
+const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
@@ -601,13 +602,17 @@ window.addEventListener("scroll", updateScrollState, { passive: true });
 window.addEventListener("resize", updateScrollState);
 updateProgress();
 updateScenes();
-applySavedState();
 injectNavLinks();
-injectEditor();
-makeEditable(false);
-syncCollectionEditability();
+if (localEditorEnabled) {
+  applySavedState();
+  injectEditor();
+  makeEditable(false);
+  syncCollectionEditability();
+}
 loadPortfolioConfig().then(() => {
   initializeCertifications();
   initializeNewsletter();
-  initializeAdminAuth();
+  if (localEditorEnabled) {
+    initializeAdminAuth();
+  }
 });
