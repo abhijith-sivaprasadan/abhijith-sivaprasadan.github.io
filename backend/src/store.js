@@ -54,13 +54,16 @@ const collectionPath = (collection) => {
 export const getStorageMode = () => (DATABASE_URL ? "postgres" : "json");
 
 const normalizeDatabaseUrl = (value) => {
-  if (!value || !DATABASE_SSL || DATABASE_SSL_REJECT_UNAUTHORIZED) return value;
+  if (!value) return value;
 
   try {
     const url = new URL(value);
-    const sslMode = url.searchParams.get("sslmode");
-    if (sslMode && !url.searchParams.has("uselibpqcompat")) {
-      url.searchParams.set("uselibpqcompat", "true");
+    if (DATABASE_SSL) {
+      url.searchParams.delete("sslmode");
+      url.searchParams.delete("sslcert");
+      url.searchParams.delete("sslkey");
+      url.searchParams.delete("sslrootcert");
+      url.searchParams.delete("uselibpqcompat");
     }
     return url.toString();
   } catch {
