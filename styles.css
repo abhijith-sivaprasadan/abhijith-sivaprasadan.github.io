@@ -2260,6 +2260,10 @@ h3 {
   background: linear-gradient(180deg, var(--scene-accent), color-mix(in srgb, var(--scene-accent-2) 60%, #fff));
   opacity: 0.9;
 }
+
+.project-card::before {
+  display: none;
+}
 .page-panel,
 .hero-slab,
 .entry-card,
@@ -2336,8 +2340,9 @@ h3 {
 .project-thumb,
 .case-visual {
   border-radius: 12px;
-  border-color: var(--line);
-  background: var(--surface);
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
 }
 
 .content-controls {
