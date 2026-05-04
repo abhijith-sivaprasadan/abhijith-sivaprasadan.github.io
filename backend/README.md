@@ -74,11 +74,14 @@ FIREBASE_PROJECT_ID=<firebase-project-id>
 ADMIN_EMAIL_HASHES=<sha256-admin-email-hash>
 DATABASE_URL=<postgres-connection-url>
 DATABASE_SSL=true
+DATABASE_CONNECTION_TIMEOUT_MS=10000
 ```
 
 `DATABASE_URL` is recommended for production. When it is set, the API stores all collections in Postgres and seeds empty database collections from the committed JSON files in `backend/data`.
 
 `DATA_DIR` is only used when `DATABASE_URL` is not set. Without a database, the API writes to JSON files. On many hosts that filesystem is ephemeral, so production edits may disappear after restarts or redeploys.
+
+`DATABASE_CONNECTION_TIMEOUT_MS` is optional and defaults to `10000`.
 
 ## Render blueprint
 
