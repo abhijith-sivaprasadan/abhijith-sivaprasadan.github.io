@@ -2051,6 +2051,75 @@ code {
   padding: 64px 0;
 }
 
+.scroll-scene {
+  position: relative;
+}
+
+.scroll-scene::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(22, 24, 29, 0.08), transparent);
+}
+
+.scene-hero {
+  background:
+    linear-gradient(180deg, rgba(53, 92, 125, 0.06), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.68), transparent 42%);
+}
+
+.scene-explore {
+  background:
+    linear-gradient(180deg, rgba(107, 143, 92, 0.06), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 38%);
+}
+
+.scene-profile,
+.scene-skills {
+  background:
+    linear-gradient(180deg, rgba(110, 107, 146, 0.06), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.44), transparent 38%);
+}
+
+.scene-projects {
+  background:
+    linear-gradient(180deg, rgba(107, 143, 92, 0.08), transparent 52%),
+    linear-gradient(180deg, rgba(248, 250, 252, 0.6), transparent 36%);
+}
+
+.scene-education,
+.scene-cv {
+  background:
+    linear-gradient(180deg, rgba(95, 120, 145, 0.07), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 38%);
+}
+
+.scene-experience {
+  background:
+    linear-gradient(180deg, rgba(138, 91, 73, 0.06), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.44), transparent 38%);
+}
+
+.scene-newsletter,
+.scene-contact {
+  background:
+    linear-gradient(180deg, rgba(53, 92, 125, 0.05), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 38%);
+}
+
+.scene-projects,
+.scene-experience,
+.scene-cv,
+.scene-newsletter,
+.scene-contact,
+.scene-profile,
+.scene-skills,
+.scene-education,
+.scene-explore {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
 .hero {
   padding: 72px 0 56px;
 }
@@ -2144,6 +2213,31 @@ h3 {
   box-shadow: none;
 }
 
+.card,
+.project-card,
+.skill-block,
+.timeline-item,
+.contact-card,
+.case-panel,
+.admin-preview-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before,
+.project-card::before,
+.skill-block::before,
+.timeline-item::before,
+.contact-card::before,
+.case-panel::before,
+.admin-preview-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--scene-accent), color-mix(in srgb, var(--scene-accent-2) 60%, #fff));
+  opacity: 0.9;
+}
 .page-panel,
 .hero-slab,
 .entry-card,
@@ -2162,10 +2256,13 @@ h3 {
 .hero-slab {
   min-height: 220px;
   padding: 24px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent) 5%, #fff), #fff 68%),
+    #fff;
 }
 
 .signal-card {
-  background: #fff;
+  background: linear-gradient(180deg, #fff, color-mix(in srgb, var(--scene-accent) 4%, #fff));
   border: 1px solid var(--line);
   border-radius: 14px;
   box-shadow: none;
@@ -2189,7 +2286,9 @@ h3 {
 .project-browser-item {
   border-color: var(--line);
   border-radius: 14px;
-  background: #fff;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent) 4%, #fff), #fff 58%),
+    #fff;
 }
 
 .project-browser-item[open] {
@@ -2207,7 +2306,9 @@ h3 {
 }
 
 .project-browser-empty {
-  background: #fff;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent-2) 5%, #fff), #fff 70%),
+    #fff;
 }
 
 .project-thumb,
@@ -2253,7 +2354,9 @@ h3 {
 .admin-collection-list,
 .admin-empty,
 .content-rail .page-panel {
-  background: #fff;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent) 4%, #fff), #fff 70%),
+    #fff;
   border: 1px solid var(--line);
   box-shadow: none;
 }
@@ -2294,11 +2397,18 @@ h3 {
 }
 
 .editor-toolbar {
-  background: rgba(244, 245, 247, 0.92);
+  background: rgba(244, 245, 247, 0.95);
   border-color: var(--line);
   box-shadow: var(--shadow);
 }
 
+.page-summary,
+.content-rail .page-panel,
+.newsletter-form {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent-2) 5%, #fff), #fff 70%),
+    #fff;
+}
 .footer {
   border-top: 1px solid rgba(22, 24, 29, 0.08);
 }
