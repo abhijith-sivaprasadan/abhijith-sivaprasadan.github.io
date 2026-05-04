@@ -23,3 +23,5 @@ services:
         sync: false
       - key: DATABASE_SSL
         value: "true"
+      - key: DATABASE_CONNECTION_TIMEOUT_MS
+        value: "10000"
