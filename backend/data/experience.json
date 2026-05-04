@@ -7,15 +7,16 @@
       "type": "Contract",
       "period": "Apr 2025 - Nov 2025",
       "location": "Finspang, Ostergotland County, Sweden",
-      "summary": "Worked in the Fluid Dynamic Lab on thermo-fluid analysis of a high-temperature gas turbine test rig, focusing on heat-loss and pressure-loss mechanisms in the heater-to-sensor flow path.",
+      "summary": "Seven months embedded at Siemens Energy Finspång in the Fluid Dynamic Lab working on the Pulsatorn gas turbine test rig. Conducted numerical investigation of steady-state thermo-fluid performance of a reducer geometry for a high-temperature dynamic pressure sensor calibration rig. Managed the CFD workflow independently in ANSYS SpaceClaim and Fluent, built compressible CFD and CHT models with k-omega SST, ran a three-level mesh independence study and applied Biot number analysis to decompose thermal performance. Also commissioned NI-DAQ measurement chains, modified LabVIEW VIs, ran thermal tests up to 700°C and completed formal root cause analysis after heater failure that triggered an approved scope change. Used Siemens NX and Teamcenter PLM2020 throughout. Supervisor: Prof. Jens Fridh, KTH.",
       "tools": [
         "ANSYS Fluent",
         "NI-DAQ",
         "LabVIEW",
         "Siemens NX",
+        "Teamcenter PLM2020",
         "Conjugate Heat Transfer",
-        "CFD",
-        "Technical Reporting"
+        "Compressible CFD",
+        "Root Cause Analysis"
       ],
       "status": "published",
       "featured": true,

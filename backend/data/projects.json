@@ -6,7 +6,7 @@
       "category": "Energy Systems",
       "status": "published",
       "featured": true,
-      "order": 1,
+      "order": 2,
       "period": "2026",
       "associatedWith": "Portfolio project",
       "summary": "Netherlands-inspired constrained-grid workflow comparing renewable growth, bottlenecks, connection-capacity limits, BESS siting, flexible connection contracts and targeted reinforcement.",
@@ -34,31 +34,35 @@
     },
     {
       "id": "siemens-thesis",
-      "title": "Siemens Energy CFD/CHT and Test Validation Thesis",
+      "title": "Siemens Energy CFD/CHT Thesis - Gas Turbine Reducer Thermo-Fluid Analysis",
       "category": "CFD & Testing",
       "status": "published",
       "featured": true,
-      "order": 2,
+      "order": 1,
       "period": "Apr 2025 - Nov 2025",
       "associatedWith": "Siemens Energy",
-      "summary": "Measurement-chain commissioning and thermo-fluid modelling work around high-temperature gas-turbine-related test rigs.",
+      "summary": "Seven months embedded at Siemens Energy Finspång conducting compressible CFD and conjugate heat transfer analysis of reducer geometries for the Pulsatorn high-temperature dynamic pressure sensor calibration rig.",
       "tools": [
         "ANSYS Fluent",
+        "CFD/CHT",
+        "k-omega SST",
         "NI-DAQ",
         "LabVIEW",
         "Siemens NX"
       ],
       "skills": [
-        "CFD/CHT",
-        "Testing",
-        "Validation",
-        "Gas turbines"
+        "Compressible CFD",
+        "Gas turbines",
+        "Mesh independence",
+        "Root cause analysis"
       ],
       "image": "assets/thumb-siemens-validation.svg",
       "caseStudyUrl": "projects/siemens-thesis.html",
       "highlights": [
-        "Connected simulation setup, measurement chain checks and validation planning.",
-        "Worked with ANSYS Fluent, NI-DAQ, LabVIEW and technical documentation."
+        "Built steady-state compressible CFD and CHT models in ANSYS Fluent (k-omega SST) for inlet T = 673 K and P_gauge = 100,000 Pa with three outlet pressure cases per geometry across six adiabatic and six CHT simulations.",
+        "Conducted a three-level mesh independence study confirming discretisation independence to within 2% before proceeding to the full simulation campaign.",
+        "Applied Biot number analysis (Bi = 0.003-0.004) to decompose thermal performance and identified flow-regime asymmetry between geometries: Ma 0.990 near-choked versus Ma 1.006 supersonic vena contracta.",
+        "Commissioned NI-DAQ measurement chains, modified LabVIEW VIs, ran thermal test campaigns up to 700°C and completed formal root cause analysis after heater failure."
       ]
     },
     {
@@ -280,6 +284,109 @@
       "highlights": [
         "Compares operating points through frequency fingerprints and RMS metrics.",
         "Packages outputs as HTML reports, plots and summary CSVs."
+      ]
+    },
+    {
+      "id": "hylkysaari-smart-energy-island-modelling",
+      "title": "Hylkysaari Smart Energy Island Modelling",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": false,
+      "order": 11,
+      "associatedWith": "KTH Royal Institute of Technology",
+      "summary": "Building energy demand modelling, PV generation, battery storage and heat pump scenario analysis for a near-zero energy island concept using IDA ICE and HOMER Pro.",
+      "tools": [
+        "IDA ICE",
+        "HOMER Pro",
+        "Heat Pumps",
+        "Building Energy",
+        "KPI"
+      ],
+      "skills": [
+        "Autonomy",
+        "Self-consumption",
+        "Techno-economics"
+      ],
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": [
+        "Coupled component-level thermal behaviour to system-level KPIs.",
+        "Evaluated autonomy, self-consumption and techno-economics across BAU and renewable-plus-storage scenarios."
+      ]
+    },
+    {
+      "id": "residential-heating-techno-economic-comparison",
+      "title": "Residential Heating Techno-Economic Comparison",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": false,
+      "order": 12,
+      "associatedWith": "KTH Royal Institute of Technology",
+      "summary": "Compared district heating, PV with heat pump, PV with electric boiler and solar thermal with TES configurations using hourly demand and irradiance data.",
+      "tools": [
+        "IDA ICE",
+        "SAM",
+        "Heat Pumps",
+        "Techno-Economic Analysis"
+      ],
+      "skills": [
+        "CAPEX",
+        "OPEX",
+        "LCOE",
+        "Payback"
+      ],
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": [
+        "Built CAPEX, OPEX, LCOE and payback KPIs with sensitivity analysis using IDA ICE and SAM."
+      ]
+    },
+    {
+      "id": "thermal-energy-storage-peak-shaving",
+      "title": "Thermal Energy Storage Peak Shaving",
+      "category": "Thermal Systems",
+      "status": "published",
+      "featured": false,
+      "order": 13,
+      "associatedWith": "Portfolio project",
+      "summary": "Simulated TES control logic to cap peak cooling demand and compared ice storage versus phase-change materials on efficiency, cost and volume trade-offs.",
+      "tools": [
+        "Python",
+        "TES",
+        "Phase Change Materials",
+        "District Cooling"
+      ],
+      "skills": [
+        "Control logic",
+        "Storage sizing",
+        "Trade-off analysis"
+      ],
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": [
+        "Sized storage and compared ice storage versus phase-change material options across efficiency, cost and volume constraints."
+      ]
+    },
+    {
+      "id": "germany-energy-transition-analysis-leap",
+      "title": "Germany Energy Transition Analysis (LEAP)",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": false,
+      "order": 14,
+      "associatedWith": "KTH Royal Institute of Technology",
+      "summary": "Structured analysis of Germany's energy transition pathways using LEAP modelling tool, with electricity cost and carbon implications across technology scenarios.",
+      "tools": [
+        "LEAP",
+        "Energy Policy",
+        "Energy Transition",
+        "Scenario Analysis"
+      ],
+      "skills": [
+        "Policy context",
+        "Scenario modelling",
+        "Carbon implications"
+      ],
+      "image": "assets/thumb-energy-kpi.svg",
+      "highlights": [
+        "Evaluated electricity cost and carbon implications across technology scenarios relevant to EPBD and energy policy context."
       ]
     },
     {

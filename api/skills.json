@@ -31,50 +31,72 @@
       "id": "thermal-cfd-and-testing",
       "name": "Thermal, CFD and testing",
       "skills": [
-        "Ansys Fluent",
-        "Numerical Simulation",
-        "CFD",
-        "Conjugate Heat Transfer",
-        "Gas Turbines",
-        "Pressure Sensors",
-        "LabVIEW",
-        "Test & Measurement Instrumentation",
-        "Test Rig Operation & Design",
-        "High-Temperature Measurement",
-        "Sensor Technology",
-        "Meshing",
-        "Combustion Analysis",
-        "Technical Documentation",
-        "Root Cause Analysis",
-        "ISO 31000"
+        "ANSYS Fluent (compressible flow, conjugate heat transfer, k-omega SST, mesh independence methodology, prismatic inflation layers)",
+        "Biot number analysis",
+        "Thermal boundary condition setup",
+        "Near-wall treatment",
+        "Turbulence modelling fundamentals (RANS)",
+        "ANSYS Meshing",
+        "ANSYS SpaceClaim",
+        "COMSOL (coursework)",
+        "NI-DAQ",
+        "NI MAX",
+        "LabVIEW (VI authoring, data logging, signal conditioning, real-time monitoring)",
+        "Thermocouple commissioning (K-type, multiple channels)",
+        "Static and dynamic pressure sensor configuration",
+        "Measurement chain validation",
+        "Root cause analysis methodology",
+        "Gas turbines"
       ],
       "status": "published",
       "featured": true,
       "order": 2
     },
     {
-      "id": "design-manufacturing-and-mechanical-engineering",
-      "name": "Design, manufacturing and mechanical engineering",
+      "id": "cad-and-plm",
+      "name": "CAD and PLM",
       "skills": [
-        "Computer-Aided Design (CAD)",
-        "Siemens NX",
-        "SOLIDWORKS",
-        "COMSOL",
-        "Star-CCM+",
-        "ANSYS",
-        "Hyperworks",
-        "Finite Element Analysis (FEA)",
-        "Computer-Aided Engineering (CAE)",
-        "Technical Drawing",
-        "Mechanical Engineering",
-        "Automotive Engineering",
-        "Plant Maintenance",
-        "3D Printing",
-        "Ultimaker Cura"
+        "Siemens NX (used at Siemens Energy Finspång)",
+        "Teamcenter PLM2020 (used at Siemens Energy Finspång)",
+        "SolidWorks",
+        "ANSYS SpaceClaim"
       ],
       "status": "published",
       "featured": true,
       "order": 3
+    },
+    {
+      "id": "energy-modelling-tools",
+      "name": "Energy modelling tools",
+      "skills": [
+        "IDA ICE",
+        "HOMER Pro",
+        "LEAP",
+        "SAM (Solar Advisor Model)",
+        "PyPSA",
+        "Pyomo",
+        "PuLP",
+        "MILP optimisation"
+      ],
+      "status": "published",
+      "featured": true,
+      "order": 4
+    },
+    {
+      "id": "certifications",
+      "name": "Certifications",
+      "skills": [
+        "Applied Computational Fluid Dynamics (Siemens)",
+        "SSG Entre / Industrial Safety Sweden (valid Jan 2025 - Jan 2028)",
+        "IBM Python for Data Science",
+        "Digital Manufacturing and Design Technology (University at Buffalo)",
+        "Schneider Electric - Assessing a Commercial Product's Sustainability",
+        "Digital Signal Processing (in progress)",
+        "Building Energy Systems and Electrification (in progress)"
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 5
     },
     {
       "id": "data-ai-and-software",
@@ -102,7 +124,7 @@
       ],
       "status": "published",
       "featured": false,
-      "order": 4
+      "order": 6
     },
     {
       "id": "research-operations-and-leadership",
@@ -126,7 +148,7 @@
       ],
       "status": "published",
       "featured": false,
-      "order": 5
+      "order": 7
     }
   ]
 }
