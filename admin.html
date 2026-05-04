@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
-  <script type="module" src="scripts/admin.js?v=20260504-data-v2"></script>
+  <script type="module" src="scripts/admin.js?v=20260504-data-v4"></script>
 </head>
 <body data-page-key="admin">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -61,6 +61,18 @@
             <p class="eyebrow">Collections</p>
             <div class="admin-summary-grid" data-admin-summary></div>
             <div class="admin-collection-list" data-collection-list></div>
+          </section>
+
+          <section class="page-panel" data-idea-review-panel hidden>
+            <div class="collection-head">
+              <div>
+                <p class="eyebrow">Idea submissions</p>
+                <h2 data-idea-review-title>Pending drafts</h2>
+              </div>
+              <span class="collection-action" data-idea-review-count>0</span>
+            </div>
+            <p class="admin-status">Review drafts from signed-in contributors and approve only the ones you want public.</p>
+            <div class="admin-record-list" data-idea-review-list></div>
           </section>
 
           <section class="page-panel admin-editor-panel">

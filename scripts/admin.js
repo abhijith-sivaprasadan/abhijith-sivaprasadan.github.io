@@ -5,6 +5,10 @@ const clearTokenButton = document.querySelector("[data-clear-token]");
 const googleSignInButton = document.querySelector("[data-google-sign-in]");
 const googleSignOutButton = document.querySelector("[data-google-sign-out]");
 const collectionList = document.querySelector("[data-collection-list]");
+const ideaReviewPanel = document.querySelector("[data-idea-review-panel]");
+const ideaReviewTitle = document.querySelector("[data-idea-review-title]");
+const ideaReviewCount = document.querySelector("[data-idea-review-count]");
+const ideaReviewList = document.querySelector("[data-idea-review-list]");
 const adminSummary = document.querySelector("[data-admin-summary]");
 const statusEl = document.querySelector("[data-admin-status]");
 const authStatusEl = document.querySelector("[data-auth-status]");
@@ -65,7 +69,15 @@ const escapeHtml = (value = "") =>
 
 const recordLabel = (record) => record.title || record.name || record.role || record.company || record.id || "Untitled";
 const recordMeta = (record) =>
-  [record.issuer, record.company, record.associatedWith, record.period, record.issued, record.code].filter(Boolean).join(" - ");
+  [
+    record.issuer,
+    record.company,
+    record.associatedWith,
+    record.period,
+    record.issued,
+    record.code,
+    record.submittedBy?.email ? `Submitted by ${record.submittedBy.email}` : "",
+  ].filter(Boolean).join(" - ");
 
 const filteredRecords = () => {
   const query = state.search.trim().toLowerCase();
@@ -306,6 +318,46 @@ const renderCollections = () => {
 
 const activeRecord = () => state.records.find((record) => record.id === state.activeId) || null;
 
+const ideaDrafts = () => (state.activeCollection === "ideas" ? state.records.filter((record) => record.status === "draft") : []);
+
+const renderIdeaReviewQueue = () => {
+  if (!ideaReviewPanel) return;
+
+  if (state.activeCollection !== "ideas") {
+    ideaReviewPanel.hidden = true;
+    return;
+  }
+
+  const drafts = ideaDrafts();
+  ideaReviewPanel.hidden = drafts.length === 0;
+  if (ideaReviewCount) ideaReviewCount.textContent = String(drafts.length);
+  if (ideaReviewTitle) ideaReviewTitle.textContent = drafts.length ? "Pending drafts" : "No drafts pending";
+
+  if (!ideaReviewList) return;
+
+  ideaReviewList.innerHTML = drafts.length
+    ? drafts
+        .map(
+          (record) => `
+            <article class="admin-preview-card">
+              <div class="tag-row">
+                <span>Draft</span>
+                ${record.submissionStatus ? `<span>${escapeHtml(record.submissionStatus)}</span>` : ""}
+                ${record.category ? `<span>${escapeHtml(record.category)}</span>` : ""}
+              </div>
+              <h3>${escapeHtml(record.title || "Untitled idea")}</h3>
+              ${record.submittedBy?.email ? `<p class="meta">Submitted by ${escapeHtml(record.submittedBy.email)}</p>` : ""}
+              <p>${escapeHtml(record.summary || "")}</p>
+              <div class="button-row">
+                <button type="button" class="collection-action" data-review-idea="${escapeHtml(record.id)}">Review</button>
+                <button type="button" class="collection-action" data-approve-idea="${escapeHtml(record.id)}">Approve</button>
+              </div>
+            </article>`
+        )
+        .join("")
+    : `<p class="admin-empty">No pending idea drafts.</p>`;
+};
+
 const renderRecordList = () => {
   const records = filteredRecords();
   recordList.innerHTML = records.length
@@ -384,6 +436,7 @@ const renderRecords = () => {
   renderRecordList();
   renderRecordForm(record);
   renderPreview(record);
+  renderIdeaReviewQueue();
 };
 
 const loadCollections = async () => {
@@ -416,6 +469,7 @@ const loadRecords = async (collection, key) => {
   state.records = Array.isArray(data[key]) ? data[key] : [];
   renderCollections();
   renderRecords();
+  renderIdeaReviewQueue();
 };
 
 collectionList.addEventListener("click", async (event) => {
@@ -508,6 +562,43 @@ duplicateRecordButton.addEventListener("click", () => {
   state.activeId = "";
   renderRecordForm(copy);
   setStatus("Duplicated into an unsaved new record.");
+});
+
+document.addEventListener("click", async (event) => {
+  const reviewButton = event.target.closest("[data-review-idea]");
+  if (reviewButton) {
+    const idea = state.records.find((record) => record.id === reviewButton.dataset.reviewIdea);
+    if (!idea) return;
+    state.activeId = idea.id;
+    renderRecords();
+    setStatus(`Reviewing ${idea.title}.`);
+    return;
+  }
+
+  const approveButton = event.target.closest("[data-approve-idea]");
+  if (!approveButton) return;
+
+  const idea = state.records.find((record) => record.id === approveButton.dataset.approveIdea);
+  if (!idea) return;
+
+  if (!window.confirm(`Approve "${idea.title}" and publish it?`)) return;
+
+  try {
+    const payload = {
+      ...idea,
+      status: "published",
+      submissionStatus: "approved",
+      reviewedAt: new Date().toISOString(),
+    };
+    await requestJson(collectionUrl("ideas", idea.id), {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    });
+    await loadRecords("ideas", state.collections.find((collection) => collection.name === "ideas")?.key || "ideas");
+    setStatus(`Approved ${idea.title}.`);
+  } catch (error) {
+    setStatus(error.message, true);
+  }
 });
 
 copyJsonButton.addEventListener("click", async () => {

@@ -1,5 +1,5 @@
 import http from "node:http";
-import { authorizeAdmin } from "./auth.js";
+import { authorizeAdmin, authorizeGoogleUser } from "./auth.js";
 import {
   createItem,
   deleteItem,
@@ -54,6 +54,43 @@ const readJsonBody = async (req) => {
 const reqHostPlaceholder = "localhost";
 const parsePath = (url) => new URL(url, `http://${reqHostPlaceholder}`).pathname.split("/").filter(Boolean);
 
+const tryAuthorizeAdmin = async (req) => {
+  if (!req.headers.authorization) return null;
+  const authorization = await authorizeAdmin(req);
+  return authorization.ok ? authorization : null;
+};
+
+const normalizeIdeaSubmissionList = (value) => {
+  if (Array.isArray(value)) {
+    return value.map((entry) => entry.toString().trim()).filter(Boolean);
+  }
+  if (typeof value === "string") {
+    return value
+      .split(",")
+      .map((entry) => entry.trim())
+      .filter(Boolean);
+  }
+  return [];
+};
+
+const buildIdeaSubmission = (body, user) => ({
+  title: typeof body.title === "string" ? body.title.trim() : "",
+  category: typeof body.category === "string" ? body.category.trim() || "Idea" : "Idea",
+  summary: typeof body.summary === "string" ? body.summary.trim() : "",
+  tools: normalizeIdeaSubmissionList(body.tools),
+  skills: normalizeIdeaSubmissionList(body.skills),
+  status: "draft",
+  featured: false,
+  submissionStatus: "pending",
+  submittedBy: {
+    uid: user.uid,
+    email: user.email,
+    name: user.name || "",
+    picture: user.picture || "",
+    submittedAt: new Date().toISOString(),
+  },
+});
+
 const handleCollection = async (req, res, collection, id) => {
   const config = getCollectionConfig(collection);
   if (!config) return notFound(res);
@@ -61,22 +98,57 @@ const handleCollection = async (req, res, collection, id) => {
   if (req.method === "GET" && !id) {
     await ensureItemIds(collection);
     const result = await readCollection(collection);
-    return json(res, 200, { [result.config.key]: result.items });
+    const admin = collection === "ideas" ? await tryAuthorizeAdmin(req) : null;
+    const items = collection === "ideas" && !admin ? result.items.filter((item) => item.status !== "draft") : result.items;
+    return json(res, 200, { [result.config.key]: items });
   }
 
   if (req.method === "GET" && id) {
     const item = await getItem(collection, id);
+    if (collection === "ideas" && item?.status === "draft") {
+      const admin = await tryAuthorizeAdmin(req);
+      if (!admin) return notFound(res);
+    }
     return item ? json(res, 200, item) : notFound(res);
+  }
+
+  if (req.method === "POST" && !id) {
+    const body = await readJsonBody(req);
+    if (collection === "ideas") {
+      const admin = await tryAuthorizeAdmin(req);
+      if (admin) {
+        const item = await createItem(collection, body);
+        return json(res, 201, item);
+      }
+
+      const contributor = await authorizeGoogleUser(req);
+      if (!contributor.ok) {
+        json(res, contributor.status || 401, {
+          error: contributor.error,
+          detail: contributor.detail,
+        });
+        return null;
+      }
+
+      if (!body.title?.toString().trim() || !body.summary?.toString().trim()) {
+        return json(res, 400, {
+          error: "Idea title and summary are required",
+          detail: "Submit a non-empty title and summary before saving the draft.",
+        });
+      }
+
+      const item = await createItem(collection, buildIdeaSubmission(body, contributor.user));
+      return json(res, 201, item);
+    }
+
+    const admin = await requireAdmin(req, res);
+    if (!admin) return null;
+    const item = await createItem(collection, body);
+    return json(res, 201, item);
   }
 
   const admin = await requireAdmin(req, res);
   if (!admin) return null;
-
-  if (req.method === "POST" && !id) {
-    const body = await readJsonBody(req);
-    const item = await createItem(collection, body);
-    return json(res, 201, item);
-  }
 
   if (req.method === "PUT" && id) {
     const body = await readJsonBody(req);
