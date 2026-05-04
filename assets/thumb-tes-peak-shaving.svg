@@ -21,7 +21,7 @@
     <text x="416" y="206" fill="#c7f36f">demand cap</text>
   </g>
   <rect x="650" y="116" width="254" height="318" rx="16" fill="#0f131b" stroke="#2f3542"/>
-  <text x="674" y="150" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Storage sizing</text>
+  <text x="674" y="150" fill="#f4f1ea" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700">Storage sizing</text>
   <g font-family="ui-monospace,monospace" font-size="11" fill="#b9b4aa">
     <text x="674" y="186">Ice storage</text>
     <rect x="674" y="196" width="162" height="12" rx="6" fill="#343640"/><rect x="674" y="196" width="126" height="12" rx="6" fill="#8ec8ff"/>

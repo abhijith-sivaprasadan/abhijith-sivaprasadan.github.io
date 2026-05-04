@@ -42,7 +42,7 @@
   </g>
 
   <rect x="628" y="104" width="274" height="122" rx="14" fill="#0f131b" stroke="#2f3542"/>
-  <text x="650" y="132" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Simulation campaign</text>
+  <text x="650" y="132" fill="#f4f1ea" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700">Simulation campaign</text>
   <g font-family="ui-monospace,monospace" font-size="12" fill="#b9b4aa">
     <text x="650" y="160">6 adiabatic + 6 CHT cases</text>
     <text x="650" y="184">3 outlet pressures / geometry</text>
@@ -50,7 +50,7 @@
   </g>
 
   <rect x="628" y="246" width="274" height="122" rx="14" fill="#0f131b" stroke="#2f3542"/>
-  <text x="650" y="274" fill="#f4f1ea" font-family="IBM Plex Sans,Arial,sans-serif" font-size="16" font-weight="700">Instrumentation</text>
+  <text x="650" y="274" fill="#f4f1ea" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="700">Instrumentation</text>
   <polyline points="650,342 678,330 704,336 732,316 760,326 788,292 816,308 842,300 874,286" fill="none" stroke="#c7f36f" stroke-width="3"/>
   <g font-family="ui-monospace,monospace" font-size="11" fill="#b9b4aa">
     <text x="650" y="300">NI-DAQ / LabVIEW / thermocouples</text>

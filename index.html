@@ -19,9 +19,9 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="scripts/public-config.js?v=20260504-data-v6" defer></script>
+  <script src="scripts/public-config.js?v=20260504-data-v7" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -42,7 +42,7 @@
     "knowsAbout": ["Gas turbine CFD/CHT", "Instrumentation", "Energy management", "Energy systems modelling", "Python analytics", "District heating", "Green hydrogen"]
   }
   </script>
-  <script src="scripts/site.js?v=20260504-data-v6" defer></script>
+  <script src="scripts/site.js?v=20260504-data-v7" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
@@ -66,21 +66,34 @@
   <main id="main" class="home-flow" tabindex="-1">
     <section class="hero section scroll-scene scene-hero" data-scene="systems">
       <div class="container hero-grid">
-        <div>
-          <p class="eyebrow" data-editable="hero-eyebrow">Conjugate Heat Transfer &middot; Compressible CFD &middot; Gas Turbines &middot; ANSYS Fluent &middot; NI-DAQ &middot; ISO 50001 &middot; Energy Systems &middot; Python</p>
-          <h1 data-editable="hero-title">Thermal-fluid and energy systems engineer with hands-on gas turbine CFD, instrumentation, and energy modelling experience.</h1>
+        <div class="hero-copy">
+          <div class="hero-profile-row">
+            <div class="avatar-placeholder" aria-label="Professional photo placeholder">Photo</div>
+            <div>
+              <p class="eyebrow" data-editable="hero-eyebrow">M.Sc. Sustainable Energy Engineering &middot; KTH 2026</p>
+              <p class="hero-kicker">Conjugate Heat Transfer &middot; Compressible CFD &middot; Gas Turbines</p>
+            </div>
+          </div>
+          <h1 data-editable="hero-title">Abhijith Sivaprasadan</h1>
+          <p class="hero-subtitle">Thermal-Fluid &middot; Gas Turbine CFD &middot; Instrumentation &middot; Energy Systems</p>
           <p class="hero-text" data-editable="hero-lead">
-            M.Sc. Sustainable Energy Engineering candidate at KTH Royal Institute of Technology. Seven months embedded at Siemens Energy Finspång building conjugate heat transfer and compressible CFD models of gas turbine hardware. Also experienced in NI-DAQ instrumentation, ISO 50001 energy management, and Python-based energy systems modelling and optimisation.
+            M.Sc. Sustainable Energy Engineering candidate at KTH Royal Institute of Technology. Seven months embedded at Siemens Energy Finsp&aring;ng building conjugate heat transfer and compressible CFD models of gas turbine hardware. Also experienced in NI-DAQ instrumentation, ISO 50001 energy management, and Python-based energy systems modelling and optimisation.
           </p>
           <div class="button-row">
             <a class="button primary" href="projects.html">View projects</a>
-            <a class="button secondary" href="#cv">Role CVs</a>
+            <a class="button secondary" href="#cv">Download CV</a>
             <a class="button secondary" href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+          <div class="hero-tag-row" aria-label="Primary tools">
+            <span>ANSYS Fluent</span>
+            <span>NI-DAQ/LabVIEW</span>
+            <span>ISO 50001</span>
+            <span>Python</span>
           </div>
           <div class="hero-stats" aria-label="Portfolio highlights">
             <div><strong>10</strong><span>technical case studies</span></div>
-            <div><strong>3</strong><span>experience deep dives</span></div>
-            <div><strong>100</strong><span>Lighthouse score</span></div>
+            <div><strong>12</strong><span>CFD/CHT simulations</span></div>
+            <div><strong>4</strong><span>role tracks open</span></div>
           </div>
         </div>
 
@@ -92,40 +105,53 @@
             </div>
             <span class="signal-pill">Open</span>
           </div>
-          <figure class="dispatch-chart" aria-hidden="true">
-            <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+          <figure class="thermal-visual" aria-label="Simplified reducer CFD and thermal-gradient schematic">
+            <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" role="img">
               <defs>
-                <clipPath id="hero-dc">
-                  <rect x="30" y="8" width="260" height="103"/>
-                </clipPath>
+                <linearGradient id="thermal-gradient" x1="0%" y1="50%" x2="100%" y2="50%">
+                  <stop offset="0%" stop-color="#1f6feb"/>
+                  <stop offset="45%" stop-color="#f0883e"/>
+                  <stop offset="100%" stop-color="#e36209"/>
+                </linearGradient>
+                <linearGradient id="pressure-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#e36209" stop-opacity="0.48"/>
+                </linearGradient>
               </defs>
-              <g stroke="#ffffff" stroke-width="0.5" opacity="0.07">
-                <line x1="30" y1="35" x2="290" y2="35"/>
-                <line x1="30" y1="58" x2="290" y2="58"/>
-                <line x1="30" y1="82" x2="290" y2="82"/>
+              <rect x="18" y="18" width="384" height="224" rx="22" fill="#0d1117" stroke="#30363d"/>
+              <g opacity="0.28" stroke="#30363d" stroke-width="1">
+                <path d="M42 58H378M42 98H378M42 138H378M42 178H378"/>
+                <path d="M78 34V224M128 34V224M178 34V224M228 34V224M278 34V224M328 34V224"/>
               </g>
-              <path clip-path="url(#hero-dc)" d="M30,75 L41.3,72 L52.6,70 L63.9,68 L75.2,66 L86.5,68 L97.8,72 L109.1,80 L120.4,88 L131.7,92 L143,95 L154.3,98 L165.6,96 L176.9,94 L188.2,92 L199.5,88 L210.8,82 L222.1,80 L233.4,82 L244.7,86 L256,80 L267.3,75 L278.6,72 L290,74 L290,110 L30,110 Z" fill="#65d6c9" opacity="0.28"/>
-              <path clip-path="url(#hero-dc)" d="M30,75 L41.3,72 L52.6,70 L63.9,68 L75.2,66 L86.5,66 L97.8,64 L109.1,58 L120.4,50 L131.7,40 L143,33 L154.3,30 L165.6,26 L176.9,28 L188.2,34 L199.5,42 L210.8,52 L222.1,68 L233.4,80 L244.7,86 L256,80 L267.3,75 L278.6,72 L290,74 L278.6,72 L267.3,75 L256,80 L244.7,86 L233.4,82 L222.1,80 L210.8,82 L199.5,88 L188.2,92 L176.9,94 L165.6,96 L154.3,98 L143,95 L131.7,92 L120.4,88 L109.1,80 L97.8,72 L86.5,68 L75.2,66 L63.9,68 L52.6,70 L41.3,72 L30,75 Z" fill="#c7f36f" opacity="0.26"/>
-              <polyline clip-path="url(#hero-dc)" points="30,65 41.3,68 52.6,70 63.9,72 75.2,70 86.5,62 97.8,42 109.1,28 120.4,30 131.7,36 143,38 154.3,42 165.6,40 176.9,38 188.2,40 199.5,38 210.8,32 222.1,22 233.4,18 244.7,25 256,36 267.3,46 278.6,55 290,62" fill="none" stroke="#f4f1ea" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.85"/>
-              <line x1="30" y1="110" x2="290" y2="110" stroke="#ffffff" stroke-width="0.6" opacity="0.15"/>
-              <g fill="#7a7570" font-size="8.5" font-family="ui-monospace,monospace" text-anchor="middle">
-                <text x="30" y="122">0h</text>
-                <text x="97.8" y="122">6h</text>
-                <text x="165.6" y="122">12h</text>
-                <text x="233.4" y="122">18h</text>
-                <text x="290" y="122">24h</text>
+              <path d="M58 106 C115 88 155 88 188 106 L240 134 C272 151 314 154 362 136 L362 176 C315 190 272 188 238 170 L186 143 C151 125 111 125 58 144 Z" fill="url(#pressure-gradient)" stroke="url(#thermal-gradient)" stroke-width="3"/>
+              <g fill="none" stroke="#f0f6fc" stroke-opacity="0.22" stroke-width="1">
+                <path d="M70 113 C123 101 153 104 183 119"/>
+                <path d="M70 126 C122 116 154 118 187 135"/>
+                <path d="M70 139 C122 132 158 134 194 151"/>
+                <path d="M214 125 C260 145 304 148 348 137"/>
+                <path d="M210 139 C258 160 305 164 350 151"/>
+                <path d="M209 153 C256 175 305 179 350 165"/>
               </g>
-              <text transform="rotate(-90 13 60)" x="13" y="60" fill="#7a7570" font-size="8" font-family="ui-monospace,monospace" text-anchor="middle">MW</text>
-              <g font-size="8" font-family="system-ui,sans-serif" font-weight="600">
-                <rect x="30" y="132" width="8" height="8" rx="2" fill="#65d6c9" opacity="0.65"/>
-                <text x="41" y="140" fill="#7a7570">Wind</text>
-                <rect x="82" y="132" width="8" height="8" rx="2" fill="#c7f36f" opacity="0.65"/>
-                <text x="93" y="140" fill="#7a7570">Solar</text>
-                <line x1="140" y1="136" x2="153" y2="136" stroke="#f4f1ea" stroke-width="2" opacity="0.7"/>
-                <text x="156" y="140" fill="#7a7570">Demand</text>
+              <g stroke="#e36209" stroke-width="2" fill="none" stroke-linecap="round">
+                <path d="M70 88 L70 70 L112 70"/>
+                <path d="M350 110 L350 88 L304 88"/>
+                <path d="M244 178 L244 204 L286 204"/>
               </g>
+              <g font-family="JetBrains Mono, monospace" font-size="12" fill="#8b949e">
+                <text x="116" y="74">T_in = 673 K</text>
+                <text x="198" y="216">Bi = 0.003-0.004</text>
+                <text x="222" y="92">Ma 0.990 - 1.006</text>
+              </g>
+              <circle cx="72" cy="126" r="5" fill="#1f6feb"/>
+              <circle cx="214" cy="139" r="5" fill="#f0883e"/>
+              <circle cx="348" cy="151" r="5" fill="#e36209"/>
             </svg>
           </figure>
+          <div class="hero-metric-row" aria-label="Key proof points">
+            <span>7 months &middot; Siemens Energy</span>
+            <span>12 simulations &middot; CHT</span>
+            <span>4 role tracks open</span>
+          </div>
           <ul class="focus-tags">
             <li>Gas turbine heat transfer</li>
             <li>Test instrumentation</li>
@@ -166,30 +192,45 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
+    <section class="section open-to-section">
+      <div class="container open-to-layout">
         <div class="section-heading">
           <p class="eyebrow">Open to</p>
           <h2>Role tracks I am actively applying for.</h2>
         </div>
-        <div class="cards three">
-          <article class="card">
+        <div class="cards three role-track-grid">
+          <article class="card role-card">
+            <span class="role-icon">CFD</span>
             <h3>Gas turbine heat transfer and CFD</h3>
-            <p>Siemens Energy India Gurugram, Unik Resurs Finspång, Siemens Energy Dubai and similar thermofluid roles.</p>
+            <p>Siemens Energy India Gurugram, Unik Resurs Finsp&aring;ng, Siemens Energy Dubai and similar thermofluid roles.</p>
           </article>
-          <article class="card">
+          <article class="card role-card">
+            <span class="role-icon">DAQ</span>
             <h3>Test and instrumentation</h3>
             <p>Siemens Energy Berlin, AVL MTC and laboratory-heavy measurement and validation engineering roles.</p>
           </article>
-          <article class="card">
+          <article class="card role-card">
+            <span class="role-icon">ISO</span>
             <h3>Energy coordination</h3>
-            <p>Hemsö Stockholm and similar building energy / operational energy management roles.</p>
+            <p>Hems&ouml; Stockholm and similar building energy / operational energy management roles.</p>
           </article>
-          <article class="card">
+          <article class="card role-card">
+            <span class="role-icon">PhD</span>
             <h3>PhD positions</h3>
             <p>KU Leuven, NIBE and KTH FLOW roles in heat exchanger optimisation, heat pumps and turbulent heat transfer.</p>
           </article>
         </div>
+        <aside class="role-signal" aria-label="Role fit visual">
+          <p class="eyebrow">Target signal</p>
+          <h3>Heat-transfer first, supported by instrumentation and energy systems.</h3>
+          <div class="role-signal-bars">
+            <span style="--level: 96%"><strong>Gas turbine CFD</strong></span>
+            <span style="--level: 88%"><strong>Test instrumentation</strong></span>
+            <span style="--level: 78%"><strong>Energy management</strong></span>
+            <span style="--level: 84%"><strong>PhD heat transfer</strong></span>
+          </div>
+          <p>Primary proof point: Siemens Energy Finsp&aring;ng thesis on a high-temperature dynamic pressure sensor calibration rig.</p>
+        </aside>
       </div>
     </section>
 
@@ -279,13 +320,12 @@
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow" data-editable="projects-eyebrow">Selected work</p>
-          <h2 data-editable="projects-title">Featured projects</h2>
+          <h2 data-editable="projects-title"><a class="heading-link" href="projects.html">Featured projects</a></h2>
             <p data-editable="projects-lead">
             A focused portfolio of thermal-fluid, gas-turbine, energy-system and engineering-validation work.
           </p>
           <div class="section-actions">
             <a class="button secondary" href="projects.html">Open full project library</a>
-            <a class="button secondary" href="admin.html#projects">Manage projects</a>
           </div>
         </div>
 
@@ -297,7 +337,7 @@
             </div>
             <h3>Siemens Energy CFD/CHT Thesis - Gas Turbine Reducer Thermo-Fluid Analysis</h3>
             <p>
-              Seven months embedded at Siemens Energy Finspång conducting compressible CFD and conjugate heat transfer analysis of reducer geometries for the Pulsatorn high-temperature dynamic pressure sensor calibration rig.
+              Seven months embedded at Siemens Energy Finsp&aring;ng conducting compressible CFD and conjugate heat transfer analysis of reducer geometries for the Pulsatorn high-temperature dynamic pressure sensor calibration rig.
             </p>
             <ul>
               <li>Built steady-state compressible CFD and CHT models in ANSYS Fluent (k-omega SST) for inlet T = 673 K and P_gauge = 100,000 Pa across six adiabatic and six CHT simulations.</li>
@@ -469,9 +509,6 @@
         <div class="section-heading">
           <p class="eyebrow" data-editable="skills-eyebrow">Capabilities</p>
           <h2 data-editable="skills-title">Skills matrix</h2>
-          <div class="section-actions">
-            <a class="button secondary" href="admin.html#skills">Manage skills</a>
-          </div>
         </div>
 
         <div class="skill-grid" data-dynamic-skills data-api-resource="skills">
@@ -525,19 +562,16 @@
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow" data-editable="education-eyebrow">Education</p>
-          <h2 data-editable="education-title">Academic foundation</h2>
+          <h2 data-editable="education-title"><a class="heading-link" href="about.html#kth-coursework">Academic foundation</a></h2>
           <p data-editable="education-lead">
             Formal training across sustainable energy systems, heat and power technology, optimisation, built-environment energy, storage and mechanical engineering.
           </p>
-          <div class="section-actions">
-            <a class="button secondary" href="admin.html#courses">Manage courses</a>
-          </div>
         </div>
 
         <div class="timeline">
           <article class="timeline-item">
             <div>
-              <h3>M.Sc. Sustainable Energy Engineering - KTH Royal Institute of Technology</h3>
+              <h3><a class="title-link" href="about.html#kth-coursework">M.Sc. Sustainable Energy Engineering - KTH Royal Institute of Technology</a></h3>
               <p class="meta">Stockholm, Sweden &middot; 2023 - 2026</p>
             </div>
             <p>
@@ -549,12 +583,13 @@
               <li>Energy Storage Technology (MJ2386) - grade B</li>
               <li>Renewable Energy Technology (MJ2411) - grade B</li>
               <li>Energy Management (MJ2511) - ISO 50001, KPIs, measurement and verification</li>
+              <li>Degree Project in Heat and Power Technology (MJ232X) - 30 credits</li>
             </ul>
           </article>
 
           <article class="timeline-item">
             <div>
-              <h3>Circular Economy for Energy Storage - Aalto University / Unite! Virtual Exchange</h3>
+              <h3><a class="title-link" href="about.html#kth-coursework">Circular Economy for Energy Storage - Aalto University / Unite! Virtual Exchange</a></h3>
               <p class="meta">Finland &middot; Oct 2024 - Dec 2024</p>
             </div>
             <p>
@@ -564,7 +599,7 @@
 
           <article class="timeline-item">
             <div>
-              <h3>B.Tech Mechanical Engineering - APJ Abdul Kalam Technological University</h3>
+              <h3><a class="title-link" href="about.html#kth-coursework">B.Tech Mechanical Engineering - APJ Abdul Kalam Technological University</a></h3>
               <p class="meta">Kerala, India &middot; 2017 - 2021</p>
             </div>
             <p>
@@ -579,20 +614,17 @@
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow" data-editable="experience-eyebrow">Background</p>
-          <h2 data-editable="experience-title">Experience</h2>
-          <div class="section-actions">
-            <a class="button secondary" href="admin.html#experience">Manage experience</a>
-          </div>
+          <h2 data-editable="experience-title"><a class="heading-link" href="experience.html">Experience</a></h2>
         </div>
 
         <div class="timeline">
           <article class="timeline-item">
             <div>
-              <h3>Test Engineer / Master's Thesis Student - Siemens Energy AB</h3>
+              <h3><a class="title-link" href="experience/siemens-energy.html">Test Engineer / Master's Thesis Student - Siemens Energy AB</a></h3>
               <p class="meta">Finsp&aring;ng, Sweden &middot; Apr 2025 - Nov 2025</p>
             </div>
             <p>
-              Seven months embedded at Siemens Energy Finsp&aring;ng in the Fluid Dynamic Lab working on the Pulsatorn gas turbine test rig. Conducted a numerical investigation of steady-state thermo-fluid performance of a reducer geometry for a high-temperature dynamic pressure sensor calibration rig, including geometry reconstruction in ANSYS SpaceClaim, structured meshing with prismatic inflation layers, solver configuration, convergence monitoring and post-processing. Built compressible CFD and CHT models in ANSYS Fluent (k-omega SST), completed a three-level mesh independence study, applied Biot number analysis, commissioned NI-DAQ measurement chains, modified LabVIEW VIs, ran thermal test campaigns up to 700&deg;C, and completed formal root cause analysis after heater failure that led to an approved scope change. Used Siemens NX and Teamcenter PLM2020 throughout. Supervisor: Prof. Jens Fridh, KTH.
+              Seven months embedded at Siemens Energy Finsp&aring;ng in the Fluid Dynamic Lab. Conducted numerical investigation of steady-state thermo-fluid performance of a reducer geometry for a high-temperature dynamic pressure sensor calibration rig (Pulsatorn). Built compressible CFD and conjugate heat transfer models in ANSYS Fluent (k-omega SST), conducted three-level mesh independence study, and applied Biot number analysis to decompose thermal performance. Identified flow-regime asymmetry between geometry variants (Ma 0.990 near-choked vs Ma 1.006 supersonic vena contracta). Also commissioned NI-DAQ measurement chains, modified LabVIEW VIs, ran independent test campaigns at up to 700&deg;C, and conducted a formal root cause analysis of a heater failure resulting in an approved project scope change. Used Siemens NX and Teamcenter PLM2020 throughout. Supervisor: Prof. Jens Fridh, KTH. Thesis: TRITA-ITM-EX 2026:14.
             </p>
             <div class="project-links">
               <a href="experience/siemens-energy.html">Experience details</a>
@@ -601,11 +633,11 @@
 
           <article class="timeline-item">
             <div>
-              <h3>Energy Efficiency Intern - Alleima AB</h3>
+              <h3><a class="title-link" href="experience/alleima.html">Energy Efficiency Intern - Alleima AB</a></h3>
               <p class="meta">Remote / Sandviken, Sweden &middot; Dec 2024 - Jun 2025</p>
             </div>
             <p>
-              Built ISO 50001/EED-aligned energy performance mapping logic covering KPIs/EnPIs, load drivers, normalisation, metering readiness, measurement planning and improvement-roadmap concepts.
+              Built ISO 50001/EED-aligned energy performance mapping logic for industrial operations, covering KPI/EnPI design, load drivers, normalisation logic, metering readiness, measurement planning and improvement-roadmap concepts. The work was desk-based methodology and decision-support framing rather than hands-on plant execution.
             </p>
             <div class="project-links">
               <a href="experience/alleima.html">Experience details</a>
@@ -614,11 +646,11 @@
 
           <article class="timeline-item">
             <div>
-              <h3>Backend Engineer - QBurst</h3>
+              <h3><a class="title-link" href="experience/qburst.html">Backend Engineer - QBurst</a></h3>
               <p class="meta">Thiruvananthapuram, India &middot; Sep 2021 - Jun 2023</p>
             </div>
             <p>
-              Implemented and maintained backend API endpoints, delivered reliability fixes, built endpoint tests including negative-path validation, and used Postman automation in production-oriented agile teams.
+              Implemented and maintained backend API endpoints in TypeScript/NestJS, delivered reliability fixes, wrote endpoint tests including negative-path validation, and used Postman automation in production-oriented agile teams. This experience supports the portfolio backend, API thinking and reproducible tooling work.
             </p>
             <div class="project-links">
               <a href="experience/qburst.html">Experience details</a>
@@ -627,11 +659,11 @@
 
           <article class="timeline-item">
             <div>
-              <h3>Student Intern (Pyrolysis) - KTH Royal Institute of Technology</h3>
+              <h3><a class="title-link" href="experience.html">Student Intern (Pyrolysis) - KTH Royal Institute of Technology</a></h3>
               <p class="meta">Stockholm, Sweden &middot; Feb 2024 - Jun 2024</p>
             </div>
             <p>
-              Conducted cost-analysis research on oil extraction from polymers and reviewed plastic-pyrolysis reactor concepts to support early-stage process evaluation.
+              Contributed to KTH plastic pyrolysis research by reviewing reactor concepts and cost-analysis drivers for oil extraction from polymer waste, supporting early-stage technical and economic feasibility evaluation.
             </p>
           </article>
         </div>
@@ -652,28 +684,28 @@
             <h3>Gas Turbine Heat Transfer &amp; CFD</h3>
             <p>For turbine heat transfer, compressible CFD, CHT and gas turbine hardware roles.</p>
             <div class="project-links">
-              <a href="downloads/Abhijith_CV_SiemensEnergyIndia_TurbineHeatTransfer.pdf" download>Download Gas Turbine Heat Transfer &amp; CFD CV</a>
+              <a href="downloads/Abhijith_CV_GasTurbine_HeatTransfer.pdf" download data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Gas%20Turbine%20Heat%20Transfer%20%26%20CFD">Download Gas Turbine Heat Transfer &amp; CFD CV</a>
             </div>
           </article>
           <article class="card">
             <h3>Test &amp; Instrumentation Engineer</h3>
             <p>For measurement chains, NI-DAQ, LabVIEW, validation and test engineering roles.</p>
             <div class="project-links">
-              <a href="downloads/Abhijith_CV_SiemensEnergy_TestEngineer_Berlin.pdf" download>Download Test &amp; Instrumentation CV</a>
+              <a href="downloads/Abhijith_CV_TestEngineer.pdf" download data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Test%20%26%20Instrumentation%20Engineer">Download Test &amp; Instrumentation CV</a>
             </div>
           </article>
           <article class="card">
             <h3>Energy Coordinator / Management</h3>
             <p>For ISO 50001, KPI/EnPI, building energy and operational energy management roles.</p>
             <div class="project-links">
-              <a href="downloads/Abhijith_CV_Hemso_EnergyCoordinator.pdf" download>Download Energy Coordinator CV</a>
+              <a href="downloads/Abhijith_CV_EnergyCoordinator.pdf" download data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Energy%20Coordinator%20%2F%20Management">Download Energy Coordinator CV</a>
             </div>
           </article>
           <article class="card">
             <h3>PhD Academic CV</h3>
             <p>For heat transfer, heat exchanger optimisation, heat pumps and academic research roles.</p>
             <div class="project-links">
-              <a href="downloads/Abhijith_CV_KULeuven_PhD_TurbulentHX.pdf" download>Download PhD Academic CV</a>
+              <a href="downloads/Abhijith_CV_PhD_Academic.pdf" download data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20PhD%20Academic%20CV">Download PhD Academic CV</a>
             </div>
           </article>
         </div>
