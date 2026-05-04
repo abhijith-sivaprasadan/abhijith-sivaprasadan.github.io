@@ -791,7 +791,7 @@ p {
 }
 
 .cards.three {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
 }
 
 .card,
@@ -817,7 +817,7 @@ p {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 22px;
 }
 
@@ -1939,79 +1939,78 @@ code {
    ============================================================ */
 
 :root {
-  --bg: #f4f5f7;
-  --bg-soft: #eceff3;
-  --card: #ffffff;
-  --card-2: #f8fafc;
-  --text: #16181d;
-  --muted: #596574;
-  --line: #d6dbe3;
-  --accent: #355c7d;
-  --accent-2: #6b8f5c;
-  --warning: #9f6a31;
-  --warm: #6b7f91;
+  --bg: #101114;
+  --bg-soft: #17191e;
+  --card: #1d2027;
+  --card-2: #16181e;
+  --text: #f4f1ea;
+  --muted: #b9b4aa;
+  --line: #343640;
+  --accent: #8ec8ff;
+  --accent-2: #c7f36f;
+  --warning: #f6c85f;
+  --warm: #8ec8ff;
   --scene-accent: var(--accent);
   --scene-accent-2: var(--accent-2);
-  --scene-wash: rgba(53, 92, 125, 0.08);
-  --scene-wash-2: rgba(107, 143, 92, 0.06);
-  --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-  --shadow-strong: 0 14px 36px rgba(15, 23, 42, 0.09);
-  --radius: 16px;
+  --scene-wash: rgba(142, 200, 255, 0.12);
+  --scene-wash-2: rgba(199, 243, 111, 0.1);
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+  --shadow-strong: 0 28px 90px rgba(0, 0, 0, 0.38);
+  --radius: 22px;
 }
 
 body {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(244, 245, 247, 0.98)),
-    radial-gradient(ellipse at top left, rgba(53, 92, 125, 0.08), transparent 32rem),
-    radial-gradient(ellipse at top right, rgba(107, 143, 92, 0.06), transparent 30rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(16, 17, 20, 0.98)),
+    radial-gradient(ellipse at top left, rgba(142, 200, 255, 0.12), transparent 32rem),
+    radial-gradient(ellipse at top right, rgba(199, 243, 111, 0.08), transparent 30rem),
     var(--bg);
   color: var(--text);
 }
 
 body[data-scene="portfolio"] {
-  --scene-accent: #355c7d;
-  --scene-accent-2: #8ba3b8;
-  --scene-wash: rgba(53, 92, 125, 0.08);
-  --scene-wash-2: rgba(139, 163, 184, 0.06);
+  --scene-accent: #8ec8ff;
+  --scene-accent-2: #ffb86f;
+  --scene-wash: rgba(142, 200, 255, 0.14);
+  --scene-wash-2: rgba(255, 184, 111, 0.12);
 }
 
 body[data-scene="thermal"] {
-  --scene-accent: #8a5b49;
-  --scene-accent-2: #c29b5d;
-  --scene-wash: rgba(138, 91, 73, 0.09);
-  --scene-wash-2: rgba(194, 155, 93, 0.06);
+  --scene-accent: #ff8a5b;
+  --scene-accent-2: #ffd166;
+  --scene-wash: rgba(255, 138, 91, 0.15);
+  --scene-wash-2: rgba(255, 209, 102, 0.1);
 }
 
 body[data-scene="projects"] {
-  --scene-accent: #6b8f5c;
-  --scene-accent-2: #6a8098;
-  --scene-wash: rgba(107, 143, 92, 0.08);
-  --scene-wash-2: rgba(106, 128, 152, 0.06);
+  --scene-accent: #c7f36f;
+  --scene-accent-2: #8ec8ff;
+  --scene-wash: rgba(199, 243, 111, 0.13);
+  --scene-wash-2: rgba(142, 200, 255, 0.11);
 }
 
 body[data-scene="skills"],
 body[data-scene="education"] {
-  --scene-accent: #6e6b92;
-  --scene-accent-2: #a58e6d;
-  --scene-wash: rgba(110, 107, 146, 0.08);
-  --scene-wash-2: rgba(165, 142, 109, 0.06);
+  --scene-accent: #d6b4ff;
+  --scene-accent-2: #ffdf85;
+  --scene-wash: rgba(214, 180, 255, 0.13);
+  --scene-wash-2: rgba(255, 223, 133, 0.09);
 }
 
 body[data-scene="experience"],
 body[data-scene="cv"],
 body[data-scene="contact"],
 body[data-scene="newsletter"] {
-  --scene-accent: #5f7891;
-  --scene-accent-2: #8a5b49;
-  --scene-wash: rgba(95, 120, 145, 0.08);
-  --scene-wash-2: rgba(138, 91, 73, 0.06);
+  --scene-accent: #ff6a4a;
+  --scene-accent-2: #8ec8ff;
+  --scene-wash: rgba(255, 106, 74, 0.13);
+  --scene-wash-2: rgba(142, 200, 255, 0.1);
 }
 
 .site-header {
-  background: rgba(244, 245, 247, 0.88);
-  border-bottom: 1px solid rgba(22, 24, 29, 0.08);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
+  background: rgba(16, 17, 20, 0.78);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
 }
 
 .nav {
@@ -2060,52 +2059,52 @@ code {
   position: absolute;
   inset: auto 0 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(22, 24, 29, 0.08), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
 }
 
 .scene-hero {
   background:
-    linear-gradient(180deg, rgba(53, 92, 125, 0.06), transparent 58%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.68), transparent 42%);
+    linear-gradient(180deg, rgba(59, 130, 246, 0.08), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 42%);
 }
 
 .scene-explore {
   background:
-    linear-gradient(180deg, rgba(107, 143, 92, 0.06), transparent 52%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 38%);
+    linear-gradient(180deg, rgba(34, 197, 94, 0.07), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 38%);
 }
 
 .scene-profile,
 .scene-skills {
   background:
-    linear-gradient(180deg, rgba(110, 107, 146, 0.06), transparent 52%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.44), transparent 38%);
+    linear-gradient(180deg, rgba(168, 85, 247, 0.07), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 38%);
 }
 
 .scene-projects {
   background:
-    linear-gradient(180deg, rgba(107, 143, 92, 0.08), transparent 52%),
-    linear-gradient(180deg, rgba(248, 250, 252, 0.6), transparent 36%);
+    linear-gradient(180deg, rgba(34, 197, 94, 0.1), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 36%);
 }
 
 .scene-education,
 .scene-cv {
   background:
-    linear-gradient(180deg, rgba(95, 120, 145, 0.07), transparent 52%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 38%);
+    linear-gradient(180deg, rgba(96, 165, 250, 0.07), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 38%);
 }
 
 .scene-experience {
   background:
-    linear-gradient(180deg, rgba(138, 91, 73, 0.06), transparent 52%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.44), transparent 38%);
+    linear-gradient(180deg, rgba(249, 115, 22, 0.07), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 38%);
 }
 
 .scene-newsletter,
 .scene-contact {
   background:
-    linear-gradient(180deg, rgba(53, 92, 125, 0.05), transparent 52%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.45), transparent 38%);
+    linear-gradient(180deg, rgba(59, 130, 246, 0.06), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 38%);
 }
 
 .scene-projects,
@@ -2162,7 +2161,7 @@ h3 {
 .filter-chip {
   min-height: 40px;
   border-radius: 12px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--line);
   box-shadow: none;
   color: var(--text);
@@ -2183,7 +2182,7 @@ h3 {
 
 .secondary,
 .ghost {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.03);
   color: var(--text);
 }
 
@@ -2208,7 +2207,7 @@ h3 {
 .admin-summary-card,
 .page-orbit,
 .profile-meter {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--line);
   box-shadow: none;
 }
@@ -2257,12 +2256,12 @@ h3 {
   min-height: 220px;
   padding: 24px;
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent) 5%, #fff), #fff 68%),
-    #fff;
+    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent) 10%, #101114), #101114 68%),
+    #101114;
 }
 
 .signal-card {
-  background: linear-gradient(180deg, #fff, color-mix(in srgb, var(--scene-accent) 4%, #fff));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
   border: 1px solid var(--line);
   border-radius: 14px;
   box-shadow: none;
@@ -2278,7 +2277,7 @@ h3 {
 .project-browser-meta span,
 .focus-tags li,
 .page-orbit span {
-  background: #f7f8fa;
+  background: rgba(255, 255, 255, 0.04);
   border-color: var(--line);
   color: var(--muted);
 }
@@ -2287,13 +2286,13 @@ h3 {
   border-color: var(--line);
   border-radius: 14px;
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent) 4%, #fff), #fff 58%),
-    #fff;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02) 58%),
+    rgba(255, 255, 255, 0.02);
 }
 
 .project-browser-item[open] {
   border-color: color-mix(in srgb, var(--scene-accent) 28%, var(--line));
-  background: #fff;
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .project-browser-summary {
@@ -2307,15 +2306,15 @@ h3 {
 
 .project-browser-empty {
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent-2) 5%, #fff), #fff 70%),
-    #fff;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02) 70%),
+    rgba(255, 255, 255, 0.02);
 }
 
 .project-thumb,
 .case-visual {
   border-radius: 12px;
   border-color: var(--line);
-  background: #f7f8fa;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .content-controls {
@@ -2328,7 +2327,7 @@ h3 {
 .admin-field textarea,
 .admin-field select,
 .admin-json-editor {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.04);
   border-color: var(--line);
   border-radius: 12px;
   color: var(--text);
@@ -2338,7 +2337,7 @@ h3 {
 .filter-chip:hover,
 .filter-chip.is-active {
   border-color: color-mix(in srgb, var(--scene-accent) 60%, var(--line));
-  background: color-mix(in srgb, var(--scene-accent) 10%, #fff);
+  background: color-mix(in srgb, var(--scene-accent) 10%, rgba(255, 255, 255, 0.03));
   color: var(--scene-accent);
 }
 
@@ -2355,8 +2354,8 @@ h3 {
 .admin-empty,
 .content-rail .page-panel {
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent) 4%, #fff), #fff 70%),
-    #fff;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02) 70%),
+    rgba(255, 255, 255, 0.02);
   border: 1px solid var(--line);
   box-shadow: none;
 }
@@ -2397,7 +2396,7 @@ h3 {
 }
 
 .editor-toolbar {
-  background: rgba(244, 245, 247, 0.95);
+  background: rgba(16, 17, 20, 0.92);
   border-color: var(--line);
   box-shadow: var(--shadow);
 }
@@ -2406,11 +2405,11 @@ h3 {
 .content-rail .page-panel,
 .newsletter-form {
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--scene-accent-2) 5%, #fff), #fff 70%),
-    #fff;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02) 70%),
+    rgba(255, 255, 255, 0.02);
 }
 .footer {
-  border-top: 1px solid rgba(22, 24, 29, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .footer p {
