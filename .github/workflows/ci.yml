@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, beta, dev]
+  push:
+    branches: [main, beta, dev]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install backend dependencies
+        run: npm install --prefix backend
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check scripts/site.js
+          node --check scripts/admin.js
+          node --check scripts/public-config.js
+          node --check scripts/config.example.js
+          node --check backend/src/auth.js
+          node --check backend/src/server.js
+          node --check backend/src/store.js
+
+      - name: Validate JSON data
+        run: |
+          node -e "const fs=require('fs'); const path=require('path'); for (const file of fs.readdirSync('backend/data').filter((name)=>name.endsWith('.json'))) JSON.parse(fs.readFileSync(path.join('backend/data', file),'utf8'));"
+
+      - name: Check local static asset links
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const root = process.cwd();
+          const htmlFiles = [];
+          const walk = (dir) => {
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              if (entry.name === '.git' || entry.name === 'node_modules') continue;
+              const full = path.join(dir, entry.name);
+              if (entry.isDirectory()) walk(full);
+              if (entry.isFile() && entry.name.endsWith('.html')) htmlFiles.push(full);
+            }
+          };
+          walk(root);
+          const missing = [];
+          const attrPattern = /\b(?:href|src)=["']([^"']+)["']/g;
+          for (const file of htmlFiles) {
+            const html = fs.readFileSync(file, 'utf8');
+            for (const match of html.matchAll(attrPattern)) {
+              const value = match[1].split('#')[0].split('?')[0];
+              if (!value || value.startsWith('#')) continue;
+              if (/^(https?:|mailto:|tel:|data:)/i.test(value)) continue;
+              const target = path.resolve(path.dirname(file), value);
+              if (!target.startsWith(root) || !fs.existsSync(target)) {
+                missing.push(`${path.relative(root, file)} -> ${match[1]}`);
+              }
+            }
+          }
+          if (missing.length) {
+            console.error(`Missing local links:\n${missing.join('\n')}`);
+            process.exit(1);
+          }
+          NODE
+
+      - name: Backend smoke test
+        run: |
+          cd backend
+          ADMIN_API_TOKEN=ci-token PORT=3100 HOST=127.0.0.1 npm start &
+          API_PID=$!
+          trap "kill $API_PID" EXIT
+          sleep 3
+          curl -fsS http://127.0.0.1:3100/health
+          curl -fsS http://127.0.0.1:3100/api
+          curl -fsS http://127.0.0.1:3100/api/ideas

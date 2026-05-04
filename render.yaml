@@ -19,3 +19,7 @@ services:
         sync: false
       - key: ADMIN_EMAIL_HASHES
         sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_SSL
+        value: "true"

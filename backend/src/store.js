@@ -2,6 +2,10 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const DATA_DIR = path.resolve(process.env.DATA_DIR || path.join(process.cwd(), "data"));
+const DATABASE_URL = process.env.DATABASE_URL || "";
+const DATABASE_SSL = process.env.DATABASE_SSL !== "false";
+let pool = null;
+let dbReady = false;
 
 const COLLECTIONS = {
   certifications: { file: "certifications.json", key: "certifications" },
@@ -41,7 +45,34 @@ const collectionPath = (collection) => {
   return path.join(DATA_DIR, config.file);
 };
 
-export const readCollection = async (collection) => {
+export const getStorageMode = () => (DATABASE_URL ? "postgres" : "json");
+
+const getPool = async () => {
+  if (!DATABASE_URL) return null;
+  if (pool) return pool;
+  const { Pool } = await import("pg");
+  pool = new Pool({
+    connectionString: DATABASE_URL,
+    ssl: DATABASE_SSL ? { rejectUnauthorized: false } : false,
+  });
+  return pool;
+};
+
+const ensureDatabase = async () => {
+  const client = await getPool();
+  if (!client || dbReady) return client;
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS portfolio_collections (
+      collection TEXT PRIMARY KEY,
+      payload JSONB NOT NULL,
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `);
+  dbReady = true;
+  return client;
+};
+
+const readJsonFile = async (collection) => {
   const config = getCollectionConfig(collection);
   const filePath = collectionPath(collection);
   if (!config || !filePath) return null;
@@ -50,6 +81,46 @@ export const readCollection = async (collection) => {
   const data = JSON.parse(raw);
   const items = Array.isArray(data[config.key]) ? data[config.key] : [];
   return { config, items };
+};
+
+const readDatabaseCollection = async (collection) => {
+  const config = getCollectionConfig(collection);
+  if (!config) return null;
+
+  const client = await ensureDatabase();
+  const result = await client.query("SELECT payload FROM portfolio_collections WHERE collection = $1", [collection]);
+  if (result.rows[0]) {
+    const payload = result.rows[0].payload || {};
+    const items = Array.isArray(payload[config.key]) ? payload[config.key] : [];
+    return { config, items };
+  }
+
+  const seeded = await readJsonFile(collection);
+  await writeDatabaseCollection(collection, seeded?.items || []);
+  return seeded || { config, items: [] };
+};
+
+const writeDatabaseCollection = async (collection, items) => {
+  const config = getCollectionConfig(collection);
+  if (!config) return null;
+
+  const client = await ensureDatabase();
+  const payload = { [config.key]: items };
+  await client.query(
+    `
+      INSERT INTO portfolio_collections (collection, payload, updated_at)
+      VALUES ($1, $2::jsonb, now())
+      ON CONFLICT (collection)
+      DO UPDATE SET payload = EXCLUDED.payload, updated_at = now()
+    `,
+    [collection, JSON.stringify(payload)]
+  );
+  return payload;
+};
+
+export const readCollection = async (collection) => {
+  if (DATABASE_URL) return readDatabaseCollection(collection);
+  return readJsonFile(collection);
 };
 
 export const readAllCollections = async () => {
@@ -64,6 +135,8 @@ export const readAllCollections = async () => {
 };
 
 export const writeCollection = async (collection, items) => {
+  if (DATABASE_URL) return writeDatabaseCollection(collection, items);
+
   const config = getCollectionConfig(collection);
   const filePath = collectionPath(collection);
   if (!config || !filePath) return null;

@@ -6,6 +6,7 @@ import {
   ensureItemIds,
   getCollectionConfig,
   getItem,
+  getStorageMode,
   listCollections,
   readAllCollections,
   readCollection,
@@ -110,7 +111,7 @@ const server = http.createServer(async (req, res) => {
     const parts = parsePath(req.url);
 
     if (req.method === "GET" && parts.length === 1 && parts[0] === "health") {
-      return json(res, 200, { ok: true, service: "portfolio-api" });
+      return json(res, 200, { ok: true, service: "portfolio-api", storage: getStorageMode() });
     }
 
     if (req.method === "GET" && parts.length === 1 && parts[0] === "api") {

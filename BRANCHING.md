@@ -49,10 +49,23 @@ Only merge a `special/*` branch when the experiment is meant to become real prod
 
 - Keep `main` deployable at all times.
 - Do not commit directly to `main` for normal work.
+- Require CI before merging into `main`, `beta`, or `dev`.
 - Use pull requests for `dev -> beta` and `beta -> main` when working through GitHub.
 - Delete short-lived branches after merge.
 - Put secrets only in Render/Firebase/GitHub settings, never in branches.
 - If a backend data change must go live immediately, treat it as a hotfix.
+
+## Protection
+
+Recommended GitHub branch protection:
+
+| Branch | Rules |
+| --- | --- |
+| `main` | Require pull request, require CI, block force pushes, block deletion |
+| `beta` | Require pull request, require CI |
+| `dev` | Require CI |
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for deployment environment details and production database persistence.
 
 ## Local commands
 

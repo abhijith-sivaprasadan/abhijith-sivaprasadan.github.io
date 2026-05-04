@@ -72,12 +72,32 @@ FRONTEND_ORIGIN=https://abhijith-sivaprasadan.github.io
 DATA_DIR=/var/data
 FIREBASE_PROJECT_ID=<firebase-project-id>
 ADMIN_EMAIL_HASHES=<sha256-admin-email-hash>
+DATABASE_URL=<postgres-connection-url>
+DATABASE_SSL=true
 ```
 
-`DATA_DIR` is optional. Without it, the API writes to `backend/data`. On many hosts that filesystem is ephemeral, so production edits may disappear after restarts or redeploys unless you attach persistent storage or move the data to a database.
+`DATABASE_URL` is recommended for production. When it is set, the API stores all collections in Postgres and seeds empty database collections from the committed JSON files in `backend/data`.
+
+`DATA_DIR` is only used when `DATABASE_URL` is not set. Without a database, the API writes to JSON files. On many hosts that filesystem is ephemeral, so production edits may disappear after restarts or redeploys.
 
 ## Render blueprint
 
 The repository root includes `render.yaml`. On Render, create a new Blueprint from this GitHub repository and Render will use the `backend` folder as the Node service root.
 
-Set `FIREBASE_PROJECT_ID` and `ADMIN_EMAIL_HASHES` in Render before using Google login for write operations. `ADMIN_API_TOKEN` remains available as a fallback for local testing or emergency admin access.
+Set `FIREBASE_PROJECT_ID`, `ADMIN_EMAIL_HASHES`, and `DATABASE_URL` in Render before using the admin page in production. `ADMIN_API_TOKEN` remains available as a fallback for local testing or emergency admin access.
+
+After Render is updated, open:
+
+```text
+https://abhijith-portfolio-api.onrender.com/health
+```
+
+The response should include:
+
+```json
+{
+  "ok": true,
+  "service": "portfolio-api",
+  "storage": "postgres"
+}
+```
