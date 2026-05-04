@@ -22,6 +22,7 @@ const inferredPageKey = (() => {
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
+const assetVersion = "20260504-data-v2";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
 let apiBaseUrl = window.PORTFOLIO_API_BASE_URL || "";
@@ -242,13 +243,13 @@ const updateEditorToolbar = () => {
 
 const loadPortfolioConfig = async () => {
   try {
-    await import(`${basePath}scripts/public-config.js`);
+    await import(`${basePath}scripts/public-config.js?v=${assetVersion}`);
   } catch {
     // Optional committed public config. Static JSON remains the fallback.
   }
 
   try {
-    await import(`${basePath}scripts/config.js`);
+    await import(`${basePath}scripts/config.js?v=${assetVersion}`);
   } catch {
     // Optional local config. Missing config keeps the admin editor disabled.
   }
