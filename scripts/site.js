@@ -26,7 +26,7 @@ const assetVersion = "20260504-data-v3";
 const apiVersion = "20260504-api-v2";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
-let apiBaseUrl = window.PORTFOLIO_API_BASE_URL || "";
+let apiBaseUrl = window.PORTFOLIO_API_BASE_URL || "https://abhijith-portfolio-api.onrender.com";
 let adminEmailHashes = new Set(
   window.PORTFOLIO_ADMIN_EMAIL_HASHES || [
     "82ff3995db9c955db8a17b3565c7b354a53bb6d0b6351e783e3ff8b2a5910b8f",
