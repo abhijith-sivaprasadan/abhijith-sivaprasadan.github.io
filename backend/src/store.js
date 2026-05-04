@@ -4,7 +4,12 @@ import path from "node:path";
 const DATA_DIR = path.resolve(process.env.DATA_DIR || path.join(process.cwd(), "data"));
 const DATABASE_URL = process.env.DATABASE_URL || "";
 const DATABASE_SSL = process.env.DATABASE_SSL !== "false";
-const DATABASE_CONNECTION_TIMEOUT_MS = Number.parseInt(process.env.DATABASE_CONNECTION_TIMEOUT_MS || "10000", 10);
+const DATABASE_SSL_REJECT_UNAUTHORIZED = process.env.DATABASE_SSL_REJECT_UNAUTHORIZED === "true";
+const parsePositiveInteger = (value, fallback) => {
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+};
+const DATABASE_CONNECTION_TIMEOUT_MS = parsePositiveInteger(process.env.DATABASE_CONNECTION_TIMEOUT_MS, 10000);
 let pool = null;
 let dbReady = false;
 
@@ -48,13 +53,28 @@ const collectionPath = (collection) => {
 
 export const getStorageMode = () => (DATABASE_URL ? "postgres" : "json");
 
+const normalizeDatabaseUrl = (value) => {
+  if (!value || !DATABASE_SSL || DATABASE_SSL_REJECT_UNAUTHORIZED) return value;
+
+  try {
+    const url = new URL(value);
+    const sslMode = url.searchParams.get("sslmode");
+    if (sslMode && !url.searchParams.has("uselibpqcompat")) {
+      url.searchParams.set("uselibpqcompat", "true");
+    }
+    return url.toString();
+  } catch {
+    return value;
+  }
+};
+
 const getPool = async () => {
   if (!DATABASE_URL) return null;
   if (pool) return pool;
   const { Pool } = await import("pg");
   pool = new Pool({
-    connectionString: DATABASE_URL,
-    ssl: DATABASE_SSL ? { rejectUnauthorized: false } : false,
+    connectionString: normalizeDatabaseUrl(DATABASE_URL),
+    ssl: DATABASE_SSL ? { rejectUnauthorized: DATABASE_SSL_REJECT_UNAUTHORIZED } : false,
     connectionTimeoutMillis: DATABASE_CONNECTION_TIMEOUT_MS,
   });
   pool.on("error", (error) => {
