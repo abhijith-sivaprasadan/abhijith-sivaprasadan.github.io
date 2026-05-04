@@ -2644,14 +2644,26 @@ code,
   margin-bottom: 18px;
 }
 
+.avatar,
 .avatar-placeholder {
   width: 86px;
   height: 86px;
+  flex: 0 0 86px;
+  border-radius: 50%;
+}
+
+.avatar {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid rgba(227, 98, 9, 0.42);
+  box-shadow: 0 14px 32px rgba(1, 4, 9, 0.34);
+}
+
+.avatar-placeholder {
   display: grid;
   place-items: center;
-  flex: 0 0 auto;
   border: 1px solid rgba(227, 98, 9, 0.42);
-  border-radius: 50%;
   color: var(--accent);
   background:
     radial-gradient(circle at 50% 34%, rgba(240, 246, 252, 0.14) 0 16%, transparent 17%),
@@ -3199,9 +3211,11 @@ code,
     align-items: flex-start;
   }
 
+  .avatar,
   .avatar-placeholder {
     width: 68px;
     height: 68px;
+    flex-basis: 68px;
   }
 
   .hero-stats,
