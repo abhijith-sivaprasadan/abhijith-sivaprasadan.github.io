@@ -27,7 +27,7 @@ const inferredPageKey = (() => {
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260504-data-v7";
+const assetVersion = "20260505-data-v4";
 const apiVersion = "20260504-api-v4";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
@@ -46,7 +46,7 @@ const ideaSubmissionAuth = {
 };
 const pageState = {
   projects: [],
-  activeProjectFilter: "All",
+  activeProjectFilter: "Selected",
   projectSearch: "",
 };
 
@@ -140,24 +140,24 @@ const createCollectionItem = (collectionName) => {
   const templates = {
     about: `
       <article class="entry-card">
-        <h3 data-editable="title">New note</h3>
-        <p data-editable="summary">Replace this with a short note about your background, routine or current direction.</p>
+        <h3 data-editable="title">New profile note</h3>
+        <p data-editable="summary">Add a concise visitor-facing note about background, routine or current direction.</p>
       </article>`,
     hobbies: `
       <article class="entry-card">
         <h3 data-editable="title">New hobby</h3>
-        <p data-editable="summary">Describe the hobby and why it matters to you.</p>
+        <p data-editable="summary">Add a concise description of the hobby and how it fits the broader profile.</p>
       </article>`,
     interests: `
       <article class="entry-card">
         <h3 data-editable="title">New interest</h3>
-        <p data-editable="summary">Add a field, topic or reading thread you want to keep exploring.</p>
+        <p data-editable="summary">Add a field, topic or reading thread connected to the technical direction.</p>
       </article>`,
     ideas: `
       <article class="entry-card">
         <span class="entry-status">Idea</span>
         <h3 data-editable="title">New project idea</h3>
-        <p data-editable="summary">Write the concept, the reason it matters and the main toolchain you want to use.</p>
+        <p data-editable="summary">Add the concept, the reason it matters and the expected toolchain.</p>
       </article>`,
   };
 
@@ -552,27 +552,32 @@ const injectEditor = () => {
 const injectNavLinks = () => {
   if (!navLinks) return;
 
+  const currentFile = location.pathname.split("/").pop() || "index.html";
+  const homeHref = (anchor) => (pageKey === "home" ? anchor : `${basePath}index.html${anchor}`);
   const links = [
+    { label: "Featured", href: homeHref("#projects") },
     { label: "Projects", href: `${basePath}projects.html` },
     { label: "Experience", href: `${basePath}experience.html` },
+    { label: "CV", href: homeHref("#cv") },
     { label: "About", href: `${basePath}about.html` },
+    { label: "Contact", href: homeHref("#contact") },
     { label: "Hobbies", href: `${basePath}hobbies.html` },
     { label: "Interests", href: `${basePath}interests.html` },
     { label: "Ideas", href: `${basePath}ideas.html` },
   ];
 
+  navLinks.replaceChildren();
   links.forEach(({ label, href }) => {
-    if (!navLinks.querySelector(`a[href="${href}"]`)) {
-      const link = document.createElement("a");
-      link.href = href;
-      link.textContent = label;
-      const currentFile = location.pathname.split("/").pop();
-      const targetFile = href.split("/").pop();
-      if (currentFile === targetFile) {
-        link.setAttribute("aria-current", "page");
-      }
-      navLinks.append(link);
+    const link = document.createElement("a");
+    link.href = href;
+    link.textContent = label;
+    const targetFile = href.split("#")[0].split("/").pop();
+    const isProjectsDetail = location.pathname.includes("/projects/") && targetFile === "projects.html";
+    const isExperienceDetail = location.pathname.includes("/experience/") && targetFile === "experience.html";
+    if (currentFile === targetFile || isProjectsDetail || isExperienceDetail) {
+      link.setAttribute("aria-current", "page");
     }
+    navLinks.append(link);
   });
 };
 
@@ -635,10 +640,19 @@ const apiUrl = (resource, fallback) => {
 };
 
 const fetchCollection = async (resource, fallback) => {
-  const endpoint = apiUrl(resource, fallback || `${basePath}api/${resource}.json`);
-  const response = await fetch(endpoint, { cache: "no-store" });
-  if (!response.ok) throw new Error(`${resource} API returned ${response.status}`);
-  return response.json();
+  const fallbackUrl = fallback || `${basePath}api/${resource}.json`;
+  const endpoint = apiUrl(resource, fallbackUrl);
+
+  try {
+    const response = await fetch(endpoint, { cache: "no-store" });
+    if (!response.ok) throw new Error(`${resource} API returned ${response.status}`);
+    return response.json();
+  } catch (error) {
+    if (endpoint !== fallbackUrl) {
+      return fetchStaticCollection(fallbackUrl);
+    }
+    throw error;
+  }
 };
 
 const fetchStaticCollection = async (fallback) => {
@@ -663,18 +677,476 @@ const visibleItems = (items = []) =>
     .filter((item) => item.status !== "draft")
     .sort((a, b) => (Number(a.order) || 999) - (Number(b.order) || 999));
 
-const itemTags = (item) => [...(item.tools || []), ...(item.skills || [])].slice(0, 5);
+const itemTags = (item) => [...(item.tools || []), ...(item.skills || [])];
 
-const primarySkillTerms = ["ansys fluent", "ni-daq", "labview", "siemens nx", "teamcenter"];
+const primarySkillTerms = [
+  "ansys fluent",
+  "ni-daq",
+  "labview",
+  "siemens nx",
+  "cfd/cht",
+  "compressible cfd",
+  "conjugate heat transfer",
+  "k-omega sst",
+  "pypsa",
+  "linopy",
+  "highs",
+  "streamlit",
+  "python",
+  "iso 50001",
+  "eu eed",
+  "energy kpis",
+  "ida ice",
+  "homer pro",
+  "leap",
+  "sam",
+  "tes",
+  "heat pumps",
+  "techno-economic",
+  "capex",
+  "teamcenter",
+];
 
 const isPrimarySkill = (label = "") => {
   const normalized = String(label).toLowerCase();
   return primarySkillTerms.some((term) => normalized.includes(term));
 };
 
+const skillProfiles = {
+  "ansys-fluent": {
+    title: "ANSYS Fluent",
+    summary:
+      "Used for the Siemens Energy thesis CFD/CHT campaign, from solver setup and convergence checks through post-processing and interpretation.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Built steady-state compressible RANS models with k-omega SST for gas turbine reducer geometries.",
+          "Ran adiabatic and conjugate heat transfer cases as one thesis simulation campaign, not separate portfolio projects.",
+          "Prepared boundary conditions around 673 K inlet temperature and 100 kPa gauge pressure, then interpreted pressure loss, Mach-number and thermal-delivery behavior.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Siemens Energy master thesis, TRITA-ITM-EX 2026:14.",
+          "Three-level mesh independence study before the main campaign.",
+          "Related certification: Applied Computational Fluid Dynamics through Siemens.",
+        ],
+      },
+      {
+        heading: "Also connected to",
+        items: ["Aircraft de-icing simulation idea and other applied thermal-fluid study directions."],
+      },
+    ],
+    links: [
+      { label: "Siemens thesis case study", href: "projects/siemens-thesis.html" },
+      { label: "Siemens Energy experience", href: "experience/siemens-energy.html" },
+      { label: "Ideas", href: "ideas.html" },
+    ],
+  },
+  "ni-daq": {
+    title: "NI-DAQ",
+    summary:
+      "Hands-on data acquisition experience from the Siemens Energy high-temperature Pulsatorn rig and related instrumentation work.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Commissioned measurement channels for thermocouples, static pressure and dynamic pressure instrumentation.",
+          "Supported validation planning for tests up to 700 C.",
+          "Used the measurement chain during heater-failure investigation and scope-change documentation.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Siemens Energy Fluid Dynamic Lab thesis work.",
+          "Root cause analysis connecting instrument behavior, hardware constraints and test conditions.",
+        ],
+      },
+      {
+        heading: "Personal overlap",
+        items: ["The same practical mindset shows up in smart home tinkering, sensors and day-to-day automation ideas."],
+      },
+    ],
+    links: [
+      { label: "Siemens Energy experience", href: "experience/siemens-energy.html" },
+      { label: "Siemens thesis case study", href: "projects/siemens-thesis.html" },
+      { label: "Hobbies", href: "hobbies.html" },
+    ],
+  },
+  labview: {
+    title: "LabVIEW",
+    summary:
+      "Used for test-rig data acquisition, channel coordination and logging during Siemens Energy thesis instrumentation work.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Modified an existing LabVIEW VI to synchronize and log the measurement channels used on the rig.",
+          "Connected software-side data capture with hardware constraints during thermal test planning.",
+          "Used the VI workflow alongside NI-DAQ hardware during high-temperature validation work.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Mentioned across the Siemens thesis project, Siemens Energy experience and test engineering CV path.",
+          "Part of the instrumentation profile for validation and laboratory-heavy roles.",
+        ],
+      },
+      {
+        heading: "Personal overlap",
+        items: ["Connects naturally with the sensor logger and home automation ideas on the site."],
+      },
+    ],
+    links: [
+      { label: "Siemens thesis case study", href: "projects/siemens-thesis.html" },
+      { label: "Experience timeline", href: "experience.html" },
+      { label: "Ideas", href: "ideas.html" },
+    ],
+  },
+  "siemens-nx": {
+    title: "Siemens NX",
+    summary:
+      "Used at Siemens Energy together with Teamcenter PLM2020 while working with gas turbine test-rig geometry and engineering documentation.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Worked with Siemens NX and Teamcenter PLM2020 as part of the thesis hardware and geometry workflow.",
+          "Connected CAD/PLM context with ANSYS SpaceClaim preparation and CFD model setup.",
+          "Kept simulation assumptions tied to the actual rig hardware and available design information.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Listed in the Siemens Energy thesis and experience pages.",
+          "Part of the CAD and PLM skill group on the technical profile.",
+        ],
+      },
+      {
+        heading: "Related hands-on work",
+        items: ["Mechanical design projects and custom-build hobbies reinforce the practical design side of the profile."],
+      },
+    ],
+    links: [
+      { label: "Siemens Energy experience", href: "experience/siemens-energy.html" },
+      { label: "Siemens thesis case study", href: "projects/siemens-thesis.html" },
+      { label: "Hobbies", href: "hobbies.html" },
+    ],
+  },
+  "cfd-cht": {
+    title: "CFD/CHT",
+    summary:
+      "The main thermal-fluid thread of the portfolio: compressible CFD, conjugate heat transfer, mesh independence and physical interpretation.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Modelled gas turbine reducer geometries for the Siemens Energy Pulsatorn calibration rig.",
+          "Compared pressure-loss, Mach-number and thermal-delivery behavior across geometry and outlet-pressure cases.",
+          "Used Biot number analysis to separate solid-wall thermal behavior from fluid-side heat transfer effects.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Primary project: Siemens Energy CFD/CHT thesis.",
+          "Experience: seven months embedded in the Siemens Energy Fluid Dynamic Lab.",
+          "Certification: Applied Computational Fluid Dynamics through Siemens.",
+        ],
+      },
+      {
+        heading: "Also connected to",
+        items: [
+          "Aircraft de-icing simulation idea.",
+          "Interests in failure analysis, thermodynamics and applied simulation problems.",
+        ],
+      },
+    ],
+    links: [
+      { label: "Featured projects", href: "index.html#projects" },
+      { label: "Siemens thesis case study", href: "projects/siemens-thesis.html" },
+      { label: "Interests", href: "interests.html" },
+    ],
+  },
+  "grid-modelling": {
+    title: "PyPSA / Linopy / HiGHS",
+    summary:
+      "Grid and dispatch modelling work covering constrained networks, BESS screening, flexible connection logic and scenario comparison dashboards.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Built simplified regional grid models with constrained corridors, renewable generation, backup generation and storage/flexibility options.",
+          "Used PyPSA with Linopy and HiGHS for hourly dispatch and bottleneck diagnostics.",
+          "Presented results through Streamlit workflows with scenario KPIs, hourly flows, validation checks and report exports.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "PyPSA-NL grid congestion, BESS and flexible connection platform.",
+          "Distribution-grid study covering EV charging, PV, storage and N-1 screening.",
+          "Hydrogen and district-heating optimisation projects also use the same optimisation mindset.",
+        ],
+      },
+    ],
+    links: [
+      { label: "PyPSA-NL case study", href: "projects/pypsa-nl-grid-flexibility.html" },
+      { label: "Project library", href: "projects.html" },
+    ],
+  },
+  "python-tooling": {
+    title: "Python / Streamlit / Excel",
+    summary:
+      "Practical engineering tooling for energy models, dashboards, KPI workflows, reporting exports and repeatable analysis.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Built Streamlit dashboards for grid flexibility, EU ETS exposure and industrial energy KPI workflows.",
+          "Used Python with pandas, NumPy, Plotly and optimisation libraries to turn models into usable decision-support tools.",
+          "Kept Excel in the workflow where it helps recruiters, engineers or stakeholders inspect assumptions quickly.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "PyPSA-NL grid flexibility platform.",
+          "EU ETS exposure calculator.",
+          "Industrial energy KPI toolkit.",
+        ],
+      },
+    ],
+    links: [
+      { label: "EU ETS calculator", href: "projects/eu-ets-exposure-calculator.html" },
+      { label: "Industrial KPI toolkit", href: "projects/industrial-energy-kpi-toolkit.html" },
+      { label: "PyPSA-NL case study", href: "projects/pypsa-nl-grid-flexibility.html" },
+    ],
+  },
+  "energy-management": {
+    title: "ISO 50001 / EU EED / Energy KPIs",
+    summary:
+      "Energy-performance mapping and reporting work around ISO 50001-style continuous improvement, EU energy-efficiency context and KPI/EnPI design.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Built KPI and EnPI logic for industrial energy follow-up, baseline normalisation and action tracking.",
+          "Mapped metering readiness, measurement planning and energy-performance reporting needs.",
+          "Connected ISO 50001-style continuous improvement with practical Excel and Python reporting workflows.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Alleima industrial energy efficiency mapping.",
+          "Industrial energy KPI toolkit.",
+          "KTH Energy Management coursework covering ISO 50001, KPIs, measurement and verification.",
+        ],
+      },
+    ],
+    links: [
+      { label: "Alleima project", href: "projects/alleima-energy-efficiency.html" },
+      { label: "Industrial KPI toolkit", href: "projects/industrial-energy-kpi-toolkit.html" },
+      { label: "Alleima experience", href: "experience/alleima.html" },
+    ],
+  },
+  "building-energy": {
+    title: "IDA ICE / HOMER Pro / Building Energy",
+    summary:
+      "Building-energy and autonomy modelling across heat demand, PV, storage, heat pumps and renewable-plus-storage scenarios.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Modelled building heat demand and renewable-plus-storage scenarios with IDA ICE and HOMER Pro.",
+          "Compared heat pumps, PV, battery storage and autonomy-oriented energy-system configurations.",
+          "Used building-energy results as inputs for techno-economic comparison and system-level decision making.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Hylkysaari smart energy island modelling.",
+          "Residential heating systems techno-economic comparison.",
+          "Energy modelling tools skill group on the homepage.",
+        ],
+      },
+    ],
+    links: [
+      { label: "Project library", href: "projects.html" },
+      { label: "Technical profile", href: "about.html" },
+    ],
+  },
+  "heating-economics": {
+    title: "SAM / Heat Pumps / Techno-Economic Analysis",
+    summary:
+      "Heating-system comparison work using hourly demand, solar/PV assumptions, CAPEX/OPEX/LCOE metrics and sensitivity analysis.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Compared district heating, PV with heat pump, PV with electric boiler and solar thermal with TES configurations.",
+          "Used IDA ICE and SAM outputs to calculate CAPEX, OPEX, LCOE, payback and sensitivity cases.",
+          "Framed technical performance together with cost and implementation trade-offs.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Residential heating systems techno-economic comparison.",
+          "Building energy systems and electrification coursework.",
+        ],
+      },
+    ],
+    links: [
+      { label: "Project library", href: "projects.html" },
+      { label: "About and coursework", href: "about.html#kth-coursework" },
+    ],
+  },
+  "thermal-storage": {
+    title: "TES / Phase Change Materials / Control Logic",
+    summary:
+      "Thermal-energy-storage work around peak shaving, storage sizing, phase-change material options and charge/discharge control.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Simulated TES control logic to cap peak cooling demand in a district-cooling scenario.",
+          "Compared ice storage and phase-change material options from a practical sizing and control perspective.",
+          "Connected thermal analysis with operating logic instead of treating storage as a static component.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Thermal energy storage peak-shaving project.",
+          "Residential heating comparison where TES is part of the system alternatives.",
+        ],
+      },
+    ],
+    links: [
+      { label: "Project library", href: "projects.html" },
+      { label: "Interests", href: "interests.html" },
+    ],
+  },
+  "energy-transition-policy": {
+    title: "LEAP / Energy Policy / Scenario Analysis",
+    summary:
+      "Energy-transition scenario work using LEAP to compare policy, cost, technology-mix and carbon-pathway implications.",
+    sections: [
+      {
+        heading: "What I did",
+        items: [
+          "Modelled Germany energy-transition pathways using LEAP scenario logic.",
+          "Compared electricity cost and carbon implications across technology scenarios.",
+          "Kept policy context visible so the model reads as decision support, not only a technical forecast.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Germany energy transition analysis using LEAP.",
+          "Energy policy, scenario analysis and policy-context tags in the project library.",
+        ],
+      },
+    ],
+    links: [
+      { label: "Project library", href: "projects.html" },
+      { label: "Technical profile", href: "about.html" },
+    ],
+  },
+};
+
+const skillKeyForLabel = (label = "") => {
+  const normalized = String(label).toLowerCase();
+  if (normalized.includes("ansys fluent")) return "ansys-fluent";
+  if (normalized.includes("ni-daq") || normalized.includes("ni daq")) return "ni-daq";
+  if (normalized.includes("labview")) return "labview";
+  if (normalized.includes("siemens nx")) return "siemens-nx";
+  if (normalized.includes("k-omega")) return "cfd-cht";
+  if (
+    normalized.includes("pypsa") ||
+    normalized.includes("linopy") ||
+    normalized.includes("highs") ||
+    normalized.includes("bess") ||
+    normalized.includes("grid congestion") ||
+    normalized.includes("flexible connection")
+  ) {
+    return "grid-modelling";
+  }
+  if (normalized.includes("python") || normalized.includes("streamlit") || normalized.includes("pandas") || normalized.includes("plotly")) {
+    return "python-tooling";
+  }
+  if (
+    normalized.includes("iso 50001") ||
+    normalized.includes("eu eed") ||
+    normalized.includes("energy kpi") ||
+    normalized.includes("enpi") ||
+    normalized.includes("excel") ||
+    normalized.includes("reporting")
+  ) {
+    return "energy-management";
+  }
+  if (
+    normalized.includes("ida ice") ||
+    normalized.includes("homer pro") ||
+    normalized.includes("building energy") ||
+    normalized.includes("autonomy")
+  ) {
+    return "building-energy";
+  }
+  if (
+    normalized.includes("sam") ||
+    normalized.includes("solar advisor") ||
+    normalized.includes("techno-economic") ||
+    normalized.includes("capex") ||
+    normalized.includes("opex") ||
+    normalized.includes("lcoe") ||
+    normalized.includes("heat pump")
+  ) {
+    return "heating-economics";
+  }
+  if (
+    normalized.includes("tes") ||
+    normalized.includes("thermal energy storage") ||
+    normalized.includes("phase change") ||
+    normalized.includes("thermal analysis") ||
+    normalized.includes("control logic")
+  ) {
+    return "thermal-storage";
+  }
+  if (
+    normalized.includes("leap") ||
+    normalized.includes("energy policy") ||
+    normalized.includes("energy transition") ||
+    normalized.includes("scenario analysis") ||
+    normalized.includes("scenario modelling") ||
+    normalized.includes("policy context")
+  ) {
+    return "energy-transition-policy";
+  }
+  if (
+    normalized.includes("cfd") ||
+    normalized.includes("cht") ||
+    normalized.includes("conjugate heat transfer") ||
+    normalized.includes("computational fluid dynamics")
+  ) {
+    return "cfd-cht";
+  }
+  return "";
+};
+
 const renderTag = (tag) => {
   const className = isPrimarySkill(tag) ? ' class="tag-hot"' : "";
-  return `<span${className}>${escapeHtml(tag)}</span>`;
+  const skillKey = skillKeyForLabel(tag);
+  const skillAttr = skillKey ? ` data-skill-key="${skillKey}"` : "";
+  return `<span${className}${skillAttr}>${escapeHtml(tag)}</span>`;
 };
 
 const projectImageOverrides = {
@@ -701,7 +1173,12 @@ const projectImageSrc = (project) => {
 const projectMatches = (project) => {
   const query = pageState.projectSearch.trim().toLowerCase();
   const filter = pageState.activeProjectFilter;
-  const filterMatch = filter === "All" || project.category === filter;
+  const order = Number(project.order) || 999;
+  const selectedCaseStudy = order <= 3 || (order >= 8 && order <= 14);
+  const filterMatch =
+    filter === "All" ||
+    (filter === "Selected" && selectedCaseStudy) ||
+    project.category === filter;
   const searchMatch = !query || JSON.stringify(project).toLowerCase().includes(query);
   return filterMatch && searchMatch;
 };
@@ -750,7 +1227,7 @@ const renderSiemensCfdVisual = () => `
       <text x="34" y="24" fill="#8b949e" font-size="12" font-family="DM Mono, monospace">T_in = 673 K</text>
       <text x="246" y="24" fill="#e36209" font-size="12" font-family="DM Mono, monospace">Ma = 0.990-1.006</text>
       <text x="34" y="196" fill="#8b949e" font-size="12" font-family="DM Mono, monospace">Bi = 0.003-0.004</text>
-      <text x="278" y="196" fill="#8b949e" font-size="12" font-family="DM Mono, monospace">12 simulations</text>
+      <text x="258" y="196" fill="#8b949e" font-size="12" font-family="DM Mono, monospace">thesis campaign</text>
     </svg>
   </div>`;
 
@@ -822,7 +1299,7 @@ const renderProjectBrowserItem = (project, index) => {
 
 const renderProjectFilters = () => {
   if (!projectFilters) return;
-  const categories = ["All", ...new Set(pageState.projects.map((project) => project.category).filter(Boolean))];
+  const categories = ["Selected", "All", ...new Set(pageState.projects.map((project) => project.category).filter(Boolean))];
   projectFilters.innerHTML = categories
     .map(
       (category) =>
@@ -838,8 +1315,12 @@ const renderProjectList = () => {
     ? filtered.map(renderProjectBrowserItem).join("")
     : `<article class="project-browser-empty"><h3>No matching projects</h3><p>Try a different search or category filter.</p></article>`;
   if (projectCount) {
-    projectCount.textContent = `${filtered.length} project${filtered.length === 1 ? "" : "s"} shown`;
+    projectCount.textContent =
+      pageState.activeProjectFilter === "Selected"
+        ? `${filtered.length} selected case ${filtered.length === 1 ? "study" : "studies"} shown`
+        : `${filtered.length} project${filtered.length === 1 ? "" : "s"} shown`;
   }
+  decorateSkillLinks(dynamicProjects);
 };
 
 const initializeProjects = async () => {
@@ -858,12 +1339,13 @@ const initializeProjects = async () => {
     if (featuredProjects) {
       const selected = projects.filter((project) => project.featured).slice(0, 10);
       featuredProjects.innerHTML = (selected.length ? selected : projects.slice(0, 10)).map(renderProjectCard).join("");
+      decorateSkillLinks(featuredProjects);
     }
 
     renderProjectFilters();
     renderProjectList();
   } catch (error) {
-    if (projectCount) projectCount.textContent = "Project data could not be loaded from the API.";
+    if (projectCount) projectCount.textContent = "Project records are being refreshed.";
   }
 };
 
@@ -893,10 +1375,11 @@ const initializeExperience = async () => {
     dynamicExperienceBlocks.forEach((block) => {
       const limit = Number(block.dataset.limit) || items.length;
       block.innerHTML = items.slice(0, limit).map(renderExperienceItem).join("");
+      decorateSkillLinks(block);
     });
   } catch {
     dynamicExperienceBlocks.forEach((block) => {
-      block.innerHTML = `<article class="timeline-item"><h2>Experience unavailable</h2><p>Experience data could not be loaded from the API.</p></article>`;
+      block.innerHTML = `<article class="timeline-item"><h2>Experience records</h2><p>The experience timeline is being refreshed.</p></article>`;
     });
   }
 };
@@ -920,6 +1403,126 @@ const initializeCvLinks = () => {
     link.removeAttribute("download");
     link.textContent = link.dataset.fallbackLabel || "Request via email";
     link.classList.add("is-fallback");
+  });
+};
+
+let lastSkillTrigger = null;
+
+const skillHref = (href = "") => {
+  if (/^(https?:|mailto:|tel:|#)/i.test(href)) return href;
+  if (pageKey === "home" && href.startsWith("index.html#")) return href.replace("index.html", "");
+  return `${basePath}${href}`;
+};
+
+const ensureSkillPanel = () => {
+  let backdrop = document.querySelector("[data-skill-panel]");
+  if (backdrop) return backdrop;
+
+  backdrop = document.createElement("div");
+  backdrop.className = "skill-panel-backdrop";
+  backdrop.dataset.skillPanel = "";
+  backdrop.hidden = true;
+  backdrop.innerHTML = `
+    <aside class="skill-panel" role="dialog" aria-modal="true" aria-labelledby="skill-panel-title">
+      <div class="skill-panel-head">
+        <div>
+          <p class="eyebrow">Skill detail</p>
+          <h2 id="skill-panel-title" data-skill-panel-title></h2>
+        </div>
+        <button class="skill-panel-close" type="button" aria-label="Close skill detail" data-skill-panel-close>&times;</button>
+      </div>
+      <p data-skill-panel-summary></p>
+      <div data-skill-panel-sections></div>
+      <div class="project-links skill-panel-links" data-skill-panel-links></div>
+    </aside>`;
+  document.body.append(backdrop);
+
+  backdrop.addEventListener("click", (event) => {
+    if (event.target === backdrop || event.target.closest("[data-skill-panel-close]")) {
+      closeSkillPanel();
+    }
+  });
+
+  return backdrop;
+};
+
+const renderSkillSections = (sections = []) =>
+  sections
+    .map(
+      (section) => `
+        <section class="skill-detail-group">
+          <h3>${escapeHtml(section.heading)}</h3>
+          <ul>${(section.items || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </section>`
+    )
+    .join("");
+
+const openSkillPanel = (skillKey, trigger = null) => {
+  const profile = skillProfiles[skillKey];
+  if (!profile) return;
+
+  lastSkillTrigger = trigger;
+  const backdrop = ensureSkillPanel();
+  backdrop.querySelector("[data-skill-panel-title]").textContent = profile.title;
+  backdrop.querySelector("[data-skill-panel-summary]").textContent = profile.summary;
+  backdrop.querySelector("[data-skill-panel-sections]").innerHTML = renderSkillSections(profile.sections);
+  backdrop.querySelector("[data-skill-panel-links]").innerHTML = (profile.links || [])
+    .map((link) => `<a href="${escapeHtml(skillHref(link.href))}">${escapeHtml(link.label)}</a>`)
+    .join("");
+
+  backdrop.hidden = false;
+  document.body.classList.add("skill-panel-open");
+  requestAnimationFrame(() => backdrop.querySelector("[data-skill-panel-close]")?.focus());
+};
+
+const closeSkillPanel = () => {
+  const backdrop = document.querySelector("[data-skill-panel]");
+  if (!backdrop || backdrop.hidden) return;
+
+  backdrop.hidden = true;
+  document.body.classList.remove("skill-panel-open");
+  lastSkillTrigger?.focus?.();
+  lastSkillTrigger = null;
+};
+
+const decorateSkillLinks = (root = document) => {
+  root.querySelectorAll(".tag-row span, .hero-tag-row span, .skill-pill, .tool-icon-card").forEach((element) => {
+    if (element.dataset.skillDecorated === "true") return;
+    const skillKey = element.dataset.skillKey || skillKeyForLabel(element.textContent);
+    if (!skillKey || !skillProfiles[skillKey]) return;
+
+    element.dataset.skillDecorated = "true";
+    element.dataset.skillKey = skillKey;
+    element.classList.add("skill-link");
+    element.setAttribute("role", "button");
+    element.setAttribute("tabindex", "0");
+    element.setAttribute("aria-label", `Show ${skillProfiles[skillKey].title} details`);
+  });
+};
+
+const initializeSkillExplorer = () => {
+  decorateSkillLinks();
+  if (document.body.dataset.skillExplorerReady === "true") return;
+  document.body.dataset.skillExplorerReady = "true";
+
+  document.addEventListener("click", (event) => {
+    const trigger = event.target instanceof Element ? event.target.closest("[data-skill-key]") : null;
+    if (!trigger || !trigger.classList.contains("skill-link")) return;
+    openSkillPanel(trigger.dataset.skillKey, trigger);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeSkillPanel();
+      return;
+    }
+
+    const trigger = event.target instanceof Element ? event.target.closest("[data-skill-key]") : null;
+    if (!trigger || !trigger.classList.contains("skill-link")) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openSkillPanel(trigger.dataset.skillKey, trigger);
+    }
   });
 };
 
@@ -963,10 +1566,12 @@ const initializeFooter = () => {
       </div>
       <nav aria-label="Footer quick links">
         <h3>Quick links</h3>
+        <a href="${basePath}index.html#projects">Featured</a>
         <a href="${basePath}projects.html">Projects</a>
         <a href="${basePath}experience.html">Experience</a>
-        <a href="${basePath}about.html">About</a>
         <a href="${basePath}index.html#cv">CV</a>
+        <a href="${basePath}about.html">About</a>
+        <a href="${basePath}index.html#contact">Contact</a>
       </nav>
       <div>
         <h3>Social</h3>
@@ -997,10 +1602,11 @@ const initializeSkills = async () => {
     const items = visibleItems(Array.isArray(data.skillGroups) ? data.skillGroups : []);
     dynamicSkillBlocks.forEach((block) => {
       block.innerHTML = renderSkills(items, block.dataset.compact === "true");
+      decorateSkillLinks(block);
     });
   } catch {
     dynamicSkillBlocks.forEach((block) => {
-      block.innerHTML = `<article class="compact-item"><h3>Skills unavailable</h3><p>Skill data could not be loaded from the API.</p></article>`;
+      block.innerHTML = `<article class="compact-item"><h3>Skills and tools</h3><p>The skills list is being refreshed.</p></article>`;
     });
   }
 };
@@ -1022,7 +1628,7 @@ const initializeCourses = async () => {
     });
   } catch {
     dynamicCourseBlocks.forEach((block) => {
-      block.innerHTML = `<article class="compact-item"><h3>Courses unavailable</h3><p>Course data could not be loaded from the API.</p></article>`;
+      block.innerHTML = `<article class="compact-item"><h3>Course records</h3><p>The course list is being refreshed.</p></article>`;
     });
   }
 };
@@ -1034,7 +1640,7 @@ const renderIdeaItem = (idea) => {
       <span class="entry-status">${escapeHtml(idea.category || "Idea")}</span>
       <h3>${escapeHtml(idea.title)}</h3>
       <p>${escapeHtml(idea.summary || "")}</p>
-      ${tags.length ? `<div class="tag-row">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+      ${tags.length ? `<div class="tag-row">${tags.map(renderTag).join("")}</div>` : ""}
     </article>`;
 };
 
@@ -1046,11 +1652,12 @@ const initializeIdeas = async () => {
     dynamicIdeaBlocks.forEach((block) => {
       block.innerHTML = items.length
         ? items.map(renderIdeaItem).join("")
-        : `<article class="entry-card"><h3>No ideas yet</h3><p>Add ideas from the admin content manager.</p></article>`;
+        : `<article class="entry-card"><h3>No ideas yet</h3><p>New experiment ideas can be added here over time.</p></article>`;
+      decorateSkillLinks(block);
     });
   } catch {
     dynamicIdeaBlocks.forEach((block) => {
-      block.innerHTML = `<article class="entry-card"><h3>Ideas unavailable</h3><p>Idea data could not be loaded from the API.</p></article>`;
+      block.innerHTML = `<article class="entry-card"><h3>Project ideas</h3><p>The idea list is being refreshed.</p></article>`;
     });
   }
 };
@@ -1059,24 +1666,20 @@ const initializeCertifications = async () => {
   if (!certificationsList) return;
 
   try {
-    const endpoint = apiUrl(
-      certificationsList.dataset.apiResource,
-      certificationsList.dataset.certificationsEndpoint
+    const data = await fetchCollection(
+      certificationsList.dataset.apiResource || "certifications",
+      `${basePath}${certificationsList.dataset.certificationsEndpoint || "api/certifications.json"}`
     );
-    const response = await fetch(endpoint, { cache: "no-store" });
-    if (!response.ok) throw new Error(`Certification API returned ${response.status}`);
-
-    const data = await response.json();
     const certifications = Array.isArray(data.certifications) ? data.certifications : [];
     certificationsList.innerHTML = certifications.length
       ? certifications.map(renderCertification).join("")
-      : `<article class="certification-item"><div><h3>No certifications found</h3><p>The certifications API returned an empty list.</p></div></article>`;
+      : `<article class="certification-item"><div><h3>Certification records</h3><p>No certification records are listed yet.</p></div></article>`;
   } catch (error) {
     certificationsList.innerHTML = `
       <article class="certification-item">
         <div>
-          <h3>Certifications unavailable</h3>
-          <p>The certifications API could not be loaded in this browser session.</p>
+          <h3>Certification records</h3>
+          <p>Credential records are being prepared for this section.</p>
         </div>
       </article>`;
   }
@@ -1198,6 +1801,7 @@ updateScenes();
 injectNavLinks();
 initializeNavToggle();
 initializeFooter();
+initializeSkillExplorer();
 if (localEditorEnabled) {
   applySavedState();
   injectEditor();

@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
 
   <link rel="stylesheet" href="../styles.css" />
-  <script src="../scripts/site.js?v=20260504-data-v7" defer></script>
+  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
@@ -25,11 +25,15 @@
     <nav class="nav container">
       <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
       <div class="nav-links">
+        <a href="../index.html#projects">Featured</a>
         <a href="../projects.html">Projects</a>
         <a href="../experience.html">Experience</a>
-        <a href="../about.html">About</a>
         <a href="../index.html#cv">CV</a>
+        <a href="../about.html">About</a>
         <a href="../index.html#contact">Contact</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../ideas.html">Ideas</a>
       </div>
     </nav>
   </header>
@@ -41,6 +45,9 @@
         <p class="eyebrow">Siemens Energy &middot; Test engineering &middot; CFD/CHT</p>
         <h1>Numerical Investigation of Steady-State Thermo-Fluid Performance of a Reducer for a High-Temperature Dynamic Pressure Sensor Calibration Rig</h1>
         <p class="hero-text">TRITA-ITM-EX 2026:14. Seven months embedded in the Fluid Dynamic Lab at Siemens Energy Finsp&aring;ng working on the Pulsatorn gas turbine test rig, ANSYS Fluent CFD/CHT modelling, NI-DAQ instrumentation and high-temperature validation.</p>
+        <div class="tag-row">
+          <span class="tag-hot">ANSYS Fluent</span><span class="tag-hot">CFD/CHT</span><span class="tag-hot">NI-DAQ</span><span class="tag-hot">LabVIEW</span><span class="tag-hot">Siemens NX</span>
+        </div>
         <img class="case-visual" src="../assets/thumb-siemens-validation.svg" alt="CFD and test validation workflow visual" loading="lazy" width="960" height="540" />
       </div>
     </section>
@@ -62,7 +69,7 @@
           <ul>
             <li>Worked on the numerical investigation of steady-state thermo-fluid performance for a reducer geometry used in a high-temperature dynamic pressure sensor calibration rig.</li>
             <li>Managed the CFD workflow independently from geometry reconstruction in ANSYS SpaceClaim through structured meshing with prismatic inflation layers, solver setup, convergence monitoring and post-processing.</li>
-            <li>Built steady-state compressible CFD and CHT models in ANSYS Fluent using the k-omega SST turbulence model. Inlet conditions were T = 673 K and P_gauge = 100,000 Pa, with three outlet pressure cases per geometry across six adiabatic and six CHT simulations.</li>
+            <li>Built steady-state compressible CFD and CHT models in ANSYS Fluent using the k-omega SST turbulence model. Inlet conditions were T = 673 K and P_gauge = 100,000 Pa, with outlet-pressure cases for adiabatic and full CHT variants in one thesis campaign.</li>
             <li>Conducted a three-level mesh independence study and confirmed discretisation independence to within 2% before moving to the full simulation campaign.</li>
             <li>Applied Biot number analysis (Bi = 0.003-0.004) to separate thermal behaviour from flow effects and identified asymmetry between geometries, including Ma 0.990 near-choked behaviour versus Ma 1.006 supersonic vena-contracta behaviour.</li>
             <li>Commissioned NI-DAQ measurement chains, modified LabVIEW VIs for data acquisition, ran independent thermal test campaigns at up to 700&deg;C and carried out formal root cause analysis of a heater failure that triggered an approved scope change.</li>
