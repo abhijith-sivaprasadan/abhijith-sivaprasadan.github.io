@@ -1149,18 +1149,6 @@ const renderTag = (tag) => {
   return `<span${className}${skillAttr}>${escapeHtml(tag)}</span>`;
 };
 
-const primarySkillTerms = ["ansys fluent", "ni-daq", "labview", "siemens nx", "teamcenter"];
-
-const isPrimarySkill = (label = "") => {
-  const normalized = String(label).toLowerCase();
-  return primarySkillTerms.some((term) => normalized.includes(term));
-};
-
-const renderTag = (tag) => {
-  const className = isPrimarySkill(tag) ? ' class="tag-hot"' : "";
-  return `<span${className}>${escapeHtml(tag)}</span>`;
-};
-
 const projectImageOverrides = {
   "hylkysaari-smart-energy-island-modelling": "assets/thumb-hylkysaari-energy-island.svg",
   "residential-heating-techno-economic-comparison": "assets/thumb-residential-heating-technoeconomics.svg",
