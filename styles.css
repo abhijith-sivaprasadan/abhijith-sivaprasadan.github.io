@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Syne:wght@400;500;600;700;800&display=swap");
+
 /* ============================================================
    CSS PROPERTY REGISTRATION — enables smooth scene transitions
    ============================================================ */
@@ -2554,11 +2556,14 @@ h3 {
   --shadow: 0 18px 55px rgba(1, 4, 9, 0.38);
   --shadow-strong: 0 28px 80px rgba(1, 4, 9, 0.52);
   --radius: 16px;
+  --font-body: "DM Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-head: "Syne", "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "DM Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 body {
   color-scheme: dark;
-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-body);
   color: var(--text);
   background:
     radial-gradient(circle at 12% 4%, rgba(227, 98, 9, 0.18), transparent 28rem),
@@ -2570,7 +2575,7 @@ h1,
 h2,
 h3,
 .logo {
-  font-family: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-head);
 }
 
 code,
@@ -2580,7 +2585,7 @@ code,
 .metric strong,
 .hero-metric-row,
 .hero-stats strong {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
 }
 
 .site-header {
@@ -2919,7 +2924,7 @@ code,
   box-shadow: var(--shadow);
 }
 
-.project-card > :not(img) {
+.project-card > :not(.project-thumb) {
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -3058,7 +3063,7 @@ code,
   border-radius: 12px;
   color: var(--accent);
   background: rgba(227, 98, 9, 0.09);
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   vertical-align: middle;
 }
@@ -3138,6 +3143,232 @@ code,
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.technical-metrics-panel {
+  display: grid;
+  gap: 16px;
+  border-color: rgba(227, 98, 9, 0.34);
+  background:
+    linear-gradient(145deg, rgba(227, 98, 9, 0.16), transparent 42%),
+    linear-gradient(180deg, #161b22, #0d1117);
+}
+
+.tech-panel-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0d1117;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.tech-panel-header span {
+  color: var(--muted);
+}
+
+.tech-panel-header strong {
+  color: #3fb950;
+  font-weight: 500;
+  text-align: right;
+}
+
+.tech-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.tech-metric {
+  min-height: 96px;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0d1117;
+}
+
+.tech-metric strong {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 1.12rem;
+  font-weight: 500;
+  line-height: 1.18;
+}
+
+.tech-metric span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cfd-meter {
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0d1117;
+}
+
+.cfd-meter figcaption {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cfd-meter svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.tech-proof-list {
+  display: grid;
+  gap: 8px;
+}
+
+.tech-proof-list span {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.tech-proof-list span:last-child {
+  border-bottom: 0;
+}
+
+.tech-proof-list strong {
+  min-width: 36px;
+  padding: 2px 6px;
+  border: 1px solid rgba(227, 98, 9, 0.34);
+  border-radius: 4px;
+  color: var(--accent);
+  background: rgba(227, 98, 9, 0.10);
+  font-weight: 500;
+  text-align: center;
+}
+
+.project-card.primary-differentiator {
+  border-color: rgba(227, 98, 9, 0.48);
+  border-top-color: var(--accent);
+  box-shadow: 0 0 34px rgba(227, 98, 9, 0.08);
+}
+
+.project-card.primary-differentiator::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(227, 98, 9, 0.18);
+}
+
+.siemens-cfd-thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  padding: 20px;
+  background:
+    radial-gradient(circle at 80% 18%, rgba(227, 98, 9, 0.16), transparent 34%),
+    linear-gradient(135deg, #0f141b 0%, #1a1208 100%);
+}
+
+.siemens-cfd-thumb svg {
+  display: block;
+  width: min(100%, 440px);
+  height: auto;
+}
+
+.featured-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 4px 8px;
+  border: 1px solid rgba(227, 98, 9, 0.42);
+  border-radius: 4px;
+  color: #ffb77a;
+  background: rgba(227, 98, 9, 0.12);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tag-row span,
+.tone-energy .tag-row span,
+.tone-analytics .tag-row span,
+.hero-tag-row span,
+.skill-pill {
+  border-color: var(--line);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.tag-row span.tag-hot,
+.tone-energy .tag-row span.tag-hot,
+.tone-analytics .tag-row span.tag-hot,
+.hero-tag-row span.tag-hot,
+.skill-pill.hot {
+  border-color: rgba(227, 98, 9, 0.36);
+  color: #ffb77a;
+  background: rgba(227, 98, 9, 0.12);
+}
+
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.72rem;
+  line-height: 1.3;
+}
+
+.timeline-item.timeline-feature {
+  border-color: rgba(227, 98, 9, 0.36);
+  background:
+    linear-gradient(145deg, rgba(227, 98, 9, 0.10), transparent 42%),
+    var(--card);
+}
+
+.timeline-item.timeline-feature::after {
+  border-color: var(--accent);
+  box-shadow: 0 0 18px rgba(227, 98, 9, 0.44);
+}
+
+.proof-tag-row {
+  margin-top: 16px;
+  margin-bottom: 0;
 }
 
 @keyframes hero-in {
@@ -3226,7 +3457,7 @@ code,
     grid-template-columns: 1fr;
   }
 
-  .project-card > :not(img) {
+  .project-card > :not(.project-thumb) {
     margin-left: 16px;
     margin-right: 16px;
   }
@@ -3245,5 +3476,15 @@ code,
   .tag-row span,
   .hero-metric-row span {
     max-width: 100%;
+  }
+
+  .tech-metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-panel-header,
+  .tech-proof-list span {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

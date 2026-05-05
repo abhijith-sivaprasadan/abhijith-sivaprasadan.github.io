@@ -85,8 +85,8 @@
             <a class="button secondary" href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noreferrer">GitHub</a>
           </div>
           <div class="hero-tag-row" aria-label="Primary tools">
-            <span>ANSYS Fluent</span>
-            <span>NI-DAQ/LabVIEW</span>
+            <span class="tag-hot">ANSYS Fluent</span>
+            <span class="tag-hot">NI-DAQ/LabVIEW</span>
             <span>ISO 50001</span>
             <span>Python</span>
           </div>
@@ -97,67 +97,54 @@
           </div>
         </div>
 
-        <aside class="hero-card hero-visual" aria-label="Current portfolio focus">
-          <div class="signal-card">
-            <div>
-              <span class="signal-label">Currently applying to</span>
-              <strong>Gas turbine CFD, test instrumentation, energy coordination and PhD roles</strong>
-            </div>
-            <span class="signal-pill">Open</span>
+        <aside class="hero-card hero-visual technical-metrics-panel" aria-label="Siemens Energy thesis technical metrics">
+          <div class="tech-panel-header">
+            <span>Thesis - Siemens Energy Finsp&aring;ng</span>
+            <strong>TRITA-ITM-EX 2026:14</strong>
           </div>
-          <figure class="thermal-visual" aria-label="Simplified reducer CFD and thermal-gradient schematic">
-            <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" role="img">
+          <div class="tech-metric-grid">
+            <div class="tech-metric"><strong>673 K</strong><span>Inlet temperature</span></div>
+            <div class="tech-metric"><strong>Bi 0.003-0.004</strong><span>Biot analysis</span></div>
+            <div class="tech-metric"><strong>Ma 0.990-1.006</strong><span>Flow regime range</span></div>
+            <div class="tech-metric"><strong>12</strong><span>CFD/CHT simulations</span></div>
+          </div>
+          <figure class="cfd-meter" aria-label="Reducer cross-section pressure and thermal gradient">
+            <figcaption>Reducer cross-section - thermo-fluid signature</figcaption>
+            <svg viewBox="0 0 360 154" xmlns="http://www.w3.org/2000/svg" role="img">
               <defs>
-                <linearGradient id="thermal-gradient" x1="0%" y1="50%" x2="100%" y2="50%">
+                <linearGradient id="hero-duct-gradient" x1="0%" y1="50%" x2="100%" y2="50%">
                   <stop offset="0%" stop-color="#1f6feb"/>
-                  <stop offset="45%" stop-color="#f0883e"/>
+                  <stop offset="42%" stop-color="#3fb950"/>
+                  <stop offset="70%" stop-color="#f0883e"/>
                   <stop offset="100%" stop-color="#e36209"/>
                 </linearGradient>
-                <linearGradient id="pressure-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.35"/>
-                  <stop offset="100%" stop-color="#e36209" stop-opacity="0.48"/>
+                <linearGradient id="hero-duct-fill" x1="0%" y1="50%" x2="100%" y2="50%">
+                  <stop offset="0%" stop-color="#1f6feb" stop-opacity="0.22"/>
+                  <stop offset="55%" stop-color="#f0883e" stop-opacity="0.20"/>
+                  <stop offset="100%" stop-color="#e36209" stop-opacity="0.30"/>
                 </linearGradient>
               </defs>
-              <rect x="18" y="18" width="384" height="224" rx="22" fill="#0d1117" stroke="#30363d"/>
-              <g opacity="0.28" stroke="#30363d" stroke-width="1">
-                <path d="M42 58H378M42 98H378M42 138H378M42 178H378"/>
-                <path d="M78 34V224M128 34V224M178 34V224M228 34V224M278 34V224M328 34V224"/>
+              <rect x="14" y="16" width="332" height="112" rx="10" fill="#0d1117" stroke="#30363d"/>
+              <g stroke="#30363d" stroke-width="0.7" opacity="0.56">
+                <path d="M58 16V128M102 16V128M146 16V128M190 16V128M234 16V128M278 16V128"/>
+                <path d="M14 44H346M14 72H346M14 100H346"/>
               </g>
-              <path d="M58 106 C115 88 155 88 188 106 L240 134 C272 151 314 154 362 136 L362 176 C315 190 272 188 238 170 L186 143 C151 125 111 125 58 144 Z" fill="url(#pressure-gradient)" stroke="url(#thermal-gradient)" stroke-width="3"/>
-              <g fill="none" stroke="#f0f6fc" stroke-opacity="0.22" stroke-width="1">
-                <path d="M70 113 C123 101 153 104 183 119"/>
-                <path d="M70 126 C122 116 154 118 187 135"/>
-                <path d="M70 139 C122 132 158 134 194 151"/>
-                <path d="M214 125 C260 145 304 148 348 137"/>
-                <path d="M210 139 C258 160 305 164 350 151"/>
-                <path d="M209 153 C256 175 305 179 350 165"/>
+              <path d="M36 72 C82 40 127 42 166 68 C204 94 245 102 324 70 L324 94 C250 123 205 114 160 88 C121 65 83 65 36 96 Z" fill="url(#hero-duct-fill)" stroke="url(#hero-duct-gradient)" stroke-width="3"/>
+              <g fill="none" stroke="#f0f6fc" stroke-opacity="0.20" stroke-width="1">
+                <path d="M48 72 C91 54 123 56 158 75"/>
+                <path d="M48 86 C91 72 126 75 165 94"/>
+                <path d="M190 76 C232 97 272 99 314 80"/>
+                <path d="M190 91 C236 115 276 116 316 95"/>
               </g>
-              <g stroke="#e36209" stroke-width="2" fill="none" stroke-linecap="round">
-                <path d="M70 88 L70 70 L112 70"/>
-                <path d="M350 110 L350 88 L304 88"/>
-                <path d="M244 178 L244 204 L286 204"/>
-              </g>
-              <g font-family="JetBrains Mono, monospace" font-size="12" fill="#8b949e">
-                <text x="116" y="74">T_in = 673 K</text>
-                <text x="198" y="216">Bi = 0.003-0.004</text>
-                <text x="222" y="92">Ma 0.990 - 1.006</text>
-              </g>
-              <circle cx="72" cy="126" r="5" fill="#1f6feb"/>
-              <circle cx="214" cy="139" r="5" fill="#f0883e"/>
-              <circle cx="348" cy="151" r="5" fill="#e36209"/>
+              <text x="24" y="144" fill="#8b949e" font-size="10" font-family="DM Mono, monospace">T_in = 673 K</text>
+              <text x="236" y="144" fill="#e36209" font-size="10" font-family="DM Mono, monospace">Ma 0.990-1.006</text>
             </svg>
           </figure>
-          <div class="hero-metric-row" aria-label="Key proof points">
-            <span>7 months &middot; Siemens Energy</span>
-            <span>12 simulations &middot; CHT</span>
-            <span>4 role tracks open</span>
+          <div class="tech-proof-list">
+            <span><strong>RCA</strong> Heater failure scope change</span>
+            <span><strong>DAQ</strong> NI measurement chains</span>
+            <span><strong>CAD</strong> NX and Teamcenter PLM2020</span>
           </div>
-          <ul class="focus-tags">
-            <li>Gas turbine heat transfer</li>
-            <li>Test instrumentation</li>
-            <li>Energy management</li>
-            <li>Energy modelling</li>
-          </ul>
         </aside>
       </div>
     </section>
@@ -330,10 +317,43 @@
         </div>
 
         <div class="project-grid" data-featured-projects data-api-resource="projects">
-          <article class="project-card featured">
-            <img class="project-thumb" src="assets/thumb-siemens-validation.svg" alt="Gas turbine CFD and instrumentation workflow visual" loading="lazy" width="960" height="540" />
+          <article class="project-card featured primary-differentiator">
+            <div class="project-thumb siemens-cfd-thumb" role="img" aria-label="Duct cross-section with blue-to-orange thermo-fluid gradient">
+              <span class="featured-badge">Primary differentiator</span>
+              <svg viewBox="0 0 420 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                  <linearGradient id="siemens-card-gradient" x1="0%" y1="50%" x2="100%" y2="50%">
+                    <stop offset="0%" stop-color="#1f6feb"/>
+                    <stop offset="42%" stop-color="#3fb950"/>
+                    <stop offset="72%" stop-color="#f0883e"/>
+                    <stop offset="100%" stop-color="#e36209"/>
+                  </linearGradient>
+                  <linearGradient id="siemens-card-fill" x1="0%" y1="50%" x2="100%" y2="50%">
+                    <stop offset="0%" stop-color="#1f6feb" stop-opacity="0.26"/>
+                    <stop offset="55%" stop-color="#f0883e" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="#e36209" stop-opacity="0.32"/>
+                  </linearGradient>
+                </defs>
+                <rect x="26" y="38" width="368" height="134" rx="10" fill="#0d1117" stroke="#30363d"/>
+                <g stroke="#30363d" stroke-width="0.8" opacity="0.6">
+                  <path d="M78 38V172M130 38V172M182 38V172M234 38V172M286 38V172M338 38V172"/>
+                  <path d="M26 72H394M26 106H394M26 140H394"/>
+                </g>
+                <path d="M54 104 C112 66 164 68 210 100 C254 130 305 138 366 102 L366 132 C302 166 249 154 204 124 C158 94 110 94 54 134 Z" fill="url(#siemens-card-fill)" stroke="url(#siemens-card-gradient)" stroke-width="4"/>
+                <g fill="none" stroke="#f0f6fc" stroke-opacity="0.20" stroke-width="1.2">
+                  <path d="M68 104 C122 82 160 85 202 110"/>
+                  <path d="M68 122 C122 105 165 108 210 134"/>
+                  <path d="M232 108 C282 135 321 133 352 112"/>
+                  <path d="M230 126 C284 158 322 155 354 132"/>
+                </g>
+                <text x="34" y="24" fill="#8b949e" font-size="12" font-family="DM Mono, monospace">T_in = 673 K</text>
+                <text x="246" y="24" fill="#e36209" font-size="12" font-family="DM Mono, monospace">Ma = 0.990-1.006</text>
+                <text x="34" y="196" fill="#8b949e" font-size="12" font-family="DM Mono, monospace">Bi = 0.003-0.004</text>
+                <text x="278" y="196" fill="#8b949e" font-size="12" font-family="DM Mono, monospace">12 simulations</text>
+              </svg>
+            </div>
             <div class="tag-row">
-              <span>ANSYS Fluent</span><span>CFD/CHT</span><span>Gas Turbines</span><span>NI-DAQ</span>
+              <span class="tag-hot">ANSYS Fluent</span><span>CFD/CHT</span><span>Gas Turbines</span><span class="tag-hot">NI-DAQ</span><span class="tag-hot">LabVIEW</span>
             </div>
             <h3>Siemens Energy CFD/CHT Thesis - Gas Turbine Reducer Thermo-Fluid Analysis</h3>
             <p>
@@ -514,23 +534,33 @@
         <div class="skill-grid" data-dynamic-skills data-api-resource="skills">
           <div class="skill-block">
             <h3>Energy &amp; power systems</h3>
-            <p>PyPSA, Pyomo, PuLP, BESS siting, renewable curtailment, flexible connection logic, power-flow studies, N-1 screening, EV/PV/storage impacts, district heating, hydrogen networks.</p>
+            <div class="skill-pills">
+              <span class="skill-pill">PyPSA</span><span class="skill-pill">Pyomo</span><span class="skill-pill">PuLP</span><span class="skill-pill">BESS siting</span><span class="skill-pill">Renewable curtailment</span><span class="skill-pill">Flexible connections</span><span class="skill-pill">Power-flow studies</span><span class="skill-pill">N-1 screening</span><span class="skill-pill">District heating</span><span class="skill-pill">Hydrogen networks</span>
+            </div>
           </div>
           <div class="skill-block">
             <h3>Optimisation &amp; data</h3>
-            <p>Python, pandas, NumPy, SciPy, time-series analysis, scenario modelling, KPI reporting, Streamlit, Plotly, matplotlib, regression/classification basics, model evaluation.</p>
+            <div class="skill-pills">
+              <span class="skill-pill">Python</span><span class="skill-pill">pandas</span><span class="skill-pill">NumPy</span><span class="skill-pill">SciPy</span><span class="skill-pill">Time-series analysis</span><span class="skill-pill">Scenario modelling</span><span class="skill-pill">KPI reporting</span><span class="skill-pill">Streamlit</span><span class="skill-pill">Plotly</span><span class="skill-pill">Model evaluation</span>
+            </div>
           </div>
           <div class="skill-block">
             <h3>Thermal &amp; testing</h3>
-            <p>ANSYS Fluent (compressible flow, conjugate heat transfer, k-omega SST, mesh independence, prismatic inflation layers), Biot number analysis, thermal boundary condition setup, near-wall treatment, RANS fundamentals, ANSYS Meshing, SpaceClaim, COMSOL coursework, NI-DAQ, NI MAX, LabVIEW VI authoring, thermocouple commissioning, pressure sensor configuration, measurement validation, root cause analysis methodology.</p>
+            <div class="skill-pills">
+              <span class="skill-pill hot">ANSYS Fluent</span><span class="skill-pill">Compressible CFD</span><span class="skill-pill">Conjugate heat transfer</span><span class="skill-pill">k-omega SST</span><span class="skill-pill">Mesh independence</span><span class="skill-pill">Biot analysis</span><span class="skill-pill">Thermal boundary conditions</span><span class="skill-pill">ANSYS Meshing</span><span class="skill-pill hot">NI-DAQ</span><span class="skill-pill hot">LabVIEW</span><span class="skill-pill">Thermocouples</span><span class="skill-pill">Root cause analysis</span>
+            </div>
           </div>
           <div class="skill-block">
             <h3>CAD and PLM</h3>
-            <p>Siemens NX, Teamcenter PLM2020, SolidWorks, ANSYS SpaceClaim.</p>
+            <div class="skill-pills">
+              <span class="skill-pill hot">Siemens NX</span><span class="skill-pill hot">Teamcenter PLM2020</span><span class="skill-pill">SolidWorks</span><span class="skill-pill">ANSYS SpaceClaim</span>
+            </div>
           </div>
           <div class="skill-block">
             <h3>Energy modelling tools</h3>
-            <p>IDA ICE, HOMER Pro, LEAP, SAM, PyPSA, Pyomo, PuLP and MILP optimisation.</p>
+            <div class="skill-pills">
+              <span class="skill-pill">IDA ICE</span><span class="skill-pill">HOMER Pro</span><span class="skill-pill">LEAP</span><span class="skill-pill">SAM</span><span class="skill-pill">PyPSA</span><span class="skill-pill">Pyomo</span><span class="skill-pill">PuLP</span><span class="skill-pill">MILP optimisation</span>
+            </div>
           </div>
           <div class="skill-block">
             <h3>Selected tools</h3>
@@ -548,11 +578,15 @@
           </div>
           <div class="skill-block">
             <h3>Certifications</h3>
-            <p>Applied Computational Fluid Dynamics (Siemens), SSG Entre / Industrial Safety Sweden (Jan 2025 - Jan 2028), IBM Python for Data Science, Digital Manufacturing and Design Technology (University at Buffalo), Schneider Electric sustainability assessment, Digital Signal Processing (in progress), Building Energy Systems and Electrification (in progress).</p>
+            <div class="skill-pills">
+              <span class="skill-pill">Applied CFD (Siemens)</span><span class="skill-pill">SSG Entre Safety</span><span class="skill-pill">IBM Python DS</span><span class="skill-pill">Digital Manufacturing</span><span class="skill-pill">Schneider Electric</span><span class="skill-pill">Digital Signal Processing</span>
+            </div>
           </div>
           <div class="skill-block">
             <h3>Software workflow</h3>
-            <p>Git, Docker, REST APIs, Postman, automated endpoint tests, structured debugging, reproducible repositories, documentation, CI-oriented workflows and dashboarding.</p>
+            <div class="skill-pills">
+              <span class="skill-pill">Git</span><span class="skill-pill">Docker</span><span class="skill-pill">REST APIs</span><span class="skill-pill">Postman</span><span class="skill-pill">Endpoint tests</span><span class="skill-pill">Structured debugging</span><span class="skill-pill">Documentation</span><span class="skill-pill">Dashboards</span>
+            </div>
           </div>
         </div>
       </div>
@@ -618,7 +652,7 @@
         </div>
 
         <div class="timeline">
-          <article class="timeline-item">
+          <article class="timeline-item timeline-feature">
             <div>
               <h3><a class="title-link" href="experience/siemens-energy.html">Test Engineer / Master's Thesis Student - Siemens Energy AB</a></h3>
               <p class="meta">Finsp&aring;ng, Sweden &middot; Apr 2025 - Nov 2025</p>
@@ -626,6 +660,12 @@
             <p>
               Seven months embedded at Siemens Energy Finsp&aring;ng in the Fluid Dynamic Lab. Conducted numerical investigation of steady-state thermo-fluid performance of a reducer geometry for a high-temperature dynamic pressure sensor calibration rig (Pulsatorn). Built compressible CFD and conjugate heat transfer models in ANSYS Fluent (k-omega SST), conducted three-level mesh independence study, and applied Biot number analysis to decompose thermal performance. Identified flow-regime asymmetry between geometry variants (Ma 0.990 near-choked vs Ma 1.006 supersonic vena contracta). Also commissioned NI-DAQ measurement chains, modified LabVIEW VIs, ran independent test campaigns at up to 700&deg;C, and conducted a formal root cause analysis of a heater failure resulting in an approved project scope change. Used Siemens NX and Teamcenter PLM2020 throughout. Supervisor: Prof. Jens Fridh, KTH. Thesis: TRITA-ITM-EX 2026:14.
             </p>
+            <div class="tag-row proof-tag-row" aria-label="Siemens Energy proof points">
+              <span class="tag-hot">TRITA-ITM-EX 2026:14</span>
+              <span>Bi = 0.003-0.004</span>
+              <span>Ma 0.990 vs 1.006</span>
+              <span>RCA scope change</span>
+            </div>
             <div class="project-links">
               <a href="experience/siemens-energy.html">Experience details</a>
             </div>

@@ -665,6 +665,18 @@ const visibleItems = (items = []) =>
 
 const itemTags = (item) => [...(item.tools || []), ...(item.skills || [])].slice(0, 5);
 
+const primarySkillTerms = ["ansys fluent", "ni-daq", "labview", "siemens nx", "teamcenter"];
+
+const isPrimarySkill = (label = "") => {
+  const normalized = String(label).toLowerCase();
+  return primarySkillTerms.some((term) => normalized.includes(term));
+};
+
+const renderTag = (tag) => {
+  const className = isPrimarySkill(tag) ? ' class="tag-hot"' : "";
+  return `<span${className}>${escapeHtml(tag)}</span>`;
+};
+
 const projectImageOverrides = {
   "hylkysaari-smart-energy-island-modelling": "assets/thumb-hylkysaari-energy-island.svg",
   "residential-heating-techno-economic-comparison": "assets/thumb-residential-heating-technoeconomics.svg",
@@ -706,6 +718,42 @@ const renderLinkedTitle = (project) => {
   return project.caseStudyUrl ? `<a class="title-link" href="${escapeHtml(project.caseStudyUrl)}">${title}</a>` : title;
 };
 
+const renderSiemensCfdVisual = () => `
+  <div class="project-thumb siemens-cfd-thumb" role="img" aria-label="Duct cross-section with blue-to-orange thermo-fluid gradient">
+    <span class="featured-badge">Primary differentiator</span>
+    <svg viewBox="0 0 420 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="siemens-card-gradient-dynamic" x1="0%" y1="50%" x2="100%" y2="50%">
+          <stop offset="0%" stop-color="#1f6feb"/>
+          <stop offset="42%" stop-color="#3fb950"/>
+          <stop offset="72%" stop-color="#f0883e"/>
+          <stop offset="100%" stop-color="#e36209"/>
+        </linearGradient>
+        <linearGradient id="siemens-card-fill-dynamic" x1="0%" y1="50%" x2="100%" y2="50%">
+          <stop offset="0%" stop-color="#1f6feb" stop-opacity="0.26"/>
+          <stop offset="55%" stop-color="#f0883e" stop-opacity="0.22"/>
+          <stop offset="100%" stop-color="#e36209" stop-opacity="0.32"/>
+        </linearGradient>
+      </defs>
+      <rect x="26" y="38" width="368" height="134" rx="10" fill="#0d1117" stroke="#30363d"/>
+      <g stroke="#30363d" stroke-width="0.8" opacity="0.6">
+        <path d="M78 38V172M130 38V172M182 38V172M234 38V172M286 38V172M338 38V172"/>
+        <path d="M26 72H394M26 106H394M26 140H394"/>
+      </g>
+      <path d="M54 104 C112 66 164 68 210 100 C254 130 305 138 366 102 L366 132 C302 166 249 154 204 124 C158 94 110 94 54 134 Z" fill="url(#siemens-card-fill-dynamic)" stroke="url(#siemens-card-gradient-dynamic)" stroke-width="4"/>
+      <g fill="none" stroke="#f0f6fc" stroke-opacity="0.20" stroke-width="1.2">
+        <path d="M68 104 C122 82 160 85 202 110"/>
+        <path d="M68 122 C122 105 165 108 210 134"/>
+        <path d="M232 108 C282 135 321 133 352 112"/>
+        <path d="M230 126 C284 158 322 155 354 132"/>
+      </g>
+      <text x="34" y="24" fill="#8b949e" font-size="12" font-family="DM Mono, monospace">T_in = 673 K</text>
+      <text x="246" y="24" fill="#e36209" font-size="12" font-family="DM Mono, monospace">Ma = 0.990-1.006</text>
+      <text x="34" y="196" fill="#8b949e" font-size="12" font-family="DM Mono, monospace">Bi = 0.003-0.004</text>
+      <text x="278" y="196" fill="#8b949e" font-size="12" font-family="DM Mono, monospace">12 simulations</text>
+    </svg>
+  </div>`;
+
 const renderProjectCard = (project) => {
   const tags = itemTags(project);
   const imageSrc = projectImageSrc(project);
@@ -716,10 +764,16 @@ const renderProjectCard = (project) => {
   ].filter(Boolean);
   const tone = projectTone(project);
 
+  const visual =
+    project.id === "siemens-thesis"
+      ? renderSiemensCfdVisual()
+      : `<img class="project-thumb" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(project.title)} visual" loading="lazy" width="960" height="540" />`;
+  const primaryClass = project.id === "siemens-thesis" ? "primary-differentiator" : "";
+
   return `
-    <article class="project-card tone-${tone} ${project.featured ? "featured" : ""}">
-      <img class="project-thumb" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(project.title)} visual" loading="lazy" width="960" height="540" />
-      <div class="tag-row">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
+    <article class="project-card tone-${tone} ${project.featured ? "featured" : ""} ${primaryClass}">
+      ${visual}
+      <div class="tag-row">${tags.map(renderTag).join("")}</div>
       <p class="project-category">${escapeHtml(project.category || "Project")}</p>
       <h3>${renderLinkedTitle(project)}</h3>
       <p>${escapeHtml(project.summary || "")}</p>
@@ -758,7 +812,7 @@ const renderProjectBrowserItem = (project, index) => {
       <div class="project-browser-body">
         <img class="project-thumb" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(project.title)} visual" loading="lazy" width="960" height="540" />
         <div class="project-browser-copy">
-          ${tags.length ? `<div class="tag-row">${tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+          ${tags.length ? `<div class="tag-row">${tags.map(renderTag).join("")}</div>` : ""}
           ${highlights.length ? `<ul class="evidence-list">${highlights.slice(0, 4).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : ""}
           ${links.length ? `<div class="project-links">${links.join("")}</div>` : ""}
         </div>
@@ -818,14 +872,15 @@ const renderExperienceItem = (item) => {
   const links = item.detailUrl ? `<div class="project-links"><a href="${escapeHtml(item.detailUrl)}">Experience details</a></div>` : "";
   const title = `${escapeHtml(item.role)} - ${escapeHtml(item.company)}`;
   const titleMarkup = item.detailUrl ? `<a class="title-link" href="${escapeHtml(item.detailUrl)}">${title}</a>` : title;
+  const isPrimaryExperience = item.id === "test-engineer-master-thesis-student" || /siemens energy/i.test(item.company || "");
   return `
-    <article class="timeline-item ${item.featured ? "timeline-feature" : ""}">
+    <article class="timeline-item ${isPrimaryExperience ? "timeline-feature" : ""}">
       <div>
         <h2>${titleMarkup}</h2>
         <p class="meta">${escapeHtml([item.type, item.period, item.location].filter(Boolean).join(" - "))}</p>
       </div>
       <p>${escapeHtml(item.summary || "")}</p>
-      ${tags.length ? `<div class="tag-row">${tags.slice(0, 6).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+      ${tags.length ? `<div class="tag-row">${tags.slice(0, 6).map(renderTag).join("")}</div>` : ""}
       ${links}
     </article>`;
 };
@@ -929,7 +984,9 @@ const renderSkills = (items, compact = false) =>
     .map((group) =>
       compact
         ? `<article class="compact-item"><h3>${escapeHtml(group.name)}</h3><p>${escapeHtml((group.skills || []).slice(0, 8).join(", "))}</p></article>`
-        : `<div class="skill-block"><h3>${escapeHtml(group.name)}</h3><p>${escapeHtml((group.skills || []).join(", "))}</p></div>`
+        : `<div class="skill-block"><h3>${escapeHtml(group.name)}</h3><div class="skill-pills">${(group.skills || [])
+            .map((skill) => `<span class="skill-pill ${isPrimarySkill(skill) ? "hot" : ""}">${escapeHtml(skill)}</span>`)
+            .join("")}</div></div>`
     )
     .join("");
 
