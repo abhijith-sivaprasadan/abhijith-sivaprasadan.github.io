@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Battery cell discharge performance testing: Ni-MH, Li-Po and Lead-acid cells across C-rates (0.5, 1, 2) and temperatures (ambient, +40°C, -10°C). Voltage, SOC, power and chemistry comparison." />
+  <meta property="og:title" content="Battery Cell Discharge Performance Testing &ndash; Ni-MH, Li-Po, Lead-Acid" />
+  <meta property="og:description" content="Seven-test discharge characterisation: C-rate, temperature and chemistry effects on Ni-MH (780 mAh), Li-Po (420 mAh) and Lead-acid (2500 mAh) cells." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-tes-peak-shaving.svg" />
+  <title>Battery Cell Discharge Lab | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CV</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../ideas.html">Ideas</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Battery characterisation &middot; Electrochemistry &middot; C-rate &middot; KTH MJ2386</p>
+        <h1>Battery Cell Discharge Performance Testing &ndash; Ni-MH, Li-Po and Lead-Acid</h1>
+        <p class="hero-text">MJ2386 Energy Storage Technology lab: seven discharge tests across three battery chemistries (Ni-MH 780&nbsp;mAh, Li-Po 420&nbsp;mAh, Lead-acid 2500&nbsp;mAh), three C-rates (0.5, 1, 2) and three temperatures (ambient, +40&deg;C, &minus;10&deg;C). Results characterise voltage, state of charge, and power discharge behaviour and demonstrate the practical trade-offs between chemistry, rate and operating temperature.</p>
+        <img class="case-visual" src="../assets/thumb-tes-peak-shaving.svg" alt="Battery discharge characterisation lab visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Course:</strong> MJ2386 Energy Storage Technology, KTH Royal Institute of Technology</li>
+            <li><strong>Group:</strong> Mateusz Lakomiec, Abhijith Sivaprasadan, Mohammad Farhan, Lu Yu</li>
+            <li><strong>Cells tested:</strong> Ni-MH (780&nbsp;mAh, 1&nbsp;V termination), Li-Po (420&nbsp;mAh, 3&nbsp;V), Lead-acid (2500&nbsp;mAh, 1.68&nbsp;V)</li>
+            <li><strong>Tests:</strong> 7 (Tests 1.1&ndash;1.3, 2.1&ndash;2.2, 3.2&ndash;3.3)</li>
+            <li><strong>Variables:</strong> C-rate (0.5, 1, 2), temperature (ambient, +40&deg;C, &minus;10&deg;C), cell chemistry</li>
+            <li><strong>Measurements recorded:</strong> Voltage, SOC, power discharge &mdash; all vs time; voltage vs SOC</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>Test matrix</h2>
+          <p>
+            All batteries were fully charged before each test and connected to a DC load terminal with current, voltage cutoff and capacity configured to match the test specification. Temperature-specific tests were conducted with terminals preheated to +40&deg;C or cooled to &minus;10&deg;C before discharge commenced.
+          </p>
+          <ul>
+            <li><strong>Test 1.1:</strong> Ni-MH, 1C, ambient &mdash; reference discharge</li>
+            <li><strong>Test 1.2:</strong> Ni-MH, 0.5C, ambient &mdash; slow discharge</li>
+            <li><strong>Test 1.3:</strong> Ni-MH, 2C, ambient &mdash; fast discharge</li>
+            <li><strong>Test 2.1:</strong> Ni-MH, 1C, +40&deg;C &mdash; elevated temperature</li>
+            <li><strong>Test 2.2:</strong> Ni-MH, 1C, &minus;10&deg;C &mdash; cold temperature</li>
+            <li><strong>Test 3.2:</strong> Lead-acid, 2C, ambient &mdash; chemistry comparison</li>
+            <li><strong>Test 3.3:</strong> Li-Po, 1C, ambient &mdash; chemistry comparison</li>
+          </ul>
+
+          <h2>C-rate effect &mdash; Ni-MH at ambient (Tests 1.1&ndash;1.3)</h2>
+          <p>
+            The three ambient Ni-MH tests isolated the effect of discharge rate while holding chemistry and temperature constant.
+          </p>
+
+          <h3>Voltage vs time</h3>
+          <p>
+            At 0.5C, voltage maintained a prolonged flat plateau before declining gradually &mdash; the hallmark of efficient energy extraction with low internal ohmic losses. At 1C the plateau shortened and the voltage drop steepened, but remained well-behaved. At 2C the plateau collapsed almost entirely: voltage fell sharply from the start due to the high current demand amplifying internal resistance losses (V = IR&sub;i;), and the termination voltage was reached quickly. Higher C-rates cause more energy to be dissipated as heat rather than delivered to the load.
+          </p>
+
+          <h3>State of charge vs time</h3>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>0.5C: longest discharge</strong><small>Gradual SOC decline &mdash; maximum runtime, efficient capacity utilisation</small></span>
+            <span class="result-metric-card"><strong>1C: moderate rate</strong><small>SOC declines at intermediate speed &mdash; balanced performance</small></span>
+            <span class="result-metric-card"><strong>2C: rapid depletion</strong><small>Shortest discharge duration; high current exhausts capacity quickly</small></span>
+          </div>
+          <p>
+            The SOC curves confirm that the nominally rated 780&nbsp;mAh capacity is not fully accessible at high C-rates: the cell reaches its termination voltage before the theoretical charge is exhausted. This is the Peukert effect &mdash; apparent capacity decreases with increasing discharge current.
+          </p>
+
+          <h3>Power discharge vs time</h3>
+          <p>
+            At 2C, initial power output is the highest of the three tests but declines rapidly as voltage falls. At 1C, power is relatively stable for a moderate period. At 0.5C, power delivery is the most consistent and sustained. The cross-over &mdash; where the 2C curve drops below 0.5C in delivered power &mdash; demonstrates that burst power comes at the cost of total energy delivered and discharge longevity.
+          </p>
+
+          <h3>Voltage vs SOC</h3>
+          <p>
+            At 0.5C, voltage remains high across most of the SOC range, declining only near full depletion. At 2C, voltage drops sharply even at high SOC, meaning the battery appears to be more depleted than it actually is due to internal resistance. This voltage depression under load is reversible: if the 2C load were removed, the voltage would recover. It is therefore a rate-induced effect rather than true capacity loss.
+          </p>
+
+          <h2>Temperature effect &mdash; Ni-MH at 1C (Tests 2.1 and 2.2)</h2>
+          <p>
+            Holding chemistry and C-rate constant, temperature was varied between +40&deg;C and &minus;10&deg;C to isolate its effect.
+          </p>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>+40&deg;C: slower voltage decline</strong><small>Lower internal resistance, enhanced electrochemical kinetics, longer operation</small></span>
+            <span class="result-metric-card"><strong>&minus;10&deg;C: rapid voltage drop</strong><small>High resistance, sluggish reaction rates, sharp capacity reduction</small></span>
+          </div>
+          <p>
+            At +40&deg;C the battery shows a slower, more gradual voltage decline across all four analysis dimensions (voltage vs time, SOC vs time, power vs time, voltage vs SOC). Elevated temperature lowers the internal resistance of the electrolyte and speeds up the redox kinetics, allowing the cell to sustain current delivery with lower voltage penalty.
+          </p>
+          <p>
+            At &minus;10&deg;C the voltage drops rapidly from the start, SOC depletes faster, power output is lower and declines more quickly, and the voltage-SOC profile shows sharp depletion even at high residual SOC. Cold temperatures increase ionic resistance in the electrolyte and slow the half-reactions at both electrodes, effectively shrinking the accessible capacity. The cell terminates discharge with usable charge still chemically stored but electrochemically inaccessible under load.
+          </p>
+          <p>
+            This result directly explains why EV battery management systems derate available power and capacity at low ambient temperatures, and why battery pre-conditioning (warming) before fast charging or high-power discharge is operationally important.
+          </p>
+
+          <h2>Chemistry comparison &mdash; Lead-acid (2C) vs Li-Po (1C) (Tests 3.2 and 3.3)</h2>
+
+          <h3>Voltage vs time</h3>
+          <p>
+            Lead-acid starts at approximately 1.9&nbsp;V and declines steadily over a relatively short discharge period. Li-Po starts at approximately 4&nbsp;V, maintains an extended flat plateau, and then drops steeply near the end of discharge &mdash; the characteristic Li-Po profile arising from the lithium intercalation chemistry. The contrast is stark: lead-acid shows a quasi-linear decay while Li-Po holds a nearly constant voltage for most of its capacity window before collapsing.
+          </p>
+
+          <h3>SOC vs time</h3>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Li-Po: ~3,500 s to full discharge</strong><small>Linear SOC decline; high energy density sustains long runtime</small></span>
+            <span class="result-metric-card"><strong>Lead-acid: ~500 s to full discharge</strong><small>7&times; shorter despite 6&times; higher rated capacity &mdash; 2C rate effect</small></span>
+          </div>
+          <p>
+            The lead-acid cell discharged to zero SOC in approximately 500 seconds, while the Li-Po reached zero in approximately 3,500 seconds &mdash; seven times longer despite having far less rated capacity (420&nbsp;mAh vs 2500&nbsp;mAh). The lead-acid result is partly explained by the higher 2C rate (vs 1C for Li-Po): at 2C from a 2500&nbsp;mAh cell, the theoretical discharge current is 5&nbsp;A, which at 1.9&nbsp;V represents ~9.5&nbsp;W, consistent with the observed initial power of approximately 9.4&nbsp;W.
+          </p>
+
+          <h3>Power discharge vs time</h3>
+          <p>
+            Lead-acid initial power ~9.4&nbsp;W, declining steadily over the short discharge window. Li-Po initial power ~1.65&nbsp;W, declining gradually throughout its much longer discharge and then dropping sharply near the end. The Li-Po power profile is much more consistent over time, confirming its suitability for applications requiring steady power delivery (consumer electronics, portable devices) rather than high burst power.
+          </p>
+
+          <h3>Voltage vs SOC</h3>
+          <p>
+            Lead-acid: relatively linear voltage decline from 1.9&nbsp;V at 100% SOC to ~1.7&nbsp;V at 50% SOC &mdash; indicating a fairly linear Gibbs free energy relationship with state of charge. Li-Po: voltage plateau from 100% SOC until approximately 30% SOC remains around 4&nbsp;V, then drops sharply to 3&nbsp;V at 0% SOC. This flat profile makes Li-Po more difficult to gauge by voltage measurement alone but simplifies power electronics design (stable DC bus voltage for most of the cycle).
+          </p>
+
+          <h2>Conclusions</h2>
+          <ul>
+            <li><strong>C-rate:</strong> Lower C-rates (0.5C) maximise runtime, capacity utilisation and voltage stability. Higher C-rates (2C) provide more initial power but shorten discharge duration and reduce effective capacity due to Peukert losses and increased ohmic heating. Application match: 0.5C for sustained delivery (grid storage, overnight discharge), 2C for burst loads (power tools, fast EV acceleration).</li>
+            <li><strong>Temperature:</strong> +40&deg;C improves battery performance (lower resistance, better kinetics). &minus;10&deg;C severely degrades available capacity and power output. Cold-weather energy storage and EV systems must account for temperature derating and implement active thermal management or pre-conditioning.</li>
+            <li><strong>Chemistry:</strong> Li-Po delivers the most stable power output across its discharge cycle and achieves the longest runtime at 1C. Lead-acid shows a more linear, faster decline. Ni-MH is predictable and robust across conditions. Chemistry selection must match the application: Li-Po for energy density and stable voltage; lead-acid for low cost and ruggedness; Ni-MH for moderate performance and cycle life.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Test results</p>
+          <h2>Discharge plots &mdash; all 7 tests</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+          <figure style="margin:0;">
+            <img src="../assets/battery-test-1-1.jpg" alt="Test 1.1 — Ni-MH 1C ambient discharge" loading="lazy" style="width:100%;border-radius:6px;display:block;" />
+            <figcaption style="font-size:0.8rem;color:var(--muted,#888);margin-top:0.4rem;">Test 1.1 &mdash; Ni-MH, 1C, ambient</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <img src="../assets/battery-test-1-2.jpg" alt="Test 1.2 — Ni-MH 0.5C ambient discharge" loading="lazy" style="width:100%;border-radius:6px;display:block;" />
+            <figcaption style="font-size:0.8rem;color:var(--muted,#888);margin-top:0.4rem;">Test 1.2 &mdash; Ni-MH, 0.5C, ambient</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <img src="../assets/battery-test-1-3.jpg" alt="Test 1.3 — Ni-MH 2C ambient discharge" loading="lazy" style="width:100%;border-radius:6px;display:block;" />
+            <figcaption style="font-size:0.8rem;color:var(--muted,#888);margin-top:0.4rem;">Test 1.3 &mdash; Ni-MH, 2C, ambient</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <img src="../assets/battery-test-2-1.jpg" alt="Test 2.1 — Ni-MH 1C at +40°C" loading="lazy" style="width:100%;border-radius:6px;display:block;" />
+            <figcaption style="font-size:0.8rem;color:var(--muted,#888);margin-top:0.4rem;">Test 2.1 &mdash; Ni-MH, 1C, +40&deg;C</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <img src="../assets/battery-test-2-2.jpg" alt="Test 2.2 — Ni-MH 1C at -10°C" loading="lazy" style="width:100%;border-radius:6px;display:block;" />
+            <figcaption style="font-size:0.8rem;color:var(--muted,#888);margin-top:0.4rem;">Test 2.2 &mdash; Ni-MH, 1C, &minus;10&deg;C</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <img src="../assets/battery-test-3-2.jpg" alt="Test 3.2 — Lead-acid 2C ambient discharge" loading="lazy" style="width:100%;border-radius:6px;display:block;" />
+            <figcaption style="font-size:0.8rem;color:var(--muted,#888);margin-top:0.4rem;">Test 3.2 &mdash; Lead-acid, 2C, ambient</figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <img src="../assets/battery-test-3-3.jpg" alt="Test 3.3 — Li-Po 1C ambient discharge" loading="lazy" style="width:100%;border-radius:6px;display:block;" />
+            <figcaption style="font-size:0.8rem;color:var(--muted,#888);margin-top:0.4rem;">Test 3.3 &mdash; Li-Po, 1C, ambient</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Relevance</p>
+          <h2>Why this matters</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            The C-rate, temperature and chemistry findings from this lab map directly to real system design decisions: battery selection for off-grid storage (Li-Po or Ni-MH for sustained delivery vs lead-acid for cost), sizing for cold climates (capacity derating at &minus;10&deg;C), and understanding why fast charging or high-load discharge degrades both immediate performance and long-term cell life. The Peukert effect observed at 2C explains why BESS systems are typically sized at 0.25&ndash;0.5C for daily cycling rather than their peak-rated rates.
+          </p>
+          <p>
+            This lab sits alongside the M-TES PCM thermal characterisation experiment (also MJ2386) as the electrochemical counterpart: both involve measuring stored energy released under a controlled discharge protocol, comparing experimental results to theoretical expectations, and understanding how operating conditions shift system performance. Together they form a complete experimental grounding in energy storage characterisation methodology applicable to both electrical and thermal storage technologies.
+          </p>
+          <div class="project-links">
+            <a href="mtes-pcm-thermal-lab.html">Related: M-TES PCM thermal lab (MJ2386)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

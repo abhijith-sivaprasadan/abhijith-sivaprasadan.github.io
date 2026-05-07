@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Experimental characterisation of a latent heat Mobile Thermal Energy Storage prototype using RT60 HC PCM and RENOLIN THERM HTF, with three-method heat transfer analysis and theory-experiment comparison." />
+  <meta property="og:title" content="M-TES PCM Thermal Lab &ndash; RT60 HC Discharge Characterisation" />
+  <meta property="og:description" content="Lab measurement and analysis of a PCM mobile TES prototype: 10,049 kJ theoretical vs 10,036 kJ experimental (0.1% discrepancy)." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-tes-peak-shaving.svg" />
+  <title>M-TES PCM Thermal Lab | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CV</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../ideas.html">Ideas</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Thermal energy storage &middot; PCM &middot; Lab experiment &middot; KTH MJ2386</p>
+        <h1>Latent Heat Mobile Thermal Energy Storage &ndash; RT60 HC PCM Discharge Lab</h1>
+        <p class="hero-text">Experimental characterisation of a Mobile Thermal Energy Storage (M-TES) prototype using RT60 HC phase-change material and RENOLIN THERM 300X heat-transfer fluid. Discharge measured over 8 hours via 10 PT100 sensors; three calculation methods compared against theoretical capacity &mdash; Method 1 achieved 99.9% agreement.</p>
+        <img class="case-visual" src="../assets/thumb-tes-peak-shaving.svg" alt="M-TES PCM thermal lab visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Course:</strong> MJ2386 Energy Storage Technology, KTH Royal Institute of Technology</li>
+            <li><strong>Group:</strong> Group 10 (3 members)</li>
+            <li><strong>Date:</strong> November 2024</li>
+            <li><strong>PCM:</strong> RT60 HC &mdash; nominal phase change 60&deg;C, latent heat 264.5 kJ/kg</li>
+            <li><strong>HTF:</strong> RENOLIN THERM 300X oil, 2 L/min flow rate</li>
+            <li><strong>PCM mass:</strong> 33 kg (44 L volume, liquid density 0.75 kg/L)</li>
+            <li><strong>Test duration:</strong> ~8 hours (data logged every 10 seconds)</li>
+            <li><strong>Temperature range:</strong> 71.1&deg;C (start) &rarr; 40.1&deg;C (end)</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>Experimental setup</h2>
+          <p>
+            The M-TES unit was characterised during discharge using two thermostatic oil baths regulating the HTF temperature, a coil heat exchanger (HX), an HTF reservoir and pump with frequency controller. Ten PT100 sensors (Chn 201&ndash;210) monitored temperatures along the M-TES unit from inlet (201) to outlet (210); a type-T thermocouple tracked the HTF reservoir buffer temperature (Chn 115). Data was logged via a Keithley acquisition system at 10-second intervals.
+          </p>
+          <p>
+            Cooling was provided by a cold water faucet when buffer tank temperature fell below 100&deg;C, enabling controlled heat discharge. Flow was measured by an Omega flow meter.
+          </p>
+
+          <h2>PCM and HTF physical parameters</h2>
+          <ul>
+            <li><strong>PCM &mdash; RT60 HC:</strong> phase change 60&deg;C (solidification 62&rarr;51&deg;C); density 0.75 kg/L (liquid) / 0.85 kg/L (solid); Cp = 2 kJ/(kg&middot;K); latent heat 264.5 kJ/kg; total volume 44 L &rarr; mass 33 kg</li>
+            <li><strong>HTF &mdash; RENOLIN THERM 300X:</strong> density 875 kg/m&sup3; at 15&deg;C; Cp = 2 kJ/(kg&middot;K) at 50&deg;C (temperature-dependent); flow rate 2 L/min = 3.33&times;10&sup3; m&sup3;/s</li>
+            <li><strong>Tank:</strong> stainless steel shell, 150 kg, Cp assumed 0.5 kJ/(kg&middot;K)</li>
+          </ul>
+
+          <h2>Theoretical storage capacity</h2>
+          <p>
+            Three heat contributions were calculated for the discharge window (71.1&deg;C &rarr; 40.1&deg;C):
+          </p>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Q<sub>latent</sub> = 8,728.5 kJ</strong><small>Dominant term: L &times; m<sub>PCM</sub> = 264.5 &times; 33</small></span>
+            <span class="result-metric-card"><strong>Q<sub>sensible solid</sub> = 719.4 kJ</strong><small>Cp &times; m &times; &Delta;T below solidification range</small></span>
+            <span class="result-metric-card"><strong>Q<sub>sensible liquid</sub> = 601.3 kJ</strong><small>Cp &times; m &times; &Delta;T above solidification range</small></span>
+          </div>
+          <p>
+            <strong>Total theoretical storage capacity: 10,049.2 kJ</strong> &mdash; latent heat accounts for 86.9% of the total, confirming the dominance of phase-change over sensible contributions in this operating window.
+          </p>
+
+          <h2>Sensor temperature behaviour</h2>
+          <p>
+            Key observations from the 10-sensor temperature-vs-time plot over 8 hours:
+          </p>
+          <ul>
+            <li>Inlet (Chn 201) drops first and most sharply &mdash; HTF entering at the lower oil-bath temperature drives the discharge front from the inlet.</li>
+            <li>Outlet (Chn 202) decreases steadily throughout, unlike all other sensors, reflecting integrated heat extraction across the unit.</li>
+            <li>Sensor pairs 203&ndash;204, 205&ndash;206, 207&ndash;208, 209&ndash;210 follow a stepped pattern: each pair drops sequentially with approximately 40-minute intervals, indicating a thermal front propagating through the PCM from inlet to outlet.</li>
+            <li>A sudden drop in the oil reservoir Chn 115 temperature was identified as a likely measurement error.</li>
+            <li>At 8 hours, all sensors converge to 40&deg;C &mdash; confirming full thermal equilibration with the oil bath temperature and complete discharge.</li>
+          </ul>
+
+          <h2>Experimental heat transfer &mdash; three methods</h2>
+          <p>
+            Heat transferred from PCM to HTF was calculated by integrating the inlet&ndash;outlet temperature difference over the 10-second timestep sequence:
+          </p>
+          <p>
+            Q<sub>HTF</sub> = &Sigma; C<sub>p,HTF</sub> &times; &Delta;T &times; V&#775; &times; &rho; &times; &Delta;t, &nbsp; where &Delta;T = T<sub>Chn202</sub> &minus; T<sub>Chn201</sub>
+          </p>
+          <ul>
+            <li><strong>Method 1 (temperature-dependent &rho; and C<sub>p</sub>):</strong> Density and Cp varied with temperature using datasheet curves. C<sub>p,HTF</sub> decreased from 2.033 to 1.945 kJ/(kg&middot;K); &rho; increased from 839.6 to 854.9 kg/m&sup3; during the experiment. Q<sub>HTF</sub> = <strong>10,035.6 kJ</strong></li>
+            <li><strong>Method 2 (constant &rho; = 825 kg/m&sup3;, C<sub>p</sub> = 2 kJ/(kg&middot;K)):</strong> Q<sub>HTF</sub> = <strong>9,814.6 kJ</strong></li>
+            <li><strong>Method 3 (including tank heat absorption):</strong> Q<sub>tank</sub> = 150 &times; 0.5 &times; 30 = 2,250 kJ. Total: <strong>12,285.6 kJ</strong> (Method 1 + tank) or <strong>12,064.6 kJ</strong> (Method 2 + tank)</li>
+          </ul>
+
+          <h2>Theory vs experiment comparison</h2>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Theoretical: 10,049.2 kJ</strong><small>PCM sensible + latent heat sum</small></span>
+            <span class="result-metric-card"><strong>Method 1: 10,035.6 kJ</strong><small>0.1% below theoretical &mdash; excellent agreement</small></span>
+            <span class="result-metric-card"><strong>Method 2: 9,814.6 kJ</strong><small>2.3% below &mdash; constant-property simplification</small></span>
+          </div>
+          <p>
+            Method 1 (variable properties) achieves 99.9% agreement with theory when comparing PCM-only contributions. This close match validates the theoretical model and confirms the sensor arrangement and integration approach are accurate.
+          </p>
+          <p>
+            The Method 3 values (12,064&ndash;12,286 kJ) exceed theoretical predictions because the stainless-steel tank absorbs 2,250 kJ of heat not included in the PCM-focused theoretical model. This is the largest identified discrepancy source, not measurement error. Minor additional contributors include heat losses to the environment and 10-second data-logging resolution.
+          </p>
+
+          <h2>Limitations and future work</h2>
+          <ul>
+            <li>Theoretical model does not account for tank heat absorption &mdash; including it would close the Method 3 gap.</li>
+            <li>Density and Cp functions were digitised from datasheet plots rather than tabular data; minor digitisation errors may affect Method 1 accuracy.</li>
+            <li>Single test run &mdash; repeated charge/discharge cycling would quantify PCM stability and degradation.</li>
+            <li>Only discharge characterised; a charge experiment under equivalent conditions would complete the round-trip efficiency picture.</li>
+            <li>No heat loss correction applied &mdash; adding insulation sensors or using a heat-loss model would improve the energy balance closure.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Relevance</p>
+          <h2>Why this matters</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            This lab demonstrates the hands-on measurement side of thermal energy storage: setting up a real PCM discharge test, deriving the heat balance from sensor data using two property-handling approaches, and reconciling theory against experiment at 0.1% agreement. The workflow &mdash; theoretical capacity calculation, integration over measured time-series, sensitivity to property assumptions, and identification of unmodelled heat sinks &mdash; directly parallels the analysis required for TES prototype evaluation and heat exchanger commissioning in industrial settings.
+          </p>
+          <p>
+            The RT60 HC latent heat result (8,728.5 kJ vs 9,441 kJ sensible only) quantifies why PCM storage is so attractive for compact mobile TES applications: latent heat provides 87% of the total energy stored in a 31&deg;C window, enabling significantly higher energy density than sensible-heat-only systems.
+          </p>
+          <div class="project-links">
+            <a href="../downloads/mj2386-mtes-pcm-lab-group10.pdf" download>&#8595; Download lab report (PDF, 1.8&nbsp;MB)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

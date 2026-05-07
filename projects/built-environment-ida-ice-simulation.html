@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="IDA ICE building energy simulation comparing heat exchanger, orientation, location and supply system configurations; plus a policy essay on decarbonising India's built environment." />
+  <meta property="og:title" content="Built Environment Energy Simulation &ndash; IDA ICE Supply System Comparison" />
+  <meta property="og:description" content="IDA ICE simulation of 11 heating/cooling supply system configurations and India built environment decarbonisation analysis." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-residential-heating-technoeconomics.svg" />
+  <title>Built Environment Energy Simulation | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CV</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../ideas.html">Ideas</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Building energy simulation &middot; IDA ICE &middot; Supply system comparison &middot; KTH MJ2509</p>
+        <h1>Energy in Built Environment &ndash; IDA ICE Simulation and India Decarbonisation Analysis</h1>
+        <p class="hero-text">Three-part KTH assignment set: policy analysis of India&rsquo;s built environment decarbonisation pathway; IDA ICE parametric simulation of a university building (heat exchanger, orientation, location); and a systematic comparison of 11 heating and cooling supply configurations on bought energy, primary energy and CO&sub2; emissions.</p>
+        <img class="case-visual" src="../assets/thumb-residential-heating-technoeconomics.svg" alt="Building energy simulation and supply system comparison visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Course:</strong> MJ2509 Energy in Built Environment, KTH Royal Institute of Technology</li>
+            <li><strong>Assignments:</strong> INL1 (policy essay), INL2 (IDA ICE parametric study), INL3 (supply system comparison)</li>
+            <li><strong>Simulation tool:</strong> IDA ICE (Indoor Climate and Energy)</li>
+            <li><strong>Building:</strong> Multi-floor university building; baseline conditions set to ~6% PPD</li>
+            <li><strong>Supply configurations compared:</strong> 11 (INL3), covering oil boiler, GSHP, ASHP, district H&C, PV combinations</li>
+            <li><strong>Key metric:</strong> Bought energy (kWh), primary energy (kWh), CO&sub2; emissions (kg) &mdash; annual simulation</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>INL1: India built environment decarbonisation</h2>
+          <p>
+            India&rsquo;s built environment is experiencing rapid growth driven by urbanisation, but its energy use intensity is high: commercial buildings average 100+ kWh/m&sup2;/year compared to 30&ndash;70 kWh/m&sup2;/year for vernacular buildings. 80% of India&rsquo;s energy demand is met by coal, oil and solid biomass.
+          </p>
+          <p>
+            The essay argued that decarbonisation requires action across five areas: strengthening and enforcing the Energy Conservation Building Code (ECBC 2017) and National Building Code (NBC 2016); expanding LEED and GRIHA green building certification; integrating lessons from vernacular architecture (passive cooling, thermal mass, cross-ventilation, natural daylighting); scaling rooftop solar and grid modernisation for rural electrification; and reorienting investment towards retrofitting existing stock rather than only new construction.
+          </p>
+          <p>
+            Three Indian case studies were analysed: the Infosys Mysore campus (LEED Platinum &mdash; 40% more energy-efficient than ASHRAE baseline, 58% water saving, 90% daylit floor area, 10% recycled construction material); the Delhi Metro (carbon-neutral since transitioning to green standards under CDM/Gold Standard, with ~14 million sq ft of Phase-III construction certified to IGBC Green); and the Smart Cities Mission (98&ndash;110 cities competing to implement circular-economy and smart-grid principles linked to SDG 11).
+          </p>
+          <p>
+            The vernacular architecture section analysed Kerala&rsquo;s Nalukettu typology (central open courtyard, laterite walls, terracotta tiled roof on wooden beams, four-hall layout) as a climate-responsive design model for tropical monsoon conditions, and Rajasthan&rsquo;s stepwells and havelis as passive cooling precedents for arid climates. The key transferable principles were: orientation along prevailing winds, thermal mass, high ceilings, cross-ventilation, and minimised reliance on mechanical cooling.
+          </p>
+
+          <h2>INL2: IDA ICE parametric simulation</h2>
+          <p>
+            The baseline condition was established by adjusting maximum heating and cooling power in IDA ICE to achieve a Predicted Percentage of Dissatisfied (PPD) value of approximately 6%. Maximum power settings were then fixed and individual parameters varied to isolate their effect on AHU power, district heating peak demand and total delivered energy.
+          </p>
+
+          <h3>Heat exchanger addition (effectiveness = 0.7)</h3>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>AHU power: 38.6 &rarr; 8.6 kW</strong><small>78% reduction in air-handling power</small></span>
+            <span class="result-metric-card"><strong>DH peak: 63.1 &rarr; 32.8 kW</strong><small>48% reduction in district heating peak</small></span>
+            <span class="result-metric-card"><strong>Total energy: 160,733 &rarr; 118,890 kWh</strong><small>26% reduction in delivered energy</small></span>
+          </div>
+          <p>
+            Heat exchanger addition was the most impactful single change tested. Recovering heat from exhaust air at 70% effectiveness reduced the ventilation heating load substantially, cutting both AHU power demand and the district heating peak nearly in half.
+          </p>
+
+          <h3>Other parametric changes</h3>
+          <ul>
+            <li><strong>External window blinds:</strong> No significant change to any energy metric. External shading had negligible effect in the baseline Stockholm climate scenario.</li>
+            <li><strong>Building orientation (E&ndash;W &rarr; N&ndash;S):</strong> Slight increase across all values. The baseline E&ndash;W orientation is marginally better for this climate and geometry.</li>
+            <li><strong>Location change to Barcelona:</strong> Eliminated heating demand entirely (PPD below 15% without any heating power). Cooling requirement: 40 kW ground floor, 50 kW upper floor. A new baseline calibration was required since the mild Mediterranean climate makes the Stockholm heating system parameters irrelevant.</li>
+          </ul>
+
+          <h2>INL3: Supply system comparison &mdash; 11 configurations</h2>
+          <p>
+            The reference system uses an oil boiler for heating and a liquid chiller for cooling. Ten alternative configurations were simulated, all evaluated on annual bought energy, primary energy used and CO&sub2; emissions:
+          </p>
+
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Reference (oil boiler): 111,963 kWh bought</strong><small>217,524 kWh primary &mdash; 41,232 kg CO&sub2;</small></span>
+            <span class="result-metric-card"><strong>GSHP + liquid chiller: 80,407 kWh bought</strong><small>196,806 kWh primary &mdash; 33,063 kg CO&sub2; (&minus;28%)</small></span>
+            <span class="result-metric-card"><strong>GSHP + full PV: &minus;25,819 kWh bought</strong><small>Net export to grid &mdash; negative CO&sub2; balance</small></span>
+          </div>
+
+          <p>Key findings from the 11-configuration sweep:</p>
+          <ul>
+            <li><strong>Turbo vs reciprocating compressor (chiller):</strong> Switching to a turbo compressor increased bought energy and emissions for both 40 kW and 50 kW cooling capacities, indicating the reciprocating compressor is more efficient in this application. Higher cooling capacity also increased all metrics.</li>
+            <li><strong>District heating and cooling:</strong> Counter-intuitively, switching to district H&C produced the worst result of all configurations &mdash; bought energy rose to 148,461 kWh and CO&sub2; to 47,139 kg. This is likely due to the district system&rsquo;s primary energy conversion factor in the modelled scenario.</li>
+            <li><strong>GSHP + liquid chiller:</strong> Reduced bought energy by 28% and CO&sub2; by 20% versus the oil boiler reference, confirming the higher efficiency of ground-source heat extraction over combustion heating.</li>
+            <li><strong>GSHP with adjusted top-up/rated split (20 kW top-up, 10 kW rated):</strong> Further improved primary energy (187,574 kWh) and CO&sub2; (31,512 kg) relative to the standard GSHP configuration, showing that auxiliary heater sizing affects overall system efficiency.</li>
+            <li><strong>GSHP + full-area PV panels:</strong> Net negative bought energy (&minus;25,819 kWh) and negative CO&sub2; (&minus;11,436 kg) &mdash; the building becomes a net energy exporter. With half the PV area, the system returns to positive bought energy (27,287 kWh), confirming the size threshold between self-sufficiency and export.</li>
+            <li><strong>ASHP + liquid chiller:</strong> Better than the oil boiler reference (83,132 kWh bought, 33,653 kg CO&sub2;) but consistently worse than GSHP configurations across all metrics, due to the lower COP of air-source vs. ground-source heat extraction.</li>
+          </ul>
+
+          <h2>Summary ranking (bought energy, annual)</h2>
+          <ul>
+            <li>1st: GSHP + full PV &mdash; &minus;25,819 kWh (net export)</li>
+            <li>2nd: GSHP + turbo chiller 40 kW &mdash; 79,814 kWh</li>
+            <li>3rd: GSHP + liquid chiller &mdash; 80,407 kWh</li>
+            <li>4th: GSHP + top-up adjusted &mdash; 87,717 kWh</li>
+            <li>5th: ASHP + liquid chiller &mdash; 83,132 kWh</li>
+            <li>Last: District H&C &mdash; 148,461 kWh</li>
+          </ul>
+
+          <h2>Limitations</h2>
+          <ul>
+            <li>INL2 simulations are parametric &mdash; one variable changed at a time from a fixed baseline; combined effects (e.g. heat exchanger + PV) were not explored in INL2.</li>
+            <li>INL3 used pre-configured .idm system files; the screw compressor configuration produced a simulation error and could not be evaluated.</li>
+            <li>Primary energy and CO&sub2; conversion factors are embedded in the IDA ICE system files and may not reflect real-time grid carbon intensity or future decarbonised grid scenarios.</li>
+            <li>The Barcelona location change in INL2 required a new PPD-based baseline and is not directly comparable to the Stockholm baseline results.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">INL1-4</p>
+          <h2>COMSOL distribution system pipe sizing</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            A fourth assignment in the same course used COMSOL Multiphysics and the COMSOL Application Builder to simulate flow distribution in a branched copper pipe network &mdash; representative of a district heating or hydronic distribution system. Pipe diameters were selected, and balance valve loss coefficients were iterated to achieve target mass flow rates across all seven branches.
+          </p>
+          <p>Selected copper pipe diameters:</p>
+          <ul>
+            <li><strong>Main supply:</strong> OD 7.61 cm / ID 7.21 cm</li>
+            <li><strong>Branches A, B, C:</strong> OD 7.0 cm / ID 6.6 cm</li>
+            <li><strong>Branches D, E:</strong> OD 5.4 cm / ID 5.1 cm</li>
+            <li><strong>Branch F:</strong> OD 3.5 cm / ID 3.2 cm (smallest, highest resistance)</li>
+          </ul>
+          <p>COMSOL simulation results after balance valve tuning (all branches converged to approximately 0.37&ndash;0.40 kg/s):</p>
+          <ul>
+            <li>Branch 1: 0.3933 kg/s, loss coefficient 93.5</li>
+            <li>Branch 2: 0.3847 kg/s, loss coefficient 70.3</li>
+            <li>Branch 3: 0.3872 kg/s, loss coefficient 60</li>
+            <li>Branch 4: 0.3847 kg/s, loss coefficient 50</li>
+            <li>Branch 5: 0.3985 kg/s, loss coefficient 27</li>
+            <li>Branch 6: 0.3748 kg/s, loss coefficient 25</li>
+            <li>Branch 7: 0.3712 kg/s, loss coefficient 10</li>
+          </ul>
+          <p>
+            The inverse relationship between branch position and required loss coefficient reflects the pressure gradient along the main: branches closer to the supply pump require higher valve resistance to prevent over-flow, while distant branches need lower restriction to maintain target flow. This is the fundamental principle of hydronic balancing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Relevance</p>
+          <h2>Why this matters</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            This assignment set demonstrates the full built-environment analysis workflow: policy context (India decarbonisation essay), parametric building physics simulation (IDA ICE INL2), and supply system techno-economic comparison (INL3). The INL3 result that a GSHP + full PV system achieves net-negative bought energy and CO&sub2; is a directly actionable insight for building energy design &mdash; it quantifies the PV area threshold between grid dependence and grid contribution.
+          </p>
+          <p>
+            The IDA ICE tool is industry-standard for building energy certification work in Scandinavia and Northern Europe. Experience using it for parametric sensitivity analysis and supply system selection is directly applicable to building energy consulting, HVAC system design and energy performance contracting roles.
+          </p>
+          <div class="project-links">
+            <a href="../downloads/mj2509-supply-systems-inl3.pdf" download>&#8595; Download INL3 supply systems report (PDF, 2.6&nbsp;MB)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

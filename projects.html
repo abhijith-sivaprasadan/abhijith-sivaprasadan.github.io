@@ -154,25 +154,25 @@
             <summary class="project-browser-summary">
               <div class="project-browser-summary-text">
                 <span class="project-browser-kicker">Energy management</span>
-                <h3><a class="title-link" href="projects/alleima-energy-efficiency.html">Alleima Energy Efficiency Mapping</a></h3>
-                <p>Energy performance mapping, KPI/EnPI framing, metering readiness assessment, loss analysis and improvement-roadmap work at an industrial steel site.</p>
+                <h3><a class="title-link" href="projects/alleima-energy-efficiency.html">Alleima Comparative Energy Audit Methods</a></h3>
+                <p>Comparative regulatory analysis and tiered audit-method design for Sweden, Germany, the Netherlands, Czechia, India, China and the United States.</p>
               </div>
               <div class="project-browser-meta">
-                <span>ISO 50001 / Python / Excel</span>
+                <span>ISO 50001 / ENV1 / Regulatory review</span>
               </div>
             </summary>
             <div class="project-browser-body">
               <img class="project-thumb" src="assets/thumb-energy-kpi.svg" alt="Industrial energy KPI mapping visual" loading="lazy" width="960" height="540" />
               <div class="project-browser-copy">
-                <div class="tag-row"><span>ISO 50001</span><span>Energy KPIs</span><span>Industrial efficiency</span><span>EnPI</span></div>
+                <div class="tag-row"><span>ISO 50001</span><span>Energy audits</span><span>Global comparison</span><span>ENV1</span></div>
                 <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>ISO 50001 / EED aligned</strong><small>Mapping approach and audit framing</small></span>
-                  <span class="result-metric-card"><strong>KPI / EnPI framework</strong><small>Normalisation and tracking logic</small></span>
-                  <span class="result-metric-card"><strong>Metering roadmap</strong><small>Readiness and gap-priority structure</small></span>
+                  <span class="result-metric-card"><strong>7 countries</strong><small>Compared against Sweden as benchmark</small></span>
+                  <span class="result-metric-card"><strong>Tiered audit method</strong><small>Matches audit depth to site maturity</small></span>
+                  <span class="result-metric-card"><strong>Verified savings</strong><small>Chomutov, Pune and Zhenjiang examples</small></span>
                 </div>
                 <ul class="evidence-list">
-                  <li>Translated energy data readiness into KPI and metering-improvement structure aligned to ISO 50001 continuous improvement.</li>
-                  <li>Identified significant energy users and mapped metering gaps against audit requirements.</li>
+                  <li>Translated Sweden's EKL/EED model into a tiered global methodology.</li>
+                  <li>Linked site-level evidence to EnPI, measurement and follow-up logic.</li>
                 </ul>
                 <div class="project-links">
                   <a href="projects/alleima-energy-efficiency.html">Case study</a>
@@ -181,33 +181,36 @@
             </div>
           </details>
 
-          <details class="project-browser-item tone-energy" data-project-id="district-heating-optimisation">
+                    <details class="project-browser-item tone-energy" data-project-id="district-heating-optimisation">
             <summary class="project-browser-summary">
               <div class="project-browser-summary-text">
                 <span class="project-browser-kicker">Energy systems</span>
                 <h3><a class="title-link" href="projects/district-heating-optimisation.html">District Heating Dispatch Optimisation</a></h3>
-                <p>Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass and geothermal assets, planned outages, CO₂ and electricity-price coupling.</p>
+                <p>Stepwise optimisation of a district heating system across base case, future demand, storage integration, cost minimisation and emissions minimisation scenarios.</p>
               </div>
               <div class="project-browser-meta">
-                <span>PuLP / HiGHS / MILP</span>
+                <span>PuLP / Python / MILP</span>
               </div>
             </summary>
             <div class="project-browser-body">
               <img class="project-thumb" src="assets/thumb-district-heating.svg" alt="District heating dispatch optimisation visual" loading="lazy" width="960" height="540" />
               <div class="project-browser-copy">
-                <div class="tag-row"><span>PuLP</span><span>MILP</span><span>District heating</span><span>CHP</span><span>Heat pump</span></div>
+                <div class="tag-row"><span>PuLP</span><span>Python</span><span>MILP</span><span>District heating</span><span>Storage</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>CHP flexible role</strong><small>Balances demand across the year</small></span>
+                  <span class="result-metric-card"><strong>Woodchip + geothermal base</strong><small>Stable renewable heat supply</small></span>
+                  <span class="result-metric-card"><strong>Scenario comparison</strong><small>Cost and emissions trade-offs</small></span>
+                </div>
                 <ul class="evidence-list">
-                  <li>Modelled constrained multi-asset heat-supply scheduling across 8760 hours with outage windows and re-optimisation.</li>
-                  <li>Compared cost-led and emissions-aware (CO₂-priced) dispatch outcomes, achieving −14% cost and −22% CO₂ in target scenario.</li>
+                  <li>Built a stepwise dispatch model covering base, future, storage, cost and emissions scenarios.</li>
+                  <li>Used Python and PuLP to compare heat allocation under resource and demand constraints.</li>
                 </ul>
                 <div class="project-links">
                   <a href="projects/district-heating-optimisation.html">Case study</a>
                 </div>
               </div>
             </div>
-          </details>
-
-          <details class="project-browser-item tone-energy" data-project-id="distribution-grid-study">
+          </details><details class="project-browser-item tone-energy" data-project-id="distribution-grid-study">
             <summary class="project-browser-summary">
               <div class="project-browser-summary-text">
                 <span class="project-browser-kicker">Grid modelling</span>
@@ -265,20 +268,26 @@
             <summary class="project-browser-summary">
               <div class="project-browser-summary-text">
                 <span class="project-browser-kicker">Data / ML</span>
-                <h3><a class="title-link" href="projects/heating-demand-forecasting.html">Heating Demand Forecasting</a></h3>
-                <p>Day-ahead building heating-demand forecasting using weather and temporal features, baseline regression models and neural networks.</p>
+                <h3><a class="title-link" href="projects/heating-demand-forecasting.html">Day-Ahead Heating Demand Forecasting &ndash; KTH U-Building</a></h3>
+                <p>Logistic regression, shallow and deep neural network comparison for day-ahead space heating forecast using Mahalanobis-filtered hourly weather and temporal features.</p>
               </div>
               <div class="project-browser-meta">
-                <span>Python / scikit-learn / ML</span>
+                <span>Python / scikit-learn / Neural networks &middot; KTH</span>
               </div>
             </summary>
             <div class="project-browser-body">
               <img class="project-thumb" src="assets/thumb-heating-forecast.svg" alt="Heating demand forecasting model visual" loading="lazy" width="960" height="540" />
               <div class="project-browser-copy">
-                <div class="tag-row"><span>Forecasting</span><span>Python</span><span>ML</span><span>Neural networks</span></div>
+                <div class="tag-row"><span>Forecasting</span><span>Python</span><span>scikit-learn</span><span>Neural networks</span><span>Mahalanobis</span><span>Building energy</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>SNN: 93.39% accuracy</strong><small>Best generalisation &mdash; 1.02pp test&ndash;validation gap</small></span>
+                  <span class="result-metric-card"><strong>DNN: 10&times; slower</strong><small>7 s vs 0.69 s for only +0.33pp accuracy gain</small></span>
+                  <span class="result-metric-card"><strong>4,992 rows after cleaning</strong><small>Mahalanobis 3.5&sigma; removed 120 outliers</small></span>
+                </div>
                 <ul class="evidence-list">
-                  <li>Built weather and calendar feature sets for day-ahead prediction of building heat demand.</li>
-                  <li>Benchmarked baseline and neural-network approaches with documented assumptions and evaluation metrics.</li>
+                  <li>Engineered hour-of-day, chronological day and weekday features to capture occupancy and seasonal patterns in KTH U-Building (~3,600 m&sup2;).</li>
+                  <li>Two-stage pipeline: initial range-based cleaning then Mahalanobis multivariate outlier removal; MinMaxScaler normalisation.</li>
+                  <li>SNN (1 hidden layer, 4 neurons) recommended over DNN (6 layers, 8 neurons) on accuracy&ndash;compute trade-off.</li>
                 </ul>
                 <div class="project-links">
                   <a href="projects/heating-demand-forecasting.html">Case study</a>
@@ -341,6 +350,198 @@
             </div>
           </details>
 
+          <details class="project-browser-item tone-energy" data-project-id="tes-peak-shaving">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Energy storage</span>
+                <h3><a class="title-link" href="projects/tes-peak-shaving.html">TES Peak Shaving for District Cooling &ndash; Ice Storage vs PCM</a></h3>
+                <p>Python TES simulation and techno-economic comparison of ice storage and salt hydrate PCM for a shopping centre district cooling network, including break-even and lifetime profit analysis.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Python / TES / PCM &middot; KTH MJ2386</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-tes-peak-shaving.svg" alt="TES peak shaving district cooling simulation visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>TES</span><span>PCM</span><span>Ice storage</span><span>Peak shaving</span><span>District cooling</span><span>Python</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>~&pound;2,220/week saved</strong><small>Shifting demand below 1,850 kW threshold</small></span>
+                  <span class="result-metric-card"><strong>Ice: 3.5yr payback</strong><small>$404k CAPEX &mdash; $1.6M lifetime profit</small></span>
+                  <span class="result-metric-card"><strong>PCM: 14.9yr payback</strong><small>$1.72M CAPEX &mdash; 4&times; higher cost for same capacity</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>Python simulation with 1,850 kW threshold, 12-hour look-ahead and dynamic SoC tracking across 8-day demand profile (198&ndash;3,391 kW range).</li>
+                  <li>Sized both technologies to 14,750 kWh: ice storage at 351 tons / 320 m&sup3; vs PCM at 246 tons / 273 m&sup3;.</li>
+                  <li>Concluded ice storage optimal where space is unconstrained; PCM justified only when footprint is a binding constraint.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/tes-peak-shaving.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="germany-energy-economy-analysis">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Energy systems / LEAP</span>
+                <h3><a class="title-link" href="projects/germany-energy-economy-analysis.html">Germany 3E Analysis &ndash; Electricity, Cost and CO&sub2; Modelling with LEAP</a></h3>
+                <p>Scenario-based modelling of Germany&rsquo;s electricity system to 2045 using LEAP, comparing NDC 2030 targets against nuclear recommissioning on cost and carbon emissions.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>LEAP / Scenario analysis / KTH MJ2508</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-germany-leap-transition.svg" alt="Germany electricity transition LEAP scenario model visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>LEAP</span><span>Scenario modelling</span><span>Nuclear</span><span>Germany</span><span>CO2 emissions</span><span>SDG 7</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>2,488 million GJ</strong><small>Projected 2045 demand (+42% from 2022)</small></span>
+                  <span class="result-metric-card"><strong>14% nuclear share</strong><small>Own scenario 2045 vs. 0% at start</small></span>
+                  <span class="result-metric-card"><strong>+2.21% social cost</strong><small>Nuclear vs. NDC &ndash; marginal premium for near-zero CO2</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>Built demand model covering households, industry, transport electrification (EVs, rail) and commercial services to 2045.</li>
+                  <li>Compared NDC 2030 pathway against recommissioning 12.1 GW of recently decommissioned nuclear capacity.</li>
+                  <li>Contributed Sankey diagram, SDG 7.1 energy poverty analysis and sustainable development section.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/germany-energy-economy-analysis.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="hylkysaari-sustainable-tourism">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Energy management / buildings</span>
+                <h3><a class="title-link" href="projects/hylkysaari-sustainable-tourism.html">Hylkysaari Island &ndash; Smart and Sustainable Tourism Energy Design</a></h3>
+                <p>Building energy simulation, microgrid modelling and economic evaluation for a sustainable tourist island near Helsinki, with a guest-facing energy dashboard business model.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>IDA ICE / HOMER PRO / Excel &middot; Valo Finland &middot; KTH MJ2511</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-hylkysaari-energy-island.svg" alt="Hylkysaari sustainable island energy design visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>IDA ICE</span><span>HOMER PRO</span><span>Solar PV</span><span>Waste heat recovery</span><span>NPV/BCR</span><span>Business model</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>3 scenarios</strong><small>BAU, solar PV + heat recovery, solar collectors</small></span>
+                  <span class="result-metric-card"><strong>Solar collectors rejected</strong><small>DPP equals project lifetime</small></span>
+                  <span class="result-metric-card"><strong>Vihre&auml; Program</strong><small>Real-time energy dashboard business model</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>Modelled building energy use in IDA ICE and microgrid in HOMER PRO across three design scenarios.</li>
+                  <li>Economic evaluation (NPV, BCR, DPP) showed solar PV + improved insulation + waste heat recovery as optimal combination.</li>
+                  <li>Designed guest-facing &ldquo;Hylkysaari Vihre&auml; Program&rdquo; business model with real-time energy dashboard and carbon offset scheme.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/hylkysaari-sustainable-tourism.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="residential-heating-technoeconomics">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Techno-economic analysis / solar thermal</span>
+                <h3><a class="title-link" href="projects/residential-heating-technoeconomics.html">Residential Heating Techno-Economics &ndash; PV, Heat Pump and Solar Thermal vs District Heating</a></h3>
+                <p>Four-scenario comparison for replacing district heating at BRF &Aring;rstaterrassen (423 apartments, Stockholm) during summer: solar thermal collectors win with a 5-year payback and $128.6/MWh LCoE; PV + electric boiler eliminated at 14% demand coverage.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Solar thermal / Heat pump / SAM &middot; KTH MJ2438</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-residential-heating-technoeconomics.svg" alt="Residential heating techno-economic comparison visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Solar thermal</span><span>Heat pump</span><span>PV</span><span>District heating</span><span>Techno-economics</span><span>SAM</span><span>LCoE</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>STC: PBP 5yr &mdash; LCoE $128.6/MWh</strong><small>$256k CAPEX, $776/yr OPEX &mdash; recommended solution</small></span>
+                  <span class="result-metric-card"><strong>PVEB: 14% demand only</strong><small>PV surplus 139.6&nbsp;kWh vs 994&nbsp;kWh nocturnal gap &mdash; infeasible</small></span>
+                  <span class="result-metric-card"><strong>STC winter contribution: 18.9%</strong><small>188.9&nbsp;MWh/yr beyond the five-month summer target</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>Demand computed from 2,604.4&nbsp;MWh/yr annual baseline, scaled to September worst-case of 2,000&nbsp;kWh/day using district heating monthly demand data.</li>
+                  <li>Wagner-Solar C20 AR-M collectors (85.4% optical efficiency, 2.61&nbsp;m&sup2;): 309 units covering 806&nbsp;m&sup2; generate 5,148.5&nbsp;kWh/day; TES volume 2.95&nbsp;m&sup3; for nocturnal gap.</li>
+                  <li>PV + heat pump (COP&nbsp;=&nbsp;3) is the feasible electrical alternative: 649 panels, $449k CAPEX, 9-year payback &mdash; viable but inferior to STC on all KPIs.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/residential-heating-technoeconomics.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="built-environment-ida-ice-simulation">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Building energy / simulation</span>
+                <h3><a class="title-link" href="projects/built-environment-ida-ice-simulation.html">Built Environment Energy Simulation &ndash; IDA ICE Supply System Comparison</a></h3>
+                <p>IDA ICE parametric study (heat exchanger, orientation, location) and 11-configuration supply system comparison on bought energy, primary energy and CO&sub2;, plus India built environment decarbonisation policy analysis.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>IDA ICE / HVAC / Building energy &middot; KTH MJ2509</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-residential-heating-technoeconomics.svg" alt="Building energy simulation and supply system comparison visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>IDA ICE</span><span>GSHP</span><span>ASHP</span><span>PV</span><span>Building energy</span><span>HVAC</span><span>India policy</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>Heat exchanger: &minus;26% energy</strong><small>160,733 &rarr; 118,890 kWh delivered; AHU &minus;78%</small></span>
+                  <span class="result-metric-card"><strong>GSHP + PV: net export</strong><small>&minus;25,819 kWh bought / &minus;11,436 kg CO&sub2;</small></span>
+                  <span class="result-metric-card"><strong>District H&C: worst config</strong><small>148,461 kWh &mdash; 32% above reference</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>Parametric IDA ICE study isolating heat exchanger, window blinds, orientation and Barcelona relocation effects on a ~6% PPD baseline.</li>
+                  <li>11 supply configurations compared: oil boiler reference, GSHP variants, ASHP, district H&C, and GSHP+PV combinations.</li>
+                  <li>India policy essay covering ECBC/NBC enforcement, LEED/GRIHA certification, vernacular architecture principles (Nalukettu, Rajasthan) and case studies (Infosys Mysore, Delhi Metro).</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/built-environment-ida-ice-simulation.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="philippines-emergency-energy-module">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Polygeneration / off-grid</span>
+                <h3><a class="title-link" href="projects/philippines-emergency-energy-module.html">Emergency Energy Module &ndash; Post-Disaster Polygeneration, Philippines</a></h3>
+                <p>Modular solar PV, biogas digester and battery system for 3,000 disaster survivors after Cyclone Haiyan, with HOMER PRO economic analysis and a PPP business model.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>HOMER PRO / Biogas / Solar PV &middot; KTH MJ2503</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-thermal-prototype.svg" alt="Emergency Energy Module polygeneration system visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>HOMER PRO</span><span>Solar PV</span><span>Biogas</span><span>Battery</span><span>Off-grid</span><span>Disaster response</span><span>Polygeneration</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>NPC $444k &mdash; LCOE $0.063/kWh</strong><small>76% below digester-only baseline</small></span>
+                  <span class="result-metric-card"><strong>IRR 92.3% &mdash; 1.08yr payback</strong><small>PPP-deployable economics</small></span>
+                  <span class="result-metric-card"><strong>105% renewable coverage</strong><small>47.9 kWh/yr unmet load for 3,000 people</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>Sized solar PV (SunPower Maxeon 7, 24.1% eff, 315 m&sup2;), 920 m&sup3; biogas digester and 50 kWh LiFePO4 battery within a 40-foot container constraint.</li>
+                  <li>Digester produces 1,400 m&sup3;/day biogas covering 886 kWh/day electricity and cooking fuel for 3,000 people.</li>
+                  <li>HOMER PRO economic analysis: $444k NPC, 93% OPEX reduction vs. conventional supply, 92.3% IRR.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/philippines-emergency-energy-module.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
           <details class="project-browser-item tone-thermal" data-project-id="rotating-machinery-vibration-minilab">
             <summary class="project-browser-summary">
               <div class="project-browser-summary-text">
@@ -368,6 +569,196 @@
             </div>
           </details>
 
+          <details class="project-browser-item tone-energy" data-project-id="mtes-pcm-thermal-lab">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Energy storage / lab</span>
+                <h3><a class="title-link" href="projects/mtes-pcm-thermal-lab.html">M-TES PCM Thermal Lab &ndash; RT60 HC Discharge Characterisation</a></h3>
+                <p>Experimental discharge measurement of a latent-heat Mobile TES prototype: 10-sensor temperature logging over 8 hours, three heat-transfer calculation methods, and 99.9% theory&ndash;experiment agreement.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>PCM / Heat transfer / Lab &middot; KTH MJ2386</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-tes-peak-shaving.svg" alt="M-TES PCM thermal lab visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>PCM</span><span>Latent heat</span><span>TES</span><span>Lab experiment</span><span>PT100</span><span>Heat transfer</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>Q<sub>theoretical</sub> = 10,049 kJ</strong><small>86.9% from RT60 HC latent heat (8,729 kJ)</small></span>
+                  <span class="result-metric-card"><strong>Method 1: 10,036 kJ</strong><small>0.1% below theory with variable &rho; and Cp</small></span>
+                  <span class="result-metric-card"><strong>Tank absorbs +2,250 kJ</strong><small>150 kg steel shell &mdash; largest unmodelled term</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>RT60 HC PCM (33 kg, 44 L) discharged from 71.1&deg;C to 40.1&deg;C via RENOLIN THERM HTF at 2 L/min; 10 PT100 sensors logged every 10 seconds for ~8 hours.</li>
+                  <li>Three integration methods compared: variable-property (Method 1) and constant-property (Method 2) HTF calculations, with and without stainless-steel tank heat absorption.</li>
+                  <li>Propagating thermal front identified in sensor pairs 40 minutes apart; outlet temperature profile confirms integrated heat extraction.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/mtes-pcm-thermal-lab.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="battery-cell-discharge-lab">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Battery characterisation / lab</span>
+                <h3><a class="title-link" href="projects/battery-cell-discharge-lab.html">Battery Cell Discharge Performance Testing &ndash; Ni-MH, Li-Po and Lead-Acid</a></h3>
+                <p>Seven-test discharge characterisation across three chemistries (Ni-MH 780&nbsp;mAh, Li-Po 420&nbsp;mAh, Lead-acid 2500&nbsp;mAh), three C-rates and three temperatures: voltage, SOC and power profiles with Peukert and thermal effects.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Electrochemistry / C-rate / Temperature &middot; KTH MJ2386</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-tes-peak-shaving.svg" alt="Battery discharge characterisation lab visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Ni-MH</span><span>Li-Po</span><span>Lead-acid</span><span>C-rate</span><span>Temperature</span><span>Battery degradation</span><span>Electrochemistry</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>2C vs 0.5C: Peukert loss</strong><small>Plateau collapses at 2C; effective capacity reduced by ohmic heating</small></span>
+                  <span class="result-metric-card"><strong>&minus;10&deg;C: severe capacity loss</strong><small>Voltage drops sharply from start; usable charge inaccessible under load</small></span>
+                  <span class="result-metric-card"><strong>Li-Po: 3,500 s vs Lead-acid: 500 s</strong><small>7&times; longer runtime; flat plateau vs linear lead-acid decay</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>C-rate tests (Tests 1.1&ndash;1.3): voltage plateau collapses at 2C; 0.5C maximises runtime and capacity utilisation across all four analysis dimensions.</li>
+                  <li>Temperature tests (Tests 2.1&ndash;2.2): +40&deg;C improves kinetics and lowers internal resistance; &minus;10&deg;C cuts accessible capacity and power delivery.</li>
+                  <li>Chemistry tests (Tests 3.2&ndash;3.3): Li-Po holds flat ~4&nbsp;V plateau until 30% SOC then drops sharply; Lead-acid declines linearly from 1.9&nbsp;V; Ni-MH is predictable across all conditions.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/battery-cell-discharge-lab.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-energy" data-project-id="waste-to-energy-india">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Waste-to-energy / urban energy</span>
+                <h3><a class="title-link" href="projects/waste-to-energy-india.html">Waste-to-Energy Proposals &ndash; Delhi and Kozhikode</a></h3>
+                <p>Delhi MSW crisis policy roadmap (biomethanation &rarr; RDF &rarr; gasification) and a Kozhikode 11.11 MW WTE plant design coupling a grate incinerator with a 36,000 m&sup3; biogas digester for 214 buses.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>WTE / Biogas / Incineration &middot; KTH</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-district-heating.svg" alt="Waste-to-energy plant and MSW processing visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Waste-to-energy</span><span>Biogas</span><span>Incineration</span><span>MSW</span><span>India</span><span>Anaerobic digestion</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>Kozhikode: 11.11 MW</strong><small>Grate furnace + cold-condensing steam, 20% eff</small></span>
+                  <span class="result-metric-card"><strong>32,200 m&sup3;/day biogas</strong><small>36,000 m&sup3; digester &rarr; 214 biogas buses daily</small></span>
+                  <span class="result-metric-card"><strong>Delhi: 5,533 TPD landfilled</strong><small>Phased roadmap: biomethanation &rarr; RDF &rarr; gasification</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>Delhi proposal: phased technology roadmap matched to segregation reality &mdash; biomethanation first, combustion WTE only after 60&ndash;70% source segregation achieved.</li>
+                  <li>Kozhikode: 600 TPD split 50/50 between grate incineration (11.11 MW) and anaerobic digestion (32,200 m&sup3;/day biogas, 30-day retention, 36,000 m&sup3; digester).</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/waste-to-energy-india.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-analytics" data-project-id="numerical-heat-transfer">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Numerical methods / Python</span>
+                <h3><a class="title-link" href="projects/numerical-heat-transfer.html">Numerical Heat Transfer &ndash; Finite Difference, Time-Stepping and Advection Schemes</a></h3>
+                <p>Python assignments covering catastrophic cancellation, numerical differentiation error analysis, 2D Laplace stencil comparison, Euler vs RK4 time-marching and Lax&ndash;Friedrichs vs Lax&ndash;Wendroff advection.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Python / FD / CFD methods &middot; KTH</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-backend-api.svg" alt="Numerical heat transfer and finite difference methods visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Python</span><span>Finite difference</span><span>RK4</span><span>Lax&ndash;Wendroff</span><span>Numerical methods</span><span>Heat conduction</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>RK4: 323 steps</strong><small>vs Euler 742 &mdash; 56% fewer to converge</small></span>
+                  <span class="result-metric-card"><strong>Central diff: 36&times; better</strong><small>Min error 1.72&times;10&sup3; vs forward 6.23&times;10&sup3;</small></span>
+                  <span class="result-metric-card"><strong>9-pt stencil: 0.038 K error</strong><small>vs 0.187 K for 5-pt at same &Delta;x=1 cm</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>HA1: floating-point cancellation (100% error in single-precision for large-magnitude case), differentiation truncation&ndash;roundoff balance, 2D Laplace 5-pt vs 9-pt stencil grid convergence.</li>
+                  <li>HA2: Euler vs RK4 stability limits and convergence; Lax&ndash;Friedrichs numerical diffusion vs Lax&ndash;Wendroff second-order accuracy for smooth wave advection.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/numerical-heat-transfer.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-analytics" data-project-id="gridflex-energy-optimizer">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Entrepreneurship / energy tech</span>
+                <h3><a class="title-link" href="projects/gridflex-energy-optimizer.html">GridFlex &ndash; ML-Driven Energy Storage Optimisation Concept</a></h3>
+                <p>KTH entrepreneurship assignment: a predictive ML platform for real-time storage dispatch in renewable grids, addressing 5% curtailment and 30% storage waste &mdash; idea screen score 87/100 with full Business Model Canvas.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Business concept / ML / Energy storage &middot; KTH</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-eu-ets.svg" alt="GridFlex energy storage optimisation concept visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Machine learning</span><span>Energy storage</span><span>Grid optimisation</span><span>Business model</span><span>SaaS</span><span>Renewable energy</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>Idea screen: 87 / 100</strong><small>Industry 19 &middot; Market 18 &middot; Idea 17</small></span>
+                  <span class="result-metric-card"><strong>$120B storage market by 2030</strong><small>CAGR ~20% driven by renewable integration</small></span>
+                  <span class="result-metric-card"><strong>Addresses 5% curtailment + 30% storage waste</strong><small>Predictive ML dispatch vs static/scheduled systems</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>Three-iteration concept development via SCAMPER: rule-based &rarr; weather-forecast-driven &rarr; real-time ML with historical grid pattern learning.</li>
+                  <li>Multi-storage compatibility (Li-ion, pumped hydro, thermal, flywheel) differentiates from Fluence/Stem focus on utility-scale batteries.</li>
+                  <li>Business Model Canvas: SaaS subscription primary revenue, premium analytics add-on, one-time integration fees.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/gridflex-energy-optimizer.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <details class="project-browser-item tone-thermal" data-project-id="robotic-frame-locomotion">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Mechanical design / robotics</span>
+                <h3><a class="title-link" href="projects/robotic-frame-locomotion.html">Robotic Frame and Locomotion System Design</a></h3>
+                <p>Published undergraduate project covering wheelbase stability analysis, drivetrain torque sizing, compound gear reduction, Ackermann steering geometry and ANSYS deformation screening for a wheeled interactive robot.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>CAD / ANSYS / Machine design &middot; IRJET 2021</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-mechanical-design.svg" alt="Robotic frame and locomotion design visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>CAD</span><span>ANSYS</span><span>Gear system</span><span>Ackermann steering</span><span>AISI 4130</span><span>BLDC motor</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>68 Nm rear-axle torque</strong><small>75 kg system at 30&deg; inclination, 0.5 m/s&sup2;</small></span>
+                  <span class="result-metric-card"><strong>Two-stage gear reduction</strong><small>3,016 &rarr; 532 rpm via compound system</small></span>
+                  <span class="result-metric-card"><strong>Ackermann lock angles</strong><small>35.26&deg; inner / 71.06&deg; outer at R = 510 mm</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>Wheelbase stability constraint (b &gt; 255 mm) derived from rollover moment balance at 30&deg; gradient.</li>
+                  <li>Compound four-gear drivetrain sized from 12 Nm motor to 68 Nm rear axle across two reduction stages.</li>
+                  <li>ANSYS deformation screening on base plate (4.9&times;10&sup3; m max) and rear axle under 190 N loading.</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/robotic-frame-locomotion.html">Case study</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
         </div>
       </div>
     </section>
@@ -380,3 +771,5 @@
   </footer>
 </body>
 </html>
+
+

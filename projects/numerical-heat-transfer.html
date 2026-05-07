@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Python numerical heat transfer assignments: floating-point catastrophic cancellation, numerical differentiation error analysis, 2D Laplace finite-difference stencils, explicit time-stepping and 1D advection scheme comparison." />
+  <meta property="og:title" content="Numerical Heat Transfer &ndash; Python Assignments" />
+  <meta property="og:description" content="Finite difference, time-stepping and advection scheme comparison in Python: RK4 converges in 323 steps vs Euler 742; central differencing 35x more accurate than forward at optimal step size." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-backend-api.svg" />
+  <title>Numerical Heat Transfer Assignments | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CV</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../ideas.html">Ideas</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Numerical methods &middot; Python &middot; Finite difference &middot; KTH</p>
+        <h1>Numerical Heat Transfer &ndash; Finite Difference, Time-Stepping and Advection Scheme Assignments</h1>
+        <p class="hero-text">Two Python home assignments covering floating-point precision and catastrophic cancellation, numerical differentiation error analysis, 2D Laplace finite-difference stencils (5-point vs 9-point), explicit time-marching (Euler vs RK4) to steady state, and 1D advection scheme comparison (Lax&ndash;Friedrichs vs Lax&ndash;Wendroff).</p>
+        <img class="case-visual" src="../assets/thumb-backend-api.svg" alt="Numerical heat transfer computation visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Course:</strong> Numerical Heat Transfer, KTH Royal Institute of Technology</li>
+            <li><strong>Assignments:</strong> HA1 (3 questions) and HA2 (2 questions)</li>
+            <li><strong>Language:</strong> Python (float32/float64, NumPy, Matplotlib)</li>
+            <li><strong>Topics:</strong> Machine error, numerical differentiation, 2D heat conduction, time-stepping stability, 1D advection schemes</li>
+            <li><strong>AI tool use disclosed:</strong> ChatGPT used for code implementation; interpretation and conclusions prepared independently</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>HA1 &mdash; Q1: Floating-point precision and catastrophic cancellation</h2>
+          <p>
+            Two expressions D = (a+b)+c and E = a+(b+c) were evaluated in single (float32) and double (float64) precision for two test cases involving large nearly-equal operands, to demonstrate loss of associativity and catastrophic cancellation.
+          </p>
+          <ul>
+            <li><strong>Machine epsilon:</strong> float32 = 1.19&times;10&sup3;; float64 = 2.22&times;10&sup3;</li>
+            <li><strong>Smaller case (a&minus;b&asymp;1):</strong> Single precision E = 1.0 (D = 1.333) &rarr; 25% error. Double precision E &asymp; 1.333334100 &rarr; error 3.7&times;10&sup3;%.</li>
+            <li><strong>Larger case (a&minus;b&asymp;1, magnitudes &sim;10&sup3;):</strong> Single precision E = 0.0 (D = 0.333) &rarr; 100% error (complete cancellation). Double precision E = 1.375 (D = 1.333) &rarr; 3.1% error.</li>
+          </ul>
+          <p>
+            Errors far exceed machine epsilon in both cases, confirming that the source is catastrophic cancellation from subtraction of nearly-equal large numbers, not isolated rounding. Even double precision suffers significant error when magnitude differences are extreme.
+          </p>
+
+          <h2>HA1 &mdash; Q2: Numerical differentiation of cos(x) at x = 0.2</h2>
+          <p>
+            Forward difference (O(&Delta;x) truncation) and central difference (O(&Delta;x&sup2;) truncation) were compared against the analytical derivative &minus;sin(0.2) across &Delta;x from 10&sup3; to 0.1.
+          </p>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Forward: min error 6.23&times;10&sup3;</strong><small>Optimal &Delta;x &asymp; 1.05&times;10&sup3; (truncation-roundoff balance)</small></span>
+            <span class="result-metric-card"><strong>Central: min error 1.72&times;10&sup3;</strong><small>Optimal &Delta;x &asymp; 5.43&times;10&sup3; &mdash; ~36&times; more accurate</small></span>
+            <span class="result-metric-card"><strong>float64 &epsilon; = 2.22&times;10&sup3;</strong><small>Round-off dominates below optimal &Delta;x</small></span>
+          </div>
+          <p>
+            At large &Delta;x, truncation error dominates (slopes consistent with O(&Delta;x) and O(&Delta;x&sup2;) on log&ndash;log plots). At very small &Delta;x, round-off error from subtracting nearly-equal numbers dominates, causing errors to rise again. The minimum error is found at the crossover. Central differencing achieves lower minimum error because its O(&Delta;x&sup2;) truncation term allows a larger optimal &Delta;x where round-off is smaller.
+          </p>
+
+          <h2>HA1 &mdash; Q3: 2D steady-state heat conduction (Laplace equation)</h2>
+          <p>
+            The 2D Laplace equation was solved on a steel plate (L = 8 cm, M = 4 cm) with fixed boundary temperatures using finite-difference discretisation, comparing 5-point (second-order) and 9-point (fourth-order) stencils at multiple grid resolutions.
+          </p>
+          <p>
+            A 9&times;9 coefficient matrix was constructed for the small plate (L = 8 cm, M = 4 cm, &Delta;x = 2 cm, &Delta;y = 1 cm). For the large plate, temperatures at three representative interior points were evaluated:
+          </p>
+          <ul>
+            <li><strong>Coarsest (&Delta;x = &Delta;y = 2 cm, 5-pt):</strong> T(16,6) = 393.527 K, max error 0.721 K</li>
+            <li><strong>Fine grid (&Delta;x = &Delta;y = 1 cm, 5-pt):</strong> max error 0.187 K &mdash; 74% reduction</li>
+            <li><strong>Fine grid (&Delta;x = &Delta;y = 1 cm, 9-pt):</strong> max error 0.055 K</li>
+            <li><strong>Most accurate (&Delta;x = 1 cm, &Delta;y = 0.5 cm, 9-pt):</strong> max error <strong>0.038 K</strong></li>
+          </ul>
+          <p>
+            Practical conclusion (per professor guidance): the 5-point scheme at &Delta;x = &Delta;y = 1 cm (error &lt; 0.2 K) provides very good accuracy at significantly lower computational cost than the 9-point scheme. &Delta;x = 2 cm gives acceptable quick estimates; higher-order schemes are valuable for verification but not always necessary in engineering practice.
+          </p>
+
+          <h2>HA2 &mdash; Q1: Time-stepping to steady state (Euler vs RK4)</h2>
+          <p>
+            The HA1 Q3 plate problem was revisited using explicit time-marching instead of direct linear system solution, with &Delta;x = &Delta;y = 1 cm and a 5-point stencil. Convergence criterion: maximum residual |R| &lt; 10&sup3;.
+          </p>
+          <p>
+            Stability analysis (2D Fourier stability for explicit diffusion): &Delta;t<sub>max</sub> = &Delta;x&sup2; / (4&alpha;).
+          </p>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Euler &Delta;t<sub>max</sub> = 0.826 s</strong><small>742 steps to convergence</small></span>
+            <span class="result-metric-card"><strong>RK4 &Delta;t<sub>max</sub> = 2.06 s</strong><small>323 steps &mdash; 2.5&times; larger stable step</small></span>
+            <span class="result-metric-card"><strong>RK4: 56% fewer steps</strong><small>Despite 4 evaluations/step, more efficient overall</small></span>
+          </div>
+          <p>
+            At |R| &lt; 10&sup3;, both schemes agree with the direct HA1 solution to within 0.01 K. At |R| &lt; 10&sup3; the difference grows to ~0.1 K. RK4&rsquo;s larger permissible step size and faster convergence make it the more efficient time-marching scheme for this problem, even accounting for its 4 function evaluations per step.
+          </p>
+
+          <h2>HA2 &mdash; Q2: 1D advection &mdash; Lax&ndash;Friedrichs vs Lax&ndash;Wendroff</h2>
+          <p>
+            The linear advection equation &part;u/&part;t + U&part;u/&part;x = 0 was solved on L = 20 m with U = 4 m/s, 100 grid points, sinusoidal initial condition, and Courant number C = 0.5 (well within the stability limit of 1). Solutions were advanced to t = 1, 2, 3 s.
+          </p>
+          <ul>
+            <li><strong>Lax&ndash;Friedrichs (LF):</strong> 2nd-order space, 1st-order time. Strongly dissipative &mdash; wave amplitude significantly reduced by t = 3 s. L1 error consistently higher at all times.</li>
+            <li><strong>Lax&ndash;Wendroff (LW):</strong> 2nd-order in both space and time. Amplitude and phase preserved throughout. L1 error substantially lower than LF at all times evaluated.</li>
+          </ul>
+          <p>
+            LF&rsquo;s numerical diffusion arises from its first-order time treatment adding an artificial viscosity term proportional to (&Delta;x)&sup2;/&Delta;t. LW eliminates this term at second order. Practical guidance: LF remains useful for robustness with discontinuities or shock-capturing; LW is the correct choice for smooth wave propagation.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Relevance</p>
+          <h2>Why this matters</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            These assignments cover the numerical foundations that underpin any simulation involving heat transfer, fluid flow or wave propagation: how discretisation errors scale with grid spacing, how stability limits constrain time-step choice, and how scheme order affects both accuracy and computational cost. The practical findings &mdash; that a 5-point stencil at 1 cm is as useful as the 9-point for engineering accuracy; that RK4 outperforms Euler despite costing more per step; that LF diffuses smooth waves into noise while LW preserves them &mdash; are directly applicable to building energy simulation, CFD post-processing and any Python-based engineering computation.
+          </p>
+          <div class="project-links">
+            <a href="../downloads/numerical-heat-transfer-report.pdf" download>&#8595; Download assignment report (PDF, 116&nbsp;KB)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

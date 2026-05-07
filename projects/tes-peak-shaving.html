@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TES peak-shaving simulation and ice storage vs PCM comparison for a shopping centre connected to a district cooling network, KTH MJ2386." />
+  <meta property="og:title" content="TES Peak Shaving for District Cooling" />
+  <meta property="og:description" content="Python TES simulation comparing ice storage and PCM for a shopping centre district cooling network, with electricity cost savings analysis." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-tes-peak-shaving.svg" />
+  <title>TES Peak Shaving for District Cooling | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CV</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../ideas.html">Ideas</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Thermal energy storage &middot; Peak shaving &middot; District cooling</p>
+        <h1>TES Peak Shaving for District Cooling &ndash; Ice Storage vs PCM Comparison</h1>
+        <p class="hero-text">Python simulation and techno-economic comparison of ice storage and phase-change material (PCM) systems for peak-load shaving in a shopping centre district cooling network, with electricity cost savings analysis under UK day/night tariffs.</p>
+        <img class="case-visual" src="../assets/thumb-tes-peak-shaving.svg" alt="TES peak shaving district cooling simulation visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Course:</strong> MJ2386 Energy Storage Technology, KTH Royal Institute of Technology</li>
+            <li><strong>Date:</strong> December 2024</li>
+            <li><strong>Team:</strong> 4 members</li>
+            <li><strong>Tools:</strong> Python (simulation), Excel (cost analysis)</li>
+            <li><strong>Storage technologies compared:</strong> Ice storage vs salt hydrate PCM</li>
+            <li><strong>Required TES capacity:</strong> 14,750 kWh</li>
+            <li><strong>Control strategy:</strong> Partial storage load-levelling with 1,850 kW threshold</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>The problem</h2>
+          <p>
+            A shopping centre connected to a district cooling network experiences dramatic swings in cooling demand &mdash; from 198 kW during off-peak hours to 3,391 kW at peak, with daily maxima varying between 1,541 kW and 3,391 kW across an eight-day observation window. Operating a chiller plant sized for peak demand is expensive and inefficient; the excess capacity sits idle most of the time while peak-hour electricity consumption drives up costs.
+          </p>
+          <p>
+            The project aimed to design a thermal energy storage system that charges during cheap off-peak hours and discharges during expensive peak periods, comparing ice storage and salt hydrate PCM on cost, volume, energy density and lifetime economics.
+          </p>
+
+          <h2>What I did</h2>
+          <ul>
+            <li>Built a Python simulation implementing a partial storage load-levelling strategy with a 1,850 kW demand threshold, 12-hour look-ahead window for predictive charging and dynamic SoC tracking.</li>
+            <li>Applied UK electricity tariffs (day: 16.16 p/kWh from 07:00&ndash;23:00; night: 9.01 p/kWh from 23:00&ndash;07:00; standing charge 9.24 p/day) to calculate original and adjusted demand costs.</li>
+            <li>Calculated ice storage and PCM sizing, cost and volume for a 14,750 kWh capacity requirement.</li>
+            <li>Compared lifetime economics including break-even periods and total profit over technology lifespan.</li>
+          </ul>
+
+          <h2>Technology comparison: ice vs PCM (14,750 kWh)</h2>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Ice storage</strong><small>351 tons &mdash; $403,869 &mdash; 320 m&sup3; &mdash; 17.5 yr lifespan</small></span>
+            <span class="result-metric-card"><strong>PCM (salt hydrate)</strong><small>246 tons &mdash; $1.72M &mdash; 273 m&sup3; &mdash; 20 yr lifespan</small></span>
+            <span class="result-metric-card"><strong>PCM energy density</strong><small>100 kWh/m&sup3; vs ~25 kWh/m&sup3; for sensible heat; 90% space saving</small></span>
+          </div>
+
+          <p>
+            Ice storage: 42 kWh/ton at 87.5% efficiency, $1,150/ton. PCM (salt hydrate): 60 kWh/ton at 90% efficiency, $7,000/ton. PCM is more energy-dense and efficient, but costs are 4.3&times; higher for the same capacity. At $2,220/week saved through peak shaving:
+          </p>
+          <ul>
+            <li><strong>Ice storage break-even:</strong> 3.5 years; lifetime profit over 17.5 years: ~$1.6M</li>
+            <li><strong>PCM break-even:</strong> 14.9 years; lifetime profit over 20 years: ~$589k</li>
+          </ul>
+          <p>
+            The economics strongly favour ice storage for this scenario. PCM&rsquo;s advantages &mdash; higher energy density, smaller footprint (273 vs 320 m&sup3;), longer lifespan, 10,000+ charge-discharge cycles &mdash; are most relevant when space is a binding constraint. Shopping centres typically have large footprints and potential underground storage, so space is not the deciding factor here.
+          </p>
+
+          <h2>Simulation results</h2>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Original cost</strong><small>3,806,329 pence over 8 days</small></span>
+            <span class="result-metric-card"><strong>Adjusted cost</strong><small>2,907,006 pence &mdash; saving 2,110 EUR</small></span>
+            <span class="result-metric-card"><strong>~&pound;2,220/week</strong><small>Savings from shifting peak demand below 1,850 kW threshold</small></span>
+          </div>
+          <p>
+            The TES simulation successfully maintained adjusted cooling demand below the 1,850 kW threshold during all peak periods by charging during the cheaper night-rate window and discharging during day-rate hours. The state-of-charge (SoC) stayed within operational limits throughout, confirming that the 14,750 kWh capacity was sufficient for the load profile without over-cycling or depletion.
+          </p>
+
+          <h2>PCM characteristics</h2>
+          <p>
+            The project reviewed PCM technology in depth as the higher-performance alternative. Key properties of salt hydrate PCMs relevant to cooling applications:
+          </p>
+          <ul>
+            <li>Energy density ~100 kWh/m&sup3; (vs ~25 kWh/m&sup3; for sensible heat water storage)</li>
+            <li>Temperature stability during charge/discharge &mdash; latent heat release at near-constant temperature</li>
+            <li>Operational range -30&deg;C to 120&deg;C; activation temperature tailored to the cooling application</li>
+            <li>Lifespan exceeds 10,000 charge-discharge cycles</li>
+            <li>ROI typically 3&ndash;6 years at standard energy prices; in this case extended to 14.9 years due to the large capacity requirement and high unit cost</li>
+          </ul>
+
+          <h2>Decision and limitations</h2>
+          <p>
+            Ice storage was recommended for this scenario. The decision framework is transferable: where space is constrained, PCM&rsquo;s 90% footprint reduction and higher energy density justify the cost premium. Where space is ample, ice storage&rsquo;s cost advantage dominates.
+          </p>
+          <p>
+            The main modelling limitation is the use of fixed day/night average tariffs rather than dynamic spot pricing. In a real UK electricity market, half-hourly prices vary considerably, and a dynamic pricing model would shift more charging to ultra-low-price hours, improving the economic case for both technologies.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Relevance</p>
+          <h2>Why this matters</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            This project demonstrates the full cycle of a storage sizing and selection problem: quantify the load profile, define the control strategy, size the system, compare technologies on cost and volume, and validate the economic case through break-even and lifetime profit analysis. That workflow is directly applicable to BESS, thermal storage and demand-side flexibility projects in commercial and industrial settings.
+          </p>
+          <p>
+            The finding that the cost-optimal technology (ice) and the performance-optimal technology (PCM) diverge sharply &mdash; and that the right choice depends on a single contextual factor (space availability) &mdash; is the kind of nuanced, data-grounded conclusion that distinguishes engineering analysis from rule-of-thumb recommendations.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>
