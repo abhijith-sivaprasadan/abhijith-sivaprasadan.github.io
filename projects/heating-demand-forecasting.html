@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Case study for day-ahead building heating-demand forecasting with weather, temporal features and model comparison." />
-  <meta property="og:title" content="Day-Ahead Building Heating Demand Forecasting" />
-  <meta property="og:description" content="Energy analytics case study for heating-demand forecasting using weather and temporal features." />
+  <meta name="description" content="Day-ahead space heating demand forecast for KTH U-Building using logistic regression, shallow and deep neural networks, with Mahalanobis outlier filtering and hyperparameter comparison." />
+  <meta property="og:title" content="Day-Ahead Heating Demand Forecasting &ndash; KTH U-Building" />
+  <meta property="og:description" content="Logistic regression vs SNN vs DNN for building heating demand: 93.7% accuracy, 10x runtime gap, and the case for shallow networks." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-heating-forecast.svg" />
   <title>Day-Ahead Building Heating Demand Forecasting | Abhijith Sivaprasadan</title>
@@ -13,7 +13,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-
   <link rel="stylesheet" href="../styles.css" />
   <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
@@ -42,11 +41,10 @@
     <section class="case-hero">
       <div class="container">
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
-        <p class="eyebrow">KTH project &middot; Forecasting &middot; Machine learning</p>
-        <h1>Day-Ahead Building Heating Demand Forecasting</h1>
-        <p class="hero-text">Heating-demand forecasting using weather and temporal features, comparing baseline models and neural-network approaches.</p>
+        <p class="eyebrow">Machine learning &middot; Building energy &middot; Forecasting &middot; KTH</p>
+        <h1>Day-Ahead Heating Demand Forecasting for a University Building</h1>
+        <p class="hero-text">Comparison of logistic regression, shallow neural network (SNN) and deep neural network (DNN) for day-ahead space heating forecast of the KTH U-Building in Stockholm, using hourly weather and temporal features with Mahalanobis-based outlier filtering and systematic hyperparameter search.</p>
         <img class="case-visual" src="../assets/thumb-heating-forecast.svg" alt="Heating demand forecasting model visual" loading="lazy" width="960" height="540" />
-
       </div>
     </section>
 
@@ -55,18 +53,113 @@
         <aside class="case-panel">
           <h2>Project snapshot</h2>
           <ul>
-            <li>Tools: Python, pandas, feature engineering, regression/classification style model evaluation</li>
-<li>Focus: heating demand, weather features, temporal features, model comparison</li>
-<li>Type: energy-data analytics project</li>
+            <li><strong>Group:</strong> Group 2, KTH Royal Institute of Technology (5 members)</li>
+            <li><strong>Supervisor:</strong> Marco Molinari</li>
+            <li><strong>Case study:</strong> KTH U-Building, Stockholm &mdash; ~3,600 m&sup2;, 7 floors</li>
+            <li><strong>Data:</strong> Hourly sensor data, one full year; analysis restricted to October&ndash;April (heating season)</li>
+            <li><strong>Tools:</strong> Python, scikit-learn, NumPy</li>
+            <li><strong>Models:</strong> Logistic regression, shallow neural network (SNN), deep neural network (DNN)</li>
+            <li><strong>Metric:</strong> Mean absolute error (MAE), reported as accuracy percentage</li>
+            <li><strong>Train / test split:</strong> 80% / 20% (day-level shuffle)</li>
           </ul>
         </aside>
         <article class="case-panel">
-          <h2>What I did</h2>
+          <h2>The problem</h2>
+          <p>
+            Accurate day-ahead heating demand forecasts allow building operators and district heating networks to optimise production scheduling, reduce peak-load costs and improve integration of variable renewable supply. Physics-based building models are computationally expensive and require detailed building geometry and materials data; data-driven models offer a faster, more scalable alternative when metered data is available.
+          </p>
+          <p>
+            The goal was to compare three models of increasing architectural complexity on the same dataset and determine whether the additional compute cost of deeper networks is justified by the accuracy gain &mdash; a practically important question for energy management systems that need to run forecasts continuously.
+          </p>
+
+          <h2>Dataset and feature engineering</h2>
+          <p>
+            The dataset comprised one year of hourly measurements from the KTH U-Building sensor network. Analysis was restricted to the heating season (1 October &ndash; 30 April) to avoid injecting summer cooling behaviour that would add noise without improving heating predictions.
+          </p>
+          <p>
+            Eight input features were used, combining direct sensor readings with three engineered temporal variables:
+          </p>
           <ul>
-            <li>Prepared weather and time-based input features for day-ahead heating demand prediction.</li>
-<li>Compared baseline methods with shallow and deeper neural-network approaches.</li>
-<li>Evaluated model performance and documented assumptions, limits and modelling choices.</li>
-<li>Connected forecasting output to operational energy-system decision-making.</li>
+            <li><strong>Sensor readings:</strong> outdoor temperature, global radiation, wind speed, wind direction, relative humidity</li>
+            <li><strong>Engineered: Hour of day</strong> (0&ndash;23) &mdash; captures occupancy-driven demand patterns (higher during building-use hours)</li>
+            <li><strong>Engineered: Chronological day</strong> (1&ndash;365) &mdash; captures seasonal variation in heating load</li>
+            <li><strong>Engineered: Weekday</strong> (1&ndash;7) &mdash; distinguishes weekday/weekend occupancy patterns typical of educational buildings</li>
+            <li><strong>Output:</strong> Space heating demand (kW)</li>
+          </ul>
+          <p>
+            Variables closely correlated with the output &mdash; volumetric cooling flow, cooling demand &mdash; were intentionally excluded to avoid data leakage and to keep the model generalisable to buildings without those sub-meters.
+          </p>
+
+          <h2>Data cleaning pipeline</h2>
+          <p>
+            The raw dataset had 5,112 hourly rows. Cleaning proceeded in two stages:
+          </p>
+          <ul>
+            <li><strong>Initial cleaning:</strong> Wind direction values outside 0&ndash;360&deg; removed (10 rows); negative space heating demand removed (2 rows); duplicate timestamps resolved by substituting nearest-neighbour values. Remaining: 5,100 rows.</li>
+            <li><strong>Mahalanobis outlier removal:</strong> Multivariate outliers identified using Mahalanobis distance (threshold 3.5&sigma;), which accounts for cross-variable correlation structure rather than single-variable extremes. This removed 106 additional rows (51 global radiation, 30 space heating, 16 wind speed, 9 outdoor temperature). Final dataset: <strong>4,992 rows</strong>.</li>
+          </ul>
+          <p>
+            After cleaning, wind speed maximum dropped from 3,276.7 to 14.5 (units consistent with sensor range), and space heating minimum went from &minus;155.92 kW to 1.26 kW, confirming the outlier removal was well-targeted. MinMaxScaler (scikit-learn) normalised all features to [0, 1] before model training.
+          </p>
+
+          <h2>Model architectures and hyperparameter search</h2>
+          <p>
+            All three models share the same forward-propagation / backpropagation / gradient-descent framework. The hyperparameter search space was identical across all models:
+          </p>
+          <ul>
+            <li><strong>Learning rate:</strong> 0.1&ndash;1.0 in steps of 0.1</li>
+            <li><strong>Iterations:</strong> 1,000 / 2,000 / 3,000</li>
+            <li><strong>Nodes per hidden layer (SNN/DNN):</strong> 1&ndash;10</li>
+            <li><strong>Number of hidden layers (DNN only):</strong> 2&ndash;10</li>
+          </ul>
+          <p>
+            Two simplifying assumptions were applied to contain the search space: ReLU activation for all hidden layers (no activation-function tuning), and equal node count across all hidden layers in the DNN. The output layer used sigmoid in all models.
+          </p>
+          <p>
+            Optimal architectures found by trial and error:
+          </p>
+          <ul>
+            <li><strong>Logistic regression:</strong> no hidden layers (baseline)</li>
+            <li><strong>SNN:</strong> 1 hidden layer, 4 neurons</li>
+            <li><strong>DNN:</strong> 6 hidden layers, 8 neurons each</li>
+          </ul>
+
+          <h2>Results</h2>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Logistic regression: 92.03%</strong><small>Validation: 91.96% &mdash; near-zero generalisation gap</small></span>
+            <span class="result-metric-card"><strong>SNN: 93.39%</strong><small>Validation: 92.37% &mdash; best complexity/accuracy balance</small></span>
+            <span class="result-metric-card"><strong>DNN: 93.72%</strong><small>Validation: 91.53% &mdash; 2.2pp test&ndash;validation gap signals overfitting</small></span>
+          </div>
+          <p>
+            The accuracy gap between SNN and DNN on the test set is only 0.33 percentage points, while the DNN takes 10&times; longer to train (7 s vs 0.69 s). Logistic regression trains in under 0.1 ms. From an energy management deployment perspective &mdash; where the model may run continuously or retrain daily &mdash; this runtime ratio strongly favours the SNN.
+          </p>
+
+          <h2>Runtime and efficiency trade-off</h2>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Logistic regression: 8.6&times;10&sup3; s</strong><small>Negligible compute</small></span>
+            <span class="result-metric-card"><strong>SNN: 0.69 s</strong><small>~8,000&times; slower than LR; still fast</small></span>
+            <span class="result-metric-card"><strong>DNN: 7 s</strong><small>10&times; SNN for +0.33pp accuracy</small></span>
+          </div>
+          <p>
+            The DNN&rsquo;s 2.2-percentage-point drop from test accuracy (93.72%) to validation accuracy (91.53%) on the January 12 validation day indicates the DNN has partially memorised the training distribution. The SNN&rsquo;s test&ndash;validation gap is only 1.02 pp, confirming better generalisation. The conclusion is that SNN is the operationally preferred architecture for this task at this dataset scale.
+          </p>
+
+          <h2>Peak value limitation</h2>
+          <p>
+            All three models underpredict at extreme heating demand peaks. MAE as an optimisation metric weights all errors equally; large errors at rare peak-demand hours are outvoted by the large number of well-predicted mid-range hours. Two approaches were identified to address this:
+          </p>
+          <ul>
+            <li>Switch the optimisation metric to R&sup2;, which penalises failure to explain variance and would drive the model to fit peaks better</li>
+            <li>Increase training data volume or temporal resolution to give the model more examples of high-demand conditions</li>
+          </ul>
+
+          <h2>Limitations</h2>
+          <ul>
+            <li>Activation function fixed to ReLU; other functions (tanh, Leaky ReLU) were not evaluated and could affect convergence behaviour.</li>
+            <li>DNN constrained to equal node count per layer &mdash; tapered or pyramidal architectures were not explored.</li>
+            <li>Model trained on a single building; generalisation to other building types or climates requires retraining on new data.</li>
+            <li>Summer months excluded; a year-round model would need a cooling-season counterpart or a single multi-season model.</li>
+            <li>Correlation analysis to formally rank feature importance was not performed; solar irradiation and outdoor temperature are expected to be dominant predictors based on the literature, but this was not verified quantitatively in the study.</li>
           </ul>
         </article>
       </div>
@@ -79,7 +172,16 @@
           <h2>Why this matters</h2>
         </div>
         <div class="case-panel">
-          <p>This project demonstrates time-series thinking and model-evaluation skills that are useful for energy analytics, demand modelling, BESS operation and market-data workflows.</p>
+          <p>
+            This project demonstrates the full data-science workflow for a building energy application: feature engineering from raw sensor data, multivariate outlier removal, normalisation, model comparison with systematic hyperparameter search, and a practically grounded recommendation based on both accuracy and computational cost. The finding &mdash; that the SNN outperforms the DNN on generalisation despite lower test accuracy, and does so 10&times; faster &mdash; is the kind of nuanced, operationally-relevant conclusion that distinguishes engineering analysis from benchmark-chasing.
+          </p>
+          <p>
+            The methodology is directly transferable to district heating load forecasting, demand-side flexibility scheduling, building energy management systems (BEMS), and any application where a fast-retraining model needs to run day-ahead predictions from weather and calendar inputs.
+          </p>
+          <div class="project-links">
+            <a href="../downloads/heating-demand-forecasting-step1.ipynb" download>&#8595; Download Step 1 notebook (.ipynb, 51&nbsp;KB)</a>
+            <a href="../downloads/heating-demand-forecasting-step2.ipynb" download>&#8595; Download Step 2 notebook (.ipynb, 42&nbsp;KB)</a>
+          </div>
         </div>
       </div>
     </section>
@@ -87,7 +189,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2026 Abhijith Sivaprasadan.</p>
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
     </div>
   </footer>
 </body>

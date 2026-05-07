@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Published undergraduate project: CAD frame design, wheelbase stability estimation, drivetrain torque sizing, compound gear reduction, Ackermann steering geometry and ANSYS deformation screening for a wheeled interactive robot." />
+  <meta property="og:title" content="Robotic Frame and Locomotion System Design" />
+  <meta property="og:description" content="B.Tech published project covering robotic frame design, drivetrain sizing, Ackermann steering and ANSYS deformation analysis." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-mechanical-design.svg" />
+  <title>Robotic Frame and Locomotion System Design | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CV</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../ideas.html">Ideas</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Mechanical design &middot; Robotics &middot; CAD &middot; Published undergraduate project</p>
+        <h1>Design of Robotic Frame and Locomotion System</h1>
+        <p class="hero-text">End-to-end mechanical design of the frame and locomotion system for a wheeled interactive robot: wheelbase stability analysis, total weight estimation, drivetrain torque sizing, compound gear reduction, Ackermann steering geometry and ANSYS deformation screening. Published in IRJET (Volume 8, Issue 7, 2021).</p>
+        <img class="case-visual" src="../assets/thumb-mechanical-design.svg" alt="Robotic frame and locomotion design visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Institution:</strong> College of Engineering Perumon, Kerala, India</li>
+            <li><strong>Publication:</strong> IRJET, Vol. 8, Issue 7, July 2021</li>
+            <li><strong>Team:</strong> 5 students (3 sub-teams: frame/locomotion, animatronic hand, control)</li>
+            <li><strong>Design target:</strong> Climb 30&deg; inclination at 0.5 m/s&sup2; acceleration, 20 km/h maximum speed</li>
+            <li><strong>System weight:</strong> 75 kg (revised after motor/battery selection)</li>
+            <li><strong>Tools:</strong> CAD (frame modelling and mass estimation), ANSYS (deformation screening)</li>
+            <li><strong>Material:</strong> AISI 4130 chromoly steel tube</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>Context</h2>
+          <p>
+            This was an undergraduate mechanical design project divided across three parallel teams. Our team was responsible for the locomotion and structural system: frame design, weight estimation, drivetrain sizing and steering. The other teams designed the animatronic hand and the control system; the three outputs combined into a single interactive wheeled robot.
+          </p>
+          <p>
+            The goal was a wheeled robot capable of operating in hazardous environments as a remote-actuated substitute for human presence, with sufficient torque and stability to navigate inclined surfaces.
+          </p>
+
+          <h2>Wheelbase stability analysis</h2>
+          <p>
+            The minimum wheelbase was derived from rollover stability at 30&deg; inclination, modelling the total mass distribution as triangular with the resultant weight acting at one-third of the frame height.
+          </p>
+          <p>
+            The governing condition (taking moments about the outer wheel contact point):
+          </p>
+          <ul>
+            <li>4/3 &times; h &times; sin&theta; &le; b</li>
+            <li>At h = 386 mm, &theta; = 30&deg;: minimum b &gt; 255.33 mm</li>
+            <li>Final wheelbase selected: <strong>280 mm</strong> (margin above the rollover threshold, accommodating wheel size and ground clearance)</li>
+          </ul>
+
+          <h2>Weight estimation</h2>
+          <p>
+            Weight was built up from material density and geometry at each sub-assembly, then iterated after motor and battery selection:
+          </p>
+          <ul>
+            <li><strong>Main frame (AISI 4130 cylindrical shell):</strong> OD 224 mm, ID 222 mm, height 386 mm &rarr; volume 2.704&times;10&sup3; mm&sup3; &rarr; 2.14 kg</li>
+            <li><strong>Head assembly</strong> (square tube + shaft + sheet metal): 1.6 kg</li>
+            <li><strong>Base and skeleton (from CAD model):</strong> 20 kg</li>
+            <li><strong>Arm assembly:</strong> 14 kg</li>
+            <li><strong>Motor and battery (initial estimate):</strong> 10 kg</li>
+            <li><strong>Initial total: 47.74 kg &rarr; rounded to 50 kg for force analysis</strong></li>
+            <li><strong>Revised total after motor selection: 75 kg</strong> (motor and battery actual weight higher than estimated)</li>
+          </ul>
+
+          <h2>Drivetrain torque sizing</h2>
+          <p>
+            Force analysis was performed at the revised 75 kg system weight, 30&deg; gradient and 0.5 m/s&sup2; acceleration target:
+          </p>
+          <ul>
+            <li>Gradient resistance: F<sub>R</sub> = 750 &times; sin 30&deg; = 375 N</li>
+            <li>Normal force: F<sub>N</sub> = 750 &times; cos 30&deg; = 649.5 N</li>
+            <li>Friction resistance (&mu; = 0.4): &mu;F<sub>N</sub> = 259.8 N</li>
+            <li>Total tractive force at equilibrium: F = 375 + 259.8 = <strong>634.8 N</strong></li>
+            <li>Torque at rear axle (wheel radius 0.1 m): 63.48 Nm</li>
+            <li>Acceleration torque (F = 75 &times; 0.5 = 37.5 N): 3.75 Nm</li>
+            <li><strong>Total required torque at rear axle: 68 Nm</strong></li>
+          </ul>
+          <p>
+            Wheel speed requirement (target 20 km/h &rarr; 5.56 m/s, wheel diameter 200 mm): 532 rpm at the rear axle.
+          </p>
+
+          <h2>Compound gear system</h2>
+          <p>
+            A four-gear compound system with a coaxial pair at gears 2&ndash;3 transmits motor torque to the rear axle in two reduction stages:
+          </p>
+          <ul>
+            <li><strong>Stage 1 (Gear 3 &rarr; 4):</strong> reduction ratio 3:1 &mdash; D<sub>3</sub> = 30 mm, D<sub>4</sub> = 90 mm; T<sub>3</sub> = 22.6 Nm, T<sub>4</sub> = 68 Nm; N<sub>4</sub> = 532 rpm, N<sub>3</sub> = 1,596 rpm</li>
+            <li><strong>Stage 2 (Gear 1 &rarr; 2):</strong> reduction ratio 1.89:1 &mdash; D<sub>1</sub> = 25 mm, D<sub>2</sub> = 47.25 mm; T<sub>1</sub> = 12 Nm (motor output), T<sub>2</sub> = 22.68 Nm; N<sub>1</sub> = 3,016 rpm</li>
+          </ul>
+          <p>
+            Motor selection criteria: 12 Nm minimum torque, &ge;3,016 rpm. A BLDC motor meeting these specifications was selected; the battery was sized accordingly.
+          </p>
+
+          <h2>Ackermann steering</h2>
+          <p>
+            Servo-actuated Ackermann geometry was chosen over a rack-and-pinion mechanism for compactness and direct digital control. The Ackermann condition ensures the inner and outer wheels follow concentric arcs without side-slip during turns.
+          </p>
+          <ul>
+            <li>Turning radius: R = 510 mm</li>
+            <li>Wheelbase: b = 280 mm; track width: a = 400 mm; rack+tie-rod span: c = 300 mm</li>
+            <li>Inner wheel lock angle: &Phi; = 35.26&deg;</li>
+            <li>Outer wheel lock angle: &theta; = 71.06&deg; (from cot&Phi; &minus; cot&theta; = c/b)</li>
+          </ul>
+          <p>
+            The servo torque requirement was derived by modelling an equivalent rack-and-pinion: rack force 60.2 N, pinion radius 7.5 mm &rarr; <strong>torque = 450 Nmm (4.5 kgf-cm)</strong>. A servo with 4.2 kgf-cm rated torque, 4.8&ndash;7.2 V operating range, 180&deg; rotation and 55 g mass was specified.
+          </p>
+
+          <h2>Structural deformation screening (ANSYS)</h2>
+          <p>
+            Two structural checks were performed in ANSYS with 190 N applied at each wheel contact point:
+          </p>
+          <ul>
+            <li><strong>Base plate:</strong> 190 N applied at corners A&ndash;D, fixed supports at E&ndash;H &rarr; maximum total deformation <strong>4.946 &times; 10&sup3; m</strong> (sub-millimetre, structurally acceptable)</li>
+            <li><strong>Rear axle:</strong> 190 N applied at A and B, fixed at C and D &rarr; maximum total deformation <strong>6.41 &times; 10&sup2; m</strong></li>
+          </ul>
+          <p>
+            Both values confirm that the AISI 4130 tube selection provides adequate stiffness for the loading condition. The analysis was limited to total deformation; stress and factor-of-safety checks were not included in the published scope.
+          </p>
+
+          <h2>Component selection summary</h2>
+          <ul>
+            <li><strong>Frame material:</strong> AISI 4130 chromoly steel (OD 21.3 mm / ID 16.7 mm tube; square tube for head assembly)</li>
+            <li><strong>Drive motor:</strong> BLDC, 12 Nm, &ge;3,016 rpm</li>
+            <li><strong>Battery:</strong> Lithium-ion (capacity sized to drive motor and full system load)</li>
+            <li><strong>Steering actuator:</strong> Servo motor, 4.2 kgf-cm, 4.8&ndash;7.2 V, 180&deg; rotation</li>
+            <li><strong>Wheels:</strong> 200 mm diameter</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Relevance</p>
+          <h2>What this demonstrates</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            This project is early evidence of end-to-end mechanical design reasoning: the same logic that connects load analysis to component selection here &mdash; quantify the requirement, work backwards through the drivetrain, verify the structure &mdash; applies to energy hardware, test-rig instrumentation and prototype development. It shows CAD, calculation-driven sizing, gear system design, geometric steering analysis and basic FEA screening from undergraduate training, before the shift to energy systems and computational modelling at KTH.
+          </p>
+          <p>
+            The project was published in IRJET (Vol. 8, Issue 7, July 2021, ISSN 2395-0056), which provides an external record of the technical work completed at degree level.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

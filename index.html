@@ -249,7 +249,7 @@
             <p>Start with validated thermal and industrial energy-performance work.</p>
             <ul class="clean-list path-links">
               <li><a href="projects/siemens-thesis.html">Siemens Energy CFD/CHT Thesis</a></li>
-              <li><a href="projects/alleima-energy-efficiency.html">Alleima Energy Efficiency Mapping</a></li>
+              <li><a href="projects/alleima-energy-efficiency.html">Alleima Comparative Energy Audit Methods</a></li>
               <li><a href="projects/industrial-energy-kpi-toolkit.html">Industrial Energy KPI Toolkit</a></li>
               <li><a href="projects/eu-ets-exposure-calculator.html">EU ETS Exposure Calculator</a></li>
             </ul>
@@ -363,16 +363,32 @@
             </div>
             <h3>Siemens Energy CFD/CHT Thesis - Gas Turbine Reducer Thermo-Fluid Analysis</h3>
             <p>
-              Seven months embedded at Siemens Energy Finsp&aring;ng conducting compressible CFD and conjugate heat transfer analysis of reducer geometries for the Pulsatorn high-temperature dynamic pressure sensor calibration rig.
+              Seven months embedded at Siemens Energy Finsp&aring;ng conducting compressible CFD and conjugate heat transfer analysis of the Pulsatorn reducer, comparing the legacy two-step fitting against a 150 mm quintic C&sup2; redesign.
             </p>
             <ul>
-              <li>Built steady-state compressible CFD and CHT models in ANSYS Fluent (k-omega SST) for inlet T = 673 K and P_gauge = 100,000 Pa within one Siemens Energy thesis campaign.</li>
-              <li>Conducted a three-level mesh independence study confirming discretisation independence to within 2% before the full simulation campaign.</li>
-              <li>Applied Biot number analysis (Bi = 0.003-0.004) to separate thermal contributions and identified near-choked versus supersonic vena contracta behaviour across geometries.</li>
+              <li>Built steady-state compressible CFD and CHT models in ANSYS Fluent (k-omega SST) for inlet T = 673 K and P_gauge = 100,000 Pa.</li>
+              <li>Conducted a three-level mesh independence study with 8/8 validation checks passing before the full simulation campaign.</li>
+              <li>Applied Biot number analysis (Bi = 0.003-0.004) and identified near-choked versus supersonic vena contracta behaviour across geometries.</li>
             </ul>
             <div class="project-links">
               <a href="projects/siemens-thesis.html">Case study</a>
               <a href="experience/siemens-energy.html">Experience</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <img class="project-thumb" src="assets/thumb-district-heating.svg" alt="District heating dispatch optimisation visual" loading="lazy" width="960" height="540" />
+            <div class="tag-row"><span>PuLP</span><span>Python</span><span>MILP</span><span>District heating</span><span>Storage</span></div>
+            <h3>District Heating Dispatch Optimisation</h3>
+            <p>
+              Stepwise optimisation of a district heating system across base case, future demand, storage integration, cost minimisation and emissions minimisation scenarios.
+            </p>
+            <ul class="evidence-list">
+              <li>Built a stepwise dispatch model covering base, future, storage, cost and emissions scenarios.</li>
+              <li>Used Python and PuLP to compare heat allocation under resource and demand constraints.</li>
+            </ul>
+            <div class="project-links">
+              <a href="projects/district-heating-optimisation.html">Case study</a>
             </div>
           </article>
 
@@ -396,33 +412,17 @@
 
           <article class="project-card">
             <img class="project-thumb" src="assets/thumb-energy-kpi.svg" alt="Industrial energy KPI mapping visual" loading="lazy" width="960" height="540" />
-            <div class="tag-row"><span>ISO 50001</span><span>Energy KPIs</span><span>Industrial efficiency</span></div>
-            <h3>Alleima Energy Efficiency Mapping</h3>
+            <div class="tag-row"><span>ISO 50001</span><span>Energy audits</span><span>Global comparison</span></div>
+            <h3>Alleima Comparative Energy Audit Methods</h3>
             <p>
-              Energy performance mapping, KPI/EnPI thinking, metering readiness, loss analysis and improvement-roadmap work.
+              Comparative regulatory analysis and tiered audit-method design for Sweden, Germany, the Netherlands, Czechia, India, China and the United States.
             </p>
             <ul class="evidence-list">
-              <li>Translated energy data readiness into KPI and metering-improvement structure.</li>
-              <li>Framed audit logic around ISO 50001-style continuous improvement.</li>
+              <li>Translated Sweden's EKL/EED model into a tiered global methodology.</li>
+              <li>Linked site-level evidence to EnPI, measurement and follow-up logic.</li>
             </ul>
             <div class="project-links">
               <a href="projects/alleima-energy-efficiency.html">Case study</a>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <img class="project-thumb" src="assets/thumb-district-heating.svg" alt="District heating dispatch optimisation visual" loading="lazy" width="960" height="540" />
-            <div class="tag-row"><span>PuLP</span><span>MILP</span><span>District heating</span></div>
-            <h3>District Heating Dispatch Optimisation</h3>
-            <p>
-              Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass/geothermal assets, outages, CO2 and electricity-price coupling.
-            </p>
-            <ul class="evidence-list">
-              <li>Modelled constrained heat-supply scheduling across assets and outage windows.</li>
-              <li>Compared cost-led and emissions-aware dispatch outcomes.</li>
-            </ul>
-            <div class="project-links">
-              <a href="projects/district-heating-optimisation.html">Case study</a>
             </div>
           </article>
 
@@ -801,3 +801,5 @@
   </footer>
 </body>
 </html>
+
+

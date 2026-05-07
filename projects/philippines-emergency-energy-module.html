@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Emergency Energy Module design for post-Haiyan Philippines: solar PV, biogas digester, battery storage, cooling and water purification for 3,000 people, with HOMER PRO economic analysis." />
+  <meta property="og:title" content="Philippines Emergency Energy Module &ndash; Post-Disaster Polygeneration" />
+  <meta property="og:description" content="Modular solar PV, biogas and battery system for 3,000 disaster survivors. NPC $444k, LCOE $0.063/kWh, 92.3% IRR." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-thermal-prototype.svg" />
+  <title>Philippines Emergency Energy Module | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CV</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../ideas.html">Ideas</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Polygeneration &middot; Disaster response &middot; HOMER PRO &middot; Philippines</p>
+        <h1>Emergency Energy Module for Post-Disaster Recovery &ndash; Philippines (Cyclone Haiyan)</h1>
+        <p class="hero-text">Design and techno-economic analysis of a modular polygeneration system providing electricity, cooling, cooking fuel and potable water for 3,000 people following Cyclone Haiyan, integrating solar PV, biogas digestion, LiFePO4 battery storage and membrane water purification within a 40-foot container constraint.</p>
+        <img class="case-visual" src="../assets/thumb-thermal-prototype.svg" alt="Emergency Energy Module polygeneration system visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Course:</strong> MJ2503 Small Scale Polygeneration, KTH Royal Institute of Technology</li>
+            <li><strong>Group:</strong> Group 9 (5 members)</li>
+            <li><strong>Tool:</strong> HOMER PRO (economic analysis), manual PV/biogas sizing calculations</li>
+            <li><strong>Population served:</strong> 3,000 people</li>
+            <li><strong>Physical constraint:</strong> Single 40-foot container (26.35 m&sup2; ground area)</li>
+            <li><strong>Technologies:</strong> Solar PV, biogas digester, LiFePO4 battery, absorption cooling, RO/UV water purification</li>
+            <li><strong>My contribution:</strong> Economic analysis (LCOE, NPC, payback, scenario comparison)</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>The problem</h2>
+          <p>
+            Cyclone Haiyan struck the Philippines in November 2013, leaving millions without electricity for weeks. The disaster exposed the vulnerability of centralised energy infrastructure: grid collapse forced reliance on diesel generators that are costly, logistically difficult and unsustainable in isolation. The Philippines has 4.5&ndash;5.5 kWh/m&sup2;/day average solar irradiation and abundant post-disaster organic waste &mdash; the project aimed to turn these into a self-contained energy system that can be deployed in the days following a disaster.
+          </p>
+          <p>
+            The design constraint was severe: all components must fit within a single 40-foot shipping container (26.35 m&sup2; ground area). The system needed to supply electricity, cooling, clean cooking fuel and potable water to a temporary camp of 3,000 people, with &gt;90% of energy from renewable sources.
+          </p>
+
+          <h2>Demand baseline</h2>
+          <p>
+            Electricity demand was derived from the Philippines&rsquo; 2014 national load curve divided by population, then scaled to 3,000 people. Post-disaster household consumption was taken as 20% of total demand (consistent with the share of household electricity in normal conditions), reflecting the suspension of commercial and industrial activity. A 10% buffer was added for water treatment and communication loads.
+          </p>
+          <p>
+            This produced a daily electricity demand of approximately <strong>886 kWh/day</strong> for the 3,000-person camp, with a peak in the afternoon and evening hours matching the national demand pattern.
+          </p>
+
+          <h2>What I did</h2>
+          <ul>
+            <li>Built the economic analysis using HOMER PRO: calculated Net Present Cost, LCOE, simple and discounted payback periods, and IRR for the full hybrid system vs. a digester-only baseline.</li>
+            <li>Quantified the cost reduction from adding solar PV and battery storage alongside the biogas generator &mdash; a 76% reduction in LCOE vs. digester-only.</li>
+            <li>Decomposed component costs and identified the operational expenditure savings from displacing a conventional energy supply.</li>
+            <li>Assessed load performance metrics: renewable penetration, excess generation and unmet load.</li>
+          </ul>
+
+          <h2>Solar PV system</h2>
+          <p>
+            The container area constraint prevented a ground-mounted array of the required size (a standard 20%-efficiency system would need 44 m&sup2; per 50-panel layer to deliver 100 kW). The solution was SunPower Maxeon 7 panels at 24.1% efficiency &mdash; among the highest commercially available &mdash; arranged in 50 layers across 35% of the container ground area (315 m&sup2; total panel area). A 5% shading loss was applied conservatively.
+          </p>
+          <ul>
+            <li><strong>Solar irradiation (design day):</strong> January 1, 2014 data from renewableninja &mdash; a below-average irradiation day chosen to ensure reliability in cloudy conditions</li>
+            <li><strong>Generation window:</strong> 13 hours per day of electricity production confirmed from the hourly irradiation profile</li>
+            <li><strong>Inverter:</strong> Huawei SUN2000-150K-M0, 150 kW capacity, 98.8% efficiency</li>
+            <li><strong>Battery:</strong> LiFePO4, 50 kWh capacity, 600 kg, long cycle life and compatibility with solar charging profile</li>
+          </ul>
+
+          <h2>Biogas digester</h2>
+          <p>
+            A 30-day retention-time anaerobic digester sized for a 3,000-person camp using human waste supplemented by post-disaster organic debris (agricultural residues, food scraps, woody debris from tree felling during the typhoon). The biogas serves two purposes: running the 80 kW electrical generator and replacing LPG for cooking.
+          </p>
+          <ul>
+            <li><strong>Useful biomass input:</strong> ~2,800 kg/day (wet feed ~28,000 kg/day depending on moisture content)</li>
+            <li><strong>Biogas yield:</strong> 0.5 m&sup3;/kg biomass/day</li>
+            <li><strong>Electricity generation:</strong> 495 m&sup3;/day biogas at 30% generator efficiency to produce 886 kWh/day</li>
+            <li><strong>Cooking fuel:</strong> 0.304 m&sup3;/person/day &times; 3,000 = 912 m&sup3;/day</li>
+            <li><strong>Total daily requirement:</strong> ~1,400 m&sup3;/day</li>
+            <li><strong>Digester geometry:</strong> 14 m diameter &times; 6 m height = ~920 m&sup3; working volume (includes safety margin)</li>
+            <li><strong>Startup phase:</strong> 24,000 m&sup3; natural gas purchased from market during first 15 days while microbial community stabilises</li>
+          </ul>
+
+          <h2>Cooling and water purification</h2>
+          <p>
+            Philippines ambient temperature averages 26&ndash;30&deg;C year-round. Target conditions of 26&deg;C / 40&ndash;60% RH were set for confined shelter areas. The Micro DC Aircon DV1910E-AC-24V (450 W, DC 24V compatible) was selected as a sub-system powered directly from the battery and solar bus. Only occupied EEM areas are cooled to maintain efficiency.
+          </p>
+          <p>
+            Water purification uses a solar-powered membrane system combining reverse osmosis (RO) and ultraviolet (UV) sterilisation to treat contaminated surface water &mdash; the primary water quality concern immediately post-typhoon.
+          </p>
+
+          <h2>Control strategy</h2>
+          <p>
+            Solar PV is the primary electricity source. Battery storage absorbs surplus PV generation and covers night-time and cloudy-period demand. The 80 kW biogas generator fills the residual gap when battery SoC falls below the threshold. This priority order minimises generator run hours and keeps fuel costs low. Biogas for cooking is separated from the electricity circuit and not dispatched via the control system.
+          </p>
+          <p>
+            The system was designed to deliver &gt;90% renewable electricity penetration, with the generator acting as dispatchable backup rather than base load.
+          </p>
+
+          <h2>Economic results</h2>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>NPC: $444,031</strong><small>Full system including cooling load</small></span>
+            <span class="result-metric-card"><strong>LCOE: $0.0628/kWh</strong><small>76% below digester-only at $0.263/kWh</small></span>
+            <span class="result-metric-card"><strong>IRR: 92.3%</strong><small>Discounted payback: 1.15 years</small></span>
+          </div>
+          <p>
+            Component cost breakdown from HOMER PRO:
+          </p>
+          <ul>
+            <li><strong>Cooling load: $120,000</strong> &mdash; the largest single cost item</li>
+            <li><strong>Biogas generator: $139,385</strong></li>
+            <li><strong>Battery storage: $94,122</strong> (LiFePO4, 50 kWh)</li>
+            <li><strong>PV system: $86,946</strong> (SunPower Maxeon 7, 315 m&sup2;)</li>
+          </ul>
+          <p>
+            Annual OPEX is $8,789 &mdash; compared to $124,873 for the digester-only comparison case, representing a 93% OPEX reduction. The simple payback period is 1.08 years.
+          </p>
+
+          <h2>Load performance</h2>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>105% renewable coverage</strong><small>Renewable production exceeds total load</small></span>
+            <span class="result-metric-card"><strong>24,418 kWh/yr excess</strong><small>Exportable or storable surplus</small></span>
+            <span class="result-metric-card"><strong>47.9 kWh/yr unmet</strong><small>Negligible unmet load (&lt;0.02% of annual demand)</small></span>
+          </div>
+          <p>
+            The system achieves near-complete load coverage with a marginal unmet load of 47.9 kWh/year, confirming that the 14-hour solar window combined with battery buffering and biogas backup is sufficient for the 886 kWh/day demand even on below-average irradiation days.
+          </p>
+
+          <h2>Business model</h2>
+          <p>
+            A Public-Private Partnership (PPP) model was proposed for deployment. The Philippine government provides regulatory support, subsidies and land. Private technology providers supply the modular solar, biogas and battery hardware. International organisations and NGOs contribute initial capital and logistical expertise. The system&rsquo;s $444k NPC and 1.08-year simple payback make it financially compelling for PPP structures with concessional financing, and the modular container format enables rapid deployment and later transfer to permanent community ownership.
+          </p>
+
+          <h2>Limitations</h2>
+          <ul>
+            <li>Battery charge/discharge efficiency modelled as 100% &mdash; real LiFePO4 round-trip efficiency is ~96&ndash;98%; actual LCOE would be marginally higher.</li>
+            <li>Container area constraint required 50-layer PV stacking; deployment assumes sufficient open land for unfolding panels on-site rather than a fully container-integrated array.</li>
+            <li>Biomass feedstock quality and availability modelled as uniform; actual post-disaster supply chain variability would require buffer stock management.</li>
+            <li>Cooling demand modelled as constant; actual peak cooling load in confined crowded shelters could exceed the 450 W/unit specification.</li>
+            <li>Water demand beyond drinking water (hygiene, sanitation) not included in the electrical load calculation.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Relevance</p>
+          <h2>Why this matters</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            This project covers the full cycle of a small-scale polygeneration design: demand quantification from real load data, technology sizing under a hard physical constraint (the container), control strategy logic, and economic validation with NPC, LCOE and IRR. The economics are unusually favourable &mdash; a 1.08-year payback and 92.3% IRR &mdash; because the comparison case (diesel generators) is extremely expensive in remote or destroyed-grid contexts.
+          </p>
+          <p>
+            The design methodology is directly transferable to off-grid microgrid projects in emerging markets, island energy systems, and remote industrial facilities where grid connection is unavailable or unreliable. The HOMER PRO workflow &mdash; parameterising component costs, comparing system configurations and extracting LCOE and NPC &mdash; is a standard industry tool for these feasibility assessments.
+          </p>
+          <div class="project-links">
+            <a href="../downloads/mj2503-philippines-polygeneration.pdf" download>&#8595; Download report (PDF, 3.3&nbsp;MB)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

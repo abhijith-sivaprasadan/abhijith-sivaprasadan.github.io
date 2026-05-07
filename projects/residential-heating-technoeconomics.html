@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Techno-economic comparison of four summer heating scenarios for BRF Årstaterrassen (423 apartments, Stockholm): district heating, PV+electric boiler, PV+heat pump and solar thermal collectors with TES." />
+  <meta property="og:title" content="Residential Heating Techno-Economics &ndash; PV, Heat Pump and Solar Thermal vs District Heating" />
+  <meta property="og:description" content="Solar thermal collectors win: CAPEX $256k, PBP 5 years, LCoE $128.6/MWh, 100% summer demand met — vs 27-year PBP for PV+boiler and unachievable 14% demand fulfilment." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-residential-heating-technoeconomics.svg" />
+  <title>Residential Heating Techno-Economics | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CV</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../ideas.html">Ideas</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Techno-economic analysis &middot; Solar thermal &middot; Heat pump &middot; KTH MJ2438</p>
+        <h1>Residential Heating Techno-Economics &ndash; PV, Heat Pump and Solar Thermal vs District Heating</h1>
+        <p class="hero-text">MJ2438 Modelling of Energy Systems group project: four-scenario techno-economic comparison for replacing district heating during Stockholm&rsquo;s five summer months at BRF &Aring;rstaterrassen (423 apartments). Solar thermal collectors with TES were selected as the optimal solution &mdash; CAPEX $256k, 5-year payback, $128.6/MWh LCoE &mdash; while PV with electric boiler failed to meet even 15% of demand.</p>
+        <img class="case-visual" src="../assets/thumb-residential-heating-technoeconomics.svg" alt="Residential heating techno-economic comparison visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Course:</strong> MJ2438 &ndash; Modelling of Energy Systems, KTH Royal Institute of Technology</li>
+            <li><strong>Group 12:</strong> Abhijith Sivaprasadan (solar collector calculations, data collection, report writing), Melchior Hahn, Sajna Suresh, Vasiliki Korovesi</li>
+            <li><strong>Date:</strong> May 2024</li>
+            <li><strong>Building:</strong> BRF &Aring;rstaterrassen, Stockholm &mdash; 33 buildings, 423 apartments, average 47 m&sup2;, total roof 3,460 m&sup2;</li>
+            <li><strong>Scenarios evaluated:</strong> District heating (BAU), PV + electric boiler, PV + heat pump, solar thermal collectors + TES</li>
+            <li><strong>Design month:</strong> September (lowest irradiation &mdash; if met in September, all summer months are met)</li>
+            <li><strong>Tools:</strong> Excel / Google Sheets, System Advisor Model (SAM)</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>Problem and context</h2>
+          <p>
+            BRF &Aring;rstaterrassen relies entirely on Stockholm Exergi district heating for space heating and hot water. During summer (May&ndash;September), space heating demand drops to zero and the district heating system serves only domestic hot water &mdash; but the piping network still incurs 15&ndash;20% heat losses. Stockholm Exergi was contemplating whether the district heating connection could be deactivated for these five months and replaced by on-site solar technology.
+          </p>
+          <p>
+            The annual heating demand of the complex is 2,604.4 MWh/year (131 kWh/m&sup2; &times; 47 m&sup2; &times; 423 apartments). During the three peak summer months (June&ndash;August), heating is exclusively hot water: approximately 60 MWh/month per building. The current district heating cost for the five-month summer period is 52,898&nbsp;USD (556,871&nbsp;SEK) out of a 3.5&nbsp;million&nbsp;SEK annual contract.
+          </p>
+          <p>
+            September was selected as the dimensioning month because it has the lowest solar irradiation of the five months. With 60% of the 3,460&nbsp;m&sup2; rooftop available (2,076&nbsp;m&sup2;), the daily solar energy resource in September is 1,145.5&nbsp;kWh and the daily hot water demand is 2,000&nbsp;kWh.
+          </p>
+
+          <h2>Scenario 1 &mdash; District heating (BAU)</h2>
+          <p>
+            The baseline scenario: Stockholm Exergi supplies hot water via the existing district heating network at an annual summer cost of 52,898&nbsp;USD. LCoE is 26.4&nbsp;USD/MWh &mdash; the lowest of all scenarios because infrastructure is already in place and no capital is required. Demand fulfilment is 100%. This is the cost benchmark all alternatives must beat to justify investment.
+          </p>
+
+          <h2>Scenario 2 &mdash; PV + electric boiler (PVEB)</h2>
+          <p>
+            The PV and electric boiler scenario covers the rooftop with 1,116 SunPower SPR-MAX7-445-PT panels (0.45&nbsp;kW each, 1.86&nbsp;m&sup2; each) and uses a 0.227&nbsp;MW electric boiler to convert PV electricity to hot water. A battery bank provides power during non-solar hours.
+          </p>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>14.04% demand fulfilled</strong><small>PV surplus 139.6&nbsp;kWh vs 994.2&nbsp;kWh nocturnal gap &mdash; not feasible</small></span>
+            <span class="result-metric-card"><strong>CAPEX $1,208,231</strong><small>Battery 1,453.5&nbsp;kWh dominates; LCoE $604.1/MWh</small></span>
+            <span class="result-metric-card"><strong>Payback 27 years</strong><small>Highest cost, lowest performance of all alternative scenarios</small></span>
+          </div>
+          <p>
+            The fundamental problem: an electric boiler has a COP of 1. Even with all 2,076&nbsp;m&sup2; of roof covered in PV, September solar output (1,145.5&nbsp;kWh/day) falls far short of the 2,000&nbsp;kWh/day demand. The boiler wastes every unit of electricity as heat at a 1:1 ratio, leaving a daily deficit of 854.5&nbsp;kWh that cannot be bridged by storage. This scenario was eliminated as infeasible.
+          </p>
+          <p>
+            Component costs: PV at $876/kW, boiler at $51.6/kW (with a $13,779 CAPEX from trendline extrapolation to 227&nbsp;kW), battery storage at $518.5/kW. OPEX $6,899/year.
+          </p>
+
+          <h2>Scenario 3 &mdash; PV + heat pump (PVHP)</h2>
+          <p>
+            Replacing the electric boiler with an air-to-water heat pump (COP&nbsp;=&nbsp;3) reduces the electricity required per unit of heat by two-thirds. The heat pump specification: 79.65&nbsp;kW capacity driven by 75.66&nbsp;kW peak electrical demand (0.227&nbsp;MW peak heat demand &divide; COP 3). Total daily electricity demand drops from 2,000 to 666.7&nbsp;kWh.
+          </p>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>100% demand fulfilled</strong><small>649 panels (1,208.3&nbsp;m&sup2;) &mdash; feasible within roof area</small></span>
+            <span class="result-metric-card"><strong>CAPEX $448,886</strong><small>HP $1,415/kW; battery 364.6&nbsp;kWh; LCoE $225.9/MWh</small></span>
+            <span class="result-metric-card"><strong>Payback 9 years</strong><small>Significantly better than PVEB; OPEX $2,833/year</small></span>
+          </div>
+          <p>
+            Air-to-water heat pump was chosen over ground-source because drilling in Stockholm city is impractical. The battery requirement falls to 364.6&nbsp;kWh (nocturnal demand 249.4&nbsp;kWh, adjusted for 90% battery efficiency, 95% inverter efficiency, 80% depth of discharge). With COP&nbsp;=&nbsp;3 the PV array covers all summer demand using only 58% of the available roof.
+          </p>
+
+          <h2>Scenario 4 &mdash; Solar thermal collectors + TES (STCTES) &mdash; recommended</h2>
+          <p>
+            Solar thermal collectors convert sunlight directly to heat rather than via electricity, eliminating the electrical conversion loss entirely. The selected collector is the Wagner-Solar C20 AR-M glazed flat-plate unit: 85.4% optical efficiency, 96% light transmissivity, selective absorber coating, 2.61&nbsp;m&sup2; per panel, operating at up to 232&deg;C stagnation temperature.
+          </p>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>CAPEX $256,332 &mdash; lowest</strong><small>309 collectors; STC $470/kW + TES $8.11/kW</small></span>
+            <span class="result-metric-card"><strong>PBP 5 years &mdash; fastest</strong><small>OPEX only $776/year; LCoE $128.6/MWh</small></span>
+            <span class="result-metric-card"><strong>100% demand + 18.9% winter</strong><small>5,148.5&nbsp;kWh/day generated; 188.9&nbsp;MWh/year winter contribution</small></span>
+          </div>
+          <p>
+            System sizing: 309 collectors covering approximately 806&nbsp;m&sup2; generate 5,148.5&nbsp;kWh/day in September &mdash; more than 2.5&times; the 2,000&nbsp;kWh/day demand. Thermal energy storage (TES) handles the nocturnal gap of 723.4&nbsp;kWh, requiring 1,205.7&nbsp;kWh storage capacity (after 75% TES efficiency and 80% depth of discharge), corresponding to a storage tank volume of 2.95&nbsp;m&sup3; (temperature swing from 25&deg;C to 60&deg;C).
+          </p>
+          <p>
+            The water-glycol heat transfer fluid runs through the collectors and passes heat to the TES during daytime surplus. During evening and night (18:00&ndash;06:00), stored heat covers the 723.4&nbsp;kWh demand that cannot be met from collectors alone.
+          </p>
+          <p>
+            Winter contribution: applying the STC system&rsquo;s capacity across the full annual daylight profile yields 188.9&nbsp;MWh/year &mdash; 18.9% of the 720&nbsp;MWh annual domestic hot water demand. This means the STC system is not merely a summer substitute but also offsets a meaningful share of year-round district heating.
+          </p>
+
+          <h2>Comparative summary</h2>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>DH (BAU): LCoE $26.4/MWh</strong><small>Lowest LCoE &mdash; but no capital for summer-only mode, 15&ndash;20% pipe losses</small></span>
+            <span class="result-metric-card"><strong>STC: PBP 5yr, LCoE $128.6/MWh</strong><small>Best alternative &mdash; lowest CAPEX, OPEX and payback</small></span>
+            <span class="result-metric-card"><strong>PVHP: PBP 9yr, LCoE $225.9/MWh</strong><small>Feasible second option; PVEB eliminated at 14% coverage</small></span>
+          </div>
+          <p>
+            The district heating LCoE of $26.4/MWh is the lowest because there is no capital to amortise &mdash; the question is whether a 5-year capital investment can replace an ongoing OPEX. At $776/year OPEX versus $52,898/year for district heating, the STC system pays back in 5 years on OPEX savings alone. Beyond year 5, the cooperative saves approximately $52,000/year in summer district heating fees.
+          </p>
+
+          <h2>Sensitivity analysis</h2>
+          <p>
+            A &plusmn;20% CAPEX sensitivity sweep showed the PVEB scenario is most exposed to capital cost changes &mdash; its cost base is dominated by PV panels and a large battery bank. The DH scenario is most sensitive to OPEX changes, reflecting that its entire cost is operational with no amortisable capital. STC-TES remained lowest-cost across all CAPEX perturbations within the &plusmn;20% range.
+          </p>
+
+          <h2>Limitations</h2>
+          <ul>
+            <li>September was modelled as the single worst-case design month; actual multi-month simulation would capture performance variation across May&ndash;September more precisely.</li>
+            <li>Demand was assumed constant at the June&ndash;August baseline throughout summer; occupancy-driven peaks (e.g., mornings) were captured in the hourly profile but not inter-month variation.</li>
+            <li>PV panel degradation, STC soiling losses and long-term TES insulation performance were not modelled.</li>
+            <li>The air-to-water heat pump COP of 3 is a fixed summer-average assumption; actual COP varies with ambient temperature and hot water set-point.</li>
+            <li>PVEB feasibility assessment is based on September; summer months with higher irradiation (June, July) would improve but not resolve its fundamental COP-1 limitation.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Relevance</p>
+          <h2>Why this matters</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            This project demonstrates the full techno-economic modelling workflow for competing heating technologies: demand characterisation (annual &rarr; monthly &rarr; hourly), system sizing, capital and operating cost computation, LCoE and payback calculation, and sensitivity analysis. The finding that PV + electric boiler is not feasible &mdash; despite covering the entire roof &mdash; is a direct consequence of COP&nbsp;=&nbsp;1; the comparison makes clear why heat pumps and thermal collectors always dominate over resistance heating at the system level.
+          </p>
+          <p>
+            The solar thermal result (5-year payback, $52k/year OPEX saving) is a directly deployable recommendation for a Swedish housing cooperative. The 18.9% winter contribution adds further value beyond the five-month target, improving the investment case. This kind of techno-economic comparison &mdash; four scenarios, consistent KPIs, sensitivity test &mdash; is the standard deliverable for building energy consulting, energy service company (ESCO) feasibility work and district energy planning.
+          </p>
+          <div class="project-links">
+            <a href="../downloads/mj2438-residential-heating-group12.pdf" download>&#8595; Download report (PDF, 1.3&nbsp;MB)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

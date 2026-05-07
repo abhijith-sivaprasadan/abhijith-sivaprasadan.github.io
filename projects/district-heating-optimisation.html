@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Case study for district heating dispatch optimisation with cost, emissions, outages and asset constraints." />
+  <meta name="description" content="Stepwise district heating dispatch optimisation for Stockholm using Python and linear programming, comparing base case, future demand, storage, cost and emissions scenarios." />
   <meta property="og:title" content="District Heating Dispatch Optimisation" />
-  <meta property="og:description" content="Energy-system optimisation case study for multi-asset district heating dispatch." />
+  <meta property="og:description" content="Stepwise district heating optimisation with CHP, geothermal, woodchip, heat pumps and storage scenarios." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-district-heating.svg" />
   <title>District Heating Dispatch Optimisation | Abhijith Sivaprasadan</title>
@@ -13,7 +13,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
-
   <link rel="stylesheet" href="../styles.css" />
   <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
@@ -42,11 +41,10 @@
     <section class="case-hero">
       <div class="container">
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
-        <p class="eyebrow">KTH project &middot; Optimisation &middot; Energy systems</p>
-        <h1>District Heating Dispatch Optimisation</h1>
-        <p class="hero-text">Multi-asset district-heating dispatch model using linear/mixed-integer optimisation to compare cost, emissions and operational strategies.</p>
+        <p class="eyebrow">District heating &middot; Dispatch optimisation &middot; Energy systems</p>
+        <h1>District Heating System Optimisation</h1>
+        <p class="hero-text">A five-step linear programming model for Stockholm district heating dispatch, moving from a base case through future demand, storage integration, cost minimisation and emissions minimisation to compare technology contributions and trade-offs.</p>
         <img class="case-visual" src="../assets/thumb-district-heating.svg" alt="District heating dispatch optimisation visual" loading="lazy" width="960" height="540" />
-
       </div>
     </section>
 
@@ -55,18 +53,70 @@
         <aside class="case-panel">
           <h2>Project snapshot</h2>
           <ul>
-            <li>Tools: Python, PuLP, pandas, plotting and KPI reporting</li>
-<li>Focus: CHP, heat pumps, biomass/geothermal assets, storage, outages, electricity-price and CO2 coupling</li>
-<li>Type: energy-system optimisation project</li>
+            <li><strong>Group:</strong> Group 12</li>
+            <li><strong>Date:</strong> December 2024</li>
+            <li><strong>Tools:</strong> Python, linear programming, Matplotlib</li>
+            <li><strong>Technologies modelled:</strong> CHP, woodchip boiler, geothermal, heat pump</li>
+            <li><strong>Demand profiles:</strong> Load 1 (residential) + Load 5 (stable commercial)</li>
+            <li><strong>Objective functions:</strong> cost minimisation (Steps 1&ndash;4) and emissions minimisation (Step 5)</li>
           </ul>
         </aside>
         <article class="case-panel">
-          <h2>What I did</h2>
+          <h2>The problem</h2>
+          <p>
+            District heating is a strong fit for urban areas, but dispatch planning becomes difficult when demand varies seasonally and the asset mix includes technologies with very different costs, efficiencies and carbon intensities. The project set out to build a structured optimisation model for Stockholm-style district heating and test how results change as demand grows, storage is added and the objective shifts from cost to emissions.
+          </p>
+          <p>
+            The model was developed step by step so that each stage builds on the previous one and the effect of each design choice can be isolated.
+          </p>
+
+          <h2>Five-step methodology</h2>
           <ul>
-            <li>Built an optimisation workflow for multi-asset heat supply scheduling under demand and capacity constraints.</li>
-<li>Represented operational constraints such as min/max output, binary on/off logic and outage windows.</li>
-<li>Compared cost-minimisation and emissions-aware dispatch outcomes.</li>
-<li>Exported results, plots and KPI summaries for scenario interpretation.</li>
+            <li><strong>Step 1 &ndash; Base case:</strong> linear programming dispatch model using Load 1 (residential) and Load 5 (stable commercial) profiles with three core technologies, minimising total cost over a full year.</li>
+            <li><strong>Step 2 &ndash; Future scenario:</strong> demand updated to 2030 projections accounting for government policy, urban growth and climate change; resource capacities resized accordingly.</li>
+            <li><strong>Step 3 &ndash; Storage integration:</strong> diurnal storage (hot water tanks) and seasonal storage (borehole or aquifer) added to both base and future cases; impact on dispatch allocation and peak handling evaluated.</li>
+            <li><strong>Step 4 &ndash; Cost-based minimisation:</strong> additional demand profiles included; CHP electricity optimised against spot prices to capture cogeneration value; full cost dynamics compared across base and future cases with storage.</li>
+            <li><strong>Step 5 &ndash; Emissions minimisation:</strong> objective function switched from cost to CO&sub2;; results compared against Step 4 to quantify the cost&ndash;emissions trade-off.</li>
+          </ul>
+
+          <h2>Technology parameters</h2>
+          <p>Three core heat generation technologies were parameterised from industry data:</p>
+          <ul>
+            <li><strong>Combined Heat and Power (CHP):</strong> heat output 2.5&ndash;1,000 MWh, efficiency 85%, cost &euro;32/MWh, CO&sub2; 180 kg/MWh. Electricity output 1&ndash;5 MWh at 80% efficiency and &euro;0.10/MWh. Selected for flexible dispatch and cogeneration potential.</li>
+            <li><strong>Woodchip boiler:</strong> output 20&ndash;600 MWh, efficiency 29%, cost &euro;27.32/MWh, CO&sub2; 0 kg/MWh (carbon-neutral). Selected as low-cost base-load renewable despite lower thermal efficiency.</li>
+            <li><strong>Geothermal:</strong> output 9.4&ndash;200 MWh, efficiency 95%, cost &euro;36/MWh, CO&sub2; 0 kg/MWh. Selected for stable, carbon-neutral baseline supply.</li>
+            <li><strong>Heat pump (HP):</strong> intermittent deployment for peak shaving; output 0&ndash;935 MWh across the full model range.</li>
+          </ul>
+          <p>
+            Load 5 (stable commercial demand with low variation) was chosen alongside the residential profile because stable demand allows technologies to operate consistently, avoiding efficiency losses from frequent start-ups and shutdowns and reducing the need for backup capacity.
+          </p>
+
+          <h2>Key findings</h2>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Woodchip: 600 MWh</strong><small>Constant base-load output across all periods</small></span>
+            <span class="result-metric-card"><strong>Geothermal: 200 MWh</strong><small>Steady renewable baseline, irrespective of demand</small></span>
+            <span class="result-metric-card"><strong>CHP: 572&ndash;651 MWh</strong><small>Primary flexible asset, varying with demand level</small></span>
+          </div>
+          <p>
+            Woodchip and geothermal operate at their upper limits continuously, providing the stable renewable base. CHP fills the remaining demand gap, ranging between 572 and 651 MWh depending on period. Heat pumps contribute 0&ndash;50 MWh intermittently, deployed only when economically or operationally advantageous. No electricity purchases from the grid were required, confirming a high degree of self-reliance in the modelled configuration.
+          </p>
+          <p>
+            CHP electricity generation remained at 0 MWh during the analysed base-case periods, suggesting that cogeneration was not triggered under base-case cost conditions. This is a key finding: the optimiser prioritised heat output over electricity co-production, pointing to an opportunity in Step 4 where spot-price-linked CHP dispatch could unlock additional value.
+          </p>
+
+          <h2>Scenario trade-offs</h2>
+          <p>
+            The base-case dispatch established a clear priority order: renewable base load (woodchip, geothermal) first, flexible dispatchable CHP second, heat pumps as marginal support. This pattern held even as the objective function changed from cost to emissions in Step 5, because the lowest-cost technologies (woodchip, geothermal) are also zero-carbon.
+          </p>
+          <p>
+            The cost&ndash;emissions trade-off only becomes sharp when CHP &mdash; which carries 180 kg CO&sub2;/MWh &mdash; is competing with higher-cost but cleaner alternatives. Storage integration (Step 3) reduces dependence on CHP peaks by allowing surplus renewable heat to be shifted in time, which simultaneously reduces costs and emissions.
+          </p>
+
+          <h2>Limitations</h2>
+          <ul>
+            <li>CHP cogeneration was not fully exploited in the base case; a spot-price electricity signal (Step 4) was needed to activate it.</li>
+            <li>Geothermal and woodchip uniform outputs may underrepresent seasonal constraints in real systems.</li>
+            <li>The model did not include a cooling demand or bidirectional heat exchange, limiting applicability to heating-only scenarios.</li>
           </ul>
         </article>
       </div>
@@ -79,7 +129,15 @@
           <h2>Why this matters</h2>
         </div>
         <div class="case-panel">
-          <p>This project demonstrates transferable optimisation skills relevant to BESS dispatch, energy-market modelling, scenario analysis and decision-support tools.</p>
+          <p>
+            This project is a direct example of energy-systems optimisation work: demand modelling, technology cost and emissions parameterisation, linear programming dispatch, and scenario comparison. The five-step structure demonstrates how to isolate the effect of individual design choices &mdash; storage, cogeneration, objective function &mdash; in a single modelling campaign rather than building separate models.
+          </p>
+          <p>
+            The finding that the cost-optimal and emissions-optimal dispatches nearly coincide (because the cheapest technologies are also zero-carbon) is a practically important result: it means the case for renewable base load does not depend on a carbon price in this system configuration. That kind of insight is directly transferable to real-world district heating planning and energy market analysis roles.
+          </p>
+          <div class="project-links">
+            <a href="../downloads/mj2507-group2-report.pdf" download>&#8595; Download project report (PDF, 763&nbsp;KB)</a>
+          </div>
         </div>
       </div>
     </section>
@@ -87,7 +145,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2026 Abhijith Sivaprasadan.</p>
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
     </div>
   </footer>
 </body>
