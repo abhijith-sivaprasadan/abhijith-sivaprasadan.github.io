@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Academic coursework of Abhijith Sivaprasadan — KTH Masters in Sustainable Energy Engineering and B.Tech Mechanical Engineering at APJ Abdul Kalam Technological University." />
+  <meta property="og:title" content="Courses | Abhijith Sivaprasadan" />
+  <meta property="og:description" content="KTH Masters and KTU Bachelor's coursework — thermal-fluid, energy systems, optimisation and mechanical engineering." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png" />
+  <title>Courses | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="scripts/public-config.js?v=20260504-data-v7" defer></script>
+  <script src="scripts/site.js?v=20260505-data-v4" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+  <style>
+    .tab-bar { display:flex; gap:0.5rem; margin-bottom:2rem; flex-wrap:wrap; }
+    .tab-btn {
+      padding:0.5rem 1.25rem; border-radius:2rem; border:1.5px solid var(--border,#30363d);
+      background:transparent; color:var(--fg,#e6edf3); font-size:0.9rem; font-weight:500;
+      cursor:pointer; transition:background 0.15s,border-color 0.15s;
+    }
+    .tab-btn:hover { background:var(--surface,#161b22); }
+    .tab-btn.active { background:var(--accent,#1f6feb); border-color:var(--accent,#1f6feb); color:#fff; }
+    .tab-content.hidden { display:none; }
+    .course-group { margin-bottom:2.5rem; }
+    .course-group-title {
+      font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+      color:var(--muted,#8b949e); margin-bottom:1rem; padding-bottom:0.4rem;
+      border-bottom:1px solid var(--border,#30363d);
+    }
+    .course-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1rem; }
+    .course-card {
+      background:var(--surface,#161b22); border:1px solid var(--border,#30363d);
+      border-radius:8px; padding:1.25rem; display:flex; flex-direction:column; gap:0.6rem;
+    }
+    .course-meta { display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; }
+    .course-code {
+      font-family:'JetBrains Mono',monospace; font-size:0.78rem; font-weight:500;
+      background:var(--tag-bg,#21262d); color:var(--muted,#8b949e);
+      padding:0.2rem 0.5rem; border-radius:4px;
+    }
+    .course-credits {
+      font-size:0.78rem; color:var(--muted,#8b949e);
+    }
+    .course-grade {
+      font-size:0.78rem; font-weight:700; padding:0.2rem 0.55rem;
+      border-radius:4px; background:#1a3a1a; color:#56d364;
+    }
+    .course-card h3 { font-size:0.95rem; font-weight:600; margin:0; line-height:1.35; }
+    .course-card p { font-size:0.85rem; color:var(--muted,#8b949e); margin:0; line-height:1.55; }
+    .course-links { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.3rem; }
+    .course-links a {
+      font-size:0.78rem; color:var(--accent,#1f6feb);
+      text-decoration:none; border-bottom:1px solid transparent;
+    }
+    .course-links a:hover { border-bottom-color:var(--accent,#1f6feb); }
+    .degree-intro {
+      background:var(--surface,#161b22); border:1px solid var(--border,#30363d);
+      border-radius:8px; padding:1.5rem; margin-bottom:2rem;
+    }
+    .degree-intro h2 { font-size:1.15rem; margin:0 0 0.4rem; }
+    .degree-intro p { font-size:0.9rem; color:var(--muted,#8b949e); margin:0; }
+    .stat-row { display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:0.75rem; }
+    .stat-chip { font-size:0.8rem; color:var(--muted,#8b949e); }
+    .stat-chip strong { color:var(--fg,#e6edf3); }
+  </style>
+</head>
+<body data-page-key="courses">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="index.html#projects">Featured</a>
+        <a href="projects.html">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a href="index.html#cv">CV</a>
+        <a href="about.html">About</a>
+        <a href="courses.html" aria-current="page">Courses</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="hobbies.html">Hobbies</a>
+        <a href="interests.html">Interests</a>
+        <a href="ideas.html">Ideas</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="page-shell">
+      <div class="container page-shell-grid">
+        <div>
+          <div class="hero-slab">
+            <p class="eyebrow">Academic record</p>
+            <h1>Courses</h1>
+            <p class="hero-text">
+              Formal coursework across two degrees &mdash; M.Sc. Sustainable Energy Engineering at KTH Royal Institute of Technology (2023&ndash;2026) and B.Tech Mechanical Engineering at APJ Abdul Kalam Technological University (2017&ndash;2021). Each course is linked to related portfolio work where applicable.
+            </p>
+          </div>
+
+          <div class="tab-bar" role="tablist" aria-label="Degree selector">
+            <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-masters" data-tab="masters">M.Sc. &mdash; KTH Royal Institute of Technology</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-bachelors" data-tab="bachelors">B.Tech &mdash; APJ Abdul Kalam Technological University</button>
+          </div>
+
+          <!-- ============================================================
+               MASTERS TAB
+          ============================================================ -->
+          <div class="tab-content" id="tab-masters" role="tabpanel">
+            <div class="degree-intro">
+              <h2>M.Sc. Sustainable Energy Engineering &mdash; KTH Royal Institute of Technology</h2>
+              <p>Stockholm, Sweden &middot; 2023&ndash;2026 &middot; School of Industrial Engineering and Management (ITM) &middot; Focus: heat and power technology, energy systems modelling, optimisation and CFD</p>
+              <div class="stat-row">
+                <span class="stat-chip"><strong>14</strong> courses completed</span>
+                <span class="stat-chip"><strong>~97.5</strong> ECTS</span>
+                <span class="stat-chip"><strong>2 &times; Grade A</strong> (MJ2515, MJ2507)</span>
+                <span class="stat-chip"><strong>2 &times; Grade B</strong> (MJ2411, MJ2386)</span>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Thesis</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ232X</span>
+                    <span class="course-credits">30 ECTS</span>
+                  </div>
+                  <h3>Degree Project in Heat and Power Technology</h3>
+                  <p>Independent thesis requiring the student to solve an engineering problem with significant technical content. This thesis (TRITA-ITM-EX 2026:14) was conducted at Siemens Energy Finsp&aring;ng: compressible CFD and conjugate heat transfer analysis of a reducer for the Pulsatorn high-temperature dynamic pressure sensor calibration rig, comparing legacy two-step geometry against a 150&nbsp;mm quintic C&sup2; redesign. Includes mesh independence, Biot number analysis, NI-DAQ commissioning and a formal root cause analysis of heater failure.</p>
+                  <div class="course-links">
+                    <a href="projects/siemens-thesis.html">Case study &rarr;</a>
+                    <a href="experience/siemens-energy.html">Experience &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Numerical methods &amp; heat transfer</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2515</span>
+                    <span class="course-credits">3 ECTS</span>
+                    <span class="course-grade">Grade A</span>
+                  </div>
+                  <h3>Numerical Heat Transfer in Energy Technology</h3>
+                  <p>Finite difference and finite volume methods for heat conduction, convection and advection problems in energy applications. Covers derivation of numerical schemes, stability and error analysis, 1D and 2D steady-state and transient solutions, and an introduction to the Navier&ndash;Stokes equations and turbulence modelling. Practical work includes programming numerical solvers and interpreting CFD software output.</p>
+                  <div class="course-links">
+                    <a href="projects/numerical-heat-transfer.html">Project &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">AI, optimisation &amp; data</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2507</span>
+                    <span class="course-credits">6 ECTS</span>
+                    <span class="course-grade">Grade A</span>
+                  </div>
+                  <h3>Applied AI for Sustainable Energy Engineering</h3>
+                  <p>Machine learning theory and applications for energy engineering: technique selection, data pre-processing, model training, hyperparameter search, model evaluation and comparison against conventional approaches. Topics include logistic regression, shallow and deep neural networks, feature engineering and ethical dimensions of AI in the energy sector. Course projects included day-ahead building heating demand forecasting and district heating dispatch optimisation.</p>
+                  <div class="course-links">
+                    <a href="projects/heating-demand-forecasting.html">Project: Heating forecast &rarr;</a>
+                    <a href="projects/district-heating-optimisation.html">Project: District heating &rarr;</a>
+                  </div>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2505</span>
+                    <span class="course-credits">6 ECTS</span>
+                  </div>
+                  <h3>Practical Optimization of Energy Networks</h3>
+                  <p>Industry-partnered course (FORTUM, Vattenfall) applying optimisation tools to real-world heat and power networks. Covers LP and MILP formulation for thermal network dispatch, combined heat and power scheduling, and market-driven operation of district energy systems. Project-based format with oral presentation and written report.</p>
+                  <div class="course-links">
+                    <a href="projects/district-heating-optimisation.html">Project &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Thermal power &amp; renewable energy</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2405</span>
+                    <span class="course-credits">9 ECTS</span>
+                  </div>
+                  <h3>Sustainable Power Generation</h3>
+                  <p>Thermodynamic cycles, conventional and renewable power plant configurations, environmental impacts and sustainability assessment. Covers steam and gas turbine cycles, combined-cycle plants, integration of wind and solar into power systems, and electrical engineering aspects of grid connection. Foundational course for the MSc Sustainable Energy Engineering programme.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2411</span>
+                    <span class="course-credits">6 ECTS</span>
+                    <span class="course-grade">Grade B</span>
+                  </div>
+                  <h3>Renewable Energy Technology</h3>
+                  <p>Technical evaluation of solar photovoltaic and thermal, biomass and biofuels, wind power, hydropower, and electrical and thermal energy storage. Emphasis on energy balance calculations, fluid mechanics and thermodynamics fundamentals applied to renewable conversion systems. Builds the resource and technology knowledge base for design and scenario work.</p>
+                  <div class="course-links">
+                    <a href="projects/residential-heating-technoeconomics.html">Project: Residential heating &rarr;</a>
+                    <a href="projects/waste-to-energy-india.html">Project: Waste-to-energy &rarr;</a>
+                  </div>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2426</span>
+                    <span class="course-credits">6 ECTS</span>
+                  </div>
+                  <h3>Applied Heat and Power Technology</h3>
+                  <p>Practical assessment of thermal power systems: steam turbines, gas turbines, gas motors, waste heat recovery, biomass and waste-to-energy, concentrated solar power, wind integration and combined heat and power. Includes design of customised energy systems and techno-economic and environmental feasibility assessment for realistic applications. Prerequisite: MJ2405 and MJ2411.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Energy systems modelling &amp; scenarios</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2438</span>
+                    <span class="course-credits">6 ECTS</span>
+                  </div>
+                  <h3>Modeling of Energy Systems &mdash; Heat and Power Generation</h3>
+                  <p>Project course using modelling software (HOMER Pro, EnergyPRO or equivalent) for heat and power system design and analysis. Lectures introduce modelling strategies and tools, followed by group project work with industry clients. Students formulate, calibrate and validate system models, perform sensitivity analysis and present findings in a report and oral presentation. Covers solar thermal, heat pump, PV and district heating configurations.</p>
+                  <div class="course-links">
+                    <a href="projects/residential-heating-technoeconomics.html">Project: Residential heating scenarios &rarr;</a>
+                  </div>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2508</span>
+                    <span class="course-credits">6 ECTS</span>
+                  </div>
+                  <h3>Energy Systems for Sustainable Development</h3>
+                  <p>3E (Energy&ndash;Economy&ndash;Environment) scenario analysis of national and regional energy systems using LEAP (Low Emissions Analysis Platform). Covers energy mix transitions, climate policy, technology alternatives, SDG 7 access and energy poverty, geopolitical energy dependencies and integrated resource planning. Includes comparison of industrialised and developing-country energy contexts.</p>
+                  <div class="course-links">
+                    <a href="projects/germany-energy-economy-analysis.html">Project: Germany 3E analysis &rarr;</a>
+                  </div>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2503</span>
+                    <span class="course-credits">6 ECTS</span>
+                  </div>
+                  <h3>Small Scale Polygeneration</h3>
+                  <p>Simultaneous generation of electricity, heat, cooling, purified water and dry air from renewable and conventional sources. Covers energy converter selection, thermo-economic optimisation, control strategies, environmental and economic performance, and grid-connected versus islanded operation. Case studies include remote-area systems and off-grid emergency applications.</p>
+                  <div class="course-links">
+                    <a href="projects/philippines-emergency-energy-module.html">Project: Philippines emergency module &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Energy storage &amp; built environment</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2386</span>
+                    <span class="course-credits">6 ECTS</span>
+                    <span class="course-grade">Grade B</span>
+                  </div>
+                  <h3>Energy Storage Technology</h3>
+                  <p>Classification and design of mechanical, thermal and electrochemical storage systems. Covers working principles of batteries (Ni-MH, Li-ion, lead-acid), thermal energy storage (sensible, latent/PCM), hydrogen and compressed air, with emphasis on integration into renewable energy systems and techno-economic KPI evaluation. Labs include discharge characterisation and M-TES PCM thermal testing.</p>
+                  <div class="course-links">
+                    <a href="projects/battery-cell-discharge-lab.html">Lab: Battery discharge &rarr;</a>
+                    <a href="projects/mtes-pcm-thermal-lab.html">Lab: M-TES PCM &rarr;</a>
+                    <a href="projects/tes-peak-shaving.html">Project: TES peak shaving &rarr;</a>
+                  </div>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2509</span>
+                    <span class="course-credits">9 ECTS</span>
+                  </div>
+                  <h3>Energy in the Built Environment</h3>
+                  <p>Building energy demand, heating and cooling systems, ventilation, district energy and supply-side infrastructure. Covers thermal comfort requirements, building simulation using IDA ICE, heat pump and solar integration, energy certification and renovation assessment. Project work involves modelling a real or representative building through supply-side design alternatives.</p>
+                  <div class="course-links">
+                    <a href="projects/built-environment-ida-ice-simulation.html">Project: IDA ICE simulation &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Energy management &amp; research methods</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2511</span>
+                    <span class="course-credits">7.5 ECTS</span>
+                  </div>
+                  <h3>Energy Management</h3>
+                  <p>Systems analysis of city and district energy systems, combining high-level strategic planning with bottom-up techno-economic analysis. Covers ISO 50001-aligned energy performance indicators, scenario and sensitivity analysis, renewable integration planning, cost-effectiveness evaluation and business model development. Major project simulates a real city-scale energy management challenge with multiple stakeholder constraints.</p>
+                  <div class="course-links">
+                    <a href="projects/alleima-energy-efficiency.html">Related: Alleima audit methodology &rarr;</a>
+                    <a href="projects/industrial-energy-kpi-toolkit.html">Tool: Energy KPI Toolkit &rarr;</a>
+                  </div>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">MJ2510</span>
+                    <span class="course-credits">7.5 ECTS</span>
+                  </div>
+                  <h3>Methods of Research in Sustainable Energy</h3>
+                  <p>Thesis preparation course covering systematic literature reviews, research problem formulation, methodology selection, uncertainty analysis and scientific ethics. Combines seminars, assignments and written examination. Students formulate a research question and methodology proposal relevant to their thesis topic, evaluated against sustainable development and ethical dimensions.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Exchange &amp; elective</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">AAE-E3121</span>
+                    <span class="course-credits">Aalto University / Unite!</span>
+                  </div>
+                  <h3>Circular Economy for Energy Storage</h3>
+                  <p>Virtual exchange course through the Unite! consortium (Aalto University, Oct&ndash;Dec 2024). Circular economy frameworks applied to battery and energy storage technology: lifecycle assessment, second-life battery pathways, recycling supply chains, material criticality and policy frameworks for closing the storage loop. Complements the energy storage and battery discharge work from MJ2386.</p>
+                  <div class="course-links">
+                    <a href="projects/battery-cell-discharge-lab.html">Related: Battery discharge lab &rarr;</a>
+                  </div>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta">
+                    <span class="course-code">ME2072</span>
+                    <span class="course-credits">KTH</span>
+                  </div>
+                  <h3>Entrepreneurship for Engineers</h3>
+                  <p>Introduction to entrepreneurial thinking, business model design, market validation and venture creation for engineering students. Includes idea-to-concept work, pitch development and exposure to startup frameworks relevant to clean-technology ventures.</p>
+                  <div class="course-links">
+                    <a href="projects/gridflex-energy-optimizer.html">Related: GridFlex venture paper &rarr;</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               BACHELORS TAB
+          ============================================================ -->
+          <div class="tab-content hidden" id="tab-bachelors" role="tabpanel">
+            <div class="degree-intro">
+              <h2>B.Tech Mechanical Engineering &mdash; APJ Abdul Kalam Technological University</h2>
+              <p>Kerala, India &middot; 2017&ndash;2021 &middot; Core mechanical engineering foundation spanning thermodynamics, fluid mechanics, heat transfer, manufacturing, machine design and applied mathematics</p>
+              <div class="stat-row">
+                <span class="stat-chip"><strong>35</strong> courses completed</span>
+                <span class="stat-chip">4-year programme</span>
+                <span class="stat-chip">SAE Collegiate Club &middot; NSS volunteer</span>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Year 1 &mdash; Engineering foundation &amp; mathematics</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">MA101</span></div>
+                  <h3>Calculus</h3>
+                  <p>Single and multivariable calculus: limits, differentiation, integration, sequences and series, partial derivatives and multiple integrals applied to engineering problems.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">MA102</span></div>
+                  <h3>Differential Equations</h3>
+                  <p>Ordinary differential equations (ODEs): first and higher-order equations, series solutions, Laplace transforms and applications to mechanical vibration and heat transfer.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">BE100</span></div>
+                  <h3>Engineering Mechanics</h3>
+                  <p>Statics and dynamics: equilibrium of rigid bodies, free body diagrams, friction, kinematics and kinetics of particles and rigid bodies, work-energy and impulse-momentum methods.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">BE101-02</span></div>
+                  <h3>Introduction to Mechanical Engineering</h3>
+                  <p>Survey of mechanical engineering disciplines, engineering problem-solving methodology, professional ethics and an introduction to major application areas including manufacturing, thermal systems and machine design.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">BE103</span></div>
+                  <h3>Introduction to Sustainable Engineering</h3>
+                  <p>Sustainability principles in engineering practice: resource efficiency, life-cycle thinking, environmental impact and the role of engineers in addressing global sustainability challenges.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">BE110</span></div>
+                  <h3>Engineering Graphics</h3>
+                  <p>Technical drawing standards, orthographic and isometric projection, sectional views, dimensioning conventions and introduction to CAD tools for engineering communication.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Year 2 &mdash; Core mechanical sciences</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">MA201</span></div>
+                  <h3>Linear Algebra &amp; Complex Analysis</h3>
+                  <p>Matrix operations, eigenvalues, vector spaces, linear transformations, complex functions, Cauchy-Riemann equations, contour integration and conformal mapping.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">MA202</span></div>
+                  <h3>Probability, Transforms &amp; Numerical Methods</h3>
+                  <p>Probability distributions, statistical inference, Fourier and Z-transforms, numerical solutions of equations, interpolation, numerical differentiation and integration, and iterative solvers for ODEs and linear systems.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME201</span></div>
+                  <h3>Mechanics of Solids</h3>
+                  <p>Stress and strain analysis, material behaviour under axial, shear, bending and torsional loads, Mohr's circle, deflection of beams and columns, and elastic stability.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME202</span></div>
+                  <h3>Advanced Mechanics of Solids</h3>
+                  <p>Extension of solid mechanics to thick-walled cylinders, rotating discs, plasticity, contact stresses, fracture mechanics fundamentals and introduction to finite element concepts.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME203</span></div>
+                  <h3>Mechanics of Fluids</h3>
+                  <p>Fluid statics and dynamics: continuity, momentum and energy equations, internal and external flows, boundary layer theory, pipe flow losses and an introduction to turbulence.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME204</span></div>
+                  <h3>Thermal Engineering</h3>
+                  <p>Thermodynamic cycles for power generation and refrigeration: Rankine, Brayton, Otto, Diesel and refrigeration cycles. Analysis of steam generators, condensers, turbines and pumps.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME205</span></div>
+                  <h3>Thermodynamics</h3>
+                  <p>Classical thermodynamics: laws of thermodynamics, properties of pure substances, gas mixtures, combustion stoichiometry, second-law analysis and exergy concepts.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME206</span></div>
+                  <h3>Fluid Machinery</h3>
+                  <p>Turbomachinery principles: centrifugal pumps, axial and mixed-flow fans, hydraulic turbines, velocity triangles, performance characteristics and cavitation.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME210</span></div>
+                  <h3>Metallurgy &amp; Materials Engineering</h3>
+                  <p>Crystal structure, phase diagrams, heat treatment, mechanical properties testing, ferrous and non-ferrous alloys, failure analysis and selection of engineering materials for thermal and structural applications.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME220</span></div>
+                  <h3>Manufacturing Technology</h3>
+                  <p>Fundamentals of casting, forming, welding, machining and surface treatment processes. Emphasis on process selection, tooling, surface finish and dimensional tolerances.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">EE311</span></div>
+                  <h3>Electrical Drives &amp; Control for Automation</h3>
+                  <p>DC and AC motor characteristics, variable-speed drives, PLC-based control, sensors and actuators in automated manufacturing and process control systems.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Year 3 &mdash; Applied engineering</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME301</span></div>
+                  <h3>Mechanics of Machinery</h3>
+                  <p>Kinematics and kinetics of mechanisms: linkages, cams, gears and gear trains; dynamic analysis of rotating machinery, balancing, flywheel design and governor mechanisms.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME302</span></div>
+                  <h3>Heat &amp; Mass Transfer</h3>
+                  <p>Conduction, convection (forced and natural), radiation and combined heat transfer. Dimensionless correlations, heat exchanger design (LMTD and NTU methods), and mass transfer by diffusion and convection.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME303</span></div>
+                  <h3>Machine Tools &amp; Digital Manufacturing</h3>
+                  <p>Conventional and CNC machine tools, cutting mechanics, tool geometry and wear, process planning and introduction to digital manufacturing concepts including CAM and Industry 4.0 context.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME304</span></div>
+                  <h3>Dynamics of Machinery</h3>
+                  <p>Vibration analysis of single and multi-degree-of-freedom systems, free and forced vibration, damping, resonance, critical speeds of rotating shafts and vibration isolation and control.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME306</span></div>
+                  <h3>Advanced Manufacturing Technology</h3>
+                  <p>Non-conventional machining processes (EDM, ECM, laser, water-jet), additive manufacturing, rapid prototyping, precision manufacturing and quality engineering.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME308</span></div>
+                  <h3>Computer Aided Design &amp; Analysis</h3>
+                  <p>Geometric modelling, parametric CAD, assembly design and introduction to FEA using commercial tools (SolidWorks, ANSYS). Covers meshing, boundary conditions, linear static analysis and result interpretation.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME312</span></div>
+                  <h3>Metrology &amp; Instrumentation</h3>
+                  <p>Dimensional measurement, gauging, surface texture analysis, calibration principles, transducers, signal conditioning, data acquisition and measurement uncertainty estimation.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-group">
+              <p class="course-group-title">Year 4 &mdash; Advanced specialisation &amp; electives</p>
+              <div class="course-cards">
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME401</span></div>
+                  <h3>Design of Machine Elements I</h3>
+                  <p>Failure theories, fatigue analysis, design of fasteners, welded joints, springs, shafts and couplings under static and dynamic loading with safety factor methodology.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME402</span></div>
+                  <h3>Design of Machine Elements II</h3>
+                  <p>Design of rolling contact bearings, journal bearings, gears (spur, helical, bevel), brakes, clutches and power screws; tribology and lubrication fundamentals.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME403</span></div>
+                  <h3>Advanced Energy Engineering</h3>
+                  <p>Advanced topics in energy conversion: combined cycle plants, cogeneration, waste heat recovery, renewable integration, fuel cells and energy system optimisation with sustainability metrics.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME404</span></div>
+                  <h3>Industrial Engineering</h3>
+                  <p>Work study, production planning and control, facility layout, inventory management, quality control (SPC, six sigma) and operations research techniques for industrial settings.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME405</span></div>
+                  <h3>Refrigeration &amp; Air Conditioning</h3>
+                  <p>Vapour compression and absorption refrigeration cycles, psychrometrics, cooling load estimation, air conditioning system components and design, cold storage and heat pump applications.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME407</span></div>
+                  <h3>Mechatronics</h3>
+                  <p>Integration of mechanical, electronic and control subsystems: sensors, actuators, microcontrollers, interfacing, feedback control design and real-time embedded systems for automation.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME409</span></div>
+                  <h3>Compressible Fluid Flow</h3>
+                  <p>Thermodynamics of compressible flow: isentropic relations, normal and oblique shocks, Prandtl&ndash;Meyer expansion, Fanno and Rayleigh flows, converging-diverging nozzles and supersonic diffusers. Foundation for the gas-turbine CFD thesis work.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME463</span></div>
+                  <h3>Automobile Engineering</h3>
+                  <p>Vehicle dynamics, powertrain systems, transmission, braking, steering geometry, suspension design and emission control technologies for internal combustion engine vehicles.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME376</span></div>
+                  <h3>Maintenance Engineering</h3>
+                  <p>Maintenance strategies (preventive, predictive, condition-based), reliability analysis, failure mode and effect analysis (FMEA), total productive maintenance and life-cycle cost frameworks.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">ME476</span></div>
+                  <h3>Material Handling &amp; Facilities Planning</h3>
+                  <p>Plant layout planning, material handling systems (conveyors, AGVs, cranes), warehouse design, ergonomic principles and supply chain interface for manufacturing facilities.</p>
+                </div>
+                <div class="course-card">
+                  <div class="course-meta"><span class="course-code">CE482</span></div>
+                  <h3>Environmental Impact Assessment</h3>
+                  <p>EIA methodology, regulatory frameworks, scoping, baseline studies, impact prediction, mitigation measures and public participation processes for engineering projects.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <aside class="content-rail">
+          <div class="page-panel">
+            <p class="eyebrow">At a glance</p>
+            <ul class="clean-list">
+              <li><strong>KTH Masters:</strong> 14 courses, ~97.5 ECTS, 2023&ndash;2026</li>
+              <li><strong>KTU Bachelors:</strong> 35 courses, 2017&ndash;2021</li>
+              <li><strong>Grades recorded:</strong> A (MJ2515, MJ2507), B (MJ2411, MJ2386)</li>
+              <li><strong>Thesis:</strong> 30 ECTS, Siemens Energy Finsp&aring;ng</li>
+            </ul>
+          </div>
+          <div class="page-panel">
+            <p class="eyebrow">Courses linked to portfolio</p>
+            <ul class="clean-list">
+              <li><a href="projects/siemens-thesis.html">MJ232X &rarr; Siemens thesis</a></li>
+              <li><a href="projects/numerical-heat-transfer.html">MJ2515 &rarr; Numerical heat transfer</a></li>
+              <li><a href="projects/heating-demand-forecasting.html">MJ2507 &rarr; Heating forecast</a></li>
+              <li><a href="projects/germany-energy-economy-analysis.html">MJ2508 &rarr; Germany 3E/LEAP</a></li>
+              <li><a href="projects/philippines-emergency-energy-module.html">MJ2503 &rarr; Philippines polygeneration</a></li>
+              <li><a href="projects/built-environment-ida-ice-simulation.html">MJ2509 &rarr; IDA ICE simulation</a></li>
+              <li><a href="projects/battery-cell-discharge-lab.html">MJ2386 &rarr; Battery discharge lab</a></li>
+              <li><a href="projects/residential-heating-technoeconomics.html">MJ2438 &rarr; Residential heating</a></li>
+              <li><a href="projects/district-heating-optimisation.html">MJ2507 &rarr; District heating</a></li>
+              <li><a href="experience/alleima.html">MJ2511 &rarr; Alleima internship</a></li>
+            </ul>
+          </div>
+          <div class="page-panel">
+            <p class="eyebrow">Back to</p>
+            <ul class="clean-list">
+              <li><a href="about.html">About page</a></li>
+              <li><a href="projects.html">Project library</a></li>
+              <li><a href="experience.html">Experience</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Built with GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var btns = document.querySelectorAll('.tab-btn');
+      var panels = document.querySelectorAll('.tab-content');
+      btns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          btns.forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+          panels.forEach(function(p) { p.classList.add('hidden'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected','true');
+          document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
