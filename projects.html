@@ -75,6 +75,9 @@
           </label>
           <div class="filter-chip-row" data-project-filters aria-label="Project filters"></div>
         </div>
+        <div class="case-template-note" aria-label="Standard case-study structure">
+          <strong>Case-study structure:</strong> Problem -> Method -> Tools -> Outputs -> Results -> Limitations -> What I learned -> Links
+        </div>
         <p class="content-count" data-project-count></p>
         <div class="project-browser" data-dynamic-projects data-api-resource="projects">
 
@@ -94,11 +97,16 @@
               <img class="project-thumb" src="assets/thumb-siemens-validation.svg" alt="Gas turbine CFD and instrumentation workflow visual" loading="lazy" width="960" height="540" />
               <div class="project-browser-copy">
                 <div class="tag-row"><span class="tag-hot">ANSYS Fluent</span><span class="tag-hot">CFD/CHT</span><span>Gas Turbines</span><span class="tag-hot">NI-DAQ</span><span class="tag-hot">LabVIEW</span><span class="tag-hot">Siemens NX</span><span>k-omega SST</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>CFD/CHT model</strong><small>Steady compressible coupled workflow</small></span>
+                  <span class="result-metric-card"><strong>NI-DAQ/LabVIEW validation</strong><small>Measurement-chain commissioning</small></span>
+                  <span class="result-metric-card"><strong>Pressure-loss + thermal split</strong><small>Biot-based interpretation</small></span>
+                </div>
                 <ul class="evidence-list">
                   <li>Built steady-state compressible CFD and CHT models in ANSYS Fluent (k-omega SST) at T = 673 K and P_gauge = 100 kPa within one Siemens Energy thesis campaign.</li>
                   <li>Mesh independence study confirmed discretisation error below 2% on pressure-loss coefficient and peak Mach number.</li>
                   <li>Biot number analysis (Bi = 0.003-0.004) separated thermal contributions from flow-regime differences between reducer designs.</li>
-                  <li>Commissioned NI-DAQ measurement chain, modified LabVIEW VI, and led root cause analysis of heater failure during 700°C testing.</li>
+                  <li>Commissioned NI-DAQ measurement chain, modified LabVIEW VI, and led root cause analysis of heater failure during 700&deg;C testing.</li>
                 </ul>
                 <div class="project-links">
                   <a href="projects/siemens-thesis.html">Case study</a>
@@ -124,6 +132,11 @@
               <img class="project-thumb" src="assets/thumb-pypsa-grid.svg" alt="PyPSA-NL grid congestion and BESS visual" loading="lazy" width="960" height="540" />
               <div class="project-browser-copy">
                 <div class="tag-row"><span>PyPSA</span><span>BESS</span><span>Grid congestion</span><span>Streamlit</span><span>Linopy</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>8/8 checks passed</strong><small>Model validation and consistency tests</small></span>
+                  <span class="result-metric-card"><strong>10 scenarios compared</strong><small>Congestion, BESS and connection variants</small></span>
+                  <span class="result-metric-card"><strong>400 MW / 4 h option</strong><small>Latest top BESS candidate in Groningen</small></span>
+                </div>
                 <ul class="evidence-list">
                   <li>Hourly PyPSA/Linopy/HiGHS dispatch model with constrained regional corridors and congestion diagnostics.</li>
                   <li>BESS siting and sizing sweep across candidate regions, MW ratings and storage durations.</li>
@@ -152,6 +165,11 @@
               <img class="project-thumb" src="assets/thumb-energy-kpi.svg" alt="Industrial energy KPI mapping visual" loading="lazy" width="960" height="540" />
               <div class="project-browser-copy">
                 <div class="tag-row"><span>ISO 50001</span><span>Energy KPIs</span><span>Industrial efficiency</span><span>EnPI</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>ISO 50001 / EED aligned</strong><small>Mapping approach and audit framing</small></span>
+                  <span class="result-metric-card"><strong>KPI / EnPI framework</strong><small>Normalisation and tracking logic</small></span>
+                  <span class="result-metric-card"><strong>Metering roadmap</strong><small>Readiness and gap-priority structure</small></span>
+                </div>
                 <ul class="evidence-list">
                   <li>Translated energy data readiness into KPI and metering-improvement structure aligned to ISO 50001 continuous improvement.</li>
                   <li>Identified significant energy users and mapped metering gaps against audit requirements.</li>

@@ -3092,19 +3092,19 @@ code,
 }
 
 #cv .card:nth-child(1) h3::before {
-  content: "CFD";
+  content: "GRID";
 }
 
 #cv .card:nth-child(2) h3::before {
-  content: "TEST";
+  content: "R&D";
 }
 
 #cv .card:nth-child(3) h3::before {
-  content: "ISO";
+  content: "CFD";
 }
 
 #cv .card:nth-child(4) h3::before {
-  content: "PhD";
+  content: "DATA";
 }
 
 [data-cv-link].is-fallback {
@@ -3499,6 +3499,56 @@ code,
   margin-bottom: 0;
 }
 
+.case-template-note {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.9rem;
+}
+
+.result-metric-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 10px;
+}
+
+.result-metric-card {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.result-metric-card strong {
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+
+.result-metric-card small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.project-card .project-links::before,
+.project-browser-copy .project-links::before {
+  content: "Simplified portfolio model; not an official validated TSO or industrial model.";
+  display: block;
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
 @keyframes hero-in {
   from {
     opacity: 0;
@@ -3581,7 +3631,8 @@ code,
   #cv .cards,
   .role-track-grid,
   .course-grid,
-  .footer-grid {
+  .footer-grid,
+  .result-metric-row {
     grid-template-columns: 1fr;
   }
 
