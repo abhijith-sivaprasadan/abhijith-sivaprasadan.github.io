@@ -1,18 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Vibration frequency analysis">
-  <rect width="960" height="540" fill="#0b1728"/>
-  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
-  <g fill="none" stroke-linecap="round" stroke-width="6">
-    <path d="M118 276c20-76 42-76 62 0s42 76 62 0 42-76 62 0 42 76 62 0 42-76 62 0" stroke="#65d6c9"/>
-    <path d="M498 386V162" stroke="#22344f"/>
-    <path d="M542 386V254" stroke="#65d6c9"/>
-    <path d="M596 386V202" stroke="#8bb8ff"/>
-    <path d="M650 386V294" stroke="#ffb86b"/>
-    <path d="M704 386V232" stroke="#65d6c9"/>
-    <path d="M758 386V322" stroke="#8bb8ff"/>
-    <path d="M812 386V278" stroke="#ffb86b"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Rotating machinery vibration spectral analysis">
+  <rect width="960" height="540" fill="#0d141d"/>
+  <rect x="34" y="30" width="892" height="480" rx="22" fill="#142233" stroke="#2a3b4f"/>
+  <rect x="34" y="30" width="892" height="62" rx="22" fill="#102033"/>
+  <text x="62" y="69" fill="#e6edf3" font-family="ui-monospace,monospace" font-size="20" font-weight="700">ROTATING MACHINERY | FFT + FAULT FREQUENCY DIAGNOSTICS</text>
+
+  <rect x="66" y="126" width="558" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
+  <g stroke="#2a3b4f"><line x1="96" y1="402" x2="590" y2="402"/><line x1="96" y1="334" x2="590" y2="334"/><line x1="96" y1="266" x2="590" y2="266"/><line x1="96" y1="198" x2="590" y2="198"/></g>
+  <g fill="#60a5fa">
+    <rect x="118" y="338" width="16" height="64"/><rect x="176" y="286" width="16" height="116"/>
+    <rect x="234" y="228" width="16" height="174"/><rect x="292" y="312" width="16" height="90"/>
+    <rect x="350" y="182" width="16" height="220"/><rect x="408" y="304" width="16" height="98"/>
+    <rect x="466" y="250" width="16" height="152"/><rect x="524" y="328" width="16" height="74"/>
   </g>
-  <text x="122" y="156" fill="#e7edf7" font-family="Arial, sans-serif" font-size="28" font-weight="700">Time trace</text>
-  <text x="540" y="156" fill="#e7edf7" font-family="Arial, sans-serif" font-size="28" font-weight="700">FFT / PSD</text>
-  <rect x="118" y="338" width="286" height="54" rx="14" fill="#07111f" stroke="#22344f" stroke-width="4"/>
-  <text x="144" y="374" fill="#65d6c9" font-family="Arial, sans-serif" font-size="22" font-weight="700">RMS + spectrogram report</text>
+  <g font-family="ui-monospace,monospace" font-size="12" fill="#9fb2c7">
+    <text x="110" y="424">1x</text><text x="168" y="424">2x</text><text x="226" y="424">3x</text><text x="284" y="424">4x</text>
+    <text x="342" y="424">BPFI</text><text x="456" y="424">BPFO</text>
+  </g>
+
+  <rect x="652" y="126" width="242" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
+  <text x="676" y="162" fill="#7dd3fc" font-family="ui-monospace,monospace" font-size="16" font-weight="700">DIAGNOSTIC NOTES</text>
+  <g font-family="ui-monospace,monospace" font-size="14" fill="#d9e3ec">
+    <text x="676" y="196">Sensor: IEPE accel</text>
+    <text x="676" y="222">Sample rate: 25.6 kHz</text>
+    <text x="676" y="248">Window: Hanning</text>
+    <text x="676" y="274">Main peak: 3x RPM</text>
+    <text x="676" y="300">Bearing bands present</text>
+  </g>
 </svg>

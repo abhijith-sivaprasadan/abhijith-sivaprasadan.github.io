@@ -1,149 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Distribution grid power-flow, voltage and N-1 screening dashboard">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Distribution grid power-flow and N-1 screening">
   <defs>
-    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 Z" fill="#ff6a4a"/>
-    </marker>
-    <marker id="arrow-yellow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 Z" fill="#ffd166"/>
-    </marker>
-    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 Z" fill="#4ade80"/>
-    </marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#111923"/>
+      <stop offset="1" stop-color="#0b1118"/>
+    </linearGradient>
   </defs>
+  <rect width="960" height="540" fill="url(#bg)"/>
+  <rect x="34" y="30" width="892" height="480" rx="22" fill="#142233" stroke="#2a3b4f"/>
+  <rect x="34" y="30" width="892" height="62" rx="22" fill="#102033"/>
+  <text x="62" y="69" fill="#e6edf3" font-family="ui-monospace,monospace" font-size="20" font-weight="700">MV GRID STUDY | POWER FLOW + N-1 + EV/PV/BESS</text>
 
-  <rect width="960" height="540" fill="#09131f"/>
-  <rect x="20" y="20" width="620" height="500" rx="18" fill="#0f1e30" stroke="#1e3248"/>
-  <rect x="658" y="20" width="284" height="500" rx="18" fill="#0f1e30" stroke="#1e3248"/>
-
-  <text x="42" y="54" fill="#8bb8ff" font-family="ui-monospace,monospace" font-size="11" font-weight="700" letter-spacing="1">DISTRIBUTION GRID - 24H POWER FLOW</text>
-  <text x="42" y="70" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="10">CIGRE MV style feeder - N-1 - EV / PV / storage sensitivity</text>
-
-  <g stroke="#1a2e42" stroke-width="0.6" stroke-dasharray="4 6">
-    <line x1="60" y1="120" x2="610" y2="120"/>
-    <line x1="60" y1="220" x2="610" y2="220"/>
-    <line x1="60" y1="320" x2="610" y2="320"/>
-    <line x1="60" y1="420" x2="610" y2="420"/>
-    <line x1="170" y1="90" x2="170" y2="460"/>
-    <line x1="300" y1="90" x2="300" y2="460"/>
-    <line x1="430" y1="90" x2="430" y2="460"/>
-    <line x1="560" y1="90" x2="560" y2="460"/>
+  <rect x="66" y="126" width="558" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
+  <g stroke-linecap="round" stroke-width="5" fill="none">
+    <path d="M130 294H240L326 218H440L520 272" stroke="#22c55e"/>
+    <path d="M240 294V374" stroke="#f59e0b"/>
+    <path d="M440 218V146" stroke="#ef4444"/>
+    <path d="M520 272H574" stroke="#22c55e"/>
+  </g>
+  <g fill="#0f1b2a" stroke="#89a0b8" stroke-width="3">
+    <circle cx="130" cy="294" r="16"/><circle cx="240" cy="294" r="16"/><circle cx="326" cy="218" r="16"/>
+    <circle cx="440" cy="218" r="16"/><circle cx="520" cy="272" r="16"/><circle cx="240" cy="374" r="14"/>
+    <circle cx="440" cy="146" r="14"/><circle cx="574" cy="272" r="14"/>
   </g>
 
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M98,254 L210,254" stroke="#4ade80" stroke-width="6" marker-end="url(#arrow-green)"/>
-    <path d="M210,254 L322,176" stroke="#ffd166" stroke-width="6" marker-end="url(#arrow-yellow)"/>
-    <path d="M210,254 L342,254" stroke="#ff6a4a" stroke-width="7" marker-end="url(#arrow-red)"/>
-    <path d="M342,254 L472,254" stroke="#ff6a4a" stroke-width="7" marker-end="url(#arrow-red)"/>
-    <path d="M472,254 L584,254" stroke="#ffd166" stroke-width="5" marker-end="url(#arrow-yellow)"/>
-    <path d="M342,254 L342,382" stroke="#ffd166" stroke-width="5" marker-end="url(#arrow-yellow)"/>
-    <path d="M472,254 L472,382" stroke="#4ade80" stroke-width="4" marker-end="url(#arrow-green)"/>
-    <path d="M322,176 L472,254" stroke="#4ade80" stroke-width="4" marker-end="url(#arrow-green)"/>
+  <g font-family="ui-monospace,monospace" font-size="13" fill="#d8e3ee">
+    <text x="112" y="326">B01</text><text x="222" y="326">B02</text><text x="308" y="250">B03</text>
+    <text x="422" y="250">B04</text><text x="502" y="304">B05</text>
+    <text x="208" y="402">EV</text><text x="424" y="173">PV</text><text x="562" y="298">BESS</text>
   </g>
 
-  <g font-family="ui-monospace,monospace" font-size="10" font-weight="700">
-    <rect x="272" y="240" width="42" height="18" rx="5" fill="#1a0c08"/>
-    <text x="293" y="253" fill="#ff6a4a" text-anchor="middle">92%</text>
-    <rect x="396" y="240" width="42" height="18" rx="5" fill="#1a0c08"/>
-    <text x="417" y="253" fill="#ff6a4a" text-anchor="middle">88%</text>
-    <rect x="254" y="202" width="38" height="18" rx="5" fill="#1a1608"/>
-    <text x="273" y="215" fill="#ffd166" text-anchor="middle">74%</text>
-    <rect x="360" y="318" width="38" height="18" rx="5" fill="#1a1608"/>
-    <text x="379" y="331" fill="#ffd166" text-anchor="middle">69%</text>
-    <rect x="502" y="240" width="38" height="18" rx="5" fill="#1a1608"/>
-    <text x="521" y="253" fill="#ffd166" text-anchor="middle">63%</text>
+  <rect x="652" y="126" width="242" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
+  <text x="676" y="162" fill="#7dd3fc" font-family="ui-monospace,monospace" font-size="16" font-weight="700">N-1 SUMMARY</text>
+  <g font-family="ui-monospace,monospace" font-size="14" fill="#d9e3ec">
+    <text x="676" y="196">Peak line loading: 93%</text>
+    <text x="676" y="222">Worst node deltaV: -6.1%</text>
+    <text x="676" y="248">Contingencies tested: 8</text>
+    <text x="676" y="274">24h horizon: pass</text>
+    <text x="676" y="300">EV uplift: +14%</text>
+    <text x="676" y="326">PV clip risk: 2 feeders</text>
+    <text x="676" y="352">BESS relief: -11% peak</text>
   </g>
-
-  <g font-family="ui-monospace,monospace" font-size="9" font-weight="700" text-anchor="middle">
-    <circle cx="98" cy="254" r="30" fill="#0a1828" stroke="#8bb8ff" stroke-width="2"/>
-    <text x="98" y="251" fill="#8bb8ff">GRID</text>
-    <text x="98" y="265" fill="#527da0">110/20kV</text>
-
-    <circle cx="210" cy="254" r="30" fill="#0a1828" stroke="#f4f1ea" stroke-width="2"/>
-    <text x="210" y="251" fill="#f4f1ea">B01</text>
-    <text x="210" y="265" fill="#7a8590">slack</text>
-
-    <circle cx="322" cy="176" r="30" fill="#0a1828" stroke="#c7f36f" stroke-width="2"/>
-    <text x="322" y="173" fill="#c7f36f">PV</text>
-    <text x="322" y="187" fill="#6f8f50">2.4 MW</text>
-
-    <circle cx="342" cy="254" r="32" fill="#0a1828" stroke="#ff6a4a" stroke-width="2.5"/>
-    <text x="342" y="251" fill="#ff8a5b">B07</text>
-    <text x="342" y="265" fill="#a85f48">EV load</text>
-
-    <circle cx="472" cy="254" r="32" fill="#0a1828" stroke="#ff6a4a" stroke-width="2.5"/>
-    <text x="472" y="251" fill="#ff8a5b">B12</text>
-    <text x="472" y="265" fill="#a85f48">low V</text>
-
-    <circle cx="584" cy="254" r="28" fill="#0a1828" stroke="#ffd166" stroke-width="2"/>
-    <text x="584" y="251" fill="#ffd166">B18</text>
-    <text x="584" y="265" fill="#907840">load</text>
-
-    <circle cx="342" cy="382" r="28" fill="#0a1828" stroke="#8b7fff" stroke-width="2"/>
-    <text x="342" y="379" fill="#9d94ff">BESS</text>
-    <text x="342" y="393" fill="#8070d8">1.5MW</text>
-
-    <circle cx="472" cy="382" r="28" fill="#0a1828" stroke="#65d6c9" stroke-width="2"/>
-    <text x="472" y="379" fill="#65d6c9">LOAD</text>
-    <text x="472" y="393" fill="#528f88">heat</text>
-  </g>
-
-  <g font-family="ui-monospace,monospace" font-size="9" font-weight="700">
-    <rect x="302" y="286" width="80" height="18" rx="5" fill="#1a0c08" stroke="#ff6a4a" opacity="0.92"/>
-    <text x="342" y="299" fill="#ff8a5b" text-anchor="middle">0.934 pu</text>
-    <rect x="432" y="286" width="80" height="18" rx="5" fill="#1a0c08" stroke="#ff6a4a" opacity="0.92"/>
-    <text x="472" y="299" fill="#ff8a5b" text-anchor="middle">0.928 pu</text>
-    <rect x="300" y="408" width="84" height="18" rx="5" fill="#151126" stroke="#8b7fff" opacity="0.92"/>
-    <text x="342" y="421" fill="#9d94ff" text-anchor="middle">charge 61%</text>
-  </g>
-
-  <text x="42" y="488" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="10">Line loading:</text>
-  <line x1="128" y1="484" x2="152" y2="484" stroke="#4ade80" stroke-width="4" stroke-linecap="round"/>
-  <text x="158" y="488" fill="#4ade80" font-family="ui-monospace,monospace" font-size="10">&lt;60%</text>
-  <line x1="204" y1="484" x2="228" y2="484" stroke="#ffd166" stroke-width="4" stroke-linecap="round"/>
-  <text x="234" y="488" fill="#ffd166" font-family="ui-monospace,monospace" font-size="10">60-80%</text>
-  <line x1="292" y1="484" x2="316" y2="484" stroke="#ff6a4a" stroke-width="4" stroke-linecap="round"/>
-  <text x="322" y="488" fill="#ff6a4a" font-family="ui-monospace,monospace" font-size="10">&gt;80%</text>
-
-  <text x="680" y="54" fill="#8bb8ff" font-family="ui-monospace,monospace" font-size="11" font-weight="700" letter-spacing="1">SCREENING KPIs</text>
-  <line x1="680" y1="66" x2="922" y2="66" stroke="#1e3248"/>
-
-  <g font-family="system-ui,sans-serif" font-size="10">
-    <text x="680" y="92" fill="#7a9ab8">Voltage violations</text>
-    <text x="922" y="92" fill="#ff6a4a" font-family="ui-monospace,monospace" font-size="22" font-weight="700" text-anchor="end">2 buses</text>
-    <line x1="680" y1="104" x2="922" y2="104" stroke="#1e3248"/>
-
-    <text x="680" y="130" fill="#7a9ab8">Peak feeder loading</text>
-    <text x="922" y="130" fill="#ff6a4a" font-family="ui-monospace,monospace" font-size="22" font-weight="700" text-anchor="end">92%</text>
-    <line x1="680" y1="142" x2="922" y2="142" stroke="#1e3248"/>
-
-    <text x="680" y="168" fill="#7a9ab8">N-1 critical branch</text>
-    <text x="922" y="168" fill="#ffd166" font-family="ui-monospace,monospace" font-size="22" font-weight="700" text-anchor="end">B07-B12</text>
-    <line x1="680" y1="180" x2="922" y2="180" stroke="#1e3248"/>
-
-    <text x="680" y="206" fill="#7a9ab8">PV hosting headroom</text>
-    <text x="922" y="206" fill="#c7f36f" font-family="ui-monospace,monospace" font-size="22" font-weight="700" text-anchor="end">+1.8 MW</text>
-    <line x1="680" y1="218" x2="922" y2="218" stroke="#1e3248"/>
-  </g>
-
-  <text x="680" y="250" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="10">24H VOLTAGE PROFILE - B12</text>
-  <rect x="680" y="262" width="242" height="88" rx="8" fill="#080f18" stroke="#1e3248"/>
-  <line x1="690" y1="286" x2="912" y2="286" stroke="#4ade80" stroke-width="1" stroke-dasharray="5 4" opacity="0.6"/>
-  <line x1="690" y1="326" x2="912" y2="326" stroke="#ff6a4a" stroke-width="1" stroke-dasharray="5 4" opacity="0.7"/>
-  <polyline points="690,298 700,302 710,306 720,310 730,312 740,316 750,321 760,325 770,330 780,334 790,332 800,328 810,322 820,318 830,314 840,310 850,306 860,304 870,306 880,314 890,324 900,332 912,338" fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="690" y="282" fill="#4ade80" font-family="ui-monospace,monospace" font-size="8">1.05</text>
-  <text x="690" y="322" fill="#ff6a4a" font-family="ui-monospace,monospace" font-size="8">0.95</text>
-  <g fill="#3a5870" font-family="ui-monospace,monospace" font-size="8" text-anchor="middle">
-    <text x="690" y="366">0h</text>
-    <text x="746" y="366">6h</text>
-    <text x="802" y="366">12h</text>
-    <text x="858" y="366">18h</text>
-    <text x="912" y="366">24h</text>
-  </g>
-
-  <text x="680" y="398" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="10">SCENARIO STACK</text>
-  <text x="680" y="420" fill="#8bb8ff" font-family="system-ui,sans-serif" font-size="11" font-weight="600">Base load + time-varying EV charging</text>
-  <text x="680" y="438" fill="#c7f36f" font-family="system-ui,sans-serif" font-size="11" font-weight="600">Rooftop PV injection at feeder end</text>
-  <text x="680" y="456" fill="#8b7fff" font-family="system-ui,sans-serif" font-size="11" font-weight="600">Battery mitigation sensitivity</text>
-  <text x="680" y="474" fill="#ffd166" font-family="system-ui,sans-serif" font-size="11" font-weight="600">N-1 outage rerun for critical branch</text>
-  <text x="680" y="502" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="9">pandapower-style flow logic - Python - reporting</text>
 </svg>

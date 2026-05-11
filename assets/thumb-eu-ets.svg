@@ -1,21 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="EU ETS exposure calculator">
-  <rect width="960" height="540" fill="#0b1728"/>
-  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
-  <g fill="#07111f" stroke="#22344f" stroke-width="4">
-    <rect x="108" y="118" width="230" height="300" rx="18"/>
-    <rect x="386" y="118" width="466" height="300" rx="18"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="EU ETS exposure and carbon cost dashboard">
+  <rect width="960" height="540" fill="#0d141d"/>
+  <rect x="34" y="30" width="892" height="480" rx="22" fill="#142233" stroke="#2a3b4f"/>
+  <rect x="34" y="30" width="892" height="62" rx="22" fill="#102033"/>
+  <text x="62" y="69" fill="#e6edf3" font-family="ui-monospace,monospace" font-size="20" font-weight="700">EU ETS EXPOSURE | COST + EMISSIONS TRACKING</text>
+
+  <rect x="66" y="126" width="558" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
+  <g fill="#0f1b2a" stroke="#2a3b4f">
+    <rect x="96" y="154" width="150" height="92" rx="10"/>
+    <rect x="262" y="154" width="150" height="92" rx="10"/>
+    <rect x="428" y="154" width="166" height="92" rx="10"/>
   </g>
-  <text x="138" y="166" fill="#65d6c9" font-family="Arial, sans-serif" font-size="26" font-weight="700">EUA scenarios</text>
-  <text x="424" y="166" fill="#e7edf7" font-family="Arial, sans-serif" font-size="26" font-weight="700">Emissions and cost exposure</text>
-  <g fill="#65d6c9">
-    <rect x="142" y="320" width="42" height="58" rx="8"/>
-    <rect x="214" y="274" width="42" height="104" rx="8"/>
-    <rect x="286" y="220" width="42" height="158" rx="8"/>
+  <g font-family="ui-monospace,monospace" fill="#dbe7f3">
+    <text x="112" y="186" font-size="12">Scope 1 CO2e</text><text x="112" y="220" font-size="24" font-weight="700">31.2 kt</text>
+    <text x="278" y="186" font-size="12">EUA price</text><text x="278" y="220" font-size="24" font-weight="700">EUR 78/t</text>
+    <text x="446" y="186" font-size="12">Annual exposure</text><text x="446" y="220" font-size="24" font-weight="700">EUR 2.43M</text>
   </g>
-  <g fill="none" stroke-width="7">
-    <path d="M430 350c66-92 120-92 178 0s110 88 184-50" stroke="#65d6c9"/>
-    <path d="M430 300c74-34 126-42 184-20s106 42 178-10" stroke="#8bb8ff"/>
-    <path d="M430 250c82-20 146-6 196 36s98 36 166-18" stroke="#ffb86b"/>
+  <polyline points="96,382 132,374 168,362 204,350 240,332 276,320 312,302 348,286 384,274 420,256 456,242 492,230 528,216 564,202" fill="none" stroke="#f59e0b" stroke-width="5"/>
+  <polyline points="96,382 132,378 168,374 204,372 240,368 276,364 312,358 348,354 384,348 420,342 456,336 492,330 528,322 564,316" fill="none" stroke="#22c55e" stroke-width="4" stroke-dasharray="7 6"/>
+  <text x="96" y="412" fill="#9fb2c7" font-family="ui-monospace,monospace" font-size="12">2024</text><text x="542" y="412" fill="#9fb2c7" font-family="ui-monospace,monospace" font-size="12">2030</text>
+
+  <rect x="652" y="126" width="242" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
+  <text x="676" y="162" fill="#7dd3fc" font-family="ui-monospace,monospace" font-size="16" font-weight="700">DECISION SUPPORT</text>
+  <g font-family="ui-monospace,monospace" font-size="14" fill="#d9e3ec">
+    <text x="676" y="196">Scenario compare: 4</text>
+    <text x="676" y="222">Abatement ladder linked</text>
+    <text x="676" y="248">Sensitivity: fuel + EUA</text>
+    <text x="676" y="274">Outputs: Excel + Streamlit</text>
+    <text x="676" y="300">Break-even switch points</text>
   </g>
-  <text x="140" y="404" fill="#a8b3c7" font-family="Arial, sans-serif" font-size="20">Low / Mid / High</text>
 </svg>

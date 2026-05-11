@@ -2684,19 +2684,19 @@ code,
   display: block;
   object-fit: cover;
   object-position: center;
-  border: 1px solid rgba(227, 98, 9, 0.42);
-  box-shadow: 0 14px 32px rgba(1, 4, 9, 0.34);
+  border: 1px solid rgba(47, 107, 131, 0.48);
+  box-shadow: 0 12px 28px rgba(3, 10, 18, 0.30);
 }
 
 .avatar-placeholder {
   display: grid;
   place-items: center;
-  border: 1px solid rgba(227, 98, 9, 0.42);
-  color: var(--accent);
+  border: 1px solid rgba(47, 107, 131, 0.42);
+  color: #2f6b83;
   background:
     radial-gradient(circle at 50% 34%, rgba(240, 246, 252, 0.14) 0 16%, transparent 17%),
     radial-gradient(circle at 50% 72%, rgba(240, 246, 252, 0.12) 0 27%, transparent 28%),
-    rgba(227, 98, 9, 0.08);
+    rgba(47, 107, 131, 0.08);
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -3675,5 +3675,268 @@ code,
   .skill-panel {
     max-height: 88svh;
     padding: 20px;
+  }
+}
+
+/* ============================================================
+   PROFESSIONAL VISUAL OVERRIDES (2026-05)
+   ============================================================ */
+
+:root {
+  --accent: #1f4f73;
+  --accent-2: #2f6b83;
+  --warning: #a6632b;
+  --warm: #2a7188;
+}
+
+body[data-scene],
+body[data-scene="portfolio"],
+body[data-scene="thermal"],
+body[data-scene="projects"],
+body[data-scene="skills"],
+body[data-scene="education"],
+body[data-scene="experience"],
+body[data-scene="cv"],
+body[data-scene="contact"],
+body[data-scene="newsletter"] {
+  --scene-accent: #1f4f73;
+  --scene-accent-2: #2f6b83;
+  --scene-wash: rgba(31, 79, 115, 0.10);
+  --scene-wash-2: rgba(47, 107, 131, 0.08);
+}
+
+body {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(31, 79, 115, 0.14), transparent 26rem),
+    radial-gradient(circle at 88% 0%, rgba(47, 107, 131, 0.10), transparent 28rem),
+    linear-gradient(180deg, #0d1117, #0b0f14 65%, #0d1117);
+}
+
+.site-header {
+  background: rgba(10, 14, 20, 0.88);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.subtle {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.card,
+.project-card,
+.case-panel,
+.page-panel,
+.skill-block,
+.timeline-item,
+.contact-card,
+.entry-card,
+.result-card {
+  background: #121820;
+  border-color: rgba(255, 255, 255, 0.09);
+  box-shadow: none;
+}
+
+.card:hover,
+.project-card:hover,
+.skill-block:hover,
+.timeline-item:hover {
+  border-color: rgba(47, 107, 131, 0.55);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
+}
+
+.button {
+  border-radius: 12px;
+  transition: transform 0.16s ease, border-color 0.16s ease, background-color 0.16s ease, color 0.16s ease;
+}
+
+.button.primary {
+  background: #1f4f73;
+  border-color: #1f4f73;
+  color: #f2f6fa;
+}
+
+.button.primary:hover {
+  background: #256089;
+  border-color: #256089;
+  box-shadow: none;
+}
+
+.button.secondary {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.button.secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-links a {
+  color: rgba(238, 243, 248, 0.92);
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+  color: #ffffff;
+}
+
+.project-thumb,
+.case-visual,
+.thermal-visual img,
+.thermal-visual svg {
+  border-radius: 14px;
+}
+
+/* ============================================================
+   TYPOGRAPHY + SPACING LOCK (Professional pass)
+   ============================================================ */
+
+:root {
+  --max-width: 1120px;
+  --radius: 16px;
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 20px;
+  --space-5: 28px;
+  --space-6: 40px;
+  --space-7: 56px;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  line-height: 1.58;
+  letter-spacing: 0.003em;
+}
+
+.container {
+  max-width: var(--max-width);
+}
+
+.section {
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-7);
+}
+
+.section-heading {
+  margin-bottom: var(--space-5);
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.015em;
+}
+
+h1 {
+  font-size: clamp(2.05rem, 3.6vw, 3.1rem);
+  line-height: 1.14;
+}
+
+h2 {
+  font-size: clamp(1.55rem, 2.5vw, 2.2rem);
+  line-height: 1.18;
+}
+
+h3 {
+  font-size: clamp(1.08rem, 1.6vw, 1.22rem);
+  line-height: 1.28;
+}
+
+.eyebrow {
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+}
+
+.hero-text,
+.section-heading p:last-child,
+.card p,
+.project-card p,
+.case-panel p,
+.entry-card p {
+  font-size: 1rem;
+  line-height: 1.62;
+  color: rgba(230, 236, 242, 0.9);
+}
+
+.cards {
+  gap: var(--space-4);
+}
+
+.card,
+.project-card,
+.case-panel,
+.page-panel,
+.skill-block,
+.timeline-item,
+.contact-card,
+.entry-card {
+  border-radius: var(--radius);
+}
+
+.hero-grid,
+.case-grid,
+.content-rail,
+.page-hero-grid,
+.footer-grid {
+  gap: var(--space-6);
+}
+
+.button-row,
+.project-links,
+.tag-row,
+.clean-list,
+.role-signal-bars {
+  gap: var(--space-2);
+}
+
+/* ============================================================
+   THUMBNAIL SPEC LOCK (Professional pass)
+   ============================================================ */
+
+.project-thumb,
+.case-visual {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 14px;
+  background: #0e141c;
+}
+
+.project-card .project-thumb,
+.project-browser-body .project-thumb {
+  margin-bottom: var(--space-3);
+}
+
+.project-card .project-thumb {
+  filter: saturate(0.9) contrast(1.03);
+}
+
+.project-card:hover .project-thumb,
+.project-browser-item[open] .project-thumb {
+  filter: saturate(1) contrast(1.06);
+}
+
+.project-card .project-links,
+.project-browser-copy .project-links {
+  padding-top: var(--space-2);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
+
+  .hero-grid,
+  .case-grid,
+  .content-rail,
+  .page-hero-grid,
+  .footer-grid {
+    gap: var(--space-5);
   }
 }
