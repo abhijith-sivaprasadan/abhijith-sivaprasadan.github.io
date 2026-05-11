@@ -1231,22 +1231,6 @@ const renderSiemensCfdVisual = () => `
     </svg>
   </div>`;
 
-const initializeWhimsyBand = () => {
-  const pills = document.querySelectorAll(".whimsy-pill");
-  if (!pills.length) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    pills.forEach((pill) => pill.classList.add("is-popped"));
-    return;
-  }
-
-  pills.forEach((pill, index) => {
-    const delay = 230 + index * 140;
-    window.setTimeout(() => {
-      pill.classList.add("is-popped");
-    }, delay);
-  });
-};
-
 const initializePageLaunch = () => {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   window.requestAnimationFrame(() => {
@@ -1823,7 +1807,6 @@ updateProgress();
 updateScenes();
 document.body.classList.add("future-v3");
 initializePageLaunch();
-initializeWhimsyBand();
 injectNavLinks();
 initializeNavToggle();
 initializeFooter();
