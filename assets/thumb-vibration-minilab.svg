@@ -1,29 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Rotating machinery vibration spectral analysis">
-  <rect width="960" height="540" fill="#0d141d"/>
-  <rect x="34" y="30" width="892" height="480" rx="22" fill="#142233" stroke="#2a3b4f"/>
-  <rect x="34" y="30" width="892" height="62" rx="22" fill="#102033"/>
-  <text x="62" y="69" fill="#e6edf3" font-family="ui-monospace,monospace" font-size="20" font-weight="700">ROTATING MACHINERY | FFT + FAULT FREQUENCY DIAGNOSTICS</text>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Frequency-domain diagnostics and interpretation'>
+  <defs>
+    <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0' stop-color='#0f141b'/>
+      <stop offset='1' stop-color='#0a0f15'/>
+    </linearGradient>
+    <linearGradient id='panel' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0' stop-color='#161f2b'/>
+      <stop offset='1' stop-color='#121a25'/>
+    </linearGradient>
+  </defs>
+  <rect width='960' height='540' fill='url(#bg)'/>
+  <rect x='34' y='30' width='892' height='480' rx='22' fill='url(#panel)' stroke='#354152'/>
+  <rect x='34' y='30' width='892' height='62' rx='22' fill='#121d2b'/>
+  <text x='62' y='68' fill='#e6ecf3' font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size='20' font-weight='700'>VIBRATION MINI-LAB</text>
 
-  <rect x="66" y="126" width="558" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
-  <g stroke="#2a3b4f"><line x1="96" y1="402" x2="590" y2="402"/><line x1="96" y1="334" x2="590" y2="334"/><line x1="96" y1="266" x2="590" y2="266"/><line x1="96" y1="198" x2="590" y2="198"/></g>
-  <g fill="#60a5fa">
-    <rect x="118" y="338" width="16" height="64"/><rect x="176" y="286" width="16" height="116"/>
-    <rect x="234" y="228" width="16" height="174"/><rect x="292" y="312" width="16" height="90"/>
-    <rect x="350" y="182" width="16" height="220"/><rect x="408" y="304" width="16" height="98"/>
-    <rect x="466" y="250" width="16" height="152"/><rect x="524" y="328" width="16" height="74"/>
+  <rect x='66' y='126' width='560' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
+  <g stroke='#5d6876' stroke-width='1.2' opacity='0.7'>
+    <line x1='96' y1='404' x2='594' y2='404'/>
+    <line x1='96' y1='350' x2='594' y2='350'/>
+    <line x1='96' y1='296' x2='594' y2='296'/>
+    <line x1='96' y1='242' x2='594' y2='242'/>
+    <line x1='96' y1='188' x2='594' y2='188'/>
   </g>
-  <g font-family="ui-monospace,monospace" font-size="12" fill="#9fb2c7">
-    <text x="110" y="424">1x</text><text x="168" y="424">2x</text><text x="226" y="424">3x</text><text x="284" y="424">4x</text>
-    <text x="342" y="424">BPFI</text><text x="456" y="424">BPFO</text>
-  </g>
+  <polyline points='96,356 132,336 168,320 204,300 240,280 276,260 312,274 348,298 384,322 420,336 456,312 492,284 528,260 564,238 594,224' fill='none' stroke='#c8d0db' stroke-width='4.2'/>
+  <polyline points='96,372 132,360 168,346 204,330 240,312 276,300 312,314 348,334 384,352 420,362 456,346 492,324 528,304 564,286 594,272' fill='none' stroke='#9ca6b5' stroke-width='3.4' stroke-dasharray='8 6'/>
 
-  <rect x="652" y="126" width="242" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
-  <text x="676" y="162" fill="#7dd3fc" font-family="ui-monospace,monospace" font-size="16" font-weight="700">DIAGNOSTIC NOTES</text>
-  <g font-family="ui-monospace,monospace" font-size="14" fill="#d9e3ec">
-    <text x="676" y="196">Sensor: IEPE accel</text>
-    <text x="676" y="222">Sample rate: 25.6 kHz</text>
-    <text x="676" y="248">Window: Hanning</text>
-    <text x="676" y="274">Main peak: 3x RPM</text>
-    <text x="676" y="300">Bearing bands present</text>
-  </g>
+  <rect x='654' y='126' width='238' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
+  <text x='678' y='162' fill='#cdd5df' font-family='ui-monospace,monospace' font-size='16' font-weight='700'>PROJECT SUMMARY</text>
+  <text x='678' y='196' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='14'>Frequency-domain diagnostics and interpretation</text>
+  <text x='678' y='228' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>Technical focus, method and outputs</text>
+  <text x='678' y='248' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>represented in a portfolio-safe preview</text>
+
+  <rect x='678' y='286' width='190' height='42' rx='9' fill='#1d2734' stroke='#445267'/>
+  <text x='694' y='312' fill='#dce3ec' font-family='ui-monospace,monospace' font-size='13'>Case study available</text>
+
+  <rect x='678' y='338' width='190' height='88' rx='9' fill='#151f2b' stroke='#445267'/>
+  <text x='694' y='364' fill='#d0d9e4' font-family='ui-monospace,monospace' font-size='12'>Monochrome preview system</text>
+  <text x='694' y='384' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='12'>Unified format / consistent tone</text>
 </svg>

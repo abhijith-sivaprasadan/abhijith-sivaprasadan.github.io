@@ -1,30 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Heating demand forecasting model performance">
-  <rect width="960" height="540" fill="#0d141d"/>
-  <rect x="34" y="30" width="892" height="480" rx="22" fill="#142233" stroke="#2a3b4f"/>
-  <rect x="34" y="30" width="892" height="62" rx="22" fill="#102033"/>
-  <text x="62" y="69" fill="#e6edf3" font-family="ui-monospace,monospace" font-size="20" font-weight="700">HEAT DEMAND FORECAST | DAY-AHEAD ML</text>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Day-ahead prediction and model evaluation'>
+  <defs>
+    <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0' stop-color='#0f141b'/>
+      <stop offset='1' stop-color='#0a0f15'/>
+    </linearGradient>
+    <linearGradient id='panel' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0' stop-color='#161f2b'/>
+      <stop offset='1' stop-color='#121a25'/>
+    </linearGradient>
+  </defs>
+  <rect width='960' height='540' fill='url(#bg)'/>
+  <rect x='34' y='30' width='892' height='480' rx='22' fill='url(#panel)' stroke='#354152'/>
+  <rect x='34' y='30' width='892' height='62' rx='22' fill='#121d2b'/>
+  <text x='62' y='68' fill='#e6ecf3' font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size='20' font-weight='700'>HEATING DEMAND FORECASTING</text>
 
-  <rect x="66" y="126" width="558" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
-  <g stroke="#2a3b4f" stroke-width="1">
-    <line x1="96" y1="406" x2="590" y2="406"/><line x1="96" y1="350" x2="590" y2="350"/><line x1="96" y1="294" x2="590" y2="294"/><line x1="96" y1="238" x2="590" y2="238"/><line x1="96" y1="182" x2="590" y2="182"/>
+  <rect x='66' y='126' width='560' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
+  <g stroke='#5d6876' stroke-width='1.2' opacity='0.7'>
+    <line x1='96' y1='404' x2='594' y2='404'/>
+    <line x1='96' y1='350' x2='594' y2='350'/>
+    <line x1='96' y1='296' x2='594' y2='296'/>
+    <line x1='96' y1='242' x2='594' y2='242'/>
+    <line x1='96' y1='188' x2='594' y2='188'/>
   </g>
-  <polyline points="96,344 130,330 164,308 198,272 232,244 266,232 300,248 334,280 368,316 402,344 436,360 470,354 504,328 538,286 572,250" fill="none" stroke="#e2e8f0" stroke-width="4"/>
-  <polyline points="96,350 130,336 164,314 198,278 232,252 266,238 300,255 334,287 368,320 402,349 436,366 470,360 504,335 538,294 572,258" fill="none" stroke="#38bdf8" stroke-width="4" stroke-dasharray="8 6"/>
+  <polyline points='96,356 132,336 168,320 204,300 240,280 276,260 312,274 348,298 384,322 420,336 456,312 492,284 528,260 564,238 594,224' fill='none' stroke='#c8d0db' stroke-width='4.2'/>
+  <polyline points='96,372 132,360 168,346 204,330 240,312 276,300 312,314 348,334 384,352 420,362 456,346 492,324 528,304 564,286 594,272' fill='none' stroke='#9ca6b5' stroke-width='3.4' stroke-dasharray='8 6'/>
 
-  <g font-family="ui-monospace,monospace" font-size="12" fill="#9fb2c7">
-    <text x="96" y="430">00h</text><text x="198" y="430">06h</text><text x="300" y="430">12h</text><text x="402" y="430">18h</text><text x="546" y="430">24h</text>
-    <text x="72" y="185">120</text><text x="72" y="241">90</text><text x="72" y="297">60</text><text x="72" y="353">30</text>
-  </g>
+  <rect x='654' y='126' width='238' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
+  <text x='678' y='162' fill='#cdd5df' font-family='ui-monospace,monospace' font-size='16' font-weight='700'>PROJECT SUMMARY</text>
+  <text x='678' y='196' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='14'>Day-ahead prediction and model evaluation</text>
+  <text x='678' y='228' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>Technical focus, method and outputs</text>
+  <text x='678' y='248' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>represented in a portfolio-safe preview</text>
 
-  <rect x="652" y="126" width="242" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
-  <text x="676" y="162" fill="#7dd3fc" font-family="ui-monospace,monospace" font-size="16" font-weight="700">MODEL METRICS</text>
-  <g font-family="ui-monospace,monospace" font-size="14" fill="#d9e3ec">
-    <text x="676" y="196">R2: 0.91</text>
-    <text x="676" y="222">MAE: 4.7 kWh</text>
-    <text x="676" y="248">RMSE: 6.3 kWh</text>
-    <text x="676" y="274">Horizon: 24h</text>
-    <text x="676" y="300">Features: weather + time</text>
-    <text x="676" y="326">Baseline vs NN compared</text>
-    <text x="676" y="352">Peak timing captured</text>
-  </g>
+  <rect x='678' y='286' width='190' height='42' rx='9' fill='#1d2734' stroke='#445267'/>
+  <text x='694' y='312' fill='#dce3ec' font-family='ui-monospace,monospace' font-size='13'>Case study available</text>
+
+  <rect x='678' y='338' width='190' height='88' rx='9' fill='#151f2b' stroke='#445267'/>
+  <text x='694' y='364' fill='#d0d9e4' font-family='ui-monospace,monospace' font-size='12'>Monochrome preview system</text>
+  <text x='694' y='384' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='12'>Unified format / consistent tone</text>
 </svg>
