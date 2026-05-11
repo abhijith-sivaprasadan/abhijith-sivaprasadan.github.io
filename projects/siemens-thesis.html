@@ -69,20 +69,22 @@
           </ul>
         </aside>
         <article class="case-panel">
-          <h2>The rig and the problem</h2>
+          <h2>Industrial context</h2>
           <p>
-            The Pulsatorn rig at Siemens Energy Finsp&aring;ng is a high-temperature dynamic pressure sensor calibration system for gas-turbine applications. The reducer between the heater and the downstream test section was identified as a likely source of both aerodynamic loss and unwanted heat dissipation. The legacy reducer is a commercially available hydraulic fitting with two abrupt contractions, while the redesigned reducer uses a quintic C²-continuous contraction to remove the step changes.
-          </p>
-          <p>
-            The engineering question was straightforward: does the smoother reducer improve flow quality enough to justify its larger body, and what is the thermal penalty if it is left uninsulated? The thesis was initially meant to include experimental rig testing, but heater failure forced a scope revision to a controlled numerical study approved by both supervisors.
+            This thesis was completed in the Fluid Dynamic Lab at Siemens Energy Finsp&aring;ng as part of the Pulsatorn programme, a high-temperature rig used for dynamic pressure sensor calibration in gas-turbine-relevant conditions. The assessed component was the reducer between heater outlet and downstream test section. In the existing hardware, the reducer used a commercial two-step contraction. A redesign based on a 150 mm quintic C&sup2;-continuous profile was proposed to reduce abrupt area changes and improve flow quality.
           </p>
 
-          <h2>CFD and CHT methodology</h2>
+          <h2>Problem definition</h2>
           <p>
-            I built steady-state compressible RANS models in ANSYS Fluent using k-omega SST turbulence closure and ideal-gas air. Study 1 used adiabatic CFD across three mesh levels to establish mesh independence; Study 2 used six CHT simulations at outlet gauge pressures of 80 kPa, 40 kPa and 0 kPa for both geometries. Quarter-symmetry was used throughout, and all integral outputs were corrected back to full-geometry values.
+            The decision question was not only aerodynamic. The redesigned reducer was expected to reduce internal losses, but it also had a larger external surface area that could increase heat rejection to ambient. The task was therefore to quantify both effects under consistent operating conditions and produce a decision-ready recommendation for rig use. Planned experimental validation was reduced after heater failure during test preparation, so the final scope became a supervisor-approved numerical thesis with explicit limitation tracking.
+          </p>
+
+          <h2>What I did</h2>
+          <p>
+            I developed a steady-state compressible CFD/CHT workflow in ANSYS Fluent using ideal-gas air and k-omega SST with enhanced near-wall treatment. The model set was split into two studies: adiabatic CFD for flow-behaviour comparison and mesh independence, then conjugate heat transfer for thermal-delivery comparison. Simulations were executed for both geometries at outlet gauge pressures of 80 kPa, 40 kPa and 0 kPa, with inlet conditions of T = 673 K and P_gauge = 100 kPa. Quarter-symmetry was used for computational efficiency, and integral values were mapped back to full-geometry equivalents for reporting.
           </p>
           <p>
-            The baseline meshes contained 829,621 fluid cells for the legacy reducer and 913,301 for the redesigned reducer. Across the coarse, baseline and fine grids, the monitored KPIs changed by less than 2%, so the mesh independence criterion was met. At the supercritical case, the redesigned reducer converged to Ma = 0.989-0.990, while the legacy reducer converged to Ma = 1.010-1.016 in the adiabatic study and Ma = 1.006 in CHT.
+            Mesh and setup quality were controlled through a three-level grid sweep. Baseline meshes contained 829,621 fluid cells for the legacy case and 913,301 for the redesigned case; key KPIs remained within a 2% variation band across coarse-baseline-fine levels, supporting mesh independence for engineering interpretation. I used Siemens NX and Teamcenter context for geometry and data handling, and structured the outputs around pressure-loss and thermal KPIs rather than single-point plots.
           </p>
 
           <h2>Geometry overview</h2>
@@ -97,12 +99,17 @@
             </figure>
           </div>
 
-          <h2>Key findings</h2>
+          <h2>Validation and measurement-chain link</h2>
           <p>
-            The redesigned reducer had the better internal flow field and lower heat-flux intensity per unit external area, but its longer body exposed 3.35 times more surface area to ambient. That meant the legacy reducer delivered hotter gas under uninsulated operation, while the redesigned reducer won once external heat loss was removed. At Case C, the redesigned geometry recovered the thermal gap and delivered 1.24 K hotter gas under insulated conditions.
+            In parallel with simulation work, I commissioned NI-DAQ measurement channels and modified an existing LabVIEW VI for synchronised acquisition of thermocouple and pressure data. Although sustained hot testing was interrupted by heater failure, this instrumentation work ensured the thesis stayed coupled to practical validation logic rather than becoming a detached simulation exercise. The failure event was documented through formal root-cause analysis, and the approved scope revision was reflected in methods and conclusions.
+          </p>
+
+          <h2>Outcomes</h2>
+          <p>
+            The redesigned reducer showed the stronger internal flow behaviour and supported near-choked outlet conditions (Ma around 0.989-0.990) compared with supersonic tendency in the legacy profile (Ma up to 1.016 adiabatic, 1.006 in CHT). Thermal interpretation, however, required area effects: the redesigned geometry presented a 3.35x larger exposed surface, which increased ambient heat-loss opportunity in uninsulated operation. Under insulated conditions, the redesigned option recovered and surpassed legacy thermal delivery, with a +1.24 K outlet-temperature advantage at Case C.
           </p>
           <p>
-            The geometric trade-off was therefore clear. The redesigned reducer is aerodynamically preferable and supports near-choked flow at the geometric outlet, but it only realises that advantage thermally if external insulation is added. The legacy geometry remains thermally advantaged only because it is physically smaller.
+            The engineering conclusion is conditional and actionable: adopt the redesigned reducer with insulation to capture aerodynamic gains without thermal penalty. If insulation is not feasible, the legacy geometry can remain thermally competitive only because of lower exposed area, not better internal flow behaviour.
           </p>
 
           <h2>Quantitative summary</h2>
@@ -112,12 +119,9 @@
             <span class="result-metric-card"><strong>1.24 K insulated gain</strong><small>Redesigned reducer at Case C</small></span>
           </div>
 
-          <h2>Instrumentation and scope revision</h2>
+          <h2>What I would improve next</h2>
           <p>
-            In parallel with the modelling work, I commissioned the NI-DAQ measurement chain for the rig and adapted an existing LabVIEW VI for synchronised logging of thermocouple, pressure and sensor channels. During preliminary thermal testing the heater assembly failed, preventing sustained experimental operation. I documented the failure, supported the scope revision to a purely numerical thesis, and aligned the final work with the approved supervisor change.
-          </p>
-          <p>
-            The thesis also records the limitations clearly: steady-state only, no radiation, no experimental validation of the redesigned reducer, and no transient pulsation modelling. Those limitations are not hidden; they are part of the technical argument and the future-work plan.
+            The next step is a closed simulation-to-test loop: re-run high-temperature validation with the repaired heater chain, include external insulation as a controlled variable, and add transient pulsation and radiation effects to narrow uncertainty margins. That extension would convert the current decision logic from validated numerical recommendation to experimentally confirmed design guidance for future rig configurations.
           </p>
         </article>
       </div>
