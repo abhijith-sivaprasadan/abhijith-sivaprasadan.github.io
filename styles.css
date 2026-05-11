@@ -4219,3 +4219,316 @@ textarea:focus-visible {
   }
 }
 
+/* ============================================================
+   FUTURISTIC V3 FOUNDATION (2026-05)
+   ============================================================ */
+
+:root {
+  --fx-bg: #070b12;
+  --fx-bg-2: #0d1420;
+  --fx-panel: #111b29;
+  --fx-panel-2: #172336;
+  --fx-line: #28415f;
+  --fx-text: #e6f1ff;
+  --fx-muted: #8fa6bf;
+  --fx-cyan: #57d6ff;
+  --fx-violet: #7f8dff;
+  --fx-lime: #8cf7b0;
+  --fx-radius: 14px;
+}
+
+body.future-v3 {
+  background:
+    radial-gradient(72rem 38rem at 88% -10%, rgba(127, 141, 255, 0.18), transparent 60%),
+    radial-gradient(66rem 34rem at -8% 0%, rgba(87, 214, 255, 0.16), transparent 56%),
+    linear-gradient(180deg, var(--fx-bg), var(--fx-bg-2) 58%, var(--fx-bg));
+  color: var(--fx-text);
+}
+
+body.future-v3::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.24;
+  background-image:
+    linear-gradient(to right, rgba(87, 214, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(127, 141, 255, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px, 44px 44px;
+}
+
+body.future-v3 .site-header {
+  background: rgba(10, 16, 26, 0.84);
+  border-bottom: 1px solid rgba(87, 214, 255, 0.22);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+body.future-v3 .logo {
+  color: var(--fx-cyan);
+  letter-spacing: 0.02em;
+}
+
+body.future-v3 .nav-links a {
+  color: var(--fx-muted);
+}
+
+body.future-v3 .nav-links a:hover,
+body.future-v3 .nav-links a[aria-current="page"] {
+  color: var(--fx-text);
+}
+
+body.future-v3 h1,
+body.future-v3 h2,
+body.future-v3 h3 {
+  letter-spacing: 0.01em;
+}
+
+body.future-v3 .eyebrow {
+  color: var(--fx-cyan);
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+}
+
+body.future-v3 .hero-subtitle,
+body.future-v3 .hero-kicker,
+body.future-v3 .hero-text,
+body.future-v3 p {
+  color: color-mix(in srgb, var(--fx-text) 86%, var(--fx-muted));
+}
+
+body.future-v3 .button {
+  border-radius: 10px;
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.8rem;
+  border: 1px solid rgba(87, 214, 255, 0.36);
+}
+
+body.future-v3 .button.primary {
+  background: linear-gradient(92deg, var(--fx-cyan), color-mix(in srgb, var(--fx-cyan) 66%, var(--fx-violet)));
+  color: #07101a;
+  border-color: rgba(143, 207, 255, 0.64);
+  box-shadow: 0 0 0 1px rgba(87, 214, 255, 0.35), 0 10px 30px rgba(87, 214, 255, 0.24);
+}
+
+body.future-v3 .button.secondary {
+  background: rgba(23, 35, 54, 0.76);
+  color: var(--fx-text);
+}
+
+body.future-v3 .button:hover {
+  transform: translateY(-2px);
+}
+
+body.future-v3 .hero-card,
+body.future-v3 .card,
+body.future-v3 .project-card,
+body.future-v3 .case-panel,
+body.future-v3 .page-panel,
+body.future-v3 .timeline-item,
+body.future-v3 .skill-block,
+body.future-v3 .entry-card,
+body.future-v3 .project-browser-item {
+  background:
+    linear-gradient(160deg, rgba(87, 214, 255, 0.08), transparent 34%),
+    linear-gradient(215deg, rgba(127, 141, 255, 0.08), transparent 38%),
+    linear-gradient(180deg, var(--fx-panel), var(--fx-panel-2));
+  border: 1px solid rgba(87, 214, 255, 0.24);
+  border-radius: var(--fx-radius);
+  box-shadow: 0 12px 30px rgba(2, 7, 14, 0.42);
+}
+
+body.future-v3 .card:hover,
+body.future-v3 .project-card:hover,
+body.future-v3 .project-browser-item[open] {
+  border-color: rgba(127, 141, 255, 0.48);
+  box-shadow: 0 20px 44px rgba(3, 10, 20, 0.54);
+}
+
+body.future-v3 .tag-row span,
+body.future-v3 .skill-pill,
+body.future-v3 .tool-mark,
+body.future-v3 .entry-status {
+  background: rgba(18, 29, 44, 0.92);
+  border: 1px solid rgba(87, 214, 255, 0.34);
+  color: var(--fx-text);
+  border-radius: 999px;
+}
+
+body.future-v3 .tag-row span.tag-hot,
+body.future-v3 .skill-pill.hot {
+  background: rgba(87, 214, 255, 0.2);
+  color: #dff7ff;
+  border-color: rgba(87, 214, 255, 0.56);
+}
+
+body.future-v3 .featured-badge {
+  background: rgba(87, 214, 255, 0.2);
+  border: 1px solid rgba(87, 214, 255, 0.52);
+  color: #dff7ff;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+body.future-v3 .project-thumb,
+body.future-v3 .case-visual {
+  border: 1px solid rgba(127, 141, 255, 0.34);
+  border-radius: 12px;
+  filter: saturate(1.08) contrast(1.05);
+}
+
+body.future-v3 .section {
+  position: relative;
+}
+
+body.future-v3 .section::after {
+  content: "";
+  position: absolute;
+  left: max(24px, calc((100vw - var(--max-width)) / 2 + 24px));
+  right: max(24px, calc((100vw - var(--max-width)) / 2 + 24px));
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(87, 214, 255, 0.3), transparent);
+  pointer-events: none;
+}
+
+body.future-v3 .hero {
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(14px) scale(0.992);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.future-v3.page-launched .hero {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+body.future-v3 .hero::before,
+body.future-v3 .hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(2px);
+}
+
+body.future-v3 .hero::before {
+  width: 420px;
+  height: 420px;
+  right: -140px;
+  top: -150px;
+  background: radial-gradient(circle, rgba(87, 214, 255, 0.24), transparent 62%);
+  animation: fx-orbit-a 9s ease-in-out infinite;
+}
+
+body.future-v3 .hero::after {
+  width: 360px;
+  height: 360px;
+  left: -120px;
+  bottom: -170px;
+  background: radial-gradient(circle, rgba(127, 141, 255, 0.2), transparent 64%);
+  animation: fx-orbit-b 11s ease-in-out infinite;
+}
+
+body.future-v3 .whimsy-band {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+body.future-v3 .whimsy-pill {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px dashed rgba(140, 247, 176, 0.42);
+  background: rgba(16, 32, 32, 0.5);
+  color: #d5ffe5;
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  transform: translateY(8px) scale(0.98);
+  opacity: 0;
+}
+
+body.future-v3 .whimsy-pill.is-popped {
+  animation: whimsy-pop 620ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+body.future-v3 .role-card h3,
+body.future-v3 .project-card h3 {
+  position: relative;
+  padding-top: 14px;
+}
+
+body.future-v3 .role-card h3::before,
+body.future-v3 .project-card h3::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--fx-cyan), transparent);
+}
+
+body.future-v3 .hero-stat {
+  border: 1px solid rgba(127, 141, 255, 0.33);
+  background: rgba(13, 23, 35, 0.64);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+body.future-v3 .hero-stat strong {
+  color: #d7f3ff;
+}
+
+body.future-v3 .hero-stat span {
+  color: #97adc4;
+}
+
+body.future-v3 .cards .card {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+body.future-v3.page-launched .cards .card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.future-v3.page-launched .cards .card:nth-child(1) { transition-delay: 90ms; }
+body.future-v3.page-launched .cards .card:nth-child(2) { transition-delay: 150ms; }
+body.future-v3.page-launched .cards .card:nth-child(3) { transition-delay: 210ms; }
+body.future-v3.page-launched .cards .card:nth-child(4) { transition-delay: 270ms; }
+body.future-v3.page-launched .cards .card:nth-child(5) { transition-delay: 330ms; }
+
+@keyframes whimsy-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fx-orbit-a {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-22px, 20px, 0); }
+}
+
+@keyframes fx-orbit-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(24px, -18px, 0); }
+}
+
