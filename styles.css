@@ -4434,30 +4434,6 @@ body.future-v3 .hero::after {
   animation: fx-orbit-b 11s ease-in-out infinite;
 }
 
-body.future-v3 .whimsy-band {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-body.future-v3 .whimsy-pill {
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px dashed rgba(140, 247, 176, 0.42);
-  background: rgba(16, 32, 32, 0.5);
-  color: #d5ffe5;
-  font-family: "Roboto Mono", ui-monospace, monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.03em;
-  transform: translateY(8px) scale(0.98);
-  opacity: 0;
-}
-
-body.future-v3 .whimsy-pill.is-popped {
-  animation: whimsy-pop 620ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
 body.future-v3 .role-card h3,
 body.future-v3 .project-card h3 {
   position: relative;
@@ -4507,19 +4483,9 @@ body.future-v3.page-launched .cards .card:nth-child(3) { transition-delay: 210ms
 body.future-v3.page-launched .cards .card:nth-child(4) { transition-delay: 270ms; }
 body.future-v3.page-launched .cards .card:nth-child(5) { transition-delay: 330ms; }
 
-@keyframes whimsy-pop {
-  0% {
-    opacity: 0;
-    transform: translateY(8px) scale(0.96);
-  }
-  70% {
-    opacity: 1;
-    transform: translateY(-2px) scale(1.02);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+@keyframes mission-scan {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
 }
 
 @keyframes fx-orbit-a {
@@ -4591,6 +4557,528 @@ body.future-v3.page-launched .cards .card:nth-child(5) { transition-delay: 330ms
   body.future-v3 .hero::after {
     opacity: 0.5;
     filter: blur(6px);
+  }
+}
+
+/* ============================================================
+   SIGNAL DECK REBUILD (2026-05)
+   ============================================================ */
+
+body.signal-rebuild {
+  --signal-bg: #070807;
+  --signal-surface: #101410;
+  --signal-surface-2: #151b16;
+  --signal-line: #2d3a31;
+  --signal-text: #f2f0e7;
+  --signal-muted: #a8ada4;
+  --signal-green: #9bd69f;
+  --signal-amber: #d7b46a;
+  --signal-steel: #8fa7b3;
+  --signal-red: #d98b7d;
+  --fx-bg: var(--signal-bg);
+  --fx-bg-2: #0b0e0b;
+  --fx-panel: var(--signal-surface);
+  --fx-panel-2: var(--signal-surface-2);
+  --fx-text: var(--signal-text);
+  --fx-muted: var(--signal-muted);
+  --fx-cyan: var(--signal-green);
+  --fx-violet: var(--signal-amber);
+  background:
+    linear-gradient(180deg, rgba(155, 214, 159, 0.08), transparent 18rem),
+    linear-gradient(180deg, var(--signal-bg), #0b0e0b 56%, var(--signal-bg));
+  color: var(--signal-text);
+}
+
+body.signal-rebuild,
+body.signal-rebuild h1,
+body.signal-rebuild h2,
+body.signal-rebuild h3,
+body.signal-rebuild p,
+body.signal-rebuild a,
+body.signal-rebuild span,
+body.signal-rebuild strong {
+  letter-spacing: 0;
+}
+
+body.signal-rebuild::before {
+  opacity: 0.16;
+  background-image:
+    linear-gradient(to right, rgba(155, 214, 159, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(143, 167, 179, 0.06) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+body.signal-rebuild .site-header {
+  background: rgba(7, 8, 7, 0.88);
+  border-bottom: 1px solid rgba(155, 214, 159, 0.22);
+  backdrop-filter: blur(18px);
+}
+
+body.signal-rebuild .nav {
+  min-height: 66px;
+}
+
+body.signal-rebuild .logo {
+  color: var(--signal-text);
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+}
+
+body.signal-rebuild .nav-links a {
+  color: var(--signal-muted);
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+}
+
+body.signal-rebuild .nav-links a:hover {
+  color: var(--signal-green);
+}
+
+body.signal-rebuild .signal-hero {
+  position: relative;
+  min-height: 92svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 112px 0 44px;
+  background:
+    linear-gradient(120deg, rgba(7, 8, 7, 0.94), rgba(7, 8, 7, 0.78)),
+    url("assets/thumb-siemens-validation.svg");
+  background-size: cover;
+  background-position: center;
+}
+
+body.signal-rebuild .signal-hero::before,
+body.signal-rebuild .signal-hero::after,
+body.signal-rebuild .hero::before,
+body.signal-rebuild .hero::after {
+  display: none;
+}
+
+body.signal-rebuild .signal-grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, rgba(155, 214, 159, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(143, 167, 179, 0.09) 1px, transparent 1px),
+    linear-gradient(180deg, transparent, rgba(7, 8, 7, 0.76));
+  background-size: 54px 54px, 54px 54px, 100% 100%;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), transparent 96%);
+}
+
+body.signal-rebuild .signal-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 22px;
+}
+
+body.signal-rebuild .signal-identity {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 820px;
+}
+
+body.signal-rebuild .avatar {
+  width: 86px;
+  height: 86px;
+  border-radius: 8px;
+  border: 1px solid rgba(155, 214, 159, 0.45);
+  object-fit: cover;
+  box-shadow: none;
+}
+
+body.signal-rebuild .signal-hero h1 {
+  max-width: 1040px;
+  margin: 0;
+  color: var(--signal-text);
+  font-size: 5rem;
+  line-height: 0.98;
+  font-weight: 700;
+}
+
+body.signal-rebuild .signal-claim {
+  max-width: 980px;
+  margin: 0;
+  color: var(--signal-text);
+  font-size: 2rem;
+  line-height: 1.18;
+  font-weight: 500;
+}
+
+body.signal-rebuild .hero-text {
+  max-width: 760px;
+  margin: 0;
+  color: var(--signal-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+body.signal-rebuild .eyebrow {
+  color: var(--signal-amber);
+}
+
+body.signal-rebuild .hero-kicker {
+  margin-top: 6px;
+  color: var(--signal-muted);
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  font-size: 0.86rem;
+}
+
+body.signal-rebuild .signal-actions {
+  margin-top: 2px;
+}
+
+body.signal-rebuild .button {
+  border-radius: 6px;
+  border-color: rgba(155, 214, 159, 0.34);
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  text-transform: uppercase;
+}
+
+body.signal-rebuild .button.primary {
+  background: var(--signal-green);
+  border-color: var(--signal-green);
+  color: #071007;
+  box-shadow: none;
+}
+
+body.signal-rebuild .button.secondary {
+  background: rgba(16, 20, 16, 0.74);
+  color: var(--signal-text);
+}
+
+body.signal-rebuild .signal-rail {
+  position: relative;
+  overflow: hidden;
+  margin-top: 12px;
+  padding: 22px;
+  border: 1px solid rgba(155, 214, 159, 0.26);
+  border-radius: 8px;
+  background: rgba(13, 17, 13, 0.84);
+}
+
+body.signal-rebuild .signal-rail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(215, 180, 106, 0.1), transparent);
+  transform: translateX(-120%);
+  animation: mission-scan 5.5s linear infinite;
+  pointer-events: none;
+}
+
+body.signal-rebuild .rail-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--signal-muted);
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+body.signal-rebuild .rail-title strong {
+  color: var(--signal-green);
+}
+
+body.signal-rebuild .rail-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+body.signal-rebuild .rail-metrics article {
+  min-height: 88px;
+  padding: 14px;
+  border-left: 2px solid var(--signal-green);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+body.signal-rebuild .rail-metrics strong {
+  display: block;
+  color: var(--signal-text);
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+body.signal-rebuild .rail-metrics span {
+  display: block;
+  margin-top: 8px;
+  color: var(--signal-muted);
+  font-size: 0.82rem;
+}
+
+body.signal-rebuild .rail-wave {
+  margin-top: 16px;
+  height: 70px;
+}
+
+body.signal-rebuild .rail-wave svg {
+  width: 100%;
+  height: 100%;
+}
+
+body.signal-rebuild .rail-wave path {
+  fill: none;
+  stroke: var(--signal-green);
+  stroke-width: 3;
+  opacity: 0.78;
+  stroke-dasharray: 16 10;
+  animation: signal-dash 9s linear infinite;
+}
+
+body.signal-rebuild .rail-wave path + path {
+  stroke: var(--signal-amber);
+  opacity: 0.46;
+  animation-duration: 12s;
+}
+
+body.signal-rebuild .signal-routes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 2px;
+  border: 1px solid rgba(143, 167, 179, 0.22);
+  background: rgba(143, 167, 179, 0.22);
+}
+
+body.signal-rebuild .signal-routes a {
+  display: grid;
+  gap: 10px;
+  min-height: 104px;
+  padding: 18px;
+  background: rgba(7, 8, 7, 0.9);
+  color: var(--signal-text);
+  text-decoration: none;
+}
+
+body.signal-rebuild .signal-routes a:hover {
+  background: rgba(155, 214, 159, 0.1);
+}
+
+body.signal-rebuild .signal-routes span {
+  color: var(--signal-amber);
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
+}
+
+body.signal-rebuild .signal-routes strong {
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+body.signal-rebuild .signal-evidence {
+  padding-top: 46px;
+  background: #0a0d0a;
+}
+
+body.signal-rebuild .evidence-map {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.68fr) minmax(0, 1.32fr);
+  gap: 26px;
+  align-items: stretch;
+}
+
+body.signal-rebuild .evidence-map-copy {
+  padding: 28px 0;
+  border-top: 1px solid rgba(155, 214, 159, 0.34);
+}
+
+body.signal-rebuild .evidence-map-copy h2 {
+  max-width: 520px;
+  margin: 0;
+  font-size: 2.2rem;
+  line-height: 1.08;
+}
+
+body.signal-rebuild .evidence-map-copy p:last-child {
+  max-width: 520px;
+  margin-top: 18px;
+  color: var(--signal-muted);
+}
+
+body.signal-rebuild .evidence-lanes {
+  display: grid;
+  gap: 1px;
+  border: 1px solid rgba(143, 167, 179, 0.22);
+  background: rgba(143, 167, 179, 0.22);
+}
+
+body.signal-rebuild .evidence-lane {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 6px 22px;
+  padding: 20px;
+  background: #080a08;
+  color: var(--signal-text);
+  text-decoration: none;
+}
+
+body.signal-rebuild .evidence-lane:hover {
+  background: rgba(155, 214, 159, 0.1);
+}
+
+body.signal-rebuild .evidence-lane span {
+  grid-row: span 2;
+  color: var(--signal-amber);
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+}
+
+body.signal-rebuild .evidence-lane strong {
+  font-size: 1.12rem;
+  line-height: 1.2;
+}
+
+body.signal-rebuild .evidence-lane small {
+  color: var(--signal-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+body.signal-rebuild .evidence-lane.is-primary {
+  background:
+    linear-gradient(90deg, rgba(155, 214, 159, 0.16), transparent),
+    #0e130e;
+}
+
+body.signal-rebuild .section {
+  background: transparent;
+}
+
+body.signal-rebuild .subtle {
+  background: #0a0d0a;
+}
+
+body.signal-rebuild .section-heading h2 {
+  color: var(--signal-text);
+}
+
+body.signal-rebuild .card,
+body.signal-rebuild .project-card,
+body.signal-rebuild .case-panel,
+body.signal-rebuild .timeline-item,
+body.signal-rebuild .skill-block,
+body.signal-rebuild .contact-card {
+  border-radius: 8px;
+  border-color: rgba(143, 167, 179, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
+    var(--signal-surface);
+  box-shadow: none;
+}
+
+body.signal-rebuild .project-card.featured.primary-differentiator {
+  border-color: rgba(155, 214, 159, 0.5);
+  background:
+    linear-gradient(180deg, rgba(155, 214, 159, 0.08), transparent),
+    var(--signal-surface-2);
+}
+
+body.signal-rebuild .featured-badge,
+body.signal-rebuild .tag-row span,
+body.signal-rebuild .skill-pill {
+  border-radius: 999px;
+  border-color: rgba(143, 167, 179, 0.28);
+  background: rgba(7, 8, 7, 0.58);
+}
+
+body.signal-rebuild .tag-row span.tag-hot,
+body.signal-rebuild .skill-pill.hot {
+  color: #e8ffe9;
+  border-color: rgba(155, 214, 159, 0.44);
+  background: rgba(155, 214, 159, 0.12);
+}
+
+@keyframes signal-dash {
+  to { stroke-dashoffset: -180; }
+}
+
+@media (max-width: 960px) {
+  body.signal-rebuild .signal-hero {
+    min-height: auto;
+    padding: 100px 0 34px;
+  }
+
+  body.signal-rebuild .signal-hero h1 {
+    font-size: 3.2rem;
+    line-height: 1;
+  }
+
+  body.signal-rebuild .signal-claim {
+    font-size: 1.5rem;
+  }
+
+  body.signal-rebuild .rail-metrics,
+  body.signal-rebuild .signal-routes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body.signal-rebuild .evidence-map {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  body.signal-rebuild .nav {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 12px;
+    padding-bottom: 10px;
+  }
+
+  body.signal-rebuild .nav-links {
+    display: flex;
+    width: 100%;
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  body.signal-rebuild .signal-identity {
+    align-items: flex-start;
+  }
+
+  body.signal-rebuild .avatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  body.signal-rebuild .signal-hero h1 {
+    font-size: 2.45rem;
+  }
+
+  body.signal-rebuild .signal-claim {
+    font-size: 1.22rem;
+  }
+
+  body.signal-rebuild .rail-title {
+    display: grid;
+  }
+
+  body.signal-rebuild .rail-metrics,
+  body.signal-rebuild .signal-routes {
+    grid-template-columns: 1fr;
+  }
+
+  body.signal-rebuild .evidence-lane {
+    grid-template-columns: 1fr;
+  }
+
+  body.signal-rebuild .evidence-map-copy h2 {
+    font-size: 1.75rem;
+  }
+
+  body.signal-rebuild .rail-wave {
+    height: 48px;
   }
 }
 

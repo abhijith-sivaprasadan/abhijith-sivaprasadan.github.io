@@ -1201,15 +1201,15 @@ const renderSiemensCfdVisual = () => `
     <svg viewBox="0 0 420 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
         <linearGradient id="siemens-card-gradient-dynamic" x1="0%" y1="50%" x2="100%" y2="50%">
-          <stop offset="0%" stop-color="#57d6ff"/>
-          <stop offset="42%" stop-color="#8cf7b0"/>
-          <stop offset="72%" stop-color="#7f8dff"/>
-          <stop offset="100%" stop-color="#57d6ff"/>
+          <stop offset="0%" stop-color="#9bd69f"/>
+          <stop offset="42%" stop-color="#d7b46a"/>
+          <stop offset="72%" stop-color="#8fa7b3"/>
+          <stop offset="100%" stop-color="#9bd69f"/>
         </linearGradient>
         <linearGradient id="siemens-card-fill-dynamic" x1="0%" y1="50%" x2="100%" y2="50%">
-          <stop offset="0%" stop-color="#57d6ff" stop-opacity="0.26"/>
-          <stop offset="55%" stop-color="#7f8dff" stop-opacity="0.22"/>
-          <stop offset="100%" stop-color="#57d6ff" stop-opacity="0.32"/>
+          <stop offset="0%" stop-color="#9bd69f" stop-opacity="0.24"/>
+          <stop offset="55%" stop-color="#8fa7b3" stop-opacity="0.20"/>
+          <stop offset="100%" stop-color="#d7b46a" stop-opacity="0.24"/>
         </linearGradient>
       </defs>
       <rect x="26" y="38" width="368" height="134" rx="10" fill="#0d1117" stroke="#30363d"/>
@@ -1225,27 +1225,11 @@ const renderSiemensCfdVisual = () => `
         <path d="M230 126 C284 158 322 155 354 132"/>
       </g>
       <text x="34" y="24" fill="#8b949e" font-size="12" font-family="Roboto Mono, monospace">T_in = 673 K</text>
-      <text x="246" y="24" fill="#7fdfff" font-size="12" font-family="Roboto Mono, monospace">Ma = 0.990-1.006</text>
+      <text x="246" y="24" fill="#9bd69f" font-size="12" font-family="Roboto Mono, monospace">Ma = 0.990-1.006</text>
       <text x="34" y="196" fill="#8b949e" font-size="12" font-family="Roboto Mono, monospace">Bi = 0.003-0.004</text>
       <text x="258" y="196" fill="#8b949e" font-size="12" font-family="Roboto Mono, monospace">thesis campaign</text>
     </svg>
   </div>`;
-
-const initializeWhimsyBand = () => {
-  const pills = document.querySelectorAll(".whimsy-pill");
-  if (!pills.length) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    pills.forEach((pill) => pill.classList.add("is-popped"));
-    return;
-  }
-
-  pills.forEach((pill, index) => {
-    const delay = 230 + index * 140;
-    window.setTimeout(() => {
-      pill.classList.add("is-popped");
-    }, delay);
-  });
-};
 
 const initializePageLaunch = () => {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -1822,8 +1806,8 @@ window.addEventListener("resize", updateScrollState);
 updateProgress();
 updateScenes();
 document.body.classList.add("future-v3");
+document.body.classList.add("signal-rebuild");
 initializePageLaunch();
-initializeWhimsyBand();
 injectNavLinks();
 initializeNavToggle();
 initializeFooter();
