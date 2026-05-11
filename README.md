@@ -2,6 +2,37 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
+## Design system tokens (UI lock)
+
+Use these defaults when adding or editing UI so pages stay visually consistent:
+
+- Color system:
+  - Primary accent: `#1f4f73`
+  - Secondary accent: `#2f6b83`
+  - Surface dark: `#121820`
+  - Border dark: `rgba(255,255,255,0.09)`
+- Radius and container:
+  - Global radius: `16px`
+  - Max content width: `1120px`
+- Spacing rhythm:
+  - `--space-1: 8px`
+  - `--space-2: 12px`
+  - `--space-3: 16px`
+  - `--space-4: 20px`
+  - `--space-5: 28px`
+  - `--space-6: 40px`
+  - `--space-7: 56px`
+- Typography:
+  - `h1`: `clamp(2.05rem, 3.6vw, 3.1rem)`
+  - `h2`: `clamp(1.55rem, 2.5vw, 2.2rem)`
+  - `h3`: `clamp(1.08rem, 1.6vw, 1.22rem)`
+  - Body text: `1rem` with line-height around `1.58–1.62`
+- Thumbnail spec:
+  - Aspect ratio: `16:9`
+  - Use `object-fit: cover`
+  - Keep a single frame style: dark panel + subtle border + monospace labels
+  - Avoid rainbow accents; use primary/secondary with one support highlight only
+
 ## Local editing
 
 Open this folder in VS Code and edit:

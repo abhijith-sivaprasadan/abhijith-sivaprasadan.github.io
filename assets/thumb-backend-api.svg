@@ -1,23 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Backend API and automated testing workflow">
-  <rect width="960" height="540" fill="#0b1728"/>
-  <rect x="54" y="56" width="852" height="428" rx="24" fill="#122238" stroke="#22344f"/>
-  <g fill="#07111f" stroke="#22344f" stroke-width="4">
-    <rect x="112" y="122" width="176" height="96" rx="16"/>
-    <rect x="392" y="122" width="176" height="96" rx="16"/>
-    <rect x="672" y="122" width="176" height="96" rx="16"/>
-    <rect x="250" y="322" width="176" height="96" rx="16"/>
-    <rect x="532" y="322" width="176" height="96" rx="16"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Engineering backend API and automation workflow">
+  <rect width="960" height="540" fill="#0d141d"/>
+  <rect x="34" y="30" width="892" height="480" rx="22" fill="#142233" stroke="#2a3b4f"/>
+  <rect x="34" y="30" width="892" height="62" rx="22" fill="#102033"/>
+  <text x="62" y="69" fill="#e6edf3" font-family="ui-monospace,monospace" font-size="20" font-weight="700">BACKEND/API | DATA PIPELINE + QUALITY CHECKS</text>
+
+  <rect x="66" y="126" width="558" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
+  <g fill="#0f1b2a" stroke="#3a4c62" stroke-width="2">
+    <rect x="98" y="170" width="130" height="72" rx="10"/>
+    <rect x="260" y="170" width="130" height="72" rx="10"/>
+    <rect x="422" y="170" width="130" height="72" rx="10"/>
+    <rect x="260" y="290" width="130" height="72" rx="10"/>
   </g>
-  <g fill="none" stroke="#65d6c9" stroke-width="7">
-    <path d="M288 170h104"/>
-    <path d="M568 170h104"/>
-    <path d="M480 218 338 322"/>
-    <path d="M480 218 620 322"/>
+  <g font-family="ui-monospace,monospace" font-size="14" fill="#dbe7f3" font-weight="700">
+    <text x="116" y="211">JSON SOURCE</text>
+    <text x="286" y="211">NODE API</text>
+    <text x="448" y="211">VALIDATION</text>
+    <text x="286" y="331">ADMIN UI</text>
   </g>
-  <text x="146" y="180" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">REST API</text>
-  <text x="428" y="180" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Services</text>
-  <text x="708" y="180" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Data</text>
-  <text x="292" y="380" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Tests</text>
-  <text x="568" y="380" fill="#e7edf7" font-family="Arial, sans-serif" font-size="24" font-weight="700">Docs</text>
-  <circle cx="480" cy="218" r="16" fill="#ffd166"/>
+  <g stroke="#60a5fa" stroke-width="4" fill="none" stroke-linecap="round">
+    <path d="M228 206H260"/><path d="M390 206H422"/><path d="M325 242V290"/>
+  </g>
+
+  <rect x="652" y="126" width="242" height="330" rx="14" fill="#0d1621" stroke="#2a3b4f"/>
+  <text x="676" y="162" fill="#7dd3fc" font-family="ui-monospace,monospace" font-size="16" font-weight="700">ENGINEERING OPS</text>
+  <g font-family="ui-monospace,monospace" font-size="14" fill="#d9e3ec">
+    <text x="676" y="196">REST endpoints: 12+</text>
+    <text x="676" y="222">Auth: token + Firebase</text>
+    <text x="676" y="248">Versioned config</text>
+    <text x="676" y="274">Fallback static JSON</text>
+    <text x="676" y="300">Admin CRUD with guardrails</text>
+  </g>
 </svg>
