@@ -42,7 +42,7 @@
         <a class="back-link" href="../experience.html">&larr; Back to experience</a>
         <p class="eyebrow">Siemens Energy &middot; Test engineering &middot; CFD/CHT</p>
         <h1>Numerical Investigation of Steady-State Thermo-Fluid Performance of a Reducer for a High-Temperature Dynamic Pressure Sensor Calibration Rig</h1>
-        <p class="hero-text">TRITA-ITM-EX 2026:14. Seven months embedded in the Fluid Dynamic Lab at Siemens Energy Finsp&aring;ng working on the Pulsatorn gas turbine test rig, ANSYS Fluent CFD/CHT modelling, NI-DAQ instrumentation and high-temperature validation.</p>
+        <p class="hero-text">TRITA-ITM-EX 2026:14. Seven months embedded in the Fluid Dynamic Lab at Siemens Energy Finsp&aring;ng working on the Pulsatorn gas-turbine test-rig, ANSYS Fluent CFD/CHT modelling, NI-DAQ instrumentation and high-temperature validation.</p>
         <div class="tag-row">
           <span class="tag-hot">ANSYS Fluent</span><span class="tag-hot">CFD/CHT</span><span class="tag-hot">NI-DAQ</span><span class="tag-hot">LabVIEW</span><span class="tag-hot">Siemens NX</span>
         </div>
@@ -63,15 +63,28 @@
           </ul>
         </aside>
         <article class="case-panel">
-          <h2>What I contributed</h2>
-          <ul>
-            <li>Worked on the numerical investigation of steady-state thermo-fluid performance for a reducer geometry used in a high-temperature dynamic pressure sensor calibration rig.</li>
-            <li>Managed the CFD workflow independently from geometry reconstruction in ANSYS SpaceClaim through structured meshing with prismatic inflation layers, solver setup, convergence monitoring and post-processing.</li>
-            <li>Built steady-state compressible CFD and CHT models in ANSYS Fluent using the k-omega SST turbulence model. Inlet conditions were T = 673 K and P_gauge = 100,000 Pa, with outlet-pressure cases for adiabatic and full CHT variants in one thesis campaign.</li>
-            <li>Conducted a three-level mesh independence study and confirmed discretisation independence to within 2% before moving to the full simulation campaign.</li>
-            <li>Applied Biot number analysis (Bi = 0.003-0.004) to separate thermal behaviour from flow effects and identified asymmetry between geometries, including Ma 0.990 near-choked behaviour versus Ma 1.006 supersonic vena-contracta behaviour.</li>
-            <li>Commissioned NI-DAQ measurement chains, modified LabVIEW VIs for data acquisition, ran independent thermal test campaigns at up to 700&deg;C and carried out formal root cause analysis of a heater failure that triggered an approved scope change.</li>
-          </ul>
+          <h2>Industrial context and problem</h2>
+          <p>
+            I worked in Siemens Energy Finsp&aring;ng's Fluid Dynamic Lab on the Pulsatorn platform, a high-temperature calibration rig used for dynamic pressure sensors in gas-turbine-relevant conditions. The assignment focused on a reducer section between heater and downstream rig volume where both pressure-loss behaviour and thermal delivery were critical to test quality.
+          </p>
+
+          <h2>Approach and execution</h2>
+          <p>
+            I owned the day-to-day simulation workflow from geometry preparation in ANSYS SpaceClaim to meshing strategy, solver setup and KPI-driven post-processing in ANSYS Fluent. The thesis campaign used steady-state compressible CFD and conjugate heat transfer with k-omega SST, inlet conditions of T = 673 K and P_gauge = 100,000 Pa, and multiple outlet-pressure cases for adiabatic and CHT comparison.
+          </p>
+          <p>
+            Before full comparison runs, I completed a three-level mesh independence process and verified that monitored engineering outputs remained within a 2% band. I then used Biot number analysis (Bi = 0.003-0.004) and flow-regime checks to interpret geometry behaviour, including near-choked versus supersonic tendencies at key locations.
+          </p>
+
+          <h2>Validation link and test support</h2>
+          <p>
+            In parallel, I commissioned NI-DAQ channel mappings and updated LabVIEW VI logic for synchronized acquisition of thermocouple and pressure signals. During high-temperature preparation, a heater failure interrupted sustained testing; I documented the event, supported root-cause analysis, and aligned the technical scope with an approved supervisor revision so the work could still produce defensible outcomes.
+          </p>
+
+          <h2>Outcome and relevance</h2>
+          <p>
+            The role built practical simulation-to-test discipline: CFD/CHT modelling, uncertainty-aware interpretation, instrumentation readiness, structured troubleshooting, and clear documentation of assumptions and limitations. It is the strongest evidence in my portfolio for early-career CFD, thermal-fluid and test/validation engineering roles around gas-turbine hardware.
+          </p>
         </article>
       </div>
     </section>
