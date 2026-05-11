@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="NUMERICAL HEAT TRANSFER - Finite difference / RK4 / advection">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#070807"/><stop offset="1" stop-color="#111711"/></linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#2d3a31" stroke-width="1" opacity="0.55"/></pattern>
+    <style>
+      .dash{fill:none;stroke:#9bd69f;stroke-width:5;stroke-linecap:round;stroke-dasharray:18 12;animation:dash 9s linear infinite}.amber{stroke:#d7b46a}.scan{animation:float 6s ease-in-out infinite}.label{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.muted{fill:#a8ada4}@keyframes dash{to{stroke-dashoffset:-180}}@keyframes float{50%{transform:translateY(-8px)}}
+    </style>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"/>
+  <rect width="960" height="540" fill="url(#grid)" opacity="0.55"/>
+  <rect x="34" y="30" width="892" height="480" rx="8" fill="#0b0f0b" opacity="0.86" stroke="#2d3a31"/>
+  <text x="62" y="72" fill="#f2f0e7" class="label" font-size="24" font-weight="700">NUMERICAL HEAT TRANSFER</text>
+  <text x="62" y="104" fill="#a8ada4" class="label" font-size="15">Finite difference / RK4 / advection</text>
+    <g class="scan">
+    <rect x="88" y="130" width="312" height="252" fill="#0b100c" stroke="#314134"/>
+    <g opacity="0.9">
+      <rect x="96" y="138" width="48" height="48" fill="#203321"/><rect x="148" y="138" width="48" height="48" fill="#314d2e"/><rect x="200" y="138" width="48" height="48" fill="#60713c"/><rect x="252" y="138" width="48" height="48" fill="#a88946"/><rect x="304" y="138" width="48" height="48" fill="#d7b46a"/>
+      <rect x="96" y="190" width="48" height="48" fill="#1a2a1d"/><rect x="148" y="190" width="48" height="48" fill="#294428"/><rect x="200" y="190" width="48" height="48" fill="#4d6635"/><rect x="252" y="190" width="48" height="48" fill="#8a7e41"/><rect x="304" y="190" width="48" height="48" fill="#b99652"/>
+      <rect x="96" y="242" width="48" height="48" fill="#121c16"/><rect x="148" y="242" width="48" height="48" fill="#203421"/><rect x="200" y="242" width="48" height="48" fill="#36512d"/><rect x="252" y="242" width="48" height="48" fill="#65703a"/><rect x="304" y="242" width="48" height="48" fill="#8f7f45"/>
+    </g>
+    <path class="dash" d="M472 350 C548 244 610 250 682 178 C734 126 782 138 850 106"/>
+    <path class="dash amber" d="M472 374 C556 300 628 286 706 232 C762 194 802 196 850 164"/>
+  </g>
+  <rect x="62" y="450" width="836" height="1" fill="#2d3a31"/>
+  <text x="62" y="480" fill="#9bd69f" class="label" font-size="14">signal deck visual / portfolio-safe data preview</text>
+</svg>
