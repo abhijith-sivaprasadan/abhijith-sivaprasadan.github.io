@@ -1806,9 +1806,7 @@ window.addEventListener("resize", updateScrollState);
 updateProgress();
 updateScenes();
 document.body.classList.add("future-v3");
-if (document.body.dataset.pageKey === "home") {
-  document.body.classList.add("signal-rebuild");
-}
+document.body.classList.add("signal-rebuild");
 initializePageLaunch();
 injectNavLinks();
 initializeNavToggle();
