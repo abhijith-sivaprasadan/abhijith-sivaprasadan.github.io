@@ -1,202 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="PyNEXUS green hydrogen wind electrolyzer pipeline model">
-
-  
-  <rect width="960" height="540" fill="#09131f"/>
-  
-  <rect x="20" y="20" width="920" height="240" rx="18" fill="#0f1e30" stroke="#1e3248" stroke-width="1"/>
-  
-  <rect x="20" y="278" width="296" height="244" rx="18" fill="#0f1e30" stroke="#1e3248" stroke-width="1"/>
-  <rect x="332" y="278" width="296" height="244" rx="18" fill="#0f1e30" stroke="#1e3248" stroke-width="1"/>
-  <rect x="644" y="278" width="296" height="244" rx="18" fill="#0f1e30" stroke="#1e3248" stroke-width="1"/>
-
-  
-  <text x="42" y="52" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="11" font-weight="700" letter-spacing="1">PyNEXUS - GREEN HYDROGEN NETWORK</text>
-  <text x="42" y="68" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="10">Offshore wind - PEM electrolyzer - H2 pipeline - MILP dispatch - Pyomo - HiGHS</text>
-
-  
-  
-  <path d="M 242 148 L 318 148" fill="none" stroke="#8bb8ff" stroke-width="3" stroke-linecap="round" marker-end="url(#arr-elec)"/>
-  
-  <path d="M 484 148 L 558 148" fill="none" stroke="#65d6c9" stroke-width="3" stroke-linecap="round" marker-end="url(#arr-h2)"/>
-  
-  <path d="M 726 148 L 800 148" fill="none" stroke="#65d6c9" stroke-width="3" stroke-linecap="round" marker-end="url(#arr-h2)"/>
-  
-  <path d="M 168 212 L 168 234" fill="none" stroke="#ffd166" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-curt)"/>
-
-  
-  <path d="M 200 180 L 200 234" fill="none" stroke="#8bb8ff" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-grid)"/>
-
-  
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Wind-electrolyzer-pipeline optimisation'>
   <defs>
-    <marker id="arr-elec" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 Z" fill="#8bb8ff"/>
-    </marker>
-    <marker id="arr-h2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L8,3 Z" fill="#65d6c9"/>
-    </marker>
-    <marker id="arr-curt" markerWidth="8" markerHeight="8" refX="3" refY="6" orient="auto">
-      <path d="M0,0 L6,0 L3,8 Z" fill="#ffd166"/>
-    </marker>
-    <marker id="arr-grid" markerWidth="8" markerHeight="8" refX="3" refY="6" orient="auto">
-      <path d="M0,0 L6,0 L3,8 Z" fill="#8bb8ff"/>
-    </marker>
+    <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0' stop-color='#0f141b'/>
+      <stop offset='1' stop-color='#0a0f15'/>
+    </linearGradient>
+    <linearGradient id='panel' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0' stop-color='#161f2b'/>
+      <stop offset='1' stop-color='#121a25'/>
+    </linearGradient>
   </defs>
+  <rect width='960' height='540' fill='url(#bg)'/>
+  <rect x='34' y='30' width='892' height='480' rx='22' fill='url(#panel)' stroke='#354152'/>
+  <rect x='34' y='30' width='892' height='62' rx='22' fill='#121d2b'/>
+  <text x='62' y='68' fill='#e6ecf3' font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size='20' font-weight='700'>PYNEXUS GREEN HYDROGEN</text>
 
-  
-  <text x="266" y="142" fill="#8bb8ff" font-family="ui-monospace,monospace" font-size="9" text-anchor="middle">AC power</text>
-  <text x="508" y="142" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="9" text-anchor="middle">H2 gas</text>
-  <text x="750" y="142" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="9" text-anchor="middle">H2 flow</text>
-
-  
-  <rect x="42" y="96" width="200" height="100" rx="14" fill="#0a1828" stroke="#2a4a68" stroke-width="1.5"/>
-  
-  <line x1="100" y1="178" x2="100" y2="126" stroke="#8bb8ff" stroke-width="3" stroke-linecap="round"/>
-  <line x1="100" y1="134" x2="84" y2="148" stroke="#8bb8ff" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="100" y1="134" x2="116" y2="148" stroke="#8bb8ff" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="100" y1="134" x2="100" y2="112" stroke="#8bb8ff" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="100" cy="134" r="4" fill="#8bb8ff"/>
-  
-  <path d="M80,182 Q88,178 96,182 Q104,186 112,182 Q120,178 128,182" fill="none" stroke="#2a4a68" stroke-width="2"/>
-  <text x="160" y="114" fill="#8bb8ff" font-family="ui-monospace,monospace" font-size="11" font-weight="700">WIND</text>
-  <text x="160" y="130" fill="#8bb8ff" font-family="ui-monospace,monospace" font-size="18" font-weight="700">800</text>
-  <text x="160" y="146" fill="#5a8ab0" font-family="ui-monospace,monospace" font-size="9">MW installed</text>
-  <text x="160" y="162" fill="#5a8ab0" font-family="ui-monospace,monospace" font-size="9">offshore</text>
-  <text x="160" y="178" fill="#4ade80" font-family="ui-monospace,monospace" font-size="9">CF: 42%</text>
-
-  
-  <rect x="318" y="96" width="166" height="100" rx="14" fill="#0a1828" stroke="#2a4a68" stroke-width="1.5"/>
-  
-  <rect x="334" y="112" width="18" height="68" rx="3" fill="#1a3050" stroke="#3060a0" stroke-width="1.5"/>
-  <rect x="356" y="112" width="18" height="68" rx="3" fill="#1a3050" stroke="#3060a0" stroke-width="1.5"/>
-  <rect x="378" y="112" width="18" height="68" rx="3" fill="#1a3050" stroke="#3060a0" stroke-width="1.5"/>
-  
-  <circle cx="343" cy="146" r="3" fill="#65d6c9" opacity="0.6"/>
-  <circle cx="365" cy="136" r="2.5" fill="#65d6c9" opacity="0.5"/>
-  <circle cx="387" cy="150" r="3" fill="#65d6c9" opacity="0.6"/>
-  
-  <text x="410" y="164" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="8">H2O in</text>
-  <text x="410" y="112" fill="#c7f36f" font-family="ui-monospace,monospace" font-size="11" font-weight="700">PEM</text>
-  <text x="410" y="128" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="18" font-weight="700">400</text>
-  <text x="410" y="144" fill="#5a8ab0" font-family="ui-monospace,monospace" font-size="9">MW capacity</text>
-  <text x="410" y="160" fill="#5a8ab0" font-family="ui-monospace,monospace" font-size="9">eta = 68%</text>
-  <text x="410" y="176" fill="#c7f36f" font-family="ui-monospace,monospace" font-size="9">52 kg/MWh</text>
-
-  
-  <rect x="558" y="96" width="168" height="100" rx="14" fill="#0a1828" stroke="#2a4a68" stroke-width="1.5"/>
-  
-  <ellipse cx="622" cy="122" rx="22" ry="8" fill="#1a3028" stroke="#65d6c9" stroke-width="1.5"/>
-  <rect x="600" y="122" width="44" height="52" fill="#1a3028" stroke="#65d6c9" stroke-width="1.5"/>
-  <ellipse cx="622" cy="174" rx="22" ry="8" fill="#1a3028" stroke="#65d6c9" stroke-width="1.5"/>
-  
-  <rect x="602" y="142" width="40" height="32" fill="#65d6c9" opacity="0.18"/>
-  <line x1="602" y1="142" x2="642" y2="142" stroke="#65d6c9" stroke-width="1.5" opacity="0.6"/>
-  <text x="656" y="112" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="11" font-weight="700">STORE</text>
-  <text x="656" y="130" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="18" font-weight="700">200t</text>
-  <text x="656" y="146" fill="#5a8ab0" font-family="ui-monospace,monospace" font-size="9">H2 capacity</text>
-  <text x="656" y="162" fill="#5a8ab0" font-family="ui-monospace,monospace" font-size="9">buffer storage</text>
-  <text x="656" y="178" fill="#c7f36f" font-family="ui-monospace,monospace" font-size="9">SOC: 38-82%</text>
-
-  
-  <rect x="800" y="96" width="130" height="100" rx="14" fill="#0a1828" stroke="#2a4a68" stroke-width="1.5"/>
-  
-  <rect x="810" y="136" width="100" height="14" rx="7" fill="#1a3028" stroke="#65d6c9" stroke-width="1.5"/>
-  
-  <line x1="832" y1="130" x2="832" y2="150" stroke="#65d6c9" stroke-width="1" opacity="0.4"/>
-  <line x1="852" y1="130" x2="852" y2="150" stroke="#65d6c9" stroke-width="1" opacity="0.4"/>
-  <line x1="872" y1="130" x2="872" y2="150" stroke="#65d6c9" stroke-width="1" opacity="0.4"/>
-  <line x1="892" y1="130" x2="892" y2="150" stroke="#65d6c9" stroke-width="1" opacity="0.4"/>
-  
-  <circle cx="918" cy="143" r="10" fill="#1a3028" stroke="#4ade80" stroke-width="2"/>
-  <text x="826" y="112" fill="#4ade80" font-family="ui-monospace,monospace" font-size="11" font-weight="700">DELIV.</text>
-  <text x="826" y="128" fill="#4ade80" font-family="ui-monospace,monospace" font-size="15" font-weight="700">96%</text>
-  <text x="826" y="172" fill="#5a8ab0" font-family="ui-monospace,monospace" font-size="9">contract met</text>
-  <text x="826" y="186" fill="#4ade80" font-family="ui-monospace,monospace" font-size="9">SLA: 90%</text>
-
-  
-  <text x="144" y="246" fill="#ffd166" font-family="ui-monospace,monospace" font-size="9" text-anchor="middle">curtailed</text>
-  
-  <text x="178" y="246" fill="#8bb8ff" font-family="ui-monospace,monospace" font-size="9" text-anchor="middle">grid export</text>
-
-  
-  <text x="42" y="304" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="10" font-weight="700" letter-spacing="0.5">H2 PRODUCTION - t/h</text>
-  
-  <rect x="42" y="312" width="256" height="80" rx="6" fill="#080f18" stroke="#1e3248" stroke-width="1"/>
-  
-  <path d="M42,390 L52,386 L62,380 L72,374 L82,370 L92,374 L102,380 L112,376 L122,368 L132,358 L142,346 L152,338 L162,330 L172,338 L182,346 L192,356 L202,366 L212,374 L222,378 L232,372 L242,362 L252,352 L262,346 L272,350 L282,358 L292,364 L298,370 L298,392 L42,392 Z" fill="#65d6c9" opacity="0.3"/>
-  <path d="M42,390 L52,386 L62,380 L72,374 L82,370 L92,374 L102,380 L112,376 L122,368 L132,358 L142,346 L152,338 L162,330 L172,338 L182,346 L192,356 L202,366 L212,374 L222,378 L232,372 L242,362 L252,352 L262,346 L272,350 L282,358 L292,364 L298,370" fill="none" stroke="#65d6c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  
-  <line x1="42" y1="368" x2="298" y2="368" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.7"/>
-  <text x="46" y="366" fill="#4ade80" font-family="ui-monospace,monospace" font-size="8">contract floor</text>
-
-  
-  <g fill="#3a5870" font-family="ui-monospace,monospace" font-size="8" text-anchor="middle">
-    <text x="42" y="406">0h</text>
-    <text x="120" y="406">2190h</text>
-    <text x="200" y="406">4380h</text>
-    <text x="280" y="406">8760h</text>
+  <rect x='66' y='126' width='560' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
+  <g stroke='#5d6876' stroke-width='1.2' opacity='0.7'>
+    <line x1='96' y1='404' x2='594' y2='404'/>
+    <line x1='96' y1='350' x2='594' y2='350'/>
+    <line x1='96' y1='296' x2='594' y2='296'/>
+    <line x1='96' y1='242' x2='594' y2='242'/>
+    <line x1='96' y1='188' x2='594' y2='188'/>
   </g>
-  <text x="42" y="432" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="18" font-weight="700">12 400</text>
-  <text x="42" y="448" fill="#5a8ab0" font-family="system-ui,sans-serif" font-size="11">tonnes H2/year</text>
-  <text x="42" y="468" fill="#4ade80" font-family="ui-monospace,monospace" font-size="10">Contract fulfilment: 96%</text>
-  <text x="42" y="484" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="9">Curtailment: 4.8% wind energy</text>
-  <text x="42" y="500" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="9">LCOH: EUR3.2/kg - CO2e: 0.4 kg/kg</text>
+  <polyline points='96,356 132,336 168,320 204,300 240,280 276,260 312,274 348,298 384,322 420,336 456,312 492,284 528,260 564,238 594,224' fill='none' stroke='#c8d0db' stroke-width='4.2'/>
+  <polyline points='96,372 132,360 168,346 204,330 240,312 276,300 312,314 348,334 384,352 420,362 456,346 492,324 528,304 564,286 594,272' fill='none' stroke='#9ca6b5' stroke-width='3.4' stroke-dasharray='8 6'/>
 
-  
-  <text x="354" y="304" fill="#c7f36f" font-family="ui-monospace,monospace" font-size="10" font-weight="700" letter-spacing="0.5">MILP OBJECTIVES</text>
-  <line x1="354" y1="312" x2="612" y2="312" stroke="#1e3248" stroke-width="1"/>
+  <rect x='654' y='126' width='238' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
+  <text x='678' y='162' fill='#cdd5df' font-family='ui-monospace,monospace' font-size='16' font-weight='700'>PROJECT SUMMARY</text>
+  <text x='678' y='196' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='14'>Wind-electrolyzer-pipeline optimisation</text>
+  <text x='678' y='228' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>Technical focus, method and outputs</text>
+  <text x='678' y='248' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>represented in a portfolio-safe preview</text>
 
-  <text x="354" y="336" fill="#7a9ab8" font-family="system-ui,sans-serif" font-size="10">Min. cost obj.</text>
-  <text x="608" y="336" fill="#c7f36f" font-family="ui-monospace,monospace" font-size="19" font-weight="700" text-anchor="end">EUR3.2/kg</text>
-  <line x1="354" y1="346" x2="608" y2="346" stroke="#1e3248" stroke-width="1"/>
+  <rect x='678' y='286' width='190' height='42' rx='9' fill='#1d2734' stroke='#445267'/>
+  <text x='694' y='312' fill='#dce3ec' font-family='ui-monospace,monospace' font-size='13'>Case study available</text>
 
-  <text x="354" y="370" fill="#7a9ab8" font-family="system-ui,sans-serif" font-size="10">Min. emissions obj.</text>
-  <text x="608" y="370" fill="#4ade80" font-family="ui-monospace,monospace" font-size="19" font-weight="700" text-anchor="end">0.4 kg/kg</text>
-  <line x1="354" y1="380" x2="608" y2="380" stroke="#1e3248" stroke-width="1"/>
-
-  <text x="354" y="404" fill="#7a9ab8" font-family="system-ui,sans-serif" font-size="10">Electrolyzer utilisation</text>
-  <text x="608" y="404" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="19" font-weight="700" text-anchor="end">74%</text>
-  <line x1="354" y1="414" x2="608" y2="414" stroke="#1e3248" stroke-width="1"/>
-
-  <text x="354" y="438" fill="#7a9ab8" font-family="system-ui,sans-serif" font-size="10">Wind curtailment</text>
-  <text x="608" y="438" fill="#ffd166" font-family="ui-monospace,monospace" font-size="19" font-weight="700" text-anchor="end">4.8%</text>
-  <line x1="354" y1="448" x2="608" y2="448" stroke="#1e3248" stroke-width="1"/>
-
-  <text x="354" y="472" fill="#7a9ab8" font-family="system-ui,sans-serif" font-size="10">SLA delivery met</text>
-  <text x="608" y="472" fill="#4ade80" font-family="ui-monospace,monospace" font-size="19" font-weight="700" text-anchor="end">96%</text>
-  <line x1="354" y1="482" x2="608" y2="482" stroke="#1e3248" stroke-width="1"/>
-
-  <text x="354" y="506" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="9">Pyomo - HiGHS - 8760 h - hourly resolution</text>
-
-  
-  <text x="666" y="304" fill="#8bb8ff" font-family="ui-monospace,monospace" font-size="10" font-weight="700" letter-spacing="0.5">SCENARIO COMPARISON</text>
-  <line x1="666" y1="312" x2="924" y2="312" stroke="#1e3248" stroke-width="1"/>
-
-  
-  <text x="666" y="334" fill="#7a9ab8" font-family="system-ui,sans-serif" font-size="10">LCOH (EUR/kg H2)</text>
-  
-  <rect x="666" y="340" width="200" height="10" rx="4" fill="#1a2e42"/>
-  <rect x="666" y="340" width="120" height="10" rx="4" fill="#c7f36f" opacity="0.75"/>
-  <text x="791" y="350" fill="#c7f36f" font-family="ui-monospace,monospace" font-size="9">EUR3.2 cost-led</text>
-  
-  <rect x="666" y="356" width="200" height="10" rx="4" fill="#1a2e42"/>
-  <rect x="666" y="356" width="148" height="10" rx="4" fill="#4ade80" opacity="0.65"/>
-  <text x="819" y="366" fill="#4ade80" font-family="ui-monospace,monospace" font-size="9">EUR3.9 CO2-led</text>
-
-  <text x="666" y="390" fill="#7a9ab8" font-family="system-ui,sans-serif" font-size="10">CO2 intensity (kg CO2e/kg H2)</text>
-  <rect x="666" y="396" width="200" height="10" rx="4" fill="#1a2e42"/>
-  <rect x="666" y="396" width="95" height="10" rx="4" fill="#c7f36f" opacity="0.6"/>
-  <text x="766" y="406" fill="#c7f36f" font-family="ui-monospace,monospace" font-size="9">0.62 cost-led</text>
-  <rect x="666" y="412" width="200" height="10" rx="4" fill="#1a2e42"/>
-  <rect x="666" y="412" width="60" height="10" rx="4" fill="#4ade80" opacity="0.75"/>
-  <text x="731" y="422" fill="#4ade80" font-family="ui-monospace,monospace" font-size="9">0.40 CO2-led</text>
-
-  <text x="666" y="446" fill="#7a9ab8" font-family="system-ui,sans-serif" font-size="10">Electrolyzer utilisation</text>
-  <rect x="666" y="452" width="200" height="10" rx="4" fill="#1a2e42"/>
-  <rect x="666" y="452" width="148" height="10" rx="4" fill="#65d6c9" opacity="0.7"/>
-  <text x="819" y="462" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="9">74% cost-led</text>
-  <rect x="666" y="468" width="200" height="10" rx="4" fill="#1a2e42"/>
-  <rect x="666" y="468" width="132" height="10" rx="4" fill="#65d6c9" opacity="0.5"/>
-  <text x="803" y="478" fill="#65d6c9" font-family="ui-monospace,monospace" font-size="9">66% CO2-led</text>
-
-  <text x="666" y="500" fill="#4a6a88" font-family="ui-monospace,monospace" font-size="9">Storage buffer smooths curtailment in both</text>
+  <rect x='678' y='338' width='190' height='88' rx='9' fill='#151f2b' stroke='#445267'/>
+  <text x='694' y='364' fill='#d0d9e4' font-family='ui-monospace,monospace' font-size='12'>Monochrome preview system</text>
+  <text x='694' y='384' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='12'>Unified format / consistent tone</text>
 </svg>
