@@ -4606,6 +4606,7 @@ body.signal-rebuild::before {
     linear-gradient(to right, rgba(155, 214, 159, 0.08) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(143, 167, 179, 0.06) 1px, transparent 1px);
   background-size: 36px 36px;
+  animation: signal-bg-drift 28s linear infinite;
 }
 
 body.signal-rebuild .site-header {
@@ -4667,6 +4668,7 @@ body.signal-rebuild .signal-grid-bg {
     linear-gradient(180deg, transparent, rgba(7, 8, 7, 0.76));
   background-size: 54px 54px, 54px 54px, 100% 100%;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), transparent 96%);
+  animation: signal-grid-drift 22s linear infinite;
 }
 
 body.signal-rebuild .signal-hero-inner {
@@ -4774,7 +4776,7 @@ body.signal-rebuild .signal-rail::after {
 
 body.signal-rebuild .rail-title {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 18px;
   color: var(--signal-muted);
   font-family: "Roboto Mono", ui-monospace, monospace;
@@ -4918,10 +4920,15 @@ body.signal-rebuild .evidence-lane {
   background: #080a08;
   color: var(--signal-text);
   text-decoration: none;
+  transform: translateY(0);
+  transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
 }
 
 body.signal-rebuild .evidence-lane:hover {
   background: rgba(155, 214, 159, 0.1);
+  transform: translateY(-7px);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(155, 214, 159, 0.24);
+  z-index: 1;
 }
 
 body.signal-rebuild .evidence-lane span {
@@ -4949,6 +4956,65 @@ body.signal-rebuild .evidence-lane.is-primary {
     #0e130e;
 }
 
+body.signal-rebuild .assignment-data-section {
+  background: #070807;
+}
+
+body.signal-rebuild .assignment-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0 34px;
+}
+
+body.signal-rebuild .assignment-card {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(143, 167, 179, 0.22);
+  border-radius: 8px;
+  background: var(--signal-surface);
+  color: var(--signal-text);
+  text-decoration: none;
+  transform: translateY(0);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+}
+
+body.signal-rebuild .assignment-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(155, 214, 159, 0.42);
+  background: #111811;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.34);
+}
+
+body.signal-rebuild .assignment-card img,
+body.signal-rebuild .experience-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(143, 167, 179, 0.22);
+  background: #080a08;
+}
+
+body.signal-rebuild .assignment-card span {
+  color: var(--signal-amber);
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+body.signal-rebuild .assignment-card strong {
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+body.signal-rebuild .assignment-card small {
+  color: var(--signal-muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
 body.signal-rebuild .section {
   background: transparent;
 }
@@ -4973,6 +5039,28 @@ body.signal-rebuild .contact-card {
     linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
     var(--signal-surface);
   box-shadow: none;
+  transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+}
+
+body.signal-rebuild .card:hover,
+body.signal-rebuild .project-card:hover,
+body.signal-rebuild .timeline-item:hover,
+body.signal-rebuild .skill-block:hover {
+  transform: translateY(-5px);
+  border-color: rgba(155, 214, 159, 0.32);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.24);
+}
+
+body.signal-rebuild .title-link,
+body.signal-rebuild .heading-link {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+body.signal-rebuild .title-link:hover,
+body.signal-rebuild .heading-link:hover {
+  color: var(--signal-green);
 }
 
 body.signal-rebuild .project-card.featured.primary-differentiator {
@@ -4990,6 +5078,17 @@ body.signal-rebuild .skill-pill {
   background: rgba(7, 8, 7, 0.58);
 }
 
+body.signal-rebuild .tool-icon-card {
+  grid-template-columns: minmax(54px, auto) minmax(0, 1fr);
+}
+
+body.signal-rebuild .tool-mark {
+  width: auto;
+  min-width: 54px;
+  padding: 0 7px;
+  font-size: 0.68rem;
+}
+
 body.signal-rebuild .tag-row span.tag-hot,
 body.signal-rebuild .skill-pill.hot {
   color: #e8ffe9;
@@ -4997,8 +5096,63 @@ body.signal-rebuild .skill-pill.hot {
   background: rgba(155, 214, 159, 0.12);
 }
 
+body.signal-rebuild .signal-identity,
+body.signal-rebuild .signal-hero h1,
+body.signal-rebuild .signal-claim,
+body.signal-rebuild .hero-text,
+body.signal-rebuild .signal-actions,
+body.signal-rebuild .signal-rail,
+body.signal-rebuild .signal-routes,
+body.signal-rebuild .evidence-lane,
+body.signal-rebuild .assignment-card {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+body.signal-rebuild.page-launched .signal-identity,
+body.signal-rebuild.page-launched .signal-hero h1,
+body.signal-rebuild.page-launched .signal-claim,
+body.signal-rebuild.page-launched .hero-text,
+body.signal-rebuild.page-launched .signal-actions,
+body.signal-rebuild.page-launched .signal-rail,
+body.signal-rebuild.page-launched .signal-routes,
+body.signal-rebuild.page-launched .evidence-lane,
+body.signal-rebuild.page-launched .assignment-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.signal-rebuild.page-launched .evidence-lane:hover,
+body.signal-rebuild.page-launched .assignment-card:hover {
+  transform: translateY(-8px);
+}
+
+body.signal-rebuild .signal-identity { transition: opacity 520ms ease, transform 520ms ease; }
+body.signal-rebuild .signal-hero h1 { transition: opacity 620ms ease 90ms, transform 620ms ease 90ms; }
+body.signal-rebuild .signal-claim { transition: opacity 620ms ease 160ms, transform 620ms ease 160ms; }
+body.signal-rebuild .hero-text { transition: opacity 620ms ease 220ms, transform 620ms ease 220ms; }
+body.signal-rebuild .signal-actions { transition: opacity 620ms ease 280ms, transform 620ms ease 280ms; }
+body.signal-rebuild .signal-rail { transition: opacity 680ms ease 340ms, transform 680ms ease 340ms; }
+body.signal-rebuild .signal-routes { transition: opacity 680ms ease 410ms, transform 680ms ease 410ms; }
+body.signal-rebuild .evidence-lane:nth-child(1),
+body.signal-rebuild .assignment-card:nth-child(1) { transition-delay: 80ms; }
+body.signal-rebuild .evidence-lane:nth-child(2),
+body.signal-rebuild .assignment-card:nth-child(2) { transition-delay: 140ms; }
+body.signal-rebuild .evidence-lane:nth-child(3),
+body.signal-rebuild .assignment-card:nth-child(3) { transition-delay: 200ms; }
+body.signal-rebuild .evidence-lane:nth-child(4),
+body.signal-rebuild .assignment-card:nth-child(4) { transition-delay: 260ms; }
+
 @keyframes signal-dash {
   to { stroke-dashoffset: -180; }
+}
+
+@keyframes signal-bg-drift {
+  to { background-position: 36px 36px; }
+}
+
+@keyframes signal-grid-drift {
+  to { background-position: 54px 54px, 54px 54px, 0 0; }
 }
 
 @media (max-width: 960px) {
@@ -5024,6 +5178,10 @@ body.signal-rebuild .skill-pill.hot {
   body.signal-rebuild .evidence-map {
     grid-template-columns: 1fr;
   }
+
+  body.signal-rebuild .assignment-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 620px) {
@@ -5043,8 +5201,37 @@ body.signal-rebuild .skill-pill.hot {
     padding-bottom: 2px;
   }
 
+  body.signal-rebuild {
+    overflow-x: hidden;
+  }
+
   body.signal-rebuild .signal-identity {
     align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  body.signal-rebuild .signal-hero,
+  body.signal-rebuild .signal-hero-inner,
+  body.signal-rebuild .signal-identity > div,
+  body.signal-rebuild .signal-rail,
+  body.signal-rebuild .signal-routes {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  body.signal-rebuild .signal-hero-inner,
+  body.signal-rebuild .signal-claim,
+  body.signal-rebuild .hero-text {
+    width: 100%;
+  }
+
+  body.signal-rebuild .eyebrow,
+  body.signal-rebuild .hero-kicker,
+  body.signal-rebuild .signal-hero h1,
+  body.signal-rebuild .signal-claim,
+  body.signal-rebuild .hero-text {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   body.signal-rebuild .avatar {
@@ -5053,11 +5240,26 @@ body.signal-rebuild .skill-pill.hot {
   }
 
   body.signal-rebuild .signal-hero h1 {
-    font-size: 2.45rem;
+    max-width: 100%;
+    font-size: 2.12rem;
   }
 
   body.signal-rebuild .signal-claim {
-    font-size: 1.22rem;
+    max-width: 100%;
+    font-size: 1.08rem;
+  }
+
+  body.signal-rebuild .signal-actions {
+    width: 100%;
+  }
+
+  body.signal-rebuild .signal-actions .button {
+    flex: 1 1 100%;
+    justify-content: center;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
   }
 
   body.signal-rebuild .rail-title {
@@ -5077,8 +5279,35 @@ body.signal-rebuild .skill-pill.hot {
     font-size: 1.75rem;
   }
 
+  body.signal-rebuild .assignment-grid {
+    grid-template-columns: 1fr;
+  }
+
   body.signal-rebuild .rail-wave {
     height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.signal-rebuild::before,
+  body.signal-rebuild .signal-grid-bg,
+  body.signal-rebuild .rail-wave path,
+  body.signal-rebuild .signal-rail::after {
+    animation: none !important;
+  }
+
+  body.signal-rebuild .signal-identity,
+  body.signal-rebuild .signal-hero h1,
+  body.signal-rebuild .signal-claim,
+  body.signal-rebuild .hero-text,
+  body.signal-rebuild .signal-actions,
+  body.signal-rebuild .signal-rail,
+  body.signal-rebuild .signal-routes,
+  body.signal-rebuild .evidence-lane,
+  body.signal-rebuild .assignment-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 

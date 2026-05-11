@@ -1362,8 +1362,10 @@ const renderExperienceItem = (item) => {
   const title = `${escapeHtml(item.role)} - ${escapeHtml(item.company)}`;
   const titleMarkup = item.detailUrl ? `<a class="title-link" href="${escapeHtml(item.detailUrl)}">${title}</a>` : title;
   const isPrimaryExperience = item.id === "test-engineer-master-thesis-student" || /siemens energy/i.test(item.company || "");
+  const image = item.image ? `<img class="experience-thumb" src="${escapeHtml(skillHref(item.image))}" alt="${title} visual" loading="lazy" width="960" height="540" />` : "";
   return `
     <article class="timeline-item ${isPrimaryExperience ? "timeline-feature" : ""}">
+      ${image}
       <div>
         <h2>${titleMarkup}</h2>
         <p class="meta">${escapeHtml([item.type, item.period, item.location].filter(Boolean).join(" - "))}</p>
@@ -1727,6 +1729,7 @@ const updateScenes = () => {
 
 const revealTargets = document.querySelectorAll(
   ".section-heading, .card, .project-card, .skill-block, .timeline-item, .case-panel, .case-visual, .showcase-panel, .profile-meter, .page-orbit, .hero-stats, .button-row, .newsletter-cta-stack, .contact-links, .hero-slab, .tag-row, .thermal-visual, .role-signal, .tool-icon-card, .cv-card"
+  + ", .assignment-card, .evidence-lane, .experience-thumb, .signal-rail, .signal-routes"
 );
 
 revealTargets.forEach((element, index) => {

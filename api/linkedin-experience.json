@@ -7,7 +7,7 @@
       "type": "Contract",
       "period": "Apr 2025 - Nov 2025",
       "location": "Finspang, Ostergotland County, Sweden",
-      "summary": "Seven months embedded at Siemens Energy Finspang in the Fluid Dynamic Lab. Conducted numerical investigation of steady-state thermo-fluid performance of a reducer geometry for a high-temperature dynamic pressure sensor calibration rig (Pulsatorn). Built compressible CFD and conjugate heat transfer models in ANSYS Fluent (k-omega SST), conducted three-level mesh independence study, and applied Biot number analysis to decompose thermal performance. Identified flow-regime asymmetry between geometry variants (Ma 0.990 near-choked vs Ma 1.006 supersonic vena contracta). Also commissioned NI-DAQ measurement chains, modified LabVIEW VIs, ran independent test campaigns at up to 700 C, and conducted a formal root cause analysis of a heater failure resulting in an approved project scope change. Used Siemens NX and Teamcenter PLM2020 throughout. Supervisor: Prof. Jens Fridh, KTH. Thesis: TRITA-ITM-EX 2026:14.",
+      "summary": "Seven months embedded at Siemens Energy Finspang in the Fluid Dynamic Lab. Conducted numerical investigation of steady-state thermo-fluid performance of a reducer geometry for a high-temperature dynamic pressure sensor calibration rig (Pulsatorn). Built compressible CFD and conjugate heat transfer models in ANSYS Fluent (k-omega SST), conducted three-level mesh independence study, and applied Biot number analysis to decompose thermal performance. Identified flow-regime asymmetry between geometry variants (Ma 0.990 near-choked vs Ma 1.006 supersonic vena contracta). Also commissioned NI-DAQ measurement chains, modified LabVIEW VIs, ran independent test campaigns at up to 700 C, and conducted a formal root cause analysis of a heater failure resulting in an approved project scope revision. Used Siemens NX and Teamcenter PLM2020 throughout. Supervisor: Prof. Jens Fridh, KTH. Thesis: TRITA-ITM-EX 2026:14.",
       "tools": [
         "ANSYS Fluent",
         "NI-DAQ",
@@ -21,7 +21,8 @@
       "status": "published",
       "featured": true,
       "order": 1,
-      "detailUrl": "experience/siemens-energy.html"
+      "detailUrl": "experience/siemens-energy.html",
+      "image": "assets/thumb-experience-siemens.svg"
     },
     {
       "id": "energy-efficiency-intern",
@@ -43,7 +44,8 @@
       "status": "published",
       "featured": true,
       "order": 2,
-      "detailUrl": "experience/alleima.html"
+      "detailUrl": "experience/alleima.html",
+      "image": "assets/thumb-experience-alleima.svg"
     },
     {
       "id": "evening-shift-rider-last-mile-delivery",
@@ -78,7 +80,8 @@
       ],
       "status": "published",
       "featured": false,
-      "order": 4
+      "order": 4,
+      "image": "assets/thumb-experience-kth.svg"
     },
     {
       "id": "wardrobe-manager-etf-head-guest-and-safety",
@@ -117,7 +120,8 @@
       "status": "published",
       "featured": false,
       "order": 6,
-      "detailUrl": "experience/qburst.html"
+      "detailUrl": "experience/qburst.html",
+      "image": "assets/thumb-experience-qburst.svg"
     },
     {
       "id": "secretary-minutes-student-convention",

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="GRIDFLEX OPTIMIZER - ML storage dispatch concept">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#070807"/><stop offset="1" stop-color="#111711"/></linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#2d3a31" stroke-width="1" opacity="0.55"/></pattern>
+    <style>
+      .dash{fill:none;stroke:#9bd69f;stroke-width:5;stroke-linecap:round;stroke-dasharray:18 12;animation:dash 9s linear infinite}.amber{stroke:#d7b46a}.scan{animation:float 6s ease-in-out infinite}.label{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.muted{fill:#a8ada4}@keyframes dash{to{stroke-dashoffset:-180}}@keyframes float{50%{transform:translateY(-8px)}}
+    </style>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"/>
+  <rect width="960" height="540" fill="url(#grid)" opacity="0.55"/>
+  <rect x="34" y="30" width="892" height="480" rx="8" fill="#0b0f0b" opacity="0.86" stroke="#2d3a31"/>
+  <text x="62" y="72" fill="#f2f0e7" class="label" font-size="24" font-weight="700">GRIDFLEX OPTIMIZER</text>
+  <text x="62" y="104" fill="#a8ada4" class="label" font-size="15">ML storage dispatch concept</text>
+    <g>
+    <circle cx="170" cy="170" r="28" fill="#142016" stroke="#9bd69f"/><circle cx="320" cy="260" r="28" fill="#142016" stroke="#d7b46a"/><circle cx="210" cy="370" r="28" fill="#142016" stroke="#8fa7b3"/>
+    <path class="dash" d="M198 182 L292 248 L230 348"/><path class="dash amber" d="M348 260 C470 210 548 214 658 258"/>
+    <rect x="660" y="176" width="158" height="160" rx="12" fill="#111711" stroke="#9bd69f"/>
+    <text x="690" y="226" fill="#f2f0e7" font-family="ui-monospace,monospace" font-size="28" font-weight="700">BESS</text>
+    <text x="690" y="270" fill="#a8ada4" font-family="ui-monospace,monospace" font-size="18">dispatch</text>
+    <path d="M682 310 H792" stroke="#d7b46a" stroke-width="5"/>
+  </g>
+  <rect x="62" y="450" width="836" height="1" fill="#2d3a31"/>
+  <text x="62" y="480" fill="#9bd69f" class="label" font-size="14">signal deck visual / portfolio-safe data preview</text>
+</svg>
