@@ -1799,6 +1799,52 @@ if (heroSection) {
   heroSection.addEventListener("mouseleave", () => heroSection.classList.remove("cursor-glow"));
 }
 
+const initializeHomeModeToggle = () => {
+  const buttons = Array.from(document.querySelectorAll("[data-home-mode-button]"));
+  const targets = Array.from(document.querySelectorAll("[data-home-mode-target]"));
+  if (!buttons.length || !targets.length) return;
+
+  const modes = new Set(["research", "industrial"]);
+  const storageKey = "homeAudienceMode";
+
+  const applyMode = (mode) => {
+    const nextMode = modes.has(mode) ? mode : "research";
+    document.body.dataset.homeMode = nextMode;
+
+    buttons.forEach((button) => {
+      const active = button.getAttribute("data-home-mode-button") === nextMode;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+
+    targets.forEach((target) => {
+      const value = target.getAttribute("data-home-mode-target") || "";
+      const visible = value.split(/\s+/).includes(nextMode);
+      target.hidden = !visible;
+    });
+
+    try {
+      window.localStorage.setItem(storageKey, nextMode);
+    } catch (error) {
+      // Ignore storage failures in restricted contexts.
+    }
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      applyMode(button.getAttribute("data-home-mode-button"));
+    });
+  });
+
+  let initialMode = document.body.dataset.homeMode || "research";
+  try {
+    initialMode = window.localStorage.getItem(storageKey) || initialMode;
+  } catch (error) {
+    // Ignore storage failures in restricted contexts.
+  }
+  applyMode(initialMode);
+};
+
 const updateScrollState = () => {
   updateProgress();
   updateScenes();
@@ -1810,6 +1856,7 @@ updateProgress();
 updateScenes();
 document.body.classList.add("future-v3");
 document.body.classList.add("signal-rebuild");
+initializeHomeModeToggle();
 initializePageLaunch();
 injectNavLinks();
 initializeNavToggle();

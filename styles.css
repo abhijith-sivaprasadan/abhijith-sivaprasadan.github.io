@@ -5229,6 +5229,50 @@ body.signal-rebuild .hero-kicker {
   font-size: 0.86rem;
 }
 
+body.signal-rebuild .home-mode-toggle {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 1rem;
+  padding: 0.34rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+body.signal-rebuild .home-mode-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--signal-muted);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+body.signal-rebuild .home-mode-button:hover {
+  color: var(--signal-text);
+}
+
+body.signal-rebuild .home-mode-button.is-active {
+  background: var(--signal-green);
+  color: #091009;
+  box-shadow: 0 10px 28px rgba(155, 214, 159, 0.25);
+}
+
+body.signal-rebuild .home-mode-button:focus-visible {
+  outline: 2px solid var(--signal-amber);
+  outline-offset: 2px;
+}
+
 body.signal-rebuild .signal-actions {
   margin-top: 2px;
 }
@@ -5273,9 +5317,9 @@ body.signal-rebuild .signal-rail::after {
 }
 
 body.signal-rebuild .rail-title {
-  display: flex;
-  justify-content: flex-end;
-  gap: 18px;
+  display: grid;
+  justify-items: end;
+  gap: 6px;
   color: var(--signal-muted);
   font-family: "Roboto Mono", ui-monospace, monospace;
   font-size: 0.78rem;
@@ -5284,6 +5328,15 @@ body.signal-rebuild .rail-title {
 
 body.signal-rebuild .rail-title strong {
   color: var(--signal-green);
+}
+
+body.signal-rebuild .rail-title span {
+  max-width: 36rem;
+  color: var(--signal-muted);
+  font-size: 0.77rem;
+  line-height: 1.5;
+  text-align: right;
+  text-transform: none;
 }
 
 body.signal-rebuild .rail-metrics {
@@ -5360,6 +5413,10 @@ body.signal-rebuild .signal-routes a {
 
 body.signal-rebuild .signal-routes a:hover {
   background: rgba(155, 214, 159, 0.1);
+}
+
+body.signal-rebuild [data-home-mode-target][hidden] {
+  display: none !important;
 }
 
 body.signal-rebuild .signal-routes span {
@@ -5673,6 +5730,14 @@ body.signal-rebuild .assignment-card:nth-child(4) { transition-delay: 260ms; }
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  body.signal-rebuild .rail-title {
+    justify-items: start;
+  }
+
+  body.signal-rebuild .rail-title span {
+    text-align: left;
+  }
+
   body.signal-rebuild .evidence-map {
     grid-template-columns: 1fr;
   }
@@ -5706,6 +5771,16 @@ body.signal-rebuild .assignment-card:nth-child(4) { transition-delay: 260ms; }
   body.signal-rebuild .signal-identity {
     align-items: flex-start;
     flex-wrap: wrap;
+  }
+
+  body.signal-rebuild .home-mode-toggle {
+    width: 100%;
+    border-radius: 16px;
+  }
+
+  body.signal-rebuild .home-mode-button {
+    flex: 1 1 100%;
+    justify-content: center;
   }
 
   body.signal-rebuild .signal-hero,
@@ -6186,4 +6261,3 @@ body.signal-rebuild .assignment-card:nth-child(4) { transition-delay: 260ms; }
   transform: translateY(-3px);
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.3);
 }
-
