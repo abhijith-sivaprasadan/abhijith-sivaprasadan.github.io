@@ -74,7 +74,7 @@
         <div class="signal-identity">
           <img class="avatar" src="assets/headshot.jpg" alt="Abhijith Sivaprasadan" width="124" height="124" />
           <div>
-            <p class="eyebrow" data-editable="hero-eyebrow"><span data-typed-cycle="Siemens Energy Finspång / CFD / CHT / Test validation||Industrial Decarbonization R&D / ABB Corporate Research||KTH PhD applicant / Rocket cooling CHT / Reactive flows||Energy process modelling / Python / MATLAB / TEA">Siemens Energy Finspång / CFD / CHT / Test validation</span></p>
+            <p class="eyebrow" data-editable="hero-eyebrow"><span data-typed-cycle="Siemens Energy Finspång / CFD / CHT / Test validation||High-temperature flow / Conjugate heat transfer / Instrumentation||Energy process modelling / Python / MATLAB / Techno-economic analysis||Compressible flow / k-omega SST / Mesh independence / Biot analysis">Siemens Energy Finspång / CFD / CHT / Test validation</span></p>
             <p class="hero-kicker">M.Sc. Sustainable Energy Engineering &middot; KTH 2026</p>
           </div>
         </div>
@@ -730,59 +730,46 @@
     <section class="section subtle" data-reveal>
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Active applications — 2026</p>
-          <h2>Two early-career research positions in focus right now.</h2>
-          <p>The portfolio is structured to support both pathways. Each role maps directly to evidence already on this site.</p>
+          <p class="eyebrow">Research interests</p>
+          <h2>Thermal-fluid problems where experiment, simulation and measurement converge.</h2>
+          <p>
+            The Siemens Energy thesis established a working method: build a defensible numerical model, validate the assumptions that can be tested, and state the implications for engineering decisions. The natural research extensions from that foundation are below.
+          </p>
         </div>
-        <div class="target-roles-grid">
-          <article class="target-role-card is-primary" data-stagger-item>
-            <div class="target-role-header">
-              <span class="target-role-org">KTH Royal Institute of Technology</span>
-              <span class="target-role-status status-open">Deadline May 27</span>
-            </div>
-            <h3>Doctoral Student &mdash; Rocket Propulsion &amp; Reactive Flows</h3>
-            <p class="meta">Stockholm, Sweden &middot; 4-year PhD &middot; GKN Aerospace collaboration</p>
-            <p>Predictive maintenance and health-aware operation of methalox rocket nozzle cooling channels. The thesis CHT work on thermal resistance decomposition, Biot number analysis and measurement-chain commissioning transfers directly to this research context. Supervised by Jens Fridh, KTH Energy Technology.</p>
-            <div class="target-role-evidence">
-              <strong>Direct evidence match</strong>
-              <div class="tag-row">
-                <span class="tag-hot">CHT in cooling passages</span>
-                <span>Bi thermal decomposition</span>
-                <span>NI-DAQ / LabVIEW 700&deg;C</span>
-                <span>Experimental-numerical validation</span>
-                <span>TRITA-ITM-EX 2026:14</span>
-              </div>
-            </div>
-            <div class="project-links" style="margin-top:auto;padding-top:14px;">
-              <a href="research.html">Research statement</a>
-              <a href="projects/siemens-thesis.html">Thesis case study</a>
-              <a href="downloads/Abhijith_CV_PhD_Academic.pdf" download>PhD / Research CV</a>
+        <div class="cards two" style="max-width:960px;" data-stagger>
+          <article class="card" data-stagger-item>
+            <h3>Conjugate heat transfer in high-temperature cooling passages</h3>
+            <p>Steady-state CHT in the thesis demonstrated how geometry, insulation and external heat loss interact in a confined high-temperature flow problem. The next research layer is transient operation, pulsating flow and near-choked flow stability &mdash; all relevant to calibration rigs and propulsion hardware where boundary conditions are dynamic.</p>
+            <div class="tag-row" style="margin-top:10px;">
+              <span>ANSYS Fluent CHT</span><span>k-omega SST</span><span>Bi decomposition</span><span>Transient CHT</span>
             </div>
           </article>
-          <article class="target-role-card" data-stagger-item>
-            <div class="target-role-header">
-              <span class="target-role-org">ABB Corporate Research</span>
-              <span class="target-role-status status-applied">Applied</span>
-            </div>
-            <h3>Associate Scientist &mdash; Industrial Decarbonization &amp; Electrification</h3>
-            <p class="meta">V&auml;ster&aring;s, Sweden &middot; R&amp;D Fixed-term &middot; Linus Thrybom team</p>
-            <p>Energy process modelling for low-carbon industrial electrification at ABB Corporate Research. Python, MATLAB and techno-economic analysis directly applied to industrial process system modelling and electrification pathway quantification.</p>
-            <div class="target-role-evidence">
-              <strong>Supporting evidence</strong>
-              <div class="tag-row">
-                <span>PyNEXUS hydrogen model</span>
-                <span>GridFlex MILP optimizer</span>
-                <span>District heating TEA</span>
-                <span>EU ETS exposure toolkit</span>
-                <span>Python / MATLAB</span>
-                <span>Alleima EnPI methodology</span>
-              </div>
-            </div>
-            <div class="project-links" style="margin-top:auto;padding-top:14px;">
-              <a href="industrial-rd.html">Industrial R&amp;D fit</a>
-              <a href="downloads/Abhijith_CV_EnergyCoordinator.pdf" download>Energy Systems / R&amp;D CV</a>
+          <article class="card" data-stagger-item>
+            <h3>Deposit and surface-condition effects on heat transfer</h3>
+            <p>The thesis treated wall surfaces as clean and fixed. Real high-temperature passages develop altered surface conditions over time, which changes thermal resistance and heat transfer predictions. Connecting deposit-formation mechanisms to measurable thermal indicators is a research direction the thesis methodology is well positioned to support.</p>
+            <div class="tag-row" style="margin-top:10px;">
+              <span>Thermal resistance</span><span>Surface condition</span><span>Health monitoring</span><span>Experimental validation</span>
             </div>
           </article>
+          <article class="card" data-stagger-item>
+            <h3>Industrial electrification and energy process modelling</h3>
+            <p>Process system engineering for low-carbon industrial transitions &mdash; combining energy modelling (Python, MATLAB), techno-economic analysis, dispatch optimisation and measurement-based performance indicators. Work covers electrochemical processes, thermal systems and energy conversion pathways.</p>
+            <div class="tag-row" style="margin-top:10px;">
+              <span>Python / MATLAB</span><span>Pyomo MILP</span><span>TEA</span><span>EnPI methodology</span>
+            </div>
+          </article>
+          <article class="card" data-stagger-item>
+            <h3>Measurement-chain design and experimental-numerical validation</h3>
+            <p>Seven months commissioning NI-DAQ/LabVIEW measurement chains at up to 700&deg;C, including independent test campaigns and formal root cause analysis of a heater failure. The interest is in closing the loop between simulation predictions and instrument-grade measurements for validation of thermal models.</p>
+            <div class="tag-row" style="margin-top:10px;">
+              <span>NI-DAQ / LabVIEW</span><span>Thermocouple chains</span><span>RCA methodology</span><span>Validation planning</span>
+            </div>
+          </article>
+        </div>
+        <div class="project-links" style="margin-top:20px;">
+          <a href="research.html">Full research statement</a>
+          <a href="projects/siemens-thesis.html">Siemens thesis case study</a>
+          <a href="downloads/Abhijith_CV_PhD_Academic.pdf" download>Download Research CV</a>
         </div>
       </div>
     </section>
