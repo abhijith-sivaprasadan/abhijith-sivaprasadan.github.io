@@ -25,6 +25,7 @@ const inferredPageKey = (() => {
   return currentFile.replace(/\.html$/, "");
 })();
 const pageKey = document.body.dataset.pageKey || inferredPageKey;
+document.body.dataset.pageKey = pageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
 const assetVersion = "20260505-data-v4";
@@ -49,6 +50,8 @@ const pageState = {
   activeProjectFilter: "Selected",
   projectSearch: "",
 };
+
+const projectRoleFilters = ["PhD / Research", "Industrial R&D"];
 
 const hashEmail = async (email) => {
   const data = new TextEncoder().encode(email.toLowerCase());
@@ -555,15 +558,16 @@ const injectNavLinks = () => {
   const currentFile = location.pathname.split("/").pop() || "index.html";
   const homeHref = (anchor) => (pageKey === "home" ? anchor : `${basePath}index.html${anchor}`);
   const links = [
+    { label: "Research", href: `${basePath}research.html` },
+    { label: "Industrial R&D", href: `${basePath}industrial-rd.html` },
     { label: "Featured", href: homeHref("#projects") },
     { label: "Projects", href: `${basePath}projects.html` },
     { label: "Experience", href: `${basePath}experience.html` },
     { label: "CV", href: homeHref("#cv") },
     { label: "About", href: `${basePath}about.html` },
-    { label: "Contact", href: homeHref("#contact") },
-    { label: "Hobbies", href: `${basePath}hobbies.html` },
     { label: "Interests", href: `${basePath}interests.html` },
-    { label: "Ideas", href: `${basePath}ideas.html` },
+    { label: "Courses", href: `${basePath}courses.html` },
+    { label: "Contact", href: homeHref("#contact") },
   ];
 
   navLinks.replaceChildren();
@@ -721,7 +725,7 @@ const skillProfiles = {
       {
         heading: "What I did",
         items: [
-          "Built steady-state compressible RANS models with k-omega SST for gas turbine reducer geometries.",
+          "Built steady-state compressible RANS models with k-omega SST for high-temperature reducer geometries.",
           "Ran adiabatic and conjugate heat transfer cases as one thesis simulation campaign, not separate portfolio projects.",
           "Prepared boundary conditions around 673 K inlet temperature and 100 kPa gauge pressure, then interpreted pressure loss, Mach-number and thermal-delivery behavior.",
         ],
@@ -742,7 +746,7 @@ const skillProfiles = {
     links: [
       { label: "Siemens thesis case study", href: "projects/siemens-thesis.html" },
       { label: "Siemens Energy experience", href: "experience/siemens-energy.html" },
-      { label: "Ideas", href: "ideas.html" },
+      { label: "Research direction", href: "research.html" },
     ],
   },
   "ni-daq": {
@@ -767,13 +771,13 @@ const skillProfiles = {
       },
       {
         heading: "Personal overlap",
-        items: ["The same practical mindset shows up in smart home tinkering, sensors and day-to-day automation ideas."],
+        items: ["The same practical mindset shows up in sensor, logging and automation-oriented engineering tools."],
       },
     ],
     links: [
       { label: "Siemens Energy experience", href: "experience/siemens-energy.html" },
       { label: "Siemens thesis case study", href: "projects/siemens-thesis.html" },
-      { label: "Hobbies", href: "hobbies.html" },
+      { label: "Research direction", href: "research.html" },
     ],
   },
   labview: {
@@ -804,13 +808,13 @@ const skillProfiles = {
     links: [
       { label: "Siemens thesis case study", href: "projects/siemens-thesis.html" },
       { label: "Experience timeline", href: "experience.html" },
-      { label: "Ideas", href: "ideas.html" },
+      { label: "Projects", href: "projects.html" },
     ],
   },
   "siemens-nx": {
     title: "Siemens NX",
     summary:
-      "Used at Siemens Energy together with Teamcenter PLM2020 while working with gas turbine test-rig geometry and engineering documentation.",
+      "Used at Siemens Energy together with Teamcenter PLM2020 while working with high-temperature test-rig geometry and engineering documentation.",
     sections: [
       {
         heading: "What I did",
@@ -829,13 +833,13 @@ const skillProfiles = {
       },
       {
         heading: "Related hands-on work",
-        items: ["Mechanical design projects and custom-build hobbies reinforce the practical design side of the profile."],
+        items: ["Mechanical design projects and thesis hardware constraints reinforce the practical design side of the profile."],
       },
     ],
     links: [
       { label: "Siemens Energy experience", href: "experience/siemens-energy.html" },
       { label: "Siemens thesis case study", href: "projects/siemens-thesis.html" },
-      { label: "Hobbies", href: "hobbies.html" },
+      { label: "Projects", href: "projects.html" },
     ],
   },
   "cfd-cht": {
@@ -846,7 +850,7 @@ const skillProfiles = {
       {
         heading: "What I did",
         items: [
-          "Modelled gas turbine reducer geometries for the Siemens Energy Pulsatorn calibration rig.",
+          "Modelled high-temperature reducer geometries for the Siemens Energy Pulsatorn calibration rig.",
           "Compared pressure-loss, Mach-number and thermal-delivery behavior across geometry and outlet-pressure cases.",
           "Used Biot number analysis to separate solid-wall thermal behavior from fluid-side heat transfer effects.",
         ],
@@ -1174,10 +1178,12 @@ const projectMatches = (project) => {
   const query = pageState.projectSearch.trim().toLowerCase();
   const filter = pageState.activeProjectFilter;
   const order = Number(project.order) || 999;
-  const selectedCaseStudy = order <= 3 || (order >= 8 && order <= 14);
+  const selectedCaseStudy = order < 100;
+  const audienceTags = (project.audienceTags || []).map((tag) => String(tag).toLowerCase());
   const filterMatch =
     filter === "All" ||
     (filter === "Selected" && selectedCaseStudy) ||
+    (projectRoleFilters.includes(filter) && audienceTags.includes(filter.toLowerCase())) ||
     project.category === filter;
   const searchMatch = !query || JSON.stringify(project).toLowerCase().includes(query);
   return filterMatch && searchMatch;
@@ -1240,6 +1246,7 @@ const initializePageLaunch = () => {
 
 const renderProjectCard = (project) => {
   const tags = itemTags(project);
+  const audienceTags = project.audienceTags || [];
   const imageSrc = projectImageSrc(project);
   const highlights = Array.isArray(project.highlights) ? project.highlights : [];
   const links = [
@@ -1257,6 +1264,7 @@ const renderProjectCard = (project) => {
   return `
     <article class="project-card tone-${tone} ${project.featured ? "featured" : ""} ${primaryClass}">
       ${visual}
+      ${audienceTags.length ? `<div class="audience-chip-row">${audienceTags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
       <div class="tag-row">${tags.map(renderTag).join("")}</div>
       <p class="project-category">${escapeHtml(project.category || "Project")}</p>
       <h3>${renderLinkedTitle(project)}</h3>
@@ -1272,6 +1280,7 @@ const renderProjectCard = (project) => {
 
 const renderProjectBrowserItem = (project, index) => {
   const tags = itemTags(project);
+  const audienceTags = project.audienceTags || [];
   const highlights = Array.isArray(project.highlights) ? project.highlights : [];
   const links = [
     project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}">Case study</a>` : "",
@@ -1296,6 +1305,7 @@ const renderProjectBrowserItem = (project, index) => {
       <div class="project-browser-body">
         <img class="project-thumb" src="${escapeHtml(imageSrc)}" alt="${escapeHtml(project.title)} visual" loading="lazy" width="960" height="540" />
         <div class="project-browser-copy">
+          ${audienceTags.length ? `<div class="audience-chip-row">${audienceTags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
           ${tags.length ? `<div class="tag-row">${tags.map(renderTag).join("")}</div>` : ""}
           ${highlights.length ? `<ul class="evidence-list">${highlights.slice(0, 4).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : ""}
           ${links.length ? `<div class="project-links">${links.join("")}</div>` : ""}
@@ -1306,7 +1316,7 @@ const renderProjectBrowserItem = (project, index) => {
 
 const renderProjectFilters = () => {
   if (!projectFilters) return;
-  const categories = ["Selected", "All", ...new Set(pageState.projects.map((project) => project.category).filter(Boolean))];
+  const categories = ["Selected", ...projectRoleFilters, "All", ...new Set(pageState.projects.map((project) => project.category).filter(Boolean))];
   projectFilters.innerHTML = categories
     .map(
       (category) =>
@@ -1317,6 +1327,7 @@ const renderProjectFilters = () => {
 
 const renderProjectList = () => {
   if (!dynamicProjects) return;
+  document.body.dataset.projectLens = pageState.activeProjectFilter;
   const filtered = pageState.projects.filter(projectMatches);
   dynamicProjects.innerHTML = filtered.length
     ? filtered.map(renderProjectBrowserItem).join("")
@@ -1568,7 +1579,7 @@ const initializeFooter = () => {
     <div class="footer-grid">
       <div>
         <h2>Abhijith Sivaprasadan</h2>
-        <p>Thermal-fluid, gas turbine CFD, instrumentation and energy systems engineering.</p>
+        <p>Thermal-fluid research, high-temperature instrumentation and industrial energy systems engineering.</p>
         <p><a href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a></p>
         <p><a href="tel:+46769692014">Sweden: +46 76 969 2014</a></p>
         <p><a href="tel:+918129750386">India: +91 8129750386</a></p>
@@ -1576,6 +1587,8 @@ const initializeFooter = () => {
       <nav aria-label="Footer quick links">
         <h3>Quick links</h3>
         <a href="${basePath}index.html#projects">Featured</a>
+        <a href="${basePath}research.html">Research</a>
+        <a href="${basePath}industrial-rd.html">Industrial R&amp;D</a>
         <a href="${basePath}projects.html">Projects</a>
         <a href="${basePath}experience.html">Experience</a>
         <a href="${basePath}index.html#cv">CV</a>
@@ -1845,6 +1858,20 @@ const initializeHomeModeToggle = () => {
   applyMode(initialMode);
 };
 
+const initializePageAtmosphere = () => {
+  if (document.querySelector(".page-atmosphere")) return;
+  const atmosphere = document.createElement("div");
+  atmosphere.className = "page-atmosphere";
+  atmosphere.setAttribute("aria-hidden", "true");
+  atmosphere.innerHTML = `
+    <span class="atmosphere-grid"></span>
+    <span class="atmosphere-scan"></span>
+    <span class="atmosphere-wave atmosphere-wave-a"></span>
+    <span class="atmosphere-wave atmosphere-wave-b"></span>
+  `;
+  document.body.insertBefore(atmosphere, document.body.firstChild);
+};
+
 const updateScrollState = () => {
   updateProgress();
   updateScenes();
@@ -1856,6 +1883,7 @@ updateProgress();
 updateScenes();
 document.body.classList.add("future-v3");
 document.body.classList.add("signal-rebuild");
+initializePageAtmosphere();
 initializeHomeModeToggle();
 initializePageLaunch();
 injectNavLinks();

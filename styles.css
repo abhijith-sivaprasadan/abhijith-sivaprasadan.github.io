@@ -80,6 +80,166 @@ body {
   transition: background-color 0.5s ease, color 0.5s ease, --scene-accent 0.65s ease, --scene-accent-2 0.65s ease, --scene-wash 0.65s ease, --scene-wash-2 0.65s ease;
 }
 
+body {
+  --atmo-a: rgba(155, 214, 159, 0.22);
+  --atmo-b: rgba(101, 214, 201, 0.18);
+  --atmo-c: rgba(215, 180, 106, 0.16);
+  --atmo-grid: rgba(155, 214, 159, 0.075);
+}
+
+body[data-page-key="research"],
+body[data-page-key="siemens-thesis"] {
+  --atmo-a: rgba(101, 214, 201, 0.24);
+  --atmo-b: rgba(215, 180, 106, 0.18);
+  --atmo-c: rgba(217, 139, 125, 0.14);
+}
+
+body[data-page-key="industrial-rd"],
+body[data-page-key="projects"] {
+  --atmo-a: rgba(155, 214, 159, 0.22);
+  --atmo-b: rgba(143, 167, 179, 0.2);
+  --atmo-c: rgba(215, 180, 106, 0.16);
+}
+
+body[data-page-key="projects"][data-project-lens="PhD / Research"] {
+  --atmo-a: rgba(101, 214, 201, 0.26);
+  --atmo-b: rgba(215, 180, 106, 0.2);
+  --atmo-c: rgba(217, 139, 125, 0.14);
+}
+
+body[data-page-key="projects"][data-project-lens="Industrial R&D"] {
+  --atmo-a: rgba(155, 214, 159, 0.25);
+  --atmo-b: rgba(143, 167, 179, 0.22);
+  --atmo-c: rgba(215, 180, 106, 0.18);
+}
+
+body[data-page-key="experience"] {
+  --atmo-a: rgba(101, 214, 201, 0.2);
+  --atmo-b: rgba(155, 214, 159, 0.2);
+  --atmo-c: rgba(143, 167, 179, 0.18);
+}
+
+body[data-page-key="courses"] {
+  --atmo-a: rgba(215, 180, 106, 0.2);
+  --atmo-b: rgba(143, 167, 179, 0.2);
+  --atmo-c: rgba(155, 214, 159, 0.16);
+}
+
+body[data-page-key="about"],
+body[data-page-key="interests"] {
+  --atmo-a: rgba(215, 180, 106, 0.2);
+  --atmo-b: rgba(155, 214, 159, 0.18);
+  --atmo-c: rgba(101, 214, 201, 0.16);
+}
+
+.page-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.72;
+  mix-blend-mode: screen;
+}
+
+.site-header,
+main,
+.footer,
+.scroll-progress,
+.skip-link {
+  position: relative;
+}
+
+main,
+.footer {
+  z-index: 1;
+}
+
+.page-atmosphere span {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.atmosphere-grid {
+  background-image:
+    linear-gradient(to right, var(--atmo-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(143, 167, 179, 0.055) 1px, transparent 1px);
+  background-size: 58px 58px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.88), transparent 92%);
+  animation: atmosphere-grid-drift 34s linear infinite;
+}
+
+.atmosphere-scan {
+  background:
+    linear-gradient(110deg, transparent 0 38%, var(--atmo-a) 46%, transparent 56% 100%),
+    linear-gradient(250deg, transparent 0 44%, var(--atmo-c) 52%, transparent 62% 100%);
+  opacity: 0.22;
+  transform: translateX(-18%);
+  animation: atmosphere-scan 16s ease-in-out infinite alternate;
+}
+
+.atmosphere-wave {
+  left: -10%;
+  right: -10%;
+  top: auto;
+  height: 44vh;
+  border-top: 1px solid var(--atmo-b);
+  border-bottom: 1px solid var(--atmo-c);
+  transform: skewY(-7deg) translateY(0);
+  opacity: 0.24;
+}
+
+.atmosphere-wave-a {
+  bottom: 5vh;
+  animation: atmosphere-wave-a 18s ease-in-out infinite alternate;
+}
+
+.atmosphere-wave-b {
+  bottom: -13vh;
+  transform: skewY(6deg) translateY(0);
+  opacity: 0.16;
+  animation: atmosphere-wave-b 22s ease-in-out infinite alternate;
+}
+
+body[data-page-key="projects"] .atmosphere-wave-a,
+body[data-page-key="industrial-rd"] .atmosphere-wave-a {
+  transform: skewY(4deg);
+}
+
+body[data-page-key="siemens-thesis"] .atmosphere-grid,
+body[data-page-key="research"] .atmosphere-grid {
+  background-size: 42px 42px;
+}
+
+@keyframes atmosphere-grid-drift {
+  to { background-position: 58px 58px; }
+}
+
+@keyframes atmosphere-scan {
+  0% { transform: translate3d(-16%, -2%, 0) rotate(0.5deg); }
+  100% { transform: translate3d(16%, 4%, 0) rotate(-0.5deg); }
+}
+
+@keyframes atmosphere-wave-a {
+  0% { translate: 0 0; }
+  100% { translate: 0 -5vh; }
+}
+
+@keyframes atmosphere-wave-b {
+  0% { translate: 0 0; }
+  100% { translate: 0 6vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-atmosphere,
+  .atmosphere-grid,
+  .atmosphere-scan,
+  .atmosphere-wave {
+    animation: none !important;
+  }
+}
+
 body[data-scene="portfolio"] {
   --scene-accent: #8ec8ff;
   --scene-accent-2: #ffb86f;
@@ -1665,6 +1825,25 @@ p {
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 18px;
+}
+
+.audience-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.audience-chip-row span {
+  border: 1px solid color-mix(in srgb, var(--scene-accent, #7dd3fc) 48%, transparent);
+  color: color-mix(in srgb, var(--text, #f8fafc) 82%, var(--scene-accent, #7dd3fc));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--scene-accent, #7dd3fc) 16%, transparent), rgba(255, 255, 255, 0.035));
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  padding: 6px 10px;
 }
 
 .tag-row span {
@@ -3326,7 +3505,15 @@ code,
 }
 
 .thesis-filter-row {
-  margin: 18px 0 10px;
+  margin: 18px 0 8px;
+}
+
+.thesis-density-row {
+  margin: 0 0 16px;
+}
+
+.thesis-density-row .filter-chip {
+  font-size: 0.78rem;
 }
 
 .thesis-chart-card {
@@ -3361,6 +3548,25 @@ code,
   font-size: 0.74rem;
   font-weight: 800;
   text-transform: uppercase;
+}
+
+.chart-focus-button {
+  flex: 0 0 auto;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid rgba(101, 214, 201, 0.36);
+  border-radius: 999px;
+  background: rgba(101, 214, 201, 0.08);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.chart-focus-button:hover {
+  border-color: rgba(101, 214, 201, 0.7);
+  background: rgba(101, 214, 201, 0.14);
 }
 
 .chart-kpi-grid {
@@ -3406,7 +3612,7 @@ code,
 .chart-shell {
   position: relative;
   min-width: 0;
-  min-height: 300px;
+  min-height: 270px;
   padding: 14px;
   border: 1px solid rgba(167, 176, 189, 0.22);
   border-radius: 8px;
@@ -3414,17 +3620,17 @@ code,
 }
 
 .chart-shell.wide {
-  min-height: 340px;
+  min-height: 310px;
 }
 
 .chart-shell canvas {
   display: block;
   width: 100%;
-  height: 210px;
+  height: clamp(240px, 32vw, 330px);
 }
 
 .chart-shell.wide canvas {
-  height: 250px;
+  height: clamp(280px, 38vw, 390px);
 }
 
 .chart-fallback {
@@ -3443,6 +3649,10 @@ code,
 
 .chart-fallback span {
   display: block;
+}
+
+.charts-ready .chart-fallback {
+  display: none;
 }
 
 .charts-unavailable .chart-shell canvas,
@@ -3490,6 +3700,41 @@ code,
 
 .thesis-chart-card[hidden] {
   display: none;
+}
+
+.evidence-dashboard[data-evidence-density-mode="compact"] .chart-note {
+  display: none;
+}
+
+.evidence-dashboard[data-evidence-density-mode="compact"] .chart-kpi-grid {
+  grid-template-columns: repeat(4, minmax(130px, 1fr));
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.evidence-dashboard.has-focused-chart .thesis-chart-card:not(.is-focused) {
+  opacity: 0.42;
+  transform: scale(0.995);
+}
+
+.thesis-chart-card.is-focused {
+  border-color: rgba(101, 214, 201, 0.62);
+  background:
+    linear-gradient(135deg, rgba(101, 214, 201, 0.13), transparent 42%),
+    rgba(16, 17, 20, 0.72);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
+}
+
+.thesis-chart-card.is-focused .chart-grid {
+  grid-template-columns: 1fr;
+}
+
+.thesis-chart-card.is-focused .chart-shell canvas {
+  height: clamp(360px, 48vw, 520px);
+}
+
+.thesis-chart-card.is-focused .chart-shell.wide canvas {
+  height: clamp(420px, 54vw, 580px);
 }
 
 .thesis-takeaway-grid {

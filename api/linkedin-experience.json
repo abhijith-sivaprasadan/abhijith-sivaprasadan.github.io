@@ -31,7 +31,7 @@
       "type": "Internship",
       "period": "Dec 2024 - Jun 2025",
       "location": "Sandviken, Gavleborg County, Sweden / Remote",
-      "summary": "Built ISO 50001/EED-aligned energy performance mapping logic for industrial operations, covering KPI/EnPI design, load drivers, normalisation logic, metering readiness, measurement planning and improvement-roadmap concepts. The work was desk-based methodology and decision-support framing rather than hands-on plant execution.",
+      "summary": "Developed and independently validated a quantitative methodology for industrial energy performance mapping, covering KPI/EnPI design, load-driver logic, metering-gap assessment, deviation detection from noisy operational data and regulatory comparison. The work was desk-based method development and decision-support framing rather than hands-on plant execution, with electrical utilities and compressed air treated as relevant electrification pathways.",
       "tools": [
         "Python",
         "ISO 50001",
