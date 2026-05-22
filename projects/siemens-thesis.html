@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="../styles.css" />
   <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
   <script src="../scripts/thesis-charts.js" defer></script>
+  <script src="../scripts/animations.js?v=20260522" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
@@ -135,6 +136,26 @@
           </section>
 
           <section>
+            <p class="eyebrow">Geometry comparison — drag to reveal</p>
+            <h2>Legacy two-step vs redesigned C&sup2; quintic reducer.</h2>
+            <p>Both geometries connect the same heater bore (35.05&nbsp;mm) to the same outlet (6.0&nbsp;mm). The only variable is how the area change is distributed over length.</p>
+            <div class="img-compare" style="margin-top:18px;max-width:760px;">
+              <div class="img-compare-before">
+                <img src="../assets/thesis/legacy-reducer-geometry.png" alt="Legacy two-step reducer geometry" loading="lazy" />
+              </div>
+              <div class="img-compare-after">
+                <img src="../assets/thesis/redesigned-reducer-geometry.png" alt="Redesigned quintic C² reducer geometry" loading="lazy" />
+              </div>
+              <div class="img-compare-handle" aria-hidden="true"></div>
+              <input type="range" class="img-compare-range" min="0" max="100" value="50" aria-label="Drag to compare legacy and redesigned reducer geometries" />
+            </div>
+            <div class="img-compare-labels" style="max-width:760px;">
+              <span>&larr; Legacy two-step (compact, aerodynamically abrupt)</span>
+              <span>Redesigned C&sup2; quintic (150&nbsp;mm, smooth) &rarr;</span>
+            </div>
+          </section>
+
+          <section>
             <p class="eyebrow">Methodology</p>
             <h2>CFD/CHT model structure and why the choices mattered.</h2>
             <div class="cards two method-cards">
@@ -162,6 +183,34 @@
                 <h3>Convergence discipline</h3>
                 <p>Residual reduction was treated as necessary but not sufficient. Integral monitors for mass balance, pressure drop, outlet temperature and maximum Mach number were followed to stable values before interpreting a case, which made the result set defensible beyond a visually converged residual plot.</p>
               </article>
+            </div>
+          </section>
+
+          <section>
+            <p class="eyebrow">Simulation visuals</p>
+            <h2>From the ANSYS Fluent 2025&nbsp;R1 campaign: mesh, flow field and solver output.</h2>
+            <p>These are images from the actual thesis simulation campaign. Click any image to enlarge.</p>
+            <div class="cfd-full" style="margin-top:18px;">
+              <figure>
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/ANSYS campaign.png" data-thesis-caption="Overview of the full ANSYS Fluent simulation campaign: solver panel, boundary condition setup, monitored quantities and post-processing output for both reducer geometries.">
+                  <img src="../assets/thesis/ANSYS campaign.png" alt="ANSYS Fluent 2025 R1 simulation campaign overview" loading="lazy" style="width:100%;border-radius:10px;border:1px solid rgba(167,176,189,0.22);" />
+                </button>
+                <figcaption style="margin-top:8px;font-size:0.82rem;color:var(--muted);">Full ANSYS Fluent 2025&nbsp;R1 simulation campaign — solver setup, boundary conditions, monitored integral quantities and post-processed results for both geometry variants.</figcaption>
+              </figure>
+            </div>
+            <div class="cfd-evidence-grid">
+              <figure>
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/Mesh legacy step.png" data-thesis-caption="Mesh detail at the abrupt step of the legacy reducer. The inflation layers resolve the near-wall boundary layer where the Borda-Carnot vena-contracta mechanism and y+ spike originate.">
+                  <img src="../assets/thesis/Mesh legacy step.png" alt="Mesh at the legacy reducer abrupt step showing inflation layers" loading="lazy" />
+                </button>
+                <figcaption>Legacy reducer mesh at the abrupt step. Inflation layers capture the y+ spike that coincides with the vena-contracta acceleration zone.</figcaption>
+              </figure>
+              <figure>
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/Streamlines legacy.png" data-thesis-caption="Velocity streamlines through the legacy reducer showing the concentrated flow acceleration at the abrupt step and the downstream reattachment pattern associated with Borda-Carnot losses.">
+                  <img src="../assets/thesis/Streamlines legacy.png" alt="Velocity streamlines in the legacy reducer" loading="lazy" />
+                </button>
+                <figcaption>Legacy reducer streamlines. The abrupt contraction concentrates acceleration into a thin jet before the flow reattaches — the visual signature of the Borda-Carnot pressure-loss mechanism.</figcaption>
+              </figure>
             </div>
           </section>
 

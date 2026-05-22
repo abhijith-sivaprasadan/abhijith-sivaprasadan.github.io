@@ -43,6 +43,8 @@
   }
   </script>
   <script src="scripts/site.js?v=20260505-data-v4" defer></script>
+  <script src="scripts/hero-particles.js?v=20260522" defer></script>
+  <script src="scripts/animations.js?v=20260522" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
@@ -72,7 +74,7 @@
         <div class="signal-identity">
           <img class="avatar" src="assets/headshot.jpg" alt="Abhijith Sivaprasadan" width="124" height="124" />
           <div>
-            <p class="eyebrow" data-editable="hero-eyebrow">Siemens Energy Finsp&aring;ng / CFD / CHT / Test validation</p>
+            <p class="eyebrow" data-editable="hero-eyebrow"><span data-typed-cycle="Siemens Energy Finspång / CFD / CHT / Test validation||Industrial Decarbonization R&D / ABB Corporate Research||KTH PhD applicant / Rocket cooling CHT / Reactive flows||Energy process modelling / Python / MATLAB / TEA">Siemens Energy Finspång / CFD / CHT / Test validation</span></p>
             <p class="hero-kicker">M.Sc. Sustainable Energy Engineering &middot; KTH 2026</p>
           </div>
         </div>
@@ -118,7 +120,7 @@
       </div>
     </section>
 
-    <section class="section signal-evidence scroll-scene scene-explore" data-scene="portfolio">
+    <section class="section signal-evidence scroll-scene scene-explore" data-scene="portfolio" data-reveal>
       <div class="container">
         <div class="evidence-map">
           <div class="evidence-map-copy">
@@ -147,21 +149,21 @@
             <a class="evidence-lane" href="#cv">
               <span>Output</span>
               <strong>Role-specific CV tracks</strong>
-              <small>Quest / Siemens Energy, thermal CFD, grid, energy systems and analytics</small>
+              <small>PhD / Research, thermal CFD, grid, energy systems and analytics</small>
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section open-to-section">
+    <section class="section open-to-section" data-reveal>
       <div class="container open-to-layout">
         <div class="section-heading">
           <p class="eyebrow">Open to</p>
           <h2>Role tracks supported by the evidence on this site.</h2>
         </div>
-        <div class="cards three role-track-grid">
-          <article class="card role-card">
+        <div class="cards three role-track-grid" data-stagger>
+          <article class="card role-card" data-stagger-item>
             <span class="role-icon">Research</span>
             <h3><a class="title-link" href="research.html">PhD / research positions</a></h3>
             <p>Supported by seven months of embedded experimental and numerical research at Siemens Energy Finsp&aring;ng (TRITA-ITM-EX 2026:14). Research work covered compressible CHT modelling, three-level mesh independence methodology, Biot number thermal decomposition, NI-DAQ/LabVIEW measurement chain commissioning at 700&deg;C, and formal root cause analysis of a thermal hardware failure. Current research fit: conjugate heat transfer in high-temperature cooling passages, catalytic-pyrolysis deposit formation, surface-condition effects on thermal resistance, predictive maintenance for reusable propulsion hardware, and experimental-numerical validation methods.</p>
@@ -170,12 +172,12 @@
               <a href="downloads/Abhijith_CV_PhD_Academic.pdf" download>Download PhD / Research CV</a>
             </div>
           </article>
-          <article class="card role-card">
+          <article class="card role-card" data-stagger-item>
             <span class="role-icon">CFD</span>
             <h3><a class="title-link" href="projects/siemens-thesis.html">Thermal / CFD / Test &amp; Validation</a></h3>
             <p>Primary track. Supported by Siemens Energy thesis: ANSYS Fluent compressible CFD/CHT, k-omega SST, mesh independence, NI-DAQ/LabVIEW measurement-chain commissioning, pressure and temperature validation, and heater-failure RCA. Targets: CFD Engineer, Test Engineer, Thermal Systems Engineer, Validation Engineer, R&amp;D Engineer.</p>
           </article>
-          <article class="card role-card">
+          <article class="card role-card" data-stagger-item>
             <span class="role-icon">R&D</span>
             <h3><a class="title-link" href="industrial-rd.html">Industrial decarbonization / electrification R&amp;D</a></h3>
             <p>Associate Scientist signal. Supported by an independently validated industrial energy performance mapping methodology, including load-driver regression, metering-gap assessment and deviation detection from noisy operational data; a multi-objective Python/PuLP dispatch model linking electricity market prices to CHP, heat pump, geothermal and storage decisions; and reproducible engineering tools with tests, CLI interfaces, PDF reporting and CI. The industrial energy mapping covered electrical utilities and compressed air systems, two areas central to practical electrification pathways.</p>
@@ -184,12 +186,12 @@
               <a href="downloads/Abhijith_CV_EnergyCoordinator.pdf" download>Download Energy Systems / R&amp;D CV</a>
             </div>
           </article>
-          <article class="card role-card">
+          <article class="card role-card" data-stagger-item>
             <span class="role-icon">Grid</span>
             <h3><a class="title-link" href="projects/pypsa-nl-grid-flexibility.html">Grid flexibility / BESS / PyPSA</a></h3>
             <p>Supported by the PyPSA-NL grid congestion and BESS platform: constrained dispatch, congestion proxies, BESS siting/sizing sweep, flexible connection logic, N-1 screening and Streamlit dashboard. Targets: Grid Flow Modeller, BESS Analyst, Flexibility Analyst, Energy Market Analyst.</p>
           </article>
-          <article class="card role-card">
+          <article class="card role-card" data-stagger-item>
             <span class="role-icon">Code</span>
             <h3><a class="title-link" href="projects/industrial-energy-kpi-toolkit.html">Software &amp; energy analytics</a></h3>
             <p>Supported by QBurst backend engineering (NestJS, TypeScript, REST APIs, Docker, agile delivery), Energy KPI Toolkit, EU ETS Calculator, PyPSA dashboard and two years of reproducible Python tooling. Targets: Energy Analytics Developer, Python Engineer in energy, backend/data engineer.</p>
@@ -416,8 +418,8 @@
           </div>
         </div>
 
-        <div class="project-grid" data-featured-projects data-api-resource="projects">
-          <article class="project-card featured primary-differentiator">
+        <div class="project-grid" data-featured-projects data-api-resource="projects" data-stagger>
+          <article class="project-card featured primary-differentiator" data-stagger-item>
             <div class="project-thumb siemens-cfd-thumb" role="img" aria-label="Duct cross-section with blue-to-orange thermo-fluid gradient">
               <span class="featured-badge">Featured &mdash; Thermal / CFD / Test &amp; Validation</span>
               <svg viewBox="0 0 420 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -470,7 +472,7 @@
             </div>
           </article>
 
-          <article class="project-card featured">
+          <article class="project-card featured" data-stagger-item>
             <div class="project-thumb" style="position:relative;">
               <span class="featured-badge">Featured &mdash; Industrial Decarbonization / Electrification R&amp;D</span>
               <img src="assets/thumb-energy-kpi.svg" alt="Industrial energy KPI mapping visual" loading="lazy" width="960" height="540" style="display:block;width:100%;" />
@@ -491,7 +493,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-stagger-item>
             <img class="project-thumb" src="assets/thumb-mechanical-design.svg" alt="Mechanical design and SAE mobility project visual" loading="lazy" width="960" height="540" />
             <div class="tag-row"><span class="tag-hot">SolidWorks</span><span>Mechanical design</span><span>Drivetrain</span><span>Technical documentation</span></div>
             <h3><a class="title-link" href="projects/robotic-frame-locomotion.html">Mechanical Design &amp; SAE Mobility Projects</a></h3>
@@ -507,7 +509,7 @@
             <p style="font-size:0.82rem;color:var(--muted,#8b949e);margin-top:0.5rem;font-style:italic;">Tools / methods: SolidWorks, mechanical design fundamentals, drivetrain/component research, technical documentation, teamwork. Complements the Siemens Energy thesis by showing hands-on mechanical design exposure beyond simulation and analysis.</p>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-stagger-item>
             <img class="project-thumb" src="assets/thumb-distribution-grid.svg" alt="Distribution grid power-flow and N-1 study visual" loading="lazy" width="960" height="540" />
             <div class="tag-row"><span>Power flow</span><span>N-1</span><span>EV/PV/storage</span></div>
             <h3><a class="title-link" href="projects/distribution-grid-study.html">Distribution Grid &amp; Renewable Integration &mdash; KTH</a></h3>
@@ -524,7 +526,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-stagger-item>
             <img class="project-thumb" src="assets/thumb-district-heating.svg" alt="District heating dispatch optimisation visual" loading="lazy" width="960" height="540" />
             <div class="tag-row"><span>PuLP</span><span>Python</span><span>MILP</span><span>District heating</span><span>Storage</span></div>
             <h3><a class="title-link" href="projects/district-heating-optimisation.html">District Heating Dispatch Optimisation &mdash; KTH</a></h3>
@@ -540,7 +542,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-stagger-item>
             <div class="project-thumb" style="position:relative;">
               <img src="assets/thumb-pypsa-grid.svg" alt="Grid congestion dashboard concept for PyPSA, BESS and flexible connection analysis" loading="lazy" width="960" height="540" style="display:block;width:100%;" />
             </div>
@@ -561,7 +563,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-stagger-item>
             <img class="project-thumb" src="assets/thumb-heating-forecast.svg" alt="Heating demand forecasting model visual" loading="lazy" width="960" height="540" />
             <div class="tag-row"><span>Forecasting</span><span>Python</span><span>ML</span></div>
             <h3><a class="title-link" href="projects/heating-demand-forecasting.html">Heating Demand Forecasting</a></h3>
@@ -577,7 +579,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-stagger-item>
             <img class="project-thumb" src="assets/thumb-pynexus.svg" alt="Green hydrogen wind electrolyzer and pipeline model visual" loading="lazy" width="960" height="540" />
             <div class="tag-row"><span>Hydrogen</span><span>Pyomo</span><span>Dispatch</span></div>
             <h3><a class="title-link" href="projects/pynexus-green-hydrogen.html">PyNEXUS Green Hydrogen Network Model</a></h3>
@@ -594,7 +596,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-stagger-item>
             <img class="project-thumb" src="assets/thumb-eu-ets.svg" alt="EU ETS emissions and allowance exposure dashboard visual" loading="lazy" width="960" height="540" />
             <div class="tag-row"><span>EU ETS</span><span>Streamlit</span><span>Excel</span></div>
             <h3><a class="title-link" href="projects/eu-ets-exposure-calculator.html">EU ETS Exposure Calculator</a></h3>
@@ -611,7 +613,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-stagger-item>
             <img class="project-thumb" src="assets/thumb-industrial-kpi-toolkit.svg" alt="Industrial energy KPI and normalisation dashboard visual" loading="lazy" width="960" height="540" />
             <div class="tag-row"><span>Energy KPIs</span><span>ISO 50001</span><span>Reporting</span></div>
             <h3><a class="title-link" href="projects/industrial-energy-kpi-toolkit.html">Industrial Energy KPI Toolkit</a></h3>
@@ -628,7 +630,7 @@
             </div>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-stagger-item>
             <img class="project-thumb" src="assets/thumb-vibration-minilab.svg" alt="Rotating machinery vibration frequency analysis visual" loading="lazy" width="960" height="540" />
             <div class="tag-row"><span>Vibration</span><span>FFT/PSD</span><span>Python</span></div>
             <h3><a class="title-link" href="projects/rotating-machinery-vibration-minilab.html">Rotating Machinery Vibration Mini-Lab</a></h3>
@@ -648,7 +650,7 @@
       </div>
     </section>
 
-    <section id="skills" class="section subtle scroll-scene scene-skills" data-scene="skills">
+    <section id="skills" class="section subtle scroll-scene scene-skills" data-scene="skills" data-reveal>
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow" data-editable="skills-eyebrow">Capabilities</p>
@@ -725,25 +727,67 @@
       </div>
     </section>
 
-    <section class="section subtle">
+    <section class="section subtle" data-reveal>
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Role fit</p>
-          <h2>Fit for Quest Global / Siemens Energy assignments</h2>
+          <p class="eyebrow">Active applications — 2026</p>
+          <h2>Two early-career research positions in focus right now.</h2>
+          <p>The portfolio is structured to support both pathways. Each role maps directly to evidence already on this site.</p>
         </div>
-        <div class="cards two" style="max-width:900px;">
-          <article class="card">
-            <p>I am strongest for early-career work around gas-turbine CFD/CHT, thermal-fluid analysis, test-rig validation, calculation workflows, mechanical design support, engineering documentation and measurement-chain readiness.</p>
+        <div class="target-roles-grid">
+          <article class="target-role-card is-primary" data-stagger-item>
+            <div class="target-role-header">
+              <span class="target-role-org">KTH Royal Institute of Technology</span>
+              <span class="target-role-status status-open">Deadline May 27</span>
+            </div>
+            <h3>Doctoral Student &mdash; Rocket Propulsion &amp; Reactive Flows</h3>
+            <p class="meta">Stockholm, Sweden &middot; 4-year PhD &middot; GKN Aerospace collaboration</p>
+            <p>Predictive maintenance and health-aware operation of methalox rocket nozzle cooling channels. The thesis CHT work on thermal resistance decomposition, Biot number analysis and measurement-chain commissioning transfers directly to this research context. Supervised by Jens Fridh, KTH Energy Technology.</p>
+            <div class="target-role-evidence">
+              <strong>Direct evidence match</strong>
+              <div class="tag-row">
+                <span class="tag-hot">CHT in cooling passages</span>
+                <span>Bi thermal decomposition</span>
+                <span>NI-DAQ / LabVIEW 700&deg;C</span>
+                <span>Experimental-numerical validation</span>
+                <span>TRITA-ITM-EX 2026:14</span>
+              </div>
+            </div>
+            <div class="project-links" style="margin-top:auto;padding-top:14px;">
+              <a href="research.html">Research statement</a>
+              <a href="projects/siemens-thesis.html">Thesis case study</a>
+              <a href="downloads/Abhijith_CV_PhD_Academic.pdf" download>PhD / Research CV</a>
+            </div>
           </article>
-          <article class="card">
-            <p>My Siemens Energy thesis gave me direct Finsp&aring;ng context: high-temperature gas-turbine test-rig hardware, ANSYS Fluent CFD/CHT, pressure-loss and thermal KPI analysis, Python post-processing, NI-DAQ/LabVIEW workflows, thermocouples, pressure sensors, troubleshooting and validation planning.</p>
-            <p style="margin-top:0.6rem;font-size:0.82rem;color:var(--muted,#8b949e);font-style:italic;">I can contribute across CFD, thermal-fluid, test/validation, calculation engineering and technical documentation tracks while ramping further into Siemens in-house tooling and advanced combustor workflows.</p>
+          <article class="target-role-card" data-stagger-item>
+            <div class="target-role-header">
+              <span class="target-role-org">ABB Corporate Research</span>
+              <span class="target-role-status status-applied">Applied</span>
+            </div>
+            <h3>Associate Scientist &mdash; Industrial Decarbonization &amp; Electrification</h3>
+            <p class="meta">V&auml;ster&aring;s, Sweden &middot; R&amp;D Fixed-term &middot; Linus Thrybom team</p>
+            <p>Energy process modelling for low-carbon industrial electrification at ABB Corporate Research. Python, MATLAB and techno-economic analysis directly applied to industrial process system modelling and electrification pathway quantification.</p>
+            <div class="target-role-evidence">
+              <strong>Supporting evidence</strong>
+              <div class="tag-row">
+                <span>PyNEXUS hydrogen model</span>
+                <span>GridFlex MILP optimizer</span>
+                <span>District heating TEA</span>
+                <span>EU ETS exposure toolkit</span>
+                <span>Python / MATLAB</span>
+                <span>Alleima EnPI methodology</span>
+              </div>
+            </div>
+            <div class="project-links" style="margin-top:auto;padding-top:14px;">
+              <a href="industrial-rd.html">Industrial R&amp;D fit</a>
+              <a href="downloads/Abhijith_CV_EnergyCoordinator.pdf" download>Energy Systems / R&amp;D CV</a>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="education" class="section scroll-scene scene-education" data-scene="education">
+    <section id="education" class="section scroll-scene scene-education" data-scene="education" data-reveal>
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow" data-editable="education-eyebrow">Education</p>
@@ -795,7 +839,7 @@
       </div>
     </section>
 
-    <section id="experience" class="section scroll-scene scene-experience" data-scene="experience">
+    <section id="experience" class="section scroll-scene scene-experience" data-scene="experience" data-reveal>
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow" data-editable="experience-eyebrow">Background</p>
@@ -909,11 +953,11 @@
               <a href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Software%20%2F%20Energy%20Analytics" data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Software%20%2F%20Energy%20Analytics">Request Software / Analytics CV</a>
             </div>
           </article>
-          <article class="card" style="border-color:color-mix(in srgb, var(--m3-outline,#a7b0bd) 70%, transparent);background:color-mix(in srgb, var(--m3-primary-container,#2a313b) 42%, transparent);">
-            <h3>Quest / Siemens Energy Referral CV</h3>
-            <p>Tailored for Quest Global contractor opportunities supporting Siemens Energy: gas-turbine CFD/CHT, thermal-fluid analysis, test-rig validation, NI-DAQ/LabVIEW workflows and technical documentation.</p>
+          <article class="card">
+            <h3>Thermal / CFD / Test Engineering CV (Siemens context)</h3>
+            <p>Tailored for thermal-fluid modelling, CFD, instrumentation and validation campaigns. Anchored by the Siemens Energy Finsp&aring;ng thesis: ANSYS Fluent CHT, k-omega SST, NI-DAQ/LabVIEW, heater-failure RCA and measurement-chain validation at up to 700&deg;C.</p>
             <div class="project-links">
-              <a href="downloads/Abhijith_Resume_Quest_Global_Siemens_Energy_2Page_Final_v2.pdf" download data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Quest%20Global%20%2F%20Siemens%20Energy">Download Quest / Siemens Energy CV</a>
+              <a href="downloads/Abhijith_CV_TestEngineer.pdf" download data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Thermal%20%2F%20CFD%20%2F%20Test%20Engineering">Download Thermal / CFD / Test Engineering CV</a>
             </div>
           </article>
         </div>
