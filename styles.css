@@ -3158,6 +3158,17 @@ code,
   margin-bottom: 12px;
 }
 
+/* Keep thesis case-study content readable even if page-launch or reveal JS does not run. */
+.thesis-case,
+.thesis-case.reveal,
+.thesis-case .card,
+.thesis-case .card.reveal,
+.thesis-case .thesis-chart-card,
+.thesis-case .thesis-chart-card.reveal {
+  opacity: 1;
+  transform: none;
+}
+
 .research-question {
   padding: 18px 20px;
   border-left: 3px solid var(--accent, #65d6c9);
@@ -4828,6 +4839,16 @@ body.future-v3 .cards .card {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 520ms ease, transform 520ms ease;
+}
+
+body.future-v3 .thesis-case,
+body.future-v3 .thesis-case.reveal,
+body.future-v3 .thesis-case .card,
+body.future-v3 .thesis-case .card.reveal,
+body.future-v3 .thesis-case .thesis-chart-card,
+body.future-v3 .thesis-case .thesis-chart-card.reveal {
+  opacity: 1;
+  transform: none;
 }
 
 body.future-v3.page-launched .cards .card {
