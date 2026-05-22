@@ -1,40 +1,129 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Wind-electrolyzer-pipeline optimisation'>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Green hydrogen wind-to-electrolyzer pipeline model'>
   <defs>
     <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
-      <stop offset='0' stop-color='#0f141b'/>
-      <stop offset='1' stop-color='#0a0f15'/>
+      <stop offset='0' stop-color='#0b1220'/><stop offset='1' stop-color='#070c16'/>
     </linearGradient>
-    <linearGradient id='panel' x1='0' y1='0' x2='1' y2='1'>
-      <stop offset='0' stop-color='#161f2b'/>
-      <stop offset='1' stop-color='#121a25'/>
-    </linearGradient>
+    <marker id='arr' markerWidth='7' markerHeight='6' refX='6' refY='3' orient='auto'>
+      <path d='M0,0 L0,6 L7,3 z' fill='#65d6c9'/>
+    </marker>
+    <marker id='arb' markerWidth='7' markerHeight='6' refX='6' refY='3' orient='auto'>
+      <path d='M0,0 L0,6 L7,3 z' fill='#38bdf8'/>
+    </marker>
   </defs>
   <rect width='960' height='540' fill='url(#bg)'/>
-  <rect x='34' y='30' width='892' height='480' rx='22' fill='url(#panel)' stroke='#354152'/>
-  <rect x='34' y='30' width='892' height='62' rx='22' fill='#121d2b'/>
-  <text x='62' y='68' fill='#e6ecf3' font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size='20' font-weight='700'>PYNEXUS GREEN HYDROGEN</text>
 
-  <rect x='66' y='126' width='560' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
-  <g stroke='#5d6876' stroke-width='1.2' opacity='0.7'>
-    <line x1='96' y1='404' x2='594' y2='404'/>
-    <line x1='96' y1='350' x2='594' y2='350'/>
-    <line x1='96' y1='296' x2='594' y2='296'/>
-    <line x1='96' y1='242' x2='594' y2='242'/>
-    <line x1='96' y1='188' x2='594' y2='188'/>
-  </g>
-  <polyline points='96,356 132,336 168,320 204,300 240,280 276,260 312,274 348,298 384,322 420,336 456,312 492,284 528,260 564,238 594,224' fill='none' stroke='#c8d0db' stroke-width='4.2'/>
-  <polyline points='96,372 132,360 168,346 204,330 240,312 276,300 312,314 348,334 384,352 420,362 456,346 492,324 528,304 564,286 594,272' fill='none' stroke='#9ca6b5' stroke-width='3.4' stroke-dasharray='8 6'/>
+  <!-- Title bar -->
+  <rect x='24' y='14' width='912' height='36' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='38' font-family='monospace' font-size='14' fill='#65d6c9' font-weight='bold'>PyNexus · GREEN HYDROGEN · WIND → ELECTROLYZER → PIPELINE MODEL</text>
 
-  <rect x='654' y='126' width='238' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
-  <text x='678' y='162' fill='#cdd5df' font-family='ui-monospace,monospace' font-size='16' font-weight='700'>PROJECT SUMMARY</text>
-  <text x='678' y='196' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='14'>Wind-electrolyzer-pipeline optimisation</text>
-  <text x='678' y='228' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>Technical focus, method and outputs</text>
-  <text x='678' y='248' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>represented in a portfolio-safe preview</text>
+  <!-- Process flow diagram -->
 
-  <rect x='678' y='286' width='190' height='42' rx='9' fill='#1d2734' stroke='#445267'/>
-  <text x='694' y='312' fill='#dce3ec' font-family='ui-monospace,monospace' font-size='13'>Case study available</text>
+  <!-- Stage 1: Offshore Wind Farm -->
+  <rect x='30' y='140' width='140' height='160' rx='8' fill='#0d1a2e' stroke='#65d6c9' stroke-width='2'/>
+  <text x='100' y='162' font-family='monospace' font-size='11' fill='#65d6c9' text-anchor='middle' font-weight='bold'>OFFSHORE</text>
+  <text x='100' y='176' font-family='monospace' font-size='11' fill='#65d6c9' text-anchor='middle' font-weight='bold'>WIND FARM</text>
+  <!-- Wind turbine icons (3 turbines) -->
+  <line x1='62' y1='200' x2='62' y2='225' stroke='#65d6c9' stroke-width='1.5'/>
+  <line x1='50' y1='207' x2='74' y2='207' stroke='#65d6c9' stroke-width='1.3'/>
+  <polyline points='50,202 62,200 74,202' fill='none' stroke='#65d6c9' stroke-width='1.3'/>
+  <line x1='100' y1='192' x2='100' y2='225' stroke='#65d6c9' stroke-width='1.5'/>
+  <line x1='86' y1='200' x2='114' y2='200' stroke='#65d6c9' stroke-width='1.3'/>
+  <polyline points='86,195 100,192 114,195' fill='none' stroke='#65d6c9' stroke-width='1.3'/>
+  <line x1='138' y1='205' x2='138' y2='225' stroke='#65d6c9' stroke-width='1.5'/>
+  <line x1='126' y1='213' x2='150' y2='213' stroke='#65d6c9' stroke-width='1.3'/>
+  <polyline points='126,208 138,205 150,208' fill='none' stroke='#65d6c9' stroke-width='1.3'/>
+  <text x='100' y='280' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>500 MW installed</text>
 
-  <rect x='678' y='338' width='190' height='88' rx='9' fill='#151f2b' stroke='#445267'/>
-  <text x='694' y='364' fill='#d0d9e4' font-family='ui-monospace,monospace' font-size='12'>Monochrome preview system</text>
-  <text x='694' y='384' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='12'>Unified format / consistent tone</text>
+  <!-- Arrow 1→2: electricity -->
+  <line x1='172' y1='220' x2='212' y2='220' stroke='#65d6c9' stroke-width='2' marker-end='url(#arr)'/>
+  <text x='192' y='212' font-family='monospace' font-size='9' fill='#65d6c9' text-anchor='middle'>AC [MW]</text>
+
+  <!-- Stage 2: Electrolyzer -->
+  <rect x='214' y='140' width='140' height='160' rx='8' fill='#0d1a2e' stroke='#38bdf8' stroke-width='2'/>
+  <text x='284' y='162' font-family='monospace' font-size='11' fill='#38bdf8' text-anchor='middle' font-weight='bold'>PEM</text>
+  <text x='284' y='176' font-family='monospace' font-size='11' fill='#38bdf8' text-anchor='middle' font-weight='bold'>ELECTROLYZER</text>
+  <!-- Electrolyzer cell stack schematic -->
+  <rect x='234' y='190' width='30' height='60' rx='2' fill='#0f2240' stroke='#38bdf8' stroke-width='1'/>
+  <rect x='272' y='190' width='30' height='60' rx='2' fill='#0f2240' stroke='#38bdf8' stroke-width='1'/>
+  <rect x='310' y='190' width='30' height='60' rx='2' fill='#0f2240' stroke='#38bdf8' stroke-width='1'/>
+  <!-- H2O in -->
+  <line x1='244' y1='185' x2='244' y2='190' stroke='#38bdf8' stroke-width='1.5'/>
+  <text x='249' y='183' font-family='monospace' font-size='8' fill='#38bdf8'>H₂O</text>
+  <!-- H2 out (top) -->
+  <line x1='284' y1='185' x2='284' y2='190' stroke='#4ade80' stroke-width='1.5'/>
+  <text x='289' y='183' font-family='monospace' font-size='8' fill='#4ade80'>H₂↑</text>
+  <!-- O2 out -->
+  <line x1='322' y1='185' x2='322' y2='190' stroke='#f6c85f' stroke-width='1.5'/>
+  <text x='327' y='183' font-family='monospace' font-size='8' fill='#f6c85f'>O₂</text>
+  <text x='284' y='278' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>PEM stack array</text>
+
+  <!-- Arrow 2→3: H2 gas -->
+  <line x1='356' y1='220' x2='396' y2='220' stroke='#4ade80' stroke-width='2' marker-end='url(#arb)'/>
+  <text x='376' y='212' font-family='monospace' font-size='9' fill='#4ade80' text-anchor='middle'>H₂ [kg/h]</text>
+
+  <!-- Stage 3: H2 compressor + storage -->
+  <rect x='398' y='140' width='140' height='160' rx='8' fill='#0d1a2e' stroke='#4ade80' stroke-width='2'/>
+  <text x='468' y='162' font-family='monospace' font-size='11' fill='#4ade80' text-anchor='middle' font-weight='bold'>COMPRESS</text>
+  <text x='468' y='176' font-family='monospace' font-size='11' fill='#4ade80' text-anchor='middle' font-weight='bold'>+ STORAGE</text>
+  <!-- Tank symbol -->
+  <ellipse cx='468' cy='205' rx='30' ry='10' fill='none' stroke='#4ade80' stroke-width='1.5'/>
+  <line x1='438' y1='205' x2='438' y2='235' stroke='#4ade80' stroke-width='1.5'/>
+  <line x1='498' y1='205' x2='498' y2='235' stroke='#4ade80' stroke-width='1.5'/>
+  <ellipse cx='468' cy='235' rx='30' ry='10' fill='none' stroke='#4ade80' stroke-width='1.5'/>
+  <!-- Pressure annotation -->
+  <text x='468' y='222' font-family='monospace' font-size='9' fill='#4ade80' text-anchor='middle'>350 bar</text>
+  <text x='468' y='278' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Underground salt</text>
+
+  <!-- Arrow 3→4: pipeline -->
+  <line x1='540' y1='220' x2='580' y2='220' stroke='#4ade80' stroke-width='2' marker-end='url(#arb)'/>
+  <text x='560' y='210' font-family='monospace' font-size='9' fill='#4ade80' text-anchor='middle'>pipeline</text>
+
+  <!-- Stage 4: Pipeline + transport -->
+  <rect x='582' y='140' width='140' height='160' rx='8' fill='#0d1a2e' stroke='#f6c85f' stroke-width='1.5'/>
+  <text x='652' y='162' font-family='monospace' font-size='11' fill='#f6c85f' text-anchor='middle' font-weight='bold'>H₂ PIPELINE</text>
+  <!-- Pipe cross-section -->
+  <circle cx='652' cy='215' r='30' fill='none' stroke='#f6c85f' stroke-width='2'/>
+  <circle cx='652' cy='215' r='20' fill='none' stroke='#f6c85f' stroke-width='1' stroke-dasharray='3,3'/>
+  <line x1='620' y1='215' x2='584' y2='215' stroke='#f6c85f' stroke-width='2'/>
+  <line x1='684' y1='215' x2='720' y2='215' stroke='#f6c85f' stroke-width='2'/>
+  <text x='652' y='219' font-family='monospace' font-size='8' fill='#f6c85f' text-anchor='middle'>H₂ flow</text>
+  <text x='652' y='278' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Grid blending ready</text>
+
+  <!-- Arrow 4→5: end use -->
+  <line x1='724' y1='220' x2='764' y2='220' stroke='#f6c85f' stroke-width='2' marker-end='url(#arb)'/>
+
+  <!-- Stage 5: End use -->
+  <rect x='766' y='140' width='140' height='160' rx='8' fill='#0d1a2e' stroke='#d0622c' stroke-width='1.5'/>
+  <text x='836' y='162' font-family='monospace' font-size='11' fill='#d0622c' text-anchor='middle' font-weight='bold'>END USE</text>
+  <text x='836' y='192' font-family='monospace' font-size='9' fill='#c8d8ea' text-anchor='middle'>Industry</text>
+  <text x='836' y='208' font-family='monospace' font-size='9' fill='#c8d8ea' text-anchor='middle'>Transport (fuel cell)</text>
+  <text x='836' y='224' font-family='monospace' font-size='9' fill='#c8d8ea' text-anchor='middle'>Power re-conversion</text>
+  <text x='836' y='240' font-family='monospace' font-size='9' fill='#c8d8ea' text-anchor='middle'>Gas grid blending</text>
+  <text x='836' y='278' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>LCOH tracked</text>
+
+  <!-- Bottom panel: model metrics -->
+  <rect x='30' y='330' width='880' height='120' rx='6' fill='#0d1a2e' stroke='#152540' stroke-width='1'/>
+  <text x='480' y='354' font-family='monospace' font-size='12' fill='#c8d8ea' text-anchor='middle' font-weight='bold'>SYSTEM MODEL OUTPUTS</text>
+  <!-- H2 production curve (mini) -->
+  <text x='100' y='376' font-family='monospace' font-size='10' fill='#4ade80' text-anchor='middle'>H₂ yield [tonne/day]</text>
+  <polyline points='50,430 70,410 90,395 110,390 130,405 150,420' fill='none' stroke='#4ade80' stroke-width='1.8'/>
+  <!-- LCOH bar -->
+  <text x='320' y='376' font-family='monospace' font-size='10' fill='#f6c85f' text-anchor='middle'>LCOH [€/kg H₂]</text>
+  <rect x='270' y='390' width='100' height='16' rx='2' fill='#0f2240'/>
+  <rect x='270' y='390' width='72' height='16' rx='2' fill='#f6c85f' opacity='0.7'/>
+  <text x='380' y='403' font-family='monospace' font-size='9' fill='#f6c85f'>3.6 €/kg</text>
+  <rect x='270' y='412' width='100' height='16' rx='2' fill='#0f2240'/>
+  <rect x='270' y='412' width='50' height='16' rx='2' fill='#4ade80' opacity='0.6'/>
+  <text x='380' y='425' font-family='monospace' font-size='9' fill='#4ade80'>2.5 €/kg (target)</text>
+  <!-- Capacity factor -->
+  <text x='550' y='376' font-family='monospace' font-size='10' fill='#38bdf8' text-anchor='middle'>Capacity factor: 43%</text>
+  <text x='550' y='396' font-family='monospace' font-size='10' fill='#65d6c9' text-anchor='middle'>Electrolyzer efficiency: 68%</text>
+  <text x='550' y='416' font-family='monospace' font-size='10' fill='#2a4060' text-anchor='middle'>Annual H₂: 28,000 t/yr</text>
+  <!-- Sensitivity -->
+  <text x='750' y='376' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='middle'>Sensitivity: CAPEX / CF</text>
+  <polyline points='690,430 710,415 730,408 750,412 770,418 790,410 810,400' fill='none' stroke='#8f7fff' stroke-width='1.5'/>
+
+  <!-- Bottom tag strip -->
+  <rect x='24' y='490' width='912' height='34' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='512' font-family='monospace' font-size='11' fill='#2a4060'>Python · PyNexus model · PEM electrolyzer · LCOH · Pipeline topology · Capacity factor optimisation</text>
 </svg>

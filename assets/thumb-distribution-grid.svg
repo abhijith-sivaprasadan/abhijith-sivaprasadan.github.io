@@ -1,40 +1,101 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Power flow, N-1 screening and voltage profile'>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Distribution grid power flow and N-1 contingency study'>
   <defs>
     <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
-      <stop offset='0' stop-color='#0f141b'/>
-      <stop offset='1' stop-color='#0a0f15'/>
+      <stop offset='0' stop-color='#0b1220'/><stop offset='1' stop-color='#070c16'/>
     </linearGradient>
-    <linearGradient id='panel' x1='0' y1='0' x2='1' y2='1'>
-      <stop offset='0' stop-color='#161f2b'/>
-      <stop offset='1' stop-color='#121a25'/>
-    </linearGradient>
+    <marker id='arr' markerWidth='7' markerHeight='6' refX='6' refY='3' orient='auto'>
+      <path d='M0,0 L0,6 L7,3 z' fill='#38bdf8'/>
+    </marker>
+    <marker id='aro' markerWidth='7' markerHeight='6' refX='6' refY='3' orient='auto'>
+      <path d='M0,0 L0,6 L7,3 z' fill='#d0622c'/>
+    </marker>
   </defs>
   <rect width='960' height='540' fill='url(#bg)'/>
-  <rect x='34' y='30' width='892' height='480' rx='22' fill='url(#panel)' stroke='#354152'/>
-  <rect x='34' y='30' width='892' height='62' rx='22' fill='#121d2b'/>
-  <text x='62' y='68' fill='#e6ecf3' font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size='20' font-weight='700'>DISTRIBUTION GRID STUDY</text>
 
-  <rect x='66' y='126' width='560' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
-  <g stroke='#5d6876' stroke-width='1.2' opacity='0.7'>
-    <line x1='96' y1='404' x2='594' y2='404'/>
-    <line x1='96' y1='350' x2='594' y2='350'/>
-    <line x1='96' y1='296' x2='594' y2='296'/>
-    <line x1='96' y1='242' x2='594' y2='242'/>
-    <line x1='96' y1='188' x2='594' y2='188'/>
-  </g>
-  <polyline points='96,356 132,336 168,320 204,300 240,280 276,260 312,274 348,298 384,322 420,336 456,312 492,284 528,260 564,238 594,224' fill='none' stroke='#c8d0db' stroke-width='4.2'/>
-  <polyline points='96,372 132,360 168,346 204,330 240,312 276,300 312,314 348,334 384,352 420,362 456,346 492,324 528,304 564,286 594,272' fill='none' stroke='#9ca6b5' stroke-width='3.4' stroke-dasharray='8 6'/>
+  <!-- Title bar -->
+  <rect x='24' y='14' width='912' height='36' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='38' font-family='monospace' font-size='14' fill='#65d6c9' font-weight='bold'>DISTRIBUTION GRID · POWER FLOW · N-1 CONTINGENCY SCREENING</text>
 
-  <rect x='654' y='126' width='238' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
-  <text x='678' y='162' fill='#cdd5df' font-family='ui-monospace,monospace' font-size='16' font-weight='700'>PROJECT SUMMARY</text>
-  <text x='678' y='196' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='14'>Power flow, N-1 screening and voltage profile</text>
-  <text x='678' y='228' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>Technical focus, method and outputs</text>
-  <text x='678' y='248' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>represented in a portfolio-safe preview</text>
+  <!-- Main substation (HV/MV transformer) -->
+  <rect x='400' y='62' width='160' height='70' rx='6' fill='#0d1a2e' stroke='#38bdf8' stroke-width='2'/>
+  <text x='480' y='88' font-family='monospace' font-size='12' fill='#38bdf8' text-anchor='middle' font-weight='bold'>SUBSTATION</text>
+  <text x='480' y='106' font-family='monospace' font-size='10' fill='#2a4060' text-anchor='middle'>33 kV / 11 kV</text>
+  <text x='480' y='122' font-family='monospace' font-size='9' fill='#65d6c9' text-anchor='middle'>20 MVA transformer</text>
+  <!-- Busbar -->
+  <line x1='120' y1='145' x2='840' y2='145' stroke='#38bdf8' stroke-width='3'/>
+  <line x1='480' y1='132' x2='480' y2='145' stroke='#38bdf8' stroke-width='2'/>
 
-  <rect x='678' y='286' width='190' height='42' rx='9' fill='#1d2734' stroke='#445267'/>
-  <text x='694' y='312' fill='#dce3ec' font-family='ui-monospace,monospace' font-size='13'>Case study available</text>
+  <!-- Feeder 1 (left, overloaded) -->
+  <line x1='180' y1='145' x2='180' y2='210' stroke='#f6c85f' stroke-width='3'/>
+  <rect x='140' y='210' width='80' height='32' rx='4' fill='#0d1a2e' stroke='#f6c85f' stroke-width='1.5'/>
+  <text x='180' y='231' font-family='monospace' font-size='10' fill='#f6c85f' text-anchor='middle'>F1: 94%</text>
+  <line x1='180' y1='242' x2='180' y2='300' stroke='#f6c85f' stroke-width='3'/>
 
-  <rect x='678' y='338' width='190' height='88' rx='9' fill='#151f2b' stroke='#445267'/>
-  <text x='694' y='364' fill='#d0d9e4' font-family='ui-monospace,monospace' font-size='12'>Monochrome preview system</text>
-  <text x='694' y='384' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='12'>Unified format / consistent tone</text>
+  <!-- Load A1 -->
+  <line x1='180' y1='300' x2='100' y2='340' stroke='#f6c85f' stroke-width='2'/>
+  <rect x='60' y='338' width='80' height='50' rx='4' fill='#0d1a2e' stroke='#8f7fff' stroke-width='1.5'/>
+  <text x='100' y='358' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='middle'>Res A</text>
+  <text x='100' y='374' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>2.4 MW</text>
+
+  <!-- Load A2 -->
+  <line x1='180' y1='300' x2='260' y2='340' stroke='#f6c85f' stroke-width='2'/>
+  <rect x='220' y='338' width='80' height='50' rx='4' fill='#0d1a2e' stroke='#8f7fff' stroke-width='1.5'/>
+  <text x='260' y='358' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='middle'>Indust</text>
+  <text x='260' y='374' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>3.8 MW</text>
+
+  <!-- N-1 switch (open) -->
+  <line x1='180' y1='300' x2='180' y2='410' stroke='#f6c85f' stroke-width='2' stroke-dasharray='5,3'/>
+  <circle cx='180' cy='420' r='10' fill='#0d1a2e' stroke='#d0622c' stroke-width='1.5'/>
+  <text x='180' y='424' font-family='monospace' font-size='9' fill='#d0622c' text-anchor='middle'>SW</text>
+  <text x='204' y='422' font-family='monospace' font-size='9' fill='#d0622c'>OPEN</text>
+
+  <!-- Feeder 2 (center, normal) -->
+  <line x1='480' y1='145' x2='480' y2='210' stroke='#38bdf8' stroke-width='2.5'/>
+  <rect x='440' y='210' width='80' height='32' rx='4' fill='#0d1a2e' stroke='#38bdf8' stroke-width='1.5'/>
+  <text x='480' y='231' font-family='monospace' font-size='10' fill='#38bdf8' text-anchor='middle'>F2: 62%</text>
+  <line x1='480' y1='242' x2='480' y2='300' stroke='#38bdf8' stroke-width='2.5'/>
+  <line x1='480' y1='300' x2='380' y2='360' stroke='#38bdf8' stroke-width='2'/>
+  <line x1='480' y1='300' x2='480' y2='360' stroke='#38bdf8' stroke-width='2'/>
+  <line x1='480' y1='300' x2='580' y2='360' stroke='#38bdf8' stroke-width='2'/>
+  <!-- 3 loads on F2 -->
+  <rect x='340' y='358' width='80' height='50' rx='4' fill='#0d1a2e' stroke='#8f7fff' stroke-width='1.5'/>
+  <text x='380' y='378' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='middle'>Comm</text>
+  <text x='380' y='394' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>1.8 MW</text>
+  <rect x='440' y='358' width='80' height='50' rx='4' fill='#0d1a2e' stroke='#8f7fff' stroke-width='1.5'/>
+  <text x='480' y='378' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='middle'>Res B</text>
+  <text x='480' y='394' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>1.2 MW</text>
+  <rect x='540' y='358' width='80' height='50' rx='4' fill='#0d1a2e' stroke='#8f7fff' stroke-width='1.5'/>
+  <text x='580' y='378' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='middle'>PV DER</text>
+  <text x='580' y='394' font-family='monospace' font-size='9' fill='#4ade80' text-anchor='middle'>-0.6 MW</text>
+
+  <!-- Feeder 3 (right, lightly loaded) -->
+  <line x1='780' y1='145' x2='780' y2='210' stroke='#2563a8' stroke-width='2'/>
+  <rect x='740' y='210' width='80' height='32' rx='4' fill='#0d1a2e' stroke='#2563a8' stroke-width='1.5'/>
+  <text x='780' y='231' font-family='monospace' font-size='10' fill='#2563a8' text-anchor='middle'>F3: 38%</text>
+  <line x1='780' y1='242' x2='780' y2='300' stroke='#2563a8' stroke-width='2'/>
+  <line x1='780' y1='300' x2='700' y2='360' stroke='#2563a8' stroke-width='1.5'/>
+  <line x1='780' y1='300' x2='860' y2='360' stroke='#2563a8' stroke-width='1.5'/>
+  <rect x='660' y='358' width='80' height='50' rx='4' fill='#0d1a2e' stroke='#8f7fff' stroke-width='1.5'/>
+  <text x='700' y='378' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='middle'>Rural A</text>
+  <text x='700' y='394' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>0.8 MW</text>
+  <rect x='820' y='358' width='80' height='50' rx='4' fill='#0d1a2e' stroke='#8f7fff' stroke-width='1.5'/>
+  <text x='860' y='378' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='middle'>Rural B</text>
+  <text x='860' y='394' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>0.6 MW</text>
+
+  <!-- Loading legend -->
+  <rect x='24' y='440' width='912' height='40' rx='5' fill='#0d1a2e' stroke='#152540' stroke-width='1'/>
+  <line x1='44' y1='460' x2='80' y2='460' stroke='#f6c85f' stroke-width='3'/>
+  <text x='88' y='465' font-family='monospace' font-size='10' fill='#f6c85f'>Overloaded (&gt;85%)</text>
+  <line x1='240' y1='460' x2='276' y2='460' stroke='#38bdf8' stroke-width='2.5'/>
+  <text x='284' y='465' font-family='monospace' font-size='10' fill='#38bdf8'>Normal (50-85%)</text>
+  <line x1='430' y1='460' x2='466' y2='460' stroke='#2563a8' stroke-width='2'/>
+  <text x='474' y='465' font-family='monospace' font-size='10' fill='#2563a8'>Light (&lt;50%)</text>
+  <circle cx='620' cy='460' r='8' fill='none' stroke='#d0622c' stroke-width='1.5'/>
+  <text x='636' y='465' font-family='monospace' font-size='10' fill='#d0622c'>N-1 switch (open)</text>
+  <rect x='790' y='452' width='10' height='10' fill='#4ade80' opacity='0.7'/>
+  <text x='806' y='463' font-family='monospace' font-size='10' fill='#4ade80'>DER injection</text>
+
+  <!-- Bottom tag strip -->
+  <rect x='24' y='490' width='912' height='34' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='512' font-family='monospace' font-size='11' fill='#2a4060'>MATPOWER · Radial feeder · Power flow · N-1 screening · Voltage profile · DER integration</text>
 </svg>
