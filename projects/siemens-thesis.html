@@ -167,12 +167,10 @@
               </div>
               <div class="chart-grid">
                 <div class="chart-shell">
-                  <canvas id="meshPressureChart" aria-label="Mesh pressure drop convergence chart">Mesh pressure drop convergence: redesigned 38810, 39146, 39387 Pa; legacy 36814, 36285, 35797 Pa.</canvas>
-                  <div class="chart-fallback"><strong>Pressure drop convergence</strong><span>Redesigned: 38,810 -> 39,146 -> 39,387 Pa.</span><span>Legacy: 36,814 -> 36,285 -> 35,797 Pa.</span></div>
+                  <canvas id="meshPressureChart" data-chart-id="meshPressure" aria-label="Mesh pressure drop convergence chart">Mesh pressure drop convergence chart.</canvas>
                 </div>
                 <div class="chart-shell">
-                  <canvas id="meshMachChart" aria-label="Mesh Mach number convergence chart">Mesh Mach convergence: redesigned 0.9888, 0.9904, 0.9887; legacy baseline 1.0148 and fine 1.0164.</canvas>
-                  <div class="chart-fallback"><strong>Maximum Mach convergence</strong><span>Redesigned remains stable at Ma 0.9888-0.9904.</span><span>Legacy baseline/fine: Ma 1.0148 -> 1.0164.</span></div>
+                  <canvas id="meshMachChart" data-chart-id="meshMach" aria-label="Mesh Mach number convergence chart">Mesh Mach number convergence chart.</canvas>
                 </div>
               </div>
               <p class="annotation">The baseline meshes were retained because the monitored engineering quantities were stable under refinement, including pressure drop, maximum Mach number and outlet temperature.</p>
@@ -193,8 +191,7 @@
                 <span><strong>7.7e-4</strong><small>legacy k final</small></span>
               </div>
               <div class="chart-shell wide">
-                <canvas id="convergenceChart" aria-label="Solver convergence residual comparison">Solver convergence residual comparison for continuity, energy and turbulence variables.</canvas>
-                <div class="chart-fallback"><strong>Solver convergence</strong><span>Continuity residuals finished at 5.1e-7 for the redesigned reducer and 1.7e-6 for the legacy reducer.</span><span>Higher legacy turbulence residuals align with the stronger jet and separated-flow physics.</span></div>
+                <canvas id="convergenceChart" data-chart-id="convergence" aria-label="Solver convergence residual comparison">Solver convergence residual comparison chart.</canvas>
               </div>
               <p class="annotation">Higher legacy turbulence residuals were interpreted with the flow field: the step geometry creates a stronger turbulent jet and vena-contracta region, while integral monitors for pressure drop, mass balance and outlet temperature stabilized.</p>
             </article>
@@ -214,8 +211,7 @@
                 <span><strong>Step spike</strong><small>legacy local peak</small></span>
               </div>
               <div class="chart-shell wide">
-                <canvas id="yplusChart" aria-label="Wall y plus distribution chart">Wall y plus distribution for legacy and redesigned reducers.</canvas>
-                <div class="chart-fallback"><strong>Near-wall resolution</strong><span>Legacy y+ range: 0.2-11.2, with a local spike at the step.</span><span>Redesigned y+ range: 0.3-10.6, rising smoothly through the contraction.</span></div>
+                <canvas id="yplusChart" data-chart-id="yplus" aria-label="Wall y plus distribution chart">Wall y plus distribution chart.</canvas>
               </div>
               <p class="annotation">The legacy y+ spike aligns with the abrupt step and vena-contracta region. The redesigned case rises more smoothly through the contraction, supporting a fair comparison of wall heat transfer trends.</p>
             </article>
@@ -236,12 +232,10 @@
               </div>
               <div class="chart-grid">
                 <div class="chart-shell">
-                  <canvas id="flowMachChart" aria-label="Centerline Mach comparison chart">Centerline Mach comparison for legacy and redesigned reducers.</canvas>
-                  <div class="chart-fallback"><strong>Centerline Mach</strong><span>Legacy adiabatic centerline peak: Ma 0.908.</span><span>Redesigned adiabatic centerline peak: Ma 0.640.</span></div>
+                  <canvas id="flowMachChart" data-chart-id="flowMach" aria-label="Centerline Mach comparison chart">Centerline Mach comparison chart.</canvas>
                 </div>
                 <div class="chart-shell">
-                  <canvas id="flowPressureChart" aria-label="Centerline total pressure comparison chart">Centerline total pressure comparison for legacy and redesigned reducers.</canvas>
-                  <div class="chart-fallback"><strong>Total pressure</strong><span>Legacy loss: 3,688 Pa.</span><span>Redesigned loss: 168 Pa, a 22x reduction.</span></div>
+                  <canvas id="flowPressureChart" data-chart-id="flowPressure" aria-label="Centerline total pressure comparison chart">Centerline total pressure comparison chart.</canvas>
                 </div>
               </div>
               <p class="annotation">These exported plots show the adiabatic centerline comparison case. The thesis report also records the most demanding near-choked CHT condition, where the redesigned case reached Ma = 0.990 and the legacy case reached Ma = 1.006. The wording is kept separate because the operating context and metric are not identical.</p>
@@ -262,8 +256,7 @@
                 <span><strong>96,312 Pa</strong><small>effective outlet total pressure</small></span>
               </div>
               <div class="chart-shell wide">
-                <canvas id="legacyFlowChart" aria-label="Legacy reducer Mach and pressure diagnostic chart">Legacy reducer Mach and pressure diagnostic chart.</canvas>
-                <div class="chart-fallback"><strong>Legacy diagnostic</strong><span>Inlet Ma 0.016 rises to a local Ma 0.908 jet near the step.</span><span>Effective outlet total pressure falls to 96,312 Pa.</span></div>
+                <canvas id="legacyFlowChart" data-chart-id="legacyFlow" aria-label="Legacy reducer Mach and pressure diagnostic chart">Legacy reducer Mach and pressure diagnostic chart.</canvas>
               </div>
               <p class="annotation">The local peak near the step is the numerical signature of the Borda-Carnot mechanism: a compact hydraulic fitting saves surface area but pays for it with irreversible flow loss.</p>
             </article>
@@ -283,8 +276,7 @@
                 <span><strong>647.9 K</strong><small>redesigned outlet wall</small></span>
               </div>
               <div class="chart-shell wide">
-                <canvas id="wallTempChart" aria-label="Wall temperature comparison chart">Wall temperature comparison for legacy and redesigned reducers.</canvas>
-                <div class="chart-fallback"><strong>Wall temperature</strong><span>Legacy wall: 671.6 K inlet to 639.2 K outlet.</span><span>Redesigned wall: 673.0 K inlet to 647.9 K outlet.</span></div>
+                <canvas id="wallTempChart" data-chart-id="wallTemp" aria-label="Wall temperature comparison chart">Wall temperature comparison chart.</canvas>
               </div>
               <p class="annotation">The legacy wall-temperature drop is concentrated around the step zone, while the redesigned reducer distributes cooling over the full 150 mm contraction.</p>
             </article>
@@ -305,22 +297,18 @@
               </div>
               <div class="chart-grid">
                 <div class="chart-shell">
-                  <canvas id="heatLossChart" aria-label="External heat loss and thermal resistance comparison">External heat loss and thermal resistance comparison.</canvas>
-                  <div class="chart-fallback"><strong>Heat loss and resistance</strong><span>External heat loss: redesigned 55.7 W avg, legacy 18.8 W avg.</span><span>External resistance: 5.19 K/W vs 17.37 K/W.</span></div>
+                  <canvas id="heatLossChart" data-chart-id="heatLoss" aria-label="External heat loss and thermal resistance comparison">External heat loss and thermal resistance comparison chart.</canvas>
                 </div>
                 <div class="chart-shell">
-                  <canvas id="outletGapChart" aria-label="Outlet temperature gap under uninsulated and insulated conditions">Outlet temperature gap under uninsulated and insulated conditions.</canvas>
-                  <div class="chart-fallback"><strong>Outlet temperature gap</strong><span>Uninsulated legacy advantage: 7.80 K, 4.75 K, 3.36 K.</span><span>Insulated reference reverses by 1.24 K in favor of the redesigned reducer.</span></div>
+                  <canvas id="outletGapChart" data-chart-id="outletGap" aria-label="Outlet temperature gap under uninsulated and insulated conditions">Outlet temperature gap chart.</canvas>
                 </div>
               </div>
               <div class="chart-grid">
                 <div class="chart-shell">
-                  <canvas id="biotChart" aria-label="Biot proof through wall temperature gradient">Biot proof through-wall temperature gradient comparison.</canvas>
-                  <div class="chart-fallback"><strong>Biot proof</strong><span>Bi = 0.003-0.004, so through-wall gradients are negligible.</span><span>Maximum wall delta T: 0.70 K legacy, 0.06 K redesigned.</span></div>
+                  <canvas id="biotChart" data-chart-id="biot" aria-label="Biot proof through wall temperature gradient">Biot proof chart.</canvas>
                 </div>
                 <div class="chart-shell">
-                  <canvas id="insulationChart" aria-label="Insulation effect on outlet wall temperature">Insulation effect on outlet wall temperature.</canvas>
-                  <div class="chart-fallback"><strong>Insulation effect</strong><span>Legacy outlet wall: 627.2 K uninsulated, 648.1 K insulated.</span><span>Redesigned outlet wall: 597.6 K uninsulated, 653.8 K insulated.</span></div>
+                  <canvas id="insulationChart" data-chart-id="insulation" aria-label="Insulation effect on outlet wall temperature">Insulation effect chart.</canvas>
                 </div>
               </div>
               <p class="annotation">The redesigned reducer has lower heat-loss intensity per unit area, but its much larger exposed area dominates the uninsulated thermal result. When the external loss path is removed, the outlet-temperature advantage reverses in favor of the redesigned reducer by 1.24 K.</p>
