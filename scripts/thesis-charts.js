@@ -474,6 +474,74 @@
     applyFilter("all");
   }
 
+  function initEvidenceDensity() {
+    var dashboard = document.querySelector(".evidence-dashboard");
+    var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-evidence-density]"));
+    if (!dashboard || !buttons.length) return;
+
+    function applyDensity(density) {
+      var nextDensity = density === "expanded" ? "expanded" : "compact";
+      dashboard.setAttribute("data-evidence-density-mode", nextDensity);
+      buttons.forEach(function (button) {
+        button.classList.toggle("is-active", button.getAttribute("data-evidence-density") === nextDensity);
+      });
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        applyDensity(button.getAttribute("data-evidence-density"));
+      });
+    });
+
+    applyDensity("compact");
+  }
+
+  function initChartFocus() {
+    var dashboard = document.querySelector(".evidence-dashboard");
+    var cards = Array.prototype.slice.call(document.querySelectorAll(".thesis-chart-card"));
+    if (!dashboard || !cards.length) return;
+
+    function clearFocus() {
+      dashboard.classList.remove("has-focused-chart");
+      cards.forEach(function (card) {
+        card.classList.remove("is-focused");
+        var button = card.querySelector("[data-chart-focus]");
+        if (button) button.textContent = "Focus";
+      });
+    }
+
+    cards.forEach(function (card) {
+      var header = card.querySelector(".chart-card-header");
+      if (!header || header.querySelector("[data-chart-focus]")) return;
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "chart-focus-button";
+      button.setAttribute("data-chart-focus", "");
+      button.textContent = "Focus";
+      header.appendChild(button);
+      button.addEventListener("click", function () {
+        var focused = card.classList.contains("is-focused");
+        clearFocus();
+        if (!focused) {
+          dashboard.classList.add("has-focused-chart");
+          card.classList.add("is-focused");
+          button.textContent = "Release";
+          card.scrollIntoView({ behavior: "smooth", block: "start" });
+          setTimeout(renderAll, 260);
+        } else {
+          setTimeout(renderAll, 120);
+        }
+      });
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        clearFocus();
+        setTimeout(renderAll, 120);
+      }
+    });
+  }
+
   function initMediaDialog() {
     var dialog = document.querySelector(".thesis-media-dialog");
     var mediaButtons = Array.prototype.slice.call(document.querySelectorAll("[data-thesis-media]"));
@@ -507,6 +575,8 @@
     try {
       renderAll();
       initEvidenceFilters();
+      initEvidenceDensity();
+      initChartFocus();
       initMediaDialog();
       document.documentElement.classList.add("charts-ready");
     } catch (error) {
