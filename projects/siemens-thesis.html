@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="../styles.css" />
   <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
   <script src="../scripts/thesis-charts.js" defer></script>
+  <script src="../scripts/animations.js?v=20260522" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
@@ -55,7 +56,12 @@
           <span class="result-metric-card"><strong>Bi 0.003-0.004</strong><small>thermal resistance insight</small></span>
           <span class="result-metric-card"><strong>8/8</strong><small>quality checks passed</small></span>
         </div>
-        <img class="case-visual" src="../assets/thumb-siemens-validation.svg" alt="CFD, CHT and test validation workflow visual" loading="lazy" width="960" height="540" />
+        <div class="thesis-hero-media">
+          <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/lab-rig-pulsatorn.jpg" data-thesis-caption="Pulsatorn high-temperature dynamic pressure calibration rig in the Siemens Energy Borsig room, where the thesis commissioning and validation work was carried out.">
+            <img class="case-visual thesis-photo" src="../assets/thesis/lab-rig-pulsatorn.jpg" alt="Pulsatorn test rig in the Siemens Energy lab" loading="lazy" width="960" height="540" />
+          </button>
+          <p class="thesis-photo-note">Pulsatorn calibration rig in the Siemens Energy Borsig room. Click images to enlarge.</p>
+        </div>
       </div>
     </section>
 
@@ -101,15 +107,51 @@
           <section>
             <p class="eyebrow">Design logic</p>
             <h2>From Borda-Carnot loss mechanism to C&sup2; contraction.</h2>
-            <div class="thesis-figure-grid">
+            <div class="thesis-figure-grid thesis-figure-grid-quad">
               <figure>
-                <img src="../assets/Borda Carnot Mechanism.png" alt="Borda-Carnot mechanism diagram for abrupt step contraction" loading="lazy" />
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/Borda Carnot Mechanism.png" data-thesis-caption="Borda-Carnot interpretation of the abrupt step contraction in the legacy reducer.">
+                  <img src="../assets/Borda Carnot Mechanism.png" alt="Borda-Carnot mechanism diagram for abrupt step contraction" loading="lazy" />
+                </button>
                 <figcaption>Legacy two-step reducer: abrupt area changes create vena-contracta behaviour and irreversible pressure loss.</figcaption>
               </figure>
               <figure>
-                <img src="../assets/C2 Quinitc Curve and Reducer.png" alt="Quintic C2 reducer profile" loading="lazy" />
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/C2 Quinitc Curve and Reducer.png" data-thesis-caption="Quintic C2 profile used to define the redesigned 150 mm reducer geometry.">
+                  <img src="../assets/C2 Quinitc Curve and Reducer.png" alt="Quintic C2 reducer profile" loading="lazy" />
+                </button>
                 <figcaption>Redesigned reducer: a 150 mm quintic C&sup2; profile removes slope and curvature discontinuities at the inlet and outlet.</figcaption>
               </figure>
+              <figure>
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/legacy-reducer-geometry.png" data-thesis-caption="Legacy commercial fitting geometry used in the original Pulsatorn reducer assembly.">
+                  <img src="../assets/thesis/legacy-reducer-geometry.png" alt="Legacy reducer geometry model" loading="lazy" />
+                </button>
+                <figcaption>Legacy geometry: compact, practical, and thermally conservative, but aerodynamically abrupt.</figcaption>
+              </figure>
+              <figure>
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/redesigned-reducer-geometry.png" data-thesis-caption="Redesigned smooth reducer geometry for the thesis comparison study.">
+                  <img src="../assets/thesis/redesigned-reducer-geometry.png" alt="Redesigned reducer geometry model" loading="lazy" />
+                </button>
+                <figcaption>Redesigned geometry: smoother contraction intended to recover pressure without the legacy jet mechanism.</figcaption>
+              </figure>
+            </div>
+          </section>
+
+          <section>
+            <p class="eyebrow">Geometry comparison — drag to reveal</p>
+            <h2>Legacy two-step vs redesigned C&sup2; quintic reducer.</h2>
+            <p>Both geometries connect the same heater bore (35.05&nbsp;mm) to the same outlet (6.0&nbsp;mm). The only variable is how the area change is distributed over length.</p>
+            <div class="img-compare" style="margin-top:18px;max-width:760px;">
+              <div class="img-compare-before">
+                <img src="../assets/thesis/legacy-reducer-geometry.png" alt="Legacy two-step reducer geometry" loading="lazy" />
+              </div>
+              <div class="img-compare-after">
+                <img src="../assets/thesis/redesigned-reducer-geometry.png" alt="Redesigned quintic C² reducer geometry" loading="lazy" />
+              </div>
+              <div class="img-compare-handle" aria-hidden="true"></div>
+              <input type="range" class="img-compare-range" min="0" max="100" value="50" aria-label="Drag to compare legacy and redesigned reducer geometries" />
+            </div>
+            <div class="img-compare-labels" style="max-width:760px;">
+              <span>&larr; Legacy two-step (compact, aerodynamically abrupt)</span>
+              <span>Redesigned C&sup2; quintic (150&nbsp;mm, smooth) &rarr;</span>
             </div>
           </section>
 
@@ -144,14 +186,45 @@
             </div>
           </section>
 
+          <section>
+            <p class="eyebrow">Simulation visuals</p>
+            <h2>From the ANSYS Fluent 2025&nbsp;R1 campaign: mesh, flow field and solver output.</h2>
+            <p>These are images from the actual thesis simulation campaign. Click any image to enlarge.</p>
+            <div class="cfd-full" style="margin-top:18px;">
+              <figure>
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/ANSYS campaign.png" data-thesis-caption="Overview of the full ANSYS Fluent simulation campaign: solver panel, boundary condition setup, monitored quantities and post-processing output for both reducer geometries.">
+                  <img src="../assets/thesis/ANSYS campaign.png" alt="ANSYS Fluent 2025 R1 simulation campaign overview" loading="lazy" style="width:100%;border-radius:10px;border:1px solid rgba(167,176,189,0.22);" />
+                </button>
+                <figcaption style="margin-top:8px;font-size:0.82rem;color:var(--muted);">Full ANSYS Fluent 2025&nbsp;R1 simulation campaign — solver setup, boundary conditions, monitored integral quantities and post-processed results for both geometry variants.</figcaption>
+              </figure>
+            </div>
+            <div class="cfd-evidence-grid">
+              <figure>
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/Mesh legacy step.png" data-thesis-caption="Mesh detail at the abrupt step of the legacy reducer. The inflation layers resolve the near-wall boundary layer where the Borda-Carnot vena-contracta mechanism and y+ spike originate.">
+                  <img src="../assets/thesis/Mesh legacy step.png" alt="Mesh at the legacy reducer abrupt step showing inflation layers" loading="lazy" />
+                </button>
+                <figcaption>Legacy reducer mesh at the abrupt step. Inflation layers capture the y+ spike that coincides with the vena-contracta acceleration zone.</figcaption>
+              </figure>
+              <figure>
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/Streamlines legacy.png" data-thesis-caption="Velocity streamlines through the legacy reducer showing the concentrated flow acceleration at the abrupt step and the downstream reattachment pattern associated with Borda-Carnot losses.">
+                  <img src="../assets/thesis/Streamlines legacy.png" alt="Velocity streamlines in the legacy reducer" loading="lazy" />
+                </button>
+                <figcaption>Legacy reducer streamlines. The abrupt contraction concentrates acceleration into a thin jet before the flow reattaches — the visual signature of the Borda-Carnot pressure-loss mechanism.</figcaption>
+              </figure>
+            </div>
+          </section>
+
           <section id="evidence-dashboard" class="evidence-dashboard">
             <p class="eyebrow">Numerical evidence dashboard</p>
             <h2>Exported thesis charts rebuilt as native portfolio evidence.</h2>
-            <p>
-              The charts below condense the exported thesis post-processing files into a single research narrative: numerical independence, solver discipline, near-wall validity, flow physics, thermal decomposition and insulation sensitivity.
-            </p>
+            <div class="filter-chip-row thesis-filter-row" role="group" aria-label="Evidence filter">
+              <button type="button" class="filter-chip is-active" data-evidence-filter="all">All evidence</button>
+              <button type="button" class="filter-chip" data-evidence-filter="validation">Validation</button>
+              <button type="button" class="filter-chip" data-evidence-filter="flow">Flow</button>
+              <button type="button" class="filter-chip" data-evidence-filter="thermal">Thermal</button>
+            </div>
 
-            <article class="thesis-chart-card">
+            <article class="thesis-chart-card" data-evidence-group="validation">
               <div class="chart-card-header">
                 <div>
                   <p class="eyebrow">ANSYS Fluent &middot; three-level refinement</p>
@@ -173,10 +246,13 @@
                   <canvas id="meshMachChart" data-chart-id="meshMach" aria-label="Mesh Mach number convergence chart">Mesh Mach number convergence chart.</canvas>
                 </div>
               </div>
-              <p class="annotation">The baseline meshes were retained because the monitored engineering quantities were stable under refinement, including pressure drop, maximum Mach number and outlet temperature.</p>
+              <details class="chart-note">
+                <summary>Why it matters</summary>
+                <p class="annotation">The baseline meshes were retained because the monitored engineering quantities were stable under refinement, including pressure drop, maximum Mach number and outlet temperature.</p>
+              </details>
             </article>
 
-            <article class="thesis-chart-card">
+            <article class="thesis-chart-card" data-evidence-group="validation">
               <div class="chart-card-header">
                 <div>
                   <p class="eyebrow">ANSYS Fluent 2025 R1 &middot; residual histories</p>
@@ -193,10 +269,13 @@
               <div class="chart-shell wide">
                 <canvas id="convergenceChart" data-chart-id="convergence" aria-label="Solver convergence residual comparison">Solver convergence residual comparison chart.</canvas>
               </div>
-              <p class="annotation">Higher legacy turbulence residuals were interpreted with the flow field: the step geometry creates a stronger turbulent jet and vena-contracta region, while integral monitors for pressure drop, mass balance and outlet temperature stabilized.</p>
+              <details class="chart-note">
+                <summary>Why it matters</summary>
+                <p class="annotation">Higher legacy turbulence residuals were interpreted with the flow field: the step geometry creates a stronger turbulent jet and vena-contracta region, while integral monitors for pressure drop, mass balance and outlet temperature stabilized.</p>
+              </details>
             </article>
 
-            <article class="thesis-chart-card">
+            <article class="thesis-chart-card" data-evidence-group="validation">
               <div class="chart-card-header">
                 <div>
                   <p class="eyebrow">Near-wall validation</p>
@@ -213,10 +292,13 @@
               <div class="chart-shell wide">
                 <canvas id="yplusChart" data-chart-id="yplus" aria-label="Wall y plus distribution chart">Wall y plus distribution chart.</canvas>
               </div>
-              <p class="annotation">The legacy y+ spike aligns with the abrupt step and vena-contracta region. The redesigned case rises more smoothly through the contraction, supporting a fair comparison of wall heat transfer trends.</p>
+              <details class="chart-note">
+                <summary>Why it matters</summary>
+                <p class="annotation">The legacy y+ spike aligns with the abrupt step and vena-contracta region. The redesigned case rises more smoothly through the contraction, supporting a fair comparison of wall heat transfer trends.</p>
+              </details>
             </article>
 
-            <article class="thesis-chart-card">
+            <article class="thesis-chart-card" data-evidence-group="flow">
               <div class="chart-card-header">
                 <div>
                   <p class="eyebrow">Fine mesh &middot; adiabatic centerline comparison</p>
@@ -238,10 +320,13 @@
                   <canvas id="flowPressureChart" data-chart-id="flowPressure" aria-label="Centerline total pressure comparison chart">Centerline total pressure comparison chart.</canvas>
                 </div>
               </div>
-              <p class="annotation">These exported plots show the adiabatic centerline comparison case. The thesis report also records the most demanding near-choked CHT condition, where the redesigned case reached Ma = 0.990 and the legacy case reached Ma = 1.006. The wording is kept separate because the operating context and metric are not identical.</p>
+              <details class="chart-note">
+                <summary>Interpretation</summary>
+                <p class="annotation">These exported plots show the adiabatic centerline comparison case. The thesis report also records the most demanding near-choked CHT condition, where the redesigned case reached Ma = 0.990 and the legacy case reached Ma = 1.006. The wording is kept separate because the operating context and metric are not identical.</p>
+              </details>
             </article>
 
-            <article class="thesis-chart-card">
+            <article class="thesis-chart-card" data-evidence-group="flow">
               <div class="chart-card-header">
                 <div>
                   <p class="eyebrow">Legacy reducer diagnostic</p>
@@ -258,10 +343,13 @@
               <div class="chart-shell wide">
                 <canvas id="legacyFlowChart" data-chart-id="legacyFlow" aria-label="Legacy reducer Mach and pressure diagnostic chart">Legacy reducer Mach and pressure diagnostic chart.</canvas>
               </div>
-              <p class="annotation">The local peak near the step is the numerical signature of the Borda-Carnot mechanism: a compact hydraulic fitting saves surface area but pays for it with irreversible flow loss.</p>
+              <details class="chart-note">
+                <summary>Interpretation</summary>
+                <p class="annotation">The local peak near the step is the numerical signature of the Borda-Carnot mechanism: a compact hydraulic fitting saves surface area but pays for it with irreversible flow loss.</p>
+              </details>
             </article>
 
-            <article class="thesis-chart-card">
+            <article class="thesis-chart-card" data-evidence-group="thermal">
               <div class="chart-card-header">
                 <div>
                   <p class="eyebrow">CHT wall result</p>
@@ -278,10 +366,13 @@
               <div class="chart-shell wide">
                 <canvas id="wallTempChart" data-chart-id="wallTemp" aria-label="Wall temperature comparison chart">Wall temperature comparison chart.</canvas>
               </div>
-              <p class="annotation">The legacy wall-temperature drop is concentrated around the step zone, while the redesigned reducer distributes cooling over the full 150 mm contraction.</p>
+              <details class="chart-note">
+                <summary>Interpretation</summary>
+                <p class="annotation">The legacy wall-temperature drop is concentrated around the step zone, while the redesigned reducer distributes cooling over the full 150 mm contraction.</p>
+              </details>
             </article>
 
-            <article class="thesis-chart-card">
+            <article class="thesis-chart-card" data-evidence-group="thermal">
               <div class="chart-card-header">
                 <div>
                   <p class="eyebrow">Thermal resistance decomposition</p>
@@ -311,55 +402,32 @@
                   <canvas id="insulationChart" data-chart-id="insulation" aria-label="Insulation effect on outlet wall temperature">Insulation effect chart.</canvas>
                 </div>
               </div>
-              <p class="annotation">The redesigned reducer has lower heat-loss intensity per unit area, but its much larger exposed area dominates the uninsulated thermal result. When the external loss path is removed, the outlet-temperature advantage reverses in favor of the redesigned reducer by 1.24 K.</p>
+              <details class="chart-note">
+                <summary>Interpretation</summary>
+                <p class="annotation">The redesigned reducer has lower heat-loss intensity per unit area, but its much larger exposed area dominates the uninsulated thermal result. When the external loss path is removed, the outlet-temperature advantage reverses in favor of the redesigned reducer by 1.24 K.</p>
+              </details>
             </article>
           </section>
 
           <section>
-            <p class="eyebrow">Primary flow result</p>
-            <h2>The redesign removed the local high-Mach spike predicted by the loss mechanism.</h2>
-            <div class="comparison-panel">
+            <p class="eyebrow">Key findings</p>
+            <h2>What the evidence says once the repeated wording is stripped out.</h2>
+            <div class="comparison-panel thesis-takeaway-grid">
               <article>
-                <span class="comparison-label">Legacy two-step reducer</span>
-                <strong>Ma ~1.006 local supersonic tendency</strong>
-                <p>The legacy geometry generated a local acceleration peak associated with vena-contracta behaviour after the abrupt contraction. Physically, that indicates that total pressure is being converted into local kinetic energy and then destroyed through irreversible mixing and expansion losses.</p>
+                <span class="comparison-label">Flow outcome</span>
+                <strong>The smooth reducer removes the abrupt jet mechanism.</strong>
+                <p>The strongest aerodynamic result is not a small incremental improvement but a change in flow behaviour: smoother acceleration, much lower total pressure loss, and no equivalent step-driven vena contracta.</p>
               </article>
               <article>
-                <span class="comparison-label">Redesigned C&sup2; reducer</span>
-                <strong>Ma ~0.990 near-choked, smoother acceleration</strong>
-                <p>The redesigned geometry produced a smoother monotonic acceleration without the same local spike. This is the aerodynamic success of the quintic profile: it removes the abrupt contraction mechanism that drove the legacy pressure-loss behaviour.</p>
+                <span class="comparison-label">Thermal outcome</span>
+                <strong>The thermal penalty comes from exposed area, not worse internal transfer.</strong>
+                <p>The redesigned reducer loses more heat only when the external loss path is available. Once insulation removes that path, the internal convective picture reappears and the redesigned outlet becomes warmer.</p>
               </article>
-            </div>
-            <p>
-              The Ma 0.990 vs Ma 1.006 asymmetry matters for the rig because dynamic pressure sensor calibration depends on predictable pressure delivery and flow regime. A local supersonic pocket in a nominally subcritical supply context can distort pressure interpretation, add sensitivity to downstream boundary conditions and reduce confidence in calibration repeatability.
-            </p>
-          </section>
-
-          <section>
-            <p class="eyebrow">Thermal decomposition</p>
-            <h2>Biot number turned a confusing thermal result into a physical explanation.</h2>
-            <div class="result-metric-row">
-              <span class="result-metric-card"><strong>0.003-0.004</strong><small>Biot number range</small></span>
-              <span class="result-metric-card"><strong>19,282 mm2</strong><small>redesigned exposed area</small></span>
-              <span class="result-metric-card"><strong>5,758 mm2</strong><small>legacy exposed area</small></span>
-              <span class="result-metric-card"><strong>+1.24 K</strong><small>redesigned insulated gain</small></span>
-            </div>
-            <p>
-              The Biot number analysis showed that the solid temperature gradient was negligible relative to the fluid-side and external convective resistance. In practical terms, Bi = 0.003-0.004 means the wall was not the limiting thermal resistance; the dominant thermal delivery mechanism was the external surface area exposed to ambient convection. This explains the counterintuitive result: the redesigned reducer improved flow quality but lost substantially more heat externally because its longer smooth contraction exposed much more area.
-            </p>
-            <div class="bar-comparison" aria-label="External heat loss comparison">
-              <div class="bar-row"><span>Redesigned external heat loss</span><b style="--bar:100%">55.7 W avg</b></div>
-              <div class="bar-row"><span>Legacy external heat loss</span><b style="--bar:34%">18.8 W avg</b></div>
-            </div>
-            <p>
-              The report decomposed that thermal penalty quantitatively. Across the uninsulated CHT cases, the legacy outlet static temperature was higher by 7.80 K, 4.75 K and 3.36 K as outlet gauge pressure was reduced from 80,000 Pa to 40,000 Pa and then to 0 Pa. At the same time, the redesigned reducer showed 9.5-14.3% lower external heat flux per unit area, which means the local heat-transfer intensity was not the problem. Its larger total exposed area was. The analytical estimate Q<sub>ext</sub> = (T<sub>wall</sub> - T<sub>amb</sub>) / R<sub>ext</sub> agreed with Fluent within 0.1% for all six cases, giving the explanation an independent check.
-            </p>
-            <p>
-              The outlet temperature gap completed the decomposition. In uninsulated CHT, the legacy reducer had a +3.36 K outlet-temperature advantage at the 0 Pa gauge outlet case. In the insulated reference case the sign reversed to -1.24 K, meaning the redesigned reducer was warmer once the external loss pathway was removed. The legacy's apparent thermal advantage was therefore not better internal heat transfer; it was a surface-area artifact.
-            </p>
-            <div class="bar-comparison split-bars" aria-label="Outlet temperature gap comparison">
-              <div class="bar-row warm"><span>Uninsulated: legacy warmer</span><b style="--bar:82%">+3.36 K</b></div>
-              <div class="bar-row cool"><span>Insulated: redesigned warmer</span><b style="--bar:30%">-1.24 K</b></div>
+              <article>
+                <span class="comparison-label">Rig implication</span>
+                <strong>Calibration confidence improves when pressure delivery becomes more predictable.</strong>
+                <p>The near-choked asymmetry matters because a local supersonic pocket in a nominally subcritical supply chain makes the rig more sensitive to downstream conditions and harder to interpret during sensor calibration.</p>
+              </article>
             </div>
           </section>
 
@@ -429,5 +497,10 @@
       <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
     </div>
   </footer>
+  <dialog class="thesis-media-dialog" aria-label="Thesis media viewer">
+    <button type="button" class="thesis-media-close" data-thesis-media-close>Close</button>
+    <img src="" alt="" data-thesis-media-image />
+    <p data-thesis-media-caption></p>
+  </dialog>
 </body>
 </html>

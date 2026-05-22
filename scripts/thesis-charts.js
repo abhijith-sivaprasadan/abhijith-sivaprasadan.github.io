@@ -450,9 +450,64 @@
     });
   }
 
+  function initEvidenceFilters() {
+    var buttons = Array.prototype.slice.call(document.querySelectorAll("[data-evidence-filter]"));
+    var cards = Array.prototype.slice.call(document.querySelectorAll("[data-evidence-group]"));
+    if (!buttons.length || !cards.length) return;
+
+    function applyFilter(filter) {
+      buttons.forEach(function (button) {
+        button.classList.toggle("is-active", button.getAttribute("data-evidence-filter") === filter);
+      });
+      cards.forEach(function (card) {
+        var group = card.getAttribute("data-evidence-group");
+        card.hidden = filter !== "all" && group !== filter;
+      });
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        applyFilter(button.getAttribute("data-evidence-filter") || "all");
+      });
+    });
+
+    applyFilter("all");
+  }
+
+  function initMediaDialog() {
+    var dialog = document.querySelector(".thesis-media-dialog");
+    var mediaButtons = Array.prototype.slice.call(document.querySelectorAll("[data-thesis-media]"));
+    if (!dialog || !mediaButtons.length || typeof dialog.showModal !== "function") return;
+
+    var image = dialog.querySelector("[data-thesis-media-image]");
+    var caption = dialog.querySelector("[data-thesis-media-caption]");
+    var closeButton = dialog.querySelector("[data-thesis-media-close]");
+
+    mediaButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        image.src = button.getAttribute("data-thesis-media") || "";
+        image.alt = button.querySelector("img") ? button.querySelector("img").alt : "Thesis media";
+        caption.textContent = button.getAttribute("data-thesis-caption") || "";
+        dialog.showModal();
+      });
+    });
+
+    if (closeButton) {
+      closeButton.addEventListener("click", function () {
+        dialog.close();
+      });
+    }
+
+    dialog.addEventListener("click", function (event) {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+
   ready(function () {
     try {
       renderAll();
+      initEvidenceFilters();
+      initMediaDialog();
       document.documentElement.classList.add("charts-ready");
     } catch (error) {
       document.documentElement.classList.add("charts-failed");
