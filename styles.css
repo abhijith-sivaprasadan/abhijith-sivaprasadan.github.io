@@ -3091,23 +3091,177 @@ code,
 }
 
 #cv .card:nth-child(1) h3::before {
-  content: "GRID";
+  content: "PhD";
 }
 
 #cv .card:nth-child(2) h3::before {
-  content: "R&D";
-}
-
-#cv .card:nth-child(3) h3::before {
   content: "CFD";
 }
 
+#cv .card:nth-child(3) h3::before {
+  content: "R&D";
+}
+
 #cv .card:nth-child(4) h3::before {
+  content: "GRID";
+}
+
+#cv .card:nth-child(5) h3::before {
   content: "DATA";
+}
+
+#cv .card:nth-child(6) h3::before {
+  content: "SE";
 }
 
 [data-cv-link].is-fallback {
   color: var(--muted);
+}
+
+.section-lite {
+  margin-top: 32px;
+}
+
+.compact-heading {
+  margin-bottom: 18px;
+}
+
+.research-shell .hero-slab {
+  border-color: color-mix(in srgb, var(--accent, #65d6c9) 34%, rgba(167, 176, 189, 0.22));
+}
+
+.research-case-layout {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.34fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.thesis-sidebar {
+  position: sticky;
+  top: 92px;
+}
+
+.thesis-hero .case-visual {
+  margin-top: 24px;
+}
+
+.thesis-kpis {
+  margin-top: 22px;
+}
+
+.thesis-case section + section {
+  margin-top: 36px;
+}
+
+.thesis-case h2 {
+  margin-bottom: 12px;
+}
+
+.research-question {
+  padding: 18px 20px;
+  border-left: 3px solid var(--accent, #65d6c9);
+  border-radius: 8px;
+  background: rgba(101, 214, 201, 0.08);
+  color: var(--text);
+  font-size: clamp(1rem, 2vw, 1.18rem);
+}
+
+.thesis-figure-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.thesis-figure-grid figure {
+  margin: 0;
+}
+
+.thesis-figure-grid img {
+  display: block;
+  width: 100%;
+  border: 1px solid rgba(167, 176, 189, 0.28);
+  border-radius: 8px;
+  background: rgba(11, 15, 20, 0.2);
+}
+
+.thesis-figure-grid figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.method-cards .card h3,
+.thesis-case .card h3 {
+  font-size: 1rem;
+}
+
+.comparison-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+
+.comparison-panel article {
+  padding: 18px;
+  border: 1px solid rgba(167, 176, 189, 0.26);
+  border-radius: 8px;
+  background: rgba(167, 176, 189, 0.07);
+}
+
+.comparison-panel strong {
+  display: block;
+  margin: 8px 0;
+  color: var(--text);
+  font-size: 1.04rem;
+}
+
+.comparison-label {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+}
+
+.bar-comparison {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.45fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.bar-row b {
+  display: block;
+  width: var(--bar);
+  min-width: 86px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #2563a8, #65d6c9);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+}
+
+.bar-row:nth-child(2) b {
+  background: linear-gradient(90deg, #d0622c, #f6a36f);
+}
+
+.split-bars .cool b {
+  background: linear-gradient(90deg, #2563a8, #65d6c9);
+}
+
+.split-bars .warm b {
+  background: linear-gradient(90deg, #d0622c, #f6a36f);
 }
 
 .footer {
@@ -3631,8 +3785,23 @@ code,
   .role-track-grid,
   .course-grid,
   .footer-grid,
+  .research-case-layout,
+  .thesis-figure-grid,
+  .comparison-panel,
   .result-metric-row {
     grid-template-columns: 1fr;
+  }
+
+  .thesis-sidebar {
+    position: static;
+  }
+
+  .bar-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bar-row b {
+    width: 100%;
   }
 
   .project-card > :not(.project-thumb) {
