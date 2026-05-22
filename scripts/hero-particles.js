@@ -15,20 +15,25 @@
   var W = 0, H = 0;
   var mouseX = -9999, mouseY = -9999;
   var particles = [];
-  var COUNT = 90;
+  var COUNT = 140;
   var running = true;
 
-  /* Heat palette: blue → cyan → orange → amber */
+  var REPEL_RADIUS = 130;
+  var CONNECT_DIST = 90;
+
+  /* Heat palette: blue → cyan → orange → amber → purple */
   var PALETTE = [
-    [37, 99, 168, 0.7],
-    [101, 214, 201, 0.65],
-    [208, 98, 44, 0.6],
-    [246, 200, 95, 0.55],
-    [143, 127, 255, 0.5],
+    [37,  99, 168, 0.75],
+    [56, 189, 248, 0.70],
+    [101, 214, 201, 0.70],
+    [208,  98,  44, 0.65],
+    [246, 200,  95, 0.60],
+    [143, 127, 255, 0.55],
+    [255, 140,  80, 0.60],
   ];
 
   function resize() {
-    W = canvas.width = hero.offsetWidth;
+    W = canvas.width  = hero.offsetWidth;
     H = canvas.height = hero.offsetHeight;
   }
 
@@ -41,22 +46,40 @@
     return {
       x: randomX ? Math.random() * W : -8,
       y: Math.random() * H,
-      vx: 0.25 + Math.random() * 0.55,
-      vy: (Math.random() - 0.5) * 0.28,
-      r: 1.4 + Math.random() * 2.2,
+      vx: 0.22 + Math.random() * 0.52,
+      vy: (Math.random() - 0.5) * 0.26,
+      r:  1.4 + Math.random() * 2.4,
       cr: c[0], cg: c[1], cb: c[2], ca: c[3],
-      age: randomX ? Math.floor(Math.random() * 300) : 0,
-      maxAge: 280 + Math.floor(Math.random() * 380),
+      age: randomX ? Math.floor(Math.random() * 320) : 0,
+      maxAge: 260 + Math.floor(Math.random() * 400),
+      burst: false,
     };
+  }
+
+  function spawnBurst(x, y) {
+    for (var i = 0; i < 14; i++) {
+      var angle = (i / 14) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
+      var speed = 0.9 + Math.random() * 2.8;
+      var c = pickColor();
+      particles.push({
+        x: x + (Math.random() - 0.5) * 12,
+        y: y + (Math.random() - 0.5) * 12,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        r:  1.6 + Math.random() * 2.8,
+        cr: c[0], cg: c[1], cb: c[2], ca: c[3],
+        age: 0,
+        maxAge: 55 + Math.floor(Math.random() * 70),
+        burst: true,
+      });
+    }
   }
 
   function init() {
     resize();
     for (var i = 0; i < COUNT; i++) particles.push(spawn(true));
 
-    window.addEventListener('resize', function () {
-      resize();
-    });
+    window.addEventListener('resize', resize);
 
     hero.addEventListener('mousemove', function (e) {
       var rect = canvas.getBoundingClientRect();
@@ -66,8 +89,11 @@
     hero.addEventListener('mouseleave', function () {
       mouseX = -9999; mouseY = -9999;
     });
+    hero.addEventListener('click', function (e) {
+      var rect = canvas.getBoundingClientRect();
+      spawnBurst(e.clientX - rect.left, e.clientY - rect.top);
+    });
 
-    /* Pause when tab is hidden */
     document.addEventListener('visibilitychange', function () {
       running = !document.hidden;
       if (running) loop();
@@ -76,26 +102,73 @@
     loop();
   }
 
+  function drawCursorGlow() {
+    if (mouseX === -9999) return;
+    var g = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 100);
+    g.addColorStop(0,   'rgba(101,214,201,0.10)');
+    g.addColorStop(0.4, 'rgba(37,99,168,0.05)');
+    g.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(mouseX, mouseY, 100, 0, 6.2832);
+    ctx.fill();
+  }
+
+  function drawConnections() {
+    var cd2 = CONNECT_DIST * CONNECT_DIST;
+    for (var i = 0; i < particles.length - 1; i++) {
+      var a = particles[i];
+      var ta = a.age / a.maxAge;
+      var aa = ta < 0.12 ? ta / 0.12 : ta > 0.82 ? (1 - ta) / 0.18 : 1;
+      if (aa < 0.15) continue;
+
+      for (var j = i + 1; j < particles.length; j++) {
+        var b = particles[j];
+        var dx = a.x - b.x, dy = a.y - b.y;
+        var d2 = dx * dx + dy * dy;
+        if (d2 > cd2) continue;
+
+        var tb = b.age / b.maxAge;
+        var ab = tb < 0.12 ? tb / 0.12 : tb > 0.82 ? (1 - tb) / 0.18 : 1;
+        var d = Math.sqrt(d2);
+        var lineAlpha = (1 - d / CONNECT_DIST) * Math.min(aa, ab) * 0.22;
+
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = 'rgba(' + a.cr + ',' + a.cg + ',' + a.cb + ',' + lineAlpha + ')';
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+      }
+    }
+  }
+
   function loop() {
     if (!running) return;
     requestAnimationFrame(loop);
     ctx.clearRect(0, 0, W, H);
 
-    for (var i = 0; i < particles.length; i++) {
+    drawCursorGlow();
+    drawConnections();
+
+    for (var i = particles.length - 1; i >= 0; i--) {
       var p = particles[i];
 
-      /* gentle turbulence */
-      p.vx += (Math.random() - 0.5) * 0.012;
-      p.vy += (Math.random() - 0.5) * 0.022;
-      p.vx = p.vx < 0.08 ? 0.08 : p.vx > 1.6 ? 1.6 : p.vx;
-      p.vy = p.vy < -0.9 ? -0.9 : p.vy > 0.9 ? 0.9 : p.vy;
+      /* turbulence */
+      p.vx += (Math.random() - 0.5) * 0.013;
+      p.vy += (Math.random() - 0.5) * 0.023;
 
-      /* mouse repulsion */
+      if (!p.burst) {
+        p.vx = p.vx < 0.08 ? 0.08 : p.vx > 1.6 ? 1.6 : p.vx;
+        p.vy = p.vy < -0.9  ? -0.9  : p.vy > 0.9 ? 0.9 : p.vy;
+      }
+
+      /* cursor repulsion */
       var dx = p.x - mouseX, dy = p.y - mouseY;
       var d2 = dx * dx + dy * dy;
-      if (d2 < 8100 && d2 > 0) {
+      if (d2 < REPEL_RADIUS * REPEL_RADIUS && d2 > 0) {
         var d = Math.sqrt(d2);
-        var f = (90 - d) / 90 * 0.55;
+        var f = (REPEL_RADIUS - d) / REPEL_RADIUS * 0.92;
         p.vx += (dx / d) * f;
         p.vy += (dy / d) * f;
       }
@@ -104,14 +177,23 @@
       p.y += p.vy;
       p.age++;
 
-      if (p.x > W + 20 || p.age > p.maxAge) {
-        particles[i] = spawn(false);
-        particles[i].y = Math.random() * H;
+      /* retire particles */
+      var expired = p.burst
+        ? (p.age > p.maxAge)
+        : (p.x > W + 20 || p.age > p.maxAge);
+
+      if (expired) {
+        if (p.burst) {
+          particles.splice(i, 1);
+        } else {
+          particles[i] = spawn(false);
+          particles[i].y = Math.random() * H;
+        }
         continue;
       }
 
       var t = p.age / p.maxAge;
-      var alpha = (t < 0.12 ? t / 0.12 : t > 0.82 ? (1 - t) / 0.18 : 1) * p.ca * 0.6;
+      var alpha = (t < 0.12 ? t / 0.12 : t > 0.82 ? (1 - t) / 0.18 : 1) * p.ca * 0.62;
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, 6.2832);

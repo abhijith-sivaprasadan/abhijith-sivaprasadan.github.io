@@ -10,130 +10,743 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Admin shell ─────────────────────────────── */
+    body[data-page-key="admin"] {
+      background: #080b10;
+      overflow-x: hidden;
+    }
+
+    .admin-shell {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ────────────────────────────────── */
+    .admin-sidebar {
+      width: 220px;
+      flex-shrink: 0;
+      background: #0a0f16;
+      border-right: 1px solid #1c2230;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 200;
+    }
+
+    .admin-brand {
+      padding: 18px 20px 16px;
+      border-bottom: 1px solid #1c2230;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-brand-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px rgba(74,222,128,.55);
+      flex-shrink: 0;
+      transition: background .3s, box-shadow .3s;
+    }
+
+    .admin-brand-dot.is-disconnected {
+      background: #484f58;
+      box-shadow: none;
+    }
+
+    .admin-brand-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: .78rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #8b949e;
+    }
+
+    .admin-nav {
+      flex: 1;
+      padding: 10px 0;
+      overflow-y: auto;
+    }
+
+    .admin-nav-section-label {
+      padding: 14px 20px 4px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #30363d;
+    }
+
+    .admin-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 9px 20px;
+      background: none;
+      border: none;
+      border-left: 2px solid transparent;
+      color: #6e7681;
+      font-size: .86rem;
+      cursor: pointer;
+      text-align: left;
+      transition: color .15s, background .15s, border-color .15s;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .admin-nav-btn:hover {
+      color: #c9d1d9;
+      background: rgba(255,255,255,.04);
+    }
+
+    .admin-nav-btn.is-active {
+      color: #c9d1d9;
+      background: rgba(101,214,201,.07);
+      border-left-color: #65d6c9;
+    }
+
+    .admin-nav-btn svg { flex-shrink: 0; opacity: .7; }
+
+    .admin-nav-badge {
+      margin-left: auto;
+      font-size: .68rem;
+      font-family: 'Roboto Mono', monospace;
+      background: rgba(208,98,44,.2);
+      color: #f97316;
+      border-radius: 10px;
+      padding: 1px 6px;
+    }
+
+    .admin-sidebar-foot {
+      padding: 14px 20px;
+      border-top: 1px solid #1c2230;
+    }
+
+    .admin-sidebar-foot a {
+      font-size: .8rem;
+      color: #30363d;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .15s;
+    }
+
+    .admin-sidebar-foot a:hover { color: #6e7681; }
+
+    /* ── Main ───────────────────────────────────── */
+    .admin-main {
+      flex: 1;
+      margin-left: 220px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ─────────────────────────────────── */
+    .admin-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,15,22,.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid #1c2230;
+      padding: 10px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .admin-breadcrumb {
+      font-family: 'Roboto Mono', monospace;
+      font-size: .78rem;
+      color: #6e7681;
+    }
+
+    .admin-topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .admin-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: .73rem;
+      color: #6e7681;
+    }
+
+    .admin-status-pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #30363d;
+      flex-shrink: 0;
+      transition: background .3s, box-shadow .3s;
+    }
+
+    .admin-status-pill.is-ok::before {
+      background: #4ade80;
+      box-shadow: 0 0 6px rgba(74,222,128,.5);
+    }
+
+    .admin-cmd-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border: 1px solid #1c2230;
+      border-radius: 6px;
+      background: rgba(255,255,255,.025);
+      color: #484f58;
+      font-family: 'Roboto Mono', monospace;
+      font-size: .73rem;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+
+    .admin-cmd-btn:hover {
+      border-color: #30363d;
+      color: #8b949e;
+    }
+
+    /* ── Content ────────────────────────────────── */
+    .admin-content {
+      flex: 1;
+      padding: 28px;
+      max-width: 1100px;
+    }
+
+    /* ── Panels ─────────────────────────────────── */
+    .admin-panel {
+      background: #0a0f16;
+      border: 1px solid #1c2230;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 20px;
+      scroll-margin-top: 70px;
+    }
+
+    .admin-panel-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #1c2230;
+    }
+
+    .admin-panel-label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #30363d;
+      margin-bottom: 4px;
+    }
+
+    .admin-panel-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #c9d1d9;
+      margin: 0;
+    }
+
+    /* ── Two-column form row ────────────────────── */
+    .admin-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .admin-form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ── Command palette ────────────────────────── */
+    dialog.cmd-palette {
+      margin: 0;
+      padding: 0;
+      background: #131a24;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      width: min(560px, 90vw);
+      max-height: 65vh;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.04);
+      position: fixed;
+      top: 18%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    dialog.cmd-palette::backdrop {
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .cmd-search-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-bottom: 1px solid #1c2230;
+    }
+
+    .cmd-search-row svg { flex-shrink: 0; }
+
+    .cmd-search-input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      color: #c9d1d9;
+      font-size: .95rem;
+      font-family: 'Roboto', sans-serif;
+      caret-color: #65d6c9;
+    }
+
+    .cmd-search-input::placeholder { color: #484f58; }
+
+    .cmd-results {
+      overflow-y: auto;
+      max-height: calc(65vh - 54px);
+      padding: 6px 0;
+    }
+
+    .cmd-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 18px;
+      cursor: pointer;
+      color: #6e7681;
+      font-size: .86rem;
+      transition: background .1s, color .1s;
+    }
+
+    .cmd-item:hover, .cmd-item.is-focused {
+      background: rgba(255,255,255,.05);
+      color: #c9d1d9;
+    }
+
+    .cmd-item-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 5px;
+      background: rgba(255,255,255,.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: .68rem;
+      font-family: 'Roboto Mono', monospace;
+      color: #65d6c9;
+    }
+
+    .cmd-item-meta {
+      margin-left: auto;
+      font-size: .7rem;
+      font-family: 'Roboto Mono', monospace;
+      color: #30363d;
+    }
+
+    .cmd-divider {
+      padding: 8px 18px 4px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #30363d;
+    }
+
+    /* ── Mobile sidebar collapse ────────────────── */
+    @media (max-width: 768px) {
+      .admin-sidebar {
+        transform: translateX(-100%);
+        transition: transform .25s;
+      }
+      .admin-sidebar.is-open {
+        transform: none;
+      }
+      .admin-main {
+        margin-left: 0;
+      }
+    }
+  </style>
   <script src="scripts/public-config.js?v=20260504-data-v7" defer></script>
   <script type="module" src="scripts/admin.js?v=20260504-data-v7"></script>
 </head>
+
 <body data-page-key="admin">
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <nav class="nav container">
-      <a href="index.html" class="logo">Abhijith Sivaprasadan</a>
-      <div class="nav-links">
-        <a href="index.html#projects">Featured</a>
-        <a href="projects.html">Projects</a>
-        <a href="experience.html">Experience</a>
-        <a href="index.html#cv">CV</a>
-        <a href="about.html">About</a>
-        <a href="index.html#contact">Contact</a>
+
+  <!-- ── Command palette ──────────────────────── -->
+  <dialog class="cmd-palette" id="cmd-palette" aria-label="Command palette">
+    <div class="cmd-search-row">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <circle cx="6.5" cy="6.5" r="4.5" stroke="#484f58" stroke-width="1.3"/>
+        <path d="M10.5 10.5L13 13" stroke="#484f58" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <input class="cmd-search-input" id="cmd-input" type="search" autocomplete="off" placeholder="Go to section, search records…" />
+      <span style="font-family:'Roboto Mono',monospace;font-size:.7rem;color:#30363d;padding:2px 6px;border:1px solid #1c2230;border-radius:4px;">Esc</span>
+    </div>
+    <div class="cmd-results" id="cmd-results">
+      <div class="cmd-divider">Navigation</div>
+      <button class="cmd-item" type="button" data-cmd="connection">
+        <span class="cmd-item-icon">→</span>
+        Connection &amp; Auth
+        <span class="cmd-item-meta">panel</span>
+      </button>
+      <button class="cmd-item" type="button" data-cmd="collections">
+        <span class="cmd-item-icon">◫</span>
+        Collections overview
+        <span class="cmd-item-meta">panel</span>
+      </button>
+      <button class="cmd-item" type="button" data-cmd="editor">
+        <span class="cmd-item-icon">≡</span>
+        Record editor
+        <span class="cmd-item-meta">panel</span>
+      </button>
+      <button class="cmd-item" type="button" data-cmd="ideas">
+        <span class="cmd-item-icon">✦</span>
+        Idea review
+        <span class="cmd-item-meta">panel</span>
+      </button>
+      <div class="cmd-divider">Actions</div>
+      <button class="cmd-item" type="button" data-cmd-action="new-record">
+        <span class="cmd-item-icon">+</span>
+        Add new record
+      </button>
+      <button class="cmd-item" type="button" data-cmd-action="refresh">
+        <span class="cmd-item-icon">↺</span>
+        Refresh records
+      </button>
+    </div>
+  </dialog>
+
+  <div class="admin-shell">
+
+    <!-- ── Sidebar ────────────────────────────── -->
+    <aside class="admin-sidebar" id="admin-sidebar" aria-label="Admin navigation">
+      <div class="admin-brand">
+        <span class="admin-brand-dot" id="brand-dot"></span>
+        <span class="admin-brand-label">Admin</span>
       </div>
-    </nav>
-  </header>
 
-  <main id="main" tabindex="-1">
-    <section class="page-shell">
-      <div class="container">
-        <div class="hero-slab">
-          <p class="eyebrow">Portfolio admin</p>
-          <h1>Portfolio content manager</h1>
-          <p class="hero-text">Update projects, experience, courses, skills and certifications with plain-language fields. Advanced data controls are still available when needed.</p>
+      <nav class="admin-nav" aria-label="Sections">
+        <p class="admin-nav-section-label">Workspace</p>
+        <button class="admin-nav-btn is-active" type="button" data-nav="connection" aria-label="Connection">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.3"/>
+            <circle cx="6.5" cy="6.5" r="2" fill="currentColor"/>
+          </svg>
+          Connection
+        </button>
+        <button class="admin-nav-btn" type="button" data-nav="collections" aria-label="Collections">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="4.5" height="4.5" rx=".8" stroke="currentColor" stroke-width="1.3"/>
+            <rect x="7.5" y="1" width="4.5" height="4.5" rx=".8" stroke="currentColor" stroke-width="1.3"/>
+            <rect x="1" y="7.5" width="4.5" height="4.5" rx=".8" stroke="currentColor" stroke-width="1.3"/>
+            <rect x="7.5" y="7.5" width="4.5" height="4.5" rx=".8" stroke="currentColor" stroke-width="1.3"/>
+          </svg>
+          Collections
+        </button>
+        <button class="admin-nav-btn" type="button" data-nav="editor" aria-label="Record editor">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <path d="M2 4h9M2 6.5h6M2 9h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          Record Editor
+        </button>
+        <p class="admin-nav-section-label">Review</p>
+        <button class="admin-nav-btn" type="button" data-nav="ideas" aria-label="Idea review">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <path d="M6.5 1C4.3 1 2.5 2.7 2.5 4.8c0 1.3.7 2.4 1.7 3V9h4.6V7.8c1-.6 1.7-1.7 1.7-3C10.5 2.7 8.7 1 6.5 1z" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M4.2 9h4.6v1.2A1 1 0 018 11H5a1 1 0 01-.8-1V9z" stroke="currentColor" stroke-width="1.3"/>
+          </svg>
+          Idea Review
+          <span class="admin-nav-badge" data-idea-review-count style="display:none;">0</span>
+        </button>
+      </nav>
+
+      <div class="admin-sidebar-foot">
+        <a href="index.html">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M7 2L3 6l4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back to site
+        </a>
+      </div>
+    </aside>
+
+    <!-- ── Main ───────────────────────────────── -->
+    <main id="main" class="admin-main" tabindex="-1">
+
+      <!-- Topbar -->
+      <div class="admin-topbar">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button type="button" id="sidebar-toggle" style="display:none;background:none;border:none;color:#6e7681;cursor:pointer;padding:4px;" aria-label="Toggle sidebar">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <span class="admin-breadcrumb" id="admin-breadcrumb">Connection</span>
         </div>
+        <div class="admin-topbar-right">
+          <span class="admin-status-pill" id="topbar-status" data-auth-status>Loading…</span>
+          <button type="button" class="admin-cmd-btn" id="open-palette" aria-label="Open command palette (Ctrl+K)">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+              <circle cx="4.5" cy="4.5" r="3.2" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M8 8l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            ⌘K
+          </button>
+        </div>
+      </div>
 
-        <div class="admin-grid" data-admin-root>
-          <section class="page-panel">
-            <p class="eyebrow">Connection</p>
+      <!-- Content panels -->
+      <div class="admin-content" data-admin-root>
+
+        <!-- Connection -->
+        <section class="admin-panel" id="panel-connection">
+          <div class="admin-panel-head">
+            <div>
+              <p class="admin-panel-label">Workspace</p>
+              <h2 class="admin-panel-title">Connection &amp; Auth</h2>
+            </div>
+          </div>
+          <div class="admin-form-row">
             <label class="admin-field">
               <span>API base URL</span>
               <input type="url" data-api-base placeholder="http://127.0.0.1:3000" />
             </label>
             <label class="admin-field">
               <span>Admin API token</span>
-              <input type="password" data-api-token autocomplete="current-password" placeholder="Bearer token from backend env" />
+              <input type="password" data-api-token autocomplete="current-password" placeholder="Bearer token" />
             </label>
-            <div class="button-row">
-              <button type="button" class="button primary" data-google-sign-in>Sign in with Google</button>
-              <button type="button" class="button ghost" data-google-sign-out>Sign out</button>
+          </div>
+          <div class="button-row">
+            <button type="button" class="button primary" data-connect-api>Connect</button>
+            <button type="button" class="button ghost" data-clear-token>Clear token</button>
+          </div>
+          <p class="admin-status" style="margin-top:10px;" data-admin-status>Set the backend URL and token to begin.</p>
+          <div style="height:1px;background:#1c2230;margin:20px 0;"></div>
+          <p class="admin-panel-label" style="margin-bottom:12px;">Google Auth</p>
+          <div class="button-row">
+            <button type="button" class="button primary" data-google-sign-in>Sign in with Google</button>
+            <button type="button" class="button ghost" data-google-sign-out>Sign out</button>
+          </div>
+        </section>
+
+        <!-- Collections -->
+        <section class="admin-panel" id="panel-collections">
+          <div class="admin-panel-head">
+            <div>
+              <p class="admin-panel-label">Overview</p>
+              <h2 class="admin-panel-title">Collections</h2>
             </div>
-            <p class="admin-status" data-auth-status>Google admin auth is loading.</p>
-            <div class="button-row">
-              <button type="button" class="button primary" data-connect-api>Connect</button>
-              <button type="button" class="button ghost" data-clear-token>Clear token</button>
+          </div>
+          <div class="admin-summary-grid" data-admin-summary></div>
+          <div class="admin-collection-list" data-collection-list></div>
+        </section>
+
+        <!-- Record editor -->
+        <section class="admin-panel" id="panel-editor">
+          <div class="admin-panel-head">
+            <div>
+              <p class="admin-panel-label">Records</p>
+              <h2 class="admin-panel-title" data-editor-title>Select a collection</h2>
             </div>
-            <p class="admin-status" data-admin-status>Set the backend URL and token to begin.</p>
+            <button type="button" class="button primary" data-new-record>+ Add new item</button>
+          </div>
+
+          <div class="admin-toolbar">
+            <label class="admin-field">
+              <span>Search records</span>
+              <input type="search" data-record-search placeholder="Search title, issuer, company, skills…" />
+            </label>
+            <label class="admin-field">
+              <span>Select record</span>
+              <select class="admin-select" data-record-select aria-label="Select record"></select>
+            </label>
+          </div>
+
+          <div class="admin-record-list" data-record-list></div>
+          <div class="admin-form" data-record-form></div>
+
+          <section class="admin-preview-panel" aria-label="Public preview">
+            <p class="eyebrow">Preview</p>
+            <div data-record-preview>
+              <p class="admin-empty">Select or create an item to preview how it will look publicly.</p>
+            </div>
           </section>
 
-          <section class="page-panel">
-            <p class="eyebrow">Collections</p>
-            <div class="admin-summary-grid" data-admin-summary></div>
-            <div class="admin-collection-list" data-collection-list></div>
-          </section>
+          <div class="admin-editor-tools">
+            <button type="button" class="collection-action" data-duplicate-record>Duplicate</button>
+            <button type="button" class="collection-action" data-move-record="up">Move up</button>
+            <button type="button" class="collection-action" data-move-record="down">Move down</button>
+          </div>
 
-          <section class="page-panel" data-idea-review-panel hidden>
-            <div class="collection-head">
-              <div>
-                <p class="eyebrow">Idea submissions</p>
-                <h2 data-idea-review-title>Pending drafts</h2>
-              </div>
-              <span class="collection-action" data-idea-review-count>0</span>
-            </div>
-            <p class="admin-status">Review drafts from signed-in contributors and approve only the ones you want public.</p>
-            <div class="admin-record-list" data-idea-review-list></div>
-          </section>
-
-          <section class="page-panel admin-editor-panel">
-            <div class="collection-head">
-              <div>
-                <p class="eyebrow">Record editor</p>
-                <h2 data-editor-title>Select a collection</h2>
-              </div>
-              <button type="button" class="collection-action" data-new-record>Add new item</button>
-            </div>
-
-            <div class="admin-toolbar">
-              <label class="admin-field">
-                <span>Search records</span>
-                <input type="search" data-record-search placeholder="Search title, issuer, company, skills..." />
-              </label>
-              <label class="admin-field">
-                <span>Select record</span>
-                <select class="admin-select" data-record-select aria-label="Select record"></select>
-              </label>
-            </div>
-
-            <div class="admin-record-list" data-record-list></div>
-
-            <div class="admin-form" data-record-form></div>
-
-            <section class="admin-preview-panel" aria-label="Public preview">
-              <p class="eyebrow">Preview</p>
-              <div data-record-preview>
-                <p class="admin-empty">Select or create an item to preview how it will look publicly.</p>
-              </div>
-            </section>
-
+          <details class="admin-advanced">
+            <summary>Advanced data editor</summary>
+            <p>Use this only when you need to edit fields not shown in the plain-language form.</p>
             <div class="admin-editor-tools">
-              <button type="button" class="collection-action" data-duplicate-record>Duplicate item</button>
-              <button type="button" class="collection-action" data-move-record="up">Move up</button>
-              <button type="button" class="collection-action" data-move-record="down">Move down</button>
+              <button type="button" class="collection-action" data-format-json>Format data</button>
+              <button type="button" class="collection-action" data-copy-json>Copy data</button>
             </div>
-            <details class="admin-advanced">
-              <summary>Advanced data editor</summary>
-              <p>Use this only when you need to edit fields that are not shown in the plain-language form.</p>
-              <div class="admin-editor-tools">
-                <button type="button" class="collection-action" data-format-json>Format data</button>
-                <button type="button" class="collection-action" data-copy-json>Copy data</button>
-              </div>
-              <textarea class="admin-json-editor" data-json-editor spellcheck="false" placeholder="Select or create an item to edit advanced data."></textarea>
-            </details>
-            <div class="button-row">
-              <button type="button" class="button primary" data-save-record>Publish changes</button>
-              <button type="button" class="button ghost" data-delete-record>Delete item</button>
-              <button type="button" class="button ghost" data-refresh-records>Refresh</button>
+            <textarea class="admin-json-editor" data-json-editor spellcheck="false" placeholder="Select or create an item to edit advanced data."></textarea>
+          </details>
+
+          <div class="button-row" style="margin-top:18px;">
+            <button type="button" class="button primary" data-save-record>Publish changes</button>
+            <button type="button" class="button ghost" data-delete-record>Delete item</button>
+            <button type="button" class="button ghost" data-refresh-records>Refresh</button>
+          </div>
+        </section>
+
+        <!-- Idea review -->
+        <section class="admin-panel" id="panel-ideas" data-idea-review-panel hidden>
+          <div class="admin-panel-head">
+            <div>
+              <p class="admin-panel-label">Review</p>
+              <h2 class="admin-panel-title" data-idea-review-title>Pending drafts</h2>
             </div>
-          </section>
-        </div>
+            <span class="collection-action" data-idea-review-count>0</span>
+          </div>
+          <p class="admin-status">Review drafts from signed-in contributors and approve only the ones you want public.</p>
+          <div class="admin-record-list" data-idea-review-list></div>
+        </section>
+
       </div>
-    </section>
-  </main>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var panels   = { connection: 'panel-connection', collections: 'panel-collections', editor: 'panel-editor', ideas: 'panel-ideas' };
+      var names    = { connection: 'Connection', collections: 'Collections', editor: 'Record Editor', ideas: 'Idea Review' };
+      var navBtns  = document.querySelectorAll('[data-nav]');
+      var crumb    = document.getElementById('admin-breadcrumb');
+      var brandDot = document.getElementById('brand-dot');
+
+      function scrollToSection(key) {
+        var el = document.getElementById(panels[key]);
+        if (!el) return;
+        if (el.hidden) { el.hidden = false; }
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        navBtns.forEach(function (b) { b.classList.toggle('is-active', b.dataset.nav === key); });
+        if (crumb) crumb.textContent = names[key] || key;
+      }
+
+      navBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () { scrollToSection(btn.dataset.nav); });
+      });
+
+      /* sync active nav on scroll */
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var key = Object.keys(panels).find(function (k) { return panels[k] === e.target.id; });
+          if (!key) return;
+          navBtns.forEach(function (b) { b.classList.toggle('is-active', b.dataset.nav === key); });
+          if (crumb) crumb.textContent = names[key] || key;
+        });
+      }, { threshold: 0.35 });
+
+      Object.values(panels).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+
+      /* reflect auth status dot in sidebar brand */
+      var statusEl = document.getElementById('topbar-status');
+      if (statusEl) {
+        new MutationObserver(function () {
+          var txt = statusEl.textContent || '';
+          var ok  = /signed in|logged in|authenticated|admin/i.test(txt) && !/not\s+sign|loading/i.test(txt);
+          if (brandDot) brandDot.classList.toggle('is-disconnected', !ok);
+          statusEl.classList.toggle('is-ok', ok);
+        }).observe(statusEl, { childList: true, subtree: true, characterData: true });
+      }
+
+      /* Command palette */
+      var dialog   = document.getElementById('cmd-palette');
+      var input    = document.getElementById('cmd-input');
+      var openBtn  = document.getElementById('open-palette');
+      var cmdItems = dialog.querySelectorAll('[data-cmd]');
+      var focused  = -1;
+
+      function openPalette() { dialog.showModal(); input.value = ''; input.focus(); focused = -1; }
+      function closePalette() { dialog.close(); }
+
+      openBtn.addEventListener('click', openPalette);
+      document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openPalette(); }
+      });
+      dialog.addEventListener('click', function (e) { if (e.target === dialog) closePalette(); });
+
+      cmdItems.forEach(function (item) {
+        item.addEventListener('click', function () {
+          scrollToSection(item.dataset.cmd);
+          closePalette();
+        });
+      });
+
+      /* action items */
+      dialog.querySelectorAll('[data-cmd-action]').forEach(function (item) {
+        item.addEventListener('click', function () {
+          var action = item.dataset.cmdAction;
+          if (action === 'new-record') {
+            var btn = document.querySelector('[data-new-record]');
+            if (btn) btn.click();
+            scrollToSection('editor');
+          } else if (action === 'refresh') {
+            var btn = document.querySelector('[data-refresh-records]');
+            if (btn) btn.click();
+          }
+          closePalette();
+        });
+      });
+
+      /* keyboard navigation inside palette */
+      input.addEventListener('keydown', function (e) {
+        var visible = Array.from(dialog.querySelectorAll('.cmd-item'));
+        if (e.key === 'ArrowDown') { focused = Math.min(focused + 1, visible.length - 1); }
+        else if (e.key === 'ArrowUp') { focused = Math.max(focused - 1, 0); }
+        else if (e.key === 'Enter' && focused >= 0) { visible[focused].click(); return; }
+        else if (e.key === 'Escape') { closePalette(); return; }
+        visible.forEach(function (v, i) { v.classList.toggle('is-focused', i === focused); });
+      });
+
+      /* mobile sidebar toggle */
+      var toggle  = document.getElementById('sidebar-toggle');
+      var sidebar = document.getElementById('admin-sidebar');
+      if (window.innerWidth <= 768) toggle.style.display = '';
+      toggle.addEventListener('click', function () { sidebar.classList.toggle('is-open'); });
+
+      /* show idea badge when count > 0 */
+      var ideaBadge = document.querySelector('.admin-nav-badge[data-idea-review-count]');
+      if (ideaBadge) {
+        new MutationObserver(function () {
+          var n = parseInt(ideaBadge.textContent, 10) || 0;
+          ideaBadge.style.display = n > 0 ? '' : 'none';
+        }).observe(ideaBadge, { childList: true, characterData: true, subtree: true });
+      }
+    })();
+  </script>
 </body>
 </html>
-
