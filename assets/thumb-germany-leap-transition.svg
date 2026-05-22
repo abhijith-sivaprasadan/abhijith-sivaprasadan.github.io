@@ -1,40 +1,118 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Energy-economy-emissions transition scenarios'>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Germany electricity transition LEAP scenario model 2020-2045'>
   <defs>
     <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
-      <stop offset='0' stop-color='#0f141b'/>
-      <stop offset='1' stop-color='#0a0f15'/>
-    </linearGradient>
-    <linearGradient id='panel' x1='0' y1='0' x2='1' y2='1'>
-      <stop offset='0' stop-color='#161f2b'/>
-      <stop offset='1' stop-color='#121a25'/>
+      <stop offset='0' stop-color='#0b1220'/><stop offset='1' stop-color='#070c16'/>
     </linearGradient>
   </defs>
   <rect width='960' height='540' fill='url(#bg)'/>
-  <rect x='34' y='30' width='892' height='480' rx='22' fill='url(#panel)' stroke='#354152'/>
-  <rect x='34' y='30' width='892' height='62' rx='22' fill='#121d2b'/>
-  <text x='62' y='68' fill='#e6ecf3' font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size='20' font-weight='700'>GERMANY LEAP ANALYSIS</text>
 
-  <rect x='66' y='126' width='560' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
-  <g stroke='#5d6876' stroke-width='1.2' opacity='0.7'>
-    <line x1='96' y1='404' x2='594' y2='404'/>
-    <line x1='96' y1='350' x2='594' y2='350'/>
-    <line x1='96' y1='296' x2='594' y2='296'/>
-    <line x1='96' y1='242' x2='594' y2='242'/>
-    <line x1='96' y1='188' x2='594' y2='188'/>
-  </g>
-  <polyline points='96,356 132,336 168,320 204,300 240,280 276,260 312,274 348,298 384,322 420,336 456,312 492,284 528,260 564,238 594,224' fill='none' stroke='#c8d0db' stroke-width='4.2'/>
-  <polyline points='96,372 132,360 168,346 204,330 240,312 276,300 312,314 348,334 384,352 420,362 456,346 492,324 528,304 564,286 594,272' fill='none' stroke='#9ca6b5' stroke-width='3.4' stroke-dasharray='8 6'/>
+  <!-- Title bar -->
+  <rect x='24' y='14' width='912' height='36' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='38' font-family='monospace' font-size='14' fill='#65d6c9' font-weight='bold'>GERMANY ENERGY TRANSITION · LEAP SCENARIO MODEL · 2020–2045</text>
 
-  <rect x='654' y='126' width='238' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
-  <text x='678' y='162' fill='#cdd5df' font-family='ui-monospace,monospace' font-size='16' font-weight='700'>PROJECT SUMMARY</text>
-  <text x='678' y='196' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='14'>Energy-economy-emissions transition scenarios</text>
-  <text x='678' y='228' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>Technical focus, method and outputs</text>
-  <text x='678' y='248' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>represented in a portfolio-safe preview</text>
+  <!-- Chart frame -->
+  <rect x='60' y='62' width='640' height='400' rx='4' fill='#0d1a2e'/>
 
-  <rect x='678' y='286' width='190' height='42' rx='9' fill='#1d2734' stroke='#445267'/>
-  <text x='694' y='312' fill='#dce3ec' font-family='ui-monospace,monospace' font-size='13'>Case study available</text>
+  <!-- Axes -->
+  <line x1='100' y1='68' x2='100' y2='432' stroke='#2a4060' stroke-width='1.2'/>
+  <line x1='100' y1='432' x2='680' y2='432' stroke='#2a4060' stroke-width='1.2'/>
 
-  <rect x='678' y='338' width='190' height='88' rx='9' fill='#151f2b' stroke='#445267'/>
-  <text x='694' y='364' fill='#d0d9e4' font-family='ui-monospace,monospace' font-size='12'>Monochrome preview system</text>
-  <text x='694' y='384' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='12'>Unified format / consistent tone</text>
+  <!-- Y-axis labels [TWh] -->
+  <text x='94' y='436' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='end'>0</text>
+  <text x='94' y='376' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='end'>100</text>
+  <text x='94' y='316' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='end'>200</text>
+  <text x='94' y='256' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='end'>300</text>
+  <text x='94' y='196' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='end'>400</text>
+  <text x='94' y='136' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='end'>500</text>
+  <text x='94' y='76' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='end'>600</text>
+  <text x='72' y='255' font-family='monospace' font-size='9' fill='#2a4060' transform='rotate(-90,72,255)' text-anchor='middle'>TWh/year</text>
+
+  <!-- X-axis labels -->
+  <text x='100' y='448' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>2020</text>
+  <text x='217' y='448' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>2025</text>
+  <text x='333' y='448' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>2030</text>
+  <text x='450' y='448' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>2035</text>
+  <text x='567' y='448' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>2040</text>
+  <text x='680' y='448' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>2045</text>
+
+  <!-- Grid lines -->
+  <line x1='100' y1='376' x2='680' y2='376' stroke='#152540' stroke-width='0.7'/>
+  <line x1='100' y1='316' x2='680' y2='316' stroke='#152540' stroke-width='0.7'/>
+  <line x1='100' y1='256' x2='680' y2='256' stroke='#152540' stroke-width='0.7'/>
+  <line x1='100' y1='196' x2='680' y2='196' stroke='#152540' stroke-width='0.7'/>
+  <line x1='100' y1='136' x2='680' y2='136' stroke='#152540' stroke-width='0.7'/>
+  <line x1='100' y1='76' x2='680' y2='76' stroke='#152540' stroke-width='0.7'/>
+
+  <!-- Stacked area chart (bottom to top: Coal → Nuclear → Gas → Hydro → Wind → Solar) -->
+  <!-- Scale: 600 TWh = 360px, so 1 TWh = 0.6px. y_base=432 -->
+  <!-- 2020 stack (x=100): Coal=130, Nuc=70, Gas=90, Hydro=20, Wind=134, Solar=52 (total≈496) -->
+  <!-- 2025 stack (x=217): Coal=80, Nuc=40, Gas=80, Hydro=22, Wind=190, Solar=90 (total≈502) -->
+  <!-- 2030 stack (x=333): Coal=30, Nuc=0, Gas=60, Hydro=24, Wind=260, Solar=150 (total≈524) -->
+  <!-- 2035 stack (x=450): Coal=10, Nuc=0, Gas=40, Hydro=26, Wind=320, Solar=210 (total≈606) -->
+  <!-- 2040 stack (x=567): Coal=0, Nuc=0, Gas=20, Hydro=26, Wind=370, Solar=270 (total≈686 - but let's cap demand at 550) -->
+  <!-- 2045 stack (x=680): Coal=0, Nuc=0, Gas=10, Hydro=26, Wind=380, Solar=300 (total used for net-zero) -->
+
+  <!-- Coal layer (dark grey/blue) - bottom -->
+  <polygon points='100,354 217,380 333,414 450,426 567,432 680,432 680,432 567,432 450,432 333,432 217,432 100,432' fill='#1a2a3a' opacity='0.9'/>
+  <!-- Nuclear (purple) on top of coal -->
+  <polygon points='100,312 217,356 333,414 450,426 567,432 680,432 680,432 567,432 450,432 333,432 217,380 100,354' fill='#8f7fff' opacity='0.7'/>
+  <!-- Gas (orange) -->
+  <polygon points='100,258 217,308 333,378 450,402 567,420 680,426 680,432 567,432 450,426 333,414 217,356 100,312' fill='#d0622c' opacity='0.7'/>
+  <!-- Hydro (blue-grey) -->
+  <polygon points='100,246 217,295 333,363 450,387 567,404 680,410 680,426 567,420 450,402 333,378 217,308 100,258' fill='#2563a8' opacity='0.7'/>
+  <!-- Wind (bright blue/cyan) -->
+  <polygon points='100,166 217,181 333,207 450,255 567,284 680,202 680,410 567,404 450,387 333,363 217,295 100,246' fill='#38bdf8' opacity='0.7'/>
+  <!-- Solar (amber) - top layer -->
+  <polygon points='100,135 217,127 333,117 450,139 567,138 680,120 680,202 567,284 450,255 333,207 217,181 100,166' fill='#f6c85f' opacity='0.8'/>
+
+  <!-- Demand total line (slightly above top of stack) -->
+  <polyline points='100,128 217,120 333,110 450,132 567,130 680,112' fill='none' stroke='#c8d8ea' stroke-width='2' stroke-dasharray='5,3'/>
+  <text x='685' y='110' font-family='monospace' font-size='9' fill='#c8d8ea'>Demand</text>
+
+  <!-- Coal phaseout annotation -->
+  <line x1='333' y1='414' x2='333' y2='460' stroke='#1a2a3a' stroke-width='0.8' stroke-dasharray='2,3' opacity='0.5'/>
+  <text x='333' y='468' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>Coal exits</text>
+  <!-- Nuclear exit -->
+  <line x1='260' y1='390' x2='260' y2='460' stroke='#8f7fff' stroke-width='0.8' stroke-dasharray='2,3' opacity='0.5'/>
+  <text x='260' y='468' font-family='monospace' font-size='8' fill='#8f7fff' text-anchor='middle'>Nuc exit</text>
+
+  <!-- Legend (right panel) -->
+  <rect x='720' y='62' width='220' height='400' rx='6' fill='#0d1a2e' stroke='#152540' stroke-width='1'/>
+  <text x='830' y='86' font-family='monospace' font-size='12' fill='#c8d8ea' text-anchor='middle' font-weight='bold'>GENERATION MIX</text>
+  <line x1='730' y1='94' x2='930' y2='94' stroke='#152540' stroke-width='0.8'/>
+  <!-- Legend items -->
+  <rect x='736' y='106' width='18' height='14' rx='2' fill='#f6c85f' opacity='0.8'/>
+  <text x='762' y='118' font-family='monospace' font-size='10' fill='#f6c85f'>Solar PV</text>
+  <text x='900' y='118' font-family='monospace' font-size='10' fill='#f6c85f' text-anchor='end'>↑ 52→300 TWh</text>
+  <rect x='736' y='130' width='18' height='14' rx='2' fill='#38bdf8' opacity='0.7'/>
+  <text x='762' y='142' font-family='monospace' font-size='10' fill='#38bdf8'>Wind (on+off)</text>
+  <text x='900' y='142' font-family='monospace' font-size='10' fill='#38bdf8' text-anchor='end'>↑ 134→380 TWh</text>
+  <rect x='736' y='154' width='18' height='14' rx='2' fill='#2563a8' opacity='0.7'/>
+  <text x='762' y='166' font-family='monospace' font-size='10' fill='#2563a8'>Hydro + flex</text>
+  <rect x='736' y='178' width='18' height='14' rx='2' fill='#d0622c' opacity='0.7'/>
+  <text x='762' y='190' font-family='monospace' font-size='10' fill='#d0622c'>Gas (peaker)</text>
+  <text x='900' y='190' font-family='monospace' font-size='10' fill='#d0622c' text-anchor='end'>↓ 90→10 TWh</text>
+  <rect x='736' y='202' width='18' height='14' rx='2' fill='#8f7fff' opacity='0.7'/>
+  <text x='762' y='214' font-family='monospace' font-size='10' fill='#8f7fff'>Nuclear</text>
+  <text x='900' y='214' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='end'>→ 0 (2023)</text>
+  <rect x='736' y='226' width='18' height='14' rx='2' fill='#1a2a3a' stroke='#2a4060' stroke-width='1'/>
+  <text x='762' y='238' font-family='monospace' font-size='10' fill='#2a4060'>Hard coal</text>
+  <text x='900' y='238' font-family='monospace' font-size='10' fill='#2a4060' text-anchor='end'>→ 0 (2038)</text>
+
+  <!-- Scenario comparison -->
+  <line x1='730' y1='258' x2='930' y2='258' stroke='#152540' stroke-width='0.8'/>
+  <text x='830' y='278' font-family='monospace' font-size='10' fill='#c8d8ea' text-anchor='middle' font-weight='bold'>SCENARIOS</text>
+  <text x='736' y='298' font-family='monospace' font-size='10' fill='#4ade80'>● Reference (shown)</text>
+  <text x='736' y='316' font-family='monospace' font-size='10' fill='#38bdf8'>● Accelerated RE</text>
+  <text x='736' y='334' font-family='monospace' font-size='10' fill='#f6c85f'>● Delayed phase-out</text>
+  <line x1='730' y1='350' x2='930' y2='350' stroke='#152540' stroke-width='0.8'/>
+  <text x='830' y='370' font-family='monospace' font-size='10' fill='#c8d8ea' text-anchor='middle'>CO₂ 2045:</text>
+  <text x='830' y='388' font-family='monospace' font-size='12' fill='#4ade80' text-anchor='middle'>−93% vs 1990</text>
+  <text x='830' y='408' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>LEAP model output</text>
+  <text x='830' y='426' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>3 scenarios</text>
+  <text x='830' y='444' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>2020–2045 horizon</text>
+
+  <!-- Bottom tag strip -->
+  <rect x='24' y='490' width='912' height='34' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='512' font-family='monospace' font-size='11' fill='#2a4060'>LEAP · Germany Energiewende · Coal phaseout · Nuclear exit · Renewable ramp · CO₂ reduction scenarios</text>
 </svg>

@@ -1,22 +1,149 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="BUILT ENVIRONMENT - IDA ICE supply-system comparison">
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Building energy simulation and HVAC supply system comparison IDA ICE'>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#070807"/><stop offset="1" stop-color="#111711"/></linearGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#2d3a31" stroke-width="1" opacity="0.55"/></pattern>
-    <style>
-      .dash{fill:none;stroke:#9bd69f;stroke-width:5;stroke-linecap:round;stroke-dasharray:18 12;animation:dash 9s linear infinite}.amber{stroke:#d7b46a}.scan{animation:float 6s ease-in-out infinite}.label{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.muted{fill:#a8ada4}@keyframes dash{to{stroke-dashoffset:-180}}@keyframes float{50%{transform:translateY(-8px)}}
-    </style>
+    <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0' stop-color='#0b1220'/><stop offset='1' stop-color='#070c16'/>
+    </linearGradient>
+    <marker id='arr' markerWidth='6' markerHeight='6' refX='5' refY='3' orient='auto'>
+      <path d='M0,0 L0,6 L6,3 z' fill='#38bdf8'/>
+    </marker>
+    <marker id='aro' markerWidth='6' markerHeight='6' refX='5' refY='3' orient='auto'>
+      <path d='M0,0 L0,6 L6,3 z' fill='#d0622c'/>
+    </marker>
   </defs>
-  <rect width="960" height="540" fill="url(#bg)"/>
-  <rect width="960" height="540" fill="url(#grid)" opacity="0.55"/>
-  <rect x="34" y="30" width="892" height="480" rx="8" fill="#0b0f0b" opacity="0.86" stroke="#2d3a31"/>
-  <text x="62" y="72" fill="#f2f0e7" class="label" font-size="24" font-weight="700">BUILT ENVIRONMENT</text>
-  <text x="62" y="104" fill="#a8ada4" class="label" font-size="15">IDA ICE supply-system comparison</text>
-    <g>
-    <rect x="110" y="140" width="240" height="250" fill="#111711" stroke="#8fa7b3"/>
-    <g fill="#223024"><rect x="136" y="166" width="40" height="34"/><rect x="196" y="166" width="40" height="34"/><rect x="256" y="166" width="40" height="34"/><rect x="136" y="222" width="40" height="34"/><rect x="196" y="222" width="40" height="34"/><rect x="256" y="222" width="40" height="34"/><rect x="136" y="278" width="40" height="34"/><rect x="196" y="278" width="40" height="34"/><rect x="256" y="278" width="40" height="34"/></g>
-    <path class="dash" d="M430 350 L500 310 L570 328 L642 238 L710 260 L820 174"/>
-    <rect x="430" y="376" width="70" height="32" fill="#9bd69f"/><rect x="514" y="350" width="70" height="58" fill="#d7b46a"/><rect x="598" y="296" width="70" height="112" fill="#8fa7b3"/><rect x="682" y="248" width="70" height="160" fill="#9bd69f"/>
-  </g>
-  <rect x="62" y="450" width="836" height="1" fill="#2d3a31"/>
-  <text x="62" y="480" fill="#9bd69f" class="label" font-size="14">signal deck visual / portfolio-safe data preview</text>
+  <rect width='960' height='540' fill='url(#bg)'/>
+
+  <!-- Title bar -->
+  <rect x='24' y='14' width='912' height='36' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='38' font-family='monospace' font-size='14' fill='#65d6c9' font-weight='bold'>BUILT ENVIRONMENT · BUILDING ENERGY SIM · IDA ICE · HVAC COMPARISON</text>
+
+  <!-- Building cross-section (left side) -->
+  <rect x='30' y='64' width='480' height='400' rx='4' fill='#0d1a2e'/>
+  <text x='270' y='86' font-family='monospace' font-size='11' fill='#c8d8ea' text-anchor='middle' font-weight='bold'>BUILDING THERMAL CROSS-SECTION</text>
+
+  <!-- Exterior envelope (roof) -->
+  <rect x='90' y='110' width='360' height='20' rx='2' fill='#152540' stroke='#38bdf8' stroke-width='1.5'/>
+  <text x='270' y='124' font-family='monospace' font-size='9' fill='#38bdf8' text-anchor='middle'>Roof — U=0.12 W/m²K</text>
+  <!-- Solar gains arrow on roof -->
+  <line x1='180' y1='92' x2='180' y2='108' stroke='#f6c85f' stroke-width='1.5' marker-end='url(#arr)'/>
+  <line x1='220' y1='92' x2='220' y2='108' stroke='#f6c85f' stroke-width='1.5' marker-end='url(#arr)'/>
+  <line x1='260' y1='92' x2='260' y2='108' stroke='#f6c85f' stroke-width='1.5' marker-end='url(#arr)'/>
+  <text x='270' y='96' font-family='monospace' font-size='9' fill='#f6c85f' text-anchor='middle'>I_sol →</text>
+
+  <!-- Left wall -->
+  <rect x='90' y='130' width='20' height='200' rx='2' fill='#152540' stroke='#38bdf8' stroke-width='1.5'/>
+  <text x='72' y='232' font-family='monospace' font-size='8' fill='#38bdf8' text-anchor='middle' transform='rotate(-90,72,232)'>Wall U=0.18</text>
+
+  <!-- Right wall -->
+  <rect x='430' y='130' width='20' height='200' rx='2' fill='#152540' stroke='#38bdf8' stroke-width='1.5'/>
+
+  <!-- Window (glazing) -->
+  <rect x='344' y='150' width='86' height='100' rx='2' fill='#0d2040' stroke='#65d6c9' stroke-width='1.5'/>
+  <line x1='387' y1='150' x2='387' y2='250' stroke='#65d6c9' stroke-width='0.8'/>
+  <line x1='344' y1='200' x2='430' y2='200' stroke='#65d6c9' stroke-width='0.8'/>
+  <text x='387' y='268' font-family='monospace' font-size='9' fill='#65d6c9' text-anchor='middle'>Triple glazing</text>
+  <text x='387' y='280' font-family='monospace' font-size='8' fill='#65d6c9' text-anchor='middle'>U=0.8 W/m²K</text>
+
+  <!-- Floor zone (ground slab) -->
+  <rect x='90' y='330' width='360' height='20' rx='2' fill='#152540' stroke='#2563a8' stroke-width='1.5'/>
+  <text x='270' y='344' font-family='monospace' font-size='9' fill='#2563a8' text-anchor='middle'>Ground slab — U=0.15 W/m²K</text>
+
+  <!-- Interior zones -->
+  <!-- Zone 1: Office north -->
+  <rect x='110' y='130' width='140' height='200' rx='2' fill='#0f2240' stroke='#8f7fff' stroke-width='1' stroke-dasharray='4,3'/>
+  <text x='180' y='222' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='middle'>Zone 1</text>
+  <text x='180' y='236' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Office N</text>
+  <text x='180' y='250' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>T_set=21°C</text>
+
+  <!-- Zone 2: Office south -->
+  <rect x='250' y='130' width='94' height='200' rx='2' fill='#0f2240' stroke='#8f7fff' stroke-width='1' stroke-dasharray='4,3'/>
+  <text x='297' y='222' font-family='monospace' font-size='10' fill='#8f7fff' text-anchor='middle'>Zone 2</text>
+  <text x='297' y='236' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Office S</text>
+
+  <!-- HVAC supply symbols -->
+  <!-- AHU (air handling unit) -->
+  <rect x='140' y='152' width='50' height='28' rx='3' fill='#0d1a2e' stroke='#d0622c' stroke-width='1.2'/>
+  <text x='165' y='166' font-family='monospace' font-size='8' fill='#d0622c' text-anchor='middle'>AHU</text>
+  <text x='165' y='176' font-family='monospace' font-size='7' fill='#d0622c' text-anchor='middle'>+HRV</text>
+  <!-- Supply air arrow -->
+  <line x1='165' y1='180' x2='165' y2='198' stroke='#d0622c' stroke-width='1.2' marker-end='url(#aro)'/>
+
+  <!-- Radiator -->
+  <rect x='252' y='266' width='36' height='20' rx='2' fill='#0d1a2e' stroke='#d0622c' stroke-width='1.2'/>
+  <line x1='258' y1='266' x2='258' y2='286' stroke='#d0622c' stroke-width='0.8'/>
+  <line x1='264' y1='266' x2='264' y2='286' stroke='#d0622c' stroke-width='0.8'/>
+  <line x1='270' y1='266' x2='270' y2='286' stroke='#d0622c' stroke-width='0.8'/>
+  <line x1='276' y1='266' x2='276' y2='286' stroke='#d0622c' stroke-width='0.8'/>
+  <text x='270' y='300' font-family='monospace' font-size='8' fill='#d0622c' text-anchor='middle'>Radiator</text>
+
+  <!-- Heat loss arrows through walls -->
+  <line x1='88' y1='230' x2='70' y2='230' stroke='#38bdf8' stroke-width='1.2' marker-end='url(#arr)'/>
+  <text x='60' y='224' font-family='monospace' font-size='7' fill='#38bdf8' text-anchor='middle'>Q_loss</text>
+  <line x1='430' y1='230' x2='452' y2='230' stroke='#38bdf8' stroke-width='1.2' marker-end='url(#arr)'/>
+
+  <!-- Infiltration arrow -->
+  <line x1='435' y1='170' x2='414' y2='170' stroke='#65d6c9' stroke-width='1' stroke-dasharray='3,2'/>
+  <text x='460' y='174' font-family='monospace' font-size='8' fill='#65d6c9'>inf.</text>
+
+  <!-- Right panel: supply system comparison -->
+  <rect x='530' y='64' width='410' height='400' rx='4' fill='#0d1a2e'/>
+  <text x='735' y='88' font-family='monospace' font-size='12' fill='#c8d8ea' text-anchor='middle' font-weight='bold'>HVAC SUPPLY SYSTEM COMPARISON</text>
+
+  <!-- Systems comparison table -->
+  <line x1='540' y1='100' x2='930' y2='100' stroke='#152540' stroke-width='0.8'/>
+  <!-- Headers -->
+  <text x='600' y='118' font-family='monospace' font-size='10' fill='#2a4060' text-anchor='middle'>System</text>
+  <text x='710' y='118' font-family='monospace' font-size='10' fill='#2a4060' text-anchor='middle'>Heat demand</text>
+  <text x='810' y='118' font-family='monospace' font-size='10' fill='#2a4060' text-anchor='middle'>CO₂ [kg/m²]</text>
+  <text x='910' y='118' font-family='monospace' font-size='10' fill='#2a4060' text-anchor='middle'>LCCA</text>
+  <line x1='540' y1='124' x2='930' y2='124' stroke='#152540' stroke-width='0.8'/>
+
+  <!-- Row 1: District heating -->
+  <text x='600' y='145' font-family='monospace' font-size='10' fill='#38bdf8' text-anchor='middle'>District heat</text>
+  <rect x='672' y='133' width='80' height='14' rx='2' fill='#38bdf8' opacity='0.5'/>
+  <text x='762' y='145' font-family='monospace' font-size='9' fill='#38bdf8'>80 kWh/m²</text>
+  <text x='810' y='145' font-family='monospace' font-size='10' fill='#4ade80' text-anchor='middle'>8.2</text>
+  <text x='910' y='145' font-family='monospace' font-size='10' fill='#38bdf8' text-anchor='middle'>€185/m²</text>
+
+  <!-- Row 2: Heat pump + electricity -->
+  <text x='600' y='175' font-family='monospace' font-size='10' fill='#65d6c9' text-anchor='middle'>HP + elec</text>
+  <rect x='672' y='163' width='90' height='14' rx='2' fill='#65d6c9' opacity='0.5'/>
+  <text x='762' y='175' font-family='monospace' font-size='9' fill='#65d6c9'>90 kWh/m²</text>
+  <text x='810' y='175' font-family='monospace' font-size='10' fill='#4ade80' text-anchor='middle'>6.4</text>
+  <text x='910' y='175' font-family='monospace' font-size='10' fill='#65d6c9' text-anchor='middle'>€210/m²</text>
+
+  <!-- Row 3: Gas boiler (reference) -->
+  <text x='600' y='205' font-family='monospace' font-size='10' fill='#f6c85f' text-anchor='middle'>Gas boiler</text>
+  <rect x='672' y='193' width='70' height='14' rx='2' fill='#f6c85f' opacity='0.5'/>
+  <text x='762' y='205' font-family='monospace' font-size='9' fill='#f6c85f'>70 kWh/m²</text>
+  <text x='810' y='205' font-family='monospace' font-size='10' fill='#d0622c' text-anchor='middle'>15.8</text>
+  <text x='910' y='205' font-family='monospace' font-size='10' fill='#f6c85f' text-anchor='middle'>€155/m²</text>
+
+  <!-- Row 4: Passive+ district -->
+  <text x='600' y='235' font-family='monospace' font-size='10' fill='#4ade80' text-anchor='middle'>Passive+DH</text>
+  <rect x='672' y='223' width='40' height='14' rx='2' fill='#4ade80' opacity='0.5'/>
+  <text x='762' y='235' font-family='monospace' font-size='9' fill='#4ade80'>40 kWh/m²</text>
+  <text x='810' y='235' font-family='monospace' font-size='10' fill='#4ade80' text-anchor='middle'>4.1</text>
+  <text x='910' y='235' font-family='monospace' font-size='10' fill='#4ade80' text-anchor='middle'>€248/m²</text>
+  <line x1='540' y1='246' x2='930' y2='246' stroke='#152540' stroke-width='0.8'/>
+
+  <!-- Energy breakdown bar chart -->
+  <text x='735' y='270' font-family='monospace' font-size='11' fill='#c8d8ea' text-anchor='middle' font-weight='bold'>ENERGY END-USE BREAKDOWN</text>
+  <!-- Axes -->
+  <line x1='565' y1='290' x2='565' y2='390' stroke='#2a4060' stroke-width='1'/>
+  <line x1='565' y1='390' x2='910' y2='390' stroke='#2a4060' stroke-width='1'/>
+  <!-- Bars: Space heating, DHW, Lighting, Equipment, Ventilation -->
+  <rect x='572' y='340' width='50' height='50' rx='1' fill='#d0622c' opacity='0.7'/>
+  <text x='597' y='406' font-family='monospace' font-size='8' fill='#d0622c' text-anchor='middle'>Heating</text>
+  <rect x='634' y='358' width='50' height='32' rx='1' fill='#f6c85f' opacity='0.7'/>
+  <text x='659' y='406' font-family='monospace' font-size='8' fill='#f6c85f' text-anchor='middle'>DHW</text>
+  <rect x='696' y='368' width='50' height='22' rx='1' fill='#f6c85f' opacity='0.5'/>
+  <text x='721' y='406' font-family='monospace' font-size='8' fill='#f6c85f' text-anchor='middle'>Lighting</text>
+  <rect x='758' y='372' width='50' height='18' rx='1' fill='#8f7fff' opacity='0.7'/>
+  <text x='783' y='406' font-family='monospace' font-size='8' fill='#8f7fff' text-anchor='middle'>Equip.</text>
+  <rect x='820' y='375' width='50' height='15' rx='1' fill='#38bdf8' opacity='0.7'/>
+  <text x='845' y='406' font-family='monospace' font-size='8' fill='#38bdf8' text-anchor='middle'>Vent.</text>
+
+  <!-- Bottom tag strip -->
+  <rect x='24' y='490' width='912' height='34' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='512' font-family='monospace' font-size='11' fill='#2a4060'>IDA ICE · Thermal zones · U-values · HRV · HVAC comparison · Energy demand · CO₂ · LCCA</text>
 </svg>
