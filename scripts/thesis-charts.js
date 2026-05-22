@@ -307,11 +307,24 @@
   }
 
   ready(function () {
-    renderAll();
+    try {
+      renderAll();
+      document.documentElement.classList.add("charts-ready");
+    } catch (error) {
+      document.documentElement.classList.add("charts-failed");
+      console.error("Thesis chart rendering failed", error);
+    }
     var resizeTimer;
     window.addEventListener("resize", function () {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(renderAll, 150);
+      resizeTimer = setTimeout(function () {
+        try {
+          renderAll();
+        } catch (error) {
+          document.documentElement.classList.add("charts-failed");
+          console.error("Thesis chart resize failed", error);
+        }
+      }, 150);
     });
   });
 })();
