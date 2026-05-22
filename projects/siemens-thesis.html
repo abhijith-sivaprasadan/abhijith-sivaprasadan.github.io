@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="../styles.css" />
   <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script src="../scripts/thesis-charts.js" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
@@ -42,8 +43,12 @@
         <p class="eyebrow">Master's thesis &middot; Siemens Energy Finsp&aring;ng &middot; TRITA-ITM-EX 2026:14</p>
         <h1>Numerical investigation of thermo-fluid performance in a high-temperature reducer for dynamic pressure sensor calibration.</h1>
         <p class="hero-text">
-          Seven months embedded in the Siemens Energy Fluid Dynamic Lab, combining compressible CFD, conjugate heat transfer, mesh independence, high-temperature measurement-chain commissioning and formal root cause analysis after heater failure.
+          Seven months embedded in the Siemens Energy Fluid Dynamic Lab, combining compressible CFD, conjugate heat transfer, mesh independence, high-temperature measurement-chain commissioning and formal root cause analysis after heater failure. Published as KTH thesis TRITA-ITM-EX 2026:14.
         </p>
+        <div class="button-row">
+          <a class="button primary" href="https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965" target="_blank" rel="noopener">Open KTH DiVA record</a>
+          <a class="button secondary" href="#evidence-dashboard">View numerical evidence</a>
+        </div>
         <div class="result-metric-row thesis-kpis">
           <span class="result-metric-card"><strong>673 K</strong><small>inlet temperature</small></span>
           <span class="result-metric-card"><strong>100 kPa</strong><small>inlet gauge pressure</small></span>
@@ -68,6 +73,12 @@
             <li><strong>Operating point:</strong> T = 673 K, P<sub>gauge</sub> = 100,000 Pa</li>
             <li><strong>Hardware context:</strong> NI-DAQ, NI MAX, LabVIEW, thermocouples, pressure transducers, Siemens NX, Teamcenter PLM2020</li>
           </ul>
+          <div class="published-thesis-card">
+            <p class="eyebrow">Published thesis</p>
+            <h3>Numerical Investigation of Steady-State Thermo-Fluid Performance of a Reducer for a High-Temperature Dynamic Pressure Sensor Calibration Rig</h3>
+            <p>KTH Royal Institute of Technology, Department of Energy Technology. TRITA-ITM-EX 2026:14.</p>
+            <a class="button secondary" href="https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965" target="_blank" rel="noopener">KTH DiVA record</a>
+          </div>
         </aside>
 
         <article class="case-panel thesis-case">
@@ -75,7 +86,7 @@
             <p class="eyebrow">Problem statement</p>
             <h2>Why the Pulsatorn rig needed this reducer decision.</h2>
             <p>
-              The Pulsatorn rig is a high-temperature dynamic pressure sensor calibration system used to reproduce gas-turbine-relevant thermal and pressure conditions before sensors are trusted in harsher test environments. The reducer sits between the heater outlet and downstream calibration section, so its geometry affects both pressure delivery and thermal delivery. A sharp two-step commercial fitting can introduce irreversible Borda-Carnot losses, local acceleration and flow non-uniformity; a smoother contraction can improve pressure recovery but also increases exposed surface area and heat loss. The engineering challenge was therefore not simply to make a smoother part, but to decide whether the redesign improves rig performance once compressible flow, heat transfer and practical insulation are interpreted together.
+              The Pulsatorn rig is a high-temperature dynamic pressure sensor calibration system used to reproduce gas-turbine-relevant thermal and pressure conditions before sensors are trusted in harsher test environments. The reducer sits between the heater outlet and downstream calibration section, so its geometry affects both pressure delivery and thermal delivery. The legacy reducer was a compact hydraulic fitting with abrupt contractions from 35.05 mm to 11.25 mm and then to 6.0 mm, a geometry expected to create irreversible Borda-Carnot losses, local acceleration and flow non-uniformity. The redesigned reducer used a 150 mm quintic C&sup2; contraction from the heater bore to the outlet. The engineering challenge was therefore not simply to make a smoother part, but to decide whether the redesign improves rig performance once compressible flow, heat transfer and practical insulation are interpreted together.
             </p>
           </section>
 
@@ -116,11 +127,11 @@
               </article>
               <article class="card">
                 <h3>Mesh independence</h3>
-                <p>A three-level mesh study compared coarse, baseline and fine grids. Monitored quantities included mass flow, pressure drop, outlet temperature, maximum Mach number and velocity magnitude. Independence was judged by KPI stability across refinement levels, with the reported model meeting the thesis quality checks for engineering interpretation.</p>
+                <p>A three-level mesh study compared coarse, baseline and fine grids. The baseline models used 829,621 legacy fluid cells and 913,301 redesigned fluid cells. Monitored quantities included mass flow, pressure drop, outlet temperature, maximum Mach number and velocity magnitude. Independence was judged by KPI stability across refinement levels, with baseline-to-fine changes below the 2% engineering threshold.</p>
               </article>
               <article class="card">
                 <h3>Simulation campaign</h3>
-                <p>The campaign separated adiabatic flow physics from CHT thermal delivery. Six adiabatic cases isolated pressure-loss and Mach-number behaviour across both geometries and pressure-ratio settings; six CHT cases then introduced solid conduction and external convection while holding inlet conditions and material assumptions consistent.</p>
+                <p>The campaign separated adiabatic flow physics from CHT thermal delivery. Adiabatic cases isolated pressure-loss and Mach-number behaviour across both geometries; six CHT cases then introduced solid conduction and external convection at outlet gauge pressures of 80,000 Pa, 40,000 Pa and 0 Pa while holding inlet conditions and material assumptions consistent.</p>
               </article>
               <article class="card">
                 <h3>Boundary conditions</h3>
@@ -131,6 +142,177 @@
                 <p>Residual reduction was treated as necessary but not sufficient. Integral monitors for mass balance, pressure drop, outlet temperature and maximum Mach number were followed to stable values before interpreting a case, which made the result set defensible beyond a visually converged residual plot.</p>
               </article>
             </div>
+          </section>
+
+          <section id="evidence-dashboard" class="evidence-dashboard">
+            <p class="eyebrow">Numerical evidence dashboard</p>
+            <h2>Exported thesis charts rebuilt as native portfolio evidence.</h2>
+            <p>
+              The charts below condense the exported thesis post-processing files into a single research narrative: numerical independence, solver discipline, near-wall validity, flow physics, thermal decomposition and insulation sensitivity.
+            </p>
+
+            <article class="thesis-chart-card">
+              <div class="chart-card-header">
+                <div>
+                  <p class="eyebrow">ANSYS Fluent &middot; three-level refinement</p>
+                  <h3>Mesh independence study</h3>
+                </div>
+                <span class="evidence-badge">Confirmed</span>
+              </div>
+              <div class="chart-kpi-grid">
+                <span><strong>&lt;2%</strong><small>independence threshold</small></span>
+                <span><strong>0.61%</strong><small>redesigned pressure-drop change</small></span>
+                <span><strong>1.36%</strong><small>legacy pressure-drop change</small></span>
+                <span><strong>0.03%</strong><small>outlet-temperature change</small></span>
+              </div>
+              <div class="chart-grid">
+                <div class="chart-shell">
+                  <canvas id="meshPressureChart" aria-label="Mesh pressure drop convergence chart">Mesh pressure drop convergence: redesigned 38810, 39146, 39387 Pa; legacy 36814, 36285, 35797 Pa.</canvas>
+                </div>
+                <div class="chart-shell">
+                  <canvas id="meshMachChart" aria-label="Mesh Mach number convergence chart">Mesh Mach convergence: redesigned 0.9888, 0.9904, 0.9887; legacy baseline 1.0148 and fine 1.0164.</canvas>
+                </div>
+              </div>
+              <p class="annotation">The baseline meshes were retained because the monitored engineering quantities were stable under refinement, including pressure drop, maximum Mach number and outlet temperature.</p>
+            </article>
+
+            <article class="thesis-chart-card">
+              <div class="chart-card-header">
+                <div>
+                  <p class="eyebrow">ANSYS Fluent 2025 R1 &middot; residual histories</p>
+                  <h3>Solver convergence and monitor stability</h3>
+                </div>
+                <span class="evidence-badge">1500 iterations</span>
+              </div>
+              <div class="chart-kpi-grid">
+                <span><strong>5.1e-7</strong><small>redesigned continuity final</small></span>
+                <span><strong>1.7e-6</strong><small>legacy continuity final</small></span>
+                <span><strong>3.0e-4</strong><small>redesigned k final</small></span>
+                <span><strong>7.7e-4</strong><small>legacy k final</small></span>
+              </div>
+              <div class="chart-shell wide">
+                <canvas id="convergenceChart" aria-label="Solver convergence residual comparison">Solver convergence residual comparison for continuity, energy and turbulence variables.</canvas>
+              </div>
+              <p class="annotation">Higher legacy turbulence residuals were interpreted with the flow field: the step geometry creates a stronger turbulent jet and vena-contracta region, while integral monitors for pressure drop, mass balance and outlet temperature stabilized.</p>
+            </article>
+
+            <article class="thesis-chart-card">
+              <div class="chart-card-header">
+                <div>
+                  <p class="eyebrow">Near-wall validation</p>
+                  <h3>Wall y+ distribution and wall-treatment credibility</h3>
+                </div>
+                <span class="evidence-badge">SST-ready</span>
+              </div>
+              <div class="chart-kpi-grid">
+                <span><strong>0.2-11.2</strong><small>legacy y+ range</small></span>
+                <span><strong>0.3-10.6</strong><small>redesigned y+ range</small></span>
+                <span><strong>y+ &lt;5</strong><small>main target region</small></span>
+                <span><strong>Step spike</strong><small>legacy local peak</small></span>
+              </div>
+              <div class="chart-shell wide">
+                <canvas id="yplusChart" aria-label="Wall y plus distribution chart">Wall y plus distribution for legacy and redesigned reducers.</canvas>
+              </div>
+              <p class="annotation">The legacy y+ spike aligns with the abrupt step and vena-contracta region. The redesigned case rises more smoothly through the contraction, supporting a fair comparison of wall heat transfer trends.</p>
+            </article>
+
+            <article class="thesis-chart-card">
+              <div class="chart-card-header">
+                <div>
+                  <p class="eyebrow">Fine mesh &middot; adiabatic centerline comparison</p>
+                  <h3>Flow profiles: Mach number and total pressure</h3>
+                </div>
+                <span class="evidence-badge">22x pressure-loss reduction</span>
+              </div>
+              <div class="chart-kpi-grid">
+                <span><strong>Ma 0.908</strong><small>legacy centerline peak in this adiabatic comparison</small></span>
+                <span><strong>Ma 0.640</strong><small>redesigned centerline peak in this adiabatic comparison</small></span>
+                <span><strong>3,688 Pa</strong><small>legacy total pressure loss</small></span>
+                <span><strong>168 Pa</strong><small>redesigned total pressure loss</small></span>
+              </div>
+              <div class="chart-grid">
+                <div class="chart-shell">
+                  <canvas id="flowMachChart" aria-label="Centerline Mach comparison chart">Centerline Mach comparison for legacy and redesigned reducers.</canvas>
+                </div>
+                <div class="chart-shell">
+                  <canvas id="flowPressureChart" aria-label="Centerline total pressure comparison chart">Centerline total pressure comparison for legacy and redesigned reducers.</canvas>
+                </div>
+              </div>
+              <p class="annotation">These exported plots show the adiabatic centerline comparison case. The thesis report also records the most demanding near-choked CHT condition, where the redesigned case reached Ma = 0.990 and the legacy case reached Ma = 1.006. The wording is kept separate because the operating context and metric are not identical.</p>
+            </article>
+
+            <article class="thesis-chart-card">
+              <div class="chart-card-header">
+                <div>
+                  <p class="eyebrow">Legacy reducer diagnostic</p>
+                  <h3>The two-step fitting creates the pressure-loss mechanism</h3>
+                </div>
+                <span class="evidence-badge">Vena contracta</span>
+              </div>
+              <div class="chart-kpi-grid">
+                <span><strong>Ma 0.016</strong><small>legacy inlet</small></span>
+                <span><strong>Ma 0.908</strong><small>local jet peak</small></span>
+                <span><strong>Ma 0.791</strong><small>downstream outlet</small></span>
+                <span><strong>96,312 Pa</strong><small>effective outlet total pressure</small></span>
+              </div>
+              <div class="chart-shell wide">
+                <canvas id="legacyFlowChart" aria-label="Legacy reducer Mach and pressure diagnostic chart">Legacy reducer Mach and pressure diagnostic chart.</canvas>
+              </div>
+              <p class="annotation">The local peak near the step is the numerical signature of the Borda-Carnot mechanism: a compact hydraulic fitting saves surface area but pays for it with irreversible flow loss.</p>
+            </article>
+
+            <article class="thesis-chart-card">
+              <div class="chart-card-header">
+                <div>
+                  <p class="eyebrow">CHT wall result</p>
+                  <h3>Wall temperature comparison</h3>
+                </div>
+                <span class="evidence-badge">Thermal gradient</span>
+              </div>
+              <div class="chart-kpi-grid">
+                <span><strong>671.6 K</strong><small>legacy inlet wall</small></span>
+                <span><strong>639.2 K</strong><small>legacy outlet wall</small></span>
+                <span><strong>673.0 K</strong><small>redesigned inlet wall</small></span>
+                <span><strong>647.9 K</strong><small>redesigned outlet wall</small></span>
+              </div>
+              <div class="chart-shell wide">
+                <canvas id="wallTempChart" aria-label="Wall temperature comparison chart">Wall temperature comparison for legacy and redesigned reducers.</canvas>
+              </div>
+              <p class="annotation">The legacy wall-temperature drop is concentrated around the step zone, while the redesigned reducer distributes cooling over the full 150 mm contraction.</p>
+            </article>
+
+            <article class="thesis-chart-card">
+              <div class="chart-card-header">
+                <div>
+                  <p class="eyebrow">Thermal resistance decomposition</p>
+                  <h3>Biot number, external heat loss and insulation reversal</h3>
+                </div>
+                <span class="evidence-badge">Root cause isolated</span>
+              </div>
+              <div class="chart-kpi-grid">
+                <span><strong>Bi 0.003-0.004</strong><small>through-wall gradient negligible</small></span>
+                <span><strong>19,282 mm2</strong><small>redesigned external area</small></span>
+                <span><strong>5,758 mm2</strong><small>legacy external area</small></span>
+                <span><strong>&lt;0.1%</strong><small>analytical heat-loss agreement</small></span>
+              </div>
+              <div class="chart-grid">
+                <div class="chart-shell">
+                  <canvas id="heatLossChart" aria-label="External heat loss and thermal resistance comparison">External heat loss and thermal resistance comparison.</canvas>
+                </div>
+                <div class="chart-shell">
+                  <canvas id="outletGapChart" aria-label="Outlet temperature gap under uninsulated and insulated conditions">Outlet temperature gap under uninsulated and insulated conditions.</canvas>
+                </div>
+              </div>
+              <div class="chart-grid">
+                <div class="chart-shell">
+                  <canvas id="biotChart" aria-label="Biot proof through wall temperature gradient">Biot proof through-wall temperature gradient comparison.</canvas>
+                </div>
+                <div class="chart-shell">
+                  <canvas id="insulationChart" aria-label="Insulation effect on outlet wall temperature">Insulation effect on outlet wall temperature.</canvas>
+                </div>
+              </div>
+              <p class="annotation">The redesigned reducer has lower heat-loss intensity per unit area, but its much larger exposed area dominates the uninsulated thermal result. When the external loss path is removed, the outlet-temperature advantage reverses in favor of the redesigned reducer by 1.24 K.</p>
+            </article>
           </section>
 
           <section>
@@ -158,8 +340,8 @@
             <h2>Biot number turned a confusing thermal result into a physical explanation.</h2>
             <div class="result-metric-row">
               <span class="result-metric-card"><strong>0.003-0.004</strong><small>Biot number range</small></span>
-              <span class="result-metric-card"><strong>54-57 W</strong><small>redesigned heat loss</small></span>
-              <span class="result-metric-card"><strong>~19 W</strong><small>legacy heat loss</small></span>
+              <span class="result-metric-card"><strong>19,282 mm2</strong><small>redesigned exposed area</small></span>
+              <span class="result-metric-card"><strong>5,758 mm2</strong><small>legacy exposed area</small></span>
               <span class="result-metric-card"><strong>+1.24 K</strong><small>redesigned insulated gain</small></span>
             </div>
             <p>
@@ -170,7 +352,10 @@
               <div class="bar-row"><span>Legacy external heat loss</span><b style="--bar:34%">18.8 W avg</b></div>
             </div>
             <p>
-              The outlet temperature gap completed the decomposition. In uninsulated CHT, the legacy reducer had a +3.36 K outlet-temperature advantage. In the insulated reference case the sign reversed to -1.24 K, meaning the redesigned reducer was warmer once the external loss pathway was removed. The legacy's apparent thermal advantage was therefore not better internal heat transfer; it was a surface-area artifact.
+              The report decomposed that thermal penalty quantitatively. Across the uninsulated CHT cases, the legacy outlet static temperature was higher by 7.80 K, 4.75 K and 3.36 K as outlet gauge pressure was reduced from 80,000 Pa to 40,000 Pa and then to 0 Pa. At the same time, the redesigned reducer showed 9.5-14.3% lower external heat flux per unit area, which means the local heat-transfer intensity was not the problem. Its larger total exposed area was. The analytical estimate Q<sub>ext</sub> = (T<sub>wall</sub> - T<sub>amb</sub>) / R<sub>ext</sub> agreed with Fluent within 0.1% for all six cases, giving the explanation an independent check.
+            </p>
+            <p>
+              The outlet temperature gap completed the decomposition. In uninsulated CHT, the legacy reducer had a +3.36 K outlet-temperature advantage at the 0 Pa gauge outlet case. In the insulated reference case the sign reversed to -1.24 K, meaning the redesigned reducer was warmer once the external loss pathway was removed. The legacy's apparent thermal advantage was therefore not better internal heat transfer; it was a surface-area artifact.
             </p>
             <div class="bar-comparison split-bars" aria-label="Outlet temperature gap comparison">
               <div class="bar-row warm"><span>Uninsulated: legacy warmer</span><b style="--bar:82%">+3.36 K</b></div>
@@ -220,6 +405,15 @@
                 <h3>Next investigation</h3>
                 <p>The natural extension is transient CHT under pulsating flow, then reactive or deposition-aware wall modelling where surface condition evolves during operation.</p>
               </article>
+            </div>
+            <div class="thesis-next-grid">
+              <span>Experimental validation after heater-chain recovery</span>
+              <span>Thermal radiation in the high-temperature heat-loss model</span>
+              <span>CHT-specific mesh independence beyond the adiabatic study</span>
+              <span>Unsteady near-choked flow stability</span>
+              <span>Parametric optimization of the quintic contraction profile</span>
+              <span>Extended system-level CHT model of the calibration rig</span>
+              <span>Quantified insulation benefit and implementation detail</span>
             </div>
             <p>
               That final extension connects directly to rocket cooling-channel research: both problems ask how high-temperature flow passages lose predictable heat-transfer behaviour when wall boundary conditions or surface condition change. In my thesis the surface-condition effect was geometric exposure and insulation; in catalytic pyrolysis it becomes coke deposition, roughness and added thermal resistance.
