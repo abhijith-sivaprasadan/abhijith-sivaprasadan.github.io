@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Case study for the Siemens Energy thesis on reducer thermo-fluid performance, mesh independence, CHT results, and instrumentation-led scope revision." />
-  <meta property="og:title" content="Siemens Energy CFD/CHT Thesis - Gas Turbine Reducer Thermo-Fluid Analysis" />
-  <meta property="og:description" content="Gas turbine reducer CFD/CHT, mesh independence, instrumentation and validation case study." />
+  <meta name="description" content="Research-depth Siemens Energy thesis case study: compressible CFD/CHT, mesh independence, Biot number decomposition, high-temperature instrumentation and RCA." />
+  <meta property="og:title" content="Siemens Energy CFD/CHT Thesis - Research Case Study" />
+  <meta property="og:description" content="High-temperature reducer CFD/CHT, pressure recovery, thermal resistance decomposition and validation planning." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-siemens-validation.svg" />
-  <title>Siemens Energy CFD/CHT Thesis - Gas Turbine Reducer Thermo-Fluid Analysis | Abhijith Sivaprasadan</title>
+  <title>Siemens Energy CFD/CHT Thesis - Research Case Study | Abhijith Sivaprasadan</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
-
   <link rel="stylesheet" href="../styles.css" />
   <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
@@ -25,7 +24,7 @@
     <nav class="nav container">
       <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
       <div class="nav-links">
-        <a href="../index.html#projects">Featured</a>
+        <a href="../research.html">Research</a>
         <a href="../projects.html">Projects</a>
         <a href="../experience.html">Experience</a>
         <a href="../index.html#cv">CV</a>
@@ -37,114 +36,196 @@
   </header>
 
   <main id="main" tabindex="-1">
-    <section class="case-hero">
+    <section class="case-hero thesis-hero">
       <div class="container">
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
-        <p class="eyebrow">Master's thesis &middot; CFD/CHT &middot; Test engineering</p>
-        <h1>Siemens Energy CFD/CHT Thesis - Gas Turbine Reducer Thermo-Fluid Analysis</h1>
-        <p class="hero-text">TRITA-ITM-EX 2026:14. Seven months embedded at Siemens Energy Finsp&aring;ng conducting compressible CFD and conjugate heat transfer analysis of the reducer connecting the heater to the Pulsatorn calibration rig.</p>
-        <div class="tag-row">
-          <span class="tag-hot">ANSYS Fluent</span><span class="tag-hot">CFD/CHT</span><span class="tag-hot">NI-DAQ</span><span class="tag-hot">LabVIEW</span><span class="tag-hot">Siemens NX</span>
+        <p class="eyebrow">Master's thesis &middot; Siemens Energy Finsp&aring;ng &middot; TRITA-ITM-EX 2026:14</p>
+        <h1>Numerical investigation of thermo-fluid performance in a high-temperature reducer for dynamic pressure sensor calibration.</h1>
+        <p class="hero-text">
+          Seven months embedded in the Siemens Energy Fluid Dynamic Lab, combining compressible CFD, conjugate heat transfer, mesh independence, high-temperature measurement-chain commissioning and formal root cause analysis after heater failure.
+        </p>
+        <div class="result-metric-row thesis-kpis">
+          <span class="result-metric-card"><strong>673 K</strong><small>inlet temperature</small></span>
+          <span class="result-metric-card"><strong>100 kPa</strong><small>inlet gauge pressure</small></span>
+          <span class="result-metric-card"><strong>Bi 0.003-0.004</strong><small>thermal resistance insight</small></span>
+          <span class="result-metric-card"><strong>8/8</strong><small>quality checks passed</small></span>
         </div>
-        <img class="case-visual" src="../assets/thumb-siemens-validation.svg" alt="CFD and test validation workflow visual" loading="lazy" width="960" height="540" />
-
+        <img class="case-visual" src="../assets/thumb-siemens-validation.svg" alt="CFD, CHT and test validation workflow visual" loading="lazy" width="960" height="540" />
       </div>
     </section>
 
     <section class="section subtle">
-      <div class="container case-grid">
-        <aside class="case-panel">
+      <div class="container research-case-layout">
+        <aside class="case-panel thesis-sidebar">
           <h2>Project snapshot</h2>
           <ul>
             <li><strong>Organisation:</strong> Siemens Energy AB, Fluid Dynamic Lab, Finsp&aring;ng</li>
-            <li><strong>Duration:</strong> Apr 2025 - Nov 2025</li>
-            <li><strong>Thesis:</strong> Numerical Investigation of Steady-State Thermo-Fluid Performance of a Reducer for a High-Temperature Dynamic Pressure Sensor Calibration Rig</li>
-            <li><strong>Geometry:</strong> legacy two-step reducer vs redesigned 150 mm quintic C&sup2; profile</li>
-            <li><strong>Simulation:</strong> ANSYS Fluent, ANSYS Meshing, ANSYS SpaceClaim</li>
-            <li><strong>Turbulence model:</strong> k-omega SST with enhanced near-wall treatment</li>
-            <li><strong>Instrumentation:</strong> NI-DAQ, NI MAX, LabVIEW VI</li>
-            <li><strong>PLM:</strong> Siemens NX, Teamcenter PLM2020</li>
-            <li><strong>Boundary conditions:</strong> T = 673 K, P_gauge = 100 kPa, h_ext = 10 W/m&sup2;K</li>
-            <li><strong>Key metrics:</strong> 8/8 validation checks passed, 10 scenario cases compared, Bi = 0.003&ndash;0.004</li>
+            <li><strong>Academic context:</strong> KTH-supervised master's thesis</li>
+            <li><strong>Period:</strong> Apr 2025 - Nov 2025</li>
+            <li><strong>Geometry compared:</strong> legacy two-step reducer vs 150 mm quintic C&sup2; reducer</li>
+            <li><strong>Solver:</strong> ANSYS Fluent, steady-state compressible RANS and CHT</li>
+            <li><strong>Turbulence model:</strong> k-omega SST</li>
+            <li><strong>Operating point:</strong> T = 673 K, P<sub>gauge</sub> = 100,000 Pa</li>
+            <li><strong>Hardware context:</strong> NI-DAQ, NI MAX, LabVIEW, thermocouples, pressure transducers, Siemens NX, Teamcenter PLM2020</li>
           </ul>
         </aside>
-        <article class="case-panel">
-          <h2>Industrial context</h2>
-          <p>
-            This thesis was completed in the Fluid Dynamic Lab at Siemens Energy Finsp&aring;ng as part of the Pulsatorn programme, a high-temperature rig used for dynamic pressure sensor calibration in gas-turbine-relevant conditions. The assessed component was the reducer between heater outlet and downstream test section. In the existing hardware, the reducer used a commercial two-step contraction. A redesign based on a 150 mm quintic C&sup2;-continuous profile was proposed to reduce abrupt area changes and improve flow quality.
-          </p>
 
-          <h2>Problem definition</h2>
-          <p>
-            The decision question was not only aerodynamic. The redesigned reducer was expected to reduce internal losses, but it also had a larger external surface area that could increase heat rejection to ambient. The task was therefore to quantify both effects under consistent operating conditions and produce a decision-ready recommendation for rig use. Planned experimental validation was reduced after heater failure during test preparation, so the final scope became a supervisor-approved numerical thesis with explicit limitation tracking.
-          </p>
+        <article class="case-panel thesis-case">
+          <section>
+            <p class="eyebrow">Problem statement</p>
+            <h2>Why the Pulsatorn rig needed this reducer decision.</h2>
+            <p>
+              The Pulsatorn rig is a high-temperature dynamic pressure sensor calibration system used to reproduce gas-turbine-relevant thermal and pressure conditions before sensors are trusted in harsher test environments. The reducer sits between the heater outlet and downstream calibration section, so its geometry affects both pressure delivery and thermal delivery. A sharp two-step commercial fitting can introduce irreversible Borda-Carnot losses, local acceleration and flow non-uniformity; a smoother contraction can improve pressure recovery but also increases exposed surface area and heat loss. The engineering challenge was therefore not simply to make a smoother part, but to decide whether the redesign improves rig performance once compressible flow, heat transfer and practical insulation are interpreted together.
+            </p>
+          </section>
 
-          <h2>What I did</h2>
-          <p>
-            I developed a steady-state compressible CFD/CHT workflow in ANSYS Fluent using ideal-gas air and k-omega SST with enhanced near-wall treatment. The model set was split into two studies: adiabatic CFD for flow-behaviour comparison and mesh independence, then conjugate heat transfer for thermal-delivery comparison. Simulations were executed for both geometries at outlet gauge pressures of 80 kPa, 40 kPa and 0 kPa, with inlet conditions of T = 673 K and P_gauge = 100 kPa. Quarter-symmetry was used for computational efficiency, and integral values were mapped back to full-geometry equivalents for reporting.
-          </p>
-          <p>
-            Mesh and setup quality were controlled through a three-level grid sweep. Baseline meshes contained 829,621 fluid cells for the legacy case and 913,301 for the redesigned case; key KPIs remained within a 2% variation band across coarse-baseline-fine levels, supporting mesh independence for engineering interpretation. I used Siemens NX and Teamcenter context for geometry and data handling, and structured the outputs around pressure-loss and thermal KPIs rather than single-point plots.
-          </p>
+          <section>
+            <p class="eyebrow">Research question</p>
+            <h2>The technical question answered by the thesis.</h2>
+            <p class="research-question">
+              Does the redesigned 150 mm quintic C&sup2; reducer geometry reduce pressure loss and deliver equivalent thermal performance compared with the legacy two-step fitting under steady-state compressible flow at T = 673 K and P<sub>gauge</sub> = 100,000 Pa?
+            </p>
+          </section>
 
-          <h2>Geometry overview</h2>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:1.5rem;">
-            <figure style="margin:0;">
-              <img src="../assets/Borda Carnot Mechanism.png" alt="Borda-Carnot mechanism diagram — legacy step reducer geometry" loading="lazy" style="width:100%;border-radius:6px;display:block;" />
-              <figcaption style="font-size:0.8rem;color:var(--muted,#888);margin-top:0.4rem;">Legacy reducer &mdash; two-step Borda&ndash;Carnot contraction geometry</figcaption>
-            </figure>
-            <figure style="margin:0;">
-              <img src="../assets/C2 Quinitc Curve and Reducer.png" alt="C² quintic contraction profile — redesigned reducer geometry" loading="lazy" style="width:100%;border-radius:6px;display:block;" />
-              <figcaption style="font-size:0.8rem;color:var(--muted,#888);margin-top:0.4rem;">Redesigned reducer &mdash; 150&nbsp;mm quintic C&sup2;-continuous contraction profile</figcaption>
-            </figure>
-          </div>
+          <section>
+            <p class="eyebrow">Design logic</p>
+            <h2>From Borda-Carnot loss mechanism to C&sup2; contraction.</h2>
+            <div class="thesis-figure-grid">
+              <figure>
+                <img src="../assets/Borda Carnot Mechanism.png" alt="Borda-Carnot mechanism diagram for abrupt step contraction" loading="lazy" />
+                <figcaption>Legacy two-step reducer: abrupt area changes create vena-contracta behaviour and irreversible pressure loss.</figcaption>
+              </figure>
+              <figure>
+                <img src="../assets/C2 Quinitc Curve and Reducer.png" alt="Quintic C2 reducer profile" loading="lazy" />
+                <figcaption>Redesigned reducer: a 150 mm quintic C&sup2; profile removes slope and curvature discontinuities at the inlet and outlet.</figcaption>
+              </figure>
+            </div>
+          </section>
 
-          <h2>Validation and measurement-chain link</h2>
-          <p>
-            In parallel with simulation work, I commissioned NI-DAQ measurement channels and modified an existing LabVIEW VI for synchronised acquisition of thermocouple and pressure data. Although sustained hot testing was interrupted by heater failure, this instrumentation work ensured the thesis stayed coupled to practical validation logic rather than becoming a detached simulation exercise. The failure event was documented through formal root-cause analysis, and the approved scope revision was reflected in methods and conclusions.
-          </p>
+          <section>
+            <p class="eyebrow">Methodology</p>
+            <h2>CFD/CHT model structure and why the choices mattered.</h2>
+            <div class="cards two method-cards">
+              <article class="card">
+                <h3>Turbulence model</h3>
+                <p>k-omega SST was chosen because the reducer problem combines near-wall sensitivity, adverse pressure-gradient risk and possible separation around abrupt contractions. It retains the near-wall strength of k-omega while blending toward k-epsilon-like behaviour away from the wall, making it more appropriate than a standard k-epsilon model for this confined, accelerating internal flow.</p>
+              </article>
+              <article class="card">
+                <h3>Near-wall strategy</h3>
+                <p>The mesh used inflation layers and y+ monitoring so wall treatment remained consistent across geometries. The goal was not to tune a single local value, but to ensure the boundary layer was represented well enough that pressure loss, wall temperature and heat flux comparisons were not artifacts of near-wall resolution.</p>
+              </article>
+              <article class="card">
+                <h3>Mesh independence</h3>
+                <p>A three-level mesh study compared coarse, baseline and fine grids. Monitored quantities included mass flow, pressure drop, outlet temperature, maximum Mach number and velocity magnitude. Independence was judged by KPI stability across refinement levels, with the reported model meeting the thesis quality checks for engineering interpretation.</p>
+              </article>
+              <article class="card">
+                <h3>Simulation campaign</h3>
+                <p>The campaign separated adiabatic flow physics from CHT thermal delivery. Six adiabatic cases isolated pressure-loss and Mach-number behaviour across both geometries and pressure-ratio settings; six CHT cases then introduced solid conduction and external convection while holding inlet conditions and material assumptions consistent.</p>
+              </article>
+              <article class="card">
+                <h3>Boundary conditions</h3>
+                <p>Inlet temperature and pressure were set from rig-relevant operation: 673 K and 100 kPa gauge. Outlet gauge pressure levels represented downstream operating scenarios. Wall conditions separated insulated and uninsulated references, with external convection used to quantify heat rejection from exposed reducer area.</p>
+              </article>
+              <article class="card">
+                <h3>Convergence discipline</h3>
+                <p>Residual reduction was treated as necessary but not sufficient. Integral monitors for mass balance, pressure drop, outlet temperature and maximum Mach number were followed to stable values before interpreting a case, which made the result set defensible beyond a visually converged residual plot.</p>
+              </article>
+            </div>
+          </section>
 
-          <h2>Outcomes</h2>
-          <p>
-            The redesigned reducer showed the stronger internal flow behaviour and supported near-choked outlet conditions (Ma around 0.989-0.990) compared with supersonic tendency in the legacy profile (Ma up to 1.016 adiabatic, 1.006 in CHT). Thermal interpretation, however, required area effects: the redesigned geometry presented a 3.35x larger exposed surface, which increased ambient heat-loss opportunity in uninsulated operation. Under insulated conditions, the redesigned option recovered and surpassed legacy thermal delivery, with a +1.24 K outlet-temperature advantage at Case C.
-          </p>
-          <p>
-            The engineering conclusion is conditional and actionable: adopt the redesigned reducer with insulation to capture aerodynamic gains without thermal penalty. If insulation is not feasible, the legacy geometry can remain thermally competitive only because of lower exposed area, not better internal flow behaviour.
-          </p>
+          <section>
+            <p class="eyebrow">Primary flow result</p>
+            <h2>The redesign removed the local high-Mach spike predicted by the loss mechanism.</h2>
+            <div class="comparison-panel">
+              <article>
+                <span class="comparison-label">Legacy two-step reducer</span>
+                <strong>Ma ~1.006 local supersonic tendency</strong>
+                <p>The legacy geometry generated a local acceleration peak associated with vena-contracta behaviour after the abrupt contraction. Physically, that indicates that total pressure is being converted into local kinetic energy and then destroyed through irreversible mixing and expansion losses.</p>
+              </article>
+              <article>
+                <span class="comparison-label">Redesigned C&sup2; reducer</span>
+                <strong>Ma ~0.990 near-choked, smoother acceleration</strong>
+                <p>The redesigned geometry produced a smoother monotonic acceleration without the same local spike. This is the aerodynamic success of the quintic profile: it removes the abrupt contraction mechanism that drove the legacy pressure-loss behaviour.</p>
+              </article>
+            </div>
+            <p>
+              The Ma 0.990 vs Ma 1.006 asymmetry matters for the rig because dynamic pressure sensor calibration depends on predictable pressure delivery and flow regime. A local supersonic pocket in a nominally subcritical supply context can distort pressure interpretation, add sensitivity to downstream boundary conditions and reduce confidence in calibration repeatability.
+            </p>
+          </section>
 
-          <h2>Quantitative summary</h2>
-          <div class="result-metric-row">
-            <span class="result-metric-card"><strong>8/8 validation checks</strong><small>Mesh and solution criteria met</small></span>
-            <span class="result-metric-card"><strong>3.35x area penalty</strong><small>Redesigned reducer vs legacy</small></span>
-            <span class="result-metric-card"><strong>1.24 K insulated gain</strong><small>Redesigned reducer at Case C</small></span>
-          </div>
+          <section>
+            <p class="eyebrow">Thermal decomposition</p>
+            <h2>Biot number turned a confusing thermal result into a physical explanation.</h2>
+            <div class="result-metric-row">
+              <span class="result-metric-card"><strong>0.003-0.004</strong><small>Biot number range</small></span>
+              <span class="result-metric-card"><strong>54-57 W</strong><small>redesigned heat loss</small></span>
+              <span class="result-metric-card"><strong>~19 W</strong><small>legacy heat loss</small></span>
+              <span class="result-metric-card"><strong>+1.24 K</strong><small>redesigned insulated gain</small></span>
+            </div>
+            <p>
+              The Biot number analysis showed that the solid temperature gradient was negligible relative to the fluid-side and external convective resistance. In practical terms, Bi = 0.003-0.004 means the wall was not the limiting thermal resistance; the dominant thermal delivery mechanism was the external surface area exposed to ambient convection. This explains the counterintuitive result: the redesigned reducer improved flow quality but lost substantially more heat externally because its longer smooth contraction exposed much more area.
+            </p>
+            <div class="bar-comparison" aria-label="External heat loss comparison">
+              <div class="bar-row"><span>Redesigned external heat loss</span><b style="--bar:100%">55.7 W avg</b></div>
+              <div class="bar-row"><span>Legacy external heat loss</span><b style="--bar:34%">18.8 W avg</b></div>
+            </div>
+            <p>
+              The outlet temperature gap completed the decomposition. In uninsulated CHT, the legacy reducer had a +3.36 K outlet-temperature advantage. In the insulated reference case the sign reversed to -1.24 K, meaning the redesigned reducer was warmer once the external loss pathway was removed. The legacy's apparent thermal advantage was therefore not better internal heat transfer; it was a surface-area artifact.
+            </p>
+            <div class="bar-comparison split-bars" aria-label="Outlet temperature gap comparison">
+              <div class="bar-row warm"><span>Uninsulated: legacy warmer</span><b style="--bar:82%">+3.36 K</b></div>
+              <div class="bar-row cool"><span>Insulated: redesigned warmer</span><b style="--bar:30%">-1.24 K</b></div>
+            </div>
+          </section>
 
-          <h2>What I would improve next</h2>
-          <p>
-            The next step is a closed simulation-to-test loop: re-run high-temperature validation with the repaired heater chain, include external insulation as a controlled variable, and add transient pulsation and radiation effects to narrow uncertainty margins. That extension would convert the current decision logic from validated numerical recommendation to experimentally confirmed design guidance for future rig configurations.
-          </p>
+          <section>
+            <p class="eyebrow">Experimental phase</p>
+            <h2>Measurement-chain commissioning and RCA kept the thesis tied to hardware.</h2>
+            <p>
+              The experimental phase involved commissioning a high-temperature measurement chain for planned validation at approximately 700&deg;C. The chain combined thermocouple channels, pressure transducer inputs, NI-DAQ chassis configuration, NI MAX verification and LabVIEW VI modification for synchronized acquisition. The commissioning steps included channel identification, signal-path checks, unit and scaling verification, acquisition-loop validation and preparation for independent test campaigns.
+            </p>
+            <p>
+              When a heater failure interrupted sustained hot testing, the work shifted into formal root cause analysis rather than pretending the validation plan had simply disappeared. The RCA process considered instrumentation error, wiring/channel configuration, sensor placement, control logic, operating sequence and heater hardware condition. Hypotheses were eliminated by matching observed behaviour against channel checks, acquisition records and physical hardware evidence. The final confidence came from convergence between measurement-chain checks and hardware-level symptoms, leading to an approved scope revision: the thesis became a rigorous numerical study with experimental limitations explicitly documented.
+            </p>
+          </section>
+
+          <section>
+            <p class="eyebrow">Research-level conclusion</p>
+            <h2>The recommendation is conditional, not cosmetic.</h2>
+            <p>
+              The redesigned C&sup2; reducer should be used when it can be insulated, because insulation preserves the aerodynamic gain while removing the thermal penalty created by the larger exposed surface area. Without insulation, the legacy reducer remains thermally competitive only for the wrong reason: compact geometry reduces external heat loss, even though the internal flow behaviour is inferior.
+            </p>
+            <p>
+              This is the most important scientific result of the thesis: pressure recovery and thermal delivery did not point in the same direction until the thermal resistance pathways were decomposed. The useful design decision came from explaining the trade-off, not from choosing the geometry that won a single metric.
+            </p>
+          </section>
+
+          <section>
+            <p class="eyebrow">Limitations and future work</p>
+            <h2>Where the model is incomplete, and why that matters for PhD-level work.</h2>
+            <div class="cards two">
+              <article class="card">
+                <h3>Steady-state assumption</h3>
+                <p>The model does not capture pulsating operation, thermal inertia, unsteady boundary-layer response or transient sensor-environment coupling. These are central to the real Pulsatorn operating context.</p>
+              </article>
+              <article class="card">
+                <h3>Simplified boundary conditions</h3>
+                <p>Constant inlet conditions and idealized wall treatments simplify rig transients, heater behaviour, startup conditions and real insulation details.</p>
+              </article>
+              <article class="card">
+                <h3>Validation gap</h3>
+                <p>The pressure-drop reduction is simulation-indicated, not experimentally verified. A repaired heater chain, calibrated pressure measurement and thermal mapping would be needed to close the loop.</p>
+              </article>
+              <article class="card">
+                <h3>Next investigation</h3>
+                <p>The natural extension is transient CHT under pulsating flow, then reactive or deposition-aware wall modelling where surface condition evolves during operation.</p>
+              </article>
+            </div>
+            <p>
+              That final extension connects directly to rocket cooling-channel research: both problems ask how high-temperature flow passages lose predictable heat-transfer behaviour when wall boundary conditions or surface condition change. In my thesis the surface-condition effect was geometric exposure and insulation; in catalytic pyrolysis it becomes coke deposition, roughness and added thermal resistance.
+            </p>
+          </section>
         </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Relevance</p>
-          <h2>Why this matters</h2>
-        </div>
-        <div class="case-panel">
-          <p>
-            This work covers the full simulation-to-hardware loop: geometry preparation in SpaceClaim, mesh design and independence verification in ANSYS Meshing, compressible RANS and CHT solving in Fluent, interpretation through Biot number analysis, measurement-chain commissioning in NI-DAQ and LabVIEW, and documentation of assumptions and limitations. It is the strongest evidence on the site for gas turbine CFD, test engineering and high-temperature hardware roles.
-          </p>
-          <p>
-            The practical takeaway is also direct: if the redesigned reducer is used in the rig, it should be paired with external insulation. That preserves the aerodynamic improvement while removing the thermal penalty from the larger surface area.
-          </p>
-          <div class="project-links">
-            <a href="../projects/pypsa-nl-grid-flexibility.html">Next: PyPSA grid flexibility case study</a>
-            <a href="../experience/siemens-energy.html">Experience page</a>
-          </div>
-        </div>
       </div>
     </section>
   </main>
@@ -156,4 +237,3 @@
   </footer>
 </body>
 </html>
-

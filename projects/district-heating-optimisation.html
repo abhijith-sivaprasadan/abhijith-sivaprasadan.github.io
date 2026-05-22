@@ -41,7 +41,7 @@
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
         <p class="eyebrow">District heating &middot; Dispatch optimisation &middot; Energy systems</p>
         <h1>District Heating System Optimisation</h1>
-        <p class="hero-text">A five-step linear programming model for Stockholm district heating dispatch, moving from a base case through future demand, storage integration, cost minimisation and emissions minimisation to compare technology contributions and trade-offs.</p>
+        <p class="hero-text">A five-step linear programming model for Stockholm district heating dispatch, moving from a base case through future demand, storage integration, electricity-price-linked cost minimisation and emissions minimisation to compare technology contributions and trade-offs.</p>
         <img class="case-visual" src="../assets/thumb-district-heating.svg" alt="District heating dispatch optimisation visual" loading="lazy" width="960" height="540" />
       </div>
     </section>
@@ -53,10 +53,10 @@
           <ul>
             <li><strong>Group:</strong> Group 12</li>
             <li><strong>Date:</strong> December 2024</li>
-            <li><strong>Tools:</strong> Python, linear programming, Matplotlib</li>
+            <li><strong>Tools:</strong> Python, PuLP, linear programming, Matplotlib</li>
             <li><strong>Technologies modelled:</strong> CHP, woodchip boiler, geothermal, heat pump</li>
             <li><strong>Demand profiles:</strong> Load 1 (residential) + Load 5 (stable commercial)</li>
-            <li><strong>Objective functions:</strong> cost minimisation (Steps 1&ndash;4) and emissions minimisation (Step 5)</li>
+            <li><strong>Objective functions:</strong> cost minimisation, electricity-revenue coupling and emissions minimisation</li>
           </ul>
         </aside>
         <article class="case-panel">
@@ -128,10 +128,10 @@
         </div>
         <div class="case-panel">
           <p>
-            This project is a direct example of energy-systems optimisation work: demand modelling, technology cost and emissions parameterisation, linear programming dispatch, and scenario comparison. The five-step structure demonstrates how to isolate the effect of individual design choices &mdash; storage, cogeneration, objective function &mdash; in a single modelling campaign rather than building separate models.
+            This project is a direct example of process and energy-systems optimisation work: demand modelling, technology cost and emissions parameterisation, linear programming dispatch, and scenario comparison. The five-step structure demonstrates how to isolate the effect of individual design choices &mdash; storage, cogeneration, electricity price signal and objective function &mdash; in a single modelling campaign rather than building separate models.
           </p>
           <p>
-            The finding that the cost-optimal and emissions-optimal dispatches nearly coincide (because the cheapest technologies are also zero-carbon) is a practically important result: it means the case for renewable base load does not depend on a carbon price in this system configuration. That kind of insight is directly transferable to real-world district heating planning and energy market analysis roles.
+            The finding that the cost-optimal and emissions-optimal dispatches nearly coincide (because the cheapest technologies are also zero-carbon) is a practically important result: it means the case for renewable base load does not depend on a carbon price in this system configuration. That kind of insight is transferable to industrial decarbonization R&amp;D, where heat pumps, storage, electrified heating and market signals must be assessed together rather than as isolated technologies.
           </p>
           <div class="project-links">
             <a href="../downloads/mj2507-group2-report.pdf" download>&#8595; Download project report (PDF, 763&nbsp;KB)</a>
