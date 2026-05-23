@@ -33,24 +33,33 @@
   ];
 
   function resize() {
-    W = canvas.width  = hero.offsetWidth;
-    H = canvas.height = hero.offsetHeight;
+    var rect = hero.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = Math.max(1, rect.width);
+    H = Math.max(1, rect.height);
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   function pickColor() {
     return PALETTE[Math.floor(Math.random() * PALETTE.length)];
   }
 
-  function spawn(randomX) {
+  function spawn(mode) {
     var c = pickColor();
+    var direction = Math.random() < 0.5 ? -1 : 1;
+    var edgeSpawn = mode === 'edge';
     return {
-      x: randomX ? Math.random() * W : -8,
+      x: edgeSpawn ? (direction > 0 ? -12 : W + 12) : Math.random() * W,
       y: Math.random() * H,
-      vx: 0.22 + Math.random() * 0.52,
+      vx: direction * (0.16 + Math.random() * 0.46),
       vy: (Math.random() - 0.5) * 0.26,
       r:  1.4 + Math.random() * 2.4,
       cr: c[0], cg: c[1], cb: c[2], ca: c[3],
-      age: randomX ? Math.floor(Math.random() * 320) : 0,
+      age: edgeSpawn ? 0 : Math.floor(Math.random() * 320),
       maxAge: 260 + Math.floor(Math.random() * 400),
       burst: false,
     };
@@ -77,7 +86,7 @@
 
   function init() {
     resize();
-    for (var i = 0; i < COUNT; i++) particles.push(spawn(true));
+    for (var i = 0; i < COUNT; i++) particles.push(spawn('field'));
 
     window.addEventListener('resize', resize);
 
@@ -159,7 +168,8 @@
       p.vy += (Math.random() - 0.5) * 0.023;
 
       if (!p.burst) {
-        p.vx = p.vx < 0.08 ? 0.08 : p.vx > 1.6 ? 1.6 : p.vx;
+        p.vx = p.vx < -1.6 ? -1.6 : p.vx > 1.6 ? 1.6 : p.vx;
+        if (Math.abs(p.vx) < 0.08) p.vx = p.vx < 0 ? -0.08 : 0.08;
         p.vy = p.vy < -0.9  ? -0.9  : p.vy > 0.9 ? 0.9 : p.vy;
       }
 
@@ -180,14 +190,13 @@
       /* retire particles */
       var expired = p.burst
         ? (p.age > p.maxAge)
-        : (p.x > W + 20 || p.age > p.maxAge);
+        : (p.x > W + 30 || p.x < -30 || p.age > p.maxAge);
 
       if (expired) {
         if (p.burst) {
           particles.splice(i, 1);
         } else {
-          particles[i] = spawn(false);
-          particles[i].y = Math.random() * H;
+          particles[i] = spawn(Math.random() < 0.35 ? 'edge' : 'field');
         }
         continue;
       }

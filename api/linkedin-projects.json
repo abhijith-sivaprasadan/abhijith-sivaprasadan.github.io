@@ -11,7 +11,8 @@
       "associatedWith": "Siemens Energy",
       "summary": "Seven months embedded at Siemens Energy Finspång conducting compressible CFD/CHT, high-temperature instrumentation and root-cause analysis for the Pulsatorn dynamic pressure sensor calibration rig.",
       "audienceTags": [
-        "PhD / Research",
+        "Thermal & Fluid",
+        "Research",
         "Industrial R&D"
       ],
       "tools": [
@@ -39,7 +40,7 @@
     },
     {
       "id": "pypsa-nl-grid-flexibility",
-      "title": "PyPSA-NL Grid Congestion, BESS & Flexible Connection Platform",
+      "title": "Exploratory PyPSA-NL Grid Congestion and BESS Learning Project",
       "category": "Energy Systems",
       "status": "published",
       "featured": false,
@@ -49,7 +50,6 @@
       "summary": "Exploratory Netherlands-inspired constrained-grid learning project comparing renewable growth, bottlenecks, connection-capacity limits, BESS siting, flexible connection contracts and targeted reinforcement.",
       "audienceTags": [
         "Industrial R&D",
-        "Associate Scientist",
         "Energy Systems"
       ],
       "tools": [
@@ -69,7 +69,7 @@
       "caseStudyUrl": "projects/pypsa-nl-grid-flexibility.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/pypsa-nl-grid-flexibility",
       "highlights": [
-        "Hourly PyPSA/Linopy/HiGHS dispatch model with constrained regional corridors, scenario ranking and machine-readable validation outputs.",
+        "Built as an exploratory learning project to understand PyPSA/Linopy/HiGHS, grid congestion and flexible connection concepts; retained as supporting evidence, not as a primary project track.",
         "Executive report identified High Wind Offshore Growth as the top-ranked scenario with grid-value score 60.8, adding 201,561 MWh renewable dispatch and reducing backup generation by the same amount versus base.",
         "Best BESS sweep option was Groningen 400 MW / 4 h, with 8/8 validation checks passed and a dashboard/reporting layer for decision support."
       ]
@@ -86,7 +86,7 @@
       "summary": "Industrial energy performance methodology covering KPI/EnPI design, metering readiness, load-driver logic, deviation detection and regulatory comparison for decarbonization decisions.",
       "audienceTags": [
         "Industrial R&D",
-        "Associate Scientist"
+        "Energy Systems"
       ],
       "tools": [
         "Python",
@@ -185,8 +185,9 @@
       "associatedWith": "Portfolio project",
       "summary": "Thermal energy storage concept work for peak shaving and district cooling, comparing phase-change and ice-storage options with control and pricing logic.",
       "audienceTags": [
+        "Thermal & Fluid",
         "Industrial R&D",
-        "Thermal Systems"
+        "Energy Systems"
       ],
       "tools": [
         "Python",
@@ -250,7 +251,7 @@
       "summary": "Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass/geothermal assets, outages, CO2 and electricity-price coupling.",
       "audienceTags": [
         "Industrial R&D",
-        "Associate Scientist"
+        "Energy Systems"
       ],
       "tools": [
         "PuLP",
@@ -313,7 +314,7 @@
       "summary": "Day-ahead building heating-demand forecasting using weather and temporal features, baseline models and neural networks.",
       "audienceTags": [
         "Industrial R&D",
-        "Associate Scientist"
+        "Energy Systems"
       ],
       "tools": [
         "Python",
@@ -377,7 +378,7 @@
       "summary": "Excel and Streamlit toolkit for estimating Scope 1 emissions, EUA cost exposure and carbon-intensity trends.",
       "audienceTags": [
         "Industrial R&D",
-        "Associate Scientist"
+        "Energy Systems"
       ],
       "tools": [
         "Streamlit",
@@ -409,7 +410,7 @@
       "summary": "Python, Excel and Streamlit toolkit for industrial EnPIs, baseline normalisation, anomaly flags and management reporting.",
       "audienceTags": [
         "Industrial R&D",
-        "Associate Scientist"
+        "Energy Systems"
       ],
       "tools": [
         "Python",
@@ -441,7 +442,8 @@
       "associatedWith": "Portfolio project",
       "summary": "Low-cost vibration workflow using phone accelerometer data, filtering, FFT/PSD, spectrograms and report generation.",
       "audienceTags": [
-        "PhD / Research",
+        "Thermal & Fluid",
+        "Research",
         "Industrial R&D"
       ],
       "tools": [
@@ -475,7 +477,7 @@
       "summary": "IDA ICE building energy simulation comparing supply-system alternatives, demand behaviour and performance implications for a built-environment assignment.",
       "audienceTags": [
         "Industrial R&D",
-        "Supporting coursework"
+        "Energy Systems"
       ],
       "tools": [
         "IDA ICE",
@@ -507,7 +509,7 @@
       "summary": "Post-disaster polygeneration concept for emergency electricity, cooling and water support in a Philippines context.",
       "audienceTags": [
         "Industrial R&D",
-        "Supporting coursework"
+        "Energy Systems"
       ],
       "tools": [
         "Polygeneration",
@@ -537,8 +539,9 @@
       "associatedWith": "KTH coursework",
       "summary": "Latent-heat mobile thermal energy storage lab characterising RT60 HC discharge behaviour, measurement interpretation and thermal-response trends.",
       "audienceTags": [
-        "PhD / Research",
-        "Industrial R&D"
+        "Thermal & Fluid",
+        "Research",
+        "Energy Systems"
       ],
       "tools": [
         "PCM",
@@ -570,7 +573,7 @@
       "summary": "Battery discharge lab comparing Ni-MH, Li-Po and lead-acid cells through C-rate behaviour, voltage curves and performance interpretation.",
       "audienceTags": [
         "Industrial R&D",
-        "Supporting coursework"
+        "Energy Systems"
       ],
       "tools": [
         "Battery testing",
@@ -603,7 +606,7 @@
       "summary": "Waste-to-energy assignment work comparing municipal solid waste handling, segregation and energy-recovery concepts for Kozhikode and Delhi.",
       "audienceTags": [
         "Industrial R&D",
-        "Supporting coursework"
+        "Energy Systems"
       ],
       "tools": [
         "Waste-to-energy",
@@ -634,8 +637,8 @@
       "associatedWith": "KTH coursework",
       "summary": "Python assignments covering catastrophic cancellation, numerical differentiation, Laplace stencils, Euler vs RK4 and advection scheme comparison.",
       "audienceTags": [
-        "PhD / Research",
-        "Supporting coursework"
+        "Thermal & Fluid",
+        "Research"
       ],
       "tools": [
         "Python",
@@ -668,7 +671,7 @@
       "summary": "Entrepreneurship assignment translating renewable-grid storage optimisation, real-time data and machine learning into a product concept and business model.",
       "audienceTags": [
         "Industrial R&D",
-        "Associate Scientist"
+        "Energy Systems"
       ],
       "tools": [
         "ML concept",
@@ -823,8 +826,8 @@
       "associatedWith": "APJ Abdul Kalam Technological University",
       "summary": "Compressor-free refrigeration concept based on Peltier cooling with no rotary power-consuming component.",
       "audienceTags": [
-        "Thermal Systems",
-        "Supporting coursework"
+        "Thermal & Fluid",
+        "Energy Systems"
       ],
       "skills": [
         "Thermal engineering",

@@ -2,14 +2,19 @@
   "projects": [
     {
       "id": "siemens-thesis",
-      "title": "Siemens Energy CFD/CHT Thesis - Gas Turbine Reducer Thermo-Fluid Analysis",
+      "title": "Siemens Energy Thesis - High-Temperature Reducer CFD/CHT and Test-Rig Validation",
       "category": "CFD & Testing",
       "status": "published",
       "featured": true,
       "order": 1,
       "period": "Apr 2025 - Nov 2025",
       "associatedWith": "Siemens Energy",
-      "summary": "Seven months embedded at Siemens Energy Finspång conducting compressible CFD and conjugate heat transfer analysis of reducer geometries for the Pulsatorn high-temperature dynamic pressure sensor calibration rig.",
+      "summary": "Seven months embedded at Siemens Energy Finspång conducting compressible CFD/CHT, high-temperature instrumentation and root-cause analysis for the Pulsatorn dynamic pressure sensor calibration rig.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Research",
+        "Industrial R&D"
+      ],
       "tools": [
         "ANSYS Fluent",
         "CFD/CHT",
@@ -20,29 +25,33 @@
       ],
       "skills": [
         "Compressible CFD",
-        "Gas turbines",
+        "Conjugate heat transfer",
         "Mesh independence",
         "Root cause analysis"
       ],
       "image": "assets/thumb-siemens-validation.svg",
       "caseStudyUrl": "projects/siemens-thesis.html",
       "highlights": [
-        "Built steady-state compressible CFD and CHT models in ANSYS Fluent (k-omega SST) for inlet T = 673 K and P_gauge = 100,000 Pa, with outlet-pressure cases for adiabatic and full CHT variants in one thesis campaign.",
-        "Conducted a three-level mesh independence study confirming discretisation independence to within 2% before proceeding to the full simulation campaign.",
-        "Applied Biot number analysis (Bi = 0.003-0.004) to decompose thermal performance and identified flow-regime asymmetry between geometries: Ma 0.990 near-choked versus Ma 1.006 supersonic vena contracta.",
-        "Commissioned NI-DAQ measurement chains, modified LabVIEW VIs, ran thermal test campaigns up to 700°C and completed formal root cause analysis after heater failure."
+        "Published thesis: Numerical Investigation of Steady-State Thermo-Fluid Performance of a Reducer for a High-Temperature Dynamic Pressure Sensor Calibration Rig, TRITA-ITM-EX 2026:14.",
+        "Compared a legacy 35.05 mm -> 11.25 mm -> 6.0 mm stepped reducer with a 150 mm quintic C2 contraction using adiabatic and CHT simulation campaigns.",
+        "Applied Biot number analysis (Bi = 0.003-0.004) and insulation-reference cases to separate internal convective behaviour from external surface-area heat-loss effects.",
+        "Commissioned NI-DAQ measurement chains, modified LabVIEW VIs, ran thermal test work up to 700°C and completed formal root cause analysis after heater failure."
       ]
     },
     {
       "id": "pypsa-nl-grid-flexibility",
-      "title": "PyPSA-NL Grid Congestion, BESS & Flexible Connection Platform",
+      "title": "Exploratory PyPSA-NL Grid Congestion and BESS Learning Project",
       "category": "Energy Systems",
       "status": "published",
-      "featured": true,
-      "order": 2,
+      "featured": false,
+      "order": 19,
       "period": "2026",
       "associatedWith": "Portfolio project",
-      "summary": "Netherlands-inspired constrained-grid workflow comparing renewable growth, bottlenecks, connection-capacity limits, BESS siting, flexible connection contracts and targeted reinforcement.",
+      "summary": "Exploratory Netherlands-inspired constrained-grid learning project comparing renewable growth, bottlenecks, connection-capacity limits, BESS siting, flexible connection contracts and targeted reinforcement.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "PyPSA",
         "Linopy",
@@ -60,21 +69,25 @@
       "caseStudyUrl": "projects/pypsa-nl-grid-flexibility.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/pypsa-nl-grid-flexibility",
       "highlights": [
-        "Hourly PyPSA/Linopy/HiGHS dispatch model with constrained regional corridors.",
-        "BESS siting and sizing sweep across candidate regions, MW ratings and storage durations.",
-        "Streamlit dashboard with scenario KPIs, bottleneck diagnostics, validation checks and reports."
+        "Built as an exploratory learning project to understand PyPSA/Linopy/HiGHS, grid congestion and flexible connection concepts; retained as supporting evidence, not as a primary project track.",
+        "Executive report identified High Wind Offshore Growth as the top-ranked scenario with grid-value score 60.8, adding 201,561 MWh renewable dispatch and reducing backup generation by the same amount versus base.",
+        "Best BESS sweep option was Groningen 400 MW / 4 h, with 8/8 validation checks passed and a dashboard/reporting layer for decision support."
       ]
     },
     {
       "id": "alleima-energy-efficiency",
-      "title": "Alleima Energy Efficiency Mapping",
+      "title": "Alleima Industrial Energy Performance Mapping",
       "category": "Sustainability",
       "status": "published",
       "featured": true,
-      "order": 3,
+      "order": 2,
       "period": "Dec 2024 - Jun 2025",
       "associatedWith": "Alleima",
-      "summary": "Energy performance mapping, KPI/EnPI thinking, metering readiness, loss analysis and improvement-roadmap work.",
+      "summary": "Industrial energy performance methodology covering KPI/EnPI design, metering readiness, load-driver logic, deviation detection and regulatory comparison for decarbonization decisions.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "Python",
         "ISO 50001",
@@ -90,19 +103,24 @@
       "image": "assets/thumb-energy-kpi.svg",
       "caseStudyUrl": "projects/alleima-energy-efficiency.html",
       "highlights": [
-        "Translated energy data readiness into KPI and metering-improvement structure.",
-        "Framed audit logic around ISO 50001-style continuous improvement."
+        "Developed and independently validated a quantitative methodology for industrial energy performance mapping rather than a one-off audit checklist.",
+        "Mapped load-driver logic, metering gaps and deviation-detection needs from noisy operational data into documented technical reporting.",
+        "Compared regulatory and energy-audit requirements across seven jurisdictions, with electrical utilities and compressed air systems treated as relevant electrification pathways."
       ]
     },
     {
       "id": "hylkysaari-smart-energy-island-modelling",
-      "title": "Hylkisaari Smart Energy Island Modelling",
+      "title": "Hylkysaari Smart Energy Island Modelling",
       "category": "Energy Systems",
       "status": "published",
       "featured": true,
-      "order": 4,
+      "order": 3,
       "associatedWith": "KTH Royal Institute of Technology",
-      "summary": "Building energy demand modelling, PV generation, battery storage, and heat pump scenario analysis for a near-zero energy island concept.",
+      "summary": "IDA ICE, HOMER Pro and Excel modelling for Valo Finland's Hylkysaari smart sustainable tourism concept, comparing energy demand reduction, renewable supply and waste-heat recovery pathways.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "IDA ICE",
         "HOMER Pro",
@@ -115,9 +133,11 @@
         "Techno-economics"
       ],
       "image": "assets/thumb-hylkysaari-energy-island.svg",
+      "caseStudyUrl": "projects/hylkysaari-sustainable-tourism.html",
       "highlights": [
-        "Modelled building heat demand, PV generation, and battery storage using IDA ICE and HOMER Pro across BAU and renewable-plus-storage scenarios.",
-        "Built KPI framework covering energy autonomy, self-consumption, and techno-economic performance across configurations."
+        "Compared BAU and two improved scenarios using three KPIs: nearly zero energy demand, nearly total renewable energy supply and nearly full waste-heat recovery.",
+        "Report conclusion favoured combining scenario 1 solar PV with scenario 2 insulation and heat recovery; solar collectors were not attractive because discounted payback approached project lifetime.",
+        "Contributed to the business model, IDA ICE modelling and report revision for a real-time guest-facing energy dashboard concept."
       ],
       "repoUrl": ""
     },
@@ -127,9 +147,13 @@
       "category": "Energy Systems",
       "status": "published",
       "featured": true,
-      "order": 5,
+      "order": 6,
       "associatedWith": "KTH Royal Institute of Technology",
-      "summary": "Comparison of district heating, PV with heat pump, PV with electric boiler, and solar thermal with TES using hourly demand and irradiance data.",
+      "summary": "Comparative assessment of district heating, solar PV with heat pump, solar PV with electric boiler, and solar thermal with thermal storage for residential heat supply.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "IDA ICE",
         "SAM",
@@ -143,9 +167,11 @@
         "Payback"
       ],
       "image": "assets/thumb-residential-heating-technoeconomics.svg",
+      "caseStudyUrl": "projects/residential-heating-technoeconomics.html",
       "highlights": [
-        "Built CAPEX/OPEX/LCOE/payback KPIs with sensitivity analysis using IDA ICE and SAM.",
-        "Evaluated optimal configuration for summer hot water production and heat pump integration at building scale."
+        "Built CAPEX/OPEX/LCOE/payback interpretation around hourly demand and irradiance data for residential heat alternatives.",
+        "Compared direct electrification and district-heating alternatives with attention to solar collector calculations and report traceability.",
+        "Evidence source includes KTH group report contribution in data collection, solar collector calculations and technical writing."
       ],
       "repoUrl": ""
     },
@@ -155,9 +181,14 @@
       "category": "Thermal Systems",
       "status": "published",
       "featured": true,
-      "order": 6,
+      "order": 8,
       "associatedWith": "Portfolio project",
-      "summary": "TES control logic simulation to cap peak cooling demand with comparison of ice storage vs phase-change material options.",
+      "summary": "Thermal energy storage concept work for peak shaving and district cooling, comparing phase-change and ice-storage options with control and pricing logic.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "Python",
         "TES",
@@ -170,9 +201,11 @@
         "Trade-off analysis"
       ],
       "image": "assets/thumb-tes-peak-shaving.svg",
+      "caseStudyUrl": "projects/tes-peak-shaving.html",
       "highlights": [
-        "Simulated TES control to cap peak demand and sized storage for a district cooling scenario.",
-        "Compared ice vs PCM options on efficiency, cost, and volume trade-offs using Python."
+        "Structured the project around electricity price signals, storage control strategies and technology metrics for shifting thermal loads.",
+        "Compared ice and PCM storage options on efficiency, volume, cost and controllability trade-offs.",
+        "Useful ABB-facing evidence because it links thermal heating/cooling, optimisation logic and techno-economic framing."
       ]
     },
     {
@@ -184,6 +217,10 @@
       "order": 7,
       "associatedWith": "KTH Royal Institute of Technology",
       "summary": "Structured analysis of Germany's energy transition pathways using LEAP modelling tool, evaluating electricity cost and carbon implications across technology scenarios.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "LEAP",
         "Energy Policy",
@@ -196,9 +233,11 @@
         "Carbon implications"
       ],
       "image": "assets/thumb-germany-leap-transition.svg",
+      "caseStudyUrl": "projects/germany-energy-economy-analysis.html",
       "highlights": [
-        "Modelled energy transition scenarios using LEAP with focus on cost and carbon trade-offs.",
-        "Evaluated technology mix, policy implications, and pathway sensitivities relevant to EPBD and EKL regulatory context."
+        "Used LEAP to analyse electricity, cost and carbon-emissions implications for Germany's energy transition pathways.",
+        "Project scope included demand projections, technology and fuel assumptions, NDC 2030 comparison, emissions and social cost of technology systems.",
+        "Contributed Sankey diagram, SDG 7.1 / energy poverty material, sustainable-development perspective and supporting figures."
       ]
     },
     {
@@ -206,10 +245,14 @@
       "title": "District Heating Dispatch Optimisation",
       "category": "Energy Systems",
       "status": "published",
-      "featured": false,
-      "order": 8,
+      "featured": true,
+      "order": 4,
       "associatedWith": "Portfolio project",
       "summary": "Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass/geothermal assets, outages, CO2 and electricity-price coupling.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "PuLP",
         "HiGHS",
@@ -224,8 +267,9 @@
       "image": "assets/thumb-district-heating.svg",
       "caseStudyUrl": "projects/district-heating-optimisation.html",
       "highlights": [
-        "Modelled constrained heat-supply scheduling across assets and outage windows.",
-        "Compared cost-led and emissions-aware dispatch outcomes."
+        "Designed and implemented a multi-objective MILP dispatch model from first principles using Python/PuLP.",
+        "Coupled electricity market price signals to heat-source dispatch across CHP, heat pump, geothermal and storage assets.",
+        "Compared cost and emissions trade-offs across base, future-demand, storage, cost-minimisation and emissions-minimisation scenarios."
       ]
     },
     {
@@ -237,6 +281,10 @@
       "order": 9,
       "associatedWith": "Portfolio project",
       "summary": "CIGRE MV network-style power-flow, N-1 and 24-hour simulation study with EV charging, PV and storage impacts.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "Python",
         "Power flow",
@@ -260,10 +308,14 @@
       "title": "Heating Demand Forecasting",
       "category": "Data & AI",
       "status": "published",
-      "featured": false,
-      "order": 10,
+      "featured": true,
+      "order": 5,
       "associatedWith": "Portfolio project",
       "summary": "Day-ahead building heating-demand forecasting using weather and temporal features, baseline models and neural networks.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "Python",
         "Machine learning",
@@ -277,8 +329,9 @@
       "image": "assets/thumb-heating-forecast.svg",
       "caseStudyUrl": "projects/heating-demand-forecasting.html",
       "highlights": [
-        "Built weather and calendar feature sets for day-ahead prediction.",
-        "Compared baseline and neural-network approaches with documented assumptions."
+        "Forecasted day-ahead heating need for a university building using weather and temporal features including outdoor temperature, wind speed and global radiation.",
+        "Compared logistic regression, shallow neural network and deep neural network models with test accuracies of 92.03%, 93.39% and 93.72%.",
+        "Selected the shallow neural network as the better balance between accuracy, complexity and overfitting risk for smart-building and district-heating use cases."
       ]
     },
     {
@@ -290,6 +343,10 @@
       "order": 11,
       "associatedWith": "Portfolio project",
       "summary": "Coupled offshore wind, PEM electrolyzer and hydrogen-pipeline model with MILP dispatch optimisation.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "Pyomo",
         "HiGHS",
@@ -305,6 +362,7 @@
       "caseStudyUrl": "projects/pynexus-green-hydrogen.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/PyNEXUS",
       "highlights": [
+        "Connects portfolio hydrogen-network modelling with KTH Power-to-X coursework on electrolysis, hydrogen derivatives and renewable surplus conversion.",
         "Models wind-to-hydrogen conversion, pipeline delivery and curtailment KPIs.",
         "Compares cost and emissions objectives with HiGHS/Pyomo optimisation."
       ]
@@ -318,6 +376,10 @@
       "order": 12,
       "associatedWith": "Portfolio project",
       "summary": "Excel and Streamlit toolkit for estimating Scope 1 emissions, EUA cost exposure and carbon-intensity trends.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "Streamlit",
         "Excel",
@@ -346,6 +408,10 @@
       "order": 13,
       "associatedWith": "Portfolio project",
       "summary": "Python, Excel and Streamlit toolkit for industrial EnPIs, baseline normalisation, anomaly flags and management reporting.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "Python",
         "Streamlit",
@@ -361,8 +427,9 @@
       "caseStudyUrl": "projects/industrial-energy-kpi-toolkit.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/Energy-KPI-Toolkit",
       "highlights": [
-        "Generates KPI results, actions logs, plots and one-page PDF reports.",
-        "Includes guided Streamlit flow, diagnostics and CI quality checks."
+        "Built reproducible engineering decision-support tooling with CLI interfaces, automated tests, plots and PDF reports.",
+        "Generates KPI results, action logs, baseline-normalised EnPIs and anomaly flags for ISO 50001-style management review.",
+        "Designed for engineering decision support rather than one-off data exploration."
       ]
     },
     {
@@ -374,6 +441,11 @@
       "order": 14,
       "associatedWith": "Portfolio project",
       "summary": "Low-cost vibration workflow using phone accelerometer data, filtering, FFT/PSD, spectrograms and report generation.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Research",
+        "Industrial R&D"
+      ],
       "tools": [
         "Python",
         "FFT",
@@ -403,6 +475,10 @@
       "period": "2025",
       "associatedWith": "KTH coursework",
       "summary": "IDA ICE building energy simulation comparing supply-system alternatives, demand behaviour and performance implications for a built-environment assignment.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "IDA ICE",
         "Building energy",
@@ -431,6 +507,10 @@
       "period": "2025",
       "associatedWith": "KTH coursework",
       "summary": "Post-disaster polygeneration concept for emergency electricity, cooling and water support in a Philippines context.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "Polygeneration",
         "Energy access",
@@ -457,7 +537,12 @@
       "order": 23,
       "period": "2025",
       "associatedWith": "KTH coursework",
-      "summary": "PCM thermal storage lab characterising RT60 HC discharge behaviour, measurement interpretation and thermal-response trends.",
+      "summary": "Latent-heat mobile thermal energy storage lab characterising RT60 HC discharge behaviour, measurement interpretation and thermal-response trends.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Research",
+        "Energy Systems"
+      ],
       "tools": [
         "PCM",
         "Thermal lab",
@@ -471,8 +556,9 @@
       "image": "assets/thumb-mtes-pcm-lab.svg",
       "caseStudyUrl": "projects/mtes-pcm-thermal-lab.html",
       "highlights": [
-        "Analysed discharge behaviour and temperature response.",
-        "Connected lab observations to thermal storage performance limits."
+        "Evaluated a latent heat-based M-TES prototype with oil bath, water cooling, coil heat exchanger, HTF reservoir, pump and data-logging chain.",
+        "Worked with ten PT100 sensors, a type-T thermocouple, Omega flow meter and Keithley DAQ-connected measurement workflow.",
+        "Connected discharge behaviour, PCM properties and thermal-response trends to storage performance limits."
       ]
     },
     {
@@ -485,6 +571,10 @@
       "period": "2025",
       "associatedWith": "KTH coursework",
       "summary": "Battery discharge lab comparing Ni-MH, Li-Po and lead-acid cells through C-rate behaviour, voltage curves and performance interpretation.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "Battery testing",
         "C-rate",
@@ -499,8 +589,9 @@
       "image": "assets/thumb-battery-discharge.svg",
       "caseStudyUrl": "projects/battery-cell-discharge-lab.html",
       "highlights": [
-        "Compared discharge curves and chemistry-specific behaviour.",
-        "Interpreted lab results through C-rate and capacity-performance logic."
+        "Compared Ni-MH, Li-Po and lead-acid batteries through C-rate, temperature and chemistry-specific discharge tests.",
+        "Test matrix included Ni-MH at 1C, 0.5C and 2C, plus temperature cases at +40°C and -10°C.",
+        "Interpreted empirical voltage/capacity behaviour against redox operation, degradation factors and recommended limits."
       ]
     },
     {
@@ -512,7 +603,11 @@
       "order": 25,
       "period": "2025",
       "associatedWith": "KTH coursework",
-      "summary": "Waste-to-energy assignment work comparing municipal solid waste processing pathways and urban energy recovery concepts for Indian cities.",
+      "summary": "Waste-to-energy assignment work comparing municipal solid waste handling, segregation and energy-recovery concepts for Kozhikode and Delhi.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "Waste-to-energy",
         "MSW",
@@ -526,8 +621,9 @@
       "image": "assets/thumb-waste-to-energy.svg",
       "caseStudyUrl": "projects/waste-to-energy-india.html",
       "highlights": [
-        "Mapped MSW handling and recovery pathways.",
-        "Compared city-specific assumptions and implementation constraints."
+        "Kozhikode concept mapped a 600 tonne/day waste stream with biological and thermal processing pathways for electricity, heat and public-transport links.",
+        "Delhi proposal framed landfill pressure, poor segregation and open landfill burning as the system problem before proposing WtE containment and processing.",
+        "Compared city-specific constraints in collection, sorting, environmental impact and energy recovery."
       ]
     },
     {
@@ -540,6 +636,10 @@
       "period": "2025",
       "associatedWith": "KTH coursework",
       "summary": "Python assignments covering catastrophic cancellation, numerical differentiation, Laplace stencils, Euler vs RK4 and advection scheme comparison.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Research"
+      ],
       "tools": [
         "Python",
         "Finite difference",
@@ -554,8 +654,9 @@
       "image": "assets/thumb-numerical-heat-transfer.svg",
       "caseStudyUrl": "projects/numerical-heat-transfer.html",
       "highlights": [
-        "Compared numerical schemes and error behaviour.",
-        "Built plots and interpretation around heat-transfer computation assignments."
+        "Analysed catastrophic cancellation, machine precision and numerical differentiation error, including forward and central differencing of cos(x).",
+        "Solved 2D heat-conduction problems using finite-difference stencils and compared direct and time-marching convergence behaviour.",
+        "Compared Euler and RK4 time stepping for the 2D heat equation and Lax-Friedrichs versus Lax-Wendroff advection behaviour."
       ]
     },
     {
@@ -567,7 +668,11 @@
       "order": 27,
       "period": "2025",
       "associatedWith": "KTH entrepreneurship assignment",
-      "summary": "Entrepreneurship assignment translating grid storage optimisation and renewable curtailment into a product concept and business model.",
+      "summary": "Entrepreneurship assignment translating renewable-grid storage optimisation, real-time data and machine learning into a product concept and business model.",
+      "audienceTags": [
+        "Industrial R&D",
+        "Energy Systems"
+      ],
       "tools": [
         "ML concept",
         "BESS",
@@ -582,8 +687,9 @@
       "image": "assets/thumb-gridflex-concept.svg",
       "caseStudyUrl": "projects/gridflex-energy-optimizer.html",
       "highlights": [
-        "Developed an energy storage optimisation product concept.",
-        "Connected technical grid flexibility logic with venture framing and customer segments."
+        "Developed GridFlex as a service for dynamically managing energy storage in renewable-powered solar and wind grids.",
+        "Concept uses machine learning and real-time data analysis to balance storage output against grid requirements and renewable availability.",
+        "Outlined prototype testing with simulated data, customer interviews and predictive weather-aware storage adjustment."
       ]
     },
     {
@@ -719,6 +825,10 @@
       "period": "Aug 2019",
       "associatedWith": "APJ Abdul Kalam Technological University",
       "summary": "Compressor-free refrigeration concept based on Peltier cooling with no rotary power-consuming component.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Energy Systems"
+      ],
       "skills": [
         "Thermal engineering",
         "Mechanical engineering"
@@ -728,7 +838,10 @@
       "order": 106,
       "category": "Academic & Mechanical",
       "image": "assets/thumb-thermal-prototype.svg",
-      "highlights": []
+      "highlights": [
+        "Bachelor design project on a thermoelectric refrigerator using the Peltier effect as a compact compressor-free cooling concept.",
+        "Useful as early evidence of thermal-hardware prototyping interest before later KTH heat-transfer and Siemens test-rig work."
+      ]
     },
     {
       "id": "tractor-design-competition-2019",

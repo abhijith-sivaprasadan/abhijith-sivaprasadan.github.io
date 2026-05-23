@@ -28,8 +28,8 @@ const pageKey = document.body.dataset.pageKey || inferredPageKey;
 document.body.dataset.pageKey = pageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260505-data-v4";
-const apiVersion = "20260504-api-v4";
+const assetVersion = "20260523-cleanup";
+const apiVersion = "20260523-cleanup";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
 let apiBaseUrl = window.PORTFOLIO_API_BASE_URL || "https://abhijith-portfolio-api.onrender.com";
@@ -51,7 +51,7 @@ const pageState = {
   projectSearch: "",
 };
 
-const projectRoleFilters = ["PhD / Research", "Industrial R&D"];
+const projectRoleFilters = ["Thermal & Fluid", "Energy Systems", "Industrial R&D", "Research"];
 
 const hashEmail = async (email) => {
   const data = new TextEncoder().encode(email.toLowerCase());
@@ -559,6 +559,7 @@ const injectNavLinks = () => {
   const homeHref = (anchor) => (pageKey === "home" ? anchor : `${basePath}index.html${anchor}`);
   const links = [
     { label: "Research", href: `${basePath}research.html` },
+    { label: "Energy Systems", href: `${basePath}energy-systems.html` },
     { label: "Industrial R&D", href: `${basePath}industrial-rd.html` },
     { label: "Featured", href: homeHref("#projects") },
     { label: "Projects", href: `${basePath}projects.html` },
@@ -723,7 +724,7 @@ const skillProfiles = {
       "Used for the Siemens Energy thesis CFD/CHT campaign, from solver setup and convergence checks through post-processing and interpretation.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Built steady-state compressible RANS models with k-omega SST for high-temperature reducer geometries.",
           "Ran adiabatic and conjugate heat transfer cases as one thesis simulation campaign, not separate portfolio projects.",
@@ -755,7 +756,7 @@ const skillProfiles = {
       "Hands-on data acquisition experience from the Siemens Energy high-temperature Pulsatorn rig and related instrumentation work.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Commissioned measurement channels for thermocouples, static pressure and dynamic pressure instrumentation.",
           "Supported validation planning for tests up to 700 C.",
@@ -770,7 +771,7 @@ const skillProfiles = {
         ],
       },
       {
-        heading: "Personal overlap",
+        heading: "Adjacent evidence",
         items: ["The same practical mindset shows up in sensor, logging and automation-oriented engineering tools."],
       },
     ],
@@ -786,7 +787,7 @@ const skillProfiles = {
       "Used for test-rig data acquisition, channel coordination and logging during Siemens Energy thesis instrumentation work.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Modified an existing LabVIEW VI to synchronize and log the measurement channels used on the rig.",
           "Connected software-side data capture with hardware constraints during thermal test planning.",
@@ -801,7 +802,7 @@ const skillProfiles = {
         ],
       },
       {
-        heading: "Personal overlap",
+        heading: "Adjacent evidence",
         items: ["Connects naturally with the sensor logger and home automation ideas on the site."],
       },
     ],
@@ -817,7 +818,7 @@ const skillProfiles = {
       "Used at Siemens Energy together with Teamcenter PLM2020 while working with high-temperature test-rig geometry and engineering documentation.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Worked with Siemens NX and Teamcenter PLM2020 as part of the thesis hardware and geometry workflow.",
           "Connected CAD/PLM context with ANSYS SpaceClaim preparation and CFD model setup.",
@@ -848,7 +849,7 @@ const skillProfiles = {
       "The main thermal-fluid thread of the portfolio: compressible CFD, conjugate heat transfer, mesh independence and physical interpretation.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Modelled high-temperature reducer geometries for the Siemens Energy Pulsatorn calibration rig.",
           "Compared pressure-loss, Mach-number and thermal-delivery behavior across geometry and outlet-pressure cases.",
@@ -878,39 +879,39 @@ const skillProfiles = {
     ],
   },
   "grid-modelling": {
-    title: "PyPSA / Linopy / HiGHS",
+    title: "Distribution grid and flexibility modelling",
     summary:
-      "Grid and dispatch modelling work covering constrained networks, BESS screening, flexible connection logic and scenario comparison dashboards.",
+      "Grid and dispatch modelling work covering CIGRE-style distribution studies, storage impacts, constrained networks and exploratory flexibility dashboards.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
-          "Built simplified regional grid models with constrained corridors, renewable generation, backup generation and storage/flexibility options.",
-          "Used PyPSA with Linopy and HiGHS for hourly dispatch and bottleneck diagnostics.",
-          "Presented results through Streamlit workflows with scenario KPIs, hourly flows, validation checks and report exports.",
+          "Analysed EV, PV, storage and N-1 impacts in a distribution-grid study.",
+          "Built simplified regional dispatch models to understand constrained corridors, renewable generation, backup generation and storage/flexibility options.",
+          "Presented results through dashboard workflows with scenario KPIs, hourly flows, validation checks and report exports.",
         ],
       },
       {
         heading: "Evidence",
         items: [
-          "PyPSA-NL grid congestion, BESS and flexible connection platform.",
-          "Distribution-grid study covering EV charging, PV, storage and N-1 screening.",
+          "Distribution-grid coursework covering EV charging, PV, storage and N-1 screening.",
+          "Exploratory PyPSA-NL grid congestion, BESS and flexible connection platform.",
           "Hydrogen and district-heating optimisation projects also use the same optimisation mindset.",
         ],
       },
     ],
     links: [
-      { label: "PyPSA-NL case study", href: "projects/pypsa-nl-grid-flexibility.html" },
+      { label: "Exploratory PyPSA-NL case study", href: "projects/pypsa-nl-grid-flexibility.html" },
       { label: "Project library", href: "projects.html" },
     ],
   },
   "python-tooling": {
-    title: "Python / Streamlit / Excel",
+    title: "Python decision-support tooling",
     summary:
-      "Practical engineering tooling for energy models, dashboards, KPI workflows, reporting exports and repeatable analysis.",
+      "Practical engineering tooling for energy models, KPI workflows, reporting exports and repeatable R&D analysis.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Built Streamlit dashboards for grid flexibility, EU ETS exposure and industrial energy KPI workflows.",
           "Used Python with pandas, NumPy, Plotly and optimisation libraries to turn models into usable decision-support tools.",
@@ -920,16 +921,17 @@ const skillProfiles = {
       {
         heading: "Evidence",
         items: [
-          "PyPSA-NL grid flexibility platform.",
+          "District heating dispatch optimisation.",
           "EU ETS exposure calculator.",
           "Industrial energy KPI toolkit.",
+          "Exploratory PyPSA-NL grid flexibility platform.",
         ],
       },
     ],
     links: [
       { label: "EU ETS calculator", href: "projects/eu-ets-exposure-calculator.html" },
       { label: "Industrial KPI toolkit", href: "projects/industrial-energy-kpi-toolkit.html" },
-      { label: "PyPSA-NL case study", href: "projects/pypsa-nl-grid-flexibility.html" },
+      { label: "District heating optimisation", href: "projects/district-heating-optimisation.html" },
     ],
   },
   "energy-management": {
@@ -938,7 +940,7 @@ const skillProfiles = {
       "Energy-performance mapping and reporting work around ISO 50001-style continuous improvement, EU energy-efficiency context and KPI/EnPI design.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Built KPI and EnPI logic for industrial energy follow-up, baseline normalisation and action tracking.",
           "Mapped metering readiness, measurement planning and energy-performance reporting needs.",
@@ -966,7 +968,7 @@ const skillProfiles = {
       "Building-energy and autonomy modelling across heat demand, PV, storage, heat pumps and renewable-plus-storage scenarios.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Modelled building heat demand and renewable-plus-storage scenarios with IDA ICE and HOMER Pro.",
           "Compared heat pumps, PV, battery storage and autonomy-oriented energy-system configurations.",
@@ -993,7 +995,7 @@ const skillProfiles = {
       "Heating-system comparison work using hourly demand, solar/PV assumptions, CAPEX/OPEX/LCOE metrics and sensitivity analysis.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Compared district heating, PV with heat pump, PV with electric boiler and solar thermal with TES configurations.",
           "Used IDA ICE and SAM outputs to calculate CAPEX, OPEX, LCOE, payback and sensitivity cases.",
@@ -1019,7 +1021,7 @@ const skillProfiles = {
       "Thermal-energy-storage work around peak shaving, storage sizing, phase-change material options and charge/discharge control.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Simulated TES control logic to cap peak cooling demand in a district-cooling scenario.",
           "Compared ice storage and phase-change material options from a practical sizing and control perspective.",
@@ -1045,7 +1047,7 @@ const skillProfiles = {
       "Energy-transition scenario work using LEAP to compare policy, cost, technology-mix and carbon-pathway implications.",
     sections: [
       {
-        heading: "What I did",
+        heading: "Applied evidence",
         items: [
           "Modelled Germany energy-transition pathways using LEAP scenario logic.",
           "Compared electricity cost and carbon implications across technology scenarios.",
@@ -1316,7 +1318,9 @@ const renderProjectBrowserItem = (project, index) => {
 
 const renderProjectFilters = () => {
   if (!projectFilters) return;
-  const categories = ["Selected", ...projectRoleFilters, "All", ...new Set(pageState.projects.map((project) => project.category).filter(Boolean))];
+  const roleFilterSet = new Set(projectRoleFilters);
+  const projectCategories = new Set(pageState.projects.map((project) => project.category).filter((category) => category && !roleFilterSet.has(category)));
+  const categories = ["Selected", ...projectRoleFilters, "All", ...projectCategories];
   projectFilters.innerHTML = categories
     .map(
       (category) =>
@@ -1589,6 +1593,7 @@ const initializeFooter = () => {
         <h3>Quick links</h3>
         <a href="${basePath}index.html#projects">Featured</a>
         <a href="${basePath}research.html">Research</a>
+        <a href="${basePath}energy-systems.html">Energy Systems</a>
         <a href="${basePath}industrial-rd.html">Industrial R&amp;D</a>
         <a href="${basePath}projects.html">Projects</a>
         <a href="${basePath}experience.html">Experience</a>
@@ -1859,6 +1864,178 @@ const initializeHomeModeToggle = () => {
   applyMode(initialMode);
 };
 
+const initializeEvidenceTabs = () => {
+  document.querySelectorAll("[data-evidence-tabs]").forEach((group) => {
+    const buttons = Array.from(group.querySelectorAll("[data-evidence-tab]"));
+    const panels = Array.from(group.querySelectorAll("[data-evidence-panel]"));
+    if (!buttons.length || !panels.length) return;
+
+    const showPanel = (id) => {
+      buttons.forEach((button) => {
+        const active = button.getAttribute("data-evidence-tab") === id;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+      panels.forEach((panel) => {
+        panel.hidden = panel.getAttribute("data-evidence-panel") !== id;
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => showPanel(button.getAttribute("data-evidence-tab")));
+    });
+
+    showPanel(buttons.find((button) => button.classList.contains("is-active"))?.getAttribute("data-evidence-tab") || buttons[0].getAttribute("data-evidence-tab"));
+  });
+};
+
+const evidenceChartPalette = ["#65d6c9", "#f6c85f", "#8f7fff", "#38bdf8", "#f97316", "#4ade80", "#f472b6"];
+
+const evidenceTooltip = (() => {
+  let tooltip;
+  return () => {
+    if (tooltip) return tooltip;
+    tooltip = document.createElement("div");
+    tooltip.className = "evidence-tooltip";
+    tooltip.setAttribute("role", "status");
+    document.body.appendChild(tooltip);
+    return tooltip;
+  };
+})();
+
+const drawEvidenceChart = (canvas, data) => {
+  const rect = canvas.getBoundingClientRect();
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  const width = Math.max(280, Math.floor(rect.width || 640));
+  const height = Math.max(240, Math.floor(rect.height || 320));
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.clearRect(0, 0, width, height);
+
+  const entries = Array.isArray(data.series) ? data.series.filter((entry) => Number.isFinite(Number(entry.value))) : [];
+  if (!entries.length) return [];
+
+  const pad = { top: 26, right: 22, bottom: 58, left: 46 };
+  const plotW = width - pad.left - pad.right;
+  const plotH = height - pad.top - pad.bottom;
+  const maxValue = Math.max(...entries.map((entry) => Number(entry.value)), 1);
+  const minValue = Math.min(0, ...entries.map((entry) => Number(entry.value)));
+  const span = Math.max(maxValue - minValue, 1);
+  const xStep = plotW / entries.length;
+  const barW = Math.min(58, xStep * 0.58);
+  const hits = [];
+
+  ctx.fillStyle = "rgba(255,255,255,0.84)";
+  ctx.font = "600 13px Roboto, sans-serif";
+  if (data.title) ctx.fillText(data.title, pad.left, 18);
+
+  ctx.strokeStyle = "rgba(167,176,189,0.18)";
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i += 1) {
+    const y = pad.top + (plotH * i) / 4;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(width - pad.right, y);
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = "rgba(167,176,189,0.78)";
+  ctx.font = "11px Roboto Mono, monospace";
+  for (let i = 0; i <= 4; i += 1) {
+    const value = maxValue - (span * i) / 4;
+    ctx.fillText(String(Math.round(value * 10) / 10), 8, pad.top + (plotH * i) / 4 + 4);
+  }
+
+  entries.forEach((entry, index) => {
+    const value = Number(entry.value);
+    const x = pad.left + xStep * index + (xStep - barW) / 2;
+    const zeroY = pad.top + plotH * (maxValue / span);
+    const y = pad.top + plotH * ((maxValue - value) / span);
+    const barTop = Math.min(y, zeroY);
+    const barHeight = Math.max(2, Math.abs(zeroY - y));
+    const color = entry.color || evidenceChartPalette[index % evidenceChartPalette.length];
+
+    const gradient = ctx.createLinearGradient(0, barTop, 0, barTop + barHeight);
+    gradient.addColorStop(0, color);
+    gradient.addColorStop(1, "rgba(101,214,201,0.22)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(x, barTop, barW, barHeight);
+
+    ctx.strokeStyle = color;
+    ctx.strokeRect(x, barTop, barW, barHeight);
+
+    ctx.save();
+    ctx.translate(x + barW / 2, height - 18);
+    ctx.rotate(-0.35);
+    ctx.fillStyle = "rgba(220,226,235,0.86)";
+    ctx.font = "11px Roboto, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(entry.label, 0, 0);
+    ctx.restore();
+
+    hits.push({
+      x,
+      y: barTop,
+      w: barW,
+      h: barHeight,
+      label: entry.label,
+      value,
+      unit: entry.unit || data.unit || "",
+      note: entry.note || "",
+    });
+  });
+
+  canvas._evidenceHits = hits;
+  return hits;
+};
+
+const initializeEvidenceCharts = () => {
+  const canvases = Array.from(document.querySelectorAll("[data-evidence-chart]"));
+  if (!canvases.length) return;
+
+  const renderAll = () => {
+    canvases.forEach((canvas) => {
+      const id = canvas.getAttribute("data-evidence-chart");
+      const source = document.querySelector(`script[data-evidence-chart-data="${CSS.escape(id)}"]`);
+      if (!source) return;
+      try {
+        drawEvidenceChart(canvas, JSON.parse(source.textContent || "{}"));
+      } catch (error) {
+        canvas.closest(".evidence-chart-shell")?.classList.add("is-chart-failed");
+      }
+    });
+  };
+
+  canvases.forEach((canvas) => {
+    const showChartTooltip = (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = rect.width ? canvas.width / rect.width : 1;
+      const scaleY = rect.height ? canvas.height / rect.height : 1;
+      const x = (event.clientX - rect.left) * scaleX;
+      const y = (event.clientY - rect.top) * scaleY;
+      const hit = (canvas._evidenceHits || []).find((item) => x >= item.x && x <= item.x + item.w && y >= item.y && y <= item.y + item.h);
+      const tooltip = evidenceTooltip();
+      if (!hit) {
+        tooltip.classList.remove("is-visible");
+        return;
+      }
+      tooltip.innerHTML = `<strong>${escapeHtml(hit.label)}</strong><span>${escapeHtml(String(hit.value))}${hit.unit ? ` ${escapeHtml(hit.unit)}` : ""}</span>${hit.note ? `<small>${escapeHtml(hit.note)}</small>` : ""}`;
+      tooltip.style.left = `${Math.min(window.innerWidth - 220, event.clientX + 14)}px`;
+      tooltip.style.top = `${Math.max(12, event.clientY - 16)}px`;
+      tooltip.classList.add("is-visible");
+    };
+    canvas.addEventListener("mousemove", showChartTooltip);
+    canvas.addEventListener("pointermove", showChartTooltip);
+    canvas.addEventListener("click", showChartTooltip);
+    canvas.addEventListener("mouseleave", () => evidenceTooltip().classList.remove("is-visible"));
+  });
+
+  renderAll();
+  window.addEventListener("resize", renderAll);
+};
+
 const initializePageAtmosphere = () => {
   if (document.querySelector(".page-atmosphere")) return;
   const atmosphere = document.createElement("div");
@@ -1886,6 +2063,8 @@ document.body.classList.add("future-v3");
 document.body.classList.add("signal-rebuild");
 initializePageAtmosphere();
 initializeHomeModeToggle();
+initializeEvidenceTabs();
+initializeEvidenceCharts();
 initializePageLaunch();
 injectNavLinks();
 initializeNavToggle();

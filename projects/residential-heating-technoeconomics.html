@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="../styles.css" />
-  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script src="../scripts/site.js?v=20260523-energy-track" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
@@ -24,6 +24,9 @@
     <nav class="nav container">
       <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
       <div class="nav-links">
+        <a href="../research.html">Research</a>
+        <a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a>
         <a href="../index.html#projects">Featured</a>
         <a href="../projects.html">Projects</a>
         <a href="../experience.html">Experience</a>
@@ -43,6 +46,78 @@
         <h1>Residential Heating Techno-Economics &ndash; PV, Heat Pump and Solar Thermal vs District Heating</h1>
         <p class="hero-text">MJ2438 Modelling of Energy Systems group project: four-scenario techno-economic comparison for replacing district heating during Stockholm&rsquo;s five summer months at BRF &Aring;rstaterrassen (423 apartments). Solar thermal collectors with TES were selected as the optimal solution &mdash; CAPEX $256k, 5-year payback, $128.6/MWh LCoE &mdash; while PV with electric boiler failed to meet even 15% of demand.</p>
         <img class="case-visual" src="../assets/thumb-residential-heating-technoeconomics.svg" alt="Residential heating techno-economic comparison visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section project-evidence-dashboard">
+      <div class="container">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Evidence dashboard</p>
+          <h2>Summer hot-water supply as a techno-economic screen.</h2>
+        </div>
+        <div class="evidence-tabs" data-evidence-tabs>
+          <div class="evidence-tab-row" role="tablist" aria-label="Residential heating evidence">
+            <button class="evidence-tab-button is-active" type="button" data-evidence-tab="question" aria-pressed="true">Question</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="method" aria-pressed="false">Method</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="results" aria-pressed="false">Results</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="limits" aria-pressed="false">Limits</button>
+          </div>
+          <article class="evidence-panel" data-evidence-panel="question">
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Technical question</h3>
+                <p>Can BRF Arstaterrassen deactivate district heating during the summer and meet domestic hot-water demand with on-site solar and storage at a credible cost?</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>423</strong><small>apartments</small></span>
+                <span><strong>5</strong><small>summer months</small></span>
+                <span><strong>4</strong><small>scenarios</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="method" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Method</h3>
+                <p>The comparison used roof-area constraints, September irradiation as the sizing month, SAM solar outputs and spreadsheet cost models to compare district heating, PV-electric boiler, PV-heat pump and solar thermal with thermal storage.</p>
+              </div>
+              <div class="method-flow">
+                <span>Demand sizing</span>
+                <span>Solar resource</span>
+                <span>Component sizing</span>
+                <span>LCoE/payback</span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="results" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Result</h3>
+                <p>PV with electric boiler was eliminated on physics and economics. Solar thermal with TES was the best alternative: full demand coverage, lowest alternative CAPEX and a five-year payback.</p>
+              </div>
+              <div class="evidence-chart-shell">
+                <canvas data-evidence-chart="residential-lcoe-project" width="640" height="320" aria-label="Residential heating LCoE chart"></canvas>
+                <p class="chart-fallback">LCoE: district heating 26.4 USD/MWh, PV-electric boiler 604.1, PV-heat pump 225.9, solar thermal with TES 128.6.</p>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="limits" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Limitations and relevance</h3>
+                <p>The model is strongest as a summer-only feasibility screen. Full-year operation would require winter solar-resource modelling, maintenance assumptions and integration with the existing district heating contract.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>5 yr</strong><small>solar thermal payback</small></span>
+                <span><strong>9 yr</strong><small>PVHP payback</small></span>
+                <span><strong>27 yr</strong><small>PVEB payback</small></span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <script type="application/json" data-evidence-chart-data="residential-lcoe-project">
+          {"title":"Summer heating LCoE comparison","unit":"USD/MWh","series":[{"label":"District heat","value":26.4},{"label":"PV + boiler","value":604.1},{"label":"PV + HP","value":225.9},{"label":"Solar thermal","value":128.6}]}
+        </script>
       </div>
     </section>
 

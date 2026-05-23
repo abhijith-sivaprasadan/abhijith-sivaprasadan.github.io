@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="../styles.css" />
-  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script src="../scripts/site.js?v=20260523-energy-track" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
@@ -24,6 +24,9 @@
     <nav class="nav container">
       <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
       <div class="nav-links">
+        <a href="../research.html">Research</a>
+        <a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a>
         <a href="../index.html#projects">Featured</a>
         <a href="../projects.html">Projects</a>
         <a href="../experience.html">Experience</a>
@@ -43,6 +46,78 @@
         <h1>Energy-Environment-Economy Analysis of Germany &ndash; Electricity, Cost and CO&sub2; Modelling with LEAP</h1>
         <p class="hero-text">Scenario-based 3E modelling of Germany&rsquo;s electricity system from 2022 to 2045 using LEAP, comparing NDC 2030 policy targets against a nuclear recommissioning pathway on cost, CO&sub2; and social cost of the technology system.</p>
         <img class="case-visual" src="../assets/thumb-germany-leap-transition.svg" alt="Germany electricity transition scenario model visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section project-evidence-dashboard">
+      <div class="container">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Evidence dashboard</p>
+          <h2>National transition scenarios built from demand, technology and policy assumptions.</h2>
+        </div>
+        <div class="evidence-tabs" data-evidence-tabs>
+          <div class="evidence-tab-row" role="tablist" aria-label="Germany LEAP evidence">
+            <button class="evidence-tab-button is-active" type="button" data-evidence-tab="question" aria-pressed="true">Question</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="method" aria-pressed="false">Method</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="results" aria-pressed="false">Results</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="limits" aria-pressed="false">Limits</button>
+          </div>
+          <article class="evidence-panel" data-evidence-panel="question">
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Technical question</h3>
+                <p>Would recommissioning recently closed nuclear capacity improve Germany's 2045 electricity-system decarbonisation pathway compared with the NDC trajectory, and what cost premium would that imply?</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>2022-2045</strong><small>horizon</small></span>
+                <span><strong>11</strong><small>technologies</small></span>
+                <span><strong>2</strong><small>scenarios</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="method" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Method</h3>
+                <p>The LEAP model linked key assumptions, demand branches, transformation losses and electricity-generation technologies. Demand was projected by sector while technology branches carried capacity, efficiency, cost, lifetime and emissions assumptions.</p>
+              </div>
+              <div class="method-flow">
+                <span>Policy baseline</span>
+                <span>Demand branches</span>
+                <span>Generation stack</span>
+                <span>Cost/CO2 comparison</span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="results" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Result</h3>
+                <p>The nuclear recommissioning pathway cuts post-2038 gas dependence and drives electricity-sector CO2 close to zero by 2045, but carries a modest social-cost premium due to higher nuclear CAPEX and O&amp;M.</p>
+              </div>
+              <div class="evidence-chart-shell">
+                <canvas data-evidence-chart="leap-demand-project" width="640" height="320" aria-label="LEAP electricity demand chart"></canvas>
+                <p class="chart-fallback">Electricity demand grows from 1,742 million GJ in 2022 to 2,488 million GJ in 2045, with transport rising from 53 to 365 million GJ.</p>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="limits" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Limitations and relevance</h3>
+                <p>Nuclear waste disposal costs, plant recommissioning feasibility and geopolitical fuel-price uncertainty require deeper treatment. The useful evidence is the scenario discipline: public assumptions, explicit technology parameters and transparent cost-carbon trade-offs.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>14%</strong><small>nuclear share</small></span>
+                <span><strong>+2.21%</strong><small>social cost</small></span>
+                <span><strong>Near-zero</strong><small>power CO2</small></span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <script type="application/json" data-evidence-chart-data="leap-demand-project">
+          {"title":"Sector electricity demand change","unit":"million GJ","series":[{"label":"Industry 2022","value":729},{"label":"Industry 2045","value":981},{"label":"Transport 2022","value":53},{"label":"Transport 2045","value":365},{"label":"Commercial 2045","value":723}]}
+        </script>
       </div>
     </section>
 
@@ -86,7 +161,7 @@
             Reaching 80% renewable electricity by 2030 from a 44% base in 2022, while simultaneously phasing out nuclear, required a massive and rapid build-out of wind and solar &mdash; a pace Germany was not achieving as of the modelling baseline.
           </p>
 
-          <h2>What I did</h2>
+          <h2>Engineering contribution</h2>
           <ul>
             <li>Built the Sankey diagram of Germany&rsquo;s 2020 electricity flows from IEA data for the background section, visualising the 273,960 TJ export position and sectoral end-use split (industry 37.4%, residential 22.8%, commercial 22.8%).</li>
             <li>Analysed SDG 7.1 access and energy poverty risks under Germany&rsquo;s decarbonisation trajectory, including the role of the EEG surcharge exemptions and the Energiewende&rsquo;s community energy provisions in preventing &ldquo;technology poverty&rdquo;.</li>

@@ -42,8 +42,8 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260505-data-v4" defer></script>
-  <script src="scripts/hero-particles.js?v=20260522b" defer></script>
+  <script src="scripts/site.js?v=20260523-energy-track" defer></script>
+  <script src="scripts/hero-particles.js?v=20260523-energy-track" defer></script>
   <script src="scripts/animations.js?v=20260522" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
@@ -57,6 +57,7 @@
       <div class="nav-links">
         <a href="#signal">Signal</a>
         <a href="research.html">Research</a>
+        <a href="energy-systems.html">Energy Systems</a>
         <a href="industrial-rd.html">Industrial R&amp;D</a>
         <a href="projects/siemens-thesis.html">Siemens</a>
         <a href="projects.html">Projects</a>
@@ -101,7 +102,7 @@
 
         <div class="button-row signal-actions">
           <a class="button primary" href="projects/siemens-thesis.html" data-home-mode-target="thermal">Siemens Thesis Case Study</a>
-          <a class="button primary" href="projects.html" data-home-mode-target="energy" hidden>Energy Systems Projects</a>
+        <a class="button primary" href="energy-systems.html" data-home-mode-target="energy" hidden>Energy Systems Track</a>
           <a class="button primary" href="industrial-rd.html" data-home-mode-target="decarbonisation" hidden>Industrial R&amp;D Fit</a>
           <a class="button primary" href="research.html" data-home-mode-target="research" hidden>Research Statement</a>
           <a class="button secondary" href="#profile" data-home-mode-target="thermal">Thermal Evidence</a>
@@ -137,7 +138,7 @@
         <div class="signal-routes" aria-label="Primary evidence routes">
           <a href="projects/siemens-thesis.html"><span>01</span><strong>Siemens CFD/CHT thesis</strong></a>
           <a href="#profile" data-home-mode-target="thermal"><span>02</span><strong>Thermal-fluid range</strong></a>
-          <a href="projects.html" data-home-mode-target="energy" hidden><span>02</span><strong>Energy systems work</strong></a>
+          <a href="energy-systems.html" data-home-mode-target="energy" hidden><span>02</span><strong>Energy systems track</strong></a>
           <a href="industrial-rd.html" data-home-mode-target="decarbonisation" hidden><span>02</span><strong>Industrial R&amp;D fit</strong></a>
           <a href="research.html" data-home-mode-target="research" hidden><span>02</span><strong>Research statement</strong></a>
           <a href="projects/numerical-heat-transfer.html" data-home-mode-target="thermal research"><span>03</span><strong>Numerical methods</strong></a>
@@ -312,7 +313,7 @@
             </ul>
           </article>
           <article class="card">
-            <h3><a class="title-link" href="projects.html">Pathway 02 // Energy Systems Modelling</a></h3>
+            <h3><a class="title-link" href="energy-systems.html">Pathway 02 // Energy Systems Modelling</a></h3>
             <p>Building energy simulation, techno-economic analysis, dispatch optimisation, forecasting and grid impacts.</p>
             <ul class="clean-list path-links">
               <li><a href="projects/district-heating-optimisation.html">District heating dispatch MILP</a></li>
@@ -359,10 +360,10 @@
     <section id="assignment-data" class="section assignment-data-section scroll-scene scene-assignments" data-scene="projects">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Assignment data</p>
-          <h2><a class="heading-link" href="courses.html">Coursework evidence with visible outputs.</a></h2>
+          <p class="eyebrow">Coursework evidence</p>
+          <h2><a class="heading-link" href="courses.html">Selected assignments with engineering outputs.</a></h2>
           <p>
-            The assignments are now surfaced as engineering data: models, reports, lab campaigns and the methods behind the case studies.
+            Selected KTH assignments are presented as portfolio evidence: the models, lab campaigns, reports and engineering methods behind the larger case studies.
           </p>
         </div>
         <div class="assignment-grid">
@@ -559,27 +560,6 @@
           </article>
 
           <article class="project-card" data-stagger-item>
-            <div class="project-thumb" style="position:relative;">
-              <img src="assets/thumb-pypsa-grid.svg" alt="Grid congestion dashboard concept for PyPSA, BESS and flexible connection analysis" loading="lazy" width="960" height="540" style="display:block;width:100%;" />
-            </div>
-            <div class="tag-row"><span class="tag-hot">PyPSA</span><span class="tag-hot">BESS</span><span>Grid congestion</span><span class="tag-hot">Streamlit</span><span>HiGHS</span><span>Linopy</span></div>
-            <h3><a class="title-link" href="projects/pypsa-nl-grid-flexibility.html">PyPSA-NL Grid Congestion, BESS &amp; Flexible Connection Platform</a></h3>
-            <p>
-              Netherlands-inspired constrained-grid modelling platform built transparently as a portfolio model. Analyses congestion, connection-capacity limits, BESS flexibility, flexible connection contracts and targeted reinforcement across regional corridors.
-            </p>
-            <ul>
-              <li>Hourly PyPSA/Linopy/HiGHS dispatch model with constrained regional corridors and congestion-cost proxy.</li>
-              <li>BESS siting and sizing sweep across candidate regions, MW ratings and duration options.</li>
-              <li>Flexible connection logic, N-1 screening proxy, validation checks, Streamlit KPI dashboard and automated reports.</li>
-            </ul>
-            <p style="font-size:0.78rem;color:var(--muted,#8b949e);margin-top:0.5rem;"><em>Transparency: simplified Netherlands-inspired portfolio model, not a validated TSO operational tool.</em></p>
-            <div class="project-links">
-              <a href="projects/pypsa-nl-grid-flexibility.html">Case study</a>
-              <a href="https://github.com/abhijith-sivaprasadan/pypsa-nl-grid-flexibility" target="_blank" rel="noreferrer">GitHub</a>
-            </div>
-          </article>
-
-          <article class="project-card" data-stagger-item>
             <img class="project-thumb" src="assets/thumb-heating-forecast.svg" alt="Heating demand forecasting model visual" loading="lazy" width="960" height="540" />
             <div class="tag-row"><span>Forecasting</span><span>Python</span><span>ML</span></div>
             <h3><a class="title-link" href="projects/heating-demand-forecasting.html">Heating Demand Forecasting</a></h3>
@@ -704,7 +684,7 @@
           <div class="skill-block">
             <h3>Energy &amp; power systems</h3>
             <div class="skill-pills">
-              <span class="skill-pill">PyPSA</span><span class="skill-pill">Pyomo</span><span class="skill-pill">PuLP</span><span class="skill-pill">BESS siting</span><span class="skill-pill">Renewable curtailment</span><span class="skill-pill">Flexible connections</span><span class="skill-pill">Power-flow studies</span><span class="skill-pill">N-1 screening</span><span class="skill-pill">District heating dispatch</span><span class="skill-pill">Hydrogen networks</span><span class="skill-pill">Polygeneration</span><span class="skill-pill">3E scenario analysis</span><span class="skill-pill">LEAP</span><span class="skill-pill">Techno-economic assessment</span><span class="skill-pill">Solar fraction analysis</span>
+              <span class="skill-pill">IDA ICE</span><span class="skill-pill">HOMER Pro</span><span class="skill-pill">SAM</span><span class="skill-pill">LEAP</span><span class="skill-pill">PuLP</span><span class="skill-pill">MILP dispatch</span><span class="skill-pill">Power-flow studies</span><span class="skill-pill">N-1 screening</span><span class="skill-pill">District heating dispatch</span><span class="skill-pill">Building energy simulation</span><span class="skill-pill">Polygeneration</span><span class="skill-pill">3E scenario analysis</span><span class="skill-pill">Techno-economic assessment</span><span class="skill-pill">Solar fraction analysis</span>
             </div>
           </div>
           <div class="skill-block">
@@ -735,7 +715,7 @@
               <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#8b7fff">NX</span><span>Siemens NX</span></span>
               <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#4ade80">IDA</span><span>IDA ICE</span></span>
               <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#c7f36f">HP</span><span>HOMER Pro</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#38b2ac">PyPSA</span><span>PyPSA</span></span>
+              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#38b2ac">LEAP</span><span>LEAP</span></span>
               <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#f97316">ML</span><span>MATLAB</span></span>
               <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#6366f1">PuLP</span><span>PuLP / LP</span></span>
               <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#ff8a5b">Git</span><span>Git</span></span>
@@ -796,37 +776,11 @@
               <span>NI-DAQ / LabVIEW</span><span>Thermocouple chains</span><span>RCA methodology</span><span>Validation planning</span>
             </div>
           </article>
-          <article class="card" data-stagger-item>
-            <h3>Deposit and surface-condition effects on heat transfer</h3>
-            <p>The thesis treated wall surfaces as clean and fixed. Real high-temperature passages develop altered surface conditions over time, which changes thermal resistance and heat transfer predictions. Connecting deposit-formation mechanisms to measurable thermal indicators is a research direction the thesis methodology is well positioned to support.</p>
-            <div class="tag-row" style="margin-top:10px;">
-              <span>Thermal resistance</span><span>Surface condition</span><span>Health monitoring</span><span>Experimental validation</span>
-            </div>
-          </article>
-          <article class="card" data-stagger-item>
-            <h3>Industrial electrification and energy process modelling</h3>
-            <p>Process system engineering for low-carbon industrial transitions &mdash; combining energy modelling (Python, MATLAB), techno-economic analysis, dispatch optimisation and measurement-based performance indicators. Work covers electrochemical processes, thermal systems and energy conversion pathways.</p>
-            <div class="tag-row" style="margin-top:10px;">
-              <span>Python / MATLAB</span><span>Pyomo MILP</span><span>TEA</span><span>EnPI methodology</span>
-            </div>
-          </article>
-          <article class="card" data-stagger-item>
-            <h3>Measurement-chain design and experimental-numerical validation</h3>
-            <p>Seven months commissioning NI-DAQ/LabVIEW measurement chains at up to 700&deg;C, including independent test campaigns and formal root cause analysis of a heater failure. The interest is in closing the loop between simulation predictions and instrument-grade measurements for validation of thermal models.</p>
-            <div class="tag-row" style="margin-top:10px;">
-              <span>NI-DAQ / LabVIEW</span><span>Thermocouple chains</span><span>RCA methodology</span><span>Validation planning</span>
-            </div>
-          </article>
         </div>
         <div class="project-links" style="margin-top:20px;">
-          <a href="research.html">Full research statement</a>
-          <a href="projects/siemens-thesis.html">Siemens thesis case study</a>
-          <a href="downloads/Abhijith_CV_PhD_Academic.pdf" download>Download Research CV</a>
-        </div>
-        <div class="project-links" style="margin-top:20px;">
-          <a href="research.html">Full research statement</a>
-          <a href="projects/siemens-thesis.html">Siemens thesis case study</a>
-          <a href="downloads/Abhijith_CV_PhD_Academic.pdf" download>Download Research CV</a>
+          <a href="research.html">Research page</a>
+          <a href="projects/siemens-thesis.html">Siemens thesis evidence</a>
+          <a href="downloads/Abhijith_CV_PhD_Academic.pdf" download>Academic CV</a>
         </div>
       </div>
     </section>
@@ -983,20 +937,6 @@
               <a href="downloads/Abhijith_CV_TestEngineer.pdf" download data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Thermal%20%2F%20CFD%20%2F%20Test%20Engineering">Download Thermal / CFD / Test Engineering CV</a>
             </div>
           </article>
-          <article class="card">
-            <h3>Grid Flexibility / BESS / PyPSA CV</h3>
-            <p>For grid modelling, storage, congestion and flexibility planning roles.</p>
-            <div class="project-links">
-              <a href="downloads/Abhijith_Sivaprasadan_Birdview_Grid_Flow_Modeller_CV.pdf" download data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Grid%20Flexibility%20%2F%20BESS%20%2F%20PyPSA">Download Grid Flexibility / BESS / PyPSA CV</a>
-            </div>
-          </article>
-          <article class="card">
-            <h3>Software / Energy Analytics CV</h3>
-            <p>For Python tooling, dashboards, backend delivery and data-driven analytics roles.</p>
-            <div class="project-links">
-              <a href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Software%20%2F%20Energy%20Analytics" data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Software%20%2F%20Energy%20Analytics">Request Software / Analytics CV</a>
-            </div>
-          </article>
         </div>
       </div>
     </section>
@@ -1039,6 +979,7 @@
       <p>&copy; 2026 Abhijith Sivaprasadan. Built with GitHub Pages.</p>
       <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted,#8b949e);">
         Focus: <a href="research.html" style="color:inherit;text-decoration:none;margin-right:1rem;">Research</a>
+        <a href="energy-systems.html" style="color:inherit;text-decoration:none;margin-right:1rem;">Energy Systems</a>
         <a href="industrial-rd.html" style="color:inherit;text-decoration:none;margin-right:1rem;">Industrial R&amp;D</a>
         <a href="projects.html" style="color:inherit;text-decoration:none;">Project evidence</a>
       </p>
