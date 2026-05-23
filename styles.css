@@ -3108,6 +3108,38 @@ code,
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
 }
 
+.signal-evidence-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.signal-evidence-list li {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+  padding-left: 12px;
+  border-left: 2px solid var(--border);
+}
+
+.signal-evidence-list li strong {
+  color: var(--fg);
+  margin-right: 4px;
+}
+
+.signal-evidence-list a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.signal-evidence-list a:hover {
+  border-bottom-color: var(--accent);
+}
+
 .project-grid {
   grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
 }
