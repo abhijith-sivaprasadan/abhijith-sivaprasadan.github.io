@@ -1351,7 +1351,8 @@ const initializeProjects = async () => {
     ]);
     const apiData = apiResult.status === "fulfilled" ? apiResult.value : {};
     const staticData = staticResult.status === "fulfilled" ? staticResult.value : {};
-    const projects = visibleItems(mergeById(Array.isArray(apiData.projects) ? apiData.projects : [], Array.isArray(staticData.projects) ? staticData.projects : []));
+    // The committed JSON is the canonical public portfolio; remote API records can lag behind active edits.
+    const projects = visibleItems(mergeById(Array.isArray(staticData.projects) ? staticData.projects : [], Array.isArray(apiData.projects) ? apiData.projects : []));
     pageState.projects = projects;
 
     if (featuredProjects) {
@@ -1817,11 +1818,11 @@ const initializeHomeModeToggle = () => {
   const targets = Array.from(document.querySelectorAll("[data-home-mode-target]"));
   if (!buttons.length || !targets.length) return;
 
-  const modes = new Set(["research", "industrial"]);
+  const modes = new Set(buttons.map((button) => button.getAttribute("data-home-mode-button")).filter(Boolean));
   const storageKey = "homeAudienceMode";
 
   const applyMode = (mode) => {
-    const nextMode = modes.has(mode) ? mode : "research";
+    const nextMode = modes.has(mode) ? mode : buttons[0].getAttribute("data-home-mode-button");
     document.body.dataset.homeMode = nextMode;
 
     buttons.forEach((button) => {

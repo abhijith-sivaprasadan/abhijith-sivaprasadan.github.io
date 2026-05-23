@@ -42,14 +42,15 @@
       "title": "PyPSA-NL Grid Congestion, BESS & Flexible Connection Platform",
       "category": "Energy Systems",
       "status": "published",
-      "featured": true,
-      "order": 2,
+      "featured": false,
+      "order": 19,
       "period": "2026",
       "associatedWith": "Portfolio project",
-      "summary": "Netherlands-inspired constrained-grid workflow comparing renewable growth, bottlenecks, connection-capacity limits, BESS siting, flexible connection contracts and targeted reinforcement.",
+      "summary": "Exploratory Netherlands-inspired constrained-grid learning project comparing renewable growth, bottlenecks, connection-capacity limits, BESS siting, flexible connection contracts and targeted reinforcement.",
       "audienceTags": [
         "Industrial R&D",
-        "Associate Scientist"
+        "Associate Scientist",
+        "Energy Systems"
       ],
       "tools": [
         "PyPSA",
@@ -79,7 +80,7 @@
       "category": "Sustainability",
       "status": "published",
       "featured": true,
-      "order": 3,
+      "order": 2,
       "period": "Dec 2024 - Jun 2025",
       "associatedWith": "Alleima",
       "summary": "Industrial energy performance methodology covering KPI/EnPI design, metering readiness, load-driver logic, deviation detection and regulatory comparison for decarbonization decisions.",
@@ -113,7 +114,7 @@
       "category": "Energy Systems",
       "status": "published",
       "featured": true,
-      "order": 4,
+      "order": 3,
       "associatedWith": "KTH Royal Institute of Technology",
       "summary": "IDA ICE, HOMER Pro and Excel modelling for Valo Finland's Hylkysaari smart sustainable tourism concept, comparing energy demand reduction, renewable supply and waste-heat recovery pathways.",
       "audienceTags": [
@@ -146,7 +147,7 @@
       "category": "Energy Systems",
       "status": "published",
       "featured": true,
-      "order": 5,
+      "order": 6,
       "associatedWith": "KTH Royal Institute of Technology",
       "summary": "Comparative assessment of district heating, solar PV with heat pump, solar PV with electric boiler, and solar thermal with thermal storage for residential heat supply.",
       "audienceTags": [
@@ -180,7 +181,7 @@
       "category": "Thermal Systems",
       "status": "published",
       "featured": true,
-      "order": 6,
+      "order": 8,
       "associatedWith": "Portfolio project",
       "summary": "Thermal energy storage concept work for peak shaving and district cooling, comparing phase-change and ice-storage options with control and pricing logic.",
       "audienceTags": [
@@ -243,8 +244,8 @@
       "title": "District Heating Dispatch Optimisation",
       "category": "Energy Systems",
       "status": "published",
-      "featured": false,
-      "order": 8,
+      "featured": true,
+      "order": 4,
       "associatedWith": "Portfolio project",
       "summary": "Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass/geothermal assets, outages, CO2 and electricity-price coupling.",
       "audienceTags": [
@@ -306,8 +307,8 @@
       "title": "Heating Demand Forecasting",
       "category": "Data & AI",
       "status": "published",
-      "featured": false,
-      "order": 10,
+      "featured": true,
+      "order": 5,
       "associatedWith": "Portfolio project",
       "summary": "Day-ahead building heating-demand forecasting using weather and temporal features, baseline models and neural networks.",
       "audienceTags": [

@@ -5377,6 +5377,38 @@ body.signal-rebuild {
   color: var(--signal-text);
 }
 
+body.signal-rebuild[data-home-mode="thermal"] {
+  --signal-green: #65d6c9;
+  --signal-amber: #d7b46a;
+  background:
+    linear-gradient(180deg, rgba(101, 214, 201, 0.09), transparent 18rem),
+    linear-gradient(180deg, var(--signal-bg), #0b1010 56%, var(--signal-bg));
+}
+
+body.signal-rebuild[data-home-mode="energy"] {
+  --signal-green: #9bd69f;
+  --signal-amber: #65d6c9;
+  background:
+    linear-gradient(180deg, rgba(155, 214, 159, 0.09), transparent 18rem),
+    linear-gradient(180deg, var(--signal-bg), #0c100b 56%, var(--signal-bg));
+}
+
+body.signal-rebuild[data-home-mode="decarbonisation"] {
+  --signal-green: #d7b46a;
+  --signal-amber: #9bd69f;
+  background:
+    linear-gradient(180deg, rgba(215, 180, 106, 0.1), transparent 18rem),
+    linear-gradient(180deg, var(--signal-bg), #11100a 56%, var(--signal-bg));
+}
+
+body.signal-rebuild[data-home-mode="research"] {
+  --signal-green: #8fb7ff;
+  --signal-amber: #d7b46a;
+  background:
+    linear-gradient(180deg, rgba(143, 183, 255, 0.09), transparent 18rem),
+    linear-gradient(180deg, var(--signal-bg), #0b0e13 56%, var(--signal-bg));
+}
+
 body.signal-rebuild,
 body.signal-rebuild h1,
 body.signal-rebuild h2,
