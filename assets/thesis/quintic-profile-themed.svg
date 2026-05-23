@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">C2 quintic reducer profile</title>
+  <desc id="desc">Dark themed diagram of smooth quintic C2 reducer profile with zero slope and curvature discontinuities at inlet and outlet.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#07100c"/>
+      <stop offset="0.62" stop-color="#0f1719"/>
+      <stop offset="1" stop-color="#101012"/>
+    </linearGradient>
+    <linearGradient id="wall" x1="0" x2="1">
+      <stop offset="0" stop-color="#9bd69f"/>
+      <stop offset="0.52" stop-color="#65d6c9"/>
+      <stop offset="1" stop-color="#d7b46a"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="960" height="600" fill="url(#bg)"/>
+  <g opacity="0.22" stroke="#8fa7b3" stroke-width="1">
+    <path d="M0 100H960M0 200H960M0 300H960M0 400H960M0 500H960"/>
+    <path d="M120 0V600M240 0V600M360 0V600M480 0V600M600 0V600M720 0V600M840 0V600"/>
+  </g>
+  <rect x="38" y="32" width="884" height="536" rx="12" fill="none" stroke="#2d3a31"/>
+  <text x="62" y="72" fill="#d7b46a" font-family="Roboto Mono, monospace" font-size="20" font-weight="700">REDESIGNED REDUCER: 150 mm C² QUINTIC CONTRACTION</text>
+  <text x="62" y="103" fill="#a8ada4" font-family="Roboto, Arial, sans-serif" font-size="16">Smooth profile distributes acceleration and removes step-driven separation risk.</text>
+
+  <path d="M92 188H258C408 188 548 260 730 260H868V340H730C548 340 408 412 258 412H92Z" fill="#0b1214" stroke="#8fa7b3" stroke-width="2"/>
+  <path d="M92 188H258C408 188 548 260 730 260H868" fill="none" stroke="url(#wall)" stroke-width="6" filter="url(#glow)"/>
+  <path d="M92 412H258C408 412 548 340 730 340H868" fill="none" stroke="url(#wall)" stroke-width="6" filter="url(#glow)"/>
+  <path d="M118 300C242 300 328 300 430 300C530 300 630 300 840 300" fill="none" stroke="#65d6c9" stroke-width="4" stroke-dasharray="14 10"/>
+
+  <g fill="none" stroke="#65d6c9" stroke-width="2.5" opacity="0.86">
+    <path d="M120 246C280 244 452 267 838 284"/>
+    <path d="M120 276C300 275 468 288 838 296"/>
+    <path d="M120 324C300 325 468 312 838 304"/>
+    <path d="M120 354C280 356 452 333 838 316"/>
+  </g>
+
+  <g font-family="Roboto Mono, monospace" font-size="15">
+    <text x="116" y="462" fill="#f2f0e7">inlet tangent matched</text>
+    <text x="610" y="462" fill="#f2f0e7">outlet tangent matched</text>
+    <path d="M258 430V398" stroke="#d7b46a" stroke-width="2"/>
+    <path d="M730 430V342" stroke="#d7b46a" stroke-width="2"/>
+    <text x="384" y="520" fill="#9bd69f">C² continuity: no slope or curvature jump</text>
+  </g>
+  <g transform="translate(112 122)">
+    <rect width="194" height="42" rx="8" fill="#101410" stroke="#2d3a31"/>
+    <text x="14" y="27" fill="#f2f0e7" font-family="Roboto Mono, monospace" font-size="15">length = 150 mm</text>
+  </g>
+  <g transform="translate(664 122)">
+    <rect width="182" height="42" rx="8" fill="#101410" stroke="#2d3a31"/>
+    <text x="14" y="27" fill="#f2f0e7" font-family="Roboto Mono, monospace" font-size="15">smooth acceleration</text>
+  </g>
+</svg>
