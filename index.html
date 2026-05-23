@@ -42,7 +42,7 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260523-energy-track" defer></script>
+  <script src="scripts/site.js?v=20260524-dynamic-features" defer></script>
   <script src="scripts/hero-particles.js?v=20260523-energy-track" defer></script>
   <script src="scripts/animations.js?v=20260522" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
@@ -73,7 +73,10 @@
       <div class="signal-grid-bg" aria-hidden="true"></div>
       <div class="container signal-hero-inner">
         <div class="signal-identity">
-          <img class="avatar" src="assets/headshot.jpg" alt="Abhijith Sivaprasadan" width="124" height="124" />
+          <picture>
+            <source srcset="assets/headshot.webp" type="image/webp" />
+            <img class="avatar" src="assets/headshot.jpg" alt="Abhijith Sivaprasadan" width="124" height="124" />
+          </picture>
           <div>
             <p class="eyebrow" data-editable="hero-eyebrow"><span data-typed-cycle="Siemens Energy Finspång / CFD / CHT / Test validation||High-temperature flow / Conjugate heat transfer / Instrumentation||Energy process modelling / Python / MATLAB / Techno-economic analysis||Compressible flow / k-omega SST / Mesh independence / Biot analysis">Siemens Energy Finspång / CFD / CHT / Test validation</span></p>
             <p class="hero-kicker">M.Sc. Sustainable Energy Engineering &middot; KTH 2026</p>
@@ -111,6 +114,11 @@
           <a class="button secondary" href="downloads/Abhijith_CV_PhD_Academic.pdf" download data-home-mode-target="research" data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20PhD%20Research" hidden>Download Research CV</a>
           <a class="button secondary" href="downloads/Abhijith_CV_EnergyCoordinator.pdf" download data-home-mode-target="energy decarbonisation" data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Energy%20Systems%20%2F%20R%26D" hidden>Download Energy / R&amp;D CV</a>
           <a class="button secondary" href="#contact">Contact</a>
+        </div>
+
+        <div class="recruiter-mode-bar">
+          <button type="button" class="recruiter-toggle" data-recruiter-toggle aria-pressed="false">Quick scan</button>
+          <span class="recruiter-mode-hint">Condenses the page to top-level signals — for fast first reads.</span>
         </div>
 
         <div class="signal-rail" aria-label="Siemens thesis engineering signals">
@@ -911,6 +919,45 @@
       </div>
     </section>
 
+    <section id="testimonials" class="section scroll-scene" data-scene="about">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Testimonials</p>
+          <h2>Supervisor and employer perspectives</h2>
+        </div>
+        <div class="testimonials-grid">
+          <article class="testimonial-card">
+            <p class="testimonial-body testimonial-pending">
+              Supervisor reference from Prof. Jens Fridh (KTH &mdash; Siemens Energy thesis supervisor, PA-2026-1429) to be added here.
+            </p>
+            <div class="testimonial-author">
+              <strong>Prof. Jens Fridh</strong>
+              <span>Associate Professor, KTH Royal Institute of Technology &middot; Thesis supervisor</span>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <p class="testimonial-body testimonial-pending">
+              Reference from Alleima AB internship supervisor to be added here upon completion.
+            </p>
+            <div class="testimonial-author">
+              <strong>Alleima AB</strong>
+              <span>Energy Efficiency Internship Supervisor &middot; Dec 2024&ndash;Jun 2025</span>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <p class="testimonial-body testimonial-pending">
+              Reference from QBurst team lead to be added here.
+            </p>
+            <div class="testimonial-author">
+              <strong>QBurst</strong>
+              <span>Backend Engineering Team Lead &middot; Sep 2021&ndash;Jun 2023</span>
+            </div>
+          </article>
+        </div>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:16px">References available on request &mdash; replace placeholder text above with quotes once collected.</p>
+      </div>
+    </section>
+
     <section id="cv" class="section subtle scroll-scene scene-cv" data-scene="cv">
       <div class="container">
         <div class="section-heading">
@@ -919,6 +966,7 @@
           <p data-editable="cv-lead">
             The CVs are split by role so the first page foregrounds the evidence most relevant to each hiring context.
           </p>
+          <button type="button" class="button secondary print-cv-btn" onclick="window.print()" aria-label="Print or save this CV section as PDF">Print / Save as PDF</button>
         </div>
         <div class="cards three">
           <article class="card">
@@ -964,17 +1012,42 @@
 
     <section id="contact" class="section scroll-scene scene-contact" data-scene="contact">
       <div class="container contact-card">
-        <div>
+        <div class="contact-intro">
           <p class="eyebrow" data-editable="contact-eyebrow">Contact</p>
           <h2 data-editable="contact-title">Currently targeting doctoral research in high-temperature thermal-fluid systems and industrial R&amp;D roles in decarbonization and electrification in Sweden.</h2>
+          <div class="contact-links">
+            <a href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a>
+            <a href="tel:+46769692014">Sweden: +46 76 969 2014</a>
+            <a href="tel:+918129750386">India: +91 8129750386</a>
+            <a href="https://www.linkedin.com/in/abhijith-sivaprasadan/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
         </div>
-        <div class="contact-links">
-          <a href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a>
-          <a href="tel:+46769692014">Sweden: +46 76 969 2014</a>
-          <a href="tel:+918129750386">India: +91 8129750386</a>
-          <a href="https://www.linkedin.com/in/abhijith-sivaprasadan/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noreferrer">GitHub</a>
-        </div>
+        <form class="contact-form" data-contact-form novalidate>
+          <div class="contact-form-row">
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" placeholder="Your name" required />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="your@email.com" required />
+            </label>
+          </div>
+          <label>
+            <span>Subject</span>
+            <input type="text" name="subject" placeholder="Research position / collaboration / …" />
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="5" placeholder="Introduce yourself and describe your interest…" required></textarea>
+          </label>
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+          <div class="contact-form-footer">
+            <button type="submit" class="button primary">Send message</button>
+            <span class="contact-status" data-contact-status></span>
+          </div>
+        </form>
       </div>
     </section>
   </main>

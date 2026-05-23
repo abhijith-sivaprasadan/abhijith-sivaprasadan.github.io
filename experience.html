@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
   <script src="scripts/public-config.js?v=20260504-data-v7" defer></script>
-  <script src="scripts/site.js?v=20260523-energy-track" defer></script>
+  <script src="scripts/site.js?v=20260524-dynamic-features" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body data-page-key="experience">
@@ -48,6 +48,83 @@
           <p class="hero-text" data-editable="hero-lead">
             A role-by-role view of the evidence most relevant to doctoral research and Associate Scientist / industrial R&amp;D applications.
           </p>
+      </div>
+    </section>
+
+    <!-- Chronological overlap chart -->
+    <section class="section subtle">
+      <div class="container">
+        <div class="timeline-chart" aria-label="Chronological timeline of roles and education">
+          <p class="eyebrow" style="margin-bottom:16px">Chronological overview &mdash; 2017&ndash;2026</p>
+          <div class="timeline-chart-grid">
+            <!-- Year axis labels (Jan 2017=0% to Jan 2026=100%, 9-year window) -->
+            <div class="tc-row tc-row-axis">
+              <span class="tc-label"></span>
+              <div class="tc-bar-area">
+                <span class="tc-year-tick" style="left:0%">2017</span>
+                <span class="tc-year-tick" style="left:11.1%">2018</span>
+                <span class="tc-year-tick" style="left:22.2%">2019</span>
+                <span class="tc-year-tick" style="left:33.3%">2020</span>
+                <span class="tc-year-tick" style="left:44.4%">2021</span>
+                <span class="tc-year-tick" style="left:55.6%">2022</span>
+                <span class="tc-year-tick" style="left:66.7%">2023</span>
+                <span class="tc-year-tick" style="left:77.8%">2024</span>
+                <span class="tc-year-tick" style="left:88.9%">2025</span>
+                <span class="tc-year-tick" style="left:100%">2026</span>
+              </div>
+            </div>
+            <!-- Bars: left/width as % of 9-year window -->
+            <!-- Formula: left = (months from Jan 2017) / 108 × 100% -->
+            <div class="tc-row">
+              <span class="tc-label">B.Tech</span>
+              <div class="tc-bar-area">
+                <!-- Aug 2017 (7m) → May 2021 (52m) = 45m span; left=6.5%, width=41.7% -->
+                <span class="tc-bar tc-education" style="left:6.5%;width:41.7%" title="APJ KTU B.Tech Aug 2017–May 2021"></span>
+              </div>
+            </div>
+            <div class="tc-row">
+              <span class="tc-label">QBurst</span>
+              <div class="tc-bar-area">
+                <!-- Sep 2021 (56m) → Jun 2023 (77m) = 21m; left=51.9%, width=19.4% -->
+                <span class="tc-bar tc-industry" style="left:51.9%;width:19.4%" title="QBurst Backend Eng. Sep 2021–Jun 2023"></span>
+              </div>
+            </div>
+            <div class="tc-row">
+              <span class="tc-label">KTH M.Sc.</span>
+              <div class="tc-bar-area">
+                <!-- Aug 2023 (79m) → Jun 2026 (∼113m) = 34m; left=73.1%, width=31.5% -->
+                <span class="tc-bar tc-education" style="left:73.1%;width:31.5%" title="KTH M.Sc. Aug 2023–Jun 2026"></span>
+              </div>
+            </div>
+            <div class="tc-row">
+              <span class="tc-label">KTH Pyrolysis</span>
+              <div class="tc-bar-area">
+                <!-- Feb 2024 (85m) → Jun 2024 (89m) = 4m; left=78.7%, width=3.7% -->
+                <span class="tc-bar tc-research" style="left:78.7%;width:3.7%" title="KTH Pyrolysis Research Feb–Jun 2024"></span>
+              </div>
+            </div>
+            <div class="tc-row">
+              <span class="tc-label">Alleima</span>
+              <div class="tc-bar-area">
+                <!-- Dec 2024 (95m) → Jun 2025 (101m) = 6m; left=88.0%, width=5.6% -->
+                <span class="tc-bar tc-industry" style="left:88.0%;width:5.6%" title="Alleima Energy Efficiency Dec 2024–Jun 2025"></span>
+              </div>
+            </div>
+            <div class="tc-row">
+              <span class="tc-label">Siemens Energy</span>
+              <div class="tc-bar-area">
+                <!-- Apr 2025 (99m) → Nov 2025 (106m) = 7m; left=91.7%, width=6.5% -->
+                <span class="tc-bar tc-thermal" style="left:91.7%;width:6.5%" title="Siemens Energy Apr–Nov 2025"></span>
+              </div>
+            </div>
+          </div>
+          <div class="tc-legend">
+            <span class="tc-dot tc-education"></span>Education
+            <span class="tc-dot tc-industry"></span>Industry
+            <span class="tc-dot tc-thermal"></span>Thermal R&amp;D
+            <span class="tc-dot tc-research"></span>Research
+          </div>
+        </div>
       </div>
     </section>
 
