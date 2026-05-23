@@ -3407,9 +3407,9 @@ code,
   width: 100%;
   border: 1px solid rgba(167, 176, 189, 0.28);
   border-radius: 8px;
-  background: rgba(11, 15, 20, 0.2);
+  background: rgba(11, 15, 20, 0.72);
   aspect-ratio: 16 / 10;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .thesis-figure-grid figcaption {
@@ -3514,6 +3514,12 @@ code,
 
 .thesis-density-row .filter-chip {
   font-size: 0.78rem;
+}
+
+.chart-help {
+  margin: -4px 0 16px;
+  color: var(--muted);
+  font-size: 0.84rem;
 }
 
 .thesis-chart-card {
@@ -3627,10 +3633,49 @@ code,
   display: block;
   width: 100%;
   height: clamp(240px, 32vw, 330px);
+  cursor: crosshair;
 }
 
 .chart-shell.wide canvas {
   height: clamp(280px, 38vw, 390px);
+}
+
+.chart-tooltip {
+  position: fixed;
+  z-index: 80;
+  max-width: min(280px, calc(100vw - 32px));
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(0, 6px, 0);
+  transition: opacity 120ms ease, transform 120ms ease;
+  border: 1px solid color-mix(in srgb, var(--scene-accent) 48%, rgba(255,255,255,0.2));
+  border-radius: 8px;
+  background: rgba(12, 15, 20, 0.94);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.42);
+  color: var(--text);
+  padding: 9px 10px;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  backdrop-filter: blur(12px);
+}
+
+.chart-tooltip.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.chart-tooltip strong,
+.chart-tooltip span {
+  display: block;
+}
+
+.chart-tooltip strong {
+  color: var(--scene-accent);
+  margin-bottom: 3px;
+}
+
+.chart-tooltip span + span {
+  color: var(--muted);
 }
 
 .chart-fallback {

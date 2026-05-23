@@ -109,26 +109,26 @@
             <h2>From Borda-Carnot loss mechanism to C&sup2; contraction.</h2>
             <div class="thesis-figure-grid thesis-figure-grid-quad">
               <figure>
-                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/borda-carnot-themed.svg" data-thesis-caption="Borda-Carnot interpretation of the abrupt step contraction in the legacy reducer.">
-                  <img src="../assets/thesis/borda-carnot-themed.svg" alt="Borda-Carnot mechanism diagram for abrupt step contraction" loading="lazy" />
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/borda-carnot-mechanism-dark.png" data-thesis-caption="Borda-Carnot interpretation of abrupt contraction losses and the smooth C² design alternative.">
+                  <img src="../assets/thesis/borda-carnot-mechanism-dark.png" alt="Borda-Carnot mechanism diagram for abrupt and smooth contractions" loading="lazy" />
                 </button>
                 <figcaption>Legacy two-step reducer: abrupt area changes create vena-contracta behaviour and irreversible pressure loss.</figcaption>
               </figure>
               <figure>
-                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/quintic-profile-themed.svg" data-thesis-caption="Quintic C2 profile used to define the redesigned 150 mm reducer geometry.">
-                  <img src="../assets/thesis/quintic-profile-themed.svg" alt="Quintic C2 reducer profile" loading="lazy" />
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/quintic-c2-profile-dark.png" data-thesis-caption="Quintic C2 profile used to define the redesigned 150 mm reducer geometry and its zero-slope, zero-curvature endpoints.">
+                  <img src="../assets/thesis/quintic-c2-profile-dark.png" alt="Quintic C2 reducer profile and contraction dimensions" loading="lazy" />
                 </button>
                 <figcaption>Redesigned reducer: a 150 mm quintic C&sup2; profile removes slope and curvature discontinuities at the inlet and outlet.</figcaption>
               </figure>
               <figure>
-                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/legacy-reducer-themed.svg" data-thesis-caption="Legacy commercial fitting geometry used in the original Pulsatorn reducer assembly.">
-                  <img src="../assets/thesis/legacy-reducer-themed.svg" alt="Legacy reducer geometry model" loading="lazy" />
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/legacy-dimensions-dark.png" data-thesis-caption="Dimensioned legacy two-step reducer geometry: 35.05 mm to 11.25 mm to 6.0 mm.">
+                  <img src="../assets/thesis/legacy-dimensions-dark.png" alt="Dimensioned legacy two-step reducer geometry" loading="lazy" />
                 </button>
                 <figcaption>Legacy geometry: compact, practical, and thermally conservative, but aerodynamically abrupt.</figcaption>
               </figure>
               <figure>
-                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/redesigned-reducer-themed.svg" data-thesis-caption="Redesigned smooth reducer geometry for the thesis comparison study.">
-                  <img src="../assets/thesis/redesigned-reducer-themed.svg" alt="Redesigned reducer geometry model" loading="lazy" />
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/redesigned-dimensions-dark.png" data-thesis-caption="Dimensioned redesigned reducer geometry: 150 mm contraction from 35.05 mm to 6.0 mm.">
+                  <img src="../assets/thesis/redesigned-dimensions-dark.png" alt="Dimensioned redesigned quintic C2 reducer geometry" loading="lazy" />
                 </button>
                 <figcaption>Redesigned geometry: smoother contraction intended to recover pressure without the legacy jet mechanism.</figcaption>
               </figure>
@@ -139,12 +139,12 @@
             <p class="eyebrow">Geometry comparison — drag to reveal</p>
             <h2>Legacy two-step vs redesigned C&sup2; quintic reducer.</h2>
             <p>Both geometries connect the same heater bore (35.05&nbsp;mm) to the same outlet (6.0&nbsp;mm). The only variable is how the area change is distributed over length.</p>
-            <div class="img-compare" style="margin-top:18px;max-width:760px;">
+            <div class="img-compare" style="margin-top:18px;max-width:860px;">
               <div class="img-compare-before">
-                <img src="../assets/thesis/legacy-reducer-themed.svg" alt="Legacy two-step reducer geometry" loading="lazy" />
+                <img src="../assets/thesis/legacy-reducer-geometry-dark.png" alt="Legacy two-step reducer geometry model" loading="lazy" />
               </div>
               <div class="img-compare-after">
-                <img src="../assets/thesis/redesigned-reducer-themed.svg" alt="Redesigned quintic C² reducer geometry" loading="lazy" />
+                <img src="../assets/thesis/redesigned-reducer-geometry-dark.png" alt="Redesigned quintic C² reducer geometry model" loading="lazy" />
               </div>
               <div class="img-compare-handle" aria-hidden="true"></div>
               <input type="range" class="img-compare-range" min="0" max="100" value="50" aria-label="Drag to compare legacy and redesigned reducer geometries" />
@@ -192,24 +192,36 @@
             <p>These are images from the actual thesis simulation campaign. Click any image to enlarge.</p>
             <div class="cfd-full" style="margin-top:18px;">
               <figure>
-                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/ANSYS campaign.png" data-thesis-caption="Overview of the full ANSYS Fluent simulation campaign: solver panel, boundary condition setup, monitored quantities and post-processing output for both reducer geometries.">
-                  <img src="../assets/thesis/ANSYS campaign.png" alt="ANSYS Fluent 2025 R1 simulation campaign overview" loading="lazy" style="width:100%;border-radius:10px;border:1px solid rgba(167,176,189,0.22);" />
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/ansys-campaign-dark.png" data-thesis-caption="Overview of the full ANSYS Fluent simulation campaign for both reducer geometries and CHT cases.">
+                  <img src="../assets/thesis/ansys-campaign-dark.png" alt="ANSYS Fluent 2025 R1 simulation campaign overview" loading="lazy" style="width:100%;border-radius:10px;border:1px solid rgba(167,176,189,0.22);" />
                 </button>
                 <figcaption style="margin-top:8px;font-size:0.82rem;color:var(--muted);">Full ANSYS Fluent 2025&nbsp;R1 simulation campaign — solver setup, boundary conditions, monitored integral quantities and post-processed results for both geometry variants.</figcaption>
               </figure>
             </div>
             <div class="cfd-evidence-grid">
               <figure>
-                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/Mesh legacy step.png" data-thesis-caption="Mesh detail at the abrupt step of the legacy reducer. The inflation layers resolve the near-wall boundary layer where the Borda-Carnot vena-contracta mechanism and y+ spike originate.">
-                  <img src="../assets/thesis/Mesh legacy step.png" alt="Mesh at the legacy reducer abrupt step showing inflation layers" loading="lazy" />
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/legacy-mesh-dark.png" data-thesis-caption="Mesh detail at the abrupt step of the legacy reducer. The inflation layers resolve the near-wall boundary layer where the Borda-Carnot vena-contracta mechanism and y+ spike originate.">
+                  <img src="../assets/thesis/legacy-mesh-dark.png" alt="Mesh at the legacy reducer abrupt step showing inflation layers" loading="lazy" />
                 </button>
                 <figcaption>Legacy reducer mesh at the abrupt step. Inflation layers capture the y+ spike that coincides with the vena-contracta acceleration zone.</figcaption>
               </figure>
               <figure>
-                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/Streamlines legacy.png" data-thesis-caption="Velocity streamlines through the legacy reducer showing the concentrated flow acceleration at the abrupt step and the downstream reattachment pattern associated with Borda-Carnot losses.">
-                  <img src="../assets/thesis/Streamlines legacy.png" alt="Velocity streamlines in the legacy reducer" loading="lazy" />
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/redesigned-mesh-dark.png" data-thesis-caption="Mesh detail through the redesigned quintic reducer showing the smoother contraction and continuous near-wall mesh structure.">
+                  <img src="../assets/thesis/redesigned-mesh-dark.png" alt="Mesh through the redesigned quintic reducer" loading="lazy" />
+                </button>
+                <figcaption>Redesigned reducer mesh. The continuous contraction avoids the abrupt wall discontinuity that drives the legacy y+ spike.</figcaption>
+              </figure>
+              <figure>
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/legacy-streamlines-dark.png" data-thesis-caption="Velocity streamlines through the legacy reducer showing the concentrated flow acceleration at the abrupt step and the downstream reattachment pattern associated with Borda-Carnot losses.">
+                  <img src="../assets/thesis/legacy-streamlines-dark.png" alt="Velocity streamlines in the legacy reducer" loading="lazy" />
                 </button>
                 <figcaption>Legacy reducer streamlines. The abrupt contraction concentrates acceleration into a thin jet before the flow reattaches — the visual signature of the Borda-Carnot pressure-loss mechanism.</figcaption>
+              </figure>
+              <figure>
+                <button type="button" class="thesis-media-button" data-thesis-media="../assets/thesis/redesigned-streamlines-dark.png" data-thesis-caption="Velocity streamlines through the redesigned reducer showing distributed acceleration through the smooth contraction.">
+                  <img src="../assets/thesis/redesigned-streamlines-dark.png" alt="Velocity streamlines in the redesigned reducer" loading="lazy" />
+                </button>
+                <figcaption>Redesigned reducer streamlines. The acceleration is distributed through the 150&nbsp;mm profile rather than forced through a local step.</figcaption>
               </figure>
             </div>
           </section>
@@ -227,6 +239,7 @@
               <button type="button" class="filter-chip is-active" data-evidence-density="compact">Compact dashboard</button>
               <button type="button" class="filter-chip" data-evidence-density="expanded">Expanded interpretation</button>
             </div>
+            <p class="chart-help">Hover over chart points or bars to inspect values; use Focus to expand a plot while reading.</p>
 
             <article class="thesis-chart-card" data-evidence-group="validation">
               <div class="chart-card-header">
