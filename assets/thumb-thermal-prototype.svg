@@ -1,40 +1,184 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Polygeneration concept and system sizing'>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Thermal prototype test assembly thermocouple instrumentation temperature measurement DAQ'>
   <defs>
     <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
-      <stop offset='0' stop-color='#0f141b'/>
-      <stop offset='1' stop-color='#0a0f15'/>
+      <stop offset='0' stop-color='#0b1220'/><stop offset='1' stop-color='#070c16'/>
     </linearGradient>
-    <linearGradient id='panel' x1='0' y1='0' x2='1' y2='1'>
-      <stop offset='0' stop-color='#161f2b'/>
-      <stop offset='1' stop-color='#121a25'/>
+    <linearGradient id='tgrad' x1='0' y1='1' x2='0' y2='0'>
+      <stop offset='0%' stop-color='#2563a8' stop-opacity='0.7'/>
+      <stop offset='40%' stop-color='#65d6c9' stop-opacity='0.5'/>
+      <stop offset='70%' stop-color='#f6c85f' stop-opacity='0.5'/>
+      <stop offset='100%' stop-color='#d0622c' stop-opacity='0.8'/>
     </linearGradient>
+    <marker id='arr' markerWidth='7' markerHeight='6' refX='6' refY='3' orient='auto'>
+      <path d='M0,0 L0,6 L7,3 z' fill='#f6c85f'/>
+    </marker>
+    <marker id='arb' markerWidth='7' markerHeight='6' refX='6' refY='3' orient='auto'>
+      <path d='M0,0 L0,6 L7,3 z' fill='#38bdf8'/>
+    </marker>
   </defs>
   <rect width='960' height='540' fill='url(#bg)'/>
-  <rect x='34' y='30' width='892' height='480' rx='22' fill='url(#panel)' stroke='#354152'/>
-  <rect x='34' y='30' width='892' height='62' rx='22' fill='#121d2b'/>
-  <text x='62' y='68' fill='#e6ecf3' font-family='ui-monospace, SFMono-Regular, Menlo, monospace' font-size='20' font-weight='700'>THERMAL PROTOTYPE SYSTEM</text>
 
-  <rect x='66' y='126' width='560' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
-  <g stroke='#5d6876' stroke-width='1.2' opacity='0.7'>
-    <line x1='96' y1='404' x2='594' y2='404'/>
-    <line x1='96' y1='350' x2='594' y2='350'/>
-    <line x1='96' y1='296' x2='594' y2='296'/>
-    <line x1='96' y1='242' x2='594' y2='242'/>
-    <line x1='96' y1='188' x2='594' y2='188'/>
-  </g>
-  <polyline points='96,356 132,336 168,320 204,300 240,280 276,260 312,274 348,298 384,322 420,336 456,312 492,284 528,260 564,238 594,224' fill='none' stroke='#c8d0db' stroke-width='4.2'/>
-  <polyline points='96,372 132,360 168,346 204,330 240,312 276,300 312,314 348,334 384,352 420,362 456,346 492,324 528,304 564,286 594,272' fill='none' stroke='#9ca6b5' stroke-width='3.4' stroke-dasharray='8 6'/>
+  <!-- Title bar -->
+  <rect x='24' y='14' width='912' height='36' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='38' font-family='monospace' font-size='14' fill='#f6c85f' font-weight='bold'>THERMAL PROTOTYPE · TEST ASSEMBLY · TC INSTRUMENTATION + DAQ CHAIN</text>
 
-  <rect x='654' y='126' width='238' height='330' rx='14' fill='#0f1722' stroke='#354152'/>
-  <text x='678' y='162' fill='#cdd5df' font-family='ui-monospace,monospace' font-size='16' font-weight='700'>PROJECT SUMMARY</text>
-  <text x='678' y='196' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='14'>Polygeneration concept and system sizing</text>
-  <text x='678' y='228' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>Technical focus, method and outputs</text>
-  <text x='678' y='248' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='13'>represented in a portfolio-safe preview</text>
+  <!-- Left panel: assembly cross-section -->
+  <rect x='30' y='64' width='520' height='420' rx='4' fill='#0d1a2e'/>
+  <text x='290' y='86' font-family='monospace' font-size='11' fill='#c8d8ea' text-anchor='middle' font-weight='bold'>THERMAL TEST STACK — CROSS-SECTION</text>
 
-  <rect x='678' y='286' width='190' height='42' rx='9' fill='#1d2734' stroke='#445267'/>
-  <text x='694' y='312' fill='#dce3ec' font-family='ui-monospace,monospace' font-size='13'>Case study available</text>
+  <!-- Temperature gradient fill (left side of cross-section) -->
+  <rect x='68' y='105' width='28' height='330' fill='url(#tgrad)' rx='3'/>
+  <text x='82' y='100' font-family='monospace' font-size='8' fill='#d0622c' text-anchor='middle'>T_hot</text>
+  <text x='82' y='443' font-family='monospace' font-size='8' fill='#38bdf8' text-anchor='middle'>T_cold</text>
 
-  <rect x='678' y='338' width='190' height='88' rx='9' fill='#151f2b' stroke='#445267'/>
-  <text x='694' y='364' fill='#d0d9e4' font-family='ui-monospace,monospace' font-size='12'>Monochrome preview system</text>
-  <text x='694' y='384' fill='#aab4c2' font-family='ui-monospace,monospace' font-size='12'>Unified format / consistent tone</text>
+  <!-- Layer 1: Heater plate (bottom, hot) -->
+  <rect x='100' y='360' width='340' height='50' rx='4' fill='#2a1000' stroke='#d0622c' stroke-width='2.5'/>
+  <!-- Heater elements -->
+  <line x1='120' y1='375' x2='420' y2='375' stroke='#d0622c' stroke-width='1.5' stroke-dasharray='8,4'/>
+  <line x1='120' y1='390' x2='420' y2='390' stroke='#d0622c' stroke-width='1.5' stroke-dasharray='8,4'/>
+  <text x='270' y='378' font-family='monospace' font-size='10' fill='#d0622c' text-anchor='middle' font-weight='bold'>HEATER PLATE</text>
+  <text x='270' y='396' font-family='monospace' font-size='9' fill='#f6c85f' text-anchor='middle'>Al 6061 · T_set = 100°C · 150 W</text>
+  <!-- Heat flux arrows -->
+  <line x1='160' y1='358' x2='160' y2='344' stroke='#d0622c' stroke-width='2' marker-end='url(#arr)'/>
+  <line x1='220' y1='358' x2='220' y2='344' stroke='#d0622c' stroke-width='2' marker-end='url(#arr)'/>
+  <line x1='280' y1='358' x2='280' y2='344' stroke='#d0622c' stroke-width='2' marker-end='url(#arr)'/>
+  <line x1='340' y1='358' x2='340' y2='344' stroke='#d0622c' stroke-width='2' marker-end='url(#arr)'/>
+  <line x1='400' y1='358' x2='400' y2='344' stroke='#d0622c' stroke-width='2' marker-end='url(#arr)'/>
+  <text x='456' y='356' font-family='monospace' font-size='9' fill='#d0622c'>Q_in</text>
+
+  <!-- Layer 2: Thermal Interface Material -->
+  <rect x='100' y='330' width='340' height='28' rx='2' fill='#0f2240' stroke='#f6c85f' stroke-width='1.5'/>
+  <text x='270' y='345' font-family='monospace' font-size='9' fill='#f6c85f' text-anchor='middle'>TIM — Indium foil · 0.5 mm · λ = 82 W/m·K</text>
+  <!-- TC position at interface -->
+  <circle cx='170' cy='330' r='5' fill='#f6c85f'/>
+  <text x='152' y='324' font-family='monospace' font-size='8' fill='#f6c85f' text-anchor='end'>TC1</text>
+  <circle cx='370' cy='330' r='5' fill='#f6c85f'/>
+  <text x='388' y='324' font-family='monospace' font-size='8' fill='#f6c85f'>TC2</text>
+
+  <!-- Layer 3: Test specimen -->
+  <rect x='100' y='220' width='340' height='108' rx='3' fill='#0f2240' stroke='#65d6c9' stroke-width='2'/>
+  <text x='270' y='260' font-family='monospace' font-size='10' fill='#65d6c9' text-anchor='middle' font-weight='bold'>TEST SPECIMEN</text>
+  <text x='270' y='278' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Stainless 316L · 30×30×50 mm</text>
+  <text x='270' y='296' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>λ = 16 W/m·K (measured)</text>
+  <!-- TC positions inside specimen -->
+  <circle cx='210' cy='248' r='4' fill='#f6c85f'/>
+  <text x='196' y='244' font-family='monospace' font-size='8' fill='#f6c85f' text-anchor='end'>TC3</text>
+  <circle cx='270' cy='274' r='4' fill='#f6c85f'/>
+  <text x='256' y='270' font-family='monospace' font-size='8' fill='#f6c85f' text-anchor='end'>TC4</text>
+  <circle cx='330' cy='300' r='4' fill='#f6c85f'/>
+  <text x='346' y='296' font-family='monospace' font-size='8' fill='#f6c85f'>TC5</text>
+
+  <!-- Layer 4: Cold plate (top) -->
+  <rect x='100' y='165' width='340' height='53' rx='4' fill='#0d2040' stroke='#38bdf8' stroke-width='2.5'/>
+  <text x='270' y='186' font-family='monospace' font-size='10' fill='#38bdf8' text-anchor='middle' font-weight='bold'>COLD PLATE</text>
+  <text x='270' y='204' font-family='monospace' font-size='9' fill='#65d6c9' text-anchor='middle'>water-cooled · T_in = 20°C · flow 2 L/min</text>
+  <!-- TC at cold plate -->
+  <circle cx='200' cy='218' r='5' fill='#f6c85f'/>
+  <text x='186' y='214' font-family='monospace' font-size='8' fill='#f6c85f' text-anchor='end'>TC6</text>
+  <circle cx='340' cy='218' r='5' fill='#f6c85f'/>
+  <text x='356' y='214' font-family='monospace' font-size='8' fill='#f6c85f'>TC7</text>
+
+  <!-- Heat flux arrows upward through cold plate -->
+  <line x1='160' y1='165' x2='160' y2='152' stroke='#38bdf8' stroke-width='1.5' marker-end='url(#arb)'/>
+  <line x1='270' y1='165' x2='270' y2='152' stroke='#38bdf8' stroke-width='1.5' marker-end='url(#arb)'/>
+  <line x1='380' y1='165' x2='380' y2='152' stroke='#38bdf8' stroke-width='1.5' marker-end='url(#arb)'/>
+  <text x='456' y='158' font-family='monospace' font-size='9' fill='#38bdf8'>Q_out</text>
+
+  <!-- Layer labels on right -->
+  <text x='448' y='395' font-family='monospace' font-size='8' fill='#d0622c'>Layer 1</text>
+  <text x='448' y='350' font-family='monospace' font-size='8' fill='#f6c85f'>Layer 2</text>
+  <text x='448' y='275' font-family='monospace' font-size='8' fill='#65d6c9'>Layer 3</text>
+  <text x='448' y='200' font-family='monospace' font-size='8' fill='#38bdf8'>Layer 4</text>
+
+  <!-- Insulation sides (vertical grey strips) -->
+  <rect x='88' y='165' width='12' height='245' rx='2' fill='#152540' stroke='#2a4060' stroke-width='1'/>
+  <text x='75' y='293' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle' transform='rotate(-90,75,293)'>insulation</text>
+  <rect x='440' y='165' width='12' height='245' rx='2' fill='#152540' stroke='#2a4060' stroke-width='1'/>
+
+  <!-- DAQ connection chain -->
+  <!-- TC wires from right side to signal conditioner -->
+  <line x1='460' y1='248' x2='490' y2='248' stroke='#f6c85f' stroke-width='1.5' stroke-dasharray='4,2'/>
+  <line x1='460' y1='274' x2='490' y2='274' stroke='#f6c85f' stroke-width='1.5' stroke-dasharray='4,2'/>
+  <line x1='460' y1='300' x2='490' y2='300' stroke='#f6c85f' stroke-width='1.5' stroke-dasharray='4,2'/>
+  <line x1='460' y1='330' x2='490' y2='330' stroke='#f6c85f' stroke-width='1.5' stroke-dasharray='4,2'/>
+
+  <!-- Signal conditioner box -->
+  <rect x='100' y='98' width='200' height='56' rx='4' fill='#0f2240' stroke='#f6c85f' stroke-width='1.5'/>
+  <text x='200' y='119' font-family='monospace' font-size='10' fill='#f6c85f' text-anchor='middle' font-weight='bold'>SIGNAL CONDITIONER</text>
+  <text x='200' y='137' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>cold-junction comp. · amplifier · 16-bit</text>
+
+  <!-- Right panel: T profile + measurement results -->
+  <rect x='566' y='64' width='370' height='420' rx='4' fill='#0d1a2e'/>
+  <text x='751' y='86' font-family='monospace' font-size='11' fill='#c8d8ea' text-anchor='middle' font-weight='bold'>MEASURED TEMPERATURE PROFILE</text>
+
+  <!-- T vs z chart (vertical position through stack) -->
+  <line x1='610' y1='108' x2='610' y2='420' stroke='#2a4060' stroke-width='1'/>
+  <line x1='610' y1='420' x2='900' y2='420' stroke='#2a4060' stroke-width='1'/>
+
+  <!-- Y-axis: stack height (0 = cold plate, 1.0 = heater bottom) -->
+  <text x='604' y='424' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='end'>0</text>
+  <text x='604' y='345' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='end'>0.25</text>
+  <text x='604' y='266' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='end'>0.50</text>
+  <text x='604' y='187' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='end'>0.75</text>
+  <text x='604' y='112' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='end'>1.0</text>
+  <text x='596' y='270' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle' transform='rotate(-90,596,270)'>position z/L</text>
+
+  <!-- X-axis: temperature 20–120°C -->
+  <!-- x(T) = 610 + (T-20)*2.9 (20→610, 120→900) -->
+  <text x='610' y='436' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>20</text>
+  <text x='697' y='436' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>50</text>
+  <text x='784' y='436' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>80</text>
+  <text x='871' y='436' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>110°C</text>
+
+  <!-- Grid -->
+  <line x1='697' y1='108' x2='697' y2='420' stroke='#152540' stroke-width='0.5' stroke-dasharray='3,4'/>
+  <line x1='784' y1='108' x2='784' y2='420' stroke='#152540' stroke-width='0.5' stroke-dasharray='3,4'/>
+  <line x1='871' y1='108' x2='871' y2='420' stroke='#152540' stroke-width='0.5' stroke-dasharray='3,4'/>
+  <line x1='610' y1='345' x2='900' y2='345' stroke='#152540' stroke-width='0.5'/>
+  <line x1='610' y1='266' x2='900' y2='266' stroke='#152540' stroke-width='0.5'/>
+  <line x1='610' y1='187' x2='900' y2='187' stroke='#152540' stroke-width='0.5'/>
+
+  <!-- Temperature profile: piecewise linear through layers -->
+  <!-- z=0 (cold plate): T=22°C → x=610+(22-20)*2.9=616 -->
+  <!-- z=0.15 (cold plate exit): T=26°C → x=617 -->
+  <!-- z=0.30 (specimen bottom): T=48°C → x=610+28*2.9=691 -->
+  <!-- z=0.65 (specimen top): T=82°C → x=610+62*2.9=790 -->
+  <!-- z=0.75 (TIM): T=88°C → x=610+68*2.9=807 -->
+  <!-- z=1.0 (heater): T=100°C → x=610+80*2.9=842 -->
+  <!-- z positions mapped: z=0→y=420, z=1→y=108, scale=312px/1.0 -->
+  <polyline points='616,420 620,358 691,344 790,188 807,155 842,112'
+            fill='none' stroke='#65d6c9' stroke-width='2.5'/>
+
+  <!-- TC data points -->
+  <circle cx='616' cy='420' r='5' fill='#f6c85f' stroke='#0d1a2e' stroke-width='1'/>
+  <text x='624' y='418' font-family='monospace' font-size='8' fill='#f6c85f'>22°C</text>
+  <circle cx='645' cy='358' r='5' fill='#f6c85f' stroke='#0d1a2e' stroke-width='1'/>
+  <text x='653' y='355' font-family='monospace' font-size='8' fill='#f6c85f'>40°C</text>
+  <circle cx='691' cy='326' r='5' fill='#f6c85f' stroke='#0d1a2e' stroke-width='1'/>
+  <text x='699' y='323' font-family='monospace' font-size='8' fill='#f6c85f'>51°C</text>
+  <circle cx='770' cy='220' r='5' fill='#f6c85f' stroke='#0d1a2e' stroke-width='1'/>
+  <text x='778' y='217' font-family='monospace' font-size='8' fill='#f6c85f'>76°C</text>
+  <circle cx='807' cy='164' r='5' fill='#f6c85f' stroke='#0d1a2e' stroke-width='1'/>
+  <text x='815' y='161' font-family='monospace' font-size='8' fill='#f6c85f'>88°C</text>
+  <circle cx='842' cy='120' r='5' fill='#f6c85f' stroke='#0d1a2e' stroke-width='1'/>
+  <text x='850' y='117' font-family='monospace' font-size='8' fill='#f6c85f'>99°C</text>
+
+  <!-- Layer boundaries on chart -->
+  <rect x='608' y='154' width='3' height='12' fill='#38bdf8' opacity='0.7'/>
+  <rect x='608' y='302' width='3' height='12' fill='#f6c85f' opacity='0.7'/>
+  <rect x='608' y='400' width='3' height='12' fill='#d0622c' opacity='0.7'/>
+
+  <!-- Results summary -->
+  <rect x='574' y='388' width='354' height='84' rx='4' fill='#0f2240' stroke='#65d6c9' stroke-width='1'/>
+  <text x='751' y='408' font-family='monospace' font-size='10' fill='#65d6c9' text-anchor='middle' font-weight='bold'>DERIVED THERMAL PROPERTIES</text>
+  <text x='582' y='426' font-family='monospace' font-size='9' fill='#2a4060'>Effective conductivity (specimen):</text>
+  <text x='916' y='426' font-family='monospace' font-size='9' fill='#38bdf8' text-anchor='end'>λ_eff = 15.8 W/m·K</text>
+  <text x='582' y='444' font-family='monospace' font-size='9' fill='#2a4060'>Interface resistance (TIM):</text>
+  <text x='916' y='444' font-family='monospace' font-size='9' fill='#f6c85f' text-anchor='end'>R_int = 1.4×10⁻⁴ m²K/W</text>
+  <text x='582' y='462' font-family='monospace' font-size='9' fill='#2a4060'>Heat flux (steady-state):</text>
+  <text x='916' y='462' font-family='monospace' font-size='9' fill='#4ade80' text-anchor='end'>q = 2 640 W/m²</text>
+
+  <!-- Bottom tag strip -->
+  <rect x='24' y='490' width='912' height='34' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='512' font-family='monospace' font-size='11' fill='#2a4060'>Thermocouple · TIM · Heat flux · Thermal resistance · Cold plate · NI-DAQ · Instrumentation</text>
 </svg>

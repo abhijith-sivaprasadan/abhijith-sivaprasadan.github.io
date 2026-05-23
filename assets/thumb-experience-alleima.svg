@@ -1,21 +1,163 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="ALLEIMA - Energy performance mapping">
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 540' role='img' aria-label='Alleima industrial energy performance mapping EnPI ISO 50001 improvement roadmap'>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#070807"/><stop offset="1" stop-color="#111711"/></linearGradient>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#2d3a31" stroke-width="1" opacity="0.55"/></pattern>
-    <style>
-      .dash{fill:none;stroke:#9bd69f;stroke-width:5;stroke-linecap:round;stroke-dasharray:18 12;animation:dash 9s linear infinite}.amber{stroke:#d7b46a}.scan{animation:float 6s ease-in-out infinite}.label{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.muted{fill:#a8ada4}@keyframes dash{to{stroke-dashoffset:-180}}@keyframes float{50%{transform:translateY(-8px)}}
-    </style>
+    <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0' stop-color='#0b1220'/><stop offset='1' stop-color='#070c16'/>
+    </linearGradient>
+    <marker id='arr' markerWidth='8' markerHeight='6' refX='7' refY='3' orient='auto'>
+      <path d='M0,0 L0,6 L8,3 z' fill='#65d6c9'/>
+    </marker>
   </defs>
-  <rect width="960" height="540" fill="url(#bg)"/>
-  <rect width="960" height="540" fill="url(#grid)" opacity="0.55"/>
-  <rect x="34" y="30" width="892" height="480" rx="8" fill="#0b0f0b" opacity="0.86" stroke="#2d3a31"/>
-  <text x="62" y="72" fill="#f2f0e7" class="label" font-size="24" font-weight="700">ALLEIMA</text>
-  <text x="62" y="104" fill="#a8ada4" class="label" font-size="15">Energy performance mapping</text>
-    <g>
-    <path class="dash" d="M112 330 C220 230 334 270 448 210 C570 146 706 188 848 120"/>
-    <path class="dash amber" d="M112 370 C248 328 340 346 470 302 C608 256 724 280 848 230"/>
-    <rect x="98" y="154" width="190" height="190" rx="12" fill="#111711" stroke="#9bd69f"/><rect x="340" y="194" width="190" height="150" rx="12" fill="#111711" stroke="#d7b46a"/><rect x="582" y="134" width="190" height="210" rx="12" fill="#111711" stroke="#8fa7b3"/>
-  </g>
-  <rect x="62" y="450" width="836" height="1" fill="#2d3a31"/>
-  <text x="62" y="480" fill="#9bd69f" class="label" font-size="14">signal deck visual / portfolio-safe data preview</text>
+  <rect width='960' height='540' fill='url(#bg)'/>
+
+  <!-- Title bar -->
+  <rect x='24' y='14' width='912' height='36' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='38' font-family='monospace' font-size='14' fill='#65d6c9' font-weight='bold'>ALLEIMA · INDUSTRIAL ENERGY PERFORMANCE MAPPING · ISO 50001 / EED</text>
+
+  <!-- 4-stage pipeline (top section) -->
+  <!-- Stage 1: Utility Meters -->
+  <rect x='30' y='70' width='190' height='120' rx='6' fill='#0d1a2e' stroke='#38bdf8' stroke-width='2'/>
+  <text x='125' y='95' font-family='monospace' font-size='11' fill='#38bdf8' text-anchor='middle' font-weight='bold'>UTILITY</text>
+  <text x='125' y='110' font-family='monospace' font-size='11' fill='#38bdf8' text-anchor='middle' font-weight='bold'>METERS</text>
+  <text x='125' y='130' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Electricity · Steam</text>
+  <text x='125' y='144' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Natural gas · Water</text>
+  <text x='125' y='158' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Compressed air</text>
+  <text x='125' y='178' font-family='monospace' font-size='8' fill='#38bdf8' text-anchor='middle'>▶ sub-metering</text>
+  <!-- Arrow -->
+  <line x1='220' y1='130' x2='248' y2='130' stroke='#65d6c9' stroke-width='2.2' marker-end='url(#arr)'/>
+
+  <!-- Stage 2: Process Mapping -->
+  <rect x='248' y='70' width='190' height='120' rx='6' fill='#0d1a2e' stroke='#65d6c9' stroke-width='2'/>
+  <text x='343' y='95' font-family='monospace' font-size='11' fill='#65d6c9' text-anchor='middle' font-weight='bold'>PROCESS</text>
+  <text x='343' y='110' font-family='monospace' font-size='11' fill='#65d6c9' text-anchor='middle' font-weight='bold'>MAPPING</text>
+  <text x='343' y='130' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Energy flow chart</text>
+  <text x='343' y='144' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Value-stream analysis</text>
+  <text x='343' y='158' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>SEU identification</text>
+  <text x='343' y='178' font-family='monospace' font-size='8' fill='#65d6c9' text-anchor='middle'>▶ walkthroughs + interviews</text>
+  <!-- Arrow -->
+  <line x1='438' y1='130' x2='466' y2='130' stroke='#65d6c9' stroke-width='2.2' marker-end='url(#arr)'/>
+
+  <!-- Stage 3: EnPI Calculation -->
+  <rect x='466' y='70' width='190' height='120' rx='6' fill='#0d1a2e' stroke='#f6c85f' stroke-width='2'/>
+  <text x='561' y='95' font-family='monospace' font-size='11' fill='#f6c85f' text-anchor='middle' font-weight='bold'>EnPI</text>
+  <text x='561' y='110' font-family='monospace' font-size='11' fill='#f6c85f' text-anchor='middle' font-weight='bold'>ANALYSIS</text>
+  <text x='561' y='130' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>SEC normalisation</text>
+  <text x='561' y='144' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Baseline regression</text>
+  <text x='561' y='158' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>EnPI = E / Production</text>
+  <text x='561' y='178' font-family='monospace' font-size='8' fill='#f6c85f' text-anchor='middle'>▶ Python + pandas</text>
+  <!-- Arrow -->
+  <line x1='656' y1='130' x2='684' y2='130' stroke='#65d6c9' stroke-width='2.2' marker-end='url(#arr)'/>
+
+  <!-- Stage 4: Improvement Roadmap -->
+  <rect x='684' y='70' width='250' height='120' rx='6' fill='#0d1a2e' stroke='#4ade80' stroke-width='2'/>
+  <text x='809' y='95' font-family='monospace' font-size='11' fill='#4ade80' text-anchor='middle' font-weight='bold'>IMPROVEMENT</text>
+  <text x='809' y='110' font-family='monospace' font-size='11' fill='#4ade80' text-anchor='middle' font-weight='bold'>ROADMAP</text>
+  <text x='809' y='130' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Prioritised measures</text>
+  <text x='809' y='144' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Payback / IRR ranking</text>
+  <text x='809' y='158' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Verified savings target</text>
+  <text x='809' y='178' font-family='monospace' font-size='8' fill='#4ade80' text-anchor='middle'>▶ ISO 50001 / EED Art. 8</text>
+
+  <!-- ISO 50001 PDCA cycle annotation -->
+  <rect x='30' y='212' width='170' height='80' rx='5' fill='#0f2240' stroke='#38bdf8' stroke-width='1'/>
+  <text x='115' y='232' font-family='monospace' font-size='10' fill='#38bdf8' text-anchor='middle' font-weight='bold'>ISO 50001</text>
+  <text x='115' y='248' font-family='monospace' font-size='9' fill='#c8d8ea' text-anchor='middle'>PDCA cycle</text>
+  <text x='50' y='268' font-family='monospace' font-size='9' fill='#2a4060'>Plan → Do → Check → Act</text>
+  <text x='50' y='284' font-family='monospace' font-size='9' fill='#4ade80'>Continual improvement</text>
+
+  <!-- Energy flow diagram (main diagram, lower half) -->
+  <rect x='30' y='310' width='490' height='170' rx='4' fill='#0d1a2e' stroke='#152540' stroke-width='1'/>
+  <text x='275' y='332' font-family='monospace' font-size='11' fill='#c8d8ea' text-anchor='middle' font-weight='bold'>ENERGY FLOW — STAINLESS STEEL PROCESS</text>
+
+  <!-- Energy streams (Sankey-style) -->
+  <!-- Electricity input -->
+  <rect x='50' y='345' width='90' height='24' rx='3' fill='#2563a8' opacity='0.8'/>
+  <text x='95' y='360' font-family='monospace' font-size='9' fill='#38bdf8' text-anchor='middle'>Electricity</text>
+  <line x1='140' y1='357' x2='172' y2='357' stroke='#38bdf8' stroke-width='6' opacity='0.6'/>
+
+  <!-- Natural gas input -->
+  <rect x='50' y='380' width='90' height='24' rx='3' fill='#d06030' opacity='0.7'/>
+  <text x='95' y='395' font-family='monospace' font-size='9' fill='#f6c85f' text-anchor='middle'>Natural gas</text>
+  <line x1='140' y1='392' x2='172' y2='392' stroke='#f6c85f' stroke-width='4' opacity='0.6'/>
+
+  <!-- Central process box -->
+  <rect x='172' y='338' width='120' height='90' rx='4' fill='#0f2240' stroke='#65d6c9' stroke-width='1.5'/>
+  <text x='232' y='360' font-family='monospace' font-size='10' fill='#65d6c9' text-anchor='middle' font-weight='bold'>WIRE</text>
+  <text x='232' y='375' font-family='monospace' font-size='10' fill='#65d6c9' text-anchor='middle' font-weight='bold'>DRAWING</text>
+  <text x='232' y='392' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>+ annealing</text>
+  <text x='232' y='406' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>+ coiling</text>
+  <text x='232' y='420' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>SEU 1</text>
+
+  <!-- Output product -->
+  <line x1='292' y1='375' x2='326' y2='375' stroke='#4ade80' stroke-width='5' opacity='0.6'/>
+  <rect x='326' y='358' width='100' height='36' rx='3' fill='#0f2240' stroke='#4ade80' stroke-width='1.2'/>
+  <text x='376' y='376' font-family='monospace' font-size='9' fill='#4ade80' text-anchor='middle'>Stainless</text>
+  <text x='376' y='388' font-family='monospace' font-size='9' fill='#4ade80' text-anchor='middle'>wire product</text>
+
+  <!-- Heat losses -->
+  <line x1='232' y1='338' x2='232' y2='315' stroke='#d0622c' stroke-width='3' opacity='0.5' stroke-dasharray='4,3'/>
+  <text x='240' y='313' font-family='monospace' font-size='8' fill='#d0622c'>Q_loss</text>
+
+  <!-- Recovery opportunities -->
+  <rect x='440' y='340' width='68' height='36' rx='3' fill='#0f2240' stroke='#8f7fff' stroke-width='1'/>
+  <text x='474' y='356' font-family='monospace' font-size='8' fill='#8f7fff' text-anchor='middle'>Heat</text>
+  <text x='474' y='368' font-family='monospace' font-size='8' fill='#8f7fff' text-anchor='middle'>recovery</text>
+  <line x1='426' y1='357' x2='438' y2='357' stroke='#8f7fff' stroke-width='1.5'/>
+  <text x='474' y='400' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>−12% SEC</text>
+
+  <!-- Right panel: SEC trend + before/after -->
+  <rect x='540' y='212' width='400' height='268' rx='4' fill='#0d1a2e'/>
+  <text x='740' y='234' font-family='monospace' font-size='11' fill='#c8d8ea' text-anchor='middle' font-weight='bold'>SPECIFIC ENERGY CONSUMPTION TREND</text>
+
+  <!-- SEC chart axes -->
+  <line x1='570' y1='248' x2='570' y2='400' stroke='#2a4060' stroke-width='1'/>
+  <line x1='570' y1='400' x2='920' y2='400' stroke='#2a4060' stroke-width='1'/>
+
+  <!-- SEC Y labels (kWh/t) -->
+  <text x='564' y='404' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='end'>200</text>
+  <text x='564' y='354' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='end'>250</text>
+  <text x='564' y='304' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='end'>300</text>
+  <text x='564' y='254' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='end'>350</text>
+
+  <!-- Grid -->
+  <line x1='570' y1='354' x2='920' y2='354' stroke='#152540' stroke-width='0.5'/>
+  <line x1='570' y1='304' x2='920' y2='304' stroke='#152540' stroke-width='0.5'/>
+  <line x1='570' y1='254' x2='920' y2='254' stroke='#152540' stroke-width='0.5'/>
+
+  <!-- X labels (years) -->
+  <!-- x(yr) = 570 + (yr-2020)*(350/4) = 570 + (yr-2020)*87.5 -->
+  <text x='570' y='414' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>2020</text>
+  <text x='657' y='414' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>2021</text>
+  <text x='745' y='414' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>2022</text>
+  <text x='832' y='414' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>2023</text>
+  <text x='920' y='414' font-family='monospace' font-size='8' fill='#2a4060' text-anchor='middle'>2024</text>
+
+  <!-- SEC curve (decreasing trend after measures) -->
+  <!-- SEC(kWh/t): 320, 315, 305, 280, 262 mapped to y = 400-(SEC-200)*2 = 400-SEC*2+400 = 800-SEC*2 -->
+  <!-- y(320)=160 too high... range 200-350, 150 units over 150px = 1px/unit -->
+  <!-- y(SEC) = 400 - (SEC-200)*1 = 200 + (350-SEC) → y=200+30=230 for 320 ... let me just use values -->
+  <!-- Scale: y(SEC) = 400 - (SEC-200)*1.5 (200→400, 350→175) -->
+  <!-- y(320)=400-120*1.5=220, y(315)=247, y(305)=257... wait let me recalc -->
+  <!-- Actual: y(SEC) = 400 - (SEC - 200) * (150/150) = 400 - (SEC-200) -->
+  <!-- y(200)=400, y(350)=250, y(320)=280, y(315)=285, y(305)=295, y(280)=320, y(262)=338 -->
+  <polyline points='570,280 657,285 745,295 832,320 920,338'
+            fill='none' stroke='#f6c85f' stroke-width='2.5'/>
+
+  <!-- Baseline reference line -->
+  <line x1='570' y1='280' x2='920' y2='280' stroke='#d0622c' stroke-width='1' stroke-dasharray='5,4' opacity='0.6'/>
+  <text x='570' y='276' font-family='monospace' font-size='8' fill='#d0622c'>Baseline 320 kWh/t</text>
+
+  <!-- Improvement annotation -->
+  <line x1='920' y1='280' x2='920' y2='338' stroke='#4ade80' stroke-width='1.5'/>
+  <polygon points='916,284 920,276 924,284' fill='#4ade80'/>
+  <polygon points='916,334 920,342 924,334' fill='#4ade80'/>
+  <text x='922' y='315' font-family='monospace' font-size='9' fill='#4ade80'>−18%</text>
+  <text x='922' y='327' font-family='monospace' font-size='8' fill='#4ade80'>SEC</text>
+
+  <!-- Summary metrics -->
+  <rect x='568' y='430' width='334' height='42' rx='3' fill='#0f2240' stroke='#4ade80' stroke-width='1'/>
+  <text x='735' y='448' font-family='monospace' font-size='9' fill='#4ade80' text-anchor='middle'>Saving: ~1 200 MWh/yr · CO₂ reduction: ~240 tCO₂/yr</text>
+  <text x='735' y='464' font-family='monospace' font-size='9' fill='#2a4060' text-anchor='middle'>Top measure: heat recovery on annealing furnace exhaust</text>
+
+  <!-- Bottom tag strip -->
+  <rect x='24' y='490' width='912' height='34' rx='5' fill='#0d1a2e'/>
+  <text x='44' y='512' font-family='monospace' font-size='11' fill='#2a4060'>EnPI · ISO 50001 · SEC · Energy mapping · EED Art. 8 · Python · Industrial energy management</text>
 </svg>

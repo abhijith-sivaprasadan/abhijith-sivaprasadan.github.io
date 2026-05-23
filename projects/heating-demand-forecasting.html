@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="../styles.css" />
-  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script src="../scripts/site.js?v=20260523-energy-track" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
@@ -24,6 +24,9 @@
     <nav class="nav container">
       <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
       <div class="nav-links">
+        <a href="../research.html">Research</a>
+        <a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a>
         <a href="../index.html#projects">Featured</a>
         <a href="../projects.html">Projects</a>
         <a href="../experience.html">Experience</a>
@@ -43,6 +46,78 @@
         <h1>Day-Ahead Heating Demand Forecasting for a University Building</h1>
         <p class="hero-text">Comparison of logistic regression, shallow neural network (SNN) and deep neural network (DNN) for day-ahead space heating forecast of the KTH U-Building in Stockholm, using hourly weather and temporal features with Mahalanobis-based outlier filtering and systematic hyperparameter search.</p>
         <img class="case-visual" src="../assets/thumb-heating-forecast.svg" alt="Heating demand forecasting model visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section project-evidence-dashboard">
+      <div class="container">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Evidence dashboard</p>
+          <h2>Forecasting model choice as an engineering trade-off.</h2>
+        </div>
+        <div class="evidence-tabs" data-evidence-tabs>
+          <div class="evidence-tab-row" role="tablist" aria-label="Heating forecast evidence">
+            <button class="evidence-tab-button is-active" type="button" data-evidence-tab="question" aria-pressed="true">Question</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="method" aria-pressed="false">Method</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="results" aria-pressed="false">Results</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="limits" aria-pressed="false">Limits</button>
+          </div>
+          <article class="evidence-panel" data-evidence-panel="question">
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Technical question</h3>
+                <p>For day-ahead heating demand in a university building, is a deeper neural network worth the extra training time compared with a shallow network or logistic baseline?</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>4,992</strong><small>cleaned rows</small></span>
+                <span><strong>8</strong><small>features</small></span>
+                <span><strong>3</strong><small>model classes</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="method" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Method</h3>
+                <p>The pipeline filtered sensor faults, removed multivariate outliers using Mahalanobis distance, normalised features and compared logistic regression, SNN and DNN architectures under the same train-test structure and hyperparameter search logic.</p>
+              </div>
+              <div class="method-flow">
+                <span>Sensor data</span>
+                <span>Outlier filtering</span>
+                <span>Model search</span>
+                <span>Accuracy/runtime trade-off</span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="results" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Result</h3>
+                <p>The DNN reached the highest test accuracy, but only by 0.33 percentage points over the SNN while taking roughly ten times longer to train and showing weaker validation behaviour.</p>
+              </div>
+              <div class="evidence-chart-shell">
+                <canvas data-evidence-chart="forecast-accuracy-project" width="640" height="320" aria-label="Forecast accuracy comparison chart"></canvas>
+                <p class="chart-fallback">Test accuracy: logistic regression 92.03%, SNN 93.39%, DNN 93.72%.</p>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="limits" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Limitations and relevance</h3>
+                <p>All models underpredicted rare heating peaks because MAE rewards mid-range accuracy. For deployment, the SNN is the stronger decision-support choice at this data scale; future work should use peak-sensitive metrics and more heating-season data.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>0.33 pp</strong><small>DNN over SNN</small></span>
+                <span><strong>10x</strong><small>DNN runtime</small></span>
+                <span><strong>Peaks</strong><small>main weakness</small></span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <script type="application/json" data-evidence-chart-data="forecast-accuracy-project">
+          {"title":"Forecast test accuracy","unit":"%","series":[{"label":"Logistic","value":92.03},{"label":"SNN","value":93.39},{"label":"DNN","value":93.72}]}
+        </script>
       </div>
     </section>
 

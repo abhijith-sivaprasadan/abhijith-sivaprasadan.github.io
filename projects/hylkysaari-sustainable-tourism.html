@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="../styles.css" />
-  <script src="../scripts/site.js?v=20260505-data-v4" defer></script>
+  <script src="../scripts/site.js?v=20260523-energy-track" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
@@ -24,6 +24,9 @@
     <nav class="nav container">
       <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
       <div class="nav-links">
+        <a href="../research.html">Research</a>
+        <a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a>
         <a href="../index.html#projects">Featured</a>
         <a href="../projects.html">Projects</a>
         <a href="../experience.html">Experience</a>
@@ -43,6 +46,78 @@
         <h1>Hylkysaari Island &ndash; Smart and Sustainable Tourism Energy Design</h1>
         <p class="hero-text">Techno-economic scenario modelling for a sustainable tourist resort on Hylkysaari Island near Helsinki, using IDA ICE building simulation, HOMER PRO microgrid optimisation and Excel economic analysis, in collaboration with Valo Finland.</p>
         <img class="case-visual" src="../assets/thumb-hylkysaari-energy-island.svg" alt="Hylkysaari sustainable island energy design visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section project-evidence-dashboard">
+      <div class="container">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Evidence dashboard</p>
+          <h2>Island resort design through building, microgrid and economic models.</h2>
+        </div>
+        <div class="evidence-tabs" data-evidence-tabs>
+          <div class="evidence-tab-row" role="tablist" aria-label="Hylkysaari evidence">
+            <button class="evidence-tab-button is-active" type="button" data-evidence-tab="question" aria-pressed="true">Question</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="method" aria-pressed="false">Method</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="results" aria-pressed="false">Results</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="limits" aria-pressed="false">Limits</button>
+          </div>
+          <article class="evidence-panel" data-evidence-panel="question">
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Technical question</h3>
+                <p>Which sustainability pathway gives Hylkysaari the best balance between energy demand reduction, renewable supply, waste-heat recovery and economic viability under Finnish island constraints?</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>IDA ICE</strong><small>building loads</small></span>
+                <span><strong>HOMER</strong><small>microgrid</small></span>
+                <span><strong>Excel</strong><small>NPV/BCR/DPP</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="method" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Method</h3>
+                <p>IDA ICE generated building energy demand for each scenario, HOMER Pro optimised the island energy system and spreadsheet economics evaluated waste-heat recovery, NPV, benefit-cost ratio and discounted payback.</p>
+              </div>
+              <div class="method-flow">
+                <span>Scenario envelope</span>
+                <span>Hourly loads</span>
+                <span>Microgrid sizing</span>
+                <span>Economic screen</span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="results" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Result</h3>
+                <p>The strongest recommendation was a hybrid: retain the PV-heavy Scenario 1 economics while taking deeper insulation and expanded waste-heat recovery ideas from Scenario 2.</p>
+              </div>
+              <div class="evidence-chart-shell">
+                <canvas data-evidence-chart="hylkysaari-thermal-project" width="640" height="320" aria-label="Hylkysaari annual thermal demand chart"></canvas>
+                <p class="chart-fallback">Annual thermal demand: BAU 939.17 MWhth, Scenario 1 659.22 MWhth, Scenario 2 345.86 MWhth.</p>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="limits" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Limitations and relevance</h3>
+                <p>Solar thermal economics are sensitive to collector cost, climate assumptions and operating schedules. The project is valuable as a coupled modelling exercise: building demand, local generation, waste heat and investment logic are compared in one decision frame.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>6.5 yr</strong><small>S1 payback</small></span>
+                <span><strong>20 yr</strong><small>S2 payback</small></span>
+                <span><strong>167 MWh</strong><small>waste heat</small></span>
+              </div>
+            </div>
+          </article>
+        </div>
+        <script type="application/json" data-evidence-chart-data="hylkysaari-thermal-project">
+          {"title":"Annual thermal demand by scenario","unit":"MWhth/year","series":[{"label":"BAU","value":939.17},{"label":"Scenario 1","value":659.22},{"label":"Scenario 2","value":345.86}]}
+        </script>
       </div>
     </section>
 
@@ -80,7 +155,7 @@
             <li><strong>KPI 3 &ndash; Nearly full waste heat recovery:</strong> recover and recirculate waste heat from saunas, laundry and kitchen. Measured in MWh/year and % of thermal demand.</li>
           </ul>
 
-          <h2>What I did</h2>
+          <h2>Engineering contribution</h2>
           <ul>
             <li>Designed the &ldquo;Hylkysaari Vihre&auml; Program&rdquo; business model, covering the real-time energy dashboard, carbon offset scheme, value proposition, revenue streams and cost structure.</li>
             <li>Contributed to IDA ICE building energy modelling across all buildings and scenarios, including 3D building construction, parameter changes and simulation runs.</li>

@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
   <script src="scripts/public-config.js?v=20260504-data-v7" defer></script>
-  <script src="scripts/site.js?v=20260505-data-v4" defer></script>
+  <script src="scripts/site.js?v=20260523-energy-track" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body data-page-key="projects">
@@ -26,6 +26,7 @@
       <a href="index.html" class="logo">Abhijith Sivaprasadan</a>
       <div class="nav-links">
         <a href="research.html">Research</a>
+        <a href="energy-systems.html">Energy Systems</a>
         <a href="industrial-rd.html">Industrial R&amp;D</a>
         <a href="index.html#projects">Featured</a>
         <a href="projects.html" aria-current="page">Projects</a>
@@ -58,9 +59,9 @@
           <p class="eyebrow page-summary-note">Suggested starting points</p>
           <ul class="clean-list path-links">
             <li><a href="research.html">Research statement and PhD direction</a></li>
+            <li><a href="energy-systems.html">Energy Systems Modelling track</a></li>
             <li><a href="industrial-rd.html">Industrial decarbonization and electrification R&amp;D</a></li>
             <li><a href="projects/siemens-thesis.html">High-temperature thesis case study</a></li>
-            <li><a href="projects/pypsa-nl-grid-flexibility.html">Grid modelling and BESS</a></li>
             <li><a href="projects/alleima-energy-efficiency.html">Industrial decarbonisation</a></li>
             <li><a href="projects/heating-demand-forecasting.html">Heating forecast machine learning</a></li>
             <li><a href="projects/mtes-pcm-thermal-lab.html">Thermal lab and storage experiments</a></li>
@@ -114,40 +115,6 @@
                 <div class="project-links">
                   <a href="projects/siemens-thesis.html">Case study</a>
                   <a href="experience/siemens-energy.html">Experience</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-energy is-featured" data-project-id="pypsa-nl-grid-flexibility">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Grid modelling</span>
-                <h3><a class="title-link" href="projects/pypsa-nl-grid-flexibility.html">PyPSA-NL Grid Congestion, BESS &amp; Flexible Connection Platform</a></h3>
-                <p>Netherlands-inspired constrained-grid workflow comparing renewable growth, bottlenecks, BESS siting, flexible connection contracts and targeted reinforcement.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>PyPSA / HiGHS / Streamlit</span>
-                <span>Featured</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/thumb-pypsa-grid.svg" alt="PyPSA-NL grid congestion and BESS visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>PyPSA</span><span>BESS</span><span>Grid congestion</span><span>Streamlit</span><span>Linopy</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>8/8 checks passed</strong><small>Model validation and consistency tests</small></span>
-                  <span class="result-metric-card"><strong>10 scenarios compared</strong><small>Congestion, BESS and connection variants</small></span>
-                  <span class="result-metric-card"><strong>400 MW / 4 h option</strong><small>Latest top BESS candidate in Groningen</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Hourly PyPSA/Linopy/HiGHS dispatch model with constrained regional corridors and congestion diagnostics.</li>
-                  <li>BESS siting and sizing sweep across candidate regions, MW ratings and storage durations.</li>
-                  <li>Streamlit dashboard with scenario KPIs, bottleneck maps, validation checks and automated reports.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/pypsa-nl-grid-flexibility.html">Case study</a>
-                  <a href="https://github.com/abhijith-sivaprasadan/pypsa-nl-grid-flexibility" target="_blank" rel="noreferrer">GitHub</a>
                 </div>
               </div>
             </div>
