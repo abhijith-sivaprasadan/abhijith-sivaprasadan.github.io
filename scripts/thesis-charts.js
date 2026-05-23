@@ -16,6 +16,9 @@
     bar: "bar"
   };
 
+  var chartRenderState = {};
+  var chartTooltip = null;
+
   var chartDefinitions = {
     meshPressure: {
       canvasId: "meshPressureChart",
@@ -237,6 +240,24 @@
     return value.toFixed(3);
   }
 
+  function escapeText(value) {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
+
+  function formatTooltipValue(value) {
+    if (!Number.isFinite(value)) return "n/a";
+    if (Math.abs(value) >= 1000) return Math.round(value).toLocaleString("en-US");
+    if (Math.abs(value) >= 100) return value.toFixed(1);
+    if (Math.abs(value) >= 10) return value.toFixed(2);
+    if (Math.abs(value) >= 1) return value.toFixed(3);
+    return value.toPrecision(3);
+  }
+
   function range(values, logScale, fallbackRange) {
     var fallback = Array.isArray(fallbackRange) && fallbackRange.length === 2 ? fallbackRange : [0, 1];
     var nums = values.filter(function (value) { return value !== null && Number.isFinite(value); });
@@ -323,8 +344,11 @@
   }
 
   function drawSeries(ctx, dataset, points, yRange, chart, plot) {
-    ctx.strokeStyle = color(dataset.color);
-    ctx.fillStyle = color(dataset.color);
+    var strokeColor = color(dataset.color);
+    var pointColor = Array.isArray(strokeColor) ? strokeColor[0] : strokeColor;
+    var hits = [];
+    ctx.strokeStyle = pointColor;
+    ctx.fillStyle = pointColor;
     ctx.lineWidth = 2.5;
     if (dataset.dash) ctx.setLineDash([7, 5]);
     ctx.beginPath();
@@ -337,6 +361,17 @@
       var yValue = chart.log ? Math.log10(point.y) : point.y;
       var x = scale(point.x, chart.xRange, plot.left, plot.right);
       var y = scale(yValue, yRange, plot.bottom, plot.top);
+      hits.push({
+        type: "point",
+        x: x,
+        y: y,
+        dataset: dataset.label,
+        xValue: point.x,
+        xLabel: chart.type === axis.line ? String((chart.labels || [])[point.x] || point.x) : formatTooltipValue(point.x),
+        yValue: point.y,
+        yLabel: chart.yLabel || "Value",
+        color: pointColor
+      });
       if (!started) {
         ctx.moveTo(x, y);
         started = true;
@@ -346,6 +381,16 @@
     });
     ctx.stroke();
     ctx.setLineDash([]);
+    hits.forEach(function (hit) {
+      ctx.beginPath();
+      ctx.fillStyle = pointColor;
+      ctx.arc(hit.x, hit.y, 3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(7,8,7,0.82)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+    return hits;
   }
 
   function valuesFor(chart) {
@@ -371,6 +416,7 @@
   function drawLineLike(chart, prepared) {
     var ctx = prepared.ctx;
     var plot = prepared.plot;
+    var hits = [];
     chart.xRange = range(xValuesFor(chart), false, [0, 1]);
     var yRange = range(valuesFor(chart), chart.log, chart.log ? [-8, 4] : [0, 1]);
     drawAxes(ctx, plot, prepared.width, prepared.height, yRange, chart);
@@ -383,14 +429,16 @@
       var points = chart.type === axis.scatter
         ? dataset.x.map(function (x, index) { return { x: x, y: dataset.y[index] }; })
         : dataset.data.map(function (y, index) { return { x: index, y: y }; });
-      drawSeries(ctx, dataset, points, yRange, chart, plot);
+      hits = hits.concat(drawSeries(ctx, dataset, points, yRange, chart, plot));
     });
     drawLegend(ctx, chart.datasets, plot);
+    chartRenderState[chart.canvasId] = { chart: chart, hits: hits };
   }
 
   function drawBar(chart, prepared) {
     var ctx = prepared.ctx;
     var plot = prepared.plot;
+    var hits = [];
     var yRange = range(valuesFor(chart).concat([0]), false, [0, 1]);
     drawAxes(ctx, plot, prepared.width, prepared.height, yRange, chart);
 
@@ -406,12 +454,26 @@
         var x = center - (barWidth * chart.datasets.length) / 2 + datasetIndex * barWidth;
         var yZero = scale(0, yRange, plot.bottom, plot.top);
         var y = scale(value, yRange, plot.bottom, plot.top);
+        var barHeight = Math.max(2, Math.abs(yZero - y));
         var fill = color(dataset.color);
         ctx.fillStyle = Array.isArray(fill) ? fill[labelIndex] : fill;
-        ctx.fillRect(x, Math.min(y, yZero), Math.max(2, barWidth - 3), Math.abs(yZero - y));
+        ctx.fillRect(x, Math.min(y, yZero), Math.max(2, barWidth - 3), barHeight);
+        hits.push({
+          type: "bar",
+          x: x,
+          y: Math.min(y, yZero),
+          width: Math.max(2, barWidth - 3),
+          height: barHeight,
+          dataset: dataset.label,
+          xLabel: String(label),
+          yValue: value,
+          yLabel: chart.yLabel || "Value",
+          color: Array.isArray(fill) ? fill[labelIndex] : fill
+        });
       });
     });
     drawLegend(ctx, chart.datasets, plot);
+    chartRenderState[chart.canvasId] = { chart: chart, hits: hits };
   }
 
   function ensureFallback(canvas, chart) {
@@ -447,6 +509,76 @@
     colors.muted = cssVar("--muted", colors.muted);
     Object.keys(chartDefinitions).forEach(function (key) {
       renderChart(chartDefinitions[key]);
+    });
+  }
+
+  function getTooltip() {
+    if (chartTooltip) return chartTooltip;
+    chartTooltip = document.createElement("div");
+    chartTooltip.className = "chart-tooltip";
+    chartTooltip.setAttribute("role", "status");
+    chartTooltip.setAttribute("aria-live", "polite");
+    document.body.appendChild(chartTooltip);
+    return chartTooltip;
+  }
+
+  function hideTooltip() {
+    if (chartTooltip) chartTooltip.classList.remove("is-visible");
+  }
+
+  function nearestHit(state, x, y) {
+    var best = null;
+    var bestDistance = Infinity;
+    (state.hits || []).forEach(function (hit) {
+      if (hit.type === "bar") {
+        var inside = x >= hit.x && x <= hit.x + hit.width && y >= hit.y && y <= hit.y + hit.height;
+        if (inside) {
+          best = hit;
+          bestDistance = 0;
+        }
+        return;
+      }
+      var distance = Math.hypot(hit.x - x, hit.y - y);
+      if (distance < bestDistance && distance <= 18) {
+        best = hit;
+        bestDistance = distance;
+      }
+    });
+    return best;
+  }
+
+  function showTooltip(event, hit) {
+    var tooltip = getTooltip();
+    tooltip.innerHTML = [
+      "<strong>" + escapeText(hit.dataset) + "</strong>",
+      "<span>" + escapeText(hit.xLabel) + "</span>",
+      "<span>" + escapeText(hit.yLabel) + ": " + escapeText(formatTooltipValue(hit.yValue)) + "</span>"
+    ].join("");
+    tooltip.classList.add("is-visible");
+    var x = event.clientX + 14;
+    var y = event.clientY + 14;
+    var rect = tooltip.getBoundingClientRect();
+    if (x + rect.width > window.innerWidth - 12) x = event.clientX - rect.width - 14;
+    if (y + rect.height > window.innerHeight - 12) y = event.clientY - rect.height - 14;
+    tooltip.style.left = Math.max(12, x) + "px";
+    tooltip.style.top = Math.max(12, y) + "px";
+  }
+
+  function initChartTooltips() {
+    var canvases = Array.prototype.slice.call(document.querySelectorAll(".chart-shell canvas"));
+    canvases.forEach(function (canvas) {
+      if (canvas.dataset.tooltipReady === "true") return;
+      canvas.dataset.tooltipReady = "true";
+      canvas.addEventListener("mousemove", function (event) {
+        var state = chartRenderState[canvas.id];
+        if (!state) return hideTooltip();
+        var rect = canvas.getBoundingClientRect();
+        var hit = nearestHit(state, event.clientX - rect.left, event.clientY - rect.top);
+        if (!hit) return hideTooltip();
+        showTooltip(event, hit);
+      });
+      canvas.addEventListener("mouseleave", hideTooltip);
+      canvas.addEventListener("blur", hideTooltip);
     });
   }
 
@@ -577,6 +709,7 @@
       initEvidenceFilters();
       initEvidenceDensity();
       initChartFocus();
+      initChartTooltips();
       initMediaDialog();
       document.documentElement.classList.add("charts-ready");
     } catch (error) {
