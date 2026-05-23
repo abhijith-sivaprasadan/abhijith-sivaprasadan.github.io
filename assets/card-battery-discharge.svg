@@ -1,0 +1,44 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270' role='img' aria-label='Battery Cell Discharge Lab MJ2386 Ni-MH Li-Po lead-acid chemistry comparison'>
+  <defs>
+    <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0' stop-color='#0b1220'/><stop offset='1' stop-color='#070c16'/>
+    </linearGradient>
+  </defs>
+  <rect width='480' height='270' fill='url(#bg)'/>
+
+  <!-- Axes -->
+  <line x1='50' y1='30' x2='50' y2='210' stroke='#2a4060' stroke-width='1.5'/>
+  <line x1='50' y1='210' x2='440' y2='210' stroke='#2a4060' stroke-width='1.5'/>
+  <!-- Y-axis label -->
+  <text x='14' y='130' font-family='monospace' font-size='10' fill='#2a4060' transform='rotate(-90,14,130)'>Voltage (V)</text>
+  <!-- X-axis label -->
+  <text x='220' y='228' font-family='monospace' font-size='10' fill='#2a4060' text-anchor='middle'>Capacity discharged →</text>
+
+  <!-- Grid -->
+  <g stroke='#1a2840' stroke-width='0.8'>
+    <line x1='50' y1='70' x2='440' y2='70'/>
+    <line x1='50' y1='110' x2='440' y2='110'/>
+    <line x1='50' y1='150' x2='440' y2='150'/>
+    <line x1='160' y1='30' x2='160' y2='210'/>
+    <line x1='270' y1='30' x2='270' y2='210'/>
+    <line x1='380' y1='30' x2='380' y2='210'/>
+  </g>
+
+  <!-- Li-Po curve (cyan) - flat then steep drop -->
+  <path d='M60 80 C130 78 220 79 320 82 C370 84 400 95 430 160' fill='none' stroke='#38bdf8' stroke-width='2.5'/>
+  <!-- Ni-MH curve (amber) - gradual slope -->
+  <path d='M60 100 C140 104 230 112 310 128 C360 140 400 160 430 190' fill='none' stroke='#f6c85f' stroke-width='2.5'/>
+  <!-- Lead-acid curve (muted green) - steeper initial, plateau, drop -->
+  <path d='M60 120 C100 118 170 122 250 130 C310 136 370 155 430 195' fill='none' stroke='#4ade80' stroke-width='2.5' stroke-dasharray='6,3'/>
+
+  <!-- Legend -->
+  <line x1='60' y1='240' x2='90' y2='240' stroke='#38bdf8' stroke-width='2'/>
+  <text x='94' y='244' font-family='monospace' font-size='10' fill='#c8d8ea'>Li-Po</text>
+  <line x1='150' y1='240' x2='180' y2='240' stroke='#f6c85f' stroke-width='2'/>
+  <text x='184' y='244' font-family='monospace' font-size='10' fill='#c8d8ea'>Ni-MH</text>
+  <line x1='246' y1='240' x2='276' y2='240' stroke='#4ade80' stroke-width='2' stroke-dasharray='5,3'/>
+  <text x='280' y='244' font-family='monospace' font-size='10' fill='#c8d8ea'>Lead-acid</text>
+
+  <!-- Title -->
+  <text x='60' y='22' font-family='monospace' font-size='12' fill='#65d6c9' font-weight='bold'>MJ2386 · Battery Discharge Lab</text>
+</svg>

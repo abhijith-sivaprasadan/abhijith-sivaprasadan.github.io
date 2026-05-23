@@ -1,0 +1,59 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 270' role='img' aria-label='Built Environment Energy Simulation IDA ICE building load supply system comparison'>
+  <defs>
+    <linearGradient id='bg' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0' stop-color='#0b1220'/><stop offset='1' stop-color='#070c16'/>
+    </linearGradient>
+    <linearGradient id='wallgrad' x1='0' y1='0' x2='0' y2='1'>
+      <stop offset='0' stop-color='#1a3050'/><stop offset='1' stop-color='#0d1f35'/>
+    </linearGradient>
+  </defs>
+  <rect width='480' height='270' fill='url(#bg)'/>
+
+  <!-- Building cross-section (simple) -->
+  <!-- Roof -->
+  <polygon points='100,80 200,40 300,80' fill='#0d1f35' stroke='#2a4060' stroke-width='1.5'/>
+  <!-- Wall -->
+  <rect x='100' y='80' width='200' height='110' fill='url(#wallgrad)' stroke='#2a4060' stroke-width='1.5'/>
+  <!-- Window -->
+  <rect x='130' y='100' width='50' height='40' rx='2' fill='#1a4060' stroke='#38bdf8' stroke-width='1'/>
+  <line x1='155' y1='100' x2='155' y2='140' stroke='#38bdf8' stroke-width='0.8'/>
+  <line x1='130' y1='120' x2='180' y2='120' stroke='#38bdf8' stroke-width='0.8'/>
+  <!-- Door -->
+  <rect x='210' y='130' width='45' height='60' rx='2' fill='#0d1f35' stroke='#2a4060' stroke-width='1'/>
+  <circle cx='248' cy='162' r='3' fill='#f6c85f'/>
+  <!-- Ground -->
+  <line x1='80' y1='190' x2='340' y2='190' stroke='#2a4060' stroke-width='1.5'/>
+
+  <!-- Energy flow arrows -->
+  <!-- Solar gain in -->
+  <path d='M360 55 L310 90' stroke='#f6c85f' stroke-width='2' marker-end='url(#arrw)'/>
+  <text x='364' y='50' font-family='monospace' font-size='9' fill='#f6c85f'>Solar</text>
+  <!-- Heat out (loss) -->
+  <path d='M300 120 L350 120' stroke='#d0622c' stroke-width='1.5' stroke-dasharray='4,2' marker-end='url(#arro)'/>
+  <text x='354' y='124' font-family='monospace' font-size='9' fill='#d0622c'>Heat loss</text>
+  <!-- Supply in -->
+  <path d='M60 160 L98 160' stroke='#4ade80' stroke-width='2' marker-end='url(#arrg)'/>
+  <text x='20' y='155' font-family='monospace' font-size='9' fill='#4ade80'>Supply</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id='arrw' markerWidth='6' markerHeight='5' refX='5' refY='2.5' orient='auto'>
+      <path d='M0,0 L0,5 L6,2.5 z' fill='#f6c85f'/>
+    </marker>
+    <marker id='arro' markerWidth='6' markerHeight='5' refX='5' refY='2.5' orient='auto'>
+      <path d='M0,0 L0,5 L6,2.5 z' fill='#d0622c'/>
+    </marker>
+    <marker id='arrg' markerWidth='6' markerHeight='5' refX='5' refY='2.5' orient='auto'>
+      <path d='M0,0 L0,5 L6,2.5 z' fill='#4ade80'/>
+    </marker>
+  </defs>
+
+  <!-- IDA ICE badge -->
+  <rect x='346' y='180' width='104' height='28' rx='4' fill='#1a2840'/>
+  <text x='398' y='198' font-family='monospace' font-size='11' fill='#38bdf8' text-anchor='middle' font-weight='bold'>IDA ICE</text>
+
+  <!-- Title -->
+  <text x='24' y='230' font-family='monospace' font-size='12' fill='#4ade80' font-weight='bold'>MJ2509 · Built Environment Simulation</text>
+  <text x='24' y='246' font-family='monospace' font-size='10' fill='#2a4060'>Building load · supply-system comparison · energy certification</text>
+  <text x='24' y='262' font-family='monospace' font-size='10' fill='#2a4060'>Heat pump · solar integration · district energy</text>
+</svg>

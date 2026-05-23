@@ -42,7 +42,7 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260523-energy-track" defer></script>
+  <script src="scripts/site.js?v=20260524-dynamic-features" defer></script>
   <script src="scripts/hero-particles.js?v=20260523-energy-track" defer></script>
   <script src="scripts/animations.js?v=20260522" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
@@ -62,7 +62,7 @@
         <a href="projects/siemens-thesis.html">Siemens</a>
         <a href="projects.html">Projects</a>
         <a href="experience.html">Experience</a>
-        <a href="#cv">CV</a>
+        <a href="#cv">CVs</a>
         <a href="#contact">Contact</a>
       </div>
     </nav>
@@ -73,7 +73,10 @@
       <div class="signal-grid-bg" aria-hidden="true"></div>
       <div class="container signal-hero-inner">
         <div class="signal-identity">
-          <img class="avatar" src="assets/headshot.jpg" alt="Abhijith Sivaprasadan" width="124" height="124" />
+          <picture>
+            <source srcset="assets/headshot.webp" type="image/webp" />
+            <img class="avatar" src="assets/headshot.jpg" alt="Abhijith Sivaprasadan" width="124" height="124" />
+          </picture>
           <div>
             <p class="eyebrow" data-editable="hero-eyebrow"><span data-typed-cycle="Siemens Energy Finspång / CFD / CHT / Test validation||High-temperature flow / Conjugate heat transfer / Instrumentation||Energy process modelling / Python / MATLAB / Techno-economic analysis||Compressible flow / k-omega SST / Mesh independence / Biot analysis">Siemens Energy Finspång / CFD / CHT / Test validation</span></p>
             <p class="hero-kicker">M.Sc. Sustainable Energy Engineering &middot; KTH 2026</p>
@@ -111,6 +114,11 @@
           <a class="button secondary" href="downloads/Abhijith_CV_PhD_Academic.pdf" download data-home-mode-target="research" data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20PhD%20Research" hidden>Download Research CV</a>
           <a class="button secondary" href="downloads/Abhijith_CV_EnergyCoordinator.pdf" download data-home-mode-target="energy decarbonisation" data-cv-link data-fallback-label="Request via email" data-fallback-href="mailto:abhijithsivaprasadan@gmail.com?subject=CV%20Request%20-%20Energy%20Systems%20%2F%20R%26D" hidden>Download Energy / R&amp;D CV</a>
           <a class="button secondary" href="#contact">Contact</a>
+        </div>
+
+        <div class="recruiter-mode-bar">
+          <button type="button" class="recruiter-toggle" data-recruiter-toggle aria-pressed="false">Quick scan</button>
+          <span class="recruiter-mode-hint">Condenses the page to top-level signals — for fast first reads.</span>
         </div>
 
         <div class="signal-rail" aria-label="Siemens thesis engineering signals">
@@ -280,14 +288,19 @@
         </div>
         <aside class="role-signal" aria-label="Role fit visual">
           <p class="eyebrow">Strength signal</p>
-          <h3><a class="title-link" href="projects/siemens-thesis.html">A thermal-fluid anchor, expanded into energy systems, decarbonisation and research.</a></h3>
+          <h3><a class="title-link" href="projects/siemens-thesis.html">A thermal-fluid anchor, extended into research, energy systems and decarbonisation.</a></h3>
           <div class="role-signal-bars">
             <span style="--level: 97%"><strong>Thermal and fluid engineering</strong></span>
+            <span style="--level: 94%"><strong>Research formation</strong></span>
             <span style="--level: 91%"><strong>Energy systems modelling</strong></span>
             <span style="--level: 90%"><strong>Industrial energy and decarbonisation</strong></span>
-            <span style="--level: 94%"><strong>Research</strong></span>
           </div>
-          <p>The Siemens thesis supplies the highest-resolution technical evidence. The other tracks show how that same engineering discipline carries into modelling, industrial decarbonisation and research-facing work.</p>
+          <ul class="signal-evidence-list">
+            <li><strong>Thermal &amp; fluid:</strong> Compressible CFD/CHT, k-omega SST, three-level mesh independence, Biot number analysis (Bi&nbsp;0.003&ndash;0.004), NI-DAQ commissioning and LabVIEW modification at 673&nbsp;K inlet &mdash; <a href="projects/siemens-thesis.html">Siemens Energy thesis</a> &middot; <a href="projects/numerical-heat-transfer.html">Numerical heat transfer</a></li>
+            <li><strong>Research:</strong> TRITA-ITM-EX&nbsp;2026:14 bridges simulation assumptions and physical hardware behaviour. Grade A in MJ2515. Interests in conjugate heat transfer, thermal resistance, surface-condition effects and experimental-numerical validation &mdash; <a href="research.html">Research statement</a></li>
+            <li><strong>Energy systems:</strong> IDA&nbsp;ICE, HOMER&nbsp;Pro, SAM, LEAP, Python/PuLP MILP, scikit-learn forecasting and distribution-grid studies across buildings, district heating, island energy and renewable integration &mdash; <a href="energy-systems.html">Energy systems track</a></li>
+            <li><strong>Industrial R&amp;D:</strong> ISO&nbsp;50001/EED-aligned energy performance mapping for Alleima AB, including KPI/EnPI design, load-driver regression, metering-readiness assessment and decision-support tooling &mdash; <a href="industrial-rd.html">Industrial R&amp;D fit</a></li>
+          </ul>
         </aside>
       </div>
     </section>
@@ -368,25 +381,25 @@
         </div>
         <div class="assignment-grid">
           <a class="assignment-card" href="projects/numerical-heat-transfer.html">
-            <img src="assets/thumb-numerical-heat-transfer.svg" alt="Numerical heat transfer assignment visual" loading="lazy" width="960" height="540" />
+            <img src="assets/card-numerical-heat-transfer.svg" alt="Numerical heat transfer MJ2515 Grade A finite difference methods" loading="lazy" width="480" height="270" />
             <span>MJ2515 / Grade A</span>
             <strong>Numerical Heat Transfer</strong>
             <small>Finite difference grids, Euler vs RK4, Lax-Friedrichs vs Lax-Wendroff and error behaviour.</small>
           </a>
           <a class="assignment-card" href="projects/battery-cell-discharge-lab.html">
-            <img src="assets/thumb-battery-discharge.svg" alt="Battery discharge lab assignment visual" loading="lazy" width="960" height="540" />
+            <img src="assets/card-battery-discharge.svg" alt="Battery cell discharge lab MJ2386 chemistry comparison" loading="lazy" width="480" height="270" />
             <span>MJ2386 / Lab data</span>
             <strong>Battery Cell Discharge Testing</strong>
             <small>Ni-MH, Li-Po and lead-acid discharge curves, C-rate behaviour and Peukert-style interpretation.</small>
           </a>
           <a class="assignment-card" href="projects/district-heating-optimisation.html">
-            <img src="assets/thumb-district-heating.svg" alt="District heating optimisation assignment visual" loading="lazy" width="960" height="540" />
+            <img src="assets/card-district-heating.svg" alt="District heating dispatch optimisation five scenario MILP model" loading="lazy" width="480" height="270" />
             <span>Optimisation / PuLP</span>
             <strong>District Heating Dispatch</strong>
             <small>Five scenario model covering base dispatch, storage, outages, cost and emissions objectives.</small>
           </a>
           <a class="assignment-card" href="projects/built-environment-ida-ice-simulation.html">
-            <img src="assets/thumb-built-environment.svg" alt="Built environment simulation assignment visual" loading="lazy" width="960" height="540" />
+            <img src="assets/card-built-environment.svg" alt="Built environment IDA ICE energy simulation building load comparison" loading="lazy" width="480" height="270" />
             <span>IDA ICE / Buildings</span>
             <strong>Built Environment Energy Simulation</strong>
             <small>Supply-system comparison, building load behaviour and energy-performance interpretation.</small>
@@ -906,6 +919,45 @@
       </div>
     </section>
 
+    <section id="testimonials" class="section scroll-scene" data-scene="about">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Testimonials</p>
+          <h2>Supervisor and employer perspectives</h2>
+        </div>
+        <div class="testimonials-grid">
+          <article class="testimonial-card">
+            <p class="testimonial-body testimonial-pending">
+              Supervisor reference from Prof. Jens Fridh (KTH &mdash; Siemens Energy thesis supervisor, PA-2026-1429) to be added here.
+            </p>
+            <div class="testimonial-author">
+              <strong>Prof. Jens Fridh</strong>
+              <span>Associate Professor, KTH Royal Institute of Technology &middot; Thesis supervisor</span>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <p class="testimonial-body testimonial-pending">
+              Reference from Alleima AB internship supervisor to be added here upon completion.
+            </p>
+            <div class="testimonial-author">
+              <strong>Alleima AB</strong>
+              <span>Energy Efficiency Internship Supervisor &middot; Dec 2024&ndash;Jun 2025</span>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <p class="testimonial-body testimonial-pending">
+              Reference from QBurst team lead to be added here.
+            </p>
+            <div class="testimonial-author">
+              <strong>QBurst</strong>
+              <span>Backend Engineering Team Lead &middot; Sep 2021&ndash;Jun 2023</span>
+            </div>
+          </article>
+        </div>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:16px">References available on request &mdash; replace placeholder text above with quotes once collected.</p>
+      </div>
+    </section>
+
     <section id="cv" class="section subtle scroll-scene scene-cv" data-scene="cv">
       <div class="container">
         <div class="section-heading">
@@ -914,6 +966,7 @@
           <p data-editable="cv-lead">
             The CVs are split by role so the first page foregrounds the evidence most relevant to each hiring context.
           </p>
+          <button type="button" class="button secondary print-cv-btn" onclick="window.print()" aria-label="Print or save this CV section as PDF">Print / Save as PDF</button>
         </div>
         <div class="cards three">
           <article class="card">
@@ -959,17 +1012,42 @@
 
     <section id="contact" class="section scroll-scene scene-contact" data-scene="contact">
       <div class="container contact-card">
-        <div>
+        <div class="contact-intro">
           <p class="eyebrow" data-editable="contact-eyebrow">Contact</p>
           <h2 data-editable="contact-title">Currently targeting doctoral research in high-temperature thermal-fluid systems and industrial R&amp;D roles in decarbonization and electrification in Sweden.</h2>
+          <div class="contact-links">
+            <a href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a>
+            <a href="tel:+46769692014">Sweden: +46 76 969 2014</a>
+            <a href="tel:+918129750386">India: +91 8129750386</a>
+            <a href="https://www.linkedin.com/in/abhijith-sivaprasadan/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
         </div>
-        <div class="contact-links">
-          <a href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a>
-          <a href="tel:+46769692014">Sweden: +46 76 969 2014</a>
-          <a href="tel:+918129750386">India: +91 8129750386</a>
-          <a href="https://www.linkedin.com/in/abhijith-sivaprasadan/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <a href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noreferrer">GitHub</a>
-        </div>
+        <form class="contact-form" data-contact-form novalidate>
+          <div class="contact-form-row">
+            <label>
+              <span>Name</span>
+              <input type="text" name="name" placeholder="Your name" required />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" placeholder="your@email.com" required />
+            </label>
+          </div>
+          <label>
+            <span>Subject</span>
+            <input type="text" name="subject" placeholder="Research position / collaboration / …" />
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="5" placeholder="Introduce yourself and describe your interest…" required></textarea>
+          </label>
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+          <div class="contact-form-footer">
+            <button type="submit" class="button primary">Send message</button>
+            <span class="contact-status" data-contact-status></span>
+          </div>
+        </form>
       </div>
     </section>
   </main>

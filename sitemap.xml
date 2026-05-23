@@ -1,30 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Root pages -->
-  <url><loc>https://abhijith-sivaprasadan.github.io/</loc><priority>1.0</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/research.html</loc><priority>0.95</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/industrial-rd.html</loc><priority>0.9</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects.html</loc><priority>0.9</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/experience.html</loc><priority>0.9</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/about.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/hobbies.html</loc><priority>0.6</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/interests.html</loc><priority>0.6</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/ideas.html</loc><priority>0.6</priority></url>
 
-  <!-- Project case studies -->
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects/pypsa-nl-grid-flexibility.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects/siemens-thesis.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects/alleima-energy-efficiency.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects/district-heating-optimisation.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects/distribution-grid-study.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects/heating-demand-forecasting.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects/pynexus-green-hydrogen.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects/eu-ets-exposure-calculator.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects/industrial-energy-kpi-toolkit.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/projects/rotating-machinery-vibration-minilab.html</loc><priority>0.8</priority></url>
+  <!-- Core pages -->
+  <url><loc>https://abhijith-sivaprasadan.github.io/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/research.html</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/energy-systems.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/industrial-rd.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/experience.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/about.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/courses.html</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/interests.html</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/hobbies.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/ideas.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 
-  <!-- Experience deep-dives -->
-  <url><loc>https://abhijith-sivaprasadan.github.io/experience/siemens-energy.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/experience/alleima.html</loc><priority>0.8</priority></url>
-  <url><loc>https://abhijith-sivaprasadan.github.io/experience/qburst.html</loc><priority>0.8</priority></url>
+  <!-- Experience detail pages -->
+  <url><loc>https://abhijith-sivaprasadan.github.io/experience/siemens-energy.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/experience/alleima.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/experience/qburst.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/experience/kth-pyrolysis.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Project case studies — Tier 1 (flagship) -->
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/siemens-thesis.html</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/alleima-energy-efficiency.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/district-heating-optimisation.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/heating-demand-forecasting.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/numerical-heat-transfer.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Project case studies — Tier 2 -->
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/distribution-grid-study.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/eu-ets-exposure-calculator.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/industrial-energy-kpi-toolkit.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/pynexus-green-hydrogen.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/tes-peak-shaving.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/germany-energy-economy-analysis.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/hylkysaari-sustainable-tourism.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/residential-heating-technoeconomics.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/built-environment-ida-ice-simulation.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/philippines-emergency-energy-module.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/rotating-machinery-vibration-minilab.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/mtes-pcm-thermal-lab.html</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+
+  <!-- Project case studies — Tier 3 -->
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/battery-cell-discharge-lab.html</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/waste-to-energy-india.html</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/gridflex-energy-optimizer.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/robotic-frame-locomotion.html</loc><changefreq>monthly</changefreq><priority>0.55</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/pypsa-nl-grid-flexibility.html</loc><changefreq>monthly</changefreq><priority>0.65</priority></url>
+
 </urlset>

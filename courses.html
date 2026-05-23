@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
   <link rel="stylesheet" href="styles.css" />
   <script src="scripts/public-config.js?v=20260504-data-v7" defer></script>
-  <script src="scripts/site.js?v=20260523-energy-track" defer></script>
+  <script src="scripts/site.js?v=20260524-dynamic-features" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
   <style>
     .tab-bar { display:flex; gap:0.5rem; margin-bottom:2rem; flex-wrap:wrap; }
@@ -83,8 +83,9 @@
         <a href="index.html#projects">Featured</a>
         <a href="projects.html">Projects</a>
         <a href="experience.html">Experience</a>
-        <a href="index.html#cv">CV</a>
+        <a href="index.html#cv">CVs</a>
         <a href="about.html">About</a>
+        <a href="interests.html">Interests</a>
         <a href="courses.html" aria-current="page">Courses</a>
         <a href="index.html#contact">Contact</a>
       </div>
@@ -113,7 +114,7 @@
           ============================================================ -->
           <div class="tab-content" id="tab-masters" role="tabpanel">
             <div class="degree-intro">
-              <h2>M.Sc. Sustainable Energy Engineering &mdash; KTH Royal Institute of Technology</h2>
+              <h2>M.Sc. Sustainable Energy Engineering &mdash; <a href="https://www.kth.se/en/studies/master/sustainable-energy-engineering-lmsee" target="_blank" rel="noreferrer">KTH Royal Institute of Technology</a></h2>
               <p>Stockholm, Sweden &middot; 2023&ndash;2026 &middot; School of Industrial Engineering and Management (ITM) &middot; Focus: heat and power technology, energy systems modelling, optimisation and CFD</p>
               <div class="stat-row">
                 <span class="stat-chip"><strong>115 hp</strong> recorded on KTH transcript, May 2026</span>
@@ -125,25 +126,25 @@
 
             <div class="assignment-grid" aria-label="Selected assignment evidence">
               <a class="assignment-card" href="projects/numerical-heat-transfer.html">
-                <img src="assets/thumb-numerical-heat-transfer.svg" alt="Numerical heat transfer assignment visual" loading="lazy" width="960" height="540" />
+                <img src="assets/card-numerical-heat-transfer.svg" alt="Numerical heat transfer MJ2515 Grade A finite difference methods" loading="lazy" width="480" height="270" />
                 <span>MJ2515 / Grade A</span>
                 <strong>Numerical Heat Transfer</strong>
                 <small>Finite difference, RK4, advection schemes and error analysis.</small>
               </a>
               <a class="assignment-card" href="projects/battery-cell-discharge-lab.html">
-                <img src="assets/thumb-battery-discharge.svg" alt="Battery discharge lab assignment visual" loading="lazy" width="960" height="540" />
+                <img src="assets/card-battery-discharge.svg" alt="Battery cell discharge lab MJ2386 chemistry comparison" loading="lazy" width="480" height="270" />
                 <span>MJ2386 / Grade B</span>
                 <strong>Battery Discharge Lab</strong>
                 <small>Discharge curves and chemistry comparison for Ni-MH, Li-Po and lead-acid cells.</small>
               </a>
               <a class="assignment-card" href="projects/district-heating-optimisation.html">
-                <img src="assets/thumb-district-heating.svg" alt="District heating dispatch assignment visual" loading="lazy" width="960" height="540" />
+                <img src="assets/card-district-heating.svg" alt="District heating dispatch optimisation five scenario MILP model" loading="lazy" width="480" height="270" />
                 <span>Optimisation</span>
                 <strong>District Heating Dispatch</strong>
                 <small>LP/MILP scenarios for heat supply, storage, cost and emissions.</small>
               </a>
               <a class="assignment-card" href="projects/built-environment-ida-ice-simulation.html">
-                <img src="assets/thumb-built-environment.svg" alt="Built environment assignment visual" loading="lazy" width="960" height="540" />
+                <img src="assets/card-built-environment.svg" alt="Built environment IDA ICE energy simulation building load comparison" loading="lazy" width="480" height="270" />
                 <span>IDA ICE</span>
                 <strong>Built Environment Simulation</strong>
                 <small>Building load and supply-system comparison evidence.</small>
@@ -161,6 +162,7 @@
                   <h3>Degree Project in Heat and Power Technology</h3>
                   <p>Independent thesis requiring the student to solve an engineering problem with significant technical content. This thesis (TRITA-ITM-EX 2026:14) was conducted at Siemens Energy Finsp&aring;ng: compressible CFD and conjugate heat transfer analysis of a reducer for the Pulsatorn high-temperature dynamic pressure sensor calibration rig, comparing legacy two-step geometry against a 150&nbsp;mm quintic C&sup2; redesign. Includes mesh independence, Biot number analysis, NI-DAQ commissioning and a formal root cause analysis of heater failure.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ232X" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/siemens-thesis.html">Case study &rarr;</a>
                     <a href="experience/siemens-energy.html">Experience &rarr;</a>
                   </div>
@@ -180,6 +182,7 @@
                   <h3>Numerical Heat Transfer in Energy Technology</h3>
                   <p>Finite difference and finite volume methods for heat conduction, convection and advection problems in energy applications. Covers derivation of numerical schemes, stability and error analysis, 1D and 2D steady-state and transient solutions, and an introduction to the Navier&ndash;Stokes equations and turbulence modelling. Practical work includes programming numerical solvers and interpreting CFD software output.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2515" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/numerical-heat-transfer.html">Project &rarr;</a>
                   </div>
                 </div>
@@ -198,6 +201,7 @@
                   <h3>Applied AI for Sustainable Energy Engineering</h3>
                   <p>Machine learning theory and applications for energy engineering: technique selection, data pre-processing, model training, hyperparameter search, model evaluation and comparison against conventional approaches. Topics include logistic regression, shallow and deep neural networks, feature engineering and ethical dimensions of AI in the energy sector. Course projects included day-ahead building heating demand forecasting and district heating dispatch optimisation.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2507" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/heating-demand-forecasting.html">Project: Heating forecast &rarr;</a>
                     <a href="projects/district-heating-optimisation.html">Project: District heating &rarr;</a>
                   </div>
@@ -211,6 +215,7 @@
                   <h3>Practical Optimization of Energy Networks</h3>
                   <p>Industry-partnered course (FORTUM, Vattenfall) applying optimisation tools to real-world heat and power networks. Covers LP and MILP formulation for thermal network dispatch, combined heat and power scheduling, and market-driven operation of district energy systems. Project-based format with oral presentation and written report.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2505" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/district-heating-optimisation.html">Project &rarr;</a>
                   </div>
                 </div>
@@ -238,6 +243,8 @@
                   <h3>Renewable Energy Technology</h3>
                   <p>Technical evaluation of solar photovoltaic and thermal, biomass and biofuels, wind power, hydropower, and electrical and thermal energy storage. Emphasis on energy balance calculations, fluid mechanics and thermodynamics fundamentals applied to renewable conversion systems. Builds the resource and technology knowledge base for design and scenario work.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2411" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2405" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/residential-heating-technoeconomics.html">Project: Residential heating &rarr;</a>
                     <a href="projects/waste-to-energy-india.html">Project: Waste-to-energy &rarr;</a>
                   </div>
@@ -250,7 +257,11 @@
                   </div>
                   <h3>Applied Heat and Power Technology</h3>
                   <p>Practical assessment of thermal power systems: steam turbines, gas turbines, gas motors, waste heat recovery, biomass and waste-to-energy, concentrated solar power, wind integration and combined heat and power. Includes design of customised energy systems and techno-economic and environmental feasibility assessment for realistic applications. Prerequisite: MJ2405 and MJ2411.</p>
-                </div>
+                
+                  <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2426" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
+                  </div>
+</div>
               </div>
             </div>
 
@@ -266,6 +277,7 @@
                   <h3>Modeling of Energy Systems &mdash; Heat and Power Generation</h3>
                   <p>Project course using modelling software (HOMER Pro, EnergyPRO or equivalent) for heat and power system design and analysis. Lectures introduce modelling strategies and tools, followed by group project work with industry clients. Students formulate, calibrate and validate system models, perform sensitivity analysis and present findings in a report and oral presentation. Covers solar thermal, heat pump, PV and district heating configurations.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2438" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/residential-heating-technoeconomics.html">Project: Residential heating scenarios &rarr;</a>
                   </div>
                 </div>
@@ -278,6 +290,7 @@
                   <h3>Energy Systems for Sustainable Development</h3>
                   <p>3E (Energy&ndash;Economy&ndash;Environment) scenario analysis of national and regional energy systems using LEAP (Low Emissions Analysis Platform). Covers energy mix transitions, climate policy, technology alternatives, SDG 7 access and energy poverty, geopolitical energy dependencies and integrated resource planning. Includes comparison of industrialised and developing-country energy contexts.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2508" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/germany-energy-economy-analysis.html">Project: Germany 3E analysis &rarr;</a>
                   </div>
                 </div>
@@ -290,6 +303,7 @@
                   <h3>Small Scale Polygeneration</h3>
                   <p>Simultaneous generation of electricity, heat, cooling, purified water and dry air from renewable and conventional sources. Covers energy converter selection, thermo-economic optimisation, control strategies, environmental and economic performance, and grid-connected versus islanded operation. Case studies include remote-area systems and off-grid emergency applications.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2503" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/philippines-emergency-energy-module.html">Project: Philippines emergency module &rarr;</a>
                   </div>
                 </div>
@@ -308,6 +322,7 @@
                   <h3>Energy Storage Technology</h3>
                   <p>Classification and design of mechanical, thermal and electrochemical storage systems. Covers working principles of batteries (Ni-MH, Li-ion, lead-acid), thermal energy storage (sensible, latent/PCM), hydrogen and compressed air, with emphasis on integration into renewable energy systems and techno-economic KPI evaluation. Labs include discharge characterisation and M-TES PCM thermal testing.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2386" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/battery-cell-discharge-lab.html">Lab: Battery discharge &rarr;</a>
                     <a href="projects/mtes-pcm-thermal-lab.html">Lab: M-TES PCM &rarr;</a>
                     <a href="projects/tes-peak-shaving.html">Project: TES peak shaving &rarr;</a>
@@ -321,6 +336,7 @@
                   <h3>Energy in the Built Environment</h3>
                   <p>Building energy demand, heating and cooling systems, ventilation, district energy and supply-side infrastructure. Covers thermal comfort requirements, building simulation using IDA ICE, heat pump and solar integration, energy certification and renovation assessment. Project work involves modelling a real or representative building through supply-side design alternatives.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2509" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/built-environment-ida-ice-simulation.html">Project: IDA ICE simulation &rarr;</a>
                   </div>
                 </div>
@@ -339,6 +355,7 @@
                   <h3>Energy Management</h3>
                   <p>Systems analysis of city and district energy systems, combining high-level strategic planning with bottom-up techno-economic analysis. Covers ISO 50001-aligned energy performance indicators, scenario and sensitivity analysis, renewable integration planning, cost-effectiveness evaluation and business model development. Major project simulates a real city-scale energy management challenge with multiple stakeholder constraints.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2511" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/alleima-energy-efficiency.html">Related: Alleima audit methodology &rarr;</a>
                     <a href="projects/industrial-energy-kpi-toolkit.html">Tool: Energy KPI Toolkit &rarr;</a>
                   </div>
@@ -351,7 +368,11 @@
                   </div>
                   <h3>Methods of Research in Sustainable Energy</h3>
                   <p>Thesis preparation course covering systematic literature reviews, research problem formulation, methodology selection, uncertainty analysis and scientific ethics. Combines seminars, assignments and written examination. Students formulate a research question and methodology proposal relevant to their thesis topic, evaluated against sustainable development and ethical dimensions.</p>
-                </div>
+                
+                  <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/MJ2510" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
+                  </div>
+</div>
               </div>
             </div>
 
@@ -379,6 +400,7 @@
                   <h3>Entrepreneurship for Engineers</h3>
                   <p>Introduction to entrepreneurial thinking, business model design, market validation and venture creation for engineering students. Includes idea-to-concept work, pitch development and exposure to startup frameworks relevant to clean-technology ventures.</p>
                   <div class="course-links">
+                    <a href="https://www.kth.se/student/kurser/kurs/ME2072" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/gridflex-energy-optimizer.html">Related: GridFlex venture paper &rarr;</a>
                   </div>
                 </div>

@@ -564,7 +564,7 @@ const injectNavLinks = () => {
     { label: "Featured", href: homeHref("#projects") },
     { label: "Projects", href: `${basePath}projects.html` },
     { label: "Experience", href: `${basePath}experience.html` },
-    { label: "CV", href: homeHref("#cv") },
+    { label: "CVs", href: homeHref("#cv") },
     { label: "About", href: `${basePath}about.html` },
     { label: "Interests", href: `${basePath}interests.html` },
     { label: "Courses", href: `${basePath}courses.html` },
@@ -1345,6 +1345,61 @@ const renderProjectList = () => {
   decorateSkillLinks(dynamicProjects);
 };
 
+// Read project metadata from static DOM items when API is unavailable
+const readStaticProjectItems = () => {
+  if (!dynamicProjects) return [];
+  return Array.from(dynamicProjects.querySelectorAll("[data-project-id]")).map((el, idx) => {
+    const id = el.dataset.projectId;
+    const title = el.querySelector(".project-browser-summary-text h3")?.textContent?.trim() || id;
+    const summary = el.querySelector(".project-browser-summary-text > p")?.textContent?.trim() || "";
+    const tagsRaw = el.dataset.audienceTags || "";
+    const audienceTags = tagsRaw ? tagsRaw.split(",").map((t) => t.trim()).filter(Boolean) : [];
+    const order = Number(el.dataset.order) || (idx + 100);
+    const tone = Array.from(el.classList).find((c) => c.startsWith("tone-"))?.replace("tone-", "") || "energy";
+    const featured = el.classList.contains("is-featured");
+    // Omit category so renderProjectFilters only shows the standard role filters + "Selected" / "All"
+    return { id, title, summary, audienceTags, order, tone, featured, visible: true };
+  });
+};
+
+// Filter static DOM items in-place (no innerHTML replacement)
+const renderStaticProjectList = () => {
+  if (!dynamicProjects) return;
+  const items = Array.from(dynamicProjects.querySelectorAll("[data-project-id]"));
+  const query = pageState.projectSearch.trim().toLowerCase();
+  const filter = pageState.activeProjectFilter;
+  const roleFilterSet = new Set(projectRoleFilters);
+  let visible = 0;
+
+  items.forEach((el) => {
+    const tagsRaw = el.dataset.audienceTags || "";
+    const audienceTags = tagsRaw ? tagsRaw.split(",").map((t) => t.trim().toLowerCase()) : [];
+    const order = Number(el.dataset.order) || 999;
+    const selectedCaseStudy = order < 100;
+
+    const filterMatch =
+      filter === "All" ||
+      (filter === "Selected" && selectedCaseStudy) ||
+      (roleFilterSet.has(filter) && audienceTags.includes(filter.toLowerCase())) ||
+      el.querySelector(".project-browser-kicker")?.textContent?.trim() === filter;
+    const searchMatch = !query || el.textContent.toLowerCase().includes(query);
+
+    const show = filterMatch && searchMatch;
+    el.hidden = !show;
+    if (show) visible++;
+  });
+
+  if (projectCount) {
+    projectCount.textContent =
+      filter === "Selected"
+        ? `${visible} selected case ${visible === 1 ? "study" : "studies"} shown`
+        : `${visible} project${visible === 1 ? "" : "s"} shown`;
+  }
+};
+
+// Flag for whether we are operating in DOM-fallback mode
+let usingStaticDomProjects = false;
+
 const initializeProjects = async () => {
   if (!dynamicProjects && !featuredProjects) return;
   try {
@@ -1356,19 +1411,39 @@ const initializeProjects = async () => {
     const apiData = apiResult.status === "fulfilled" ? apiResult.value : {};
     const staticData = staticResult.status === "fulfilled" ? staticResult.value : {};
     // The committed JSON is the canonical public portfolio; remote API records can lag behind active edits.
-    const projects = visibleItems(mergeById(Array.isArray(staticData.projects) ? staticData.projects : [], Array.isArray(apiData.projects) ? apiData.projects : []));
-    pageState.projects = projects;
+    const mergedProjects = visibleItems(mergeById(Array.isArray(staticData.projects) ? staticData.projects : [], Array.isArray(apiData.projects) ? apiData.projects : []));
 
-    if (featuredProjects) {
-      const selected = projects.filter((project) => project.featured).slice(0, 10);
-      featuredProjects.innerHTML = (selected.length ? selected : projects.slice(0, 10)).map(renderProjectCard).join("");
-      decorateSkillLinks(featuredProjects);
+    if (mergedProjects.length > 0) {
+      // API data available — use dynamic render path
+      usingStaticDomProjects = false;
+      pageState.projects = mergedProjects;
+
+      if (featuredProjects) {
+        const selected = mergedProjects.filter((project) => project.featured).slice(0, 10);
+        featuredProjects.innerHTML = (selected.length ? selected : mergedProjects.slice(0, 10)).map(renderProjectCard).join("");
+        decorateSkillLinks(featuredProjects);
+      }
+
+      renderProjectFilters();
+      renderProjectList();
+    } else {
+      // No API data — fall back to DOM items (static HTML preserved, just show/hide)
+      usingStaticDomProjects = true;
+      pageState.projects = readStaticProjectItems();
+
+      renderProjectFilters();
+      renderStaticProjectList();
     }
-
-    renderProjectFilters();
-    renderProjectList();
   } catch (error) {
-    if (projectCount) projectCount.textContent = "Project records are being refreshed.";
+    // Even if everything fails, try DOM items as last resort
+    if (dynamicProjects) {
+      usingStaticDomProjects = true;
+      pageState.projects = readStaticProjectItems();
+      renderProjectFilters();
+      renderStaticProjectList();
+    } else if (projectCount) {
+      projectCount.textContent = "Project records are being refreshed.";
+    }
   }
 };
 
@@ -1551,6 +1626,12 @@ const initializeSkillExplorer = () => {
   });
 };
 
+const closeNav = () => {
+  document.body.classList.remove("nav-open");
+  const btn = document.querySelector(".nav-toggle");
+  if (btn) btn.setAttribute("aria-expanded", "false");
+};
+
 const initializeNavToggle = () => {
   if (!navLinks) return;
   const nav = navLinks.closest(".nav");
@@ -1564,15 +1645,24 @@ const initializeNavToggle = () => {
   button.innerHTML = "<span></span><span></span><span></span>";
   nav.insertBefore(button, navLinks);
 
+  // Backdrop overlay — click outside to close
+  const overlay = document.createElement("div");
+  overlay.className = "nav-overlay";
+  overlay.setAttribute("aria-hidden", "true");
+  document.body.appendChild(overlay);
+  overlay.addEventListener("click", closeNav);
+
   button.addEventListener("click", () => {
     const open = !document.body.classList.contains("nav-open");
     document.body.classList.toggle("nav-open", open);
     button.setAttribute("aria-expanded", String(open));
   });
 
-  navLinks.addEventListener("click", () => {
-    document.body.classList.remove("nav-open");
-    button.setAttribute("aria-expanded", "false");
+  navLinks.addEventListener("click", closeNav);
+
+  // Escape key closes nav
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.body.classList.contains("nav-open")) closeNav();
   });
 };
 
@@ -1597,7 +1687,7 @@ const initializeFooter = () => {
         <a href="${basePath}industrial-rd.html">Industrial R&amp;D</a>
         <a href="${basePath}projects.html">Projects</a>
         <a href="${basePath}experience.html">Experience</a>
-        <a href="${basePath}index.html#cv">CV</a>
+        <a href="${basePath}index.html#cv">CVs</a>
         <a href="${basePath}about.html">About</a>
         <a href="${basePath}index.html#contact">Contact</a>
       </nav>
@@ -1804,6 +1894,58 @@ if (heroStatNumbers.length && "IntersectionObserver" in window) {
     { threshold: 0.6 }
   );
   heroStatNumbers.forEach((el) => counterObserver.observe(el));
+}
+
+// Rail-metrics count-up animation (handles "673 K", "Bi 0.003-0.004", "Ma 0.990-1.006", "8/8")
+const railMetricEls = document.querySelectorAll(".rail-metrics article strong");
+if (railMetricEls.length && "IntersectionObserver" in window) {
+  const railObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const el = entry.target;
+        const original = el.textContent.trim();
+
+        // Parse out leading prefix, numeric start, optional dash + end number, and suffix
+        // Handles: "673 K", "Bi 0.003-0.004", "Ma 0.990-1.006", "8/8"
+        const m = original.match(/^([A-Za-z/\s]*?)([\d.]+)(-[\d.]+)?(\s*[A-Za-z\/\d]+)?$/);
+        if (!m) return;
+
+        const prefix = m[1] || "";
+        const numStart = parseFloat(m[2]);
+        const numEnd = m[3] ? parseFloat(m[3].slice(1)) : null;
+        const suffix = m[4] || "";
+        const isInt = !m[2].includes(".");
+        const decimals = isInt ? 0 : m[2].split(".")[1].length;
+
+        const fmt = (n) => isInt ? String(Math.round(n)) : n.toFixed(decimals);
+        const startTime = performance.now();
+        const duration = 1400;
+
+        const tick = (now) => {
+          const t = Math.min((now - startTime) / duration, 1);
+          const ease = 1 - (1 - t) ** 3;
+          const cur = numStart * ease;
+          if (numEnd !== null) {
+            const curEnd = numStart + (numEnd - numStart) * ease;
+            el.textContent = `${prefix}${fmt(cur)}-${fmt(curEnd)}${suffix}`;
+          } else {
+            el.textContent = `${prefix}${fmt(cur)}${suffix}`;
+          }
+          if (t < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            el.textContent = original; // restore exact original on completion
+          }
+        };
+        requestAnimationFrame(tick);
+        railObserver.unobserve(el);
+      });
+    },
+    { threshold: 0.6 }
+  );
+  railMetricEls.forEach((el) => railObserver.observe(el));
 }
 
 // Cursor spotlight on hero section
@@ -2098,10 +2240,230 @@ projectFilters?.addEventListener("click", (event) => {
   if (!button) return;
   pageState.activeProjectFilter = button.dataset.projectFilter;
   renderProjectFilters();
-  renderProjectList();
+  if (usingStaticDomProjects) renderStaticProjectList();
+  else renderProjectList();
 });
 
 projectSearch?.addEventListener("input", () => {
   pageState.projectSearch = projectSearch.value;
-  renderProjectList();
+  if (usingStaticDomProjects) renderStaticProjectList();
+  else renderProjectList();
 });
+
+// ─── Contact form (Formspree) ───────────────────────────────────────────────
+const initializeContactForm = () => {
+  const form = document.querySelector("[data-contact-form]");
+  if (!form) return;
+
+  const action = (window.PORTFOLIO_CONTACT_FORM_ACTION || "").trim();
+  const statusEl = form.querySelector("[data-contact-status]");
+
+  if (action) {
+    form.action = action;
+    form.method = "POST";
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!action) {
+      if (statusEl) statusEl.textContent = "Contact form not configured. Please email directly.";
+      return;
+    }
+    const data = new FormData(form);
+    if (statusEl) {
+      statusEl.textContent = "Sending…";
+      statusEl.dataset.state = "sending";
+    }
+    try {
+      const res = await fetch(action, { method: "POST", body: data, headers: { Accept: "application/json" } });
+      if (res.ok) {
+        if (statusEl) {
+          statusEl.textContent = "Message sent — thank you! I'll reply within 48 hours.";
+          statusEl.dataset.state = "success";
+        }
+        form.reset();
+      } else {
+        throw new Error(`HTTP ${res.status}`);
+      }
+    } catch {
+      if (statusEl) {
+        statusEl.textContent = "Something went wrong. Please email directly at abhijithsivaprasadan@gmail.com";
+        statusEl.dataset.state = "error";
+      }
+    }
+  });
+};
+
+// ─── Recruiter shortcut mode ────────────────────────────────────────────────
+const initializeRecruiterMode = () => {
+  const toggle = document.querySelector("[data-recruiter-toggle]");
+  if (!toggle) return;
+  const storageKey = "recruiterMode";
+
+  const apply = (active) => {
+    document.body.classList.toggle("recruiter-mode", active);
+    toggle.textContent = active ? "Full view" : "Quick scan";
+    toggle.setAttribute("aria-pressed", active ? "true" : "false");
+    try { window.localStorage.setItem(storageKey, active ? "1" : "0"); } catch {}
+  };
+
+  toggle.addEventListener("click", () => {
+    apply(!document.body.classList.contains("recruiter-mode"));
+  });
+
+  // Restore from localStorage
+  try {
+    if (window.localStorage.getItem(storageKey) === "1") apply(true);
+  } catch {}
+};
+
+// ─── Related projects sidebar ───────────────────────────────────────────────
+const relatedProjectsMap = {
+  "siemens-thesis":            ["numerical-heat-transfer", "rotating-machinery-vibration-minilab", "mtes-pcm-thermal-lab"],
+  "numerical-heat-transfer":   ["siemens-thesis", "mtes-pcm-thermal-lab", "battery-cell-discharge-lab"],
+  "alleima-energy-efficiency": ["industrial-energy-kpi-toolkit", "eu-ets-exposure-calculator", "district-heating-optimisation"],
+  "district-heating-optimisation": ["pynexus-green-hydrogen", "heating-demand-forecasting", "germany-energy-economy-analysis"],
+  "heating-demand-forecasting": ["district-heating-optimisation", "germany-energy-economy-analysis", "industrial-energy-kpi-toolkit"],
+  "eu-ets-exposure-calculator": ["alleima-energy-efficiency", "industrial-energy-kpi-toolkit", "germany-energy-economy-analysis"],
+  "industrial-energy-kpi-toolkit": ["alleima-energy-efficiency", "eu-ets-exposure-calculator", "district-heating-optimisation"],
+  "pynexus-green-hydrogen":    ["district-heating-optimisation", "germany-energy-economy-analysis", "tes-peak-shaving"],
+  "tes-peak-shaving":          ["mtes-pcm-thermal-lab", "residential-heating-technoeconomics", "pynexus-green-hydrogen"],
+  "germany-energy-economy-analysis": ["heating-demand-forecasting", "pynexus-green-hydrogen", "hylkysaari-sustainable-tourism"],
+  "hylkysaari-sustainable-tourism": ["residential-heating-technoeconomics", "built-environment-ida-ice-simulation", "philippines-emergency-energy-module"],
+  "residential-heating-technoeconomics": ["hylkysaari-sustainable-tourism", "built-environment-ida-ice-simulation", "tes-peak-shaving"],
+  "built-environment-ida-ice-simulation": ["residential-heating-technoeconomics", "hylkysaari-sustainable-tourism", "district-heating-optimisation"],
+  "philippines-emergency-energy-module": ["hylkysaari-sustainable-tourism", "pynexus-green-hydrogen", "waste-to-energy-india"],
+  "rotating-machinery-vibration-minilab": ["siemens-thesis", "numerical-heat-transfer", "mtes-pcm-thermal-lab"],
+  "mtes-pcm-thermal-lab":      ["battery-cell-discharge-lab", "tes-peak-shaving", "siemens-thesis"],
+  "battery-cell-discharge-lab": ["mtes-pcm-thermal-lab", "numerical-heat-transfer", "rotating-machinery-vibration-minilab"],
+  "waste-to-energy-india":     ["philippines-emergency-energy-module", "germany-energy-economy-analysis", "hylkysaari-sustainable-tourism"],
+  "gridflex-energy-optimizer": ["heating-demand-forecasting", "pynexus-green-hydrogen", "eu-ets-exposure-calculator"],
+  "robotic-frame-locomotion":  ["rotating-machinery-vibration-minilab", "numerical-heat-transfer", "siemens-thesis"],
+  "distribution-grid-study":   ["pynexus-green-hydrogen", "germany-energy-economy-analysis", "heating-demand-forecasting"],
+};
+
+const projectTitles = {
+  "siemens-thesis":            "Siemens Energy CFD/CHT Thesis",
+  "numerical-heat-transfer":   "Numerical Heat Transfer",
+  "alleima-energy-efficiency": "Alleima Comparative Energy Audit",
+  "district-heating-optimisation": "District Heating Dispatch Optimisation",
+  "heating-demand-forecasting": "Day-Ahead Heating Demand Forecasting",
+  "eu-ets-exposure-calculator": "EU ETS Exposure Calculator",
+  "industrial-energy-kpi-toolkit": "Industrial Energy KPI Toolkit",
+  "pynexus-green-hydrogen":    "PyNEXUS Green Hydrogen Model",
+  "tes-peak-shaving":          "TES Peak Shaving — Ice vs PCM",
+  "germany-energy-economy-analysis": "Germany 3E LEAP Analysis",
+  "hylkysaari-sustainable-tourism": "Hylkysaari Sustainable Island",
+  "residential-heating-technoeconomics": "Residential Heating Techno-Economics",
+  "built-environment-ida-ice-simulation": "Built Environment IDA ICE",
+  "philippines-emergency-energy-module": "Philippines Emergency Energy Module",
+  "rotating-machinery-vibration-minilab": "Rotating Machinery Vibration Mini-Lab",
+  "mtes-pcm-thermal-lab":      "M-TES PCM Thermal Lab",
+  "battery-cell-discharge-lab": "Battery Cell Discharge Lab",
+  "waste-to-energy-india":     "Waste-to-Energy India",
+  "gridflex-energy-optimizer": "GridFlex Energy Optimizer",
+  "robotic-frame-locomotion":  "Robotic Frame and Locomotion",
+  "distribution-grid-study":   "Distribution Grid Study",
+};
+
+const initializeRelatedProjects = () => {
+  // Only runs on project detail pages
+  if (!location.pathname.includes("/projects/")) return;
+  const currentSlug = location.pathname.split("/").pop().replace(/\.html$/, "");
+  const related = relatedProjectsMap[currentSlug];
+  if (!related || !related.length) return;
+
+  // Find the case-footer or last case-section to append after
+  const main = document.querySelector("main") || document.body;
+  const caseFooter = main.querySelector(".case-footer") || main.querySelector(".case-nav") || main.lastElementChild;
+
+  const sidebar = document.createElement("aside");
+  sidebar.className = "related-projects section";
+  sidebar.setAttribute("aria-label", "Related projects");
+  sidebar.innerHTML = `
+    <div class="container">
+      <p class="eyebrow">Related projects</p>
+      <div class="related-projects-grid">
+        ${related.map((slug) => `
+          <a class="related-project-card" href="${basePath}projects/${slug}.html">
+            <span class="related-project-title">${escapeHtml(projectTitles[slug] || slug)}</span>
+          </a>`).join("")}
+      </div>
+    </div>`;
+
+  if (caseFooter) {
+    caseFooter.insertAdjacentElement("afterend", sidebar);
+  } else {
+    main.appendChild(sidebar);
+  }
+};
+
+initializeContactForm();
+initializeRecruiterMode();
+initializeRelatedProjects();
+
+// ─── Scroll-to-top button ─────────────────────────────────────────────────
+const initializeScrollToTop = () => {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "scroll-top-btn";
+  btn.setAttribute("aria-label", "Back to top");
+  btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 14V4M4 9l5-5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  document.body.appendChild(btn);
+
+  const onScroll = () => btn.classList.toggle("is-visible", window.scrollY > 380);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+};
+
+// ─── Dark / light mode toggle ─────────────────────────────────────────────
+const THEME_KEY = "portfolioTheme";
+
+const applyTheme = (theme) => {
+  document.documentElement.dataset.theme = theme;
+  try { window.localStorage.setItem(THEME_KEY, theme); } catch {}
+  const btn = document.querySelector("[data-theme-toggle]");
+  if (btn) {
+    btn.setAttribute("aria-label", theme === "light" ? "Switch to dark mode" : "Switch to light mode");
+    btn.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+    btn.querySelector(".theme-icon-sun")?.classList.toggle("is-active", theme === "light");
+    btn.querySelector(".theme-icon-moon")?.classList.toggle("is-active", theme === "dark");
+  }
+};
+
+const initializeThemeToggle = () => {
+  // Restore saved preference (default: dark)
+  let saved = "dark";
+  try { saved = window.localStorage.getItem(THEME_KEY) || "dark"; } catch {}
+  applyTheme(saved);
+
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("[data-theme-toggle]")) {
+      const current = document.documentElement.dataset.theme || "dark";
+      applyTheme(current === "dark" ? "light" : "dark");
+    }
+  });
+};
+
+// Inject theme-toggle button into the nav (called after injectNavLinks)
+const injectThemeToggle = () => {
+  if (document.querySelector("[data-theme-toggle]")) return;
+  const nav = document.querySelector(".nav");
+  if (!nav) return;
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "theme-toggle-btn";
+  btn.setAttribute("data-theme-toggle", "");
+  btn.setAttribute("aria-label", "Switch to light mode");
+  btn.setAttribute("aria-pressed", "false");
+  btn.innerHTML = `
+    <span class="theme-icon-sun" aria-hidden="true">☀</span>
+    <span class="theme-icon-moon" aria-hidden="true">☾</span>`;
+  nav.appendChild(btn);
+};
+
+initializeScrollToTop();
+initializeThemeToggle();
+injectThemeToggle();
