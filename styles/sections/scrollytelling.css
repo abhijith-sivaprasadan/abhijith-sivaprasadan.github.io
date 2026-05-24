@@ -1,0 +1,157 @@
+.thesis-story-section {
+  position: relative;
+  overflow: clip;
+  align-items: start !important;
+  min-height: 0 !important;
+  padding-top: clamp(60px, 8vw, 110px);
+  padding-bottom: clamp(60px, 8vw, 110px);
+}
+
+.thesis-story-shell {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.84fr) minmax(0, 1.16fr);
+  gap: clamp(24px, 5vw, 64px);
+  align-items: center;
+}
+
+.thesis-story-copy {
+  max-width: 470px;
+}
+
+.thesis-story-stage {
+  min-height: clamp(420px, 58vw, 620px);
+  border: 1px solid var(--v4-line);
+  border-radius: var(--v4-radius);
+  background:
+    radial-gradient(circle at 70% 18%, rgba(101, 214, 201, 0.14), transparent 34%),
+    var(--v4-grid),
+    var(--v4-panel-strong);
+  background-size: auto, 28px 28px, auto;
+  box-shadow: var(--v4-shadow);
+  overflow: hidden;
+}
+
+.thesis-story-svg {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  display: block;
+}
+
+.thesis-story-svg .story-bg {
+  fill: transparent;
+}
+
+.thesis-story-visual {
+  height: min(420px, 62vh);
+}
+
+.thesis-story-svg .story-grid path,
+.thesis-story-svg .story-geometry path,
+.thesis-story-svg .story-mesh path,
+.thesis-story-svg .story-streamlines path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.thesis-story-svg .story-grid path {
+  stroke: var(--v4-line);
+  stroke-width: 0.75;
+}
+
+.thesis-story-svg .legacy-wall {
+  stroke: color-mix(in srgb, var(--v4-orange) 70%, var(--text));
+  stroke-width: 2;
+  opacity: 0.4;
+}
+
+.thesis-story-svg .c2-wall {
+  stroke: var(--v4-amber);
+  stroke-width: 3.5;
+}
+
+.thesis-story-svg .story-mesh path {
+  stroke: var(--v4-teal);
+  stroke-width: 0.8;
+  opacity: 0.45;
+}
+
+.thesis-story-svg .story-streamlines path {
+  stroke: url("#storyFlow");
+  stroke-width: 2;
+  opacity: 0.72;
+}
+
+.thesis-story-svg .story-thermal {
+  opacity: 0.76;
+}
+
+.story-kpis rect {
+  fill: color-mix(in srgb, var(--v4-panel) 86%, transparent);
+  stroke: var(--v4-line);
+}
+
+.story-kpis text {
+  fill: var(--text);
+  font-size: 13px;
+  font-family: var(--mono, monospace);
+}
+
+.story-kpis text:nth-of-type(even) {
+  fill: var(--muted);
+  font-size: 11px;
+}
+
+.thesis-story-beats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  padding: 0 18px 18px;
+}
+
+.thesis-story-beat {
+  border-top: 2px solid var(--v4-line);
+  padding: 10px 8px 0;
+  opacity: 0.42;
+  transition: opacity 180ms ease, border-color 180ms ease;
+}
+
+.thesis-story-beat.is-active {
+  opacity: 1;
+  border-color: var(--v4-teal);
+}
+
+.thesis-story-beat span {
+  display: block;
+  color: var(--v4-teal);
+  font: 700 0.7rem/1.2 var(--mono, monospace);
+}
+
+.thesis-story-beat strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.84rem;
+}
+
+.thesis-story-beat p {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .thesis-story-shell {
+    grid-template-columns: 1fr;
+  }
+  .thesis-story-stage {
+    min-height: 420px;
+  }
+  .thesis-story-beats {
+    grid-template-columns: 1fr;
+  }
+  .thesis-story-beat p {
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 0.84rem;
+  }
+}

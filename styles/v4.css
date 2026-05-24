@@ -1,0 +1,12 @@
+@import url("./tokens.css");
+@import url("./base.css");
+@import url("./components/form.css");
+@import url("./components/modal.css");
+@import url("./sections/scrollytelling.css");
+@import url("./sections/evidence-map.css");
+@import url("./sections/projects.css");
+@import url("./sections/skills.css");
+@import url("./sections/experience.css");
+@import url("./sections/research-mindmap.css");
+@import url("./sections/testimonials.css");
+@import url("./print.css") print;

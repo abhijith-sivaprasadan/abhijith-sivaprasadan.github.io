@@ -169,9 +169,10 @@ function sampleVelocity(state, x, y) {
 }
 
 // ── Particle init ─────────────────────────────────────────────────────────
-function spawnParticle(state) {
+function spawnParticle(state, dispersed = false) {
+  const fullDomain = dispersed || state.mode === "research" || Math.random() < 0.22;
   return {
-    x: Math.random() * state.width * 0.15, // spawn near left edge
+    x: fullDomain ? Math.random() * state.width : Math.random() * state.width * 0.15,
     y: Math.random() * state.height,
     age: Math.random() * 200,
     life: 200 + Math.random() * 400,
@@ -181,7 +182,7 @@ function spawnParticle(state) {
 function initParticles(state) {
   state.particles = [];
   for (let i = 0; i < state.particleCount; i++) {
-    state.particles.push(spawnParticle(state));
+    state.particles.push(spawnParticle(state, true));
   }
 }
 
@@ -230,8 +231,8 @@ function step(state) {
     const p = state.particles[i];
     const [u, v] = sampleVelocity(state, p.x, p.y);
     const speed = Math.hypot(u, v);
-    p.x += u * 1.4;
-    p.y += v * 1.4;
+    p.x += u * 1.7;
+    p.y += v * 1.7;
     p.age++;
 
     // Reset if exited or expired or inside obstacle

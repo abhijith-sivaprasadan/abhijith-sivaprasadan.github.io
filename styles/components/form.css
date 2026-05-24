@@ -1,0 +1,59 @@
+.step-contact-form {
+  position: relative;
+}
+
+.step-form-progress {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.step-form-progress span {
+  border: 1px solid var(--v4-line);
+  border-radius: 999px;
+  padding: 8px 10px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.78rem;
+  background: color-mix(in srgb, var(--v4-panel) 76%, transparent);
+}
+
+.step-form-progress .is-active,
+.step-form-progress .is-complete {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent, #65d6c9) 55%, var(--v4-line));
+}
+
+.step-contact-form [data-step-panel] {
+  display: none;
+}
+
+.step-contact-form[data-step="1"] [data-step-panel="1"],
+.step-contact-form[data-step="2"] [data-step-panel="2"],
+.step-contact-form[data-step="3"] [data-step-panel="3"] {
+  display: block;
+}
+
+.step-contact-form[data-step="3"] .contact-form-footer {
+  display: flex;
+}
+
+.step-contact-form:not([data-step="3"]) .contact-form-footer {
+  display: none;
+}
+
+.step-form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.step-contact-form[data-step="1"] [data-step-prev] {
+  visibility: hidden;
+}
+
+.step-contact-form[data-step="3"] [data-step-next] {
+  display: none;
+}

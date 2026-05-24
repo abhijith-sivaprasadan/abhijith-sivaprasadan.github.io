@@ -1,0 +1,36 @@
+.home-flow > section:not(.hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
+.motion-ready .section h2,
+.motion-ready .card h3,
+.motion-ready .project-card h3 {
+  transition: font-weight 180ms ease, letter-spacing 180ms ease;
+}
+
+.motion-ready .section h2:hover,
+.motion-ready .card:hover h3,
+.motion-ready .project-card:hover h3 {
+  font-weight: 650;
+}
+
+html[data-theme="light"] .signal-routes a,
+html[data-theme="light"] .rail-metrics article,
+html[data-theme="light"] .quick-signal-item {
+  color: #13212b;
+  background: rgba(255, 255, 255, 0.86);
+  border-color: rgba(20, 70, 88, 0.18);
+}
+
+html[data-theme="light"] .signal-routes span,
+html[data-theme="light"] .rail-title span,
+html[data-theme="light"] .rail-metrics span {
+  color: #4a6373;
+}
+
+@media (max-width: 760px) {
+  .home-flow > section:not(.hero) {
+    contain-intrinsic-size: 1100px;
+  }
+}

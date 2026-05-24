@@ -20,6 +20,7 @@ export async function init(context) {
   // AND cross-document view transitions are supported (Chrome 126+ via meta
   // `view-transition` element + same-origin nav).
   tagCommonElements();
+  wireTransitionSignal();
 
   // The JS fade fallback intercepts all link clicks; we keep it opt-in for now
   // via the [data-motion-page-fade] attribute on body to avoid surprising
@@ -64,32 +65,39 @@ function tagCommonElements() {
   });
 }
 
+function linkTarget(event) {
+  const a = event.target.closest("a[href]");
+  if (!a) return null;
+  const href = a.getAttribute("href");
+  if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return null;
+  const url = new URL(href, location.href);
+  if (url.origin !== location.origin) return null;
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return null;
+  if (a.target === "_blank" || a.hasAttribute("download") || a.hasAttribute("data-no-transition")) return null;
+  return { a, url };
+}
+
+function wireTransitionSignal() {
+  document.addEventListener("click", (event) => {
+    const target = linkTarget(event);
+    if (target) ctx.bus.emit("motion:page-transition", { href: target.url.href });
+  }, true);
+}
+
 function wireFallback() {
   if (!ctx.gsap) return; // need GSAP for the fade
   const { gsap } = ctx;
 
   document.addEventListener("click", (e) => {
-    const a = e.target.closest("a[href]");
-    if (!a) return;
-    const href = a.getAttribute("href");
-    if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
-    // Same-origin only
-    const url = new URL(href, location.href);
-    if (url.origin !== location.origin) return;
-    // Skip if user used a modifier key (open in new tab)
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    if (a.target === "_blank") return;
-    // Skip download links
-    if (a.hasAttribute("download")) return;
-    // Skip if the link explicitly opts out
-    if (a.hasAttribute("data-no-transition")) return;
+    const target = linkTarget(e);
+    if (!target) return;
 
     e.preventDefault();
     gsap.to("body", {
       opacity: 0,
       duration: 0.18,
       ease: "power2.in",
-      onComplete: () => { location.href = url.href; },
+      onComplete: () => { location.href = target.url.href; },
     });
   });
 

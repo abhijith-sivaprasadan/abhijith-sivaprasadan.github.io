@@ -8233,6 +8233,290 @@ html[data-theme="light"] body.signal-rebuild .nav-links a[aria-current="page"] {
   }
 }
 
+/* ─── v4 light theme: engineering editorial layer ───────────────────────────
+   This final layer is intentionally late in the cascade. It gives light mode
+   its own paper/surface/ink system instead of relying on dark-mode panels that
+   were only repainted. The goal is readable scientific-instrument UI in both
+   themes, especially for the homepage signal tiles and evidence cards.
+   ───────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] {
+  --bg: #f5f3ea;
+  --bg-soft: #ecefe7;
+  --surface: #fffefa;
+  --surface-soft: #f5f8f4;
+  --surface-strong: #ffffff;
+  --card: #fffefa;
+  --card-2: #f6f8f3;
+  --line: rgba(24, 37, 47, 0.14);
+  --border: rgba(24, 37, 47, 0.14);
+  --text: #121a25;
+  --fg: #121a25;
+  --muted: #53606d;
+  --accent: #007478;
+  --accent-2: #b65f13;
+  --signal-bg: #f5f3ea;
+  --signal-surface: #fffefa;
+  --signal-surface-2: #f2f6f1;
+  --signal-line: rgba(24, 37, 47, 0.14);
+  --signal-text: #121a25;
+  --signal-muted: #53606d;
+  --signal-green: #007478;
+  --signal-blue: #2563a8;
+  --signal-amber: #a9550c;
+  --fx-bg: #f5f3ea;
+  --fx-bg-2: #ecefe7;
+  --fx-panel: #fffefa;
+  --fx-panel-2: #f6f8f3;
+  --fx-text: #121a25;
+  --fx-muted: #53606d;
+}
+
+html[data-theme="light"] body,
+html[data-theme="light"] body.signal-rebuild {
+  background:
+    radial-gradient(circle at 16% 8%, rgba(37, 99, 168, 0.13), transparent 24rem),
+    radial-gradient(circle at 88% 12%, rgba(0, 116, 120, 0.11), transparent 22rem),
+    linear-gradient(180deg, #faf9f3 0%, #eef2ea 58%, #faf9f3 100%) !important;
+  color: var(--text) !important;
+}
+
+html[data-theme="light"] body.signal-rebuild::before {
+  opacity: 0.42;
+  background-image:
+    linear-gradient(rgba(18, 26, 37, 0.052) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 26, 37, 0.052) 1px, transparent 1px) !important;
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-hero,
+html[data-theme="light"] body.signal-rebuild .signal-evidence,
+html[data-theme="light"] body.signal-rebuild .section,
+html[data-theme="light"] .section {
+  color: var(--text);
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-evidence,
+html[data-theme="light"] body.signal-rebuild .signal-coursework,
+html[data-theme="light"] body.signal-rebuild .signal-research {
+  background: linear-gradient(180deg, rgba(255, 254, 250, 0.82), rgba(238, 242, 234, 0.76)) !important;
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-routes {
+  border-color: rgba(37, 99, 168, 0.18) !important;
+  background: rgba(37, 99, 168, 0.08) !important;
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-routes a {
+  background:
+    linear-gradient(180deg, rgba(255, 254, 250, 0.98), rgba(247, 250, 246, 0.96)) !important;
+  color: #121a25 !important;
+  border-color: rgba(24, 37, 47, 0.1) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-routes a:hover {
+  background:
+    linear-gradient(180deg, rgba(232, 244, 241, 0.98), rgba(255, 254, 250, 0.98)) !important;
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-routes span {
+  color: #9a4f0c !important;
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-routes strong,
+html[data-theme="light"] body.signal-rebuild .role-track-card h3,
+html[data-theme="light"] body.signal-rebuild .project-card h3,
+html[data-theme="light"] body.signal-rebuild .assignment-card h3,
+html[data-theme="light"] body.signal-rebuild .timeline-item h3,
+html[data-theme="light"] body.signal-rebuild .cv-card h3,
+html[data-theme="light"] body.signal-rebuild .testimonial-card h3 {
+  color: #121a25 !important;
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-rail,
+html[data-theme="light"] body.signal-rebuild .rail-metrics article,
+html[data-theme="light"] body.signal-rebuild .role-track-card,
+html[data-theme="light"] body.signal-rebuild .signal-proof-grid a,
+html[data-theme="light"] body.signal-rebuild .evidence-lane,
+html[data-theme="light"] body.signal-rebuild .assignment-card,
+html[data-theme="light"] body.signal-rebuild .project-card,
+html[data-theme="light"] body.signal-rebuild .timeline-item,
+html[data-theme="light"] body.signal-rebuild .skill-block,
+html[data-theme="light"] body.signal-rebuild .cv-card,
+html[data-theme="light"] body.signal-rebuild .testimonial-card,
+html[data-theme="light"] body.signal-rebuild .contact-card,
+html[data-theme="light"] .evidence-route-card,
+html[data-theme="light"] .track-tool-card,
+html[data-theme="light"] .evidence-panel,
+html[data-theme="light"] .card {
+  background:
+    linear-gradient(180deg, rgba(255, 254, 250, 0.96), rgba(246, 248, 243, 0.94)) !important;
+  color: #121a25 !important;
+  border-color: rgba(24, 37, 47, 0.13) !important;
+  box-shadow: 0 18px 46px rgba(24, 37, 47, 0.09) !important;
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-claim,
+html[data-theme="light"] body.signal-rebuild .hero-kicker,
+html[data-theme="light"] body.signal-rebuild .section-intro,
+html[data-theme="light"] body.signal-rebuild .section-copy,
+html[data-theme="light"] body.signal-rebuild p,
+html[data-theme="light"] body.signal-rebuild li,
+html[data-theme="light"] body.signal-rebuild .role-track-card p,
+html[data-theme="light"] body.signal-rebuild .project-card p,
+html[data-theme="light"] body.signal-rebuild .assignment-card p,
+html[data-theme="light"] body.signal-rebuild .timeline-item p,
+html[data-theme="light"] body.signal-rebuild .cv-card p {
+  color: #53606d;
+}
+
+html[data-theme="light"] body.signal-rebuild h1,
+html[data-theme="light"] body.signal-rebuild h2,
+html[data-theme="light"] body.signal-rebuild h3,
+html[data-theme="light"] body.signal-rebuild h4,
+html[data-theme="light"] body.signal-rebuild .signal-title {
+  color: #121a25 !important;
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-hero h1 {
+  color: #0a111a !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75), 0 18px 44px rgba(18, 26, 37, 0.12);
+}
+
+html[data-theme="light"] body.signal-rebuild .eyebrow,
+html[data-theme="light"] body.signal-rebuild .hero-kicker,
+html[data-theme="light"] body.signal-rebuild .tag-row span,
+html[data-theme="light"] body.signal-rebuild .audience-chip-row span,
+html[data-theme="light"] body.signal-rebuild .skill-pill {
+  color: #40505e;
+}
+
+html[data-theme="light"] .thesis-chart-card,
+html[data-theme="light"] .chart-shell,
+html[data-theme="light"] .evidence-chart-shell,
+html[data-theme="light"] .battery-plot-card,
+html[data-theme="light"] .dark-plot-visual,
+html[data-theme="light"] .track-hero-metrics span,
+html[data-theme="light"] .evidence-kpi-strip span,
+html[data-theme="light"] .method-flow span,
+html[data-theme="light"] .chart-card,
+html[data-theme="light"] .metric-card {
+  background:
+    linear-gradient(180deg, rgba(255, 254, 250, 0.96), rgba(242, 246, 241, 0.96)) !important;
+  color: #121a25 !important;
+  border-color: rgba(24, 37, 47, 0.14) !important;
+}
+
+html[data-theme="light"] .thesis-chart-card canvas,
+html[data-theme="light"] .chart-shell canvas,
+html[data-theme="light"] .evidence-chart-shell canvas {
+  background: #fffefa;
+}
+
+html[data-theme="light"] .button.primary,
+html[data-theme="light"] body.signal-rebuild .button.primary {
+  background: #007478 !important;
+  color: #ffffff !important;
+  border-color: #007478 !important;
+}
+
+html[data-theme="light"] .button.secondary,
+html[data-theme="light"] body.signal-rebuild .button.secondary {
+  background: rgba(255, 254, 250, 0.88) !important;
+  color: #121a25 !important;
+  border-color: rgba(24, 37, 47, 0.16) !important;
+}
+
+/* ─── v4 homepage bento evidence stack ───────────────────────────────────── */
+body[data-page-key="home"] #projects .project-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+body[data-page-key="home"] #projects .project-card {
+  grid-column: span 4;
+  min-height: 100%;
+  border-radius: 16px;
+}
+
+body[data-page-key="home"] #projects .project-card:nth-child(1) {
+  grid-column: span 7;
+  grid-row: span 2;
+}
+
+body[data-page-key="home"] #projects .project-card:nth-child(2),
+body[data-page-key="home"] #projects .project-card:nth-child(3) {
+  grid-column: span 5;
+}
+
+body[data-page-key="home"] #projects .project-card:nth-child(1) .project-thumb,
+body[data-page-key="home"] #projects .project-card:nth-child(1) .siemens-cfd-thumb {
+  min-height: 240px;
+  max-height: none;
+}
+
+body[data-page-key="home"] #projects .project-card:nth-child(1) h3 {
+  font-size: clamp(1.28rem, 2vw, 1.72rem);
+}
+
+body[data-page-key="home"] #projects .project-card:nth-child(1) p:not(.project-category) {
+  -webkit-line-clamp: 4;
+  max-height: 6em;
+}
+
+body[data-page-key="home"] #projects .project-card .project-thumb {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+}
+
+body[data-page-key="home"] #projects .project-card:hover .project-thumb {
+  transform: scale(1.035);
+  filter: saturate(1.08) contrast(1.03);
+}
+
+body[data-page-key="home"] #projects .project-card:nth-child(1)::before {
+  content: "";
+  position: absolute;
+  inset: auto 18px 18px auto;
+  width: 132px;
+  height: 42px;
+  pointer-events: none;
+  opacity: 0.58;
+  background:
+    linear-gradient(90deg, transparent 0 12%, currentColor 12% 15%, transparent 15% 34%, currentColor 34% 37%, transparent 37% 56%, currentColor 56% 59%, transparent 59% 100%);
+  color: color-mix(in srgb, var(--accent) 72%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+  animation: routePulse 3.8s ease-in-out infinite;
+}
+
+@keyframes routePulse {
+  0%, 100% { transform: translateX(-8px); opacity: 0.34; }
+  50% { transform: translateX(8px); opacity: 0.72; }
+}
+
+@media (max-width: 1120px) {
+  body[data-page-key="home"] #projects .project-card,
+  body[data-page-key="home"] #projects .project-card:nth-child(1),
+  body[data-page-key="home"] #projects .project-card:nth-child(2),
+  body[data-page-key="home"] #projects .project-card:nth-child(3) {
+    grid-column: span 6;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  body[data-page-key="home"] #projects .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page-key="home"] #projects .project-card,
+  body[data-page-key="home"] #projects .project-card:nth-child(1),
+  body[data-page-key="home"] #projects .project-card:nth-child(2),
+  body[data-page-key="home"] #projects .project-card:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
 @media print {
   .scroll-top-btn,
   .theme-toggle-btn,

@@ -16,6 +16,7 @@
 
 // ── Resolve base URL for subsystem loading ─────────────────────────────────
 const BASE = new URL(".", import.meta.url).href;
+const VERSION = new URL(import.meta.url).search || "";
 
 // ── Capability detection ───────────────────────────────────────────────────
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -65,10 +66,10 @@ function ensureGSAP() {
 // ── Subsystem loader ───────────────────────────────────────────────────────
 const subsystems = new Map();
 
-async function load(name) {
+async function load(name, path) {
   if (subsystems.has(name)) return subsystems.get(name).instance;
   try {
-    const mod = await import(`${BASE}${name}.js`);
+    const mod = await import(`${path || `${BASE}${name}.js`}${VERSION}`);
     const instance = mod.init ? await mod.init(Motion.ctx) : null;
     subsystems.set(name, { module: mod, instance });
     bus.emit("motion:subsystem-loaded", { name, instance });
@@ -149,16 +150,24 @@ function boot() {
     { name: "fluid-sim",     selector: "[data-motion-fluid-sim]",     skip: () => reducedMotion },
     { name: "cursor",        selector: "[data-motion-cursor]",        skip: () => touchOnly || reducedMotion },
     { name: "springs",       selector: "[data-motion-spring], .button.primary, [data-home-mode-button], .signal-routes a", skip: () => reducedMotion || touchOnly },
-    { name: "scrollytelling",selector: "[data-motion-scrollyt]",      skip: () => reducedMotion || !Motion.ctx.ScrollTrigger },
+    { name: "scrollytelling",selector: "[data-motion-scrollyt]" },
     { name: "scroll-rail",   selector: "[data-motion-scroll-rail]" },
     { name: "transitions",   selector: "[data-motion-page-transition], a[data-page-transition]" },
     { name: "entrance",      selector: "[data-motion-entrance]",      skip: () => reducedMotion },
+    { name: "chips",         selector: ".tag-row span, .audience-chip-row span, .skill-pill, .chip, .pill" },
+    { name: "bento-projects", selector: "[data-featured-projects]", path: `${BASE}../sections/bento-projects.js` },
+    { name: "evidence-graph", selector: ".evidence-lanes", path: `${BASE}../sections/evidence-graph.js` },
+    { name: "skill-radar", selector: "[data-dynamic-skills]", path: `${BASE}../sections/skill-radar.js` },
+    { name: "cinematic-timeline", selector: "#experience .timeline", path: `${BASE}../sections/cinematic-timeline.js` },
+    { name: "research-mindmap", selector: ".scene-skills + .section, [data-research-mindmap-source]", path: `${BASE}../sections/research-mindmap.js` },
+    { name: "letter-viewer", selector: ".testimonial-card", path: `${BASE}../sections/letter-viewer.js` },
+    { name: "step-form", selector: "[data-contact-form]", path: `${BASE}../sections/step-form.js` },
     { name: "theme-wipe",    selector: "[data-theme-toggle]",         skip: () => reducedMotion },
-    { name: "audio",         selector: "[data-motion-audio-toggle]",  skip: () => !supportsWebAudio },
+    { name: "audio",         selector: "body",  skip: () => !supportsWebAudio },
   ];
   for (const entry of autoload) {
     if (entry.skip && entry.skip()) continue;
-    if (document.querySelector(entry.selector)) load(entry.name);
+    if (document.querySelector(entry.selector)) load(entry.name, entry.path);
   }
 
   bus.emit("motion:ready", Motion.ctx);

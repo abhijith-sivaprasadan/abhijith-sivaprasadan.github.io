@@ -1,0 +1,89 @@
+.experience-map {
+  position: relative;
+  min-height: 230px;
+  margin-bottom: 24px;
+  border: 1px solid var(--v4-line);
+  border-radius: var(--v4-radius);
+  background:
+    radial-gradient(circle at 48% 34%, rgba(101, 214, 201, 0.16), transparent 16%),
+    var(--v4-grid),
+    var(--v4-panel);
+  background-size: auto, 24px 24px, auto;
+  overflow: hidden;
+}
+
+.experience-map svg,
+.experience-map-grid,
+.map-pin-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.experience-map polyline {
+  fill: none;
+  stroke: color-mix(in srgb, var(--v4-teal) 48%, transparent);
+  stroke-width: 0.7;
+  stroke-dasharray: 2 2;
+}
+
+.map-dot {
+  fill: var(--v4-amber);
+}
+
+.map-pin {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--v4-line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: var(--text);
+  background: color-mix(in srgb, var(--v4-panel-strong) 90%, transparent);
+  box-shadow: 0 16px 42px rgba(0,0,0,0.18);
+}
+
+.map-pin span,
+.map-pin small {
+  display: block;
+  line-height: 1.15;
+}
+
+.map-pin small {
+  color: var(--muted);
+}
+
+.cinematic-timeline {
+  position: relative;
+}
+
+.cinematic-role-card {
+  transition: transform 260ms ease, border-color 260ms ease, background 260ms ease;
+}
+
+.cinematic-role-card.is-active {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--v4-teal) 48%, var(--v4-line));
+}
+
+.cinematic-role-card.is-primary-role {
+  box-shadow: 0 24px 76px rgba(101, 214, 201, 0.12);
+}
+
+@media (min-width: 980px) {
+  .cinematic-timeline {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(280px, 1fr));
+    overflow-x: auto;
+    gap: 16px;
+    padding-bottom: 10px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .cinematic-timeline::-webkit-scrollbar {
+    display: none;
+  }
+  .cinematic-role-card {
+    scroll-snap-align: center;
+  }
+}
