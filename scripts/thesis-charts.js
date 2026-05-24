@@ -1,14 +1,25 @@
 (function () {
-  var colors = {
-    blue: "#2563a8",
-    teal: "#65d6c9",
-    orange: "#d0622c",
-    amber: "#f6c85f",
-    gray: "#888780",
-    text: "#f4f1ea",
-    muted: "#b9b4aa",
-    grid: "rgba(255,255,255,0.10)"
-  };
+  function isLightTheme() {
+    return document.documentElement.dataset.theme === "light";
+  }
+
+  function getColors() {
+    var light = isLightTheme();
+    return {
+      blue:   "#2563a8",
+      teal:   light ? "#0d9488" : "#65d6c9",
+      orange: "#d0622c",
+      amber:  light ? "#92400e" : "#f6c85f",
+      gray:   light ? "#6b7280" : "#888780",
+      text:   light ? "#101821" : "#f4f1ea",
+      muted:  light ? "#55606a" : "#b9b4aa",
+      grid:   light ? "rgba(15,25,35,0.10)" : "rgba(255,255,255,0.10)",
+      axis:   light ? "rgba(15,25,35,0.30)" : "rgba(255,255,255,0.22)",
+      bg:     light ? "#ffffff" : "transparent"
+    };
+  }
+
+  var colors = getColors();
 
   var axis = {
     line: "line",
@@ -217,6 +228,9 @@
   }
 
   function prepareCanvas(canvas) {
+    // Re-read theme on every render so toggling dark↔light repaints correctly
+    colors = getColors();
+
     var rect = canvas.getBoundingClientRect();
     var ratio = window.devicePixelRatio || 1;
     var width = Math.max(320, Math.floor(rect.width));
@@ -226,6 +240,11 @@
     var ctx = canvas.getContext("2d");
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
     ctx.clearRect(0, 0, width, height);
+    // Fill background so canvas is never transparent on light page
+    if (colors.bg !== "transparent") {
+      ctx.fillStyle = colors.bg;
+      ctx.fillRect(0, 0, width, height);
+    }
     ctx.font = "12px Roboto, system-ui, sans-serif";
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -298,7 +317,7 @@
       ctx.fillText(label, 6, y + 4);
     }
 
-    ctx.strokeStyle = "rgba(255,255,255,0.22)";
+    ctx.strokeStyle = colors.axis;
     ctx.beginPath();
     ctx.moveTo(plot.left, plot.top);
     ctx.lineTo(plot.left, plot.bottom);
@@ -386,7 +405,7 @@
       ctx.fillStyle = pointColor;
       ctx.arc(hit.x, hit.y, 3, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = "rgba(7,8,7,0.82)";
+      ctx.strokeStyle = colors.bg !== "transparent" ? colors.bg : "rgba(7,8,7,0.82)";
       ctx.lineWidth = 1;
       ctx.stroke();
     });
@@ -728,5 +747,15 @@
         }
       }, 150);
     });
+
+    // Re-render charts when the user toggles dark/light theme
+    var themeObserver = new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        if (m.attributeName === "data-theme") {
+          setTimeout(renderAll, 50);
+        }
+      });
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   });
 })();

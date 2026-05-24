@@ -3184,6 +3184,85 @@ code,
   line-height: 1.45;
 }
 
+body[data-page-key="home"] .role-card,
+body[data-page-key="home"] .signal-proof-grid a,
+body[data-page-key="home"] #projects .project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+body[data-page-key="home"] .role-card::after,
+body[data-page-key="home"] .signal-proof-grid a::after,
+body[data-page-key="home"] #projects .project-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.07) 46%, transparent 74%);
+  transform: translateX(-130%);
+  transition: transform 0.72s ease;
+}
+
+body[data-page-key="home"] .role-card:hover::after,
+body[data-page-key="home"] .signal-proof-grid a:hover::after,
+body[data-page-key="home"] #projects .project-card:hover::after {
+  transform: translateX(130%);
+}
+
+body[data-page-key="home"] #projects .project-grid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+body[data-page-key="home"] #projects .project-card {
+  min-height: 0;
+}
+
+body[data-page-key="home"] #projects .project-card:nth-of-type(n+7) {
+  display: none;
+}
+
+body[data-page-key="home"] #projects .project-card .project-thumb {
+  aspect-ratio: 16 / 8.8;
+  max-height: 150px;
+  object-fit: cover;
+}
+
+body[data-page-key="home"] #projects .siemens-cfd-thumb {
+  min-height: 150px;
+  padding: 10px;
+}
+
+body[data-page-key="home"] #projects .siemens-cfd-thumb svg {
+  max-height: 140px;
+}
+
+body[data-page-key="home"] #projects .project-card .audience-chip-row,
+body[data-page-key="home"] #projects .project-card .project-category {
+  display: none;
+}
+
+body[data-page-key="home"] #projects .project-card h3 {
+  font-size: 1.02rem;
+}
+
+body[data-page-key="home"] #projects .project-card p:not(.project-category) {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  max-height: 4.5em;
+  overflow: hidden;
+}
+
+body[data-page-key="home"] #projects .project-card ul,
+body[data-page-key="home"] #projects .project-card .evidence-list {
+  display: none;
+}
+
+body[data-page-key="home"] #projects .project-card .tag-row span:nth-child(n+4),
+body[data-page-key="home"] #projects .project-card .audience-chip-row span:nth-child(n+4) {
+  display: none;
+}
+
 .project-grid {
   grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
 }
@@ -7720,6 +7799,167 @@ html[data-theme="light"] .contact-form textarea {
   color: #0f1923;
 }
 
+/* ─── Light theme: signal-rebuild section overrides ──────────────────────────
+   The base signal-rebuild rules use hardcoded near-black backgrounds
+   (rgba(7,8,7,…), #0a0d0a, #080a08, etc.).  These rules override every
+   component that would otherwise be invisible on the light page background.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* 01–04 navigation tiles */
+html[data-theme="light"] body.signal-rebuild .signal-routes {
+  border-color: rgba(2, 132, 199, 0.18);
+  background: rgba(2, 132, 199, 0.06);
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-routes a {
+  background: #ffffff;
+  color: var(--signal-text, #101821);
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-routes a:hover {
+  background: rgba(2, 132, 199, 0.07);
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-routes span {
+  color: #92400e; /* darker amber — readable on white */
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-routes strong {
+  color: var(--signal-text, #101821);
+}
+
+/* Hero section */
+html[data-theme="light"] body.signal-rebuild .signal-hero,
+html[data-theme="light"] body.signal-rebuild .hero.signal-hero {
+  background:
+    radial-gradient(circle at 20% 40%, rgba(2, 132, 199, 0.08), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(4, 120, 87, 0.07), transparent 40%),
+    transparent;
+}
+
+/* Evidence section */
+html[data-theme="light"] body.signal-rebuild .signal-evidence {
+  background: #eef3ef;
+}
+
+html[data-theme="light"] body.signal-rebuild .evidence-map-copy {
+  border-top-color: rgba(4, 120, 87, 0.22);
+}
+
+html[data-theme="light"] body.signal-rebuild .evidence-lanes {
+  border-color: rgba(2, 132, 199, 0.14);
+  background: rgba(2, 132, 199, 0.06);
+}
+
+html[data-theme="light"] body.signal-rebuild .evidence-lane {
+  background: #ffffff;
+  color: var(--signal-text, #101821);
+}
+
+html[data-theme="light"] body.signal-rebuild .evidence-lane:hover {
+  background: rgba(4, 120, 87, 0.06);
+  box-shadow: 0 12px 28px rgba(15, 25, 35, 0.1), 0 0 0 1px rgba(4, 120, 87, 0.18);
+}
+
+html[data-theme="light"] body.signal-rebuild .evidence-lane.is-primary {
+  background: linear-gradient(90deg, rgba(4, 120, 87, 0.07), transparent), #ffffff;
+}
+
+html[data-theme="light"] body.signal-rebuild .evidence-lane span {
+  color: #92400e;
+}
+
+html[data-theme="light"] body.signal-rebuild .evidence-lane small {
+  color: var(--signal-muted, #55606a);
+}
+
+/* Assignment / experience cards */
+html[data-theme="light"] body.signal-rebuild .assignment-data-section {
+  background: #f4f6fa;
+}
+
+html[data-theme="light"] body.signal-rebuild .assignment-card {
+  background: #ffffff;
+  border-color: rgba(15, 25, 35, 0.1);
+  color: var(--signal-text, #101821);
+}
+
+html[data-theme="light"] body.signal-rebuild .assignment-card:hover {
+  background: #f8fafb;
+  border-color: rgba(2, 132, 199, 0.28);
+  box-shadow: 0 12px 28px rgba(15, 25, 35, 0.09);
+}
+
+html[data-theme="light"] body.signal-rebuild .assignment-card img,
+html[data-theme="light"] body.signal-rebuild .experience-thumb {
+  background: #edf0f5;
+  border-color: rgba(15, 25, 35, 0.08);
+}
+
+html[data-theme="light"] body.signal-rebuild .assignment-card span {
+  color: #92400e;
+}
+
+html[data-theme="light"] body.signal-rebuild .assignment-card small {
+  color: var(--signal-muted, #55606a);
+}
+
+/* Subtle / dark section backgrounds on homepage */
+html[data-theme="light"] body.signal-rebuild .subtle,
+html[data-theme="light"] body.signal-rebuild .section.subtle {
+  background: #edf0f5;
+}
+
+/* Signal proof grid links */
+html[data-theme="light"] body.signal-rebuild .signal-proof-grid a {
+  background: #ffffff;
+  border-color: rgba(15, 25, 35, 0.1);
+  color: var(--signal-text, #101821);
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-proof-grid a:hover {
+  background: rgba(2, 132, 199, 0.06);
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
+/* Rail metrics */
+html[data-theme="light"] body.signal-rebuild .signal-rail {
+  background: #ffffff;
+  border-color: rgba(15, 25, 35, 0.1);
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-rail article strong {
+  color: var(--signal-text, #101821);
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-rail article small {
+  color: var(--signal-muted, #55606a);
+}
+
+/* Role cards */
+html[data-theme="light"] body.signal-rebuild .role-card {
+  background: #ffffff;
+  border-color: rgba(15, 25, 35, 0.09);
+  color: var(--signal-text, #101821);
+}
+
+html[data-theme="light"] body.signal-rebuild .role-card h3 a,
+html[data-theme="light"] body.signal-rebuild .role-card .title-link {
+  color: var(--signal-text, #101821);
+}
+
+html[data-theme="light"] body.signal-rebuild .role-card p {
+  color: var(--signal-muted, #55606a);
+}
+
+/* Pathway cards inside the signal layout */
+html[data-theme="light"] body.signal-rebuild .pathway-card,
+html[data-theme="light"] body.signal-rebuild .role-track-card {
+  background: #ffffff;
+  border-color: rgba(15, 25, 35, 0.09);
+  color: var(--signal-text, #101821);
+}
+
 /* ─── Testimonials ───────────────────────────────────────────────────────── */
 .testimonials-grid {
   display: grid;
@@ -7746,17 +7986,6 @@ html[data-theme="light"] .contact-form textarea {
   color: var(--accent, #38bdf8);
   opacity: 0.35;
   font-family: Georgia, serif;
-}
-
-.testimonial-card.recommendation-card::before {
-  content: "";
-  width: 28px;
-  height: 3px;
-  top: 22px;
-  left: 24px;
-  border-radius: 999px;
-  background: var(--accent, #38bdf8);
-  opacity: 0.75;
 }
 
 .testimonial-body {

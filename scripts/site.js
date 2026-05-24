@@ -1419,8 +1419,8 @@ const initializeProjects = async () => {
       pageState.projects = mergedProjects;
 
       if (featuredProjects) {
-        const selected = mergedProjects.filter((project) => project.featured).slice(0, 10);
-        featuredProjects.innerHTML = (selected.length ? selected : mergedProjects.slice(0, 10)).map(renderProjectCard).join("");
+        const selected = mergedProjects.filter((project) => project.featured).slice(0, 6);
+        featuredProjects.innerHTML = (selected.length ? selected : mergedProjects.slice(0, 6)).map(renderProjectCard).join("");
         decorateSkillLinks(featuredProjects);
       }
 
