@@ -24,13 +24,20 @@ Just install dependencies and run:
 ```bash
 cd sanity
 npm install
-npx sanity login        # one-time browser login to sanity.io
-npx sanity dev          # local Studio at http://localhost:3333
+npm run login        # one-time browser login to sanity.io
+npm run dev          # local Studio at http://localhost:3333
 ```
 
-That's it.  **Do NOT run `npm create sanity@latest`** in this folder — the
-scaffold already exists and re-running create-sanity will fight with our
-schemas.
+**Important:** use `npm run dev`, NOT bare `npx sanity dev`. The npm script
+wraps the sanity binary with `cross-env NODE_OPTIONS=
+"--no-experimental-require-module"` which disables Node 22+'s new
+synchronous-require-of-ESM behavior. Without that flag, the Sanity CLI
+crashes inside its bundled yargs (`require is not defined in ES module
+scope`). All Sanity commands have an `npm run …` equivalent: `build`,
+`deploy`, `deploy-graphql`, `login`, `start`.
+
+**Do NOT run `npm create sanity@latest`** in this folder — the scaffold
+already exists and re-running create-sanity will fight with our schemas.
 
 If you ever need to bootstrap a fresh Studio from scratch (e.g. to compare
 against the current Sanity defaults), do it in a SIBLING folder so it
