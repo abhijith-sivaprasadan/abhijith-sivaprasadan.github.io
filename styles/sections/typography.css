@@ -1,0 +1,71 @@
+/* ─── Typography rhythm — Inter Variable + JetBrains Mono ─────────────────
+   Apply the variable-weight axis: headings start at 540 and lift to 640
+   on hover/focus, transitioning smoothly. Tighter modular scale (1.250
+   perfect fourth) for clearer hierarchy.
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --font-sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, "SFMono-Regular", "Roboto Mono", monospace;
+
+  /* Modular scale 1.250 (perfect fourth) anchored at 1rem */
+  --type-xs:   0.8rem;     /* 12.8 px */
+  --type-sm:   0.875rem;   /* 14 px */
+  --type-base: 1rem;       /* 16 px */
+  --type-md:   1.125rem;   /* 18 px */
+  --type-lg:   1.406rem;   /* 22.5 px */
+  --type-xl:   1.758rem;   /* 28.1 px */
+  --type-2xl:  2.197rem;   /* 35.2 px */
+  --type-3xl:  2.747rem;   /* 43.9 px */
+  --type-4xl:  3.434rem;   /* 54.9 px */
+}
+
+body,
+.future-v3,
+.signal-rebuild {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11", "calt";
+  font-variation-settings: "opsz" 18;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+code, pre, kbd, samp, .font-mono,
+.hero-kicker, .eyebrow, .meta,
+.result-metric-card strong,
+.signal-rail strong,
+.thesis-kpis strong,
+.thesis-chart-card .chart-kpi-grid strong {
+  font-family: var(--font-mono);
+  font-feature-settings: "ss01", "cv11", "tnum";
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  font-variation-settings: "opsz" 28, "wght" 540;
+  letter-spacing: -0.012em;
+  transition: font-variation-settings var(--motion-dur-fast, 220ms) var(--motion-ease-out, ease);
+}
+
+h1 { font-size: clamp(2.1rem, 4.2vw, var(--type-4xl)); line-height: 1.05; }
+h2 { font-size: clamp(1.65rem, 2.9vw, var(--type-2xl)); line-height: 1.18; }
+h3 { font-size: clamp(1.18rem, 1.9vw, var(--type-lg)); line-height: 1.28; }
+h4 { font-size: var(--type-md); line-height: 1.35; }
+
+/* Variable-weight hover lift: 540 → 640 over 220 ms */
+h2:hover, h3:hover, .title-link:hover, .heading-link:hover {
+  font-variation-settings: "opsz" 32, "wght" 640;
+}
+
+/* Optical-size adjustment on big headings */
+.hero h1,
+.signal-hero h1,
+.case-hero h1 {
+  font-variation-settings: "opsz" 32, "wght" 640;
+  letter-spacing: -0.018em;
+}
+
+html.motion-reduced h2,
+html.motion-reduced h3 {
+  transition: none;
+}

@@ -164,6 +164,8 @@ function boot() {
     { name: "step-form", selector: "[data-contact-form]", path: `${BASE}../sections/step-form.js` },
     { name: "theme-wipe",    selector: "[data-theme-toggle]",         skip: () => reducedMotion },
     { name: "audio",         selector: "body",  skip: () => !supportsWebAudio },
+    { name: "reading-progress", selector: '.case-hero, .case-panel, [data-page-key="case-study"]' },
+    { name: "looking-for",      selector: "body" },
   ];
   for (const entry of autoload) {
     if (entry.skip && entry.skip()) continue;

@@ -1,0 +1,104 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://abhijith-sivaprasadan.github.io/#person",
+  "name": "Abhijith Sivaprasadan",
+  "givenName": "Abhijith",
+  "familyName": "Sivaprasadan",
+  "image": "https://abhijith-sivaprasadan.github.io/assets/headshot.jpg",
+  "url": "https://abhijith-sivaprasadan.github.io/",
+  "email": "mailto:abhijithsivaprasadan@gmail.com",
+  "jobTitle": "Thermal-Fluid and Energy Systems Engineer",
+  "description": "M.Sc. Sustainable Energy Engineering candidate at KTH Royal Institute of Technology with research-grade experience in compressible CFD, conjugate heat transfer, energy systems modelling and industrial decarbonisation methodology.",
+  "homeLocation": {
+    "@type": "Place",
+    "address": { "@type": "PostalAddress", "addressLocality": "Stockholm", "addressCountry": "SE" }
+  },
+  "alumniOf": [
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "KTH Royal Institute of Technology",
+      "department": "Department of Energy Technology",
+      "url": "https://www.kth.se/",
+      "memberOf": { "@type": "EducationalOccupationalProgram", "name": "M.Sc. Sustainable Energy Engineering" }
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      "name": "College of Engineering Perumon",
+      "memberOf": { "@type": "EducationalOccupationalProgram", "name": "B.Tech Mechanical Engineering" }
+    }
+  ],
+  "knowsLanguage": [
+    { "@type": "Language", "name": "English", "alternateName": "en" },
+    { "@type": "Language", "name": "Swedish", "alternateName": "sv" },
+    { "@type": "Language", "name": "Malayalam", "alternateName": "ml" },
+    { "@type": "Language", "name": "Hindi", "alternateName": "hi" }
+  ],
+  "knowsAbout": [
+    "Conjugate heat transfer",
+    "Compressible flow",
+    "k-omega SST turbulence model",
+    "Mesh independence",
+    "Biot number analysis",
+    "ANSYS Fluent",
+    "High-temperature instrumentation",
+    "NI-DAQ / LabVIEW",
+    "Energy systems modelling",
+    "IDA ICE",
+    "HOMER Pro",
+    "LEAP",
+    "PuLP MILP optimisation",
+    "Python (NumPy, pandas, scikit-learn)",
+    "MATLAB",
+    "Industrial decarbonisation",
+    "ISO 50001 / EU EED",
+    "Techno-economic analysis"
+  ],
+  "hasOccupation": [
+    {
+      "@type": "Role",
+      "roleName": "M.Sc. Thesis — CFD/CHT engineer",
+      "memberOf": { "@type": "Organization", "name": "Siemens Energy AB", "address": "Finspång, Sweden" },
+      "startDate": "2025-04",
+      "endDate": "2025-11",
+      "description": "Compressible CFD with conjugate heat transfer for a high-temperature pressure-sensor calibration rig. TRITA-ITM-EX 2026:14."
+    },
+    {
+      "@type": "Role",
+      "roleName": "Energy efficiency methodology engineer",
+      "memberOf": { "@type": "Organization", "name": "Alleima AB", "address": "Sandviken, Sweden" },
+      "description": "ISO 50001 / EU EED-aligned industrial energy performance mapping, load-driver regression and metering-readiness assessment."
+    },
+    {
+      "@type": "Role",
+      "roleName": "Backend engineer",
+      "memberOf": { "@type": "Organization", "name": "QBurst Technologies", "address": "Kerala, India" }
+    },
+    {
+      "@type": "Role",
+      "roleName": "Pyrolysis research intern",
+      "memberOf": { "@type": "Organization", "name": "KTH Royal Institute of Technology" }
+    }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/abhijith-sivaprasadan/",
+    "https://github.com/abhijith-sivaprasadan",
+    "https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965"
+  ],
+  "subjectOf": {
+    "@type": "Thesis",
+    "headline": "Numerical Investigation of Steady-State Thermo-Fluid Performance of a Reducer for a High-Temperature Dynamic Pressure Sensor Calibration Rig",
+    "identifier": "TRITA-ITM-EX 2026:14",
+    "url": "https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965",
+    "datePublished": "2026"
+  },
+  "_meta": {
+    "schema": "https://schema.org/Person",
+    "generatedAt": "2026-05-25",
+    "versions": {
+      "research_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_CV_PhD_Academic.pdf",
+      "energy_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_CV_EnergyCoordinator.pdf",
+      "thermal_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_CV_TestEngineer.pdf"
+    }
+  }
+}
