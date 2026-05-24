@@ -7988,6 +7988,17 @@ html[data-theme="light"] body.signal-rebuild .role-track-card {
   font-family: Georgia, serif;
 }
 
+.testimonial-card.recommendation-card::before {
+  content: "";
+  width: 28px;
+  height: 3px;
+  top: 22px;
+  left: 24px;
+  border-radius: 999px;
+  background: var(--accent, #38bdf8);
+  opacity: 0.75;
+}
+
 .testimonial-body {
   font-size: 0.9rem;
   line-height: 1.65;
