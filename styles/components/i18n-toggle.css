@@ -1,0 +1,33 @@
+.i18n-toggle {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--v4-line);
+  border-radius: 999px;
+  padding: 2px;
+  margin-left: 6px;
+  background: color-mix(in srgb, var(--v4-panel) 60%, transparent);
+}
+
+.i18n-toggle button {
+  border: 0;
+  background: transparent;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.74rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--muted);
+  transition: color 180ms, background 180ms;
+}
+
+.i18n-toggle button[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--v4-teal) 22%, transparent);
+  color: var(--text);
+}
+
+.i18n-toggle button:hover { color: var(--text); }
+
+@media (max-width: 720px) {
+  .i18n-toggle { margin-left: 4px; }
+  .i18n-toggle button { padding: 4px 6px; font-size: 0.68rem; }
+}
