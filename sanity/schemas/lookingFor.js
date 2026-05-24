@@ -1,9 +1,9 @@
 // Singleton document — the "Looking for…" status banner that appears on every page.
-export default {
+module.exports = {
   name: "lookingFor",
   title: "Looking for (status banner)",
   type: "document",
-  __experimental_actions: ["update", "publish"], // no create/delete (singleton)
+  __experimental_actions: ["update", "publish"], // singleton: no create / delete
   fields: [
     {
       name: "active",
@@ -26,7 +26,7 @@ export default {
       title: "Message — Swedish",
       type: "text",
       rows: 2,
-      description: "Same content in Swedish; shown when locale toggle is set to sv.",
+      description: "Same content in Swedish; shown when the locale toggle is set to sv.",
     },
     {
       name: "tone",

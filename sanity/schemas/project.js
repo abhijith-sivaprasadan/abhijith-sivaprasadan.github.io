@@ -1,8 +1,7 @@
 // Project — case study summary metadata. The frontend uses these to render
 // the bento grid + project browser. Detailed case-study content stays in
-// the static HTML files under projects/ for now (we don't migrate the
-// whole site to a CMS-driven renderer in v4).
-export default {
+// the static HTML files under projects/ for now.
+module.exports = {
   name: "project",
   title: "Project",
   type: "document",

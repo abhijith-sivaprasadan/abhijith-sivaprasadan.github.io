@@ -1,38 +1,32 @@
 /**
  * Sanity Studio configuration for Abhijith Sivaprasadan's portfolio.
  *
- * Setup instructions:
- *   1. cd sanity
- *   2. npm install
- *   3. Sign in / sign up at https://www.sanity.io  (free tier)
- *   4. npx sanity init  -> select "Create new project" -> name "abhijith-portfolio"
- *      -> dataset "production" (use defaults).  This writes a `.env` you can ignore
- *      since we declare projectId/dataset directly below.
- *   5. Replace PROJECT_ID below with the value Sanity gives you.
- *   6. npx sanity dev  -> studio runs locally on http://localhost:3333
- *      npx sanity deploy  -> hosted at https://abhijith-portfolio.sanity.studio
+ * Project: 4lmq2x2j  Dataset: production
+ * Free tier: 3 users / 10k docs / 1M CDN req per month (May 2026).
  *
- * Free tier (May 2026):
- *   - 3 users
- *   - 10k documents
- *   - 1M API CDN requests / month
- *   - 100GB asset bandwidth / month
- *   This is comfortably within "1 user" portfolio needs.
+ * Run locally:
+ *   cd sanity
+ *   npm install
+ *   npx sanity dev          → http://localhost:3333
+ *   npx sanity deploy       → <slug>.sanity.studio (free hosted)
+ *
+ * The file is intentionally CommonJS to avoid the ESM/CJS conflict
+ * between this package and the `sanity` CLI's internal yargs binary.
  */
-import { defineConfig } from "sanity";
-import { structureTool } from "sanity/structure";
-import { visionTool } from "@sanity/vision";
+const { defineConfig } = require("sanity");
+const { structureTool } = require("sanity/structure");
+const { visionTool } = require("@sanity/vision");
 
-import idea from "./schemas/idea";
-import project from "./schemas/project";
-import researchStatus from "./schemas/researchStatus";
-import testimonial from "./schemas/testimonial";
-import lookingFor from "./schemas/lookingFor";
+const idea = require("./schemas/idea");
+const project = require("./schemas/project");
+const researchStatus = require("./schemas/researchStatus");
+const testimonial = require("./schemas/testimonial");
+const lookingFor = require("./schemas/lookingFor");
 
 const PROJECT_ID = "4lmq2x2j";
 const DATASET = "production";
 
-export default defineConfig({
+module.exports = defineConfig({
   name: "abhijith-portfolio",
   title: "Abhijith Sivaprasadan — Portfolio CMS",
   projectId: PROJECT_ID,

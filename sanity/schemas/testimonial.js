@@ -1,6 +1,6 @@
 // Testimonial / recommendation letter — content for the testimonials section
 // and the letter-viewer modal.
-export default {
+module.exports = {
   name: "testimonial",
   title: "Testimonial",
   type: "document",

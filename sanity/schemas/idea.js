@@ -1,5 +1,5 @@
 // Idea — short research/engineering ideas, like a public lab notebook.
-export default {
+module.exports = {
   name: "idea",
   title: "Idea",
   type: "document",
