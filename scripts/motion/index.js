@@ -147,7 +147,10 @@ function boot() {
 
   // Auto-load subsystems present on the page
   const autoload = [
-    { name: "fluid-sim",     selector: "[data-motion-fluid-sim]",     skip: () => reducedMotion },
+    // Eulerian Stable Fluids — preferred on capable devices.
+    { name: "fluid-sim-eulerian", selector: "[data-motion-fluid-sim]", skip: () => reducedMotion || lowPower || !supportsWorkers },
+    // Lightweight particle-advected — fallback when Workers/low-power gate the Eulerian sim.
+    { name: "fluid-sim",     selector: "[data-motion-fluid-sim]", skip: () => reducedMotion || (supportsWorkers && !lowPower) },
     { name: "cursor",        selector: "[data-motion-cursor]",        skip: () => touchOnly || reducedMotion },
     { name: "springs",       selector: "[data-motion-spring], .button.primary, [data-home-mode-button], .signal-routes a", skip: () => reducedMotion || touchOnly },
     { name: "scrollytelling",selector: "[data-motion-scrollyt]" },
@@ -171,6 +174,7 @@ function boot() {
     { name: "i18n",             selector: "body" },
     { name: "cms-hydrate",      selector: "body", path: `${BASE}../cms/hydrate.js` },
     { name: "bento-previews",   selector: "[data-project-id]", path: `${BASE}../sections/bento-previews.js`, skip: () => reducedMotion },
+    { name: "reducer-3d-viewer", selector: "[data-reducer-3d-viewer]", path: `${BASE}../sections/reducer-3d-viewer.js`, skip: () => reducedMotion },
   ];
   for (const entry of autoload) {
     if (entry.skip && entry.skip()) continue;
