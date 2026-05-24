@@ -1626,12 +1626,22 @@ const initializeSkillExplorer = () => {
   });
 };
 
+const isWideNav = () => window.matchMedia && window.matchMedia("(min-width: 980px)").matches;
+
+const updateNavButtonLabel = (button, open = document.body.classList.contains("nav-open")) => {
+  if (!button) return;
+  const desktopLabel = isWideNav() ? "More" : "Menu";
+  const label = button.querySelector(".nav-toggle-label");
+  if (label) label.textContent = open ? "Close" : desktopLabel;
+  button.setAttribute("aria-label", open ? "Close navigation menu" : (isWideNav() ? "Open more navigation links" : "Open navigation menu"));
+};
+
 const closeNav = () => {
   document.body.classList.remove("nav-open");
   const btn = document.querySelector(".nav-toggle");
   if (btn) {
     btn.setAttribute("aria-expanded", "false");
-    btn.setAttribute("aria-label", "Open navigation menu");
+    updateNavButtonLabel(btn, false);
   }
 };
 
@@ -1640,12 +1650,28 @@ const initializeNavToggle = () => {
   const nav = navLinks.closest(".nav");
   if (!nav || nav.querySelector(".nav-toggle")) return;
 
+  const primaryLabels = ["Research", "Energy Systems", "Industrial R&D", "Projects", "CVs"];
+  const primaryLinks = document.createElement("div");
+  primaryLinks.className = "nav-primary-links";
+  primaryLinks.setAttribute("aria-label", "Primary navigation");
+  Array.from(navLinks.querySelectorAll("a")).forEach((link) => {
+    const text = link.textContent.trim();
+    if (!primaryLabels.includes(text)) return;
+    link.dataset.primaryNav = "true";
+    const clone = link.cloneNode(true);
+    clone.removeAttribute("data-primary-nav");
+    primaryLinks.appendChild(clone);
+  });
+  if (primaryLinks.children.length) {
+    nav.insertBefore(primaryLinks, navLinks);
+  }
+
   const button = document.createElement("button");
   button.type = "button";
   button.className = "nav-toggle";
   button.setAttribute("aria-expanded", "false");
-  button.setAttribute("aria-label", "Open navigation menu");
-  button.innerHTML = "<span></span><span></span><span></span>";
+  button.innerHTML = '<span class="nav-toggle-label">Menu</span><span class="nav-toggle-chevron" aria-hidden="true"></span>';
+  updateNavButtonLabel(button, false);
   nav.insertBefore(button, navLinks);
 
   button.addEventListener("click", (event) => {
@@ -1653,8 +1679,16 @@ const initializeNavToggle = () => {
     const open = !document.body.classList.contains("nav-open");
     document.body.classList.toggle("nav-open", open);
     button.setAttribute("aria-expanded", String(open));
-    button.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+    updateNavButtonLabel(button, open);
   });
+
+  const navLabelQuery = window.matchMedia && window.matchMedia("(min-width: 980px)");
+  const handleNavLabelChange = () => updateNavButtonLabel(button);
+  if (navLabelQuery?.addEventListener) {
+    navLabelQuery.addEventListener("change", handleNavLabelChange);
+  } else if (navLabelQuery?.addListener) {
+    navLabelQuery.addListener(handleNavLabelChange);
+  }
 
   navLinks.addEventListener("click", (event) => {
     if (event.target instanceof Element && event.target.closest("a")) closeNav();
