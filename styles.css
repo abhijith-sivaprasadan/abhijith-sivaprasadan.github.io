@@ -7722,6 +7722,134 @@ html[data-theme="light"] .contact-form textarea {
   font-style: italic;
 }
 
+/* Stable hamburger navigation
+   The portfolio now uses one menu pattern at every width: a visible menu
+   button with an anchored popover. This avoids desktop tab overflow and
+   removes the old full-page blur overlay that blocked link clicks. */
+.site-header {
+  z-index: 1000;
+}
+
+.nav {
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.nav-toggle {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-left: auto;
+  position: relative;
+  z-index: 1205;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+body.nav-open .nav-toggle span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+body.nav-open .nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+body.nav-open .nav-toggle span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.theme-toggle-btn {
+  position: relative;
+  z-index: 1205;
+  flex: 0 0 auto;
+}
+
+.nav-links,
+body.signal-rebuild .nav-links {
+  position: fixed !important;
+  top: 72px !important;
+  right: clamp(12px, 3vw, 32px) !important;
+  left: auto !important;
+  z-index: 1200 !important;
+  width: min(360px, calc(100vw - 24px)) !important;
+  max-height: calc(100svh - 96px);
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 6px !important;
+  overflow-y: auto;
+  overflow-x: hidden !important;
+  padding: 14px !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 16px !important;
+  background: rgba(13, 17, 23, 0.98) !important;
+  box-shadow: var(--shadow-strong) !important;
+  transform: translateY(-8px) scale(0.98) !important;
+  transform-origin: top right;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  backdrop-filter: blur(18px);
+}
+
+body.nav-open .nav-links,
+body.signal-rebuild.nav-open .nav-links {
+  transform: translateY(0) scale(1) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.nav-links a,
+body.signal-rebuild .nav-links a {
+  width: 100%;
+  padding: 10px 12px !important;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.nav-links a::after,
+body.signal-rebuild .nav-links a::after {
+  display: none !important;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"],
+body.signal-rebuild .nav-links a:hover,
+body.signal-rebuild .nav-links a[aria-current="page"] {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-overlay,
+body.nav-open .nav-overlay,
+html[data-theme="light"] .nav-overlay {
+  display: none !important;
+  pointer-events: none !important;
+  backdrop-filter: none !important;
+}
+
+html[data-theme="light"] .nav-links,
+html[data-theme="light"] body.signal-rebuild .nav-links {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-color: rgba(15, 25, 35, 0.12) !important;
+  box-shadow: 0 24px 60px rgba(15, 25, 35, 0.18) !important;
+}
+
+html[data-theme="light"] .nav-links a:hover,
+html[data-theme="light"] .nav-links a[aria-current="page"],
+html[data-theme="light"] body.signal-rebuild .nav-links a:hover,
+html[data-theme="light"] body.signal-rebuild .nav-links a[aria-current="page"] {
+  background: rgba(2, 132, 199, 0.09);
+}
+
 @media print {
   .scroll-top-btn,
   .theme-toggle-btn,
