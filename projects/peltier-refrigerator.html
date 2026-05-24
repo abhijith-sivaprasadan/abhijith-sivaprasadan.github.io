@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Peltier refrigerator undergraduate design project evidence page covering thermoelectric cooling, components, limitations and relevance to later thermal engineering work." />
+  <meta property="og:title" content="Peltier Refrigerator | Abhijith Sivaprasadan" />
+  <meta property="og:description" content="Thermoelectric cooling design project using TEC1-12706 modules, heat sinks, fans, LM35 sensing and PIC18F4520 control." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-thermal-prototype.svg" />
+  <title>Peltier Refrigerator | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../scripts/site.js?v=20260524-dynamic-features" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../research.html">Research</a>
+        <a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a>
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CVs</a>
+        <a href="../about.html">About</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../courses.html">Courses</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Thermoelectric cooling &middot; Prototype design &middot; Thermal hardware</p>
+        <h1>Peltier Refrigerator</h1>
+        <p class="hero-text">Bachelor design project on a compact, compressor-free refrigerator using the Peltier effect, framed here as early thermal-hardware evidence with clear discussion of the technology's efficiency limits.</p>
+        <img class="case-visual" src="../assets/thumb-thermal-prototype.svg" alt="Thermal prototype project visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section project-evidence-dashboard">
+      <div class="container">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Evidence dashboard</p>
+          <h2>Thermoelectric cooling, with the limitations kept visible.</h2>
+        </div>
+        <div class="evidence-tabs" data-evidence-tabs>
+          <div class="evidence-tab-row" role="tablist" aria-label="Peltier refrigerator evidence">
+            <button class="evidence-tab-button is-active" type="button" data-evidence-tab="question" aria-pressed="true">Question</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="hardware" aria-pressed="false">Hardware</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="thermal" aria-pressed="false">Thermal</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="limits" aria-pressed="false">Limits</button>
+          </div>
+          <article class="evidence-panel" data-evidence-panel="question">
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Technical question</h3>
+                <p>Can a small refrigeration concept be designed around solid-state thermoelectric cooling instead of a compressor, refrigerant loop and moving mechanical assembly?</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>40 L</strong><small>target volume</small></span>
+                <span><strong>5 deg C</strong><small>cooling target</small></span>
+                <span><strong>-10 deg C</strong><small>freezer target</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="hardware" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Hardware chain</h3>
+                <p>The report documents TEC1-12706 Peltier modules, aluminium heat sinks, cooling fans, polyurethane insulation, an 18650 lithium-ion battery, PIC18F4520 control, LM35 temperature sensing and relay switching.</p>
+              </div>
+              <div class="method-flow">
+                <span>Peltier module</span>
+                <span>Heat sink and fan</span>
+                <span>Sensor and display</span>
+                <span>Relay control</span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="thermal" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Thermal path</h3>
+                <p>The hot side was designed around forced air heat rejection while the cold side removed heat from the cooling compartment. The report states 6 modules, with 4 assigned to the cooling compartment and 2 to the freezer compartment.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>TEC1-12706</strong><small>module type</small></span>
+                <span><strong>6</strong><small>modules</small></span>
+                <span><strong>0.6057</strong><small>reported COP</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="limits" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Limitations</h3>
+                <p>The report explicitly recognises the core limitation: thermoelectric cooling is compact, quiet and mechanically simple, but its COP is far below domestic vapour-compression refrigerators. That trade-off is the useful engineering lesson.</p>
+              </div>
+              <div class="method-flow">
+                <span>Low COP</span>
+                <span>Heat rejection bottleneck</span>
+                <span>Small-load applications</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Context:</strong> B.Tech Mechanical Engineering design project</li>
+            <li><strong>Institution:</strong> College of Engineering Perumon / APJ Abdul Kalam Technological University</li>
+            <li><strong>Cooling device:</strong> TEC1-12706 Peltier module</li>
+            <li><strong>Control chain:</strong> PIC18F4520, LM35 sensors, 16x2 LCD and relays</li>
+            <li><strong>Thermal hardware:</strong> aluminium heat sinks, 90 x 90 mm fans and polyurethane insulation</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>Engineering relevance</h2>
+          <p>This project sits early in the portfolio because it is not a mature product design. Its value is that it shows the first version of a theme that became much stronger later: thermal hardware, heat rejection, sensing and the difference between an attractive concept and a physically efficient system.</p>
+          <p>The report connects the Peltier effect to practical component choices: the module moves heat from one ceramic face to the other under DC current, so the hot side must be aggressively cooled for the cold side to remain useful.</p>
+
+          <h2>Report-backed details</h2>
+          <ul>
+            <li>The TEC1-12706 module is described as a 40 x 40 x 3.9 mm device with 127 thermoelectric couples.</li>
+            <li>The report states 15 V DC, 6 A operation for a 50 deg C temperature difference at a 50 deg C hot-side condition.</li>
+            <li>Polyurethane insulation of 3 cm and aluminium sheet inner insulation of 0.2 cm are documented.</li>
+            <li>LM35 sensors were used for cooling and freezer chambers, with 0.01 V/deg C scale factor.</li>
+            <li>The conclusion identifies thermoelectric material, heat-sink design and irreversibility reduction as areas for further research.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>
+

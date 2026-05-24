@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SAEINDIA Tractor Design Competition evidence page covering chassis, braking, steering and transmission design calculations." />
+  <meta property="og:title" content="Tractor Design Competition 2019 | Abhijith Sivaprasadan" />
+  <meta property="og:description" content="Trac Toro Racing tractor design report evidence: chassis sizing, safety factor, braking, steering, QFD and transmission calculations." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-mechanical-design.svg" />
+  <title>Tractor Design Competition 2019 | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../scripts/site.js?v=20260524-dynamic-features" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../research.html">Research</a>
+        <a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a>
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CVs</a>
+        <a href="../about.html">About</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../courses.html">Courses</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">SAEINDIA &middot; Vehicle systems &middot; Mechanical calculations</p>
+        <h1>Tractor Design Competition 2019</h1>
+        <p class="hero-text">Trac Toro Racing design evidence for SAEINDIA Tractor Design Competition 2019, using hand calculations and design-review documentation across chassis, braking, steering, engine/transmission and QFD-style design priorities.</p>
+        <img class="case-visual" src="../assets/thumb-mechanical-design.svg" alt="Mechanical design project visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section project-evidence-dashboard">
+      <div class="container">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Evidence dashboard</p>
+          <h2>Vehicle design broken into subsystem checks.</h2>
+        </div>
+        <div class="evidence-tabs" data-evidence-tabs>
+          <div class="evidence-tab-row" role="tablist" aria-label="Tractor design evidence">
+            <button class="evidence-tab-button is-active" type="button" data-evidence-tab="chassis" aria-pressed="true">Chassis</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="braking" aria-pressed="false">Braking</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="steering" aria-pressed="false">Steering</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="drive" aria-pressed="false">Drive</button>
+          </div>
+          <article class="evidence-panel" data-evidence-panel="chassis">
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Frame sizing</h3>
+                <p>The design report uses AISI 1018 mild steel rectangular sections and a bending-stress check to size the chassis for the assumed vehicle mass and packaging envelope. The report explicitly notes that CAE would be needed for more accurate follow-up validation.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>80x40x4</strong><small>primary tube</small></span>
+                <span><strong>91.5 MPa</strong><small>stress</small></span>
+                <span><strong>4</strong><small>safety factor</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="braking" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Braking calculation</h3>
+                <p>The CMVR-style stop case used 25 km/h as the reference speed, a 10 m stopping distance and a calculated deceleration of about 2.41 m/s2. The braking calculation then used a 980 kg gross-vehicle-weight basis and 25% brake efficiency.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>25 km/h</strong><small>test speed</small></span>
+                <span><strong>10 m</strong><small>stop distance</small></span>
+                <span><strong>100.45 kgm</strong><small>reported torque</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="steering" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Steering geometry</h3>
+                <p>The steering check captured wheelbase, track width, steering-arm angle and turning geometry, showing how packaging constraints propagate into front-axle design.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>1800 mm</strong><small>wheelbase</small></span>
+                <span><strong>1320 mm</strong><small>track</small></span>
+                <span><strong>28.63 deg</strong><small>delta</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="drive" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Transmission sizing</h3>
+                <p>The drivetrain calculation connected top speed, wheel diameter, wheel rpm and reduction ratio to the first-gear selection for the vehicle concept.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>25 km/h</strong><small>top speed</small></span>
+                <span><strong>163 rpm</strong><small>wheel rpm</small></span>
+                <span><strong>16.56</strong><small>overall reduction</small></span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Competition:</strong> SAEINDIA Tractor Design Competition 2019</li>
+            <li><strong>Team:</strong> Trac Toro Racing, Team ID TDC2019031</li>
+            <li><strong>Material:</strong> AISI 1018 mild steel</li>
+            <li><strong>Assumed mass:</strong> 1100 kg including passenger</li>
+            <li><strong>Frame envelope:</strong> 2200 x 600 mm</li>
+            <li><strong>Design-review files checked:</strong> TDC2019031 project report and QFD spreadsheet</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>Subsystem evidence</h2>
+          <p>The tractor design report is useful as early evidence of vehicle-system reasoning. It is not a current target-role headline, but it shows the habit of decomposing a mechanical design into physical checks rather than treating CAD as the entire engineering task.</p>
+          <ul>
+            <li>Chassis bending moment documented as 1,482,250 Nmm with section modulus 16,200 mm3.</li>
+            <li>Primary and secondary frame members documented as 80x40x4 mm and 40x40x4 mm rectangular sections.</li>
+            <li>Braking model documented 0.15 m brake radius, 10 m stopping distance, 2.411262 m/s2 deceleration, 100.45 kgm braking torque and brake factor 2.4.</li>
+            <li>Steering model documented 1320 mm track width, 1800 mm wheelbase, 19.99 degree steering-arm angle, 28.63 degree delta and 196.5 mm steering-arm length.</li>
+            <li>Transmission model linked 820 mm rear wheel diameter, 25 km/h top speed, 163 rpm wheel speed, 16.56 overall reduction ratio and 15.48 first-gear ratio.</li>
+            <li>QFD evidence lists design drivers such as average weight, 25 km/h maximum speed, ballast, frame, hitch, radiator cooling and fuel efficiency.</li>
+          </ul>
+
+          <h2>Limitations</h2>
+          <p>This page is intentionally concise: the attached evidence is a design-review calculation package, not a validated prototype test campaign. The report itself states that more accurate chassis conclusions would require CAE. Its value is context: it connects undergraduate mechanical foundations to later energy-system modelling, CFD and test-rig work.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Last updated May 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

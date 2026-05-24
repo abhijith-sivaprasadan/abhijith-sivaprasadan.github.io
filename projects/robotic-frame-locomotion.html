@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Published undergraduate project: CAD frame design, wheelbase stability estimation, drivetrain torque sizing, compound gear reduction, Ackermann steering geometry and ANSYS deformation screening for a wheeled interactive robot." />
-  <meta property="og:title" content="Robotic Frame and Locomotion System Design" />
-  <meta property="og:description" content="B.Tech published project covering robotic frame design, drivetrain sizing, Ackermann steering and ANSYS deformation analysis." />
+  <meta name="description" content="B.Tech final-year interactive robot project covering robotic control-system integration, frame design, locomotion sizing, Ackermann steering and ANSYS deformation screening." />
+  <meta property="og:title" content="B.Tech Final Year Interactive Robot Project" />
+  <meta property="og:description" content="Final-year project evidence covering robotic control-system integration, Raspberry Pi/cloud control, surveillance, SOC indication, frame design and locomotion sizing." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-mechanical-design.svg" />
-  <title>Robotic Frame and Locomotion System Design | Abhijith Sivaprasadan</title>
+  <title>B.Tech Final Year Interactive Robot Project | Abhijith Sivaprasadan</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -43,9 +43,9 @@
     <section class="case-hero">
       <div class="container">
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
-        <p class="eyebrow">Mechanical design &middot; Robotics &middot; CAD &middot; Published undergraduate project</p>
-        <h1>Design of Robotic Frame and Locomotion System</h1>
-        <p class="hero-text">End-to-end mechanical design of the frame and locomotion system for a wheeled interactive robot: wheelbase stability analysis, total weight estimation, drivetrain torque sizing, compound gear reduction, Ackermann steering geometry and ANSYS deformation screening. Published in IRJET (Volume 8, Issue 7, 2021).</p>
+        <p class="eyebrow">B.Tech final year project &middot; IRJET &middot; Robotics &middot; Control integration</p>
+        <h1>B.Tech Final Year Interactive Robot Project</h1>
+        <p class="hero-text">Final-year project evidence for an interactive wheeled robot, combining the IRJET control-system/subsystem-integration manuscript with the published frame and locomotion work: Raspberry Pi/cloud/voice control, surveillance, SOC indication, steering integration, wheelbase stability, drivetrain sizing and ANSYS deformation screening.</p>
         <img class="case-visual" src="../assets/thumb-mechanical-design.svg" alt="Robotic frame and locomotion design visual" loading="lazy" width="960" height="540" />
       </div>
     </section>
@@ -56,22 +56,38 @@
           <h2>Project snapshot</h2>
           <ul>
             <li><strong>Institution:</strong> College of Engineering Perumon, Kerala, India</li>
-            <li><strong>Publication:</strong> IRJET, Vol. 8, Issue 7, July 2021</li>
-            <li><strong>Team:</strong> 5 students (3 sub-teams: frame/locomotion, animatronic hand, control)</li>
+            <li><strong>Project:</strong> B.Tech Mechanical Engineering final-year project</li>
+            <li><strong>Control manuscript:</strong> Design of Robotic Control System and Subsystem Integration</li>
+            <li><strong>Publication:</strong> Frame and locomotion paper, IRJET, Vol. 8, Issue 7, July 2021</li>
+            <li><strong>Team structure:</strong> interactive robot split across control, frame/locomotion and animatronic-hand subsystems</li>
             <li><strong>Design target:</strong> Climb 30&deg; inclination at 0.5 m/s&sup2; acceleration, 20 km/h maximum speed</li>
             <li><strong>System weight:</strong> 75 kg (revised after motor/battery selection)</li>
-            <li><strong>Tools:</strong> CAD (frame modelling and mass estimation), ANSYS (deformation screening)</li>
+            <li><strong>Tools:</strong> CAD, ANSYS, Raspberry Pi, BLDC motor controller, servo control and sensor/control schematics</li>
             <li><strong>Material:</strong> AISI 4130 chromoly steel tube</li>
           </ul>
         </aside>
         <article class="case-panel">
           <h2>Context</h2>
           <p>
-            This was an undergraduate mechanical design project divided across three parallel teams. Our team was responsible for the locomotion and structural system: frame design, weight estimation, drivetrain sizing and steering. The other teams designed the animatronic hand and the control system; the three outputs combined into a single interactive wheeled robot.
+            This was the B.Tech final-year interactive robot project. The IRJET DOCX manuscript is the control-system and subsystem-integration part of the project, covering the central control architecture, cloud and voice control, remote operation, surveillance, SOC indication, environmental sensing and steering/locomotion control integration. The frame and locomotion publication provides the mechanical design evidence that supports the same final-year system.
           </p>
           <p>
-            The goal was a wheeled robot capable of operating in hazardous environments as a remote-actuated substitute for human presence, with sufficient torque and stability to navigate inclined surfaces.
+            The goal was a wheeled robot capable of operating in hazardous environments as a remote-actuated substitute for human presence. The full project combined a rolling base, robotic arm, sensing/control system and remote supervision into one integrated platform.
           </p>
+
+          <h2>Control-system integration</h2>
+          <p>
+            The control manuscript describes the robot as an interdisciplinary mechanical-control project rather than a pure CAD exercise. The control system was divided into subsystems so that each function could be activated, tested and integrated separately.
+          </p>
+          <ul>
+            <li><strong>Central control:</strong> Raspberry Pi-based system coordination with cloud connectivity and remote-control logic.</li>
+            <li><strong>Voice and cloud control:</strong> Google Assistant / cloud control pathway for high-level robot commands.</li>
+            <li><strong>Surveillance:</strong> camera and Pi-camera support for remote observation, object detection and locomotion assistance.</li>
+            <li><strong>Locomotion control:</strong> BLDC motor controller driven by acceleration and braking commands from the control system.</li>
+            <li><strong>SOC and charging indication:</strong> battery state-of-charge sensing and display logic integrated into the control architecture.</li>
+            <li><strong>Environmental sensing:</strong> humidity, pressure, temperature and luminosity sensing for operating-environment awareness.</li>
+            <li><strong>Steering control:</strong> servo steering controlled through PWM and a 2-H bridge servo-control module, constrained by the Ackermann lock points from the mechanical design.</li>
+          </ul>
 
           <h2>Wheelbase stability analysis</h2>
           <p>
@@ -175,10 +191,10 @@
         </div>
         <div class="case-panel">
           <p>
-            This project is early evidence of end-to-end mechanical design reasoning: the same logic that connects load analysis to component selection here &mdash; quantify the requirement, work backwards through the drivetrain, verify the structure &mdash; applies to energy hardware, test-rig instrumentation and prototype development. It shows CAD, calculation-driven sizing, gear system design, geometric steering analysis and basic FEA screening from undergraduate training, before the shift to energy systems and computational modelling at KTH.
+            This project is early evidence of end-to-end engineering integration: define the function, split the system into controllable subsystems, size the mechanical base, select actuators and sensors, and then integrate the control chain. That same habit of connecting physical hardware, measurement/control logic and documented assumptions later shows up more maturely in KTH energy-system modelling and the Siemens Energy test-rig thesis.
           </p>
           <p>
-            The project was published in IRJET (Vol. 8, Issue 7, July 2021, ISSN 2395-0056), which provides an external record of the technical work completed at degree level.
+            The IRJET DOCX is treated here as the B.Tech final-year control-system/subsystem-integration manuscript. The frame and locomotion work was published in IRJET (Vol. 8, Issue 7, July 2021, ISSN 2395-0056), providing an external record of the mechanical subsystem evidence.
           </p>
         </div>
       </div>

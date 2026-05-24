@@ -715,7 +715,11 @@
       "order": 100,
       "category": "Academic & Mechanical",
       "image": "assets/thumb-hylkysaari-energy-island.svg",
-      "highlights": []
+      "highlights": [
+        "IDA ICE and HOMER Pro scenario modelling for a smart-energy island concept.",
+        "Framed tourism energy demand through nearly zero energy demand, renewable supply and waste-heat recovery KPIs."
+      ],
+      "caseStudyUrl": "projects/hylkysaari-sustainable-tourism.html"
     },
     {
       "id": "techno-economic-comparative-assessment-of-residential-heating-solutions-",
@@ -738,7 +742,11 @@
       "order": 101,
       "category": "Academic & Mechanical",
       "image": "assets/thumb-residential-heating-technoeconomics.svg",
-      "highlights": []
+      "highlights": [
+        "Compared solar thermal storage, PV-electric boiler and PV-heat-pump alternatives against district heating.",
+        "Used techno-economic metrics to discuss seasonal heating alternatives for a residential building context."
+      ],
+      "caseStudyUrl": "projects/residential-heating-technoeconomics.html"
     },
     {
       "id": "energy-environment-economy-analysis-of-germany",
@@ -761,7 +769,11 @@
       "order": 102,
       "category": "Academic & Mechanical",
       "image": "assets/thumb-germany-leap-transition.svg",
-      "highlights": []
+      "highlights": [
+        "LEAP-based national energy scenario modelling for Germany's 2045 greenhouse-neutrality pathway.",
+        "Compared electricity mix, cost, emissions, renewable integration, storage and nuclear reintroduction scenarios."
+      ],
+      "caseStudyUrl": "projects/germany-energy-economy-analysis.html"
     },
     {
       "id": "bicycle-design-competition-sae-india",
@@ -780,7 +792,17 @@
       "order": 103,
       "category": "Academic & Mechanical",
       "image": "assets/thumb-mechanical-design.svg",
-      "highlights": []
+      "highlights": [
+        "Led Team TRAMS for SAEINDIA Bicycle Design Competition 2020 and coordinated design-report deliverables.",
+        "Documented AISI 4130 chromoly frame design, static CAE checks and manufacturing/cost rationale."
+      ],
+      "caseStudyUrl": "projects/bicycle-design-competition.html",
+      "tools": [
+        "SolidWorks 2015",
+        "ANSYS Workbench 14.5",
+        "Cost modelling",
+        "Design report"
+      ]
     },
     {
       "id": "automatic-sanitizer-dispenser",
@@ -789,7 +811,9 @@
       "associatedWith": "APJ Abdul Kalam Technological University",
       "summary": "Automated hand sanitizer dispenser built by a mechanical engineering student team using e-waste and basic Arduino programming.",
       "tools": [
-        "Arduino IDE"
+        "Arduino IDE",
+        "IR/proximity sensing",
+        "E-waste prototyping"
       ],
       "skills": [
         "Team leadership",
@@ -800,7 +824,11 @@
       "order": 104,
       "category": "Academic & Mechanical",
       "image": "assets/thumb-thermal-prototype.svg",
-      "highlights": []
+      "highlights": [
+        "Rapid hardware prototype for contactless dispensing using basic Arduino logic and reused components.",
+        "Kept as early evidence of practical build-test iteration and low-cost prototyping."
+      ],
+      "caseStudyUrl": "projects/automatic-sanitizer-dispenser.html"
     },
     {
       "id": "wireless-charging-technology-and-application-in-automobile-industry",
@@ -817,7 +845,16 @@
       "order": 105,
       "category": "Academic & Mechanical",
       "image": "assets/thumb-thermal-prototype.svg",
-      "highlights": []
+      "highlights": [
+        "Automotive technology study covering wireless charging concepts, deployment routes and technical constraints.",
+        "Useful as early background for electrified transport and charging-infrastructure thinking."
+      ],
+      "caseStudyUrl": "projects/wireless-charging-technology.html",
+      "tools": [
+        "Technology review",
+        "Automotive systems",
+        "Power-transfer concepts"
+      ]
     },
     {
       "id": "peltier-refrigerator",
@@ -841,6 +878,13 @@
       "highlights": [
         "Bachelor design project on a thermoelectric refrigerator using the Peltier effect as a compact compressor-free cooling concept.",
         "Useful as early evidence of thermal-hardware prototyping interest before later KTH heat-transfer and Siemens test-rig work."
+      ],
+      "caseStudyUrl": "projects/peltier-refrigerator.html",
+      "tools": [
+        "Thermoelectric cooling",
+        "Temperature sensing",
+        "Prototype design",
+        "Design report"
       ]
     },
     {
@@ -848,7 +892,7 @@
       "title": "Tractor Design Competition 2019",
       "period": "Oct 2018 - Mar 2019",
       "associatedWith": "SAEINDIA",
-      "summary": "Team member of Team TracToro for Tractor Design Competition 2019.",
+      "summary": "Team member of Trac Toro Racing for SAEINDIA Tractor Design Competition 2019, with design-review evidence across chassis sizing, braking, steering, engine/transmission and QFD-style design priorities.",
       "skills": [
         "Research",
         "Design",
@@ -859,7 +903,17 @@
       "order": 107,
       "category": "Academic & Mechanical",
       "image": "assets/thumb-mechanical-design.svg",
-      "highlights": []
+      "highlights": [
+        "SAEINDIA tractor design report with chassis, braking, steering, engine/transmission and QFD-style design-review evidence.",
+        "Documented AISI 1018 frame sizing, safety-factor reasoning, 25 km/h braking assumptions and vehicle-system packaging constraints."
+      ],
+      "caseStudyUrl": "projects/tractor-design-competition.html",
+      "tools": [
+        "Vehicle layout",
+        "Hand calculations",
+        "QFD",
+        "Mechanical design"
+      ]
     },
     {
       "id": "baja-sae-2019",
@@ -877,7 +931,53 @@
       "order": 108,
       "category": "Academic & Mechanical",
       "image": "assets/thumb-mechanical-design.svg",
-      "highlights": []
+      "highlights": [
+        "Engine and transmission team role in an SAEINDIA off-road vehicle competition context.",
+        "Kept as early vehicle-systems evidence rather than a current target-role headline."
+      ],
+      "caseStudyUrl": "projects/baja-sae-2019.html",
+      "tools": [
+        "Engine systems",
+        "Transmission",
+        "Automotive design",
+        "Team documentation"
+      ]
+    },
+    {
+      "id": "robotic-frame-locomotion",
+      "title": "B.Tech Final Year Interactive Robot Project",
+      "period": "Aug 2020 - Jul 2021",
+      "associatedWith": "College of Engineering Perumon / APJ Abdul Kalam Technological University",
+      "summary": "Final-year interactive robot project combining IRJET control-system/subsystem integration work with the published frame and locomotion design: Raspberry Pi/cloud control, surveillance, SOC indication, steering integration, drivetrain sizing and ANSYS deformation screening.",
+      "audienceTags": [
+        "Academic & Mechanical",
+        "Thermal & Fluid"
+      ],
+      "tools": [
+        "Raspberry Pi",
+        "CAD",
+        "ANSYS",
+        "BLDC motor controller",
+        "Servo control",
+        "IRJET manuscript"
+      ],
+      "skills": [
+        "Mechanical design",
+        "Robotics",
+        "Control-system integration",
+        "Subsystem integration",
+        "Technical writing"
+      ],
+      "status": "published",
+      "featured": false,
+      "order": 109,
+      "category": "Academic & Mechanical",
+      "image": "assets/thumb-mechanical-design.svg",
+      "caseStudyUrl": "projects/robotic-frame-locomotion.html",
+      "highlights": [
+        "B.Tech final-year project represented by the IRJET control-system/subsystem-integration manuscript and the IRJET frame/locomotion publication.",
+        "Connected Raspberry Pi/cloud/voice control, surveillance, SOC indication and steering integration with mechanical drivetrain and frame design evidence."
+      ]
     }
   ]
 }
