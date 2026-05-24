@@ -1501,7 +1501,7 @@ const initializeCvLinks = () => {
 
     link.href = fallbackHref;
     link.removeAttribute("download");
-    link.textContent = link.dataset.fallbackLabel || "Request via email";
+    link.textContent = link.dataset.fallbackLabel || "Contact for CV";
     link.classList.add("is-fallback");
   });
 };
@@ -1629,7 +1629,10 @@ const initializeSkillExplorer = () => {
 const closeNav = () => {
   document.body.classList.remove("nav-open");
   const btn = document.querySelector(".nav-toggle");
-  if (btn) btn.setAttribute("aria-expanded", "false");
+  if (btn) {
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", "Open navigation menu");
+  }
 };
 
 const initializeNavToggle = () => {
@@ -1641,24 +1644,27 @@ const initializeNavToggle = () => {
   button.type = "button";
   button.className = "nav-toggle";
   button.setAttribute("aria-expanded", "false");
-  button.setAttribute("aria-label", "Toggle navigation");
+  button.setAttribute("aria-label", "Open navigation menu");
   button.innerHTML = "<span></span><span></span><span></span>";
   nav.insertBefore(button, navLinks);
 
-  // Backdrop overlay — click outside to close
-  const overlay = document.createElement("div");
-  overlay.className = "nav-overlay";
-  overlay.setAttribute("aria-hidden", "true");
-  document.body.appendChild(overlay);
-  overlay.addEventListener("click", closeNav);
-
-  button.addEventListener("click", () => {
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
     const open = !document.body.classList.contains("nav-open");
     document.body.classList.toggle("nav-open", open);
     button.setAttribute("aria-expanded", String(open));
+    button.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
   });
 
-  navLinks.addEventListener("click", closeNav);
+  navLinks.addEventListener("click", (event) => {
+    if (event.target instanceof Element && event.target.closest("a")) closeNav();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!document.body.classList.contains("nav-open")) return;
+    if (event.target instanceof Element && event.target.closest(".nav")) return;
+    closeNav();
+  });
 
   // Escape key closes nav
   document.addEventListener("keydown", (e) => {
