@@ -14,3 +14,9 @@ yarn-error.log*
 *.log
 
 scripts/config.js
+
+# Sanity Studio (locally installed)
+sanity/node_modules/
+sanity/.env*
+sanity/dist/
+sanity/.sanity/

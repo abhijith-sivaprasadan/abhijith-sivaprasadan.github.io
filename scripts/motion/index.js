@@ -169,6 +169,7 @@ function boot() {
     { name: "katex",            selector: ".math, [data-math]" },
     { name: "biot-calculator",  selector: "[data-biot-calculator]", path: `${BASE}../sections/biot-calculator.js` },
     { name: "i18n",             selector: "body" },
+    { name: "cms-hydrate",      selector: "body", path: `${BASE}../cms/hydrate.js` },
   ];
   for (const entry of autoload) {
     if (entry.skip && entry.skip()) continue;
