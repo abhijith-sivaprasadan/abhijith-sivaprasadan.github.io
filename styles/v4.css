@@ -8,6 +8,9 @@
 @import url("./components/looking-for.css");
 @import url("./components/biot-calculator.css");
 @import url("./components/i18n-toggle.css");
+@import url("./components/bootup.css");
+@import url("./components/bento-previews.css");
+@import url("./components/content-visibility.css");
 @import url("./sections/scrollytelling.css");
 @import url("./sections/evidence-map.css");
 @import url("./sections/projects.css");

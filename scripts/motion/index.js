@@ -170,6 +170,7 @@ function boot() {
     { name: "biot-calculator",  selector: "[data-biot-calculator]", path: `${BASE}../sections/biot-calculator.js` },
     { name: "i18n",             selector: "body" },
     { name: "cms-hydrate",      selector: "body", path: `${BASE}../cms/hydrate.js` },
+    { name: "bento-previews",   selector: "[data-project-id]", path: `${BASE}../sections/bento-previews.js`, skip: () => reducedMotion },
   ];
   for (const entry of autoload) {
     if (entry.skip && entry.skip()) continue;

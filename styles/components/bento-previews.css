@@ -1,0 +1,28 @@
+/* Bento mini-preview canvas — overlaid on each featured project tile.
+   Sits behind the project text so labels stay readable.
+*/
+.bento-preview {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  opacity: 0.62;
+  transition: opacity 220ms var(--motion-ease-out, ease);
+}
+
+.bento-preview canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.project-card:hover .bento-preview { opacity: 0.92; }
+
+/* Keep card body above the preview */
+[data-project-id] { position: relative; }
+[data-project-id] > *:not(.bento-preview) { position: relative; z-index: 1; }
+
+/* Hide previews on reduced motion */
+html.motion-reduced .bento-preview { display: none !important; }
