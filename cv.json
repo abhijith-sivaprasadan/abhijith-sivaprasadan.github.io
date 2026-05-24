@@ -80,9 +80,18 @@
       "memberOf": { "@type": "Organization", "name": "KTH Royal Institute of Technology" }
     }
   ],
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "ORCID",
+    "value": "0009-0009-8429-1266",
+    "url": "https://orcid.org/0009-0009-8429-1266"
+  },
   "sameAs": [
     "https://www.linkedin.com/in/abhijith-sivaprasadan/",
     "https://github.com/abhijith-sivaprasadan",
+    "https://orcid.org/0009-0009-8429-1266",
+    "https://scholar.google.com/citations?user=o2nI60MAAAAJ",
+    "https://www.kth.se/profile/asiv",
     "https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965"
   ],
   "subjectOf": {

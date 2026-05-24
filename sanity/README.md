@@ -19,31 +19,28 @@ All schemas have a `visible` / `visibility` flag so drafts stay hidden.
 
 ## One-time setup
 
-1. **Sign up for Sanity** (free tier — 3 users, 10k docs, 1M API CDN req/mo
-   as of May 2026): https://www.sanity.io/
+**Project already created:** `4lmq2x2j` (dataset `production`). The frontend
+and Studio config are already pointing at it.
 
-2. **Install dependencies** in this folder:
-   ```bash
-   cd sanity
-   npm install
-   ```
+If you want to bootstrap a fresh local install of the Studio:
 
-3. **Initialise the project** (creates a new Sanity project in your account):
-   ```bash
-   npx sanity init
-   ```
-   - When asked, choose **Create new project** and name it `abhijith-portfolio`.
-   - For dataset, accept the default `production` (it's public-read by default).
-   - You'll get back a **Project ID** — copy it.
+```bash
+cd sanity
+npm create sanity@latest -- --project 4lmq2x2j --dataset production --template clean
+# Accept defaults; the existing sanity.config.js + schemas/ override the template files.
+npm install
+```
 
-4. **Wire the Project ID** into two places:
-   - `sanity/sanity.config.js` → replace `REPLACE_WITH_SANITY_PROJECT_ID`.
-   - `scripts/public-config.js` → replace `REPLACE_WITH_SANITY_PROJECT_ID`
-     inside `PORTFOLIO_CMS_CONFIG`.
+Or if you already have the Studio cloned:
 
-5. **Make the dataset readable from the browser** (it's already public-read by
-   default — but if you ever turn it private, the frontend will silently fall
-   back to the static HTML).
+```bash
+cd sanity
+npm install
+```
+
+That's it — the project ID is hard-coded in `sanity/sanity.config.js` and in
+`scripts/public-config.js`, so the frontend will start pulling from this
+Sanity project as soon as you publish your first document.
 
 ## Daily use
 

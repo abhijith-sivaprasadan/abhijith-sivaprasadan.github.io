@@ -29,7 +29,7 @@ import researchStatus from "./schemas/researchStatus";
 import testimonial from "./schemas/testimonial";
 import lookingFor from "./schemas/lookingFor";
 
-const PROJECT_ID = "REPLACE_WITH_SANITY_PROJECT_ID"; // see step 5 above
+const PROJECT_ID = "4lmq2x2j";
 const DATASET = "production";
 
 export default defineConfig({

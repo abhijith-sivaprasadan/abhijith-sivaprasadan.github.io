@@ -20,6 +20,6 @@ globalThis.PORTFOLIO_CONTACT_FORM_ACTION = "https://formspree.io/f/mgoqzpla";
 // banner, ideas, research status, testimonials). Leave projectId as the
 // placeholder to keep the static fallback content.
 globalThis.PORTFOLIO_CMS_CONFIG = {
-  projectId: "REPLACE_WITH_SANITY_PROJECT_ID",
+  projectId: "4lmq2x2j",
   dataset: "production",
 };
