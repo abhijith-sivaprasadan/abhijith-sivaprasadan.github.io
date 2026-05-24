@@ -46,7 +46,7 @@
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
         <p class="eyebrow">KTH project &middot; Power flow &middot; Grid planning</p>
         <h1>Distribution Grid Study with EV, PV and Storage Impacts</h1>
-        <p class="hero-text">Distribution-grid simulation study using a CIGRE MV-style network with 24-hour load profiles, EV charging, PV/storage integration and N-1 analysis.</p>
+        <p class="hero-text">Distribution-grid simulation study using a CIGRE MV network, 24-hour load profiles, EV charging profiles, transformer-level connection assumptions and N-1 contingency analysis.</p>
         <div class="button-row"><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/PRO1_network" target="_blank" rel="noreferrer">GitHub repository</a></div>
         <img class="case-visual" src="../assets/thumb-distribution-grid.svg" alt="Distribution grid power-flow and N-1 study visual" loading="lazy" width="960" height="540" />
 
@@ -70,12 +70,12 @@
             <div class="evidence-panel-grid">
               <div>
                 <h3>Technical question</h3>
-                <p>How do EV charging, PV generation and storage alter voltage profiles, line loading and N-1 security in a medium-voltage distribution network?</p>
+                <p>How do EV charging, PV generation and storage assumptions alter voltage profiles, line loading and N-1 security in a medium-voltage distribution network?</p>
               </div>
               <div class="evidence-kpi-strip">
-                <span><strong>24 h</strong><small>load variation</small></span>
+                <span><strong>24 h</strong><small>load profiles</small></span>
                 <span><strong>N-1</strong><small>contingency</small></span>
-                <span><strong>EV/PV</strong><small>stress cases</small></span>
+                <span><strong>348</strong><small>EV profiles</small></span>
               </div>
             </div>
           </article>
@@ -83,12 +83,12 @@
             <div class="evidence-panel-grid">
               <div>
                 <h3>Method</h3>
-                <p>The study used base and contingency power-flow runs to identify critical loading, then added time variation, EV charging, PV and storage assumptions to test whether flexibility shifts the bottlenecks or simply moves them in time.</p>
+                <p>The study used pandapower's CIGRE medium-voltage test network, then layered base power flow, 24-hour time-series profiles, EV charging additions and contingency runs to locate voltage and loading bottlenecks.</p>
               </div>
               <div class="method-flow">
                 <span>Base flow</span>
                 <span>N-1 outage</span>
-                <span>EV/PV cases</span>
+                <span>EV profiles</span>
                 <span>Storage response</span>
               </div>
             </div>
@@ -97,12 +97,12 @@
             <div class="evidence-panel-grid">
               <div>
                 <h3>Outputs</h3>
-                <p>The page is intentionally kept as grid-planning evidence rather than a PyPSA headline: power-flow behaviour, line loading, voltage stability and flexibility interpretation are the useful engineering outputs.</p>
+                <p>The outputs were spreadsheet-backed voltage, line-loading and transformer-loading tables, including a rigorous contingency case where line loading exceeded 110% and transformer loading exceeded 104% in the stressed configuration.</p>
               </div>
               <div class="evidence-kpi-strip">
-                <span><strong>Voltage</strong><small>profile checks</small></span>
-                <span><strong>Lines</strong><small>loading checks</small></span>
-                <span><strong>Storage</strong><small>flexibility lens</small></span>
+                <span><strong>16</strong><small>bus voltage rows</small></span>
+                <span><strong>110.6%</strong><small>line loading case</small></span>
+                <span><strong>104.4%</strong><small>transformer case</small></span>
               </div>
             </div>
           </article>
@@ -128,19 +128,20 @@
         <aside class="case-panel">
           <h2>Project snapshot</h2>
           <ul>
-            <li>Repository: PRO1_network</li>
-            <li>Focus: power flow, N-1 contingency, voltage stability, line loading, EV/PV/storage impacts</li>
-<li>System: medium-voltage distribution network study</li>
-<li>Skills: grid analysis, time-series simulation, bottleneck interpretation</li>
+            <li><strong>Repository:</strong> PRO1_network</li>
+            <li><strong>Model:</strong> pandapower CIGRE medium-voltage network</li>
+            <li><strong>Input data:</strong> 24-hour load profiles and 348 EV charging profiles</li>
+            <li><strong>Outputs:</strong> bus-voltage, line-loading and transformer-loading spreadsheets</li>
+            <li><strong>Skills:</strong> grid analysis, time-series simulation, contingency interpretation</li>
           </ul>
         </aside>
         <article class="case-panel">
           <h2>Engineering contribution</h2>
           <ul>
-            <li>Ran base power-flow and N-1 contingency studies to identify critical lines and loading constraints.</li>
-<li>Simulated 24-hour load variation and assessed voltage/line-loading behaviour.</li>
-<li>Integrated EV charging scenarios through transformer-level assumptions.</li>
-<li>Analysed PV and storage impacts on losses, loading and operational strategy.</li>
+            <li>Ran a base CIGRE MV power-flow study and exported voltage and line-loading results.</li>
+            <li>Used 24-hour load-shape data to move from static power flow to time-series grid behaviour.</li>
+            <li>Integrated EV charging profiles through additional low-voltage buses and transformer connections.</li>
+            <li>Compared contingency outputs to identify where flexibility measures need to target thermal loading rather than only voltage support.</li>
           </ul>
         </article>
       </div>
@@ -153,7 +154,12 @@
           <h2>Why this matters</h2>
         </div>
         <div class="case-panel">
-          <p>This project supports grid-flow and congestion roles because it connects physical grid constraints with scenario-based planning and flexibility analysis.</p>
+          <p>This project supports Energy Systems Modelling because it connects decarbonisation technologies to the physical network constraints they create. EV charging, PV and storage are not just scenario labels; they change line currents, transformer loading and operational margins in a real distribution-grid calculation workflow.</p>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>Base case</strong><small>16-row voltage and line-loading exports</small></span>
+            <span class="result-metric-card"><strong>Time series</strong><small>24 hourly columns for voltage and loading</small></span>
+            <span class="result-metric-card"><strong>N-1 stress</strong><small>line and transformer overload indicators</small></span>
+          </div>
         </div>
       </div>
     </section>

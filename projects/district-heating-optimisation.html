@@ -45,7 +45,7 @@
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
         <p class="eyebrow">District heating &middot; Dispatch optimisation &middot; Energy systems</p>
         <h1>District Heating System Optimisation</h1>
-        <p class="hero-text">A five-step linear programming model for Stockholm district heating dispatch, moving from a base case through future demand, storage integration, electricity-price-linked cost minimisation and emissions minimisation to compare technology contributions and trade-offs.</p>
+        <p class="hero-text">A five-step linear programming model for district-heating dispatch using annual demand profiles, electricity-price data, storage assumptions and cost/emissions objectives to compare heat-source scheduling decisions.</p>
         <img class="case-visual" src="../assets/thumb-district-heating.svg" alt="District heating dispatch optimisation visual" loading="lazy" width="960" height="540" />
       </div>
     </section>
@@ -70,8 +70,8 @@
                 <p>How should a Stockholm-style district heating system dispatch CHP, woodchip, geothermal heat, heat pumps and storage when demand, cost, emissions and electricity-market coupling are all active constraints?</p>
               </div>
               <div class="evidence-kpi-strip">
-                <span><strong>5</strong><small>model steps</small></span>
-                <span><strong>4</strong><small>heat sources</small></span>
+                <span><strong>8760</strong><small>hour horizon</small></span>
+                <span><strong>5</strong><small>demand profiles</small></span>
                 <span><strong>2</strong><small>objective lenses</small></span>
               </div>
             </div>
@@ -80,10 +80,10 @@
             <div class="evidence-panel-grid">
               <div>
                 <h3>Method</h3>
-                <p>A Python/PuLP linear programme was built stepwise: base dispatch, 2030 demand, storage integration, electricity-price-linked CHP operation and emissions minimisation. Each step isolates one modelling assumption instead of mixing every intervention at once.</p>
+                <p>A Python/PuLP linear programme was built stepwise: base dispatch, 2030 demand, storage integration, electricity-price-linked operation and emissions minimisation. Each step isolates one modelling assumption instead of mixing every intervention at once.</p>
               </div>
               <div class="method-flow">
-                <span>Demand profiles</span>
+                <span>8760 h demand</span>
                 <span>Technology bounds</span>
                 <span>LP objective</span>
                 <span>Scenario comparison</span>
@@ -94,11 +94,11 @@
             <div class="evidence-panel-grid">
               <div>
                 <h3>Dispatch result</h3>
-                <p>Woodchip and geothermal behave as renewable base load, while CHP carries the flexible residual demand. Heat pumps remain marginal in the base dispatch and become more relevant when storage and price signals are introduced.</p>
+                <p>The input data combine five annual heat-demand profiles, E.ON electricity price data and solar-thermal profile data. The stepwise model tests how dispatch changes when storage, price signals and emissions weighting are introduced.</p>
               </div>
               <div class="evidence-chart-shell">
                 <canvas data-evidence-chart="district-dispatch-project" width="640" height="320" aria-label="Base dispatch contribution chart"></canvas>
-                <p class="chart-fallback">Base dispatch signal: woodchip 600 MWh, geothermal 200 MWh, CHP approximately 612 MWh, heat pump up to 50 MWh.</p>
+                <p class="chart-fallback">Representative dispatch signal: woodchip 600 MWh, geothermal 200 MWh, CHP approximately 612 MWh, heat pump up to 50 MWh.</p>
               </div>
             </div>
           </article>
@@ -129,10 +129,11 @@
           <ul>
             <li><strong>Group:</strong> Group 12</li>
             <li><strong>Date:</strong> December 2024</li>
-            <li><strong>Tools:</strong> Python, PuLP, linear programming, Matplotlib</li>
-            <li><strong>Technologies modelled:</strong> CHP, woodchip boiler, geothermal, heat pump</li>
-            <li><strong>Demand profiles:</strong> Load 1 (residential) + Load 5 (stable commercial)</li>
-            <li><strong>Objective functions:</strong> cost minimisation, electricity-revenue coupling and emissions minimisation</li>
+            <li><strong>Tools:</strong> Python, PuLP, linear programming, Matplotlib, CSV/XLSX inputs</li>
+            <li><strong>Input horizon:</strong> 8760 hourly rows for electricity price and annual heating demand</li>
+            <li><strong>Demand data:</strong> five heat-load profiles, including residential and stable commercial demand</li>
+            <li><strong>Storage:</strong> diurnal capacity 500 and seasonal capacity 10000 in the coursework model</li>
+            <li><strong>Objective functions:</strong> cost minimisation, electricity-price coupling and emissions minimisation</li>
           </ul>
         </aside>
         <article class="case-panel">
@@ -152,6 +153,9 @@
             <li><strong>Step 4 &ndash; Cost-based minimisation:</strong> additional demand profiles included; CHP electricity optimised against spot prices to capture cogeneration value; full cost dynamics compared across base and future cases with storage.</li>
             <li><strong>Step 5 &ndash; Emissions minimisation:</strong> objective function switched from cost to CO&sub2;; results compared against Step 4 to quantify the cost&ndash;emissions trade-off.</li>
           </ul>
+
+          <h2>File-backed inputs</h2>
+          <p>The local project evidence includes the PRO2 brief, five Python model files, an annual demand workbook with 8761 rows including the header, an E.ON electricity price CSV with 8760 hourly values and a solar-thermal profile dataset. This matters because the project was not a static spreadsheet comparison; it was an optimisation workflow built around time-indexed operational data.</p>
 
           <h2>Technology parameters</h2>
           <p>Three core heat generation technologies were parameterised from industry data:</p>
@@ -209,9 +213,6 @@
           <p>
             The finding that the cost-optimal and emissions-optimal dispatches nearly coincide (because the cheapest technologies are also zero-carbon) is a practically important result: it means the case for renewable base load does not depend on a carbon price in this system configuration. That kind of insight is transferable to industrial decarbonization R&amp;D, where heat pumps, storage, electrified heating and market signals must be assessed together rather than as isolated technologies.
           </p>
-          <div class="project-links">
-            <a href="../downloads/mj2507-group2-report.pdf" download>&#8595; Download project report (PDF, 763&nbsp;KB)</a>
-          </div>
         </div>
       </div>
     </section>
