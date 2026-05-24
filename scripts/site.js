@@ -1880,7 +1880,7 @@ if (heroStatNumbers.length && "IntersectionObserver" in window) {
         if (isNaN(target)) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         const startTime = performance.now();
-        const duration = 1400;
+        const duration = 3000;
         const tick = (now) => {
           const t = Math.min((now - startTime) / duration, 1);
           const ease = 1 - (1 - t) ** 3;
@@ -1921,7 +1921,7 @@ if (railMetricEls.length && "IntersectionObserver" in window) {
 
         const fmt = (n) => isInt ? String(Math.round(n)) : n.toFixed(decimals);
         const startTime = performance.now();
-        const duration = 1400;
+        const duration = 3200;
 
         const tick = (now) => {
           const t = Math.min((now - startTime) / duration, 1);
@@ -2465,5 +2465,5 @@ const injectThemeToggle = () => {
 };
 
 initializeScrollToTop();
-initializeThemeToggle();
 injectThemeToggle();
+initializeThemeToggle();

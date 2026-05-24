@@ -7382,6 +7382,82 @@ html[data-theme="light"] .theme-icon-moon       { display: none; }
   .theme-toggle-btn { margin-left: 0; }
 }
 
+/* Central responsive nav drawer. Later page-specific nav rules should not
+   turn the mobile menu back into a visible tab strip. */
+@media (max-width: 1100px) {
+  .nav {
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  .nav-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    position: relative;
+    z-index: 140;
+    flex: 0 0 auto;
+  }
+
+  .theme-toggle-btn {
+    position: relative;
+    z-index: 140;
+    margin-left: 0;
+    flex: 0 0 auto;
+  }
+
+  .nav-links,
+  body.signal-rebuild .nav-links {
+    position: fixed !important;
+    top: 72px !important;
+    right: 12px !important;
+    left: auto !important;
+    z-index: 130 !important;
+    width: min(340px, calc(100vw - 24px)) !important;
+    max-height: calc(100svh - 96px);
+    display: grid !important;
+    gap: 6px !important;
+    overflow-y: auto;
+    overflow-x: hidden !important;
+    padding: 14px !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 16px !important;
+    background: rgba(13, 17, 23, 0.97) !important;
+    box-shadow: var(--shadow-strong) !important;
+    transform: translateY(-8px) scale(0.98) !important;
+    transform-origin: top right;
+    opacity: 0 !important;
+    visibility: hidden;
+    pointer-events: none !important;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  }
+
+  body.nav-open .nav-links,
+  body.signal-rebuild.nav-open .nav-links {
+    transform: translateY(0) scale(1) !important;
+    opacity: 1 !important;
+    visibility: visible;
+    pointer-events: auto !important;
+  }
+
+  .nav-links a,
+  body.signal-rebuild .nav-links a {
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .logo {
+    max-width: 58vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 /* ─── Dark / light mode — manual class overrides ───────────────────────── */
 
 /* Force dark regardless of system preference */
@@ -7390,7 +7466,7 @@ html[data-theme="dark"] body {
   color-scheme: dark;
 }
 
-html[data-theme="dark"] :root {
+html[data-theme="dark"] {
   --bg: #0b1220;
   --bg-soft: #0d1520;
   --card: #111b29;
@@ -7408,7 +7484,7 @@ html[data-theme="light"] body {
   color-scheme: light;
 }
 
-html[data-theme="light"] :root {
+html[data-theme="light"] {
   --bg: #f4f6fa;
   --bg-soft: #edf0f5;
   --card: #ffffff;
@@ -7476,6 +7552,96 @@ html[data-theme="light"] .button.primary {
 html[data-theme="light"] .button.secondary {
   border-color: #0284c7;
   color: #0284c7;
+}
+
+html[data-theme="light"] .nav-links,
+html[data-theme="light"] body.signal-rebuild .nav-links {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border-color: rgba(15, 25, 35, 0.12) !important;
+  box-shadow: 0 24px 60px rgba(15, 25, 35, 0.18) !important;
+}
+
+@media (min-width: 1101px) {
+  html[data-theme="light"] .nav-links,
+  html[data-theme="light"] body.signal-rebuild .nav-links {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+html[data-theme="light"] .nav-overlay {
+  background: rgba(15, 25, 35, 0.2);
+}
+
+html[data-theme="light"] body.signal-rebuild,
+html[data-theme="light"] body.signal-rebuild[data-home-mode="thermal"],
+html[data-theme="light"] body.signal-rebuild[data-home-mode="energy"],
+html[data-theme="light"] body.signal-rebuild[data-home-mode="decarbonisation"],
+html[data-theme="light"] body.signal-rebuild[data-home-mode="research"] {
+  --signal-bg: #f6f8f2;
+  --signal-surface: #ffffff;
+  --signal-surface-2: #edf4ef;
+  --signal-line: #ccd8d0;
+  --signal-text: #101821;
+  --signal-muted: #55606a;
+  --signal-green: #047857;
+  --signal-blue: #0369a1;
+  --signal-amber: #b45309;
+  --fx-bg: var(--signal-bg);
+  --fx-bg-2: #eef3ef;
+  --fx-panel: var(--signal-surface);
+  --fx-panel-2: var(--signal-surface-2);
+  --fx-text: var(--signal-text);
+  --fx-muted: var(--signal-muted);
+  background:
+    radial-gradient(circle at 18% 10%, rgba(2, 132, 199, 0.12), transparent 24rem),
+    radial-gradient(circle at 84% 16%, rgba(4, 120, 87, 0.12), transparent 22rem),
+    linear-gradient(180deg, #f8faf7 0%, #eef3ef 56%, #f8faf7 100%);
+  color: var(--signal-text);
+}
+
+html[data-theme="light"] body.signal-rebuild::before {
+  opacity: 0.48;
+  background-image:
+    linear-gradient(rgba(15, 25, 35, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 25, 35, 0.055) 1px, transparent 1px);
+}
+
+html[data-theme="light"] body.signal-rebuild .site-header {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom-color: rgba(15, 25, 35, 0.12);
+}
+
+html[data-theme="light"] body.signal-rebuild .nav-links a {
+  color: #55606a;
+}
+
+html[data-theme="light"] body.signal-rebuild .nav-links a:hover,
+html[data-theme="light"] body.signal-rebuild .nav-links a[aria-current="page"] {
+  color: var(--signal-green);
+}
+
+html[data-theme="light"] body.signal-rebuild .signal-card,
+html[data-theme="light"] body.signal-rebuild .signal-rail,
+html[data-theme="light"] body.signal-rebuild .role-track-card,
+html[data-theme="light"] body.signal-rebuild .evidence-lane,
+html[data-theme="light"] body.signal-rebuild .assignment-card,
+html[data-theme="light"] body.signal-rebuild .card,
+html[data-theme="light"] body.signal-rebuild .timeline-item,
+html[data-theme="light"] body.signal-rebuild .contact-card,
+html[data-theme="light"] body.signal-rebuild .cv-card,
+html[data-theme="light"] body.signal-rebuild .project-card {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(15, 25, 35, 0.12);
+  color: var(--signal-text);
+}
+
+html[data-theme="light"] body.signal-rebuild .hero-kicker,
+html[data-theme="light"] body.signal-rebuild .signal-claim,
+html[data-theme="light"] body.signal-rebuild .assignment-card p,
+html[data-theme="light"] body.signal-rebuild .role-track-card p {
+  color: var(--signal-muted);
 }
 
 html[data-theme="light"] .role-signal-bars span::before {
