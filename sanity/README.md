@@ -44,35 +44,66 @@ npm create sanity@latest -- --project=4lmq2x2j --dataset=production --template=c
 Note the `=` in `--project=…` — the bare-space syntax (`--project 4lmq2x2j`)
 is parsed as positional args by npm and the CLI rejects it.
 
-## Why CommonJS + pinned yargs?
+## Why CommonJS + pinned yargs 16?
 
-Two compounding issues with the Sanity v3.99 CLI bootstrap:
+Three compounding issues with the Sanity v3.99 CLI bootstrap on Node 22+:
 
-1. **`"type": "module"` in package.json broke yargs.** The Sanity CLI's
-   bundled yargs is CJS, but a `type: module` package makes Node load it
-   as ESM. → Removed `type: module`; the config + schemas now use
-   `module.exports`.
-2. **yargs v18+ broke the `require('yargs/yargs')` entry path.** @sanity/cli
-   3.99 uses yargs through that legacy path, but newer yargs (18+) is
-   ESM-first and the path doesn't resolve as CJS. → Added
-   `"overrides": { "yargs": "^17.7.2" }` in package.json to force the
-   CJS-compatible 17.x line of yargs across the dep tree.
+1. **`"type": "module"` in package.json broke yargs.** Removed.
+2. **yargs 17 has a dual-package layout that Node 22 mis-resolves.** yargs
+   17's `package.json` has `"type": "module"` and uses an `exports`
+   condition to map `require('yargs/yargs')` to an extensionless file
+   `yargs/yargs`. In Node 22+, that extensionless file is treated as ESM
+   despite being reached through the CJS `require` condition — yargs'
+   own code inside breaks with `require is not defined in ES module scope`.
+3. **yargs 18+ is fully ESM-first and would break the require path entirely.**
 
-If you ever see this error again:
+Fix: pin yargs to the last pre-dual-package release (16.2.0) via both a
+direct dependency AND an override. yargs 16 ships a single `yargs.js`
+(with explicit extension), no `"type": "module"` in its package.json,
+so Node 22+ resolves it as CJS unambiguously.
+
+If you ever see the error again:
 ```
 ReferenceError: require is not defined in ES module scope
     at file:///…/node_modules/yargs/yargs:…
 ```
 
 Run:
-```bash
+```powershell
 cd sanity
 Remove-Item -Recurse -Force node_modules, package-lock.json -ErrorAction SilentlyContinue
 npm install
+npx sanity dev
 ```
 
-The override + the CommonJS config together fix it. If a future Sanity CLI
-ships a clean yargs path, we can drop the override.
+### Escape hatch if it still fails
+
+The Node CLI flag `--no-experimental-require-module` reverts to the
+older module-resolution behavior. Try:
+
+```powershell
+$env:NODE_OPTIONS="--no-experimental-require-module"
+npx sanity dev
+```
+
+(Bash / macOS: `NODE_OPTIONS=--no-experimental-require-module npx sanity dev`)
+
+If that works but you don't want to set the env var every time, edit
+`sanity/package.json` and prepend the dev script with the flag:
+
+```json
+"scripts": {
+  "dev": "cross-env NODE_OPTIONS=\"--no-experimental-require-module\" sanity dev"
+}
+```
+
+(requires `npm i -D cross-env`).
+
+### Node version
+
+Tested with Node 22.x. If you're on a much newer Node (24+) and the issue
+returns, try `nvm install 20 && nvm use 20` to fall back to the older
+loader.
 
 ## If you ran `npm audit fix --force` (recovery)
 
