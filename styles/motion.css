@@ -1,0 +1,307 @@
+/* ────────────────────────────────────────────────────────────────────────
+   Motion layer — design tokens + base styles for the GSAP-driven upgrades.
+
+   This file is loaded AFTER the legacy styles.css so its rules win on
+   specificity ties. It only adds; it does not redefine existing tokens.
+
+   Naming convention: every motion-related custom property is prefixed
+   `--motion-*`. Every motion-related class is prefixed `.motion-*` or
+   `.fx-*`. Data-attributes use `data-motion-*`.
+   ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Spring / easing tokens */
+  --motion-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --motion-ease-out:    cubic-bezier(0.2, 0.65, 0.3, 1);
+  --motion-ease-in:     cubic-bezier(0.55, 0, 0.85, 0.55);
+
+  /* Timing tokens */
+  --motion-dur-micro:   120ms;
+  --motion-dur-fast:    220ms;
+  --motion-dur-base:    420ms;
+  --motion-dur-slow:    820ms;
+
+  /* Stagger steps */
+  --motion-stagger:     55ms;
+
+  /* Reticle / cursor */
+  --motion-cursor-size: 22px;
+  --motion-cursor-color: var(--accent, #38bdf8);
+
+  /* Spring highlight (cursor-tracking radial) */
+  --motion-spring-glow: rgba(255, 255, 255, 0.18);
+
+  /* Fluid sim canvas overlay opacity */
+  --motion-fluid-alpha: 0.85;
+}
+
+html[data-theme="light"] {
+  --motion-spring-glow: rgba(2, 132, 199, 0.18);
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   Reduced motion override — collapse every motion-* token to instant.
+   The motion bootstrap also sets gsap.defaults({duration:0}), but pure-CSS
+   transitions need this layer.
+   ──────────────────────────────────────────────────────────────────────── */
+html.motion-reduced {
+  --motion-dur-micro: 0ms;
+  --motion-dur-fast: 0ms;
+  --motion-dur-base: 0ms;
+  --motion-dur-slow: 0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    --motion-dur-micro: 0ms;
+    --motion-dur-fast: 0ms;
+    --motion-dur-base: 0ms;
+    --motion-dur-slow: 0ms;
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   Spring micro-interaction (magnetic CTAs).
+   Attached by scripts/motion/springs.js via the `.motion-spring` class.
+   The radial highlight follows the cursor using --mx, --my updated by JS.
+   ──────────────────────────────────────────────────────────────────────── */
+.motion-spring {
+  position: relative;
+  will-change: transform;
+}
+
+.motion-spring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    120px circle at var(--mx, 50%) var(--my, 50%),
+    var(--motion-spring-glow),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity var(--motion-dur-fast) var(--motion-ease-out);
+  z-index: 0;
+}
+
+.motion-spring:hover::after {
+  opacity: 1;
+}
+
+/* Keep button content above the highlight overlay */
+.motion-spring > * {
+  position: relative;
+  z-index: 1;
+}
+
+html.motion-reduced .motion-spring {
+  transform: none !important;
+}
+
+html.motion-reduced .motion-spring::after {
+  display: none;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   Fluid sim canvas — placeholder until scripts/motion/fluid-sim.js renders.
+   ──────────────────────────────────────────────────────────────────────── */
+.motion-fluid-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: var(--motion-fluid-alpha, 0.85);
+  z-index: 0;
+  /* Below the hero text/avatar but above the page background */
+}
+
+/* Stacking discipline in the hero:
+   .signal-hero       — isolation, owns the stacking context
+   .motion-fluid-canvas — z-index 0 (drawn first)
+   .signal-grid-bg     — z-index 1 (engineering grid overlay)
+   .signal-hero-inner  — z-index 2 (text always on top)
+*/
+.signal-hero {
+  isolation: isolate;
+}
+.signal-hero .motion-fluid-canvas {
+  z-index: 0;
+}
+.signal-hero .signal-grid-bg {
+  position: absolute;
+  z-index: 1;
+}
+.signal-hero .signal-hero-inner,
+.signal-hero .container.signal-hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+html.motion-reduced .motion-fluid-canvas {
+  /* Reduced motion: render a single static frame, no animation */
+  filter: saturate(0.7) brightness(0.9);
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   Theme toggle radial wipe — used by motion/theme-wipe.js
+   The wipe overlay is added to <body> during the transition.
+   ──────────────────────────────────────────────────────────────────────── */
+.motion-theme-wipe {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  clip-path: circle(0% at var(--wipe-x, 50%) var(--wipe-y, 50%));
+  transition: clip-path var(--motion-dur-slow) var(--motion-ease-out);
+  will-change: clip-path;
+}
+
+.motion-theme-wipe.is-active {
+  clip-path: circle(150% at var(--wipe-x, 50%) var(--wipe-y, 50%));
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   Custom cursor placeholder (cursor.js fills in the SVG).
+   ──────────────────────────────────────────────────────────────────────── */
+html.motion-cursor-active,
+html.motion-cursor-active * {
+  cursor: none;
+}
+
+html.motion-touch .motion-cursor,
+html.motion-reduced .motion-cursor {
+  display: none !important;
+}
+
+.motion-cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--motion-cursor-size);
+  height: var(--motion-cursor-size);
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   Section scroll rail (right-side mini indicators).
+   ──────────────────────────────────────────────────────────────────────── */
+.motion-scroll-rail {
+  position: fixed;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 50;
+  opacity: 0;
+  transition: opacity var(--motion-dur-base) var(--motion-ease-out);
+}
+
+.motion-scroll-rail.is-ready {
+  opacity: 1;
+}
+
+.motion-scroll-rail button {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--accent, #38bdf8);
+  cursor: pointer;
+  position: relative;
+  transition: transform var(--motion-dur-fast) var(--motion-ease-spring);
+  padding: 0;
+}
+
+.motion-scroll-rail button[aria-current="true"] {
+  background: var(--accent, #38bdf8);
+  transform: scale(1.4);
+}
+
+.motion-scroll-rail button[data-progress="true"]::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+  border: 1px solid var(--accent, #38bdf8);
+  opacity: 0.5;
+  animation: motion-pulse 1.4s var(--motion-ease-out) infinite;
+}
+
+@keyframes motion-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50%      { transform: scale(1.6); opacity: 0; }
+}
+
+@media (max-width: 980px) {
+  .motion-scroll-rail { display: none; }
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   Page-transition viewTransition styling (the bits the browser hands us).
+   ──────────────────────────────────────────────────────────────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--motion-dur-base);
+  animation-timing-function: var(--motion-ease-out);
+}
+
+::view-transition-old(thesis-hero),
+::view-transition-new(thesis-hero) {
+  animation-duration: var(--motion-dur-slow);
+  animation-timing-function: var(--motion-ease-spring);
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   Entrance choreography — first-load only, set via JS class on <html>.
+   ──────────────────────────────────────────────────────────────────────── */
+html.motion-entrance-pending body {
+  opacity: 0;
+}
+
+html.motion-entrance-active body {
+  opacity: 1;
+  transition: opacity var(--motion-dur-slow) var(--motion-ease-out);
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   Audio toggle button (in nav)
+   ──────────────────────────────────────────────────────────────────────── */
+.motion-audio-toggle {
+  background: transparent;
+  border: 1px solid var(--line, rgba(255,255,255,0.12));
+  border-radius: 999px;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--muted);
+  transition: color var(--motion-dur-fast),
+              border-color var(--motion-dur-fast),
+              background var(--motion-dur-fast);
+}
+
+.motion-audio-toggle:hover {
+  color: var(--accent, #38bdf8);
+  border-color: var(--accent, #38bdf8);
+}
+
+.motion-audio-toggle[aria-pressed="true"] {
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--accent, #38bdf8);
+  border-color: var(--accent, #38bdf8);
+}
+
+.motion-audio-toggle .audio-icon-on  { display: none; }
+.motion-audio-toggle .audio-icon-off { display: inline; }
+.motion-audio-toggle[aria-pressed="true"] .audio-icon-on  { display: inline; }
+.motion-audio-toggle[aria-pressed="true"] .audio-icon-off { display: none; }
