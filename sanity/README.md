@@ -44,14 +44,35 @@ npm create sanity@latest -- --project=4lmq2x2j --dataset=production --template=c
 Note the `=` in `--project=…` — the bare-space syntax (`--project 4lmq2x2j`)
 is parsed as positional args by npm and the CLI rejects it.
 
-## Why CommonJS?
+## Why CommonJS + pinned yargs?
 
-The Sanity CLI binary depends on yargs (CJS). When this package was
-configured as `"type": "module"`, Node tried to load yargs as ESM and
-crashed (`ReferenceError: require is not defined in ES module scope`).
-Removing `type: module` and using `module.exports` in the config + schemas
-sidesteps the issue. Sanity v3 handles the module-resolution mismatch
-internally during the Studio build.
+Two compounding issues with the Sanity v3.99 CLI bootstrap:
+
+1. **`"type": "module"` in package.json broke yargs.** The Sanity CLI's
+   bundled yargs is CJS, but a `type: module` package makes Node load it
+   as ESM. → Removed `type: module`; the config + schemas now use
+   `module.exports`.
+2. **yargs v18+ broke the `require('yargs/yargs')` entry path.** @sanity/cli
+   3.99 uses yargs through that legacy path, but newer yargs (18+) is
+   ESM-first and the path doesn't resolve as CJS. → Added
+   `"overrides": { "yargs": "^17.7.2" }` in package.json to force the
+   CJS-compatible 17.x line of yargs across the dep tree.
+
+If you ever see this error again:
+```
+ReferenceError: require is not defined in ES module scope
+    at file:///…/node_modules/yargs/yargs:…
+```
+
+Run:
+```bash
+cd sanity
+Remove-Item -Recurse -Force node_modules, package-lock.json -ErrorAction SilentlyContinue
+npm install
+```
+
+The override + the CommonJS config together fix it. If a future Sanity CLI
+ships a clean yargs path, we can drop the override.
 
 ## If you ran `npm audit fix --force` (recovery)
 
