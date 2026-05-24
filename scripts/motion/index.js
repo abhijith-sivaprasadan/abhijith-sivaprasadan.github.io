@@ -166,6 +166,8 @@ function boot() {
     { name: "audio",         selector: "body",  skip: () => !supportsWebAudio },
     { name: "reading-progress", selector: '.case-hero, .case-panel, [data-page-key="case-study"]' },
     { name: "looking-for",      selector: "body" },
+    { name: "katex",            selector: ".math, [data-math]" },
+    { name: "biot-calculator",  selector: "[data-biot-calculator]", path: `${BASE}../sections/biot-calculator.js` },
   ];
   for (const entry of autoload) {
     if (entry.skip && entry.skip()) continue;
