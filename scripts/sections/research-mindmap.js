@@ -3,6 +3,7 @@ const NODES = [
     key: "cht",
     label: "CHT in high-temperature passages",
     copy: "High-temperature CHT links geometry, wall resistance, boundary conditions and validation-grade measurements.",
+    signal: "MODEL: conjugate heat transfer / thermal resistance",
     x: 48,
     y: 14,
   },
@@ -10,6 +11,7 @@ const NODES = [
     key: "surface",
     label: "Surface-condition effects",
     copy: "Deposits and altered wall condition change thermal resistance and shift what a model can safely predict.",
+    signal: "DEGRADATION: deposit layer -> rising wall temperature",
     x: 32,
     y: 48,
   },
@@ -17,6 +19,7 @@ const NODES = [
     key: "electrification",
     label: "Industrial electrification",
     copy: "Energy-process modelling translates measured performance into low-carbon heat, power and utility decisions.",
+    signal: "SYSTEM: EnPI / heat recovery / electrification",
     x: 72,
     y: 48,
   },
@@ -24,6 +27,7 @@ const NODES = [
     key: "measurement",
     label: "Measurement chains",
     copy: "Thermocouples, pressure sensors, NI-DAQ and LabVIEW close the loop between model prediction and physical evidence.",
+    signal: "VALIDATE: NI-DAQ / LabVIEW / thermocouples",
     x: 48,
     y: 82,
   },
@@ -40,10 +44,15 @@ function template() {
   return `
     <div class="research-mindmap" data-research-mindmap>
       <svg viewBox="0 0 100 100" aria-hidden="true">
-        <path d="M48 20 C40 30 36 38 32 48" />
-        <path d="M40 50 C52 45 60 45 72 48" />
-        <path d="M70 55 C60 66 54 73 48 82" />
-        <path d="M48 78 C40 70 36 60 32 48" />
+        <defs>
+          <marker id="research-arrow" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+            <path class="mindmap-arrowhead" d="M0 0 L5 2.5 L0 5 Z" />
+          </marker>
+        </defs>
+        <path marker-end="url(#research-arrow)" d="M48 24 C42 30 37 35 34 40" />
+        <path marker-end="url(#research-arrow)" d="M40 48 C50 43 59 43 66 48" />
+        <path marker-end="url(#research-arrow)" d="M68 56 C61 63 55 68 50 73" />
+        <path marker-end="url(#research-arrow)" d="M45 73 C39 67 35 61 33 56" />
       </svg>
       <div class="mindmap-node-layer">
         ${NODES.map((node) => `
@@ -53,6 +62,7 @@ function template() {
       </div>
       <article class="mindmap-detail" data-mindmap-detail>
         <span>${NODES[0].label}</span>
+        <small>${NODES[0].signal}</small>
         <p>${NODES[0].copy}</p>
       </article>
     </div>`;
@@ -65,6 +75,7 @@ function setActive(root, key) {
   });
   root.querySelector("[data-mindmap-detail]").innerHTML = `
     <span>${node.label}</span>
+    <small>${node.signal}</small>
     <p>${node.copy}</p>`;
 }
 
@@ -83,12 +94,12 @@ export async function init(ctx) {
   });
 
   if (ctx.gsap && ctx.ScrollTrigger && !ctx.reducedMotion) {
-    root.querySelectorAll("path").forEach((path) => {
+    root.querySelectorAll("svg > path").forEach((path) => {
       const length = path.getTotalLength();
       path.style.strokeDasharray = `${length}`;
       path.style.strokeDashoffset = `${length}`;
     });
-    ctx.gsap.fromTo(root.querySelectorAll("path"),
+    ctx.gsap.fromTo(root.querySelectorAll("svg > path"),
       { opacity: 0 },
       { scrollTrigger: { trigger: root, start: "top 78%" }, strokeDashoffset: 0, opacity: 1, stagger: 0.08, duration: 0.6 }
     );

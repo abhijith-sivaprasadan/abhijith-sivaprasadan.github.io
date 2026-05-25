@@ -296,8 +296,8 @@ function svgMarkup() {
             ${flowFracs.map((f, i) => `<path class="flow-stream" style="--delay:${i * 0.18}s" d="${c2Streamline(f)}"/>`).join("")}
           </g>
         </g>
-        <text class="story-note flow-note" x="52" y="300">Legacy stepped path / geometry-bounded direction trace</text>
-        <text class="story-note flow-note" x="52" y="403">C2 path / smoothly contracting direction trace</text>
+        <text class="story-note flow-note" x="52" y="326">Legacy stepped path / bounded direction trace</text>
+        <text class="story-note flow-note" x="52" y="468">C2 path / smoothly contracting bounded trace</text>
       </g>
 
       <g class="story-layer story-thermal" data-story-layer="thermal">
@@ -439,12 +439,34 @@ export async function init(ctx) {
       end: `+=${BEATS.length * 55}%`,
       pin: true,
       scrub: 0.65,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onEnter() { root.classList.add("is-pinned"); },
+      onEnterBack() { root.classList.add("is-pinned"); },
+      onLeave() { root.classList.remove("is-pinned"); },
+      onLeaveBack() { root.classList.remove("is-pinned"); setBeat(root, 0); },
       onUpdate(self) {
         setBeat(root, Math.min(BEATS.length - 1, Math.floor(self.progress * BEATS.length)));
       },
     },
   });
   timeline.to({}, { duration: BEATS.length });
+
+  // The hero can change height when its audience mode or locale changes.
+  // Recompute pin measurements after those layout changes and once source
+  // images/fonts settle, preventing stale pin spacers on reverse scrolling.
+  let refreshFrame = 0;
+  const refresh = () => {
+    cancelAnimationFrame(refreshFrame);
+    refreshFrame = requestAnimationFrame(() => ctx.ScrollTrigger.refresh());
+  };
+  const offMode = ctx?.bus?.on?.("motion:mode-change", refresh);
+  const offStoryLocale = ctx?.bus?.on?.("motion:locale-change", refresh);
+  stage.querySelectorAll("img").forEach((image) => {
+    if (!image.complete) image.addEventListener("load", refresh, { once: true });
+  });
+  document.fonts?.ready?.then(refresh);
+  window.addEventListener("load", refresh, { once: true });
 
   // Skip handlers
   const skipTargets = root.querySelectorAll('a[href="#signal-evidence-map"], [data-skip-story]');
@@ -459,8 +481,12 @@ export async function init(ctx) {
   return {
     destroy() {
       offLocale?.();
+      offMode?.();
+      offStoryLocale?.();
+      cancelAnimationFrame(refreshFrame);
       skipTargets.forEach((el) => el.removeEventListener("click", skipStory));
       document.removeEventListener("keydown", skipStory);
+      root.classList.remove("is-pinned");
       timeline.scrollTrigger?.kill();
       timeline.kill();
     },

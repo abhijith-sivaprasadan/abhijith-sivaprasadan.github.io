@@ -1,8 +1,3 @@
-.home-flow > section:not(.hero) {
-  content-visibility: auto;
-  contain-intrinsic-size: 900px;
-}
-
 .motion-ready .section h2,
 .motion-ready .card h3,
 .motion-ready .project-card h3 {
@@ -27,10 +22,4 @@ html[data-theme="light"] .signal-routes span,
 html[data-theme="light"] .rail-title span,
 html[data-theme="light"] .rail-metrics span {
   color: #4a6373;
-}
-
-@media (max-width: 760px) {
-  .home-flow > section:not(.hero) {
-    contain-intrinsic-size: 1100px;
-  }
 }

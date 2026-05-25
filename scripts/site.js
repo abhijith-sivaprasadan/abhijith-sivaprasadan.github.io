@@ -1936,58 +1936,6 @@ if (heroStatNumbers.length && "IntersectionObserver" in window) {
   heroStatNumbers.forEach((el) => counterObserver.observe(el));
 }
 
-// Rail-metrics count-up animation (handles "673 K", "Bi 0.003-0.004", "Ma 0.990-1.006", "8/8")
-const railMetricEls = document.querySelectorAll(".rail-metrics article strong");
-if (railMetricEls.length && "IntersectionObserver" in window) {
-  const railObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-        const el = entry.target;
-        const original = el.textContent.trim();
-
-        // Parse out leading prefix, numeric start, optional dash + end number, and suffix
-        // Handles: "673 K", "Bi 0.003-0.004", "Ma 0.990-1.006", "8/8"
-        const m = original.match(/^([A-Za-z/\s]*?)([\d.]+)(-[\d.]+)?(\s*[A-Za-z\/\d]+)?$/);
-        if (!m) return;
-
-        const prefix = m[1] || "";
-        const numStart = parseFloat(m[2]);
-        const numEnd = m[3] ? parseFloat(m[3].slice(1)) : null;
-        const suffix = m[4] || "";
-        const isInt = !m[2].includes(".");
-        const decimals = isInt ? 0 : m[2].split(".")[1].length;
-
-        const fmt = (n) => isInt ? String(Math.round(n)) : n.toFixed(decimals);
-        const startTime = performance.now();
-        const duration = 4600;
-
-        const tick = (now) => {
-          const t = Math.min((now - startTime) / duration, 1);
-          const ease = 1 - (1 - t) ** 3;
-          const cur = numStart * ease;
-          if (numEnd !== null) {
-            const curEnd = numStart + (numEnd - numStart) * ease;
-            el.textContent = `${prefix}${fmt(cur)}-${fmt(curEnd)}${suffix}`;
-          } else {
-            el.textContent = `${prefix}${fmt(cur)}${suffix}`;
-          }
-          if (t < 1) {
-            requestAnimationFrame(tick);
-          } else {
-            el.textContent = original; // restore exact original on completion
-          }
-        };
-        requestAnimationFrame(tick);
-        railObserver.unobserve(el);
-      });
-    },
-    { threshold: 0.6 }
-  );
-  railMetricEls.forEach((el) => railObserver.observe(el));
-}
-
 // Cursor spotlight on hero section
 const heroSection = document.querySelector(".hero");
 if (heroSection) {

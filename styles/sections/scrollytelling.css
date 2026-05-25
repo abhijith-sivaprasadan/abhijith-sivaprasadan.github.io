@@ -4,7 +4,7 @@
    Driven by `[data-story-key]` set on the root by the ScrollTrigger handler.
    ──────────────────────────────────────────────────────────────────────── */
 
-.thesis-story-section {
+body.signal-rebuild .thesis-story-section {
   position: relative;
   z-index: 4;
   isolation: isolate;
@@ -13,16 +13,16 @@
   min-height: 0 !important;
   padding-top: clamp(60px, 8vw, 110px);
   padding-bottom: clamp(60px, 8vw, 110px);
-  background: var(--background, var(--bg, #070908));
+  background: var(--bg, #070908);
 }
 
-.thesis-story-section::before {
+body.signal-rebuild .thesis-story-section::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--background, #070908) 98%, transparent), var(--background, #070908)),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg, #070908) 98%, transparent), var(--bg, #070908)),
     var(--v4-grid);
 }
 
@@ -219,7 +219,7 @@ html[data-theme="light"] .story-note {
 }
 
 @keyframes flow-advect {
-  to { stroke-dashoffset: -298; }
+  to { stroke-dashoffset: 298; }
 }
 
 html.motion-reduced .flow-stream {

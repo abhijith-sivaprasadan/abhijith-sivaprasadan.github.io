@@ -61,106 +61,6 @@ function quintic(value) {
   return 6 * t ** 5 - 15 * t ** 4 + 10 * t ** 3;
 }
 
-// ── Obstacle outline overlays (thin wireframe only, no animated curves) ──
-function drawObstacleOverlay(ctx, mode, width, height, palette) {
-  ctx.save();
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = rgba(palette[5] || palette[palette.length - 1], 0.32);
-  ctx.lineWidth = 1.2;
-
-  if (mode === "thermal") {
-    // Smooth C2 reducer outline. Mirrors fluid-sim-worker.js reducerRadius().
-    // R(xn) = 0.40 - 0.30 * quintic((xn - 0.27) / 0.45)
-    for (const sign of [-1, 1]) {
-      ctx.beginPath();
-      for (let x = 0; x <= width; x += 4) {
-        const xn = x / width;
-        const r = 0.40 - 0.30 * quintic((xn - 0.27) / 0.45);
-        const y = height * (0.5 + sign * r / 2);
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-    }
-    // Throat marker — a faint vertical tick at xn=0.72 (downstream of contraction)
-    const throatX = width * 0.72;
-    ctx.strokeStyle = rgba(palette[4], 0.40);
-    ctx.beginPath();
-    ctx.moveTo(throatX, height * 0.46);
-    ctx.lineTo(throatX, height * 0.54);
-    ctx.stroke();
-  } else if (mode === "research") {
-    // Converging-diverging nozzle outline. Mirrors worker nozzleRadius().
-    const nozzleR = (xn) => {
-      if (xn <= 0.23) return 0.29 + (0.065 - 0.29) * quintic((xn - 0.025) / 0.205);
-      return 0.065 + (0.14 - 0.065) * quintic((xn - 0.23) / 0.24);
-    };
-    for (const sign of [-1, 1]) {
-      ctx.beginPath();
-      for (let x = width * 0.025; x <= width * 0.47; x += 3) {
-        const r = nozzleR(x / width);
-        const y = height * (0.5 + sign * r / 2);
-        if (x === width * 0.025) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-    }
-    // Throat tick
-    const throatX = width * 0.23;
-    ctx.strokeStyle = rgba(palette[4], 0.50);
-    ctx.beginPath();
-    ctx.moveTo(throatX, height * 0.46);
-    ctx.lineTo(throatX, height * 0.54);
-    ctx.stroke();
-  } else if (mode === "energy") {
-    // Grid network: 7 nodes connected by thin lines.
-    const nodes = [
-      [0.20, 0.30], [0.20, 0.70],
-      [0.45, 0.20], [0.45, 0.50], [0.45, 0.80],
-      [0.70, 0.35], [0.70, 0.65],
-    ];
-    const edges = [[0, 2], [0, 3], [1, 3], [1, 4], [2, 5], [3, 5], [3, 6], [4, 6]];
-    ctx.strokeStyle = rgba(palette[2], 0.28);
-    edges.forEach(([a, b]) => {
-      ctx.beginPath();
-      ctx.moveTo(nodes[a][0] * width, nodes[a][1] * height);
-      ctx.lineTo(nodes[b][0] * width, nodes[b][1] * height);
-      ctx.stroke();
-    });
-    nodes.forEach(([nx, ny]) => {
-      ctx.fillStyle = rgba(palette[4], 0.50);
-      ctx.beginPath();
-      ctx.arc(nx * width, ny * height, 3, 0, Math.PI * 2);
-      ctx.fill();
-    });
-  } else if (mode === "decarbonisation") {
-    // Process blocks
-    const blocks = [
-      [0.18, 0.55, 0.10, 0.20],
-      [0.40, 0.30, 0.12, 0.18],
-      [0.62, 0.55, 0.10, 0.22],
-    ];
-    ctx.strokeStyle = rgba(palette[3], 0.45);
-    blocks.forEach(([bx, by, bw, bh]) => {
-      ctx.strokeRect(bx * width, by * height, bw * width, bh * height);
-    });
-    // Meter dots
-    const meters = [
-      [0.11, 0.24, palette[2]],
-      [0.09, 0.42, palette[3]],
-      [0.70, 0.58, palette[4]],
-    ];
-    meters.forEach(([mx, my, color]) => {
-      ctx.fillStyle = rgba(color, 0.80);
-      ctx.beginPath();
-      ctx.arc(mx * width, my * height, 3, 0, Math.PI * 2);
-      ctx.fill();
-    });
-  }
-  ctx.restore();
-}
-
 // ── Domain telemetry: thermal mode (compressible flow through C2 reducer) ─
 // Inputs are reported thesis signals: T0 = 673 K, Ma = 0.990 for the smooth
 // reducer and Bi = 0.003-0.004. The animation never perturbs these evidence
@@ -322,7 +222,7 @@ function chtState() {
   return { T_gas, T_ext, t_wall, k_wall, h_gas, h_ext, R_gas, R_wall, R_ext, R_total, q, T_inner, T_outer, Bi };
 }
 
-function drawThermalEvidence(ctx, width, height, _source, now) {
+function drawThermalEvidence(ctx, width, height, now) {
   stageBackground(ctx, width, height);
   const S = chtState();
 
@@ -330,9 +230,9 @@ function drawThermalEvidence(ctx, width, height, _source, now) {
   const padX = 22;
   const headerH = 38;
   const wallY = 60;                       // top of the wall band
-  const wallH = Math.min(118, height * 0.36);  // height of the wall band
-  const barsY = wallY + wallH + 32;       // top of the resistance bars
-  const barsH = Math.min(78, height * 0.20);
+  const wallH = Math.min(94, height * 0.29);   // room for the resistance rail below
+  const barsY = wallY + wallH + 38;            // top of the resistance bars
+  const barsH = Math.min(66, height * 0.18);
 
   // Three sub-widths: gas zone, wall zone, ext zone (wall narrow on purpose)
   const innerW = width - padX * 2;
@@ -346,7 +246,7 @@ function drawThermalEvidence(ctx, width, height, _source, now) {
   // ── Header ──────────────────────────────────────────────────────────────
   stageLabel(ctx, isSwedish()
     ? "KONJUGERAD VÄRMEÖVERFÖRING / TERMISKT MOTSTÅND I VÄGGEN"
-    : "CONJUGATE HEAT TRANSFER / WALL THERMAL RESISTANCE", padX, 18, "#82a4b4");
+    : "CHT / 1-D THERMAL RESISTANCE NETWORK", padX, 18, "#82a4b4");
   stageLabel(ctx, "TRITA-ITM-EX 2026:14 · Siemens Energy Finspång", padX, 32, "#65d6c9");
 
   // ── Hot gas zone ───────────────────────────────────────────────────────
@@ -383,20 +283,21 @@ function drawThermalEvidence(ctx, width, height, _source, now) {
   ctx.fillStyle = extGrad;
   ctx.fillRect(xExt, wallY, wExt, wallH);
 
-  // ── Heat-flux arrows (animated, moving right) ──────────────────────────
+  // ── Heat-flux arrows (animated; opacity pulses with q-magnitude rhythm)
+  // The pulse is illustrative — it suggests transient response, not a real
+  // unsteady solution.
   ctx.save();
-  const arrowOffset = (now * 0.06) % 36;
+  const arrowOffset = (now * 0.065) % 36;
+  const pulse = 0.65 + 0.25 * Math.sin(now * 0.0018);
   for (let row = 0; row < 3; row++) {
     const rowY = wallY + wallH * (0.30 + row * 0.20);
-    ctx.strokeStyle = "rgba(255, 241, 199, 0.85)";
-    ctx.lineWidth = 1.4;
+    ctx.strokeStyle = `rgba(255, 241, 199, ${0.55 + 0.35 * pulse})`;
+    ctx.lineWidth = 1.4 + 0.4 * pulse;
     ctx.beginPath();
-    for (let x = xGas + 6 - arrowOffset; x < xExt + wExt; x += 36) {
+    for (let x = xGas + 6 + arrowOffset - 36; x < xExt + wExt; x += 36) {
       const ax = x;
-      // Arrow shaft
       ctx.moveTo(ax, rowY);
       ctx.lineTo(ax + 22, rowY);
-      // Arrow head
       ctx.moveTo(ax + 18, rowY - 3);
       ctx.lineTo(ax + 22, rowY);
       ctx.lineTo(ax + 18, rowY + 3);
@@ -406,16 +307,63 @@ function drawThermalEvidence(ctx, width, height, _source, now) {
   ctx.restore();
   stageLabel(ctx, "Q  →", xExt + wExt - 24, wallY - 6, "#fff1c7");
 
+  // ── Sweeping thermal probe ─────────────────────────────────────────────
+  // Vertical readout that slides across the cross-section showing local
+  // temperature T(x) at the chosen position. The temperature profile is
+  // linear in each zone (1-D steady-state conduction + convective film):
+  //   gas film:    T(x) → T_inner  as x crosses the boundary layer
+  //   wall:        linear between T_inner and T_outer
+  //   external:    T(x) → T_ext    via the convective film
+  const probeT = (now / 4800) % 1;             // 4.8 s sweep
+  const probeX = xGas + (xExt + wExt - xGas) * probeT;
+  let probeTemp;
+  if (probeX < xWall) {
+    // In the gas zone: assume nearly uniform at T_gas with thin boundary
+    // layer near the wall; show a smooth blend
+    const t = (probeX - xGas) / (xWall - xGas);
+    probeTemp = S.T_gas - (S.T_gas - S.T_inner) * Math.max(0, (t - 0.85) / 0.15);
+  } else if (probeX < xExt) {
+    // In the wall: linear T_inner → T_outer
+    const t = (probeX - xWall) / (xExt - xWall);
+    probeTemp = S.T_inner + (S.T_outer - S.T_inner) * t;
+  } else {
+    // External: T_outer → T_ext via convective film (thin layer at boundary)
+    const t = (probeX - xExt) / (xExt + wExt - xExt);
+    probeTemp = S.T_outer - (S.T_outer - S.T_ext) * Math.min(1, t / 0.15);
+  }
+  // Probe line
+  ctx.save();
+  ctx.strokeStyle = "rgba(101, 214, 201, 0.85)";
+  ctx.lineWidth = 1.2;
+  ctx.setLineDash([3, 3]);
+  ctx.beginPath();
+  ctx.moveTo(probeX, wallY - 14);
+  ctx.lineTo(probeX, wallY + wallH + 6);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  // Probe head with temperature readout
+  ctx.fillStyle = "rgba(7, 12, 18, 0.92)";
+  const labelW = 70;
+  ctx.fillRect(probeX - labelW / 2, wallY - 30, labelW, 18);
+  ctx.strokeStyle = "rgba(101, 214, 201, 0.85)";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(probeX - labelW / 2 + 0.5, wallY - 29.5, labelW - 1, 17);
+  ctx.fillStyle = "#65d6c9";
+  ctx.font = "700 11px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.textAlign = "center";
+  ctx.fillText(`${Math.round(probeTemp)} K`, probeX, wallY - 17);
+  ctx.textAlign = "left";
+  ctx.restore();
+
   // ── Temperature labels ────────────────────────────────────────────────
   ctx.save();
   ctx.fillStyle = "rgba(255, 241, 199, 0.92)";
   ctx.font = "600 12px 'JetBrains Mono', ui-monospace, monospace";
-  ctx.fillText(`T₀ = ${S.T_gas} K`, xGas + 6, wallY + wallH + 16);
-  ctx.fillText(`T_inner ${Math.round(S.T_inner)} K`, xWall - 56, wallY + wallH + 16);
-  ctx.fillText(`T_outer ${Math.round(S.T_outer)} K`, xExt + 4, wallY + wallH + 16);
+  ctx.fillText(`T0 ${S.T_gas} K`, xGas + 6, wallY + wallH + 16);
+  ctx.fillText(`STEEL dT ${(S.T_inner - S.T_outer).toFixed(1)} K`, xWall - 22, wallY + wallH + 16);
   ctx.fillStyle = "rgba(173, 200, 240, 0.92)";
   ctx.textAlign = "right";
-  ctx.fillText(`T_∞ = ${S.T_ext} K`, xExt + wExt - 6, wallY + wallH + 16);
+  ctx.fillText(`Tamb ${S.T_ext} K`, xExt + wExt - 6, wallY + wallH + 16);
   ctx.textAlign = "left";
   ctx.restore();
 
@@ -453,7 +401,9 @@ function drawThermalEvidence(ctx, width, height, _source, now) {
     ctx.fillRect(barXBase, y, Math.max(2, barW), barH);
     // value
     ctx.fillStyle = "rgba(220, 226, 234, 0.85)";
-    ctx.fillText(R.toFixed(4), barXBase + barW + 8, y + barH * 0.65);
+    ctx.textAlign = "right";
+    ctx.fillText(R.toFixed(4), width - padX, y + barH * 0.65);
+    ctx.textAlign = "left";
     ctx.restore();
   };
   drawBar(0, "R_gas", S.R_gas, "rgba(208, 98, 44, 0.85)");
@@ -471,12 +421,7 @@ function drawThermalEvidence(ctx, width, height, _source, now) {
     ctx.strokeRect(padX + 0.5, bannerY + 0.5, width - padX * 2 - 1, Math.min(28, height - bannerY - 4) - 1);
     ctx.fillStyle = "#65d6c9";
     ctx.font = "700 12px 'JetBrains Mono', ui-monospace, monospace";
-    const regime = S.Bi < 0.1 ? "LUMPED WALL" : S.Bi < 1 ? "INTERMEDIATE" : "CONDUCTION-LIMITED";
-    ctx.fillText(`Bi = h_ext · t_w / k_wall = ${S.Bi.toFixed(4)}   ·   ${regime}`, padX + 10, bannerY + 18);
-    ctx.fillStyle = "rgba(220, 226, 234, 0.78)";
-    ctx.font = "500 10px 'JetBrains Mono', ui-monospace, monospace";
-    const dT = (S.T_inner - S.T_outer).toFixed(1);
-    ctx.fillText(`through-wall ΔT = ${dT} K  ·  q = ${Math.round(S.q)} W/m²`, width - padX - 8 - ctx.measureText(`through-wall ΔT = ${dT} K  ·  q = ${Math.round(S.q)} W/m²`).width, bannerY + 18);
+    ctx.fillText(`Bi = ${S.Bi.toFixed(4)}  |  LUMPED WALL  |  q = ${Math.round(S.q)} W/m2`, padX + 10, bannerY + 18);
     ctx.restore();
   }
 }
@@ -506,10 +451,9 @@ function traceSeries(ctx, values, rect, min, max, color, width = 2) {
   ctx.restore();
 }
 
-// 24h dispatch stacked-area chart driven by the real PRO2 demand + Nord
-// Pool-style spot-price arrays. Dispatch policy = price-tiered allocation
-// (HP cheap, CHP mid, TES + grid peak). The chart is the actual MILP-style
-// output the case study would produce, just visualised.
+// 24h dispatch stacked-area chart driven by the real PRO2 demand + supplied
+// electricity-price arrays. Dispatch policy = a labelled price-tier screening
+// (HP cheap, CHP mid, TES + grid peak), not an in-browser MILP result.
 //
 // equation per hour: Q_total = Q_HP + Q_CHP + Q_TES + Q_grid_top-up
 //                    where each is from dispatchSplit(demand, price)
@@ -556,19 +500,56 @@ function drawEnergyDispatch(ctx, width, height, now) {
     padX, 18, "#82a4b4");
   stageLabel(ctx, "MW", padX - 22, chartY + 8, "#82a4b4");
 
-  // ── Stacked areas (bottom → top: HP, CHP, TES, Grid) ───────────────────
-  const drawLayer = (values, baseAcc, color, label) => {
+  // ── Stacked areas — built up to the current hour (animated fill-in) ─────
+  // Cursor position determines how far the dispatch is "filled". Past hours
+  // are fully opaque; future hours are dimmed to indicate they haven't been
+  // dispatched yet. This makes it visually obvious that the chart is a
+  // chronological dispatch decision, not a static snapshot.
+  const fillUpTo = hour + subHour;          // current playhead position
+  const drawLayer = (values, baseAcc, color) => {
+    // Past (fully filled) area: indices 0 .. floor(fillUpTo)
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.moveTo(xAt(0), yAt(baseAcc[0]));
-    for (let h = 0; h < 24; h++) {
+    const lastFull = Math.floor(fillUpTo);
+    for (let h = 0; h <= lastFull; h++) {
       ctx.lineTo(xAt(h), yAt(baseAcc[h] + values[h]));
     }
-    for (let h = 23; h >= 0; h--) {
+    // Partial cell at fillUpTo (interpolate between lastFull and lastFull+1)
+    if (lastFull < 23) {
+      const frac = fillUpTo - lastFull;
+      const xFrac = xAt(lastFull) + (xAt(lastFull + 1) - xAt(lastFull)) * frac;
+      const valFrac = values[lastFull] + (values[lastFull + 1] - values[lastFull]) * frac;
+      const baseFrac = baseAcc[lastFull] + (baseAcc[lastFull + 1] - baseAcc[lastFull]) * frac;
+      ctx.lineTo(xFrac, yAt(baseFrac + valFrac));
+      ctx.lineTo(xFrac, yAt(baseFrac));
+    }
+    for (let h = lastFull; h >= 0; h--) {
       ctx.lineTo(xAt(h), yAt(baseAcc[h]));
     }
     ctx.closePath();
     ctx.fill();
+    // Future (dimmed) area: from playhead to 23
+    if (lastFull < 23) {
+      ctx.save();
+      ctx.globalAlpha = 0.30;
+      ctx.beginPath();
+      const frac = fillUpTo - lastFull;
+      const xFrac = xAt(lastFull) + (xAt(lastFull + 1) - xAt(lastFull)) * frac;
+      const valFrac = values[lastFull] + (values[lastFull + 1] - values[lastFull]) * frac;
+      const baseFrac = baseAcc[lastFull] + (baseAcc[lastFull + 1] - baseAcc[lastFull]) * frac;
+      ctx.moveTo(xFrac, yAt(baseFrac + valFrac));
+      for (let h = lastFull + 1; h < 24; h++) {
+        ctx.lineTo(xAt(h), yAt(baseAcc[h] + values[h]));
+      }
+      for (let h = 23; h >= lastFull + 1; h--) {
+        ctx.lineTo(xAt(h), yAt(baseAcc[h]));
+      }
+      ctx.lineTo(xFrac, yAt(baseFrac));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
   };
 
   const cum0 = new Array(24).fill(0);
@@ -576,10 +557,10 @@ function drawEnergyDispatch(ctx, width, height, now) {
   const cum2 = cum1.map((v, i) => v + layers.chp[i]);
   const cum3 = cum2.map((v, i) => v + layers.tes[i]);
 
-  drawLayer(layers.hp,   cum0, "rgba(101, 214, 201, 0.78)", "HP");
-  drawLayer(layers.chp,  cum1, "rgba(37, 99, 168, 0.80)",   "CHP");
-  drawLayer(layers.tes,  cum2, "rgba(246, 200, 95, 0.78)",  "TES");
-  drawLayer(layers.grid, cum3, "rgba(208, 98, 44, 0.70)",   "Grid");
+  drawLayer(layers.hp,   cum0, "rgba(101, 214, 201, 0.78)");
+  drawLayer(layers.chp,  cum1, "rgba(37, 99, 168, 0.80)");
+  drawLayer(layers.tes,  cum2, "rgba(246, 200, 95, 0.78)");
+  drawLayer(layers.grid, cum3, "rgba(208, 98, 44, 0.70)");
 
   // Demand line (total) on top
   ctx.strokeStyle = "rgba(230, 237, 242, 0.7)";
@@ -601,6 +582,30 @@ function drawEnergyDispatch(ctx, width, height, now) {
   ctx.moveTo(cursorX, chartY - 6);
   ctx.lineTo(cursorX, chartY + chartH + 6);
   ctx.stroke();
+
+  // ── Active dispatch indicator ─────────────────────────────────────────
+  // Small pulsing dots near the playhead showing which sources are
+  // currently dispatching (= nonzero contribution this hour).
+  const currentSplit = dispatchSplit(PRO2_DEMAND_MW[hour], PRO2_PRICE[hour]);
+  const gridTopHere = Math.max(0, PRO2_DEMAND_MW[hour] - (currentSplit.hp + currentSplit.chp + currentSplit.tes));
+  const activeNow = [
+    { active: currentSplit.hp > 0.01, color: "rgba(101, 214, 201, 0.95)" },
+    { active: currentSplit.chp > 0.01, color: "rgba(37, 99, 168, 0.95)" },
+    { active: currentSplit.tes > 0.01, color: "rgba(246, 200, 95, 0.95)" },
+    { active: gridTopHere > 0.01, color: "rgba(208, 98, 44, 0.95)" },
+  ];
+  const pulseEnergy = 0.7 + 0.3 * Math.sin(now * 0.005);
+  activeNow.forEach((src, i) => {
+    if (!src.active) return;
+    const dotY = chartY - 14;
+    const dotX = cursorX - 18 + i * 12;
+    ctx.fillStyle = src.color;
+    ctx.globalAlpha = pulseEnergy;
+    ctx.beginPath();
+    ctx.arc(dotX, dotY, 3.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  });
 
   // ── X-axis tick labels (every 6h) ──────────────────────────────────────
   ctx.save();
@@ -680,11 +685,13 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
 
   // ── Layout ─────────────────────────────────────────────────────────────
   const sourceX = 22;
-  const processX = width * 0.44;
+  const processX = width * 0.52;
+  const processW = 112;
   const outputX = width - 124;
   const topY = 56;
   const midY = height * 0.40;
   const bottomY = height * 0.62;
+  const processY = (topY + bottomY) / 2;
   const sourceW = 108;
   const blockH = 38;
 
@@ -709,21 +716,38 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   stageLabel(ctx, "202 kgCO₂/MWh", sourceX + 8, bottomY + blockH + 28, "#82a4b4");
 
   // ── Conversion node (heat pump or boiler) ─────────────────────────────
-  const convX = (sourceX + processX) / 2;
-  if (controls.heatPump) {
-    processBox(ctx, convX - 30, midY - blockH / 2, 78, blockH, "HP COP 3.25", "#65d6c9");
-  }
-  if (controls.electricBoiler) {
-    processBox(ctx, convX - 30, midY + 12, 78, blockH * 0.7, "BOILER η 0.98", "#7dd3fc");
-  }
-  processBox(ctx, convX - 30, bottomY - 14, 78, blockH * 0.8,
-    isSwedish() ? "GASPANNA η 0.90" : "GAS BOILER η 0.90", "#d0622c");
+  // Active nodes pulse with a sin-modulated outer halo to telegraph that
+  // they're currently dispatching energy.
+  const convX = sourceX + sourceW + 18;
+  const convW = 98;
+  const nodePulse = 0.65 + 0.35 * Math.sin(now * 0.0042);
+
+  const drawConversionNode = (x, y, w, h, label, sublabel, color, active) => {
+    if (active) {
+      ctx.save();
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 14 * nodePulse;
+      ctx.fillStyle = "rgba(13, 23, 28, 0.92)";
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1 + nodePulse;
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
+      ctx.shadowBlur = 0;
+      ctx.restore();
+    } else {
+      ctx.save();
+      ctx.fillStyle = "#0d171c";
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1;
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
+      ctx.restore();
+    }
+    stageLabel(ctx, label, x + 8, y + 15, "#e6edf2");
+    stageLabel(ctx, sublabel, x + 8, y + h - 8, color);
+  };
 
   // ── Process + recovery (right) ────────────────────────────────────────
-  processBox(ctx, processX, (topY + bottomY) / 2, 130, blockH * 1.4,
-    isSwedish() ? "PROCESS" : "PROCESS", "#f6c85f");
-  stageLabel(ctx, `${metrics.heatDemand.toFixed(2)} MW`, processX + 8, (topY + bottomY) / 2 + blockH * 1.4 + 14, "#f6c85f");
-
   if (controls.recovery) {
     processBox(ctx, outputX, topY, 100, blockH,
       isSwedish() ? "ÅTERVINNING 22%" : "RECOVERY 22%", "#a3e635");
@@ -737,27 +761,27 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   // ── Animated flow lines ────────────────────────────────────────────────
   const gridPath = new Path2D();
   gridPath.moveTo(sourceX + sourceW, topY + blockH / 2);
-  gridPath.bezierCurveTo(convX - 8, topY + blockH / 2, convX - 8, midY, convX - 30, midY);
+  gridPath.bezierCurveTo(convX - 18, topY + blockH / 2, convX - 18, midY, convX, midY);
 
   const convOutPath = new Path2D();
-  convOutPath.moveTo(convX + 48, midY);
+  convOutPath.moveTo(convX + convW, midY);
   convOutPath.bezierCurveTo(processX - 12, midY, processX - 12, (topY + bottomY) / 2 + blockH * 0.7, processX, (topY + bottomY) / 2 + blockH * 0.7);
 
   const fuelPath = new Path2D();
   fuelPath.moveTo(sourceX + sourceW, bottomY + blockH / 2);
-  fuelPath.bezierCurveTo(convX - 8, bottomY + blockH / 2, convX - 8, bottomY + 4, convX - 30, bottomY + 4);
+  fuelPath.bezierCurveTo(convX - 18, bottomY + blockH / 2, convX - 18, bottomY + 10, convX, bottomY + 10);
 
   const gasOutPath = new Path2D();
-  gasOutPath.moveTo(convX + 48, bottomY + 4);
+  gasOutPath.moveTo(convX + convW, bottomY + 10);
   gasOutPath.bezierCurveTo(processX - 12, bottomY + 4, processX - 12, (topY + bottomY) / 2 + blockH * 0.7, processX, (topY + bottomY) / 2 + blockH * 0.7);
 
   const recoveryPath = new Path2D();
-  recoveryPath.moveTo(processX + 130, (topY + bottomY) / 2 + blockH * 0.4);
-  recoveryPath.bezierCurveTo(outputX - 24, (topY + bottomY) / 2 + blockH * 0.4, outputX - 24, topY + 18, outputX, topY + 18);
+  recoveryPath.moveTo(processX + processW, processY + 16);
+  recoveryPath.bezierCurveTo(outputX - 24, processY + 16, outputX - 24, topY + 18, outputX, topY + 18);
 
   const outputPath = new Path2D();
-  outputPath.moveTo(processX + 130, (topY + bottomY) / 2 + blockH * 1.0);
-  outputPath.bezierCurveTo(outputX - 24, (topY + bottomY) / 2 + blockH * 1.0, outputX - 24, bottomY + 18, outputX, bottomY + 18);
+  outputPath.moveTo(processX + processW, processY + 34);
+  outputPath.bezierCurveTo(outputX - 24, processY + 34, outputX - 24, bottomY + 18, outputX, bottomY + 18);
 
   flowStroke(ctx, gridPath, Math.max(2, metrics.electricInput * 6), "#65d6c9", now, 0.030);
   flowStroke(ctx, convOutPath, Math.max(2, (metrics.heatDemand - metrics.gasInput * 0.90 + metrics.recovered) * 4), "#65d6c9", now, 0.030);
@@ -767,6 +791,22 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
     flowStroke(ctx, recoveryPath, Math.max(2, metrics.recovered * 5), "#a3e635", now, 0.038);
   }
   flowStroke(ctx, outputPath, Math.max(2, metrics.heatDemand * 1.6), "#2563a8", now, 0.025);
+
+  // Draw conversion and process instrumentation above the moving flow lanes,
+  // keeping animated pipes legible without allowing them to overwrite labels.
+  if (controls.heatPump) {
+    drawConversionNode(convX, midY - blockH / 2, convW, blockH + 6,
+      isSwedish() ? "VARMEPUMP" : "HEAT PUMP", "COP 3.25", "#65d6c9", true);
+  }
+  if (controls.electricBoiler) {
+    drawConversionNode(convX, midY + 30, convW, blockH,
+      isSwedish() ? "ELPANNA" : "E-BOILER", "EFF 0.98", "#7dd3fc", true);
+  }
+  drawConversionNode(convX, bottomY - 10, convW, blockH + 2,
+    isSwedish() ? "GASPANNA" : "GAS BOILER", "EFF 0.90", "#d0622c",
+    metrics.gasInput > 0.01);
+  drawConversionNode(processX, processY, processW, 48,
+    "PROCESS", `${metrics.heatDemand.toFixed(2)} MWth`, "#f6c85f", false);
 
   // ── Baseline vs Active emissions strip (bottom) ───────────────────────
   const stripY = height - 38;
@@ -798,7 +838,7 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   ctx.font = "700 11px 'JetBrains Mono', ui-monospace, monospace";
   ctx.textAlign = "right";
   ctx.fillText(`${metrics.baselineEmissions.toFixed(1)} kg/u`, stripPadL + stripW - 6, stripY + 9);
-  ctx.fillText(`${metrics.emissions.toFixed(1)} kg/u  ·  −${metrics.emissionsReduction.toFixed(1)}`, stripPadL + stripW - 6, stripY + stripH - 1);
+  ctx.fillText(`${metrics.emissions.toFixed(1)} kg/u  delta -${metrics.emissionsReduction.toFixed(1)}`, stripPadL + stripW - 6, stripY + stripH - 1);
   ctx.textAlign = "left";
   ctx.restore();
 }
@@ -845,7 +885,7 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   const shimmer = 0.82 + 0.12 * Math.sin(now * 0.002);
 
   stageLabel(ctx, isSwedish() ? "DE LAVAL / KYLKANAL / TERMISKT MOTSTÅND" : "DE LAVAL / COOLING CHANNEL / THERMAL RESISTANCE", 14, 19, "#82a4b4");
-  stageLabel(ctx, "AREA-MACH + BARTZ + 1-D Rdep", 14, height - 14, "#82a4b4");
+  stageLabel(ctx, "MODEL: AREA-MACH + BARTZ + Rdep=t/k", 14, 33, "#82a4b4");
 
   // Gas temperature contours are clipped to the analytical de Laval domain.
   // equation: A/A* = (1/M)[2/(gamma+1)(1 + (gamma-1)M^2/2)]^((gamma+1)/(2(gamma-1))).
@@ -934,10 +974,11 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.strokeStyle = "#382218";
     ctx.lineWidth = deposit;
     ctx.stroke(wall);
-    ctx.strokeStyle = "rgba(101,214,201,0.72)";
-    ctx.lineWidth = 1.1;
+    // Coolant flow animation — sped up 4× for visibility (was 0.024)
+    ctx.strokeStyle = "rgba(101,214,201,0.85)";
+    ctx.lineWidth = 1.4;
     ctx.setLineDash([9, 10]);
-    ctx.lineDashOffset = -(now * 0.024) % 38;
+    ctx.lineDashOffset = -(now * 0.10) % 38;
     ctx.stroke(channel);
     ctx.setLineDash([]);
   });
@@ -950,9 +991,63 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   stageLabel(ctx, isSwedish() ? "METANKYLKANAL" : "CH4 COOLANT", 18, height * 0.15, "#65d6c9");
   stageLabel(ctx, "THROAT", xStart + (xExit - xStart) * 0.205 - 20, centreY + 27, "#f6c85f");
   stageLabel(ctx, "EXPANSION CELLS", xExit + 12, centreY - exitRadius * 1.95, "#f6c85f");
+  // ── Thermal resistance ladder (bottom strip) ──────────────────────────
+  // Shows the 1-D heat flux path: gas → copper → coke (GROWING) → coolant.
+  // R_coke bar width grows with the simulated coke thickness, dramatising
+  // the failure mode: as deposit builds, the thermal bottleneck shifts.
+  // equation per resistor: R_i = t_i / k_i (conduction) or 1/h_i (convection)
+  const ladderY = height - 36;
+  const ladderH = 10;
+  const ladderX0 = 14;
+  const ladderW = width - 28;
+  const baseR = {
+    gas: 1 / 12500,      // 1/h_gas
+    copper: 0.0012 / 320, // t_cu / k_cu
+    coolant: 1 / 26000,  // 1/h_coolant
+  };
+  // R_coke grows with deposit thickness (in metres)
+  const cokeMeters = (metrics?.cokeThicknessMicrons || 0) * 1e-6;
+  const Rcoke = cokeMeters / 1.15; // k_coke ~ 1.15 W/m·K
+  const Rtotal = baseR.gas + baseR.copper + Rcoke + baseR.coolant;
+  // Plot bars proportional to each R as a fraction of total
+  const widths = {
+    gas: (baseR.gas / Rtotal) * ladderW,
+    copper: (baseR.copper / Rtotal) * ladderW,
+    coke: (Rcoke / Rtotal) * ladderW,
+    coolant: (baseR.coolant / Rtotal) * ladderW,
+  };
+  let lx = ladderX0;
+  ctx.save();
+  // Gas resistance (orange)
+  ctx.fillStyle = "rgba(208, 98, 44, 0.80)";
+  ctx.fillRect(lx, ladderY, Math.max(1, widths.gas), ladderH);
+  lx += widths.gas;
+  // Copper wall (warm brown)
+  ctx.fillStyle = "rgba(196, 142, 86, 0.80)";
+  ctx.fillRect(lx, ladderY, Math.max(1, widths.copper), ladderH);
+  lx += widths.copper;
+  // Coke deposit (dark, glowing red border to highlight failure mode)
+  if (widths.coke > 0.5) {
+    ctx.fillStyle = "rgba(56, 34, 24, 0.95)";
+    ctx.fillRect(lx, ladderY, widths.coke, ladderH);
+    ctx.strokeStyle = `rgba(208, 98, 44, ${0.6 + 0.4 * Math.sin(now * 0.005)})`;
+    ctx.lineWidth = 1.2;
+    ctx.strokeRect(lx + 0.5, ladderY + 0.5, widths.coke - 1, ladderH - 1);
+    lx += widths.coke;
+  }
+  // Coolant resistance (cyan)
+  ctx.fillStyle = "rgba(101, 214, 201, 0.80)";
+  ctx.fillRect(lx, ladderY, Math.max(1, widths.coolant), ladderH);
+  ctx.restore();
+
+  // Labels above the ladder
+  stageLabel(ctx, isSwedish()
+    ? "TERMISKT MOTSTÅND: GAS → KOPPAR → KOKS (växande) → KYLMEDEL"
+    : "THERMAL RESISTANCE: GAS → COPPER → COKE (growing) → COOLANT",
+    ladderX0, ladderY - 6, "#82a4b4");
   if (metrics) {
-    stageLabel(ctx, `Tw ${Math.round(metrics.maxWallTemperature)} K`, width * 0.54, height - 14, "#f6c85f");
-    stageLabel(ctx, `Rdep ${Math.round(metrics.cokeThicknessMicrons)} um`, width - 112, height - 14, "#d0622c");
+    stageLabel(ctx, `Tw ${Math.round(metrics.maxWallTemperature)} K`, ladderX0, height - 10, "#f6c85f");
+    stageLabel(ctx, `Rdep ${Math.round(metrics.cokeThicknessMicrons)} um`, width - 126, height - 10, "#d0622c");
   }
 }
 
@@ -972,7 +1067,7 @@ function createAmbientTracerField(host, options) {
   let previous = 0;
   let animation = 0;
   let particles = [];
-  const count = options.reducedMotion ? 62 : options.lowPower ? 84 : 138;
+  const count = options.reducedMotion ? 72 : options.lowPower ? 110 : 176;
 
   function normal() {
     return Math.sqrt(-2 * Math.log(Math.max(Number.EPSILON, Math.random()))) * Math.cos(2 * Math.PI * Math.random());
@@ -1042,9 +1137,9 @@ function createAmbientTracerField(host, options) {
         return;
       }
       particle.trail.push([particle.x, particle.y]);
-      if (particle.trail.length > 18) particle.trail.shift();
-      draw.globalAlpha = Math.min(0.82, particle.life);
-      draw.lineWidth = particle.weight;
+      if (particle.trail.length > 5) particle.trail.shift();
+      draw.globalAlpha = Math.min(0.16, particle.life * 0.2);
+      draw.lineWidth = 0.65;
       draw.beginPath();
       if (particle.trail.length > 1) {
         particle.trail.forEach(([trailX, trailY], index) => {
@@ -1056,9 +1151,10 @@ function createAmbientTracerField(host, options) {
         draw.lineTo(particle.x * width, particle.y * height);
       }
       draw.stroke();
+      draw.globalAlpha = Math.min(0.95, particle.life);
       draw.beginPath();
-      draw.arc(particle.x * width, particle.y * height, particle.weight * 0.75, 0, Math.PI * 2);
-      draw.fillStyle = rgba(palette[mode] || palette.thermal, theme === "light" ? 0.23 : 0.42);
+      draw.arc(particle.x * width, particle.y * height, 1 + particle.weight * 0.85, 0, Math.PI * 2);
+      draw.fillStyle = rgba(palette[mode] || palette.thermal, theme === "light" ? 0.52 : 0.66);
       draw.fill();
     });
     draw.globalAlpha = 1;
@@ -1140,17 +1236,6 @@ export async function init(ctx) {
     lowPower: ctx.lowPower,
     reducedMotion: ctx.reducedMotion,
   });
-  const thermalSource = {
-    legacy: new Image(),
-    redesign: new Image(),
-  };
-  thermalSource.legacy.src = new URL("../../assets/thesis/legacy-streamlines-dark.webp", import.meta.url).href;
-  thermalSource.redesign.src = new URL("../../assets/thesis/redesigned-streamlines-dark.webp", import.meta.url).href;
-  Object.values(thermalSource).forEach((image) => {
-    image.addEventListener("load", () => {
-      if (mode === "thermal") drawThermalEvidence(renderCtx, cssW, cssH, thermalSource, performance.now());
-    });
-  });
   const industrialControls = {
     load: 72,
     grid: 55,
@@ -1198,7 +1283,7 @@ export async function init(ctx) {
 
     if (mode === "thermal") {
       renderCtx.clearRect(0, 0, cssW, cssH);
-      drawThermalEvidence(renderCtx, cssW, cssH, thermalSource, now);
+      drawThermalEvidence(renderCtx, cssW, cssH, now);
       updateThermalMetrics();
       return;
     }
