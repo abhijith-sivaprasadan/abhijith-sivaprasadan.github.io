@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { Pool } from "pg";
 
 const DATA_DIR = path.resolve(process.env.DATA_DIR || path.join(process.cwd(), "data"));
 const DATABASE_URL = process.env.DATABASE_URL || "";
@@ -74,7 +75,6 @@ const normalizeDatabaseUrl = (value) => {
 const getPool = async () => {
   if (!DATABASE_URL) return null;
   if (pool) return pool;
-  const { Pool } = await import("pg");
   pool = new Pool({
     connectionString: normalizeDatabaseUrl(DATABASE_URL),
     ssl: DATABASE_SSL ? { rejectUnauthorized: DATABASE_SSL_REJECT_UNAUTHORIZED } : false,
