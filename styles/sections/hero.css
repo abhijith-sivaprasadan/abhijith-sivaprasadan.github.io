@@ -33,12 +33,12 @@ body.signal-rebuild .hero-core .hero-text {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: 0.42;
+  opacity: 0.5;
   mix-blend-mode: screen;
 }
 
 html[data-theme="light"] .motion-ambient-canvas {
-  opacity: 0.30;
+  opacity: 0.37;
   mix-blend-mode: multiply;
 }
 

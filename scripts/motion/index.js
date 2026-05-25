@@ -200,6 +200,23 @@ function boot() {
   const mountObserver = new MutationObserver(() => loadPresentSubsystems());
   mountObserver.observe(document.body, { childList: true, subtree: true });
 
+  // ScrollTrigger can alter document geometry after the browser has already
+  // attempted an initial hash jump. Reapply deep links after motion settles.
+  const restoreAnchor = () => {
+    const id = decodeURIComponent(window.location.hash.replace(/^#/, ""));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    if (target.hasAttribute("data-motion-scrollyt")) return;
+    Motion.ctx.ScrollTrigger?.refresh();
+    requestAnimationFrame(() => target.scrollIntoView({ block: "start", behavior: "auto" }));
+  };
+  if (window.location.hash) {
+    [220, 720, 1320, 2800].forEach((delay) => window.setTimeout(restoreAnchor, delay));
+    window.addEventListener("load", () => window.setTimeout(restoreAnchor, 240), { once: true });
+  }
+  window.addEventListener("hashchange", () => window.setTimeout(restoreAnchor, 0));
+
   bus.emit("motion:ready", Motion.ctx);
 }
 

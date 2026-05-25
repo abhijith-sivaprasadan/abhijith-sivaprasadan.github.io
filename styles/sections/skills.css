@@ -33,6 +33,13 @@
   filter: drop-shadow(0 10px 24px rgba(101, 214, 201, 0.18));
 }
 
+.radar-focus {
+  fill: var(--v4-amber);
+  stroke: var(--v4-panel-strong);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 9px rgba(246, 200, 95, 0.58));
+}
+
 .radar-labels text {
   fill: var(--muted);
   font-size: 8px;
@@ -44,20 +51,57 @@
   gap: 8px;
 }
 
-.radar-readout span {
+.radar-readout button {
   display: flex;
   justify-content: space-between;
   gap: 12px;
+  width: 100%;
   border: 1px solid var(--v4-line);
   border-radius: 999px;
   padding: 8px 11px;
   color: var(--muted);
   background: color-mix(in srgb, var(--v4-panel-strong) 80%, transparent);
+  cursor: pointer;
+  font: inherit;
+}
+
+.radar-readout button:hover,
+.radar-readout button.is-selected {
+  border-color: color-mix(in srgb, var(--v4-teal) 55%, var(--v4-line));
+  color: var(--text);
 }
 
 .radar-readout strong {
   color: var(--text);
   font-family: var(--mono, monospace);
+}
+
+.radar-evidence {
+  min-height: 88px;
+  margin-top: 12px;
+  padding: 11px 12px;
+  border-left: 2px solid var(--v4-teal);
+  background: color-mix(in srgb, var(--v4-panel-strong) 70%, transparent);
+}
+
+.radar-evidence strong {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--text);
+  font-size: 0.86rem;
+}
+
+.radar-evidence strong span {
+  color: var(--v4-teal);
+  font: 500 0.72rem/1.2 var(--mono, monospace);
+}
+
+.radar-evidence p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
 }
 
 html[data-theme="light"] #skills .skill-pill:not([data-chip-type]) {

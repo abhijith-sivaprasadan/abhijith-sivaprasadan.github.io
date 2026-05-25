@@ -1,27 +1,6 @@
-/* `content-visibility: auto` on long below-the-fold sections.
-   Tells the browser it can skip rendering work until they scroll into view.
-   `contain-intrinsic-size` keeps scrollbar height stable.
-
-   We apply this only to sections that are reliably below-the-fold on the
-   homepage and case-study pages. The intrinsic-size value is a reasonable
-   approximation; the browser corrects once it actually renders.
-*/
-#assignment-data,
-#profile,
-#skills,
-#education,
-#experience,
-#testimonials,
-#cv,
-#contact,
-.thesis-story-section,
-.signal-evidence,
-.case-panel section + section + section {
-  content-visibility: auto;
-  contain-intrinsic-size: 720px;
-}
-
-/* On case studies, every nth section can be deferred safely */
+/* Case-study articles are not anchor-dense scrollytelling surfaces, so their
+   deeper panels may still use deferred rendering. Homepage sections remain
+   fully laid out to preserve ScrollTrigger geometry and deep-link landing. */
 body[data-page-key="case-study"] main > section + section + section {
   content-visibility: auto;
   contain-intrinsic-size: 600px;

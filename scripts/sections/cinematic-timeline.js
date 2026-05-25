@@ -1,22 +1,16 @@
 /**
- * Cinematic timeline + geo-map on #experience.
+ * Compact chronological experience rail for the homepage.
  *
- * w16: better SVG silhouettes (Sweden outline + Kerala/India inset), tighter
- * pin placement matching real geography, narrower viewBox for legibility at
- * homepage scale.
- *
- * Pin positions (viewBox 100 × 100):
- *   - Stockholm:  47, 45  (KTH)
- *   - Finspång:   46, 47  (Siemens — slightly south of Stockholm)
- *   - Sandviken:  44, 39  (Alleima — north-west of Stockholm)
- *   - Kerala:     80, 80  (QBurst — in the India inset)
+ * The previous geographic panel consumed a large viewport area without adding
+ * evidence. This rail keeps chronology, location and role selection visible
+ * while the full role cards carry the engineering detail.
  */
 
-const PLACES = [
-  { key: "kth",     label: "KTH",     place: "Stockholm",  x: 47, y: 45 },
-  { key: "siemens", label: "Siemens", place: "Finspång",   x: 46, y: 47 },
-  { key: "alleima", label: "Alleima", place: "Sandviken",  x: 44, y: 39 },
-  { key: "qburst",  label: "QBurst",  place: "Kerala",     x: 80, y: 80 },
+const MILESTONES = [
+  { key: "qburst", years: "2021-23", label: "QBurst", place: "Kerala", discipline: "Software delivery" },
+  { key: "kth", years: "2024", label: "KTH", place: "Stockholm", discipline: "Pyrolysis research" },
+  { key: "alleima", years: "2024-25", label: "Alleima", place: "Sandviken", discipline: "Energy performance" },
+  { key: "siemens", years: "2025", label: "Siemens Energy", place: "Finsp&aring;ng", discipline: "CFD / CHT thesis" },
 ];
 
 function keyFromText(text) {
@@ -28,73 +22,17 @@ function keyFromText(text) {
   return "other";
 }
 
-function buildMap() {
-  // Sweden outline — stylised but recognisably proportioned (long-thin shape
-  // with the southern bulge at Skåne).
-  const swedenPath = `
-    M 41 8
-    Q 44 10 45 14
-    Q 47 18 47 22
-    Q 47 25 45 28
-    Q 47 30 49 34
-    Q 50 38 49 42
-    Q 49 46 47 50
-    Q 47 54 49 58
-    Q 49 61 47 63
-    Q 44 64 43 62
-    Q 40 60 38 58
-    Q 36 54 36 50
-    Q 38 47 38 43
-    Q 37 39 36 36
-    Q 38 32 39 28
-    Q 38 24 38 21
-    Q 39 16 41 12 Z
-  `.replace(/\s+/g, " ").trim();
-
-  // Norway shadow on the west side (decorative — lighter stroke, no fill)
-  const norwayPath = `
-    M 37 8 Q 35 12 33 18 Q 31 24 30 30 Q 28 36 29 42 Q 31 48 34 52 Q 36 56 38 58
-  `.replace(/\s+/g, " ").trim();
-
-  // India outline (in the inset box on the right). Stylised triangular shape.
-  const indiaPath = `
-    M 78 62
-    Q 82 64 84 68
-    Q 86 72 85 76
-    Q 84 80 80 84
-    Q 77 86 75 84
-    Q 73 80 73 76
-    Q 73 71 75 67
-    Q 76 64 78 62 Z
-  `.replace(/\s+/g, " ").trim();
-
-  // Connecting polyline through the three Swedish cities
-  const swedenRoute = "44,39 47,45 46,47";
-
+function buildRail() {
   return `
-    <div class="experience-map" data-experience-map>
-      <div class="experience-map-grid" aria-hidden="true"></div>
-      <svg viewBox="0 0 100 100" role="img" aria-label="Experience locations: Sweden + Kerala">
-        <g class="map-silhouette" aria-hidden="true">
-          <path class="sweden-shape" d="${swedenPath}"></path>
-          <path class="norway-edge" d="${norwayPath}"></path>
-          <path class="kerala-inset" d="M70 58 H92 V90 H70 Z"></path>
-          <path class="india-shape" d="${indiaPath}"></path>
-          <text x="29" y="93">SWEDEN</text>
-          <text x="72" y="60">INDIA</text>
-        </g>
-        <polyline class="sweden-route" points="${swedenRoute}" />
-        ${PLACES.map((place) => `
-          <circle class="map-dot map-dot-${place.key}" cx="${place.x}" cy="${place.y}" r="1.6"></circle>`).join("")}
-      </svg>
-      <div class="map-pin-layer">
-        ${PLACES.map((place) => `
-          <button class="map-pin map-pin-${place.key}" data-place="${place.key}" type="button" style="--x:${place.x};--y:${place.y}">
-            <span>${place.label}</span>
-            <small>${place.place}</small>
-          </button>`).join("")}
-      </div>
-    </div>`;
+    <nav class="experience-rail" data-experience-rail aria-label="Experience chronology">
+      ${MILESTONES.map((item) => `
+        <button class="experience-stop experience-stop-${item.key}" data-place="${item.key}" type="button">
+          <time>${item.years}</time>
+          <strong>${item.label}</strong>
+          <span>${item.place}</span>
+          <small>${item.discipline}</small>
+        </button>`).join("")}
+    </nav>`;
 }
 
 function markItems(timeline) {
@@ -106,11 +44,21 @@ function markItems(timeline) {
     item.classList.add("cinematic-role-card");
     if (key === "siemens") item.classList.add("is-primary-role");
   });
-  return items;
+  const byKey = new Map(items.map((item) => [item.dataset.placeKey, item]));
+  const ordered = MILESTONES.map((milestone) => byKey.get(milestone.key)).filter(Boolean);
+  ordered.forEach((item) => timeline.appendChild(item));
+  return ordered;
 }
 
-function setActive(items, index) {
+function setActive(items, index, rail) {
+  const key = items[index]?.dataset.placeKey;
   items.forEach((item, itemIndex) => item.classList.toggle("is-active", itemIndex === index));
+  rail?.querySelectorAll("[data-place]").forEach((button) => {
+    const current = button.dataset.place === key;
+    button.classList.toggle("is-active", current);
+    if (current) button.setAttribute("aria-current", "true");
+    else button.removeAttribute("aria-current");
+  });
 }
 
 export async function init(ctx) {
@@ -118,30 +66,35 @@ export async function init(ctx) {
   if (!timeline || timeline.classList.contains("cinematic-timeline")) return null;
   timeline.classList.add("cinematic-timeline");
   const items = markItems(timeline);
-  timeline.insertAdjacentHTML("beforebegin", buildMap());
-  const map = document.querySelector("[data-experience-map]");
-  setActive(items, 0);
+  timeline.insertAdjacentHTML("beforebegin", buildRail());
+  const rail = document.querySelector("[data-experience-rail]");
+  const primaryIndex = items.findIndex((item) => item.dataset.placeKey === "siemens");
+  setActive(items, primaryIndex >= 0 ? primaryIndex : 0, rail);
 
-  map.addEventListener("click", (event) => {
-    const pin = event.target.closest("[data-place]");
-    if (!pin) return;
-    const target = items.find((item) => item.dataset.placeKey === pin.dataset.place);
-    target?.scrollIntoView({ behavior: ctx.reducedMotion ? "auto" : "smooth", block: "center", inline: "center" });
-  });
+  const selectRole = (event) => {
+    const stop = event.target.closest("[data-place]");
+    if (!stop) return;
+    const target = items.find((item) => item.dataset.placeKey === stop.dataset.place);
+    if (!target) return;
+    setActive(items, Number(target.dataset.timelineIndex), rail);
+    target.scrollIntoView({ behavior: ctx.reducedMotion ? "auto" : "smooth", block: "nearest", inline: "center" });
+  };
+  rail?.addEventListener("click", selectRole);
 
   const observer = new IntersectionObserver((entries) => {
     const visible = entries
       .filter((entry) => entry.isIntersecting)
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
     if (!visible) return;
-    setActive(items, Number(visible.target.dataset.timelineIndex || 0));
+    setActive(items, Number(visible.target.dataset.timelineIndex || 0), rail);
   }, { threshold: [0.35, 0.55, 0.75] });
   items.forEach((item) => observer.observe(item));
 
   return {
     destroy() {
       observer.disconnect();
-      map.remove();
+      rail?.removeEventListener("click", selectRole);
+      rail?.remove();
       timeline.classList.remove("cinematic-timeline");
       items.forEach((item) => item.classList.remove("cinematic-role-card", "is-primary-role", "is-active"));
     },

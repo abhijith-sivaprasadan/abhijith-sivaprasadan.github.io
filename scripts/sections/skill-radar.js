@@ -53,6 +53,7 @@ function template() {
             }).join("")}
           </g>
           <polygon class="radar-signal" data-radar-polygon points="${points(MODE_VALUES.thermal)}"></polygon>
+          <circle class="radar-focus" data-radar-focus r="5" cx="120" cy="38"></circle>
           <g class="radar-labels">
             ${AXES.map((axis, index) => {
               const [x, y] = labelPoint(index);
@@ -61,8 +62,30 @@ function template() {
           </g>
         </svg>
       </div>
-      <div class="radar-readout" data-radar-readout></div>
+      <div>
+        <div class="radar-readout" data-radar-readout></div>
+        <article class="radar-evidence" data-radar-evidence aria-live="polite"></article>
+      </div>
     </div>`;
+}
+
+function selectAxis(root, mode, index, ctx) {
+  const values = MODE_VALUES[mode] || MODE_VALUES.thermal;
+  const focus = root.querySelector("[data-radar-focus]");
+  const detail = root.querySelector("[data-radar-evidence]");
+  const [x, y] = point(index, values[index]);
+  root.querySelectorAll("[data-radar-axis]").forEach((button, buttonIndex) => {
+    button.classList.toggle("is-selected", buttonIndex === index);
+  });
+  if (ctx.gsap && !ctx.reducedMotion) {
+    ctx.gsap.to(focus, { attr: { cx: x, cy: y }, duration: 0.3, ease: "power2.out" });
+  } else {
+    focus.setAttribute("cx", x);
+    focus.setAttribute("cy", y);
+  }
+  detail.innerHTML = `
+    <strong>${AXES[index].label} <span>${values[index]} / 100 emphasis</span></strong>
+    <p>${AXES[index].evidence}</p>`;
 }
 
 function update(root, mode, ctx) {
@@ -79,8 +102,11 @@ function update(root, mode, ctx) {
   }
 
   readout.innerHTML = AXES.map((axis, index) => `
-    <span title="${axis.evidence}"><strong>${values[index]}</strong>${axis.label}</span>
+    <button type="button" data-radar-axis="${index}" title="${axis.evidence}"><strong>${values[index]}</strong>${axis.label}</button>
   `).join("");
+  const strongest = values.indexOf(Math.max(...values));
+  selectAxis(root, activeMode, strongest, ctx);
+  root.dataset.radarMode = activeMode;
 }
 
 export async function init(ctx) {
@@ -88,9 +114,15 @@ export async function init(ctx) {
   if (!host || document.querySelector("[data-capability-radar]")) return null;
   host.insertAdjacentHTML("beforebegin", template());
   const radar = document.querySelector("[data-capability-radar]");
+  const inspect = (event) => {
+    const button = event.target.closest("[data-radar-axis]");
+    if (!button) return;
+    selectAxis(radar, radar.dataset.radarMode || "thermal", Number(button.dataset.radarAxis), ctx);
+  };
+  radar.addEventListener("click", inspect);
   const off = ctx.bus.on("motion:mode-change", ({ mode }) => update(radar, mode, ctx));
   update(radar, document.body.dataset.homeMode || "thermal", ctx);
-  return { destroy() { off?.(); radar.remove(); } };
+  return { destroy() { off?.(); radar.removeEventListener("click", inspect); radar.remove(); } };
 }
 
 export function destroy(instance) {

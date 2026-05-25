@@ -1,8 +1,15 @@
 const STORAGE_KEY = "portfolioAudioEnabled";
-const MODE_FREQ = { thermal: 240, energy: 320, decarbonisation: 180, research: 440 };
+const MODE_PROFILE = {
+  thermal: { rumble: 82, band: 470 },
+  energy: { rumble: 108, band: 680 },
+  decarbonisation: { rumble: 64, band: 360 },
+  research: { rumble: 94, band: 560 },
+};
 
 let audioCtx = null;
 let enabled = false;
+let lastHoverTarget = null;
+let lastHoverTime = 0;
 
 function ensureContext() {
   if (!audioCtx) {
@@ -21,35 +28,65 @@ function envelopeGain(ctx, start, duration, gain = 0.035) {
   return node;
 }
 
-function tone(freq = 240, duration = 0.16, type = "sine", gain = 0.025) {
+function dampedPulse(freq, duration, gain = 0.008) {
   if (!enabled) return;
   const ctx = ensureContext();
   const start = ctx.currentTime;
   const osc = ctx.createOscillator();
-  osc.type = type;
+  const filter = ctx.createBiquadFilter();
+  osc.type = "sine";
   osc.frequency.setValueAtTime(freq, start);
-  osc.frequency.exponentialRampToValueAtTime(freq * 1.08, start + duration);
+  osc.frequency.exponentialRampToValueAtTime(freq * 0.965, start + duration);
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(Math.max(160, freq * 3.2), start);
+  filter.Q.value = 0.55;
   const env = envelopeGain(ctx, start, duration, gain);
-  osc.connect(env).connect(ctx.destination);
+  osc.connect(filter).connect(env).connect(ctx.destination);
   osc.start(start);
   osc.stop(start + duration + 0.02);
 }
 
-function noiseWhoosh(duration = 0.32) {
+function filteredFlow(duration, fromHz, toHz, gain = 0.012, q = 0.8) {
   if (!enabled) return;
   const ctx = ensureContext();
   const buffer = ctx.createBuffer(1, ctx.sampleRate * duration, ctx.sampleRate);
   const data = buffer.getChannelData(0);
-  for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+  for (let i = 0; i < data.length; i += 1) {
+    const taper = Math.sin(Math.PI * i / data.length);
+    data[i] = (Math.random() * 2 - 1) * taper;
+  }
   const src = ctx.createBufferSource();
   src.buffer = buffer;
   const filter = ctx.createBiquadFilter();
   filter.type = "bandpass";
-  filter.frequency.setValueAtTime(380, ctx.currentTime);
-  filter.frequency.exponentialRampToValueAtTime(1600, ctx.currentTime + duration);
-  const env = envelopeGain(ctx, ctx.currentTime, duration, 0.03);
+  filter.Q.value = q;
+  filter.frequency.setValueAtTime(fromHz, ctx.currentTime);
+  filter.frequency.exponentialRampToValueAtTime(toHz, ctx.currentTime + duration);
+  const env = envelopeGain(ctx, ctx.currentTime, duration, gain);
   src.connect(filter).connect(env).connect(ctx.destination);
   src.start();
+}
+
+// A muted pressure-tap/relay detent, used sparingly on actionable controls.
+// It deliberately avoids tonal hover "pings" so the interface stays technical.
+function instrumentDetent() {
+  filteredFlow(0.038, 980, 470, 0.003, 1.8);
+  dampedPulse(76, 0.045, 0.0018);
+}
+
+function modeFlowCue(mode) {
+  const profile = MODE_PROFILE[mode] || MODE_PROFILE.thermal;
+  filteredFlow(0.22, profile.band * 1.45, profile.band * 0.72, 0.008, 0.75);
+  dampedPulse(profile.rumble, 0.18, 0.006);
+}
+
+function thermalCameraSweep() {
+  filteredFlow(0.2, 1480, 340, 0.008, 1.15);
+  dampedPulse(71, 0.12, 0.003);
+}
+
+function ductTransition() {
+  filteredFlow(0.3, 260, 1120, 0.011, 0.62);
 }
 
 function injectButton() {
@@ -73,7 +110,7 @@ function apply(button, next) {
   try { localStorage.setItem(STORAGE_KEY, enabled ? "1" : "0"); } catch {}
   button.setAttribute("aria-pressed", enabled ? "true" : "false");
   button.setAttribute("aria-label", enabled ? "Disable interface audio" : "Enable interface audio");
-  if (enabled) tone(440, 0.22, "triangle", 0.03);
+  if (enabled) thermalCameraSweep();
 }
 
 export async function init(ctx) {
@@ -88,16 +125,21 @@ export async function init(ctx) {
   });
 
   const hover = (event) => {
-    if (event.target.closest?.(".button, [data-home-mode-button], .signal-routes a, .project-links a")) tone(720, 0.035, "square", 0.006);
+    const target = event.target.closest?.(".button, [data-home-mode-button], .signal-routes a, .project-links a");
+    const now = performance.now();
+    if (!target || (target === lastHoverTarget && now - lastHoverTime < 450)) return;
+    lastHoverTarget = target;
+    lastHoverTime = now;
+    instrumentDetent();
   };
   document.addEventListener("pointerenter", hover, true);
 
-  const offMode = ctx.bus.on("motion:mode-change", ({ mode }) => tone(MODE_FREQ[mode] || 260, 0.2, "sine", 0.018));
-  const offTheme = ctx.bus.on("motion:theme-change", () => noiseWhoosh(0.22));
-  const offPage = ctx.bus.on("motion:page-transition", () => noiseWhoosh(0.28));
+  const offMode = ctx.bus.on("motion:mode-change", ({ mode }) => modeFlowCue(mode));
+  const offTheme = ctx.bus.on("motion:theme-change", () => thermalCameraSweep());
+  const offPage = ctx.bus.on("motion:page-transition", () => ductTransition());
   const offContact = ctx.bus.on("motion:contact-success", () => {
-    tone(520, 0.12, "triangle", 0.022);
-    setTimeout(() => tone(760, 0.18, "triangle", 0.026), 90);
+    filteredFlow(0.24, 420, 980, 0.009, 0.85);
+    dampedPulse(116, 0.19, 0.006);
   });
 
   return {

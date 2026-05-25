@@ -96,20 +96,15 @@
 
 .cinematic-timeline {
   position: relative;
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(290px, 1.35fr);
   gap: 16px;
   padding: 6px 2px 14px;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
   max-width: 100%;
   min-width: 0;
 }
 
 .cinematic-role-card {
-  scroll-snap-align: start;
-  flex: 0 0 clamp(260px, 28vw, 320px);
   min-width: 0;
   transition: transform 260ms ease, border-color 260ms ease, background 260ms ease;
 }
@@ -120,7 +115,6 @@
 }
 
 .cinematic-role-card.is-primary-role {
-  flex-basis: clamp(290px, 34vw, 390px);
   box-shadow: 0 24px 76px rgba(101, 214, 201, 0.12);
 }
 
@@ -128,7 +122,7 @@
   font-size: 0.93rem;
 }
 
-@media (max-width: 680px) {
+@media (max-width: 980px) {
   #experience .container {
     min-width: 0;
     max-width: 100%;
@@ -152,14 +146,19 @@
   }
 
   .cinematic-timeline {
+    display: flex;
+    flex-wrap: nowrap;
     gap: 12px;
     width: 100%;
     overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
   }
 
   .cinematic-role-card,
   .cinematic-role-card.is-primary-role {
     flex: 0 0 calc(100vw - 48px);
     min-width: 0;
+    scroll-snap-align: start;
   }
 }

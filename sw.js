@@ -12,7 +12,7 @@
  * To disable for a session, the user can hit `?nosw=1` once.
  */
 
-const VERSION = "v4-w17-20260525-1";
+const VERSION = "v4-w18-20260525-1";
 const SHELL_CACHE = `shell-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
 
