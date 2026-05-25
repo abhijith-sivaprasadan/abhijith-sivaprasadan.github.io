@@ -133,7 +133,7 @@ The current Node compatibility route is documented in `sanity/README.md`;
 ### 3.2 External profiles and booking
 
 Configured:
-- Cal.com: `https://cal.com/abhijith-sivaprasadan-1y7c6o`
+- Cal.com: `https://cal.com/abhijith-sivaprasadan`
 - ORCID: `https://orcid.org/0009-0009-8429-1266`
 - Google Scholar: `https://scholar.google.com/citations?user=o2nI60MAAAAJ`
 - KTH profile: `https://www.kth.se/profile/asiv`
