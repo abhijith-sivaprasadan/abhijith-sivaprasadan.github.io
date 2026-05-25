@@ -1,0 +1,165 @@
+.experience-rail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-bottom: 26px;
+  padding: 0 8px;
+}
+
+.experience-rail::before {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 30px;
+  height: 1px;
+  background: color-mix(in srgb, var(--v4-teal) 36%, var(--v4-line));
+}
+
+.experience-stop {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  cursor: pointer;
+}
+
+.experience-stop::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: 25px 0 15px;
+  border: 2px solid var(--v4-line);
+  border-radius: 50%;
+  background: var(--v4-panel-strong);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.experience-stop time {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  font: 600 0.72rem/1 var(--font-mono, ui-monospace, monospace);
+  color: color-mix(in srgb, var(--v4-teal) 70%, var(--muted));
+}
+
+.experience-stop strong,
+.experience-stop span,
+.experience-stop small {
+  display: block;
+}
+
+.experience-stop strong {
+  font-size: 0.96rem;
+  color: var(--text);
+}
+
+.experience-stop span {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.experience-stop small {
+  margin-top: 6px;
+  color: var(--muted);
+  font: 500 0.68rem/1.3 var(--font-mono, ui-monospace, monospace);
+  text-transform: uppercase;
+}
+
+.experience-stop:hover::before,
+.experience-stop.is-active::before {
+  transform: scale(1.28);
+  border-color: var(--v4-teal);
+  background: var(--v4-teal);
+}
+
+.experience-stop-siemens.is-active strong,
+.experience-stop-siemens:hover strong {
+  color: var(--v4-teal);
+}
+
+.experience-stop-alleima.is-active::before {
+  border-color: var(--v4-amber);
+  background: var(--v4-amber);
+}
+
+.experience-stop-qburst.is-active::before {
+  border-color: var(--v4-orange);
+  background: var(--v4-orange);
+}
+
+.cinematic-timeline {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 6px 2px 14px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.cinematic-role-card {
+  scroll-snap-align: start;
+  flex: 0 0 clamp(260px, 28vw, 320px);
+  min-width: 0;
+  transition: transform 260ms ease, border-color 260ms ease, background 260ms ease;
+}
+
+.cinematic-role-card.is-active {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--v4-teal) 48%, var(--v4-line));
+}
+
+.cinematic-role-card.is-primary-role {
+  flex-basis: clamp(290px, 34vw, 390px);
+  box-shadow: 0 24px 76px rgba(101, 214, 201, 0.12);
+}
+
+.cinematic-role-card p:not(.meta) {
+  font-size: 0.93rem;
+}
+
+@media (max-width: 680px) {
+  #experience .container {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .experience-rail {
+    display: flex;
+    gap: 0;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .experience-rail::before {
+    left: 30px;
+    right: 30px;
+  }
+
+  .experience-stop {
+    flex: 0 0 145px;
+  }
+
+  .cinematic-timeline {
+    gap: 12px;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .cinematic-role-card,
+  .cinematic-role-card.is-primary-role {
+    flex: 0 0 calc(100vw - 48px);
+    min-width: 0;
+  }
+}

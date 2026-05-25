@@ -1,0 +1,82 @@
+/* Instrument-bootup overlay — scientific-firmware feel. */
+
+.motion-bootup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, #050810 96%, transparent),
+    #02050c
+  );
+  display: grid;
+  place-items: center;
+  color: #c9d6e2;
+  font-family: var(--font-mono, "JetBrains Mono", ui-monospace, monospace);
+  pointer-events: auto;
+  will-change: transform;
+  overflow: hidden;
+}
+
+html[data-theme="light"] .motion-bootup-overlay {
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in srgb, #f7f9fc 96%, transparent),
+    #eef2f7
+  );
+  color: #13212b;
+}
+
+.motion-bootup-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--v4-teal, #65d6c9) 30%,
+    var(--v4-amber, #f6c85f) 70%,
+    transparent
+  );
+  transform-origin: left center;
+  transform: scaleX(0);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--v4-teal, #65d6c9) 60%, transparent));
+}
+
+.motion-bootup-readout {
+  display: grid;
+  gap: 12px;
+  font-size: clamp(0.86rem, 1.5vw, 1.05rem);
+  letter-spacing: 0.04em;
+  text-align: left;
+  width: min(560px, calc(100vw - 56px));
+  padding: 18px 22px;
+  border: 1px solid color-mix(in srgb, var(--v4-teal, #65d6c9) 22%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, #050810 80%, transparent);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
+}
+
+html[data-theme="light"] .motion-bootup-readout {
+  background: color-mix(in srgb, #fff 80%, transparent);
+  border-color: color-mix(in srgb, var(--v4-blue, #2563a8) 22%, transparent);
+}
+
+.motion-bootup-readout .readout-line {
+  display: block;
+  min-height: 1.4em;
+  opacity: 0.55;
+  transition: opacity 220ms ease;
+}
+
+.motion-bootup-readout .readout-line.is-active {
+  opacity: 1;
+}
+
+.motion-bootup-readout .readout-line[data-readout="3"].is-active {
+  color: var(--v4-teal, #65d6c9);
+}
+
+html.motion-reduced .motion-bootup-overlay { display: none !important; }

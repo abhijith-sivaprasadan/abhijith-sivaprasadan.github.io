@@ -33,7 +33,7 @@
     var target = parseFloat(parts[2]);
     var suffix = parts[3] || '';
     var decimals = (parts[2].split('.')[1] || '').length;
-    var duration = 1100;
+    var duration = 2200;
     var start = performance.now();
 
     function tick(now) {

@@ -1,0 +1,68 @@
+/* Profile cards for ORCID, Google Scholar, KTH DiVA, LinkedIn, GitHub
+   Inline grid of compact 'verified profile' chips used on the Research page.
+*/
+.scholar-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 22px 0;
+}
+
+.scholar-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--v4-line);
+  border-radius: var(--v4-radius);
+  background: var(--v4-panel);
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 220ms var(--motion-ease-out, ease),
+              transform 220ms var(--motion-ease-out, ease);
+}
+
+.scholar-card:hover {
+  border-color: color-mix(in srgb, var(--v4-teal) 50%, var(--v4-line));
+  transform: translateY(-2px);
+}
+
+.scholar-card .scholar-icon {
+  flex: 0 0 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.scholar-card .scholar-icon[data-icon="orcid"]   { background: #a6ce39; color: #0a0; }
+.scholar-card .scholar-icon[data-icon="scholar"] { background: #4285f4; }
+.scholar-card .scholar-icon[data-icon="diva"]    { background: #1954a6; }
+.scholar-card .scholar-icon[data-icon="linkedin"]{ background: #0a66c2; }
+.scholar-card .scholar-icon[data-icon="github"]  { background: #181717; }
+.scholar-card .scholar-icon[data-icon="kth"]     { background: #1b4796; }
+
+.scholar-card .scholar-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.scholar-card .scholar-body strong {
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+
+.scholar-card .scholar-body span {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

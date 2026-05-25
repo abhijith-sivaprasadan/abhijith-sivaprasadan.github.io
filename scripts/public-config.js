@@ -14,3 +14,12 @@ globalThis.PORTFOLIO_AUTH_CONFIG = {
   measurementId: "G-JKQSTSE35W",
 };
 globalThis.PORTFOLIO_CONTACT_FORM_ACTION = "https://formspree.io/f/mgoqzpla";
+
+// Sanity CMS config. Sign up at https://sanity.io (free tier), create a project,
+// and paste the project ID below to activate CMS-driven content (Looking-for
+// banner, ideas, research status, testimonials). Leave projectId as the
+// placeholder to keep the static fallback content.
+globalThis.PORTFOLIO_CMS_CONFIG = {
+  projectId: "4lmq2x2j",
+  dataset: "production",
+};

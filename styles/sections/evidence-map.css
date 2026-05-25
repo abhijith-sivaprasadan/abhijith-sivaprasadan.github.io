@@ -1,0 +1,125 @@
+.v4-evidence-graph {
+  position: relative;
+  min-height: 570px;
+  margin-top: 26px;
+  border: 1px solid var(--v4-line);
+  border-radius: var(--v4-radius);
+  background:
+    radial-gradient(circle at 38% 22%, rgba(101, 214, 201, 0.12), transparent 30%),
+    var(--v4-grid),
+    var(--v4-panel);
+  background-size: auto, 30px 30px, auto;
+  overflow: hidden;
+  box-shadow: var(--v4-shadow);
+}
+
+.evidence-lanes.has-v4-graph-source {
+  display: none !important;
+}
+
+.evidence-map .v4-evidence-graph {
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 0;
+}
+
+.v4-evidence-graph svg,
+.graph-node-layer {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 392px;
+}
+
+.v4-evidence-graph line {
+  stroke: color-mix(in srgb, var(--v4-teal) 44%, transparent);
+  stroke-width: 0.6;
+}
+
+.v4-evidence-graph circle {
+  fill: var(--v4-teal);
+  opacity: 0.72;
+}
+
+.v4-evidence-graph circle.is-dimmed,
+.graph-node.is-dimmed,
+.v4-evidence-graph line.is-dimmed {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.graph-node {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  transform: translate(-50%, -50%);
+  width: min(180px, 28vw);
+  border: 1px solid var(--v4-line);
+  border-radius: 12px;
+  padding: 10px;
+  color: var(--text);
+  background: color-mix(in srgb, var(--v4-panel-strong) 90%, transparent);
+  text-align: left;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.18);
+}
+
+.graph-node span,
+.graph-detail span {
+  display: block;
+  color: var(--v4-teal);
+  font: 700 0.7rem/1.2 var(--mono, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.graph-node strong,
+.graph-detail strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.9rem;
+}
+
+.graph-detail {
+  position: relative;
+  margin: 400px 18px 18px;
+  width: auto;
+  border: 1px solid var(--v4-line);
+  border-radius: 12px;
+  padding: 18px;
+  background: color-mix(in srgb, var(--v4-panel-strong) 94%, transparent);
+}
+
+.graph-detail p {
+  margin: 10px 0 14px;
+  color: var(--muted);
+}
+
+@media (max-width: 780px) {
+  .evidence-map .v4-evidence-graph {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .v4-evidence-graph {
+    min-height: auto;
+    padding: 16px;
+  }
+  .v4-evidence-graph svg {
+    display: none;
+  }
+  .graph-node-layer,
+  .graph-detail {
+    position: static;
+  }
+  .graph-node-layer {
+    display: grid;
+    gap: 10px;
+  }
+  .graph-node {
+    position: static;
+    transform: none;
+    width: 100%;
+  }
+  .graph-detail {
+    margin-top: 14px;
+    width: auto;
+  }
+}

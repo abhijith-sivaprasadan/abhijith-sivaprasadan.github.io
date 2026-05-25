@@ -1,0 +1,9 @@
+@media print {
+  .motion-scroll-rail,
+  .motion-cursor,
+  .motion-audio-toggle,
+  .step-form-actions,
+  .letter-open {
+    display: none !important;
+  }
+}

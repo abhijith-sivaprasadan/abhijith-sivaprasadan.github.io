@@ -12,12 +12,20 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=20260524-index-flow" />
-  <script src="scripts/site.js?v=20260524-nav-more" defer></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="styles.css?v=20260526-v4-w17" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260526-v4-w17" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260526-v4-w17" />
+  <script src="scripts/public-config.js?v=20260526-v4-w17" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
+  <script type="module" src="scripts/motion/index.js?v=20260526-v4-w17"></script>
+  <script src="scripts/motion/sw-register.js?v=20260526-v4-w17" defer></script>
+  <script src="scripts/site.js?v=20260526-v4-w17" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
-<body data-page-key="research">
+<body data-motion-page-transition data-motion-cursor data-page-key="research">
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -40,7 +48,7 @@
     <section class="page-shell research-shell">
       <div class="container page-shell-grid">
         <div>
-          <div class="hero-slab">
+          <div class="hero-slab" data-cms-research-status>
             <p class="eyebrow">Research statement</p>
             <h1>Rocket cooling-channel heat transfer, surface condition and measurable degradation.</h1>
             <p class="hero-text">
@@ -49,6 +57,51 @@
             <div class="button-row">
               <a class="button primary" href="downloads/Abhijith_CV_PhD_Academic.pdf" download>Download PhD / Research CV</a>
               <a class="button secondary" href="projects/siemens-thesis.html">Read Siemens Thesis Case Study</a>
+            </div>
+
+            <div class="scholar-card-grid" aria-label="Research profiles and identifiers">
+              <a class="scholar-card" href="https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965" target="_blank" rel="noopener">
+                <span class="scholar-icon" data-icon="diva">DiVA</span>
+                <span class="scholar-body">
+                  <strong>KTH DiVA</strong>
+                  <span>TRITA-ITM-EX 2026:14</span>
+                </span>
+              </a>
+              <a class="scholar-card" href="https://orcid.org/0009-0009-8429-1266" target="_blank" rel="noopener">
+                <span class="scholar-icon" data-icon="orcid">iD</span>
+                <span class="scholar-body">
+                  <strong>ORCID</strong>
+                  <span>0009-0009-8429-1266</span>
+                </span>
+              </a>
+              <a class="scholar-card" href="https://scholar.google.com/citations?user=o2nI60MAAAAJ" target="_blank" rel="noopener">
+                <span class="scholar-icon" data-icon="scholar">GS</span>
+                <span class="scholar-body">
+                  <strong>Google Scholar</strong>
+                  <span>Abhijith Sivaprasadan</span>
+                </span>
+              </a>
+              <a class="scholar-card" href="https://www.linkedin.com/in/abhijith-sivaprasadan/" target="_blank" rel="noopener">
+                <span class="scholar-icon" data-icon="linkedin">in</span>
+                <span class="scholar-body">
+                  <strong>LinkedIn</strong>
+                  <span>abhijith-sivaprasadan</span>
+                </span>
+              </a>
+              <a class="scholar-card" href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noopener">
+                <span class="scholar-icon" data-icon="github">GH</span>
+                <span class="scholar-body">
+                  <strong>GitHub</strong>
+                  <span>abhijith-sivaprasadan</span>
+                </span>
+              </a>
+              <a class="scholar-card" href="https://www.kth.se/profile/asiv" target="_blank" rel="noopener">
+                <span class="scholar-icon" data-icon="kth">KTH</span>
+                <span class="scholar-body">
+                  <strong>KTH Profile</strong>
+                  <span>kth.se/profile/asiv</span>
+                </span>
+              </a>
             </div>
           </div>
 

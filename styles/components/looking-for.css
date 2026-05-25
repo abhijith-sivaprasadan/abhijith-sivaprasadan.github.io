@@ -1,0 +1,96 @@
+/* "Looking for…" status banner — pinned just under the nav, dismissible,
+   updatable from the CMS (or static fallback content if CMS not configured).
+*/
+.looking-for-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 10px 56px 10px 18px;
+  border-bottom: 1px solid var(--v4-line);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--v4-blue) 14%, transparent),
+    color-mix(in srgb, var(--v4-teal) 14%, transparent)
+  );
+  font-size: 0.86rem;
+  text-align: center;
+  z-index: 5;
+}
+
+.looking-for-banner .status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 4px color-mix(in srgb, #22c55e 30%, transparent);
+  animation: looking-for-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes looking-for-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, #22c55e 36%, transparent); }
+  50%      { box-shadow: 0 0 0 8px color-mix(in srgb, #22c55e 0%, transparent); }
+}
+
+.looking-for-banner a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  text-underline-offset: 3px;
+}
+
+.looking-for-banner .dismiss {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--v4-line);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.looking-for-banner .dismiss:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--v4-line));
+}
+
+html.motion-reduced .looking-for-banner .status-dot {
+  animation: none;
+}
+
+@media (max-width: 720px) {
+  .looking-for-banner {
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+    padding: 12px 48px 12px 16px;
+  }
+}
+
+/* ─── Cal.com booking slot (inside contact section) ───────────────────── */
+.contact-cal {
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px dashed var(--v4-line);
+  border-radius: var(--v4-radius);
+  background: color-mix(in srgb, var(--v4-panel) 50%, transparent);
+}
+
+.contact-cal .eyebrow {
+  margin: 0 0 4px;
+}
+
+.contact-cal-help {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 12px;
+}

@@ -1419,8 +1419,8 @@ const initializeProjects = async () => {
       pageState.projects = mergedProjects;
 
       if (featuredProjects) {
-        const selected = mergedProjects.filter((project) => project.featured).slice(0, 10);
-        featuredProjects.innerHTML = (selected.length ? selected : mergedProjects.slice(0, 10)).map(renderProjectCard).join("");
+        const selected = mergedProjects.filter((project) => project.featured).slice(0, 6);
+        featuredProjects.innerHTML = (selected.length ? selected : mergedProjects.slice(0, 6)).map(renderProjectCard).join("");
         decorateSkillLinks(featuredProjects);
       }
 
@@ -1920,7 +1920,7 @@ if (heroStatNumbers.length && "IntersectionObserver" in window) {
         if (isNaN(target)) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         const startTime = performance.now();
-        const duration = 3000;
+        const duration = 4200;
         const tick = (now) => {
           const t = Math.min((now - startTime) / duration, 1);
           const ease = 1 - (1 - t) ** 3;
@@ -1961,7 +1961,7 @@ if (railMetricEls.length && "IntersectionObserver" in window) {
 
         const fmt = (n) => isInt ? String(Math.round(n)) : n.toFixed(decimals);
         const startTime = performance.now();
-        const duration = 3200;
+        const duration = 4600;
 
         const tick = (now) => {
           const t = Math.min((now - startTime) / duration, 1);
@@ -2321,6 +2321,7 @@ const initializeContactForm = () => {
           statusEl.textContent = "Message sent — thank you! I'll reply within 48 hours.";
           statusEl.dataset.state = "success";
         }
+        window.Motion?.bus?.emit("motion:contact-success", { form });
         form.reset();
       } else {
         throw new Error(`HTTP ${res.status}`);
@@ -2502,6 +2503,8 @@ const injectThemeToggle = () => {
     <span class="theme-icon-sun" aria-hidden="true">☀</span>
     <span class="theme-icon-moon" aria-hidden="true">☾</span>`;
   nav.appendChild(btn);
+  window.Motion?.load?.("theme-wipe");
+  window.Motion?.load?.("audio");
 };
 
 initializeScrollToTop();

@@ -1,0 +1,12 @@
+.testimonial-card {
+  position: relative;
+}
+
+.letter-open {
+  margin-top: 16px;
+  border: 1px solid var(--v4-line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: color-mix(in srgb, var(--v4-panel-strong) 86%, transparent);
+  color: var(--text);
+}

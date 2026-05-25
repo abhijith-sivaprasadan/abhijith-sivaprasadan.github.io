@@ -1,0 +1,82 @@
+#projects .project-grid[data-featured-projects] {
+  align-items: stretch;
+}
+
+#projects .project-grid[data-featured-projects] .project-card {
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+#projects .project-grid[data-featured-projects] .project-card:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+#projects .project-grid[data-featured-projects] .project-card:nth-child(2),
+#projects .project-grid[data-featured-projects] .project-card:nth-child(4) {
+  grid-column: span 2;
+}
+
+.bento-mini-chart {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  width: min(190px, 52%);
+  height: auto;
+  color: var(--v4-teal);
+  opacity: 0.86;
+}
+
+.bento-mini-chart path:first-child {
+  fill: none;
+  stroke: color-mix(in srgb, currentColor 38%, transparent);
+  stroke-width: 1.2;
+}
+
+.bento-mini-chart .mini-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.8;
+  stroke-dasharray: 210;
+  animation: bento-draw 2.8s ease both;
+}
+
+.bento-mini-chart circle {
+  fill: var(--v4-amber);
+}
+
+.bento-kpi-bars {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  display: flex;
+  align-items: end;
+  gap: 8px;
+  height: 74px;
+}
+
+.bento-kpi-bars span {
+  width: 12px;
+  height: var(--v);
+  border-radius: 8px 8px 2px 2px;
+  background: linear-gradient(180deg, var(--v4-amber), var(--v4-orange));
+  animation: bento-rise 1.2s ease both;
+}
+
+@keyframes bento-draw {
+  from { stroke-dashoffset: 210; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes bento-rise {
+  from { transform: scaleY(0.12); transform-origin: bottom; opacity: 0.3; }
+  to { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+}
+
+@media (max-width: 920px) {
+  #projects .project-grid[data-featured-projects] .project-card:nth-child(n) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
