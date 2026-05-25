@@ -1,6 +1,6 @@
-// Singleton — current research-direction copy shown on research.html and
+// Singleton - current research-direction copy shown on research.html and
 // reused for the PhD application footer.
-module.exports = {
+export default {
   name: "researchStatus",
   title: "Research status",
   type: "document",

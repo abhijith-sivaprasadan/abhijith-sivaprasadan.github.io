@@ -7,26 +7,26 @@
  * Run locally:
  *   cd sanity
  *   npm install
- *   npx sanity dev          → http://localhost:3333
- *   npx sanity deploy       → <slug>.sanity.studio (free hosted)
+ *   npm run dev          -> http://localhost:3333
+ *   npm run deploy       -> <slug>.sanity.studio (free hosted)
  *
- * The file is intentionally CommonJS to avoid the ESM/CJS conflict
- * between this package and the `sanity` CLI's internal yargs binary.
+ * This config is ESM because Sanity Studio imports it as the application's
+ * default export. The yargs compatibility patch operates inside node_modules.
  */
-const { defineConfig } = require("sanity");
-const { structureTool } = require("sanity/structure");
-const { visionTool } = require("@sanity/vision");
+import { defineConfig } from "sanity";
+import { structureTool } from "sanity/structure";
+import { visionTool } from "@sanity/vision";
 
-const idea = require("./schemas/idea");
-const project = require("./schemas/project");
-const researchStatus = require("./schemas/researchStatus");
-const testimonial = require("./schemas/testimonial");
-const lookingFor = require("./schemas/lookingFor");
+import idea from "./schemas/idea.js";
+import project from "./schemas/project.js";
+import researchStatus from "./schemas/researchStatus.js";
+import testimonial from "./schemas/testimonial.js";
+import lookingFor from "./schemas/lookingFor.js";
 
 const PROJECT_ID = "4lmq2x2j";
 const DATASET = "production";
 
-module.exports = defineConfig({
+export default defineConfig({
   name: "abhijith-portfolio",
   title: "Abhijith Sivaprasadan — Portfolio CMS",
   projectId: PROJECT_ID,

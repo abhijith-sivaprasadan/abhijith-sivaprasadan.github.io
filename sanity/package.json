@@ -3,14 +3,16 @@
   "private": true,
   "version": "1.0.0",
   "description": "Sanity Studio for Abhijith Sivaprasadan's portfolio content (ideas, projects, research status, testimonials, looking-for banner).",
+  "type": "module",
   "main": "sanity.config.js",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=\"--no-experimental-require-module\" sanity dev",
-    "start": "cross-env NODE_OPTIONS=\"--no-experimental-require-module\" sanity start",
-    "build": "cross-env NODE_OPTIONS=\"--no-experimental-require-module\" sanity build",
-    "deploy": "cross-env NODE_OPTIONS=\"--no-experimental-require-module\" sanity deploy",
-    "deploy-graphql": "cross-env NODE_OPTIONS=\"--no-experimental-require-module\" sanity graphql deploy",
-    "login": "cross-env NODE_OPTIONS=\"--no-experimental-require-module\" sanity login"
+    "postinstall": "node ./scripts/patch-yargs.cjs",
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy",
+    "login": "sanity login"
   },
   "keywords": ["sanity", "portfolio", "cms"],
   "license": "UNLICENSED",
@@ -20,10 +22,7 @@
     "react-dom": "^18.3.1",
     "react-is": "^18.3.1",
     "sanity": "^3.99.0",
-    "styled-components": "^6.1.13"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.3"
+    "styled-components": "^6.1.15"
   },
   "overrides": {
     "yargs": "16.2.0"

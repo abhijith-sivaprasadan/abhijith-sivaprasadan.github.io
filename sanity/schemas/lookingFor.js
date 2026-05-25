@@ -1,5 +1,5 @@
-// Singleton document — the "Looking for…" status banner that appears on every page.
-module.exports = {
+// Singleton document - the "Looking for..." status banner that appears on every page.
+export default {
   name: "lookingFor",
   title: "Looking for (status banner)",
   type: "document",

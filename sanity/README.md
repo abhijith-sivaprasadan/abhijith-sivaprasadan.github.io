@@ -28,13 +28,12 @@ npm run login        # one-time browser login to sanity.io
 npm run dev          # local Studio at http://localhost:3333
 ```
 
-**Important:** use `npm run dev`, NOT bare `npx sanity dev`. The npm script
-wraps the sanity binary with `cross-env NODE_OPTIONS=
-"--no-experimental-require-module"` which disables Node 22+'s new
-synchronous-require-of-ESM behavior. Without that flag, the Sanity CLI
-crashes inside its bundled yargs (`require is not defined in ES module
-scope`). All Sanity commands have an `npm run …` equivalent: `build`,
-`deploy`, `deploy-graphql`, `login`, `start`.
+**Important:** run `npm install` before using the Studio commands. The
+install step applies a small compatibility patch to the installed
+`yargs@16.2.0` package, marking its package scope as CommonJS so Sanity's
+CommonJS CLI bundle can load `yargs/yargs` on recent Node releases. All
+Sanity commands have an `npm run ...` equivalent: `build`, `deploy`,
+`deploy-graphql`, `login`, `start`.
 
 **Do NOT run `npm create sanity@latest`** in this folder — the scaffold
 already exists and re-running create-sanity will fight with our schemas.
@@ -51,23 +50,20 @@ npm create sanity@latest -- --project=4lmq2x2j --dataset=production --template=c
 Note the `=` in `--project=…` — the bare-space syntax (`--project 4lmq2x2j`)
 is parsed as positional args by npm and the CLI rejects it.
 
-## Why CommonJS + pinned yargs 16?
+## Why the yargs postinstall patch?
 
-Three compounding issues with the Sanity v3.99 CLI bootstrap on Node 22+:
+The Sanity v3.99 CLI bootstrap currently hits an interoperability edge case
+on recent Node releases:
 
-1. **`"type": "module"` in package.json broke yargs.** Removed.
-2. **yargs 17 has a dual-package layout that Node 22 mis-resolves.** yargs
-   17's `package.json` has `"type": "module"` and uses an `exports`
-   condition to map `require('yargs/yargs')` to an extensionless file
-   `yargs/yargs`. In Node 22+, that extensionless file is treated as ESM
-   despite being reached through the CJS `require` condition — yargs'
-   own code inside breaks with `require is not defined in ES module scope`.
-3. **yargs 18+ is fully ESM-first and would break the require path entirely.**
+1. Sanity's CommonJS CLI bundle requires `yargs/yargs`.
+2. The installed `yargs@16.2.0` export maps that subpath to its extensionless
+   `./yargs` file while its package declares `"type": "module"`.
+3. Node therefore refuses the CommonJS `require()` with `ERR_REQUIRE_ESM`.
 
-Fix: pin yargs to the last pre-dual-package release (16.2.0) via both a
-direct dependency AND an override. yargs 16 ships a single `yargs.js`
-(with explicit extension), no `"type": "module"` in its package.json,
-so Node 22+ resolves it as CJS unambiguously.
+Fix: the override pins `yargs` to `16.2.0`, and `postinstall` runs
+`scripts/patch-yargs.cjs`, changing the installed package declaration to
+`"type": "commonjs"`. This is an installed-dependency compatibility patch;
+it does not edit Sanity source or any content in the dataset.
 
 If you ever see the error again:
 ```
@@ -80,37 +76,22 @@ Run:
 cd sanity
 Remove-Item -Recurse -Force node_modules, package-lock.json -ErrorAction SilentlyContinue
 npm install
-npx sanity dev
+npm run dev
 ```
 
-### Escape hatch if it still fails
-
-The Node CLI flag `--no-experimental-require-module` reverts to the
-older module-resolution behavior. Try:
+You can confirm the patch without starting the Studio:
 
 ```powershell
-$env:NODE_OPTIONS="--no-experimental-require-module"
-npx sanity dev
+Select-String -Path node_modules\yargs\package.json -Pattern '"type"'
 ```
 
-(Bash / macOS: `NODE_OPTIONS=--no-experimental-require-module npx sanity dev`)
-
-If that works but you don't want to set the env var every time, edit
-`sanity/package.json` and prepend the dev script with the flag:
-
-```json
-"scripts": {
-  "dev": "cross-env NODE_OPTIONS=\"--no-experimental-require-module\" sanity dev"
-}
-```
-
-(requires `npm i -D cross-env`).
+The result should contain `"type": "commonjs"`.
 
 ### Node version
 
-Tested with Node 22.x. If you're on a much newer Node (24+) and the issue
-returns, try `nvm install 20 && nvm use 20` to fall back to the older
-loader.
+The compatibility patch is intended for current Node releases, including
+Node 25. If a future Sanity/yargs update removes the issue, this script can
+be deleted along with the `yargs` override.
 
 ## If you ran `npm audit fix --force` (recovery)
 
@@ -122,7 +103,7 @@ cd sanity
 rm -rf node_modules package-lock.json
 # (Windows PowerShell: Remove-Item -Recurse -Force node_modules, package-lock.json)
 npm install
-npx sanity dev
+npm run dev
 ```
 
 The package.json pins `sanity@^3.99.0` so a fresh install will land on the
@@ -132,8 +113,8 @@ right major.
 
 ```bash
 cd sanity
-npx sanity dev          # local
-npx sanity deploy       # publish to <slug>.sanity.studio (free hosted)
+npm run dev             # local
+npm run deploy          # publish to <slug>.sanity.studio (free hosted)
 ```
 
 ## Frontend behaviour
@@ -158,7 +139,7 @@ The portfolio is well within the Sanity free tier:
 ## Migrating off Sanity later (escape hatch)
 
 ```bash
-npx sanity dataset export production backup.tar.gz
+npm exec sanity -- dataset export production backup.tar.gz
 ```
 
 Gets you a complete archive of all documents + assets. From there, plain
