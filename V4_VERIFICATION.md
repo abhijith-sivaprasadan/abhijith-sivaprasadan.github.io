@@ -1,7 +1,7 @@
 # v4 Verification + Handoff Runbook
 
 Branch: `feat/v4-research-grade-bold`
-Current cache version: `?v=20260525-v4-w16`
+Current cache version: `?v=20260525-v4-w16c`
 
 This document is a checklist for the runtime verification that can't run
 inside the assistant environment, plus everything that still needs
@@ -17,7 +17,7 @@ human configuration (Sanity, Cal.com, ORCID, Scholar URLs, etc.).
 - [x] `sw.js` syntactically clean
 - [x] No duplicate IDs in the autoload subsystem list
 - [x] Worker check confirms non-research frames include normalized velocity magnitude and Research telemetry advances through its nozzle/deposit cycle
-- [x] Live browser smoke confirms mode swap, Swedish hero/status-banner translation, thesis-stage mount, mobile experience rail containment and zero observed console errors
+- [x] Live browser smoke confirms mode swap, Swedish hero/status-banner/thesis-sequence translation, source-figure thesis stage, mobile static evidence layout and zero observed console errors
 
 ---
 
@@ -85,7 +85,7 @@ Targets:
 - [ ] Touch targets ≥ 44×44 px on nav, CTAs, bento tiles
 - [ ] Scroll-rail hidden on < 980 px
 - [ ] Custom cursor disabled on touch (motion-touch class on `<html>`)
-- [ ] Scrollytelling collapses gracefully (currently stacks beats)
+- [x] Thesis scrollytelling becomes a readable, non-pinned five-step static evidence stack below 600 px
 
 ### 2.6 Reduced-motion pass
 - macOS: System Settings → Accessibility → Display → Reduce Motion ✅
@@ -95,7 +95,7 @@ With reduced motion on:
 - [ ] Hero fluid sim renders a static frame and freezes (or doesn't render)
 - [ ] No magnetic pull on buttons
 - [ ] No entrance bootup overlay; pages land instantly
-- [ ] Scrollytelling shows final beat statically
+- [ ] Scrollytelling shows all five evidence steps statically, with exported geometry/mesh/flow figures visible
 - [ ] Bento previews are hidden
 - [ ] Custom cursor disabled
 - [ ] Audio never auto-plays
@@ -198,7 +198,7 @@ hydrate.js (region hydrator for Looking-for, ideas, research, testimonials)
 - /cv.json machine-readable Person/CV endpoint.
 
 ### i18n
-- en + sv locale system across navigation, selectable hero claims, mode-specific narrative copy, evidence routes, section cues, contact target and the dynamic status banner.
+- en + sv locale system across navigation, selectable hero claims, thesis-sequence narrative, mode-specific narrative copy, evidence routes, section cues, contact target and the dynamic status banner.
 - Dictionary + browser-language detection + localStorage persistence.
 
 ### w16 physics-grounded polish
@@ -206,7 +206,7 @@ hydrate.js (region hydrator for Looking-for, ideas, research, testimonials)
 - Thermal telemetry uses reported Siemens-thesis values and the isentropic static-temperature relation; it does not claim new in-browser CFD.
 - Energy telemetry plays back 24-hour PRO2 heating-load and electricity-price inputs with a clearly labelled dispatch screening policy.
 - Research keeps an autonomous equation-informed methalox nozzle/deposit cycle based on area-Mach flow and Bartz-style heat-transfer scaling, labelled illustrative rather than measured output.
-- Thesis scrollytelling uses the existing reducer, mesh and streamline evidence figures and clips the moving explanatory overlay inside the reducer channel.
+- Thesis scrollytelling uses the existing reducer, mesh and streamline evidence figures; the clipped moving explanatory overlay is visibly labelled as an interpretation rather than exported CFD output. Mobile and reduced-motion readers receive a five-step static evidence stack.
 - Homepage experience is a compact scrollable map/role rail; recommendation cards are paraphrased summaries rather than invented quotes; the duplicate follow/contact block is merged into Contact.
 
 ### Typography

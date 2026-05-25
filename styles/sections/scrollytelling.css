@@ -31,7 +31,7 @@
 .thesis-story-copy h2 {
   font-size: clamp(1.6rem, 2.4vw, 2.1rem);
   line-height: 1.2;
-  letter-spacing: -0.018em;
+  letter-spacing: 0;
   margin-bottom: 14px;
 }
 
@@ -95,7 +95,57 @@ html[data-theme="light"] .story-bg {
   letter-spacing: 0.02em;
 }
 
-/* ─── Reducer geometry (beat 1, always visible) ─────────────────────────── */
+.story-layer {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 420ms var(--motion-ease-out, ease);
+}
+
+[data-story-key="geometry"] .story-geometry,
+[data-story-key="mesh"] .story-mesh,
+[data-story-key="flow"] .story-flow,
+[data-story-key="thermal"] .story-thermal,
+[data-story-key="kpi"] .story-kpis {
+  opacity: 1;
+}
+
+.story-source-frame rect {
+  fill: color-mix(in srgb, var(--v4-panel-strong) 90%, transparent);
+  stroke: var(--v4-line);
+  stroke-width: 1;
+}
+
+.story-source-frame image {
+  opacity: 0.98;
+}
+
+.story-frame-label,
+.story-proof-label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.04em;
+  font-size: 10px;
+  font-weight: 700;
+  fill: var(--v4-teal, #65d6c9);
+}
+
+.story-proof-label {
+  fill: color-mix(in srgb, var(--v4-amber) 70%, var(--text));
+}
+
+html[data-theme="light"] .story-frame-label {
+  fill: #086b68;
+}
+
+html[data-theme="light"] .story-proof-label {
+  fill: #8a4417;
+}
+
+html[data-theme="light"] .dimension-annotation text,
+html[data-theme="light"] .story-note {
+  fill: #435565;
+}
+
+/* ─── Parametric interpretation graphics ───────────────────────────────── */
 
 .reducer-wall {
   fill: none;
@@ -117,50 +167,26 @@ html[data-theme="light"] .story-bg {
   fill: color-mix(in srgb, var(--v4-amber) 75%, var(--text));
 }
 
-/* ─── Mesh layer (beat 2+) ──────────────────────────────────────────────── */
+/* ─── Flow interpretation below exported CFD frames ────────────────────── */
 
-.story-mesh {
-  opacity: 0;
-  transition: opacity 540ms var(--motion-ease-out, ease);
+.flow-model-panel {
+  fill: color-mix(in srgb, var(--v4-panel) 68%, transparent);
+  stroke: var(--v4-line);
 }
 
-.story-mesh .mesh-lines path {
-  fill: none;
-  stroke: color-mix(in srgb, var(--v4-blue) 60%, transparent);
-  stroke-width: 0.45;
+.flow-interpretation .reducer-wall {
+  stroke-width: 3.2;
 }
 
-[data-story-key="mesh"] .story-mesh,
-[data-story-key="flow"] .story-mesh,
-[data-story-key="thermal"] .story-mesh,
-[data-story-key="kpi"] .story-mesh {
-  opacity: 0.85;
-}
-
-/* ─── Flow layer (beat 3+) ──────────────────────────────────────────────── */
-
-.story-flow {
-  opacity: 0;
-  transition: opacity 540ms var(--motion-ease-out, ease);
-}
-
-[data-story-key="flow"] .story-flow,
-[data-story-key="thermal"] .story-flow,
-[data-story-key="kpi"] .story-flow {
-  opacity: 1;
-}
-
-/* Dim mesh when flow is active so streamlines read */
-[data-story-key="flow"] .story-mesh,
-[data-story-key="thermal"] .story-mesh,
-[data-story-key="kpi"] .story-mesh {
-  opacity: 0.30;
+.flow-interpretation path,
+.flow-interpretation ellipse {
+  vector-effect: non-scaling-stroke;
 }
 
 .flow-stream {
   fill: none;
   stroke: url(#storyStream);
-  stroke-width: 1.8;
+  stroke-width: 2.4;
   stroke-linecap: round;
   stroke-dasharray: 18 280;
   stroke-dashoffset: 0;
@@ -198,17 +224,20 @@ html.motion-reduced .separation-lobe { animation: none; opacity: 0.55; }
   font-style: italic;
 }
 
-/* ─── Thermal layer (beat 4+) ───────────────────────────────────────────── */
-
-.story-thermal {
-  opacity: 0;
-  transition: opacity 540ms var(--motion-ease-out, ease);
+html[data-theme="light"] .flow-model-panel {
+  fill: #f0f4f5;
+  stroke: #c3d4d9;
 }
 
-[data-story-key="thermal"] .story-thermal,
-[data-story-key="kpi"] .story-thermal {
-  opacity: 1;
+html[data-theme="light"] .flow-interpretation .reducer-wall {
+  stroke: #086b68;
 }
+
+html[data-theme="light"] .flow-note {
+  fill: #3a5262;
+}
+
+/* ─── Thermal interpretation ───────────────────────────────────────────── */
 
 .thermal-wall {
   fill: none;
@@ -244,28 +273,7 @@ html.motion-reduced .separation-lobe { animation: none; opacity: 0.55; }
   fill: var(--muted) !important;
 }
 
-/* Dim mesh + flow once thermal beat is active */
-[data-story-key="thermal"] .story-mesh,
-[data-story-key="kpi"] .story-mesh {
-  opacity: 0.14;
-}
-
-[data-story-key="thermal"] .flow-stream,
-[data-story-key="kpi"] .flow-stream {
-  stroke: color-mix(in srgb, var(--v4-teal) 50%, transparent);
-  opacity: 0.45;
-}
-
 /* ─── KPI badges (beat 5) ──────────────────────────────────────────────── */
-
-.story-kpis {
-  opacity: 0;
-  transition: opacity 540ms var(--motion-ease-out, ease);
-}
-
-[data-story-key="kpi"] .story-kpis {
-  opacity: 1;
-}
 
 .kpi-badge {
   transform-origin: center;
@@ -327,6 +335,7 @@ html.motion-reduced .kpi-trace { animation: none; }
 }
 
 .thesis-story-beat {
+  display: none;
   padding: 14px 18px;
   border-radius: 12px;
   border: 1px solid transparent;
@@ -335,6 +344,7 @@ html.motion-reduced .kpi-trace { animation: none; }
 }
 
 .thesis-story-beat.is-active {
+  display: block;
   border-color: color-mix(in srgb, var(--v4-teal) 60%, var(--v4-line));
   background: color-mix(in srgb, var(--v4-teal) 8%, var(--v4-panel-strong));
   transform: translateX(4px);
@@ -361,13 +371,62 @@ html.motion-reduced .kpi-trace { animation: none; }
   line-height: 1.55;
 }
 
-/* ─── Reduced motion: show final state statically ───────────────────────── */
+/* ─── Reduced motion: five readable static evidence frames ──────────────── */
 
-.thesis-story-section.is-static .story-mesh,
-.thesis-story-section.is-static .story-flow,
-.thesis-story-section.is-static .story-thermal,
-.thesis-story-section.is-static .story-kpis {
-  opacity: 1;
+.thesis-story-static {
+  display: none;
+}
+
+.thesis-story-section.is-static .thesis-story-visual,
+.thesis-story-section.is-static .thesis-story-beats {
+  display: none;
+}
+
+.thesis-story-section.is-static .thesis-story-static {
+  display: grid;
+  gap: 16px;
+}
+
+.thesis-story-static figure {
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--v4-line);
+  border-radius: 8px;
+  background: var(--v4-panel-strong);
+}
+
+.thesis-story-static figcaption {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.thesis-story-static figcaption strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text);
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+.thesis-story-static figcaption span {
+  display: block;
+}
+
+.thesis-story-static figure > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.thesis-story-static img {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  background: #070b10;
+}
+
+.thesis-story-static .static-story-note figcaption {
+  margin-bottom: 0;
 }
 
 /* ─── Responsive: stack copy + visual on narrow screens ────────────────── */
@@ -377,4 +436,10 @@ html.motion-reduced .kpi-trace { animation: none; }
     grid-template-columns: 1fr;
   }
   .thesis-story-copy { max-width: none; }
+}
+
+@media (max-width: 600px) {
+  .thesis-story-static figure > div {
+    grid-template-columns: 1fr;
+  }
 }
