@@ -55,6 +55,7 @@ html[data-theme="light"] .letter-page p {
 }
 
 html[data-theme="light"] .letter-page blockquote,
+html[data-theme="light"] .letter-page .letter-summary,
 html[data-theme="light"] .letter-meta strong {
   color: #13212b;
 }
@@ -73,4 +74,11 @@ html[data-theme="light"] .letter-meta strong {
   font-size: clamp(1.45rem, 3vw, 2.3rem);
   line-height: 1.25;
   color: var(--text);
+}
+
+.letter-page .letter-summary {
+  margin: 48px 0;
+  color: var(--text);
+  font-size: clamp(1.16rem, 2.2vw, 1.48rem);
+  line-height: 1.5;
 }

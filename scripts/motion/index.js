@@ -65,19 +65,28 @@ function ensureGSAP() {
 
 // ── Subsystem loader ───────────────────────────────────────────────────────
 const subsystems = new Map();
+const pendingSubsystems = new Map();
 
 async function load(name, path) {
   if (subsystems.has(name)) return subsystems.get(name).instance;
-  try {
-    const mod = await import(`${path || `${BASE}${name}.js`}${VERSION}`);
-    const instance = mod.init ? await mod.init(Motion.ctx) : null;
-    subsystems.set(name, { module: mod, instance });
-    bus.emit("motion:subsystem-loaded", { name, instance });
-    return instance;
-  } catch (err) {
-    console.warn(`[motion] failed to load subsystem '${name}':`, err);
-    return null;
-  }
+  if (pendingSubsystems.has(name)) return pendingSubsystems.get(name);
+
+  const pending = (async () => {
+    try {
+      const mod = await import(`${path || `${BASE}${name}.js`}${VERSION}`);
+      const instance = mod.init ? await mod.init(Motion.ctx) : null;
+      subsystems.set(name, { module: mod, instance });
+      bus.emit("motion:subsystem-loaded", { name, instance });
+      return instance;
+    } catch (err) {
+      console.warn(`[motion] failed to load subsystem '${name}':`, err);
+      return null;
+    } finally {
+      pendingSubsystems.delete(name);
+    }
+  })();
+  pendingSubsystems.set(name, pending);
+  return pending;
 }
 
 function unload(name) {
@@ -171,15 +180,25 @@ function boot() {
     { name: "looking-for",      selector: "body" },
     { name: "katex",            selector: ".math, [data-math]" },
     { name: "biot-calculator",  selector: "[data-biot-calculator]", path: `${BASE}../sections/biot-calculator.js` },
-    { name: "i18n",             selector: "body" },
+    { name: "i18n",             selector: "[data-i18n-sv], [data-i18n]" },
     { name: "cms-hydrate",      selector: "body", path: `${BASE}../cms/hydrate.js` },
     { name: "bento-previews",   selector: "[data-project-id]", path: `${BASE}../sections/bento-previews.js`, skip: () => reducedMotion },
     { name: "reducer-3d-viewer", selector: "[data-reducer-3d-viewer]", path: `${BASE}../sections/reducer-3d-viewer.js`, skip: () => reducedMotion },
   ];
-  for (const entry of autoload) {
-    if (entry.skip && entry.skip()) continue;
-    if (document.querySelector(entry.selector)) load(entry.name, entry.path);
+  function loadPresentSubsystems() {
+    for (const entry of autoload) {
+      if (subsystems.has(entry.name) || (entry.skip && entry.skip())) continue;
+      if (document.querySelector(entry.selector)) load(entry.name, entry.path);
+    }
   }
+
+  loadPresentSubsystems();
+
+  // Some legacy site controls (including the theme button) are mounted after
+  // this module starts. Detect those mounts once they appear so v4 behavior
+  // is not dependent on script execution order.
+  const mountObserver = new MutationObserver(() => loadPresentSubsystems());
+  mountObserver.observe(document.body, { childList: true, subtree: true });
 
   bus.emit("motion:ready", Motion.ctx);
 }

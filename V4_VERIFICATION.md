@@ -1,7 +1,7 @@
 # v4 Verification + Handoff Runbook
 
 Branch: `feat/v4-research-grade-bold`
-Current cache version: `?v=20260525-v4-w6`
+Current cache version: `?v=20260525-v4-w16`
 
 This document is a checklist for the runtime verification that can't run
 inside the assistant environment, plus everything that still needs
@@ -9,13 +9,15 @@ human configuration (Sanity, Cal.com, ORCID, Scholar URLs, etc.).
 
 ---
 
-## 1. Static checks — already passing ✅
+## 1. Static checks - already passing
 
-- [x] All 30 v4 JS modules pass `node --check`
+- [x] Changed w16 motion and section modules pass `node --check`
 - [x] All 5 Sanity schemas valid
 - [x] `cv.json` is valid JSON
 - [x] `sw.js` syntactically clean
 - [x] No duplicate IDs in the autoload subsystem list
+- [x] Worker check confirms non-research frames include normalized velocity magnitude and Research telemetry advances through its nozzle/deposit cycle
+- [x] Live browser smoke confirms mode swap, Swedish hero/status-banner translation, thesis-stage mount, mobile experience rail containment and zero observed console errors
 
 ---
 
@@ -109,54 +111,39 @@ With reduced motion on:
 
 ---
 
-## 3. Configuration still required
+## 3. Configuration Status
 
-These items work today with placeholders. Replace before going live.
+### 3.1 Sanity CMS
 
-### 3.1 Sanity CMS — to enable the editing UI
+Configured project: `4lmq2x2j`, dataset `production`.
+
+The Studio scaffold is already in `sanity/`. Do not rerun
+`npm create sanity@latest` in that folder.
+
 ```bash
 cd sanity
 npm install
-npx sanity init
-# → choose "Create new project" → name "abhijith-portfolio"
-# → dataset "production"
-```
-Then edit two files:
-- `sanity/sanity.config.js` → replace `REPLACE_WITH_SANITY_PROJECT_ID`
-- `scripts/public-config.js` → replace `REPLACE_WITH_SANITY_PROJECT_ID`
-  inside `PORTFOLIO_CMS_CONFIG`
-
-Run the Studio:
-```bash
-cd sanity
-npx sanity dev          # local at http://localhost:3333
-npx sanity deploy       # hosted at <slug>.sanity.studio (free)
+npm run login
+npm run dev
 ```
 
-### 3.2 Cal.com booking slot
-- Sign up at https://cal.com (free)
-- Replace placeholder URL in `index.html` (search for `cal.com/abhijithsivaprasadan/20min`)
+The current Node compatibility route is documented in `sanity/README.md`;
+`npm install` applies the required installed-dependency patch.
 
-### 3.3 ORCID + Google Scholar profiles
-- Register at https://orcid.org (free, ~5 min)
-- Create a Google Scholar profile (free)
-- Replace placeholder URLs in:
-  - `research.html` (scholar-card-grid section, data-orcid-placeholder
-    + data-scholar-placeholder cards)
-  - `index.html` (Person schema `sameAs` array)
-  - `cv.json` (sameAs + `_meta` if needed)
-  - `projects/siemens-thesis.html` (ResearchProject schema)
+### 3.2 External profiles and booking
 
-### 3.4 KTH profile slug
-- Replace `kth.se/profile/asivap` in `research.html` with your actual
-  KTH profile URL.
+Configured:
+- Cal.com: `https://cal.com/abhijith-sivaprasadan-1y7c6o`
+- ORCID: `https://orcid.org/0009-0009-8429-1266`
+- Google Scholar: `https://scholar.google.com/citations?user=o2nI60MAAAAJ`
+- KTH profile: `https://www.kth.se/profile/asiv`
 
-### 3.5 Author photos for testimonials
+### 3.3 Author photos for testimonials
 - The letter-viewer dialog has a slot for author photos. Currently
   blank. Once you have Sanity set up, upload photos through the Studio's
   `testimonial` documents.
 
-### 3.6 Replace the citation_author year if the actual defence is in 2026
+### 3.4 Confirm publication metadata
 - `projects/siemens-thesis.html` — citation_publication_date is set
   to 2026.
 - `cv.json` and the ResearchProject schema use the same.
@@ -185,7 +172,7 @@ hydrate.js (region hydrator for Looking-for, ideas, research, testimonials)
 
 ### Sanity Studio — `sanity/`
 - Config + 5 schemas (idea, project, researchStatus, testimonial, lookingFor)
-- package.json (sanity 3.55, react 18.3, styled-components 6.1)
+- package.json (Sanity 3.99, React 18.3, styled-components 6.1+)
 - README.md (setup + daily-use instructions)
 
 ### CSS layer — `styles/` (24 files)
@@ -211,8 +198,16 @@ hydrate.js (region hydrator for Looking-for, ideas, research, testimonials)
 - /cv.json machine-readable Person/CV endpoint.
 
 ### i18n
-- en + sv locale system, data-i18n-sv attributes on nav + hero kicker.
+- en + sv locale system across navigation, selectable hero claims, mode-specific narrative copy, evidence routes, section cues, contact target and the dynamic status banner.
 - Dictionary + browser-language detection + localStorage persistence.
+
+### w16 physics-grounded polish
+- The hero worker exposes solved velocity magnitude for the visible Eulerian contour field; decorative per-mode sine curves no longer stand in for the solver.
+- Thermal telemetry uses reported Siemens-thesis values and the isentropic static-temperature relation; it does not claim new in-browser CFD.
+- Energy telemetry plays back 24-hour PRO2 heating-load and electricity-price inputs with a clearly labelled dispatch screening policy.
+- Research keeps an autonomous equation-informed methalox nozzle/deposit cycle based on area-Mach flow and Bartz-style heat-transfer scaling, labelled illustrative rather than measured output.
+- Thesis scrollytelling uses the existing reducer, mesh and streamline evidence figures and clips the moving explanatory overlay inside the reducer channel.
+- Homepage experience is a compact scrollable map/role rail; recommendation cards are paraphrased summaries rather than invented quotes; the duplicate follow/contact block is merged into Contact.
 
 ### Typography
 - Inter Variable + JetBrains Mono.

@@ -34,7 +34,7 @@ const DICT = {
     "cta.cv":       "Download CV",
     "cta.contact":  "Get in touch",
     "hero.kicker":  "M.Sc. Sustainable Energy Engineering · KTH 2026",
-    "looking-for.default": "Currently targeting PhD positions and industrial R&D roles in Sweden and the EU.",
+    "contact.target": "Currently targeting doctoral research in high-temperature thermal-fluid systems and industrial R&D roles in decarbonization and electrification in Sweden.",
   },
   sv: {
     "nav.research":   "Forskning",
@@ -49,7 +49,7 @@ const DICT = {
     "cta.cv":         "Ladda ner CV",
     "cta.contact":    "Ta kontakt",
     "hero.kicker":    "Civilingenjör · Hållbar energiteknik · KTH 2026",
-    "looking-for.default": "Söker just nu doktorandtjänster och industriella FoU-roller i Sverige och EU.",
+    "contact.target": "Söker doktorandforskning inom högtempererade termik- och strömningssystem samt industriella FoU-roller inom avkarbonisering och elektrifiering i Sverige.",
   },
 };
 
@@ -82,13 +82,13 @@ function apply(locale) {
     if (!el.dataset.i18nDefault) {
       el.dataset.i18nDefault = el.textContent.trim();
     }
+    let nextText = el.dataset.i18nDefault;
     if (locale === "sv" && el.dataset.i18nSv) {
-      el.textContent = el.dataset.i18nSv;
+      nextText = el.dataset.i18nSv;
     } else if (locale === "en" && el.dataset.i18nEn) {
-      el.textContent = el.dataset.i18nEn;
-    } else {
-      el.textContent = el.dataset.i18nDefault;
+      nextText = el.dataset.i18nEn;
     }
+    if (el.textContent !== nextText) el.textContent = nextText;
   });
 
   // 2. Elements with a key, resolved from DICT
@@ -96,11 +96,11 @@ function apply(locale) {
     const key = el.dataset.i18n;
     if (!key) return;
     const translation = DICT[locale]?.[key] || DICT.en?.[key];
-    if (translation) el.textContent = translation;
+    if (translation && el.textContent !== translation) el.textContent = translation;
   });
 }
 
-function buildToggle() {
+function buildToggle(ctx) {
   const nav = document.querySelector(".nav");
   if (!nav || document.querySelector("[data-i18n-toggle]")) return null;
 
@@ -122,6 +122,7 @@ function buildToggle() {
     if (!SUPPORTED.includes(next) || next === current) return;
     setStored(next);
     apply(next);
+    ctx?.bus?.emit?.("motion:locale-change", { locale: next });
     toggle.querySelectorAll("[data-locale]").forEach((b) =>
       b.setAttribute("aria-pressed", b.dataset.locale === next ? "true" : "false")
     );
@@ -132,7 +133,7 @@ function buildToggle() {
 
 export async function init(ctx) {
   current = resolveInitial();
-  buildToggle();
+  buildToggle(ctx);
   apply(current);
 
   // Re-apply when new content is added (CMS-driven mounts)

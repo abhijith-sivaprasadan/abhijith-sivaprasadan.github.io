@@ -9,26 +9,26 @@
 
 .thesis-story-shell {
   display: grid;
-  grid-template-columns: minmax(250px, 0.84fr) minmax(0, 1.16fr);
+  grid-template-columns: minmax(250px, 0.78fr) minmax(0, 1.22fr);
   gap: clamp(24px, 5vw, 64px);
   align-items: center;
 }
 
 .thesis-story-copy {
-  max-width: 470px;
+  max-width: 460px;
 }
 
 .thesis-story-stage {
-  min-height: clamp(420px, 58vw, 620px);
+  min-height: clamp(440px, 58vw, 640px);
   border: 1px solid var(--v4-line);
   border-radius: var(--v4-radius);
-  background:
-    radial-gradient(circle at 70% 18%, rgba(101, 214, 201, 0.14), transparent 34%),
-    var(--v4-grid),
-    var(--v4-panel-strong);
-  background-size: auto, 28px 28px, auto;
+  background: var(--v4-panel-strong);
   box-shadow: var(--v4-shadow);
   overflow: hidden;
+}
+
+.thesis-story-visual {
+  height: min(470px, 67vh);
 }
 
 .thesis-story-svg {
@@ -39,68 +39,167 @@
 }
 
 .thesis-story-svg .story-bg {
-  fill: transparent;
-}
-
-.thesis-story-visual {
-  height: min(420px, 62vh);
-}
-
-.thesis-story-svg .story-grid path,
-.thesis-story-svg .story-geometry path,
-.thesis-story-svg .story-mesh path,
-.thesis-story-svg .story-streamlines path {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  fill: color-mix(in srgb, var(--v4-panel-strong) 92%, transparent);
 }
 
 .thesis-story-svg .story-grid path {
+  stroke: color-mix(in srgb, var(--v4-line) 72%, transparent);
+  stroke-width: 0.7;
+}
+
+.story-layer {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+[data-story-step="0"] [data-story-layer="geometry"],
+[data-story-step="1"] [data-story-layer="mesh"],
+[data-story-step="2"] [data-story-layer="flow"],
+[data-story-step="3"] [data-story-layer="thermal"],
+[data-story-step="4"] [data-story-layer="kpi"] {
+  opacity: 1;
+}
+
+.story-source-frame rect {
+  fill: color-mix(in srgb, var(--v4-panel) 82%, transparent);
   stroke: var(--v4-line);
-  stroke-width: 0.75;
 }
 
-.thesis-story-svg .legacy-wall {
-  stroke: color-mix(in srgb, var(--v4-orange) 70%, var(--text));
-  stroke-width: 2;
-  opacity: 0.4;
+.story-source-frame image {
+  opacity: 0.96;
 }
 
-.thesis-story-svg .c2-wall {
+.story-frame-label,
+.story-note,
+.story-dimensions text,
+.biot-note text {
+  fill: var(--muted);
+  font-family: var(--mono, monospace);
+  letter-spacing: 0;
+}
+
+.story-frame-label {
+  fill: var(--v4-teal);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.story-note,
+.story-dimensions text {
+  font-size: 10px;
+}
+
+.story-dimensions text:first-child,
+.story-dimensions text:nth-child(4) {
+  fill: var(--v4-teal);
+  font-weight: 700;
+}
+
+.story-callout {
+  fill: none;
   stroke: var(--v4-amber);
-  stroke-width: 3.5;
+  stroke-dasharray: 3 3;
 }
 
-.thesis-story-svg .story-mesh path {
-  stroke: var(--v4-teal);
-  stroke-width: 0.8;
-  opacity: 0.45;
+.flow-outline path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.25;
 }
 
-.thesis-story-svg .story-streamlines path {
-  stroke: url("#storyFlow");
-  stroke-width: 2;
-  opacity: 0.72;
+.legacy-outline {
+  stroke: color-mix(in srgb, var(--v4-orange) 72%, var(--text));
 }
 
-.thesis-story-svg .story-thermal {
-  opacity: 0.76;
+.c2-outline {
+  stroke: var(--v4-amber);
+}
+
+.bounded-flow path,
+.separation-lobe {
+  fill: none;
+  stroke: url("#storyFluid");
+  stroke-linecap: round;
+  filter: url("#storySignal");
+  stroke-dasharray: 9 18;
+  animation: storyAdvect 950ms linear infinite;
+}
+
+.legacy-bounded-flow path {
+  stroke-width: 1.8;
+}
+
+.c2-bounded-flow path {
+  stroke-width: 2.15;
+  animation-duration: 720ms;
+}
+
+.separation-lobe {
+  stroke: var(--v4-orange);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 9;
+  animation-direction: reverse;
+}
+
+@keyframes storyAdvect {
+  to {
+    stroke-dashoffset: -54;
+  }
+}
+
+.thermal-channel-wall {
+  fill: none;
+  stroke: url("#storyWallHeat");
+  stroke-width: 16;
+  stroke-linecap: round;
+}
+
+.thermal-centreline {
+  fill: none;
+  stroke: color-mix(in srgb, var(--v4-teal) 66%, transparent);
+  stroke-dasharray: 5 7;
+}
+
+.thermal-legend rect {
+  fill: url("#storyWallHeat");
+}
+
+.thermal-legend text {
+  fill: var(--muted);
+  font: 10px var(--mono, monospace);
+}
+
+.biot-note text:first-child {
+  fill: var(--v4-amber);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.biot-note text:not(:first-child) {
+  font-size: 11px;
 }
 
 .story-kpis rect {
-  fill: color-mix(in srgb, var(--v4-panel) 86%, transparent);
+  fill: color-mix(in srgb, var(--v4-panel) 88%, transparent);
   stroke: var(--v4-line);
 }
 
-.story-kpis text {
+.story-kpis .kpi-value {
   fill: var(--text);
-  font-size: 13px;
-  font-family: var(--mono, monospace);
+  font: 700 16px var(--mono, monospace);
 }
 
-.story-kpis text:nth-of-type(even) {
+.story-kpis .kpi-label {
   fill: var(--muted);
-  font-size: 11px;
+  font: 11px var(--mono, monospace);
+}
+
+.kpi-trace {
+  fill: none;
+  stroke: color-mix(in srgb, var(--v4-teal) 66%, transparent);
+  stroke-dasharray: 4 4;
 }
 
 .thesis-story-beats {
@@ -113,7 +212,7 @@
 .thesis-story-beat {
   border-top: 2px solid var(--v4-line);
   padding: 10px 8px 0;
-  opacity: 0.42;
+  opacity: 0.44;
   transition: opacity 180ms ease, border-color 180ms ease;
 }
 
@@ -125,33 +224,82 @@
 .thesis-story-beat span {
   display: block;
   color: var(--v4-teal);
-  font: 700 0.7rem/1.2 var(--mono, monospace);
+  font: 700 0.68rem/1.2 var(--mono, monospace);
 }
 
 .thesis-story-beat strong {
   display: block;
   margin-top: 5px;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
 }
 
 .thesis-story-beat p {
   display: none;
 }
 
+.thesis-story-section.is-static .thesis-story-beat {
+  opacity: 1;
+}
+
+.thesis-story-section.is-static .thesis-story-beat p {
+  display: block;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+html[data-theme="light"] .story-source-frame image {
+  border-radius: 5px;
+}
+
+html[data-theme="light"] .story-frame-label,
+html[data-theme="light"] .story-dimensions text:first-child,
+html[data-theme="light"] .story-dimensions text:nth-child(4) {
+  fill: #086b68;
+}
+
+html[data-theme="light"] .story-note,
+html[data-theme="light"] .story-dimensions text,
+html[data-theme="light"] .biot-note text:not(:first-child),
+html[data-theme="light"] .thermal-legend text {
+  fill: #506575;
+}
+
+html[data-theme="light"] .biot-note text:first-child {
+  fill: #a4481b;
+}
+
+html[data-theme="light"] .story-kpis .kpi-label {
+  fill: #506575;
+}
+
 @media (max-width: 860px) {
   .thesis-story-shell {
     grid-template-columns: 1fr;
   }
+
   .thesis-story-stage {
-    min-height: 420px;
+    min-height: 400px;
   }
+
+  .thesis-story-visual {
+    height: auto;
+  }
+
   .thesis-story-beats {
     grid-template-columns: 1fr;
   }
+
   .thesis-story-beat p {
     display: block;
     margin-top: 6px;
     color: var(--muted);
     font-size: 0.84rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bounded-flow path,
+  .separation-lobe {
+    animation: none;
   }
 }

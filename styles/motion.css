@@ -37,7 +37,7 @@
 
 html[data-theme="light"] {
   --motion-spring-glow: rgba(2, 132, 199, 0.18);
-  --motion-fluid-alpha: 0.62;
+  --motion-fluid-alpha: 0.50;
 }
 
 /* ────────────────────────────────────────────────────────────────────────
@@ -362,3 +362,284 @@ html.motion-entrance-active body {
 .motion-audio-toggle .audio-icon-off { display: inline; }
 .motion-audio-toggle[aria-pressed="true"] .audio-icon-on  { display: inline; }
 .motion-audio-toggle[aria-pressed="true"] .audio-icon-off { display: none; }
+
+/* Autonomous research telemetry: the nozzle scene animates without controls. */
+.research-telemetry {
+  position: relative;
+  z-index: 3;
+  margin-top: clamp(1.15rem, 2.6vw, 1.8rem);
+  padding: clamp(0.9rem, 2vw, 1.2rem);
+  border: 1px solid color-mix(in srgb, var(--accent, #38bdf8) 22%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg, #070907) 70%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.research-telemetry[hidden] {
+  display: none;
+}
+
+.research-telemetry-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.research-telemetry-head h2 {
+  margin: 0.18rem 0 0;
+  font-size: clamp(1rem, 1.25vw, 1.18rem);
+  letter-spacing: 0;
+}
+
+.research-telemetry-copy {
+  max-width: 63rem;
+  margin: 0.75rem 0 0.85rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.research-live-rail {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.mode-telemetry .research-live-rail {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.research-live-rail article {
+  min-height: 3.75rem;
+  padding: 0.55rem 0.62rem;
+  border-top: 1px solid color-mix(in srgb, var(--accent, #38bdf8) 32%, var(--line));
+}
+
+.research-live-rail strong {
+  display: block;
+  margin-bottom: 0.18rem;
+  color: var(--text);
+  font: 600 clamp(0.94rem, 1.3vw, 1.14rem)/1.12 var(--font-mono, ui-monospace, monospace);
+}
+
+.research-live-rail span {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+html[data-theme="light"] .research-telemetry {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: #cbd5e1;
+}
+
+/* Industrial digital-twin console — controls expose scenario response. */
+.hero-model-console {
+  position: relative;
+  z-index: 3;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+  padding: clamp(1rem, 2.2vw, 1.45rem);
+  border: 1px solid color-mix(in srgb, var(--accent, #38bdf8) 28%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg, #070907) 79%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.hero-model-console[hidden] {
+  display: none;
+}
+
+.hero-model-head,
+.hero-model-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-model-head {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.hero-model-head h2 {
+  margin: 0.2rem 0 0;
+  max-width: 42rem;
+  font-size: clamp(1.04rem, 1.3vw, 1.22rem);
+  letter-spacing: 0;
+}
+
+.model-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.38rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--accent, #38bdf8) 32%, transparent);
+  color: var(--muted);
+  font: 500 0.72rem/1.2 var(--font-mono, ui-monospace, monospace);
+  text-transform: uppercase;
+}
+
+.hero-model-grid {
+  grid-template-columns: minmax(16rem, 1.15fr) minmax(18rem, 1fr);
+  align-items: start;
+}
+
+.hero-model-controls {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.model-segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 0.25rem;
+  padding: 0;
+  border: 0;
+}
+
+.model-segmented legend {
+  flex: 0 0 100%;
+  margin-bottom: 0.4rem;
+  color: var(--muted);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+}
+
+.model-segmented button {
+  min-height: 2.35rem;
+  padding: 0.35rem 0.62rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.model-segmented button.is-active,
+.model-segmented button[aria-pressed="true"] {
+  border-color: color-mix(in srgb, var(--accent, #38bdf8) 68%, var(--line));
+  background: color-mix(in srgb, var(--accent, #38bdf8) 15%, transparent);
+  color: var(--text);
+}
+
+.model-slider {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.model-slider span {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.model-slider output {
+  color: var(--text);
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+.model-slider input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent, #38bdf8);
+}
+
+.model-switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+}
+
+.model-switches label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.model-switches input {
+  accent-color: var(--accent, #38bdf8);
+}
+
+.model-interaction,
+.model-footnote {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.77rem;
+  line-height: 1.55;
+}
+
+.model-footnote {
+  margin-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.75rem;
+}
+
+.model-footnote a {
+  margin-left: 0.55rem;
+  color: var(--accent, #38bdf8);
+}
+
+.model-readouts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.model-readouts article {
+  min-height: 4.4rem;
+  padding: 0.68rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel, #101720) 58%, transparent);
+}
+
+.model-readouts strong {
+  display: block;
+  margin-bottom: 0.22rem;
+  color: var(--text);
+  font: 600 clamp(1.05rem, 1.5vw, 1.3rem)/1.1 var(--font-mono, ui-monospace, monospace);
+}
+
+.model-readouts span {
+  color: var(--muted);
+  font-size: 0.73rem;
+  line-height: 1.25;
+}
+
+.health-readout strong {
+  color: var(--accent, #38bdf8);
+}
+
+html[data-theme="light"] .hero-model-console {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: #cbd5e1;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+}
+
+html[data-theme="light"] .model-readouts article {
+  background: rgba(240, 245, 248, 0.76);
+  border-color: #d7dfe5;
+}
+
+@media (max-width: 760px) {
+  .research-telemetry-head {
+    flex-direction: column;
+  }
+
+  .research-live-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-model-head,
+  .hero-model-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .model-badge {
+    justify-self: start;
+  }
+}

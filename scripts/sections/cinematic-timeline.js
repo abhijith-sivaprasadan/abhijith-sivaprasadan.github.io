@@ -1,8 +1,8 @@
 const PLACES = [
-  { key: "siemens", label: "Siemens Energy", place: "Finspang", x: 48, y: 42 },
-  { key: "alleima", label: "Alleima", place: "Sandviken", x: 45, y: 28 },
-  { key: "qburst", label: "QBurst", place: "Kerala", x: 68, y: 78 },
-  { key: "kth", label: "KTH", place: "Stockholm", x: 50, y: 34 },
+  { key: "siemens", label: "Siemens Energy", place: "Finspang", x: 32, y: 52 },
+  { key: "alleima", label: "Alleima", place: "Sandviken", x: 38, y: 42 },
+  { key: "kth", label: "KTH", place: "Stockholm", x: 43, y: 51 },
+  { key: "qburst", label: "QBurst", place: "Kerala", x: 79, y: 73 },
 ];
 
 function keyFromText(text) {
@@ -19,13 +19,20 @@ function buildMap() {
     <div class="experience-map" data-experience-map>
       <div class="experience-map-grid" aria-hidden="true"></div>
       <svg viewBox="0 0 100 100" role="img" aria-label="Experience locations">
-        <polyline points="50,34 48,42 45,28 68,78" />
+        <g class="map-silhouette" aria-hidden="true">
+          <path class="sweden-shape" d="M34 11L39 14 40 22 44 27 42 35 46 43 45 52 39 60 37 70 32 75 29 66 31 56 28 47 31 37 29 29 32 22Z"></path>
+          <path class="kerala-inset" d="M69 58H91V87H69Z"></path>
+          <path class="kerala-shape" d="M79 62L82 66 81 71 84 76 82 82 79 84 78 78 76 73 77 68Z"></path>
+          <text x="26" y="88">SWEDEN</text>
+          <text x="70" y="94">KERALA INSET</text>
+        </g>
+        <polyline points="38,42 43,51 32,52" />
         ${PLACES.map((place) => `
-          <circle class="map-dot" cx="${place.x}" cy="${place.y}" r="1.6"></circle>`).join("")}
+          <circle class="map-dot map-dot-${place.key}" cx="${place.x}" cy="${place.y}" r="1.7"></circle>`).join("")}
       </svg>
       <div class="map-pin-layer">
         ${PLACES.map((place) => `
-          <button class="map-pin" data-place="${place.key}" type="button" style="--x:${place.x};--y:${place.y}">
+          <button class="map-pin map-pin-${place.key}" data-place="${place.key}" type="button" style="--x:${place.x};--y:${place.y}">
             <span>${place.label}</span>
             <small>${place.place}</small>
           </button>`).join("")}

@@ -1,17 +1,23 @@
 const AXES = [
-  "CFD/CHT",
-  "Energy systems",
-  "Industrial decarb",
-  "Research methods",
-  "Programming",
-  "Experimental",
+  { label: "CFD/CHT", evidence: "Siemens thesis: ANSYS Fluent, k-omega SST, CHT and three-level mesh independence." },
+  { label: "Energy systems", evidence: "IDA ICE, HOMER Pro, LEAP and Python/PuLP district-heating dispatch modelling." },
+  { label: "Industrial decarb", evidence: "Alleima ISO 50001/EED-aligned energy performance mapping methodology." },
+  { label: "Research methods", evidence: "TRITA-ITM-EX 2026:14, validation framing and heater-failure root-cause analysis." },
+  { label: "Programming", evidence: "Python modelling workflows, MATLAB coursework and TypeScript/NestJS delivery." },
+  { label: "Experimental", evidence: "NI-DAQ/LabVIEW commissioning plus battery and thermal laboratory work." },
 ];
 
+// Values encode relative prominence of documented portfolio evidence in each
+// selected reading lens, not a certified proficiency score.
 const MODE_VALUES = {
-  thermal: [96, 62, 55, 78, 68, 86],
-  energy: [58, 94, 78, 70, 82, 50],
-  decarbonisation: [52, 80, 94, 72, 76, 58],
-  research: [88, 66, 62, 96, 70, 84],
+  // Siemens CFD/CHT thesis and measurement-chain commissioning dominate.
+  thermal: [95, 55, 48, 82, 68, 88],
+  // Multiple public modelling projects dominate; experiments remain supporting.
+  energy: [50, 91, 69, 66, 80, 45],
+  // Alleima methodology plus energy optimisation are the public anchors.
+  decarbonisation: [44, 72, 88, 68, 75, 43],
+  // Thesis method and instrumentation lead, supported by thermal modelling.
+  research: [86, 51, 45, 93, 67, 82],
 };
 
 function point(index, value, radius = 82) {
@@ -34,8 +40,8 @@ function template() {
     <div class="capability-radar" data-capability-radar>
       <div class="radar-copy">
         <p class="eyebrow">Capability radar</p>
-        <h3>Six-axis view of the portfolio signal.</h3>
-        <p>The polygon shifts with the selected homepage track, turning the dense tools list into a quick read of competency depth.</p>
+        <h3>Evidence emphasis by track.</h3>
+        <p>The polygon shifts with the selected track to show which documented evidence is most prominent. It is not a self-rated proficiency score.</p>
       </div>
       <div class="radar-frame">
         <svg viewBox="0 0 240 240" role="img" aria-label="Capability radar chart">
@@ -50,7 +56,7 @@ function template() {
           <g class="radar-labels">
             ${AXES.map((axis, index) => {
               const [x, y] = labelPoint(index);
-              return `<text x="${x}" y="${y}" text-anchor="middle">${axis}</text>`;
+              return `<text x="${x}" y="${y}" text-anchor="middle">${axis.label}</text>`;
             }).join("")}
           </g>
         </svg>
@@ -73,7 +79,7 @@ function update(root, mode, ctx) {
   }
 
   readout.innerHTML = AXES.map((axis, index) => `
-    <span><strong>${values[index]}</strong>${axis}</span>
+    <span title="${axis.evidence}"><strong>${values[index]}</strong>${axis.label}</span>
   `).join("");
 }
 

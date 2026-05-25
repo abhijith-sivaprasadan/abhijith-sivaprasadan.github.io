@@ -1,18 +1,26 @@
 /**
  * Service Worker registration.
  *
- * Loaded as a regular script (not a module) from index.html footer.
- * Respects `?nosw=1` query param for disabling, and surfaces an
- * "update available" indicator if a new SW is waiting.
+ * Loaded as a regular script (not a module) on public portfolio pages.
+ * Service workers are disabled on local previews unless explicitly enabled
+ * with `?sw=1`, so editing cannot be hidden behind a stale cache.
+ * `?nosw=1` always unregisters existing service workers.
  */
 (function () {
   if (!("serviceWorker" in navigator)) return;
-  if (location.protocol !== "https:" && location.hostname !== "localhost" &&
-      location.hostname !== "127.0.0.1") return;
-  if (new URL(location.href).searchParams.get("nosw") === "1") {
+  const params = new URL(location.href).searchParams;
+  const isLocal = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(location.hostname);
+  if (location.protocol !== "https:" && !isLocal) return;
+
+  if (params.get("nosw") === "1" || (isLocal && params.get("sw") !== "1")) {
     navigator.serviceWorker.getRegistrations().then((regs) =>
       regs.forEach((r) => r.unregister())
     );
+    if (isLocal && "caches" in window) {
+      caches.keys().then((keys) =>
+        Promise.all(keys.filter((key) => /^(shell|runtime)-v4-/.test(key)).map((key) => caches.delete(key)))
+      );
+    }
     return;
   }
 

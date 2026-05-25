@@ -24,25 +24,25 @@ function ensureDialog() {
 }
 
 function contentFromCard(card) {
-  const quote = clean(card.querySelector(".testimonial-body")?.textContent);
+  const summary = clean(card.querySelector(".testimonial-body")?.textContent);
   const author = clean(card.querySelector(".testimonial-author strong")?.textContent);
   const role = clean(card.querySelector(".testimonial-author span")?.textContent);
-  return { quote, author, role };
+  return { summary, author, role };
 }
 
 function render(dialog, card) {
-  const { quote, author, role } = contentFromCard(card);
+  const { summary, author, role } = contentFromCard(card);
   dialog.querySelector("[data-letter-page]").innerHTML = `
     <div class="letter-header">
-      <span>Academic recommendation excerpt</span>
+      <span>Academic recommendation summary</span>
       <strong>College of Engineering Perumon</strong>
     </div>
-    <blockquote>${quote}</blockquote>
+    <p class="letter-summary">${summary}</p>
     <div class="letter-meta">
       <strong>${author}</strong>
       <span>${role}</span>
     </div>
-    <p>Excerpt shown from a signed academic recommendation letter. Full document available on request.</p>`;
+    <p>Paraphrased from a signed academic recommendation letter. Full document available on request.</p>`;
 }
 
 export async function init() {
@@ -55,7 +55,7 @@ export async function init() {
     button.type = "button";
     button.className = "letter-open";
     button.setAttribute("data-letter-open", "");
-    button.textContent = "View excerpt";
+    button.textContent = "View summary";
     card.appendChild(button);
     button.addEventListener("click", () => {
       render(dialog, card);
