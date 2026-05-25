@@ -1,22 +1,15 @@
 /**
- * Eulerian fluid sim renderer (main-thread side).
+ * Hero instrument-scene renderer (main-thread side).
  *
  * Pipeline:
- *   1. Worker (fluid-sim-worker.js) runs Stable Fluids per frame and returns
- *      a density (or scalar) field + a solid-cell mask + zone tags + per-mode
- *      metrics.
- *   2. paintFrame() paints the density field via ImageData on an offscreen
- *      canvas at simulation resolution, then composites it to the visible
- *      canvas (cheap upscale).
- *   3. drawObstacleOverlay() strokes a thin obstacle wireframe over the
- *      density so the viewer can see the geometry. NO animated curves —
- *      the density IS the visible flow.
+ *   1. Thermal scans the tracked ANSYS thesis result views; animation is
+ *      presentational and the result image remains the evidence.
+ *   2. Energy and Industrial paint data/model-driven diagrams from the PRO2
+ *      playback and the stated mass/energy balance.
+ *   3. Research paints the worker's equation-informed nozzle thermal scalar
+ *      with channel/deposit overlays and live metrics.
  *   4. Per-mode live telemetry is computed (or read from worker metrics) and
  *      pushed into the [data-*-metric] DOM nodes that markup adds to the hero.
- *
- * w16: removed the 4 `drawXScene` Math.sin overlays — they covered the real
- * density with decorative curves and made the visualisation look like dotted
- * particles rather than fluid.
  */
 
 const PALETTES = {
@@ -262,11 +255,505 @@ function industrialModel(controls) {
   };
 }
 
+function stageBackground(ctx, width, height) {
+  ctx.save();
+  ctx.fillStyle = "#050a0f";
+  ctx.fillRect(0, 0, width, height);
+  ctx.strokeStyle = "rgba(119, 150, 159, 0.09)";
+  ctx.lineWidth = 1;
+  for (let x = 0.5; x < width; x += 48) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, height);
+    ctx.stroke();
+  }
+  for (let y = 0.5; y < height; y += 48) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(width, y);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function stageLabel(ctx, text, x, y, color = "#9bb1bc") {
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.font = "500 11px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText(text, x, y);
+  ctx.restore();
+}
+
+function isSwedish() {
+  return document.documentElement.dataset.locale === "sv";
+}
+
+function drawThermalEvidence(ctx, width, height, source, now) {
+  stageBackground(ctx, width, height);
+  const pad = 14;
+  const frameY = 32;
+  const frameW = width - pad * 2;
+  const frameH = height - 63;
+  const sweep = pad + frameW * (0.12 + 0.76 * (0.5 + 0.5 * Math.sin(now * 0.00062)));
+  const aspect = source.redesign.naturalWidth && source.redesign.naturalHeight
+    ? source.redesign.naturalWidth / source.redesign.naturalHeight
+    : 16 / 9;
+  let imageW = frameW;
+  let imageH = imageW / aspect;
+  if (imageH > frameH) {
+    imageH = frameH;
+    imageW = imageH * aspect;
+  }
+  const imageX = pad + (frameW - imageW) / 2;
+  const imageY = frameY + (frameH - imageH) / 2;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(pad, frameY, frameW, frameH);
+  ctx.clip();
+  ctx.fillStyle = "#020406";
+  ctx.fillRect(pad, frameY, frameW, frameH);
+  if (source.legacy.complete) ctx.drawImage(source.legacy, imageX, imageY, imageW, imageH);
+  if (source.redesign.complete) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(pad, frameY, sweep - pad, frameH);
+    ctx.clip();
+    ctx.drawImage(source.redesign, imageX, imageY, imageW, imageH);
+    ctx.restore();
+  }
+  const scan = ctx.createLinearGradient(sweep - 20, 0, sweep + 22, 0);
+  scan.addColorStop(0, "rgba(101,214,201,0)");
+  scan.addColorStop(0.48, "rgba(101,214,201,0.18)");
+  scan.addColorStop(0.52, "rgba(246,200,95,0.75)");
+  scan.addColorStop(1, "rgba(101,214,201,0)");
+  ctx.fillStyle = scan;
+  ctx.fillRect(sweep - 22, frameY, 44, frameH);
+  ctx.restore();
+
+  ctx.strokeStyle = "rgba(101, 214, 201, 0.24)";
+  ctx.strokeRect(pad + 0.5, frameY + 0.5, frameW - 1, frameH - 1);
+  stageLabel(ctx, isSwedish() ? "HASTIGHET / EXPORTERADE ANSYS-BANLINJER" : "VELOCITY MAGNITUDE / EXPORTED ANSYS PATHLINES", pad, 18, "#82a4b4");
+  stageLabel(ctx, "C2 REDESIGN", pad + 7, height - 13, "#65d6c9");
+  stageLabel(ctx, isSwedish() ? "TIDIGARE STEG" : "LEGACY STEP", width - 108, height - 13, "#f6c85f");
+}
+
+function dispatchSplit(demand, price) {
+  if (price < 650) {
+    return { hp: demand * 0.72, chp: demand * 0.20, tes: demand * 0.08 };
+  }
+  if (price > 850) {
+    return { hp: demand * 0.16, chp: demand * 0.59, tes: demand * 0.25 };
+  }
+  return { hp: demand * 0.42, chp: demand * 0.48, tes: demand * 0.10 };
+}
+
+function traceSeries(ctx, values, rect, min, max, color, width = 2) {
+  ctx.save();
+  ctx.beginPath();
+  values.forEach((value, index) => {
+    const x = rect.x + rect.w * index / (values.length - 1);
+    const y = rect.y + rect.h * (1 - (value - min) / (max - min));
+    if (index === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawEnergyDispatch(ctx, width, height, now) {
+  stageBackground(ctx, width, height);
+  const hourProgress = (now / 1700) % 24;
+  const hour = Math.floor(hourProgress);
+  const split = dispatchSplit(PRO2_DEMAND_MW[hour], PRO2_PRICE[hour]);
+  const plot = { x: 38, y: 42, w: width - 57, h: height * 0.42 };
+  const barY = height * 0.69;
+  const barH = 34;
+
+  stageLabel(ctx, isSwedish() ? "PRO2 / 24 H INDATAUPPSPELNING" : "PRO2 / 24 H INPUT PLAYBACK", 14, 19, "#82a4b4");
+  stageLabel(ctx, "Qdem [MW]", 14, plot.y - 9, "#65d6c9");
+  traceSeries(ctx, PRO2_DEMAND_MW, plot, 1.42, 1.90, "#65d6c9", 2.4);
+  traceSeries(ctx, PRO2_PRICE, plot, 480, 1000, "#f6c85f", 1.45);
+  const cursorX = plot.x + plot.w * hourProgress / 23;
+  ctx.strokeStyle = "rgba(230,237,242,0.55)";
+  ctx.beginPath();
+  ctx.moveTo(cursorX, plot.y - 8);
+  ctx.lineTo(cursorX, plot.y + plot.h + 7);
+  ctx.stroke();
+  stageLabel(ctx, "p_el", width - 48, plot.y - 9, "#f6c85f");
+
+  const totalW = width - 75;
+  const maxDemand = 1.95;
+  const scale = totalW / maxDemand;
+  let startX = 42;
+  [
+    ["HP", split.hp, "#65d6c9"],
+    ["CHP", split.chp, "#2563a8"],
+    ["TES", split.tes, "#f6c85f"],
+  ].forEach(([label, value, color]) => {
+    ctx.fillStyle = color;
+    const segmentW = value * scale;
+    ctx.fillRect(startX, barY, segmentW, barH);
+    if (segmentW > 34) stageLabel(ctx, label, startX + 8, barY + 21, "#061016");
+    startX += segmentW;
+  });
+  stageLabel(ctx, isSwedish() ? "SCREENAD VÄRMEFÖRDELNING" : "SCREENED HEAT SUPPLY SPLIT", 42, barY - 10, "#82a4b4");
+  stageLabel(ctx, `${String(hour + 1).padStart(2, "0")}:00  Q=${PRO2_DEMAND_MW[hour].toFixed(2)} MW`, 42, height - 18, "#e6edf2");
+}
+
+function flowStroke(ctx, path, width, color, now, speed) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = Math.max(1.5, width);
+  ctx.lineCap = "round";
+  ctx.setLineDash([7, 9]);
+  ctx.lineDashOffset = -(now * speed) % 32;
+  ctx.stroke(path);
+  ctx.restore();
+}
+
+function processBox(ctx, x, y, width, height, label, color) {
+  ctx.save();
+  ctx.fillStyle = "#0d171c";
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1;
+  ctx.fillRect(x, y, width, height);
+  ctx.strokeRect(x + 0.5, y + 0.5, width - 1, height - 1);
+  stageLabel(ctx, label, x + 8, y + height / 2 + 4, "#e6edf2");
+  ctx.restore();
+}
+
+function drawIndustrialBalance(ctx, width, height, controls, now) {
+  stageBackground(ctx, width, height);
+  const metrics = industrialModel(controls);
+  const sourceX = 18;
+  const processX = width * 0.42;
+  const outputX = width - 116;
+  const topY = 58;
+  const midY = height * 0.48;
+  const bottomY = height - 78;
+  const sourceW = 102;
+  const blockH = 38;
+
+  stageLabel(ctx, isSwedish() ? "ENERGIBALANS / ISO 50006 EnPI-RAM" : "UTILITY BALANCE / ISO 50006 EnPI FRAME", 14, 19, "#82a4b4");
+  processBox(ctx, sourceX, topY, sourceW, blockH, "GRID", "#65d6c9");
+  processBox(ctx, sourceX, bottomY, sourceW, blockH, isSwedish() ? "BRÄNSLE" : "FUEL", "#d0622c");
+  processBox(ctx, processX, midY - 19, 118, blockH, "PROCESS", "#f6c85f");
+  processBox(ctx, outputX, topY + 28, 100, blockH, isSwedish() ? "ÅTERVINNING" : "RECOVERY", "#65d6c9");
+  processBox(ctx, outputX, bottomY - 28, 100, blockH, isSwedish() ? "UTFALL" : "OUTPUT", "#2563a8");
+
+  const gridPath = new Path2D();
+  gridPath.moveTo(sourceX + sourceW, topY + blockH / 2);
+  gridPath.bezierCurveTo(processX - 35, topY + blockH / 2, processX - 34, midY, processX, midY);
+  const fuelPath = new Path2D();
+  fuelPath.moveTo(sourceX + sourceW, bottomY + blockH / 2);
+  fuelPath.bezierCurveTo(processX - 38, bottomY + blockH / 2, processX - 34, midY, processX, midY);
+  const recoveryPath = new Path2D();
+  recoveryPath.moveTo(processX + 118, midY);
+  recoveryPath.bezierCurveTo(outputX - 42, midY, outputX - 36, topY + 47, outputX, topY + 47);
+  const outputPath = new Path2D();
+  outputPath.moveTo(processX + 118, midY);
+  outputPath.bezierCurveTo(outputX - 36, midY, outputX - 32, bottomY - 9, outputX, bottomY - 9);
+
+  flowStroke(ctx, gridPath, metrics.electricInput * 6, "#65d6c9", now, 0.028);
+  flowStroke(ctx, fuelPath, metrics.gasInput * 3, "#d0622c", now, 0.022);
+  flowStroke(ctx, recoveryPath, metrics.recovered * 5, "#65d6c9", now, 0.035);
+  flowStroke(ctx, outputPath, metrics.heatDemand * 1.6, "#2563a8", now, 0.025);
+  stageLabel(ctx, `EnPI ${metrics.enpi.toFixed(3)} MWh/u`, 18, height - 18, "#e6edf2");
+  stageLabel(ctx, `CO2 ${metrics.emissions.toFixed(1)} kg/u`, width - 147, height - 18, "#f6c85f");
+}
+
+function nozzlePlotRadius(t, height) {
+  const throat = 0.205;
+  const inletRadius = height * 0.27;
+  const throatRadius = height * 0.052;
+  const exitRadius = height * 0.135;
+  if (t <= throat) return inletRadius + (throatRadius - inletRadius) * quintic(t / throat);
+  return throatRadius + (exitRadius - throatRadius) * quintic((t - throat) / (1 - throat));
+}
+
+function nozzleWallPath(xStart, xExit, centreY, height, sign, offset = 0, factor = 1) {
+  const path = new Path2D();
+  for (let point = 0; point <= 72; point += 1) {
+    const t = point / 72;
+    const x = xStart + (xExit - xStart) * t;
+    const y = centreY + sign * (nozzlePlotRadius(t, height) * factor + offset);
+    if (point === 0) path.moveTo(x, y);
+    else path.lineTo(x, y);
+  }
+  return path;
+}
+
+function nozzleDomainPath(xStart, xExit, centreY, height) {
+  const path = nozzleWallPath(xStart, xExit, centreY, height, -1);
+  for (let point = 72; point >= 0; point -= 1) {
+    const t = point / 72;
+    path.lineTo(xStart + (xExit - xStart) * t, centreY + nozzlePlotRadius(t, height));
+  }
+  path.closePath();
+  return path;
+}
+
+function drawResearchDiagnostic(ctx, width, height, metrics, now) {
+  stageBackground(ctx, width, height);
+  const xStart = 14;
+  const xExit = width * 0.54;
+  const centreY = height * 0.49;
+  const domain = nozzleDomainPath(xStart, xExit, centreY, height);
+  const plumeEnd = width - 15;
+  const exitRadius = nozzlePlotRadius(1, height);
+  const shimmer = 0.82 + 0.12 * Math.sin(now * 0.002);
+
+  stageLabel(ctx, isSwedish() ? "DE LAVAL / KYLKANAL / TERMISKT MOTSTÅND" : "DE LAVAL / COOLING CHANNEL / THERMAL RESISTANCE", 14, 19, "#82a4b4");
+  stageLabel(ctx, "AREA-MACH + BARTZ + 1-D Rdep", 14, height - 14, "#82a4b4");
+
+  // Gas temperature contours are clipped to the analytical de Laval domain.
+  // equation: A/A* = (1/M)[2/(gamma+1)(1 + (gamma-1)M^2/2)]^((gamma+1)/(2(gamma-1))).
+  ctx.save();
+  ctx.clip(domain);
+  const gasGradient = ctx.createLinearGradient(xStart, 0, xExit, 0);
+  gasGradient.addColorStop(0, "#fff1c7");
+  gasGradient.addColorStop(0.45, "#f6c85f");
+  gasGradient.addColorStop(0.72, "#d0622c");
+  gasGradient.addColorStop(1, "#2563a8");
+  ctx.globalAlpha = shimmer;
+  ctx.fillStyle = gasGradient;
+  ctx.fillRect(xStart, centreY - height * 0.3, xExit - xStart, height * 0.6);
+  // Diverging-section gas contours — sped up 4× so the dashed acceleration
+  // streaks visibly translate downstream (was 0.017+0.006 → 0.068+0.024).
+  [0.28, 0.53, 0.77].forEach((fraction, index) => {
+    ctx.strokeStyle = `rgba(255,241,199,${0.33 - index * 0.06})`;
+    ctx.lineWidth = 1;
+    ctx.setLineDash([10, 13]);
+    ctx.lineDashOffset = -(now * (0.068 + index * 0.024)) % 46;
+    ctx.stroke(nozzleWallPath(xStart, xExit, centreY, height, -1, 0, fraction));
+    ctx.stroke(nozzleWallPath(xStart, xExit, centreY, height, 1, 0, fraction));
+  });
+  ctx.restore();
+
+  // Downstream exhaust: smooth expanding envelope + pressure-cell contours.
+  // The plume envelope itself wobbles slightly to read as live exhaust.
+  const plumeWobble = Math.sin(now * 0.0042) * exitRadius * 0.10;
+  const plume = new Path2D();
+  plume.moveTo(xExit, centreY - exitRadius);
+  plume.bezierCurveTo(width * 0.64, centreY - exitRadius * 1.04 + plumeWobble, width * 0.83, centreY - exitRadius * 1.5 + plumeWobble * 0.6, plumeEnd, centreY - exitRadius * 1.65);
+  plume.lineTo(plumeEnd, centreY + exitRadius * 1.65);
+  plume.bezierCurveTo(width * 0.83, centreY + exitRadius * 1.5 - plumeWobble * 0.6, width * 0.64, centreY + exitRadius * 1.04 - plumeWobble, xExit, centreY + exitRadius);
+  plume.closePath();
+  const plumeGradient = ctx.createLinearGradient(xExit, 0, plumeEnd, 0);
+  plumeGradient.addColorStop(0, "rgba(208,98,44,0.85)");
+  plumeGradient.addColorStop(0.38, "rgba(246,200,95,0.58)");
+  plumeGradient.addColorStop(1, "rgba(37,99,168,0.16)");
+  ctx.fillStyle = plumeGradient;
+  ctx.fill(plume);
+  ctx.save();
+  ctx.clip(plume);
+  // Expansion cells: ~8× faster phase (was 0.0024) + cell positions translate
+  // downstream over time so the shock-diamond pattern is obviously dynamic.
+  // equation: cells move at u_exit through the underexpanded plume.
+  const cellShift = (now * 0.00018) % 0.20;
+  for (let cell = 0; cell < 4; cell += 1) {
+    const x = xExit + (plumeEnd - xExit) * ((0.16 + cell * 0.2 + cellShift) % 1);
+    const half = exitRadius * (0.35 + cell * 0.12);
+    const alpha = 0.28 + 0.18 * Math.sin(now * 0.018 + cell);
+    ctx.strokeStyle = `rgba(246,200,95,${alpha})`;
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(x - half * 1.7, centreY);
+    ctx.lineTo(x, centreY - half);
+    ctx.lineTo(x + half * 1.7, centreY);
+    ctx.lineTo(x, centreY + half);
+    ctx.closePath();
+    ctx.stroke();
+  }
+  // Trailing shear streaks across the plume — short dashes drifting downstream.
+  ctx.strokeStyle = "rgba(246,200,95,0.42)";
+  ctx.lineWidth = 0.9;
+  ctx.setLineDash([6, 9]);
+  ctx.lineDashOffset = -(now * 0.12) % 30;
+  for (const off of [-exitRadius * 0.9, -exitRadius * 0.4, 0, exitRadius * 0.4, exitRadius * 0.9]) {
+    ctx.beginPath();
+    ctx.moveTo(xExit, centreY + off);
+    ctx.quadraticCurveTo((xExit + plumeEnd) / 2, centreY + off * 1.4, plumeEnd, centreY + off * 1.8);
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  // Wall, methane coolant channel and deposit layer remain separate signals.
+  const deposit = Math.max(1.2, Math.min(6, (metrics?.cokeThicknessMicrons || 0) / 10));
+  [-1, 1].forEach((sign) => {
+    const wall = nozzleWallPath(xStart, xExit, centreY, height, sign);
+    const channel = nozzleWallPath(xStart, xExit, centreY, height, sign, 11);
+    ctx.strokeStyle = "#c48e56";
+    ctx.lineWidth = 6;
+    ctx.stroke(wall);
+    ctx.strokeStyle = "#65d6c9";
+    ctx.lineWidth = 4;
+    ctx.stroke(channel);
+    ctx.strokeStyle = "#382218";
+    ctx.lineWidth = deposit;
+    ctx.stroke(wall);
+    ctx.strokeStyle = "rgba(101,214,201,0.72)";
+    ctx.lineWidth = 1.1;
+    ctx.setLineDash([9, 10]);
+    ctx.lineDashOffset = -(now * 0.024) % 38;
+    ctx.stroke(channel);
+    ctx.setLineDash([]);
+  });
+
+  ctx.strokeStyle = "rgba(246,200,95,0.8)";
+  ctx.beginPath();
+  ctx.moveTo(xStart + (xExit - xStart) * 0.205, centreY - 12);
+  ctx.lineTo(xStart + (xExit - xStart) * 0.205, centreY + 12);
+  ctx.stroke();
+  stageLabel(ctx, isSwedish() ? "METANKYLKANAL" : "CH4 COOLANT", 18, height * 0.15, "#65d6c9");
+  stageLabel(ctx, "THROAT", xStart + (xExit - xStart) * 0.205 - 20, centreY + 27, "#f6c85f");
+  stageLabel(ctx, "EXPANSION CELLS", xExit + 12, centreY - exitRadius * 1.95, "#f6c85f");
+  if (metrics) {
+    stageLabel(ctx, `Tw ${Math.round(metrics.maxWallTemperature)} K`, width * 0.54, height - 14, "#f6c85f");
+    stageLabel(ctx, `Rdep ${Math.round(metrics.cokeThicknessMicrons)} um`, width - 112, height - 14, "#d0622c");
+  }
+}
+
+function createAmbientTracerField(host, options) {
+  const canvas = document.createElement("canvas");
+  canvas.className = "motion-ambient-canvas";
+  canvas.setAttribute("aria-hidden", "true");
+  host.prepend(canvas);
+  const draw = canvas.getContext("2d", { alpha: true });
+  if (!draw) return null;
+
+  let mode = options.mode;
+  let theme = options.theme;
+  let width = 0;
+  let height = 0;
+  let frame = 0;
+  let previous = 0;
+  let animation = 0;
+  let particles = [];
+  const count = options.reducedMotion ? 62 : options.lowPower ? 84 : 138;
+
+  function normal() {
+    return Math.sqrt(-2 * Math.log(Math.max(Number.EPSILON, Math.random()))) * Math.cos(2 * Math.PI * Math.random());
+  }
+
+  function velocity(x, y, seconds) {
+    const waviness = Math.sin(seconds * 0.34 + x * 9.5) * 0.012;
+    if (mode === "thermal") {
+      return [0.080 + 0.050 * Math.exp(-Math.pow((x - 0.64) / 0.20, 2)), waviness * (0.45 + y)];
+    }
+    if (mode === "energy") {
+      return [0.052 + 0.014 * Math.cos(y * 9 + seconds), 0.020 * Math.sin(x * 11 - seconds * 0.6)];
+    }
+    if (mode === "decarbonisation") {
+      return [0.062 + 0.012 * Math.sin(y * 12), 0.014 * Math.sin(seconds * 0.44 + x * 15)];
+    }
+    return [0.104 + 0.04 * Math.exp(-Math.pow((y - 0.5) / 0.16, 2)), waviness * 0.55];
+  }
+
+  function resetParticle(particle, anywhere = false) {
+    particle.x = anywhere ? Math.random() : -0.02 - Math.random() * 0.08;
+    particle.y = 0.04 + Math.random() * 0.92;
+    particle.life = 0.48 + Math.random() * 0.6;
+    particle.weight = 0.55 + Math.random() * 1.15;
+    particle.trail = [];
+    return particle;
+  }
+
+  function resize() {
+    const bounds = host.getBoundingClientRect();
+    const ratio = Math.min(2, window.devicePixelRatio || 1);
+    width = Math.max(1, Math.floor(bounds.width));
+    height = Math.max(1, Math.floor(bounds.height));
+    canvas.width = Math.floor(width * ratio);
+    canvas.height = Math.floor(height * ratio);
+    draw.setTransform(ratio, 0, 0, ratio, 0, 0);
+    if (!particles.length) particles = Array.from({ length: count }, () => resetParticle({}, true));
+  }
+
+  function render(timestamp) {
+    const seconds = timestamp * 0.001;
+    const dt = Math.min(0.045, Math.max(0.012, previous ? (timestamp - previous) / 1000 : 0.016));
+    previous = timestamp;
+    draw.clearRect(0, 0, width, height);
+    const palette = {
+      thermal: "#65d6c9",
+      energy: "#9be39d",
+      decarbonisation: "#f6c85f",
+      research: "#65d6c9",
+    };
+    draw.strokeStyle = rgba(palette[mode] || palette.thermal, theme === "light" ? 0.28 : 0.32);
+    draw.lineCap = "round";
+
+    particles.forEach((particle) => {
+      const oldX = particle.x;
+      const oldY = particle.y;
+      const [u, v] = velocity(particle.x, particle.y, seconds);
+      // Passive-tracer Euler-Maruyama step:
+      // dX = U(X,t) dt + sqrt(2 D dt) dW, with D as a small mixing term.
+      const diffusion = mode === "research" ? 0.0000025 : 0.000006;
+      const stochastic = Math.sqrt(2 * diffusion * dt);
+      particle.x += u * dt + stochastic * normal();
+      particle.y += v * dt + stochastic * normal();
+      particle.life -= dt * 0.11;
+      if (particle.x > 1.03 || particle.y < -0.04 || particle.y > 1.04 || particle.life <= 0) {
+        resetParticle(particle);
+        return;
+      }
+      particle.trail.push([particle.x, particle.y]);
+      if (particle.trail.length > 18) particle.trail.shift();
+      draw.globalAlpha = Math.min(0.82, particle.life);
+      draw.lineWidth = particle.weight;
+      draw.beginPath();
+      if (particle.trail.length > 1) {
+        particle.trail.forEach(([trailX, trailY], index) => {
+          if (index === 0) draw.moveTo(trailX * width, trailY * height);
+          else draw.lineTo(trailX * width, trailY * height);
+        });
+      } else {
+        draw.moveTo(oldX * width, oldY * height);
+        draw.lineTo(particle.x * width, particle.y * height);
+      }
+      draw.stroke();
+      draw.beginPath();
+      draw.arc(particle.x * width, particle.y * height, particle.weight * 0.75, 0, Math.PI * 2);
+      draw.fillStyle = rgba(palette[mode] || palette.thermal, theme === "light" ? 0.23 : 0.42);
+      draw.fill();
+    });
+    draw.globalAlpha = 1;
+    if (!options.reducedMotion) animation = requestAnimationFrame(render);
+  }
+
+  const observer = new ResizeObserver(resize);
+  observer.observe(host);
+  resize();
+  animation = requestAnimationFrame(render);
+
+  return {
+    setMode(nextMode) {
+      mode = nextMode;
+      particles.forEach((particle) => resetParticle(particle, true));
+    },
+    setTheme(nextTheme) {
+      theme = nextTheme;
+    },
+    destroy() {
+      cancelAnimationFrame(animation);
+      observer.disconnect();
+      canvas.remove();
+    },
+  };
+}
+
 // ── Public init ──────────────────────────────────────────────────────────
 export async function init(ctx) {
-  if (!ctx.supportsWorkers || ctx.lowPower) return null;
+  if (!ctx.supportsWorkers) return null;
   const host = document.querySelector("[data-motion-fluid-sim]");
   if (!host) return null;
+  const stage = host.querySelector("[data-hero-scene-stage]") || host;
 
   // Remove any lightweight particle canvas already mounted.
   const oldCanvas = host.querySelector(".motion-fluid-canvas");
@@ -275,7 +762,7 @@ export async function init(ctx) {
   const canvas = document.createElement("canvas");
   canvas.className = "motion-fluid-canvas eulerian";
   canvas.setAttribute("aria-hidden", "true");
-  host.appendChild(canvas);
+  stage.appendChild(canvas);
   const renderCtx = canvas.getContext("2d", { alpha: true });
   if (!renderCtx) return null;
 
@@ -294,8 +781,8 @@ export async function init(ctx) {
   const aspect = cssW / cssH;
   // Keep the contour field visibly smooth on modern displays while capping
   // the tall-hero grid so the worker remains responsive at 30 fps.
-  const NX = aspect > 2.4 ? 244 : 224;
-  const NY = Math.min(128, Math.max(68, Math.round(NX / aspect)));
+  const NX = ctx.lowPower ? 128 : aspect > 2.4 ? 244 : 224;
+  const NY = Math.min(ctx.lowPower ? 80 : 128, Math.max(54, Math.round(NX / aspect)));
 
   let worker;
   try {
@@ -309,6 +796,23 @@ export async function init(ctx) {
   let mode = document.body.dataset.homeMode || "thermal";
   let theme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
   let palette = (PALETTES[mode] || PALETTES.thermal)[theme];
+  const ambient = createAmbientTracerField(host, {
+    mode,
+    theme,
+    lowPower: ctx.lowPower,
+    reducedMotion: ctx.reducedMotion,
+  });
+  const thermalSource = {
+    legacy: new Image(),
+    redesign: new Image(),
+  };
+  thermalSource.legacy.src = new URL("../../assets/thesis/legacy-streamlines-dark.webp", import.meta.url).href;
+  thermalSource.redesign.src = new URL("../../assets/thesis/redesigned-streamlines-dark.webp", import.meta.url).href;
+  Object.values(thermalSource).forEach((image) => {
+    image.addEventListener("load", () => {
+      if (mode === "thermal") drawThermalEvidence(renderCtx, cssW, cssH, thermalSource, performance.now());
+    });
+  });
   const industrialControls = {
     load: 72,
     grid: 55,
@@ -317,6 +821,7 @@ export async function init(ctx) {
     electricBoiler: false,
   };
   host.dataset.motionScene = mode;
+  stage.dataset.motionScene = mode;
 
   // Field canvas painted at simulation resolution — composited up to display
   const fieldCanvas = document.createElement("canvas");
@@ -330,7 +835,7 @@ export async function init(ctx) {
       requestAnimationFrame(scheduleStep);
     } else if (m.type === "frame") {
       paintFrame(m);
-      requestAnimationFrame(scheduleStep);
+      if (!ctx.reducedMotion) requestAnimationFrame(scheduleStep);
     }
   };
 
@@ -351,6 +856,34 @@ export async function init(ctx) {
   function paintFrame(m) {
     const { density, magnitude, solid, zones, nx, ny } = m;
     if (!fieldCtx) return;
+    const now = performance.now();
+
+    if (mode === "thermal") {
+      renderCtx.clearRect(0, 0, cssW, cssH);
+      drawThermalEvidence(renderCtx, cssW, cssH, thermalSource, now);
+      updateThermalMetrics();
+      return;
+    }
+    if (mode === "energy") {
+      renderCtx.clearRect(0, 0, cssW, cssH);
+      drawEnergyDispatch(renderCtx, cssW, cssH, now);
+      updateEnergyMetrics(now);
+      return;
+    }
+    if (mode === "decarbonisation") {
+      renderCtx.clearRect(0, 0, cssW, cssH);
+      drawIndustrialBalance(renderCtx, cssW, cssH, industrialControls, now);
+      updateIndustrialMetrics();
+      return;
+    }
+
+    if (mode === "research") {
+      renderCtx.clearRect(0, 0, cssW, cssH);
+      drawResearchDiagnostic(renderCtx, cssW, cssH, m.metrics, now);
+      if (m.metrics) updateResearchMetrics(m.metrics);
+      return;
+    }
+
     if (!frameBuf || frameBuf.width !== nx || frameBuf.height !== ny) {
       fieldCanvas.width = nx;
       fieldCanvas.height = ny;
@@ -396,33 +929,19 @@ export async function init(ctx) {
     fieldCtx.putImageData(frameBuf, 0, 0);
 
     renderCtx.clearRect(0, 0, cssW, cssH);
+    stageBackground(renderCtx, cssW, cssH);
     renderCtx.imageSmoothingEnabled = true;
     renderCtx.drawImage(fieldCanvas, 0, 0, cssW, cssH);
 
-    // Thin obstacle outline ONLY — no animated curves, no Math.sin overlays.
-    // The density field IS the visible flow.
-    drawObstacleOverlay(renderCtx, mode, cssW, cssH, palette);
-
-    // Telemetry updates per mode
-    if (mode === "research" && m.metrics) updateResearchMetrics(m.metrics);
-    else if (mode === "thermal") updateThermalMetrics();
-    else if (mode === "energy") updateEnergyMetrics(performance.now());
-    else if (mode === "decarbonisation") updateIndustrialMetrics();
+    // An unknown fallback mode may still render the transported scalar field.
   }
 
-  worker.postMessage({ type: "init", nx: NX, ny: NY, mode });
+  worker.postMessage({ type: "init", nx: NX, ny: NY, mode, reducedMotion: ctx.reducedMotion });
 
   // ── Input + observer wiring ────────────────────────────────────────────
-  const onMove = (e) => {
-    if (mode === "research") return; // plume is parameter-driven, not perturbed
-    const r = canvas.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width;
-    const y = (e.clientY - r.top) / r.height;
-    const dx = (e.movementX || 0) / r.width;
-    const dy = (e.movementY || 0) / r.height;
-    if (x < 0 || x > 1 || y < 0 || y > 1) return;
-    worker.postMessage({ type: "force", x, y, dx, dy });
-  };
+  // Display scenes are dataset or equation driven; pointer motion must not
+  // pretend to perturb CFD, dispatch or process outputs.
+  const onMove = () => {};
   host.addEventListener("mousemove", onMove, { passive: true });
 
   const ro = new ResizeObserver(() => { resize(); frameBuf = null; });
@@ -505,18 +1024,25 @@ export async function init(ctx) {
   updateIndustrialMetrics();
 
   // Bus subscriptions for mode + theme swap
-  ctx.bus.on("motion:mode-change", ({ mode: m }) => {
+  const offMode = ctx.bus.on("motion:mode-change", ({ mode: m }) => {
     if (!m) return;
     mode = m;
     palette = (PALETTES[mode] || PALETTES.thermal)[theme];
     host.dataset.motionScene = mode;
+    stage.dataset.motionScene = mode;
+    ambient?.setMode(mode);
     renderCtx.clearRect(0, 0, cssW, cssH);
     frameBuf = null;
-    worker.postMessage({ type: "mode", mode });
+    worker.postMessage({ type: "mode", mode, reducedMotion: ctx.reducedMotion });
+    if (ctx.reducedMotion) step();
   });
-  ctx.bus.on("motion:theme-change", ({ theme: t }) => {
+  const offTheme = ctx.bus.on("motion:theme-change", ({ theme: t }) => {
     theme = t === "light" ? "light" : "dark";
     palette = (PALETTES[mode] || PALETTES.thermal)[theme];
+    ambient?.setTheme(theme);
+  });
+  const offLocale = ctx.bus.on("motion:locale-change", () => {
+    if (ctx.reducedMotion) step();
   });
 
   return {
@@ -524,7 +1050,11 @@ export async function init(ctx) {
       host.removeEventListener("mousemove", onMove);
       document.removeEventListener("visibilitychange", onVis);
       ro.disconnect();
+      offMode?.();
+      offTheme?.();
+      offLocale?.();
       worker.terminate();
+      ambient?.destroy();
       canvas.remove();
     },
   };

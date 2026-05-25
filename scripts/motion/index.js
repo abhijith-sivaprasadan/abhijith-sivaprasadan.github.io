@@ -157,9 +157,9 @@ function boot() {
   // Auto-load subsystems present on the page
   const autoload = [
     // Eulerian Stable Fluids — preferred on capable devices.
-    { name: "fluid-sim-eulerian", selector: "[data-motion-fluid-sim]", skip: () => reducedMotion || lowPower || !supportsWorkers },
-    // Lightweight particle-advected — fallback when Workers/low-power gate the Eulerian sim.
-    { name: "fluid-sim",     selector: "[data-motion-fluid-sim]", skip: () => reducedMotion || (supportsWorkers && !lowPower) },
+    { name: "fluid-sim-eulerian", selector: "[data-motion-fluid-sim]", skip: () => !supportsWorkers },
+    // Legacy canvas fallback remains only for browsers without Worker support.
+    { name: "fluid-sim",     selector: "[data-motion-fluid-sim]", skip: () => reducedMotion || supportsWorkers },
     { name: "cursor",        selector: "[data-motion-cursor]",        skip: () => touchOnly || reducedMotion },
     { name: "springs",       selector: "[data-motion-spring], .button.primary, [data-home-mode-button], .signal-routes a", skip: () => reducedMotion || touchOnly },
     { name: "scrollytelling",selector: "[data-motion-scrollyt]" },

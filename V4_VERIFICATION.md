@@ -1,7 +1,7 @@
 # v4 Verification + Handoff Runbook
 
 Branch: `feat/v4-research-grade-bold`
-Current cache version: `?v=20260525-v4-w16c`
+Current cache version: `?v=20260525-v4-w17`
 
 This document is a checklist for the runtime verification that can't run
 inside the assistant environment, plus everything that still needs
@@ -18,6 +18,7 @@ human configuration (Sanity, Cal.com, ORCID, Scholar URLs, etc.).
 - [x] No duplicate IDs in the autoload subsystem list
 - [x] Worker check confirms non-research frames include normalized velocity magnitude and Research telemetry advances through its nozzle/deposit cycle
 - [x] Live browser smoke confirms mode swap, Swedish hero/status-banner/thesis-sequence translation, source-figure thesis stage, mobile static evidence layout and zero observed console errors
+- [x] Hero instrument viewport checked in all four modes: exported CFD scan, PRO2 playback, process-energy balance and equation-informed nozzle/cooling scene
 
 ---
 
@@ -31,9 +32,9 @@ python -m http.server 5173
 ```
 
 Walk through:
-- [ ] Hero — does the fluid sim render? (Either Eulerian or particle.)
-- [ ] Toggle home-mode (Thermal/Energy/Decarb/Research) — does the
-      fluid sim re-mode, obstacles change?
+- [x] Hero — bounded instrument viewport renders on local desktop and mobile.
+- [x] Toggle home-mode (Thermal/Energy/Decarb/Research) — the visible
+      scene changes from exported CFD scan to PRO2 playback, process balance and nozzle/cooling field.
 - [ ] Theme toggle — does the radial wipe play? Charts repaint?
 - [ ] Scroll the homepage — does the scrollytelling thesis section pin
       and play through the 5 beats?
@@ -175,13 +176,13 @@ hydrate.js (region hydrator for Looking-for, ideas, research, testimonials)
 - package.json (Sanity 3.99, React 18.3, styled-components 6.1+)
 - README.md (setup + daily-use instructions)
 
-### CSS layer — `styles/` (24 files)
+### CSS layer — `styles/` (25 files)
 - v4.css (manifest)
 - tokens.css, base.css, print.css, motion.css
 - components/ (11 files): bento-previews, biot-calculator, bootup,
   content-visibility, form, i18n-toggle, looking-for, modal,
   reading-progress, reducer-3d, scholar-card
-- sections/ (8 files): evidence-map, experience, projects,
+- sections/ (9 files): evidence-map, experience, hero, projects,
   research-mindmap, scrollytelling, skills, testimonials, typography
 - scenes/ + modes/ — directories present, not yet populated (planned
   for incremental migration of legacy scene-specific rules)
@@ -202,12 +203,19 @@ hydrate.js (region hydrator for Looking-for, ideas, research, testimonials)
 - Dictionary + browser-language detection + localStorage persistence.
 
 ### w16 physics-grounded polish
-- The hero worker exposes solved velocity magnitude for the visible Eulerian contour field; decorative per-mode sine curves no longer stand in for the solver.
+- The w16 renderer removed decorative per-mode sine curves. Its common contour presentation is superseded by the w17 track-specific instrument viewport below.
 - Thermal telemetry uses reported Siemens-thesis values and the isentropic static-temperature relation; it does not claim new in-browser CFD.
 - Energy telemetry plays back 24-hour PRO2 heating-load and electricity-price inputs with a clearly labelled dispatch screening policy.
 - Research keeps an autonomous equation-informed methalox nozzle/deposit cycle based on area-Mach flow and Bartz-style heat-transfer scaling, labelled illustrative rather than measured output.
 - Thesis scrollytelling uses the existing reducer, mesh and streamline evidence figures; the clipped moving explanatory overlay is visibly labelled as an interpretation rather than exported CFD output. Mobile and reduced-motion readers receive a five-step static evidence stack.
 - Homepage experience is a compact scrollable map/role rail; recommendation cards are paraphrased summaries rather than invented quotes; the duplicate follow/contact block is merged into Contact.
+
+### w17 hero correction
+- The full-hero translucent canvas wash is removed from the primary renderer. Motion lives in a bounded, high-contrast instrument viewport alongside the identity copy.
+- Thermal uses the tracked exported ANSYS pathline frames with a labelled comparison scan instead of pretending a browser transport field is thesis CFD.
+- Energy animates the PRO2 24-hour demand and electricity-price inputs with the declared dispatch-screening split.
+- Industrial animates the stated purchased-energy / recovery / EnPI balance and responds to the scenario controls.
+- Research keeps the de Laval / regenerative-cooling / deposit model, now framed as an explicit equation-informed scene with a warm-start firing state.
 
 ### Typography
 - Inter Variable + JetBrains Mono.

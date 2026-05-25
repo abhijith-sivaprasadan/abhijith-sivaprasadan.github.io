@@ -309,11 +309,12 @@ function drawObstacleOutline(state) {
 export async function init(ctx) {
   const host = document.querySelector("[data-motion-fluid-sim]");
   if (!host) return null;
+  const stage = host.querySelector("[data-hero-scene-stage]") || host;
 
   const canvas = document.createElement("canvas");
   canvas.className = "motion-fluid-canvas";
   canvas.setAttribute("aria-hidden", "true");
-  host.appendChild(canvas);
+  stage.appendChild(canvas);
 
   const renderCtx = canvas.getContext("2d", { alpha: true });
   if (!renderCtx) return null;
@@ -367,8 +368,8 @@ export async function init(ctx) {
     state.mouse.active = true;
   };
   const onLeave = () => { state.mouse.active = false; };
-  host.addEventListener("mousemove", onMove, { passive: true });
-  host.addEventListener("mouseleave", onLeave, { passive: true });
+  stage.addEventListener("mousemove", onMove, { passive: true });
+  stage.addEventListener("mouseleave", onLeave, { passive: true });
 
   // ── Resize ─────────────────────────────────────────────────────────────
   const ro = new ResizeObserver(() => resize(state));
@@ -399,7 +400,14 @@ export async function init(ctx) {
   return {
     pause() { running = false; },
     resume() { if (!running) { running = true; requestAnimationFrame(loop); } },
-    destroy() { running = false; ro.disconnect(); document.removeEventListener("visibilitychange", onVis); host.removeChild(canvas); },
+    destroy() {
+      running = false;
+      ro.disconnect();
+      document.removeEventListener("visibilitychange", onVis);
+      stage.removeEventListener("mousemove", onMove);
+      stage.removeEventListener("mouseleave", onLeave);
+      stage.removeChild(canvas);
+    },
   };
 }
 

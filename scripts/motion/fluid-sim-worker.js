@@ -1,8 +1,10 @@
 /**
- * Stable Fluids (Jos Stam, 1999) Eulerian solver — runs in a Web Worker so
- * it never blocks the main thread.
+ * Worker-side model engine for the hero's Research scene.
  *
- * Grid: configurable (default 96 × 56), wrap-free, no-slip walls.
+ * Research paints an equation-informed de Laval nozzle / regenerative-cooling
+ * thermal field. The older Stable Fluids transport functions remain available
+ * only as a fallback for an unknown mode; evidence/data scenes do not burn
+ * cycles on a decorative dye solve.
  * State arrays:
  *   u, v       — velocity components
  *   u0, v0     — previous step velocity
@@ -11,8 +13,8 @@
  *
  * Each frame the main thread sends:
  *   { type: "step", dt, viscosity, diffusion, force, dyeSource, mode }
- * The worker responds with:
- *   { type: "frame", density: Float32Array, magnitude: Float32Array, nx, ny }
+ * The worker responds with a thermal scalar + zone and metric arrays for the
+ * Research mode, or a lightweight animation tick for evidence/data scenes.
  *
  * No external dependencies; pure ES module worker.
  */
@@ -283,6 +285,18 @@ function buildNozzleThermalFrame() {
     heatFluxPeak = Math.max(heatFluxPeak, heatFlux);
     maxWallTemperature = Math.max(maxWallTemperature, hotWallTemperature);
 
+    // Traveling expansion wave inside the diverging section.
+    // Represents pressure/density pulses propagating downstream from the
+    // throat at finite acoustic-relative speed; visualises that the supersonic
+    // half of the nozzle has continuous fluid motion (not a static field).
+    // equation: phase = k·x - ω·t, with k chosen so ~3 wavelengths fit
+    // between throat and exit.
+    const inDivergent = xn > NOZZLE.throatX && xn <= NOZZLE.exitX;
+    const wavePhase = inDivergent
+      ? ((xn - NOZZLE.throatX) / (NOZZLE.exitX - NOZZLE.throatX)) * Math.PI * 6 - frameCount * 0.22
+      : 0;
+    const travelingWave = inDivergent ? 0.18 * Math.sin(wavePhase) : 0;
+
     for (let j = 1; j <= N_Y; j++) {
       const yn = Math.abs((j / N_Y - 0.5) * 2);
       const k = idx(i, j);
@@ -297,23 +311,31 @@ function buildNozzleThermalFrame() {
       const wallBlend = eta < 0.72 ? 0 : quintic((eta - 0.72) / 0.28);
       const localTemperature = staticTemperature + (adiabaticWallTemperature - staticTemperature) * wallBlend;
       const localPressure = thermalRatio ** (-NOZZLE.gamma / (NOZZLE.gamma - 1));
-      if (sceneControls.field === "mach") scalar[k] = Math.min(1, mach / 3.5);
-      else if (sceneControls.field === "pressure") scalar[k] = Math.min(1, localPressure);
+      // Centreline weighting for the traveling wave (1 at centre, 0 at wall)
+      const centreWeight = 1 - eta * eta;
+      const waveContribution = travelingWave * centreWeight;
+      if (sceneControls.field === "mach") scalar[k] = Math.min(1, mach / 3.5 + waveContribution);
+      else if (sceneControls.field === "pressure") scalar[k] = Math.min(1, localPressure + waveContribution * 0.4);
       else if (sceneControls.field === "wall") scalar[k] = wallBlend ? Math.min(1, hotWallTemperature / 1600) : Math.min(0.20, localTemperature / chamberTemperature);
-      else scalar[k] = Math.max(0.03, Math.min(1, localTemperature / chamberTemperature));
+      else scalar[k] = Math.max(0.03, Math.min(1, localTemperature / chamberTemperature + waveContribution));
     }
   }
 
   const exitPressureRatio = (1 + ((NOZZLE.gamma - 1) / 2) * exitMach * exitMach) ** (-NOZZLE.gamma / (NOZZLE.gamma - 1));
   const pressureMismatch = exitPressureRatio * sceneControls.pressureRatio - 1;
+  // Plume animation amplitudes boosted in v4-w16c so shock cells + roll-up
+  // are clearly readable; previous values were physically right but visually
+  // imperceptible against the chamber-temperature backdrop.
   for (let i = 1; i <= N_X; i++) {
     const xn = i / N_X;
     if (xn <= NOZZLE.exitX) continue;
     const streamwise = (xn - NOZZLE.exitX) / (1 - NOZZLE.exitX);
     const cellLength = 0.12 + 0.08 * Math.min(1.5, Math.abs(pressureMismatch));
-    const shockCell = Math.cos((streamwise / cellLength) * Math.PI * 2 - frameCount * 0.045);
-    const rollUp = Math.sin(streamwise * 20 - frameCount * 0.10) * (0.016 + 0.030 * streamwise);
-    const pairedCurl = Math.sin(streamwise * 12 + frameCount * 0.065) * (0.007 + 0.013 * streamwise);
+    // 2× faster shock-cell phase advance → cells visibly translate downstream
+    const shockCell = Math.cos((streamwise / cellLength) * Math.PI * 2 - frameCount * 0.09);
+    // 2× larger centreline roll-up amplitude
+    const rollUp = Math.sin(streamwise * 20 - frameCount * 0.18) * (0.032 + 0.060 * streamwise);
+    const pairedCurl = Math.sin(streamwise * 12 + frameCount * 0.12) * (0.014 + 0.026 * streamwise);
     const centreOffset = rollUp + pairedCurl;
     const spread = NOZZLE.exitRadius + streamwise * (0.16 + 0.018 * Math.abs(pressureMismatch));
     for (let j = 1; j <= N_Y; j++) {
@@ -323,13 +345,15 @@ function buildNozzleThermalFrame() {
       const core = Math.exp(-Math.pow(radial / Math.max(0.018, spread * 0.75), 2));
       const shearTop = Math.exp(-Math.pow((yn - centreOffset - spread) / 0.045, 2));
       const shearBottom = Math.exp(-Math.pow((yn - centreOffset + spread) / 0.045, 2));
-      const curlIntensity = (shearTop + shearBottom) * (0.34 + 0.28 * Math.abs(shockCell));
-      const plumeTemperature = exitTemperature * (0.44 + 0.56 * core) * (1 + 0.09 * shockCell * core);
+      // Curl intensity ×1.5 so the shear filaments read as moving streaks
+      const curlIntensity = (shearTop + shearBottom) * (0.51 + 0.42 * Math.abs(shockCell));
+      const plumeTemperature = exitTemperature * (0.44 + 0.56 * core) * (1 + 0.14 * shockCell * core);
       const plumeMach = Math.max(0, exitMach + 0.28 * shockCell * core - 0.34 * streamwise);
       if (sceneControls.field === "mach") scalar[k] = Math.min(1, (plumeMach * core + curlIntensity) / 3.5);
       else if (sceneControls.field === "pressure") scalar[k] = Math.min(1, Math.abs(pressureMismatch) * core * (0.18 + 0.16 * Math.abs(shockCell)) + curlIntensity * 0.2);
       else if (sceneControls.field === "wall") scalar[k] = curlIntensity * 0.25;
-      else scalar[k] = Math.min(1, (plumeTemperature / chamberTemperature) * core + curlIntensity);
+      // Default field: 1.4× plume brightness so it doesn't fade against dark bg
+      else scalar[k] = Math.min(1, (plumeTemperature / chamberTemperature) * core * 1.4 + curlIntensity * 1.2);
     }
   }
   return {
@@ -478,11 +502,13 @@ self.onmessage = (e) => {
     lastMode = msg.mode || "thermal";
     buildObstacle(lastMode);
     resetFields();
+    if (lastMode === "research") frameCount = msg.reducedMotion ? 540 : 120;
     self.postMessage({ type: "ready", nx: N_X, ny: N_Y });
   } else if (msg.type === "mode") {
     lastMode = msg.mode;
     buildObstacle(lastMode);
     resetFields();
+    if (lastMode === "research") frameCount = msg.reducedMotion ? 540 : 120;
   } else if (msg.type === "controls") {
     sceneControls = { ...sceneControls, ...msg.controls };
   } else if (msg.type === "force") {
@@ -501,6 +527,11 @@ self.onmessage = (e) => {
         nx: N_X,
         ny: N_Y,
       }, [thermalFrame.scalar.buffer]);
+      return;
+    }
+    if (lastMode === "thermal" || lastMode === "energy" || lastMode === "decarbonisation") {
+      frameCount += 1;
+      self.postMessage({ type: "frame", nx: N_X, ny: N_Y });
       return;
     }
     frameCount += 1;
