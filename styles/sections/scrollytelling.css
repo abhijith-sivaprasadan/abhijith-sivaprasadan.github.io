@@ -6,11 +6,24 @@
 
 .thesis-story-section {
   position: relative;
+  z-index: 4;
+  isolation: isolate;
   overflow: clip;
   align-items: start !important;
   min-height: 0 !important;
   padding-top: clamp(60px, 8vw, 110px);
   padding-bottom: clamp(60px, 8vw, 110px);
+  background: var(--background, var(--bg, #070908));
+}
+
+.thesis-story-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--background, #070908) 98%, transparent), var(--background, #070908)),
+    var(--v4-grid);
 }
 
 .thesis-story-shell {
@@ -47,19 +60,30 @@
   gap: 18px;
 }
 
+.thesis-story-section:not(.is-static) .thesis-story-shell {
+  min-height: min(calc(100svh - 78px), 780px);
+  padding-block: clamp(12px, 2vh, 28px);
+}
+
+.thesis-story-section:not(.is-static) .thesis-story-stage {
+  gap: clamp(8px, 1.2vh, 14px);
+  max-height: calc(100svh - 76px);
+}
+
 .thesis-story-visual {
   width: 100%;
   border-radius: 18px;
   background: linear-gradient(140deg, color-mix(in srgb, var(--v4-panel-strong) 96%, transparent),
                                        color-mix(in srgb, var(--v4-panel) 90%, transparent));
   border: 1px solid var(--v4-line);
-  padding: 18px;
+  padding: clamp(9px, 1.4vh, 16px);
   box-shadow: var(--v4-shadow);
 }
 
 .thesis-story-svg {
   width: 100%;
   height: auto;
+  max-height: min(58svh, 550px);
   display: block;
 }
 
@@ -331,12 +355,12 @@ html.motion-reduced .kpi-trace { animation: none; }
 
 .thesis-story-beats {
   display: grid;
-  gap: 14px;
+  gap: 10px;
 }
 
 .thesis-story-beat {
   display: none;
-  padding: 14px 18px;
+  padding: clamp(9px, 1.1vh, 13px) 18px;
   border-radius: 12px;
   border: 1px solid transparent;
   background: color-mix(in srgb, var(--v4-panel) 50%, transparent);
@@ -360,13 +384,13 @@ html.motion-reduced .kpi-trace { animation: none; }
 
 .thesis-story-beat strong {
   display: block;
-  font-size: 1.05rem;
+  font-size: clamp(0.94rem, 1.5vh, 1.05rem);
   margin: 4px 0 4px;
 }
 
 .thesis-story-beat p {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: clamp(0.78rem, 1.2vh, 0.88rem);
   color: var(--muted);
   line-height: 1.55;
 }
@@ -436,6 +460,12 @@ html.motion-reduced .kpi-trace { animation: none; }
     grid-template-columns: 1fr;
   }
   .thesis-story-copy { max-width: none; }
+
+  .thesis-story-section:not(.is-static) .thesis-story-shell,
+  .thesis-story-section:not(.is-static) .thesis-story-stage {
+    min-height: 0;
+    max-height: none;
+  }
 }
 
 @media (max-width: 600px) {

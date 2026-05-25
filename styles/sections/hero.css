@@ -26,6 +26,30 @@ body.signal-rebuild .hero-core .hero-text {
   max-width: 42rem;
 }
 
+.motion-ambient-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.42;
+  mix-blend-mode: screen;
+}
+
+html[data-theme="light"] .motion-ambient-canvas {
+  opacity: 0.30;
+  mix-blend-mode: multiply;
+}
+
+.signal-hero .signal-grid-bg {
+  z-index: 1;
+}
+
+.signal-hero .signal-hero-inner {
+  z-index: 2;
+}
+
 .hero-instrument {
   position: relative;
   min-width: 0;
@@ -96,6 +120,10 @@ html[data-theme="light"] .hero-instrument {
   background: #091117;
   color: #e6edf2;
   box-shadow: 0 18px 42px rgba(23, 36, 45, 0.14);
+}
+
+html.motion-reduced .motion-ambient-canvas {
+  opacity: 0.16;
 }
 
 @media (max-width: 1050px) {

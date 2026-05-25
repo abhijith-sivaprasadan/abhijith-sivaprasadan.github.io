@@ -288,54 +288,197 @@ function isSwedish() {
   return document.documentElement.dataset.locale === "sv";
 }
 
-function drawThermalEvidence(ctx, width, height, source, now) {
-  stageBackground(ctx, width, height);
-  const pad = 14;
-  const frameY = 32;
-  const frameW = width - pad * 2;
-  const frameH = height - 63;
-  const sweep = pad + frameW * (0.12 + 0.76 * (0.5 + 0.5 * Math.sin(now * 0.00062)));
-  const aspect = source.redesign.naturalWidth && source.redesign.naturalHeight
-    ? source.redesign.naturalWidth / source.redesign.naturalHeight
-    : 16 / 9;
-  let imageW = frameW;
-  let imageH = imageW / aspect;
-  if (imageH > frameH) {
-    imageH = frameH;
-    imageW = imageH * aspect;
-  }
-  const imageX = pad + (frameW - imageW) / 2;
-  const imageY = frameY + (frameH - imageH) / 2;
+// ── CHT thermal-resistance circuit (Siemens thesis analytical method) ────
+// Drives the Thermal & Fluid hero scene. Visualises the actual analysis
+// that produced the Bi 0.003-0.004 finding: a 1-D resistance network from
+// hot gas → wall → ambient. Heat flux Q is the "current" flowing through.
+// Bar heights are proportional to each resistance, making it visually
+// obvious that R_ext dominates while R_wall is vanishingly small —
+// i.e. the wall is essentially lumped.
+//
+// equation: q = (T_gas - T_ext) / (1/h_gas + t_w/k_wall + 1/h_ext)
+// equation: T_inner = T_gas - q · R_gas
+// equation: T_outer = T_inner - q · R_wall
+// equation: Bi_ext = h_ext · t_w / k_wall    (thesis-reported band)
+//
+// Inputs are the thesis operating point + representative correlations
+// (Sieder-Tate-style internal h, free-convection external h for the
+// uninsulated reducer case described in TRITA-ITM-EX 2026:14).
+function chtState() {
+  const T_gas = 673;           // K — inlet stagnation (thesis)
+  const T_ext = 293;           // K — ambient
+  const t_wall = 0.005;        // m — 5 mm steel wall
+  const k_wall = 21.5;         // W/m·K — steel at ~673 K
+  const h_gas = 320;           // W/m²·K — forced convection inside the reducer
+  const h_ext = 14;            // W/m²·K — free convection on the outer wall
+  const R_gas = 1 / h_gas;     // m²·K/W
+  const R_wall = t_wall / k_wall;
+  const R_ext = 1 / h_ext;
+  const R_total = R_gas + R_wall + R_ext;
+  const q = (T_gas - T_ext) / R_total;     // W/m²
+  const T_inner = T_gas - q * R_gas;
+  const T_outer = T_inner - q * R_wall;
+  const Bi = h_ext * t_wall / k_wall;
+  return { T_gas, T_ext, t_wall, k_wall, h_gas, h_ext, R_gas, R_wall, R_ext, R_total, q, T_inner, T_outer, Bi };
+}
 
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(pad, frameY, frameW, frameH);
-  ctx.clip();
-  ctx.fillStyle = "#020406";
-  ctx.fillRect(pad, frameY, frameW, frameH);
-  if (source.legacy.complete) ctx.drawImage(source.legacy, imageX, imageY, imageW, imageH);
-  if (source.redesign.complete) {
-    ctx.save();
+function drawThermalEvidence(ctx, width, height, _source, now) {
+  stageBackground(ctx, width, height);
+  const S = chtState();
+
+  // ── Layout ──────────────────────────────────────────────────────────────
+  const padX = 22;
+  const headerH = 38;
+  const wallY = 60;                       // top of the wall band
+  const wallH = Math.min(118, height * 0.36);  // height of the wall band
+  const barsY = wallY + wallH + 32;       // top of the resistance bars
+  const barsH = Math.min(78, height * 0.20);
+
+  // Three sub-widths: gas zone, wall zone, ext zone (wall narrow on purpose)
+  const innerW = width - padX * 2;
+  const wWall = Math.max(34, innerW * 0.08);
+  const wGas = (innerW - wWall) * 0.50;
+  const wExt = (innerW - wWall) * 0.50;
+  const xGas = padX;
+  const xWall = xGas + wGas;
+  const xExt = xWall + wWall;
+
+  // ── Header ──────────────────────────────────────────────────────────────
+  stageLabel(ctx, isSwedish()
+    ? "KONJUGERAD VÄRMEÖVERFÖRING / TERMISKT MOTSTÅND I VÄGGEN"
+    : "CONJUGATE HEAT TRANSFER / WALL THERMAL RESISTANCE", padX, 18, "#82a4b4");
+  stageLabel(ctx, "TRITA-ITM-EX 2026:14 · Siemens Energy Finspång", padX, 32, "#65d6c9");
+
+  // ── Hot gas zone ───────────────────────────────────────────────────────
+  const gasGrad = ctx.createLinearGradient(xGas, 0, xWall, 0);
+  gasGrad.addColorStop(0, "#7c2d12");
+  gasGrad.addColorStop(0.5, "#d0622c");
+  gasGrad.addColorStop(1, "#f6c85f");
+  ctx.fillStyle = gasGrad;
+  ctx.fillRect(xGas, wallY, wGas, wallH);
+
+  // ── Wall zone (steel) ──────────────────────────────────────────────────
+  const wallGrad = ctx.createLinearGradient(xWall, 0, xExt, 0);
+  // Through-wall gradient is tiny in reality (~1 K). Show as a near-uniform
+  // dark band with two faint hatch marks to indicate "structural steel".
+  wallGrad.addColorStop(0, "#3a3f4a");
+  wallGrad.addColorStop(1, "#2c313b");
+  ctx.fillStyle = wallGrad;
+  ctx.fillRect(xWall, wallY, wWall, wallH);
+  ctx.strokeStyle = "rgba(180, 188, 198, 0.18)";
+  ctx.lineWidth = 1;
+  for (let h = 0; h < 5; h++) {
+    const hy = wallY + 8 + h * (wallH - 16) / 4;
     ctx.beginPath();
-    ctx.rect(pad, frameY, sweep - pad, frameH);
-    ctx.clip();
-    ctx.drawImage(source.redesign, imageX, imageY, imageW, imageH);
-    ctx.restore();
+    ctx.moveTo(xWall + 3, hy);
+    ctx.lineTo(xWall + wWall - 3, hy);
+    ctx.stroke();
   }
-  const scan = ctx.createLinearGradient(sweep - 20, 0, sweep + 22, 0);
-  scan.addColorStop(0, "rgba(101,214,201,0)");
-  scan.addColorStop(0.48, "rgba(101,214,201,0.18)");
-  scan.addColorStop(0.52, "rgba(246,200,95,0.75)");
-  scan.addColorStop(1, "rgba(101,214,201,0)");
-  ctx.fillStyle = scan;
-  ctx.fillRect(sweep - 22, frameY, 44, frameH);
+
+  // ── External air zone ──────────────────────────────────────────────────
+  const extGrad = ctx.createLinearGradient(xExt, 0, xExt + wExt, 0);
+  extGrad.addColorStop(0, "#1e3a8a");
+  extGrad.addColorStop(0.5, "#2563a8");
+  extGrad.addColorStop(1, "#0b1a30");
+  ctx.fillStyle = extGrad;
+  ctx.fillRect(xExt, wallY, wExt, wallH);
+
+  // ── Heat-flux arrows (animated, moving right) ──────────────────────────
+  ctx.save();
+  const arrowOffset = (now * 0.06) % 36;
+  for (let row = 0; row < 3; row++) {
+    const rowY = wallY + wallH * (0.30 + row * 0.20);
+    ctx.strokeStyle = "rgba(255, 241, 199, 0.85)";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    for (let x = xGas + 6 - arrowOffset; x < xExt + wExt; x += 36) {
+      const ax = x;
+      // Arrow shaft
+      ctx.moveTo(ax, rowY);
+      ctx.lineTo(ax + 22, rowY);
+      // Arrow head
+      ctx.moveTo(ax + 18, rowY - 3);
+      ctx.lineTo(ax + 22, rowY);
+      ctx.lineTo(ax + 18, rowY + 3);
+    }
+    ctx.stroke();
+  }
+  ctx.restore();
+  stageLabel(ctx, "Q  →", xExt + wExt - 24, wallY - 6, "#fff1c7");
+
+  // ── Temperature labels ────────────────────────────────────────────────
+  ctx.save();
+  ctx.fillStyle = "rgba(255, 241, 199, 0.92)";
+  ctx.font = "600 12px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText(`T₀ = ${S.T_gas} K`, xGas + 6, wallY + wallH + 16);
+  ctx.fillText(`T_inner ${Math.round(S.T_inner)} K`, xWall - 56, wallY + wallH + 16);
+  ctx.fillText(`T_outer ${Math.round(S.T_outer)} K`, xExt + 4, wallY + wallH + 16);
+  ctx.fillStyle = "rgba(173, 200, 240, 0.92)";
+  ctx.textAlign = "right";
+  ctx.fillText(`T_∞ = ${S.T_ext} K`, xExt + wExt - 6, wallY + wallH + 16);
+  ctx.textAlign = "left";
   ctx.restore();
 
-  ctx.strokeStyle = "rgba(101, 214, 201, 0.24)";
-  ctx.strokeRect(pad + 0.5, frameY + 0.5, frameW - 1, frameH - 1);
-  stageLabel(ctx, isSwedish() ? "HASTIGHET / EXPORTERADE ANSYS-BANLINJER" : "VELOCITY MAGNITUDE / EXPORTED ANSYS PATHLINES", pad, 18, "#82a4b4");
-  stageLabel(ctx, "C2 REDESIGN", pad + 7, height - 13, "#65d6c9");
-  stageLabel(ctx, isSwedish() ? "TIDIGARE STEG" : "LEGACY STEP", width - 108, height - 13, "#f6c85f");
+  // Zone labels
+  stageLabel(ctx, isSwedish() ? "HET GAS" : "HOT GAS", xGas + 6, wallY + 14, "#fff1c7");
+  stageLabel(ctx, `h_gas = ${S.h_gas} W/m²K`, xGas + 6, wallY + wallH - 8, "#fbbf24");
+  stageLabel(ctx, isSwedish() ? "STÅL" : "STEEL", xWall + 3, wallY + 14, "#c9d1da");
+  stageLabel(ctx, `k=${S.k_wall}`, xWall + 3, wallY + wallH - 8, "#c9d1da");
+  stageLabel(ctx, isSwedish() ? "OMGIVNING" : "AMBIENT", xExt + 6, wallY + 14, "#bdd7f0");
+  stageLabel(ctx, `h_ext = ${S.h_ext} W/m²K`, xExt + 6, wallY + wallH - 8, "#7dd3fc");
+
+  // ── Resistance bar chart ───────────────────────────────────────────────
+  stageLabel(ctx, isSwedish()
+    ? "TERMISKT MOTSTÅNDSNÄTVERK · BARHÖJDEN ∝ R (m²K/W)"
+    : "THERMAL RESISTANCE NETWORK · BAR LENGTH ∝ R (m²K/W)",
+    padX, barsY - 12, "#82a4b4");
+
+  // Bars are drawn horizontally with shared baseline; lengths scaled to R_max
+  const R_max = Math.max(S.R_gas, S.R_wall, S.R_ext);
+  const barXBase = padX + 70;
+  const barMaxW = width - barXBase - padX;
+  const barRowH = barsH / 3;
+
+  const drawBar = (row, label, R, color) => {
+    const y = barsY + row * barRowH + 4;
+    const barH = barRowH - 8;
+    const barW = (R / R_max) * barMaxW;
+    // label
+    ctx.save();
+    ctx.fillStyle = "rgba(220, 226, 234, 0.88)";
+    ctx.font = "600 11px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.fillText(label, padX, y + barH * 0.65);
+    // bar
+    ctx.fillStyle = color;
+    ctx.fillRect(barXBase, y, Math.max(2, barW), barH);
+    // value
+    ctx.fillStyle = "rgba(220, 226, 234, 0.85)";
+    ctx.fillText(R.toFixed(4), barXBase + barW + 8, y + barH * 0.65);
+    ctx.restore();
+  };
+  drawBar(0, "R_gas", S.R_gas, "rgba(208, 98, 44, 0.85)");
+  drawBar(1, "R_wall", S.R_wall, "rgba(180, 188, 198, 0.85)");
+  drawBar(2, "R_ext", S.R_ext, "rgba(37, 99, 168, 0.85)");
+
+  // ── Bi banner ──────────────────────────────────────────────────────────
+  const bannerY = barsY + barsH + 14;
+  if (bannerY + 28 <= height - 4) {
+    ctx.save();
+    ctx.fillStyle = "rgba(101, 214, 201, 0.12)";
+    ctx.strokeStyle = "rgba(101, 214, 201, 0.45)";
+    ctx.lineWidth = 1;
+    ctx.fillRect(padX, bannerY, width - padX * 2, Math.min(28, height - bannerY - 4));
+    ctx.strokeRect(padX + 0.5, bannerY + 0.5, width - padX * 2 - 1, Math.min(28, height - bannerY - 4) - 1);
+    ctx.fillStyle = "#65d6c9";
+    ctx.font = "700 12px 'JetBrains Mono', ui-monospace, monospace";
+    const regime = S.Bi < 0.1 ? "LUMPED WALL" : S.Bi < 1 ? "INTERMEDIATE" : "CONDUCTION-LIMITED";
+    ctx.fillText(`Bi = h_ext · t_w / k_wall = ${S.Bi.toFixed(4)}   ·   ${regime}`, padX + 10, bannerY + 18);
+    ctx.fillStyle = "rgba(220, 226, 234, 0.78)";
+    ctx.font = "500 10px 'JetBrains Mono', ui-monospace, monospace";
+    const dT = (S.T_inner - S.T_outer).toFixed(1);
+    ctx.fillText(`through-wall ΔT = ${dT} K  ·  q = ${Math.round(S.q)} W/m²`, width - padX - 8 - ctx.measureText(`through-wall ΔT = ${dT} K  ·  q = ${Math.round(S.q)} W/m²`).width, bannerY + 18);
+    ctx.restore();
+  }
 }
 
 function dispatchSplit(demand, price) {
@@ -363,44 +506,145 @@ function traceSeries(ctx, values, rect, min, max, color, width = 2) {
   ctx.restore();
 }
 
+// 24h dispatch stacked-area chart driven by the real PRO2 demand + Nord
+// Pool-style spot-price arrays. Dispatch policy = price-tiered allocation
+// (HP cheap, CHP mid, TES + grid peak). The chart is the actual MILP-style
+// output the case study would produce, just visualised.
+//
+// equation per hour: Q_total = Q_HP + Q_CHP + Q_TES + Q_grid_top-up
+//                    where each is from dispatchSplit(demand, price)
 function drawEnergyDispatch(ctx, width, height, now) {
   stageBackground(ctx, width, height);
+
+  // Time cursor — sweeps 24 h every ~40 s of wall-clock
   const hourProgress = (now / 1700) % 24;
   const hour = Math.floor(hourProgress);
-  const split = dispatchSplit(PRO2_DEMAND_MW[hour], PRO2_PRICE[hour]);
-  const plot = { x: 38, y: 42, w: width - 57, h: height * 0.42 };
-  const barY = height * 0.69;
-  const barH = 34;
+  const subHour = hourProgress - hour;
 
-  stageLabel(ctx, isSwedish() ? "PRO2 / 24 H INDATAUPPSPELNING" : "PRO2 / 24 H INPUT PLAYBACK", 14, 19, "#82a4b4");
-  stageLabel(ctx, "Qdem [MW]", 14, plot.y - 9, "#65d6c9");
-  traceSeries(ctx, PRO2_DEMAND_MW, plot, 1.42, 1.90, "#65d6c9", 2.4);
-  traceSeries(ctx, PRO2_PRICE, plot, 480, 1000, "#f6c85f", 1.45);
-  const cursorX = plot.x + plot.w * hourProgress / 23;
-  ctx.strokeStyle = "rgba(230,237,242,0.55)";
-  ctx.beginPath();
-  ctx.moveTo(cursorX, plot.y - 8);
-  ctx.lineTo(cursorX, plot.y + plot.h + 7);
-  ctx.stroke();
-  stageLabel(ctx, "p_el", width - 48, plot.y - 9, "#f6c85f");
+  // ── Layout ──────────────────────────────────────────────────────────────
+  const padX = 36;
+  const headerH = 28;
+  const chartY = headerH + 22;
+  const chartH = Math.min(190, height * 0.50);
+  const chartW = width - padX * 2;
 
-  const totalW = width - 75;
-  const maxDemand = 1.95;
-  const scale = totalW / maxDemand;
-  let startX = 42;
-  [
-    ["HP", split.hp, "#65d6c9"],
-    ["CHP", split.chp, "#2563a8"],
-    ["TES", split.tes, "#f6c85f"],
-  ].forEach(([label, value, color]) => {
+  // Precompute the dispatch matrix for all 24 hours
+  // Layers (bottom → top in stack): HP, CHP, TES, Grid top-up (if any)
+  const layers = { hp: [], chp: [], tes: [], grid: [] };
+  for (let h = 0; h < 24; h++) {
+    const split = dispatchSplit(PRO2_DEMAND_MW[h], PRO2_PRICE[h]);
+    layers.hp.push(split.hp);
+    layers.chp.push(split.chp);
+    layers.tes.push(split.tes);
+    // Grid top-up = anything beyond HP+CHP+TES vs demand
+    const dispatched = split.hp + split.chp + split.tes;
+    layers.grid.push(Math.max(0, PRO2_DEMAND_MW[h] - dispatched));
+  }
+
+  // Max stacked height for scale
+  const maxStack = PRO2_DEMAND_MW.reduce((mx, _, i) =>
+    Math.max(mx, layers.hp[i] + layers.chp[i] + layers.tes[i] + layers.grid[i]), 0);
+  const yScale = chartH / (maxStack * 1.10);
+
+  const xAt = (h) => padX + (h / 23) * chartW;
+  const yAt = (cum) => chartY + chartH - cum * yScale;
+
+  // ── Header ──────────────────────────────────────────────────────────────
+  stageLabel(ctx, isSwedish()
+    ? "DISTRIBUERAD FJÄRRVÄRMEDISPATCH · 24 H FRÅN PRO2-DATA"
+    : "DISTRICT HEATING DISPATCH · 24 H FROM PRO2 INPUTS",
+    padX, 18, "#82a4b4");
+  stageLabel(ctx, "MW", padX - 22, chartY + 8, "#82a4b4");
+
+  // ── Stacked areas (bottom → top: HP, CHP, TES, Grid) ───────────────────
+  const drawLayer = (values, baseAcc, color, label) => {
     ctx.fillStyle = color;
-    const segmentW = value * scale;
-    ctx.fillRect(startX, barY, segmentW, barH);
-    if (segmentW > 34) stageLabel(ctx, label, startX + 8, barY + 21, "#061016");
-    startX += segmentW;
+    ctx.beginPath();
+    ctx.moveTo(xAt(0), yAt(baseAcc[0]));
+    for (let h = 0; h < 24; h++) {
+      ctx.lineTo(xAt(h), yAt(baseAcc[h] + values[h]));
+    }
+    for (let h = 23; h >= 0; h--) {
+      ctx.lineTo(xAt(h), yAt(baseAcc[h]));
+    }
+    ctx.closePath();
+    ctx.fill();
+  };
+
+  const cum0 = new Array(24).fill(0);
+  const cum1 = layers.hp.slice();
+  const cum2 = cum1.map((v, i) => v + layers.chp[i]);
+  const cum3 = cum2.map((v, i) => v + layers.tes[i]);
+
+  drawLayer(layers.hp,   cum0, "rgba(101, 214, 201, 0.78)", "HP");
+  drawLayer(layers.chp,  cum1, "rgba(37, 99, 168, 0.80)",   "CHP");
+  drawLayer(layers.tes,  cum2, "rgba(246, 200, 95, 0.78)",  "TES");
+  drawLayer(layers.grid, cum3, "rgba(208, 98, 44, 0.70)",   "Grid");
+
+  // Demand line (total) on top
+  ctx.strokeStyle = "rgba(230, 237, 242, 0.7)";
+  ctx.lineWidth = 1.6;
+  ctx.beginPath();
+  for (let h = 0; h < 24; h++) {
+    const x = xAt(h);
+    const y = yAt(PRO2_DEMAND_MW[h]);
+    if (h === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  // ── Playhead ────────────────────────────────────────────────────────────
+  const cursorX = xAt(hour + subHour);
+  ctx.strokeStyle = "rgba(255, 241, 199, 0.95)";
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  ctx.moveTo(cursorX, chartY - 6);
+  ctx.lineTo(cursorX, chartY + chartH + 6);
+  ctx.stroke();
+
+  // ── X-axis tick labels (every 6h) ──────────────────────────────────────
+  ctx.save();
+  ctx.fillStyle = "rgba(180, 192, 204, 0.7)";
+  ctx.font = "500 10px 'JetBrains Mono', ui-monospace, monospace";
+  [0, 6, 12, 18, 23].forEach((h) => {
+    const x = xAt(h);
+    ctx.fillText(`${String(h).padStart(2, "0")}:00`, x - 14, chartY + chartH + 18);
   });
-  stageLabel(ctx, isSwedish() ? "SCREENAD VÄRMEFÖRDELNING" : "SCREENED HEAT SUPPLY SPLIT", 42, barY - 10, "#82a4b4");
-  stageLabel(ctx, `${String(hour + 1).padStart(2, "0")}:00  Q=${PRO2_DEMAND_MW[hour].toFixed(2)} MW`, 42, height - 18, "#e6edf2");
+  ctx.restore();
+
+  // ── Legend ──────────────────────────────────────────────────────────────
+  const legendY = chartY + chartH + 32;
+  const legendItems = [
+    ["HP",   "rgba(101, 214, 201, 0.78)", isSwedish() ? "Värmepump" : "Heat pump"],
+    ["CHP",  "rgba(37, 99, 168, 0.80)",   isSwedish() ? "Kraftvärme" : "CHP"],
+    ["TES",  "rgba(246, 200, 95, 0.78)",  isSwedish() ? "Lager" : "Storage"],
+    ["Grid", "rgba(208, 98, 44, 0.70)",   isSwedish() ? "Topplast" : "Grid peak"],
+  ];
+  let lx = padX;
+  legendItems.forEach(([key, color, label]) => {
+    ctx.fillStyle = color;
+    ctx.fillRect(lx, legendY, 10, 10);
+    ctx.fillStyle = "rgba(220, 226, 234, 0.85)";
+    ctx.font = "500 10px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.fillText(label, lx + 14, legendY + 9);
+    lx += 96;
+  });
+
+  // ── Live readout — current-hour breakdown ──────────────────────────────
+  const split = dispatchSplit(PRO2_DEMAND_MW[hour], PRO2_PRICE[hour]);
+  const gridTop = Math.max(0, PRO2_DEMAND_MW[hour] - (split.hp + split.chp + split.tes));
+  const readoutY = legendY + 22;
+  if (readoutY + 16 <= height - 4) {
+    ctx.save();
+    ctx.fillStyle = "rgba(101, 214, 201, 0.95)";
+    ctx.font = "700 11px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.fillText(`${String(hour + 1).padStart(2, "0")}:00`, padX, readoutY + 10);
+    ctx.fillStyle = "rgba(220, 226, 234, 0.88)";
+    ctx.font = "500 11px 'JetBrains Mono', ui-monospace, monospace";
+    const summary = `Q = ${PRO2_DEMAND_MW[hour].toFixed(2)} MW   ·   p = ${PRO2_PRICE[hour].toFixed(0)} SEK/MWh   ·   HP ${split.hp.toFixed(2)} + CHP ${split.chp.toFixed(2)} + TES ${split.tes.toFixed(2)}${gridTop > 0.001 ? ` + Grid ${gridTop.toFixed(2)}` : ""}`;
+    ctx.fillText(summary, padX + 56, readoutY + 10);
+    ctx.restore();
+  }
 }
 
 function flowStroke(ctx, path, width, color, now, speed) {
@@ -425,44 +669,138 @@ function processBox(ctx, x, y, width, height, label, color) {
   ctx.restore();
 }
 
+// Industrial decarbonisation Sankey + baseline comparison.
+// Energy flows visualised left-to-right (grid + fuel → conversion → process)
+// with a recovery loop and explicit baseline-vs-active emissions strip.
+// equation: EnPI = (E_elec + E_fuel) / production              (ISO 50006:2014)
+// equation: emissions intensity = (E_elec·g_elec + E_fuel·g_gas) / production
 function drawIndustrialBalance(ctx, width, height, controls, now) {
   stageBackground(ctx, width, height);
   const metrics = industrialModel(controls);
-  const sourceX = 18;
-  const processX = width * 0.42;
-  const outputX = width - 116;
-  const topY = 58;
-  const midY = height * 0.48;
-  const bottomY = height - 78;
-  const sourceW = 102;
+
+  // ── Layout ─────────────────────────────────────────────────────────────
+  const sourceX = 22;
+  const processX = width * 0.44;
+  const outputX = width - 124;
+  const topY = 56;
+  const midY = height * 0.40;
+  const bottomY = height * 0.62;
+  const sourceW = 108;
   const blockH = 38;
 
-  stageLabel(ctx, isSwedish() ? "ENERGIBALANS / ISO 50006 EnPI-RAM" : "UTILITY BALANCE / ISO 50006 EnPI FRAME", 14, 19, "#82a4b4");
-  processBox(ctx, sourceX, topY, sourceW, blockH, "GRID", "#65d6c9");
-  processBox(ctx, sourceX, bottomY, sourceW, blockH, isSwedish() ? "BRÄNSLE" : "FUEL", "#d0622c");
-  processBox(ctx, processX, midY - 19, 118, blockH, "PROCESS", "#f6c85f");
-  processBox(ctx, outputX, topY + 28, 100, blockH, isSwedish() ? "ÅTERVINNING" : "RECOVERY", "#65d6c9");
-  processBox(ctx, outputX, bottomY - 28, 100, blockH, isSwedish() ? "UTFALL" : "OUTPUT", "#2563a8");
+  // ── Header ─────────────────────────────────────────────────────────────
+  stageLabel(ctx, isSwedish()
+    ? "ENERGIBALANS · ISO 50006 EnPI-RAM"
+    : "UTILITY BALANCE · ISO 50006 EnPI FRAME", sourceX, 18, "#82a4b4");
+  stageLabel(ctx, isSwedish()
+    ? "Skjut grid-intensitet → utsläppsskillnaden visas i nedre strecket."
+    : "Drag grid intensity → emissions delta shown in the bottom strip.",
+    sourceX, 32, "#65d6c9");
 
+  // ── Source boxes (left) ────────────────────────────────────────────────
+  processBox(ctx, sourceX, topY, sourceW, blockH,
+    isSwedish() ? "ELNÄT" : "GRID", "#65d6c9");
+  stageLabel(ctx, `${metrics.electricInput.toFixed(2)} MW`, sourceX + 8, topY + blockH + 14, "#65d6c9");
+  stageLabel(ctx, `${controls.grid} kgCO₂e/MWh`, sourceX + 8, topY + blockH + 28, "#82a4b4");
+
+  processBox(ctx, sourceX, bottomY, sourceW, blockH,
+    isSwedish() ? "BRÄNSLE" : "FUEL", "#d0622c");
+  stageLabel(ctx, `${metrics.gasInput.toFixed(2)} MW`, sourceX + 8, bottomY + blockH + 14, "#d0622c");
+  stageLabel(ctx, "202 kgCO₂/MWh", sourceX + 8, bottomY + blockH + 28, "#82a4b4");
+
+  // ── Conversion node (heat pump or boiler) ─────────────────────────────
+  const convX = (sourceX + processX) / 2;
+  if (controls.heatPump) {
+    processBox(ctx, convX - 30, midY - blockH / 2, 78, blockH, "HP COP 3.25", "#65d6c9");
+  }
+  if (controls.electricBoiler) {
+    processBox(ctx, convX - 30, midY + 12, 78, blockH * 0.7, "BOILER η 0.98", "#7dd3fc");
+  }
+  processBox(ctx, convX - 30, bottomY - 14, 78, blockH * 0.8,
+    isSwedish() ? "GASPANNA η 0.90" : "GAS BOILER η 0.90", "#d0622c");
+
+  // ── Process + recovery (right) ────────────────────────────────────────
+  processBox(ctx, processX, (topY + bottomY) / 2, 130, blockH * 1.4,
+    isSwedish() ? "PROCESS" : "PROCESS", "#f6c85f");
+  stageLabel(ctx, `${metrics.heatDemand.toFixed(2)} MW`, processX + 8, (topY + bottomY) / 2 + blockH * 1.4 + 14, "#f6c85f");
+
+  if (controls.recovery) {
+    processBox(ctx, outputX, topY, 100, blockH,
+      isSwedish() ? "ÅTERVINNING 22%" : "RECOVERY 22%", "#a3e635");
+    stageLabel(ctx, `${metrics.recovered.toFixed(2)} MW`, outputX + 8, topY + blockH + 14, "#a3e635");
+  }
+
+  processBox(ctx, outputX, bottomY, 100, blockH,
+    isSwedish() ? "UTFALL" : "OUTPUT", "#2563a8");
+  stageLabel(ctx, `${(10 * controls.load / 100).toFixed(1)} u/h`, outputX + 8, bottomY + blockH + 14, "#7dd3fc");
+
+  // ── Animated flow lines ────────────────────────────────────────────────
   const gridPath = new Path2D();
   gridPath.moveTo(sourceX + sourceW, topY + blockH / 2);
-  gridPath.bezierCurveTo(processX - 35, topY + blockH / 2, processX - 34, midY, processX, midY);
+  gridPath.bezierCurveTo(convX - 8, topY + blockH / 2, convX - 8, midY, convX - 30, midY);
+
+  const convOutPath = new Path2D();
+  convOutPath.moveTo(convX + 48, midY);
+  convOutPath.bezierCurveTo(processX - 12, midY, processX - 12, (topY + bottomY) / 2 + blockH * 0.7, processX, (topY + bottomY) / 2 + blockH * 0.7);
+
   const fuelPath = new Path2D();
   fuelPath.moveTo(sourceX + sourceW, bottomY + blockH / 2);
-  fuelPath.bezierCurveTo(processX - 38, bottomY + blockH / 2, processX - 34, midY, processX, midY);
-  const recoveryPath = new Path2D();
-  recoveryPath.moveTo(processX + 118, midY);
-  recoveryPath.bezierCurveTo(outputX - 42, midY, outputX - 36, topY + 47, outputX, topY + 47);
-  const outputPath = new Path2D();
-  outputPath.moveTo(processX + 118, midY);
-  outputPath.bezierCurveTo(outputX - 36, midY, outputX - 32, bottomY - 9, outputX, bottomY - 9);
+  fuelPath.bezierCurveTo(convX - 8, bottomY + blockH / 2, convX - 8, bottomY + 4, convX - 30, bottomY + 4);
 
-  flowStroke(ctx, gridPath, metrics.electricInput * 6, "#65d6c9", now, 0.028);
-  flowStroke(ctx, fuelPath, metrics.gasInput * 3, "#d0622c", now, 0.022);
-  flowStroke(ctx, recoveryPath, metrics.recovered * 5, "#65d6c9", now, 0.035);
-  flowStroke(ctx, outputPath, metrics.heatDemand * 1.6, "#2563a8", now, 0.025);
-  stageLabel(ctx, `EnPI ${metrics.enpi.toFixed(3)} MWh/u`, 18, height - 18, "#e6edf2");
-  stageLabel(ctx, `CO2 ${metrics.emissions.toFixed(1)} kg/u`, width - 147, height - 18, "#f6c85f");
+  const gasOutPath = new Path2D();
+  gasOutPath.moveTo(convX + 48, bottomY + 4);
+  gasOutPath.bezierCurveTo(processX - 12, bottomY + 4, processX - 12, (topY + bottomY) / 2 + blockH * 0.7, processX, (topY + bottomY) / 2 + blockH * 0.7);
+
+  const recoveryPath = new Path2D();
+  recoveryPath.moveTo(processX + 130, (topY + bottomY) / 2 + blockH * 0.4);
+  recoveryPath.bezierCurveTo(outputX - 24, (topY + bottomY) / 2 + blockH * 0.4, outputX - 24, topY + 18, outputX, topY + 18);
+
+  const outputPath = new Path2D();
+  outputPath.moveTo(processX + 130, (topY + bottomY) / 2 + blockH * 1.0);
+  outputPath.bezierCurveTo(outputX - 24, (topY + bottomY) / 2 + blockH * 1.0, outputX - 24, bottomY + 18, outputX, bottomY + 18);
+
+  flowStroke(ctx, gridPath, Math.max(2, metrics.electricInput * 6), "#65d6c9", now, 0.030);
+  flowStroke(ctx, convOutPath, Math.max(2, (metrics.heatDemand - metrics.gasInput * 0.90 + metrics.recovered) * 4), "#65d6c9", now, 0.030);
+  flowStroke(ctx, fuelPath, Math.max(2, metrics.gasInput * 3), "#d0622c", now, 0.022);
+  flowStroke(ctx, gasOutPath, Math.max(2, metrics.gasInput * 0.90 * 4), "#d0622c", now, 0.022);
+  if (controls.recovery) {
+    flowStroke(ctx, recoveryPath, Math.max(2, metrics.recovered * 5), "#a3e635", now, 0.038);
+  }
+  flowStroke(ctx, outputPath, Math.max(2, metrics.heatDemand * 1.6), "#2563a8", now, 0.025);
+
+  // ── Baseline vs Active emissions strip (bottom) ───────────────────────
+  const stripY = height - 38;
+  const stripH = 22;
+  const stripPadL = sourceX;
+  const stripW = width - stripPadL * 2;
+  // Baseline = all heat from gas boiler, only base electric load
+  const maxIntensity = Math.max(metrics.emissions, metrics.baselineEmissions);
+  const baselineW = (metrics.baselineEmissions / maxIntensity) * stripW;
+  const activeW = (metrics.emissions / maxIntensity) * stripW;
+
+  ctx.save();
+  // Background
+  ctx.fillStyle = "rgba(220, 226, 234, 0.06)";
+  ctx.fillRect(stripPadL, stripY, stripW, stripH);
+  // Baseline (gas-heavy)
+  ctx.fillStyle = "rgba(208, 98, 44, 0.55)";
+  ctx.fillRect(stripPadL, stripY, baselineW, stripH * 0.45);
+  // Active (current dispatch)
+  ctx.fillStyle = "rgba(101, 214, 201, 0.70)";
+  ctx.fillRect(stripPadL, stripY + stripH * 0.55, activeW, stripH * 0.45);
+  // Labels
+  ctx.fillStyle = "rgba(208, 98, 44, 0.95)";
+  ctx.font = "600 10px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText(isSwedish() ? "BASLINJE" : "BASELINE", stripPadL + 4, stripY + 9);
+  ctx.fillStyle = "rgba(101, 214, 201, 0.95)";
+  ctx.fillText(isSwedish() ? "AKTIV" : "ACTIVE", stripPadL + 4, stripY + stripH - 1);
+  ctx.fillStyle = "rgba(220, 226, 234, 0.92)";
+  ctx.font = "700 11px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.textAlign = "right";
+  ctx.fillText(`${metrics.baselineEmissions.toFixed(1)} kg/u`, stripPadL + stripW - 6, stripY + 9);
+  ctx.fillText(`${metrics.emissions.toFixed(1)} kg/u  ·  −${metrics.emissionsReduction.toFixed(1)}`, stripPadL + stripW - 6, stripY + stripH - 1);
+  ctx.textAlign = "left";
+  ctx.restore();
 }
 
 function nozzlePlotRadius(t, height) {

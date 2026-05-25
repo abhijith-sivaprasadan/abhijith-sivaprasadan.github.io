@@ -1,130 +1,101 @@
-.experience-map {
+.experience-rail {
   position: relative;
-  min-height: clamp(230px, 30vw, 285px);
-  margin-bottom: 24px;
-  border: 1px solid var(--v4-line);
-  border-radius: var(--v4-radius);
-  background:
-    radial-gradient(circle at 48% 34%, rgba(101, 214, 201, 0.16), transparent 16%),
-    var(--v4-grid),
-    var(--v4-panel);
-  background-size: auto, 24px 24px, auto;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-bottom: 26px;
+  padding: 0 8px;
 }
 
-.experience-map svg,
-.experience-map-grid,
-.map-pin-layer {
+.experience-rail::before {
+  content: "";
   position: absolute;
-  inset: 0;
+  left: 10%;
+  right: 10%;
+  top: 30px;
+  height: 1px;
+  background: color-mix(in srgb, var(--v4-teal) 36%, var(--v4-line));
 }
 
-.experience-map polyline {
-  fill: none;
-  stroke: color-mix(in srgb, var(--v4-teal) 48%, transparent);
-  stroke-width: 0.7;
-  stroke-dasharray: 2 2;
+.experience-stop {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  cursor: pointer;
 }
 
-.map-silhouette path {
-  fill: color-mix(in srgb, var(--v4-panel-strong) 82%, var(--v4-teal));
-  stroke: color-mix(in srgb, var(--v4-teal) 48%, transparent);
-  stroke-width: 0.8;
-}
-
-.map-silhouette .kerala-inset {
-  fill: transparent;
-  stroke: var(--v4-line);
-  stroke-dasharray: 2 2;
-}
-
-.map-silhouette text {
-  fill: var(--muted);
-  font: 4px var(--mono, monospace);
-  letter-spacing: 0;
-}
-
-.map-dot {
-  fill: var(--v4-amber);
-}
-
-.map-dot-siemens {
-  fill: var(--v4-teal);
-}
-
-.map-dot-alleima {
-  fill: var(--v4-amber);
-}
-
-.map-dot-qburst {
-  fill: var(--v4-orange);
-}
-
-.map-pin {
-  position: absolute;
-  left: calc(var(--x) * 1%);
-  top: calc(var(--y) * 1%);
-  transform: translate(-50%, -50%);
-  border: 1px solid var(--v4-line);
-  border-radius: 999px;
-  padding: 8px 12px;
-  color: var(--text);
-  background: color-mix(in srgb, var(--v4-panel-strong) 90%, transparent);
-  box-shadow: 0 16px 42px rgba(0,0,0,0.18);
-}
-
-.map-pin-siemens {
-  border-color: color-mix(in srgb, var(--v4-teal) 56%, var(--v4-line));
-}
-
-.map-pin-alleima {
-  border-color: color-mix(in srgb, var(--v4-amber) 56%, var(--v4-line));
-}
-
-.map-pin-qburst {
-  border-color: color-mix(in srgb, var(--v4-orange) 56%, var(--v4-line));
-}
-
-.map-pin-siemens {
-  transform: translate(-104%, 18%);
-}
-
-.map-pin-alleima {
-  transform: translate(-108%, -126%);
-}
-
-.map-pin-kth {
-  transform: translate(8%, -86%);
-}
-
-.map-pin span,
-.map-pin small {
+.experience-stop::before {
+  content: "";
   display: block;
-  line-height: 1.15;
+  width: 10px;
+  height: 10px;
+  margin: 25px 0 15px;
+  border: 2px solid var(--v4-line);
+  border-radius: 50%;
+  background: var(--v4-panel-strong);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
-.map-pin small {
+.experience-stop time {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  font: 600 0.72rem/1 var(--font-mono, ui-monospace, monospace);
+  color: color-mix(in srgb, var(--v4-teal) 70%, var(--muted));
+}
+
+.experience-stop strong,
+.experience-stop span,
+.experience-stop small {
+  display: block;
+}
+
+.experience-stop strong {
+  font-size: 0.96rem;
+  color: var(--text);
+}
+
+.experience-stop span {
+  font-size: 0.82rem;
   color: var(--muted);
 }
 
+.experience-stop small {
+  margin-top: 6px;
+  color: var(--muted);
+  font: 500 0.68rem/1.3 var(--font-mono, ui-monospace, monospace);
+  text-transform: uppercase;
+}
+
+.experience-stop:hover::before,
+.experience-stop.is-active::before {
+  transform: scale(1.28);
+  border-color: var(--v4-teal);
+  background: var(--v4-teal);
+}
+
+.experience-stop-siemens.is-active strong,
+.experience-stop-siemens:hover strong {
+  color: var(--v4-teal);
+}
+
+.experience-stop-alleima.is-active::before {
+  border-color: var(--v4-amber);
+  background: var(--v4-amber);
+}
+
+.experience-stop-qburst.is-active::before {
+  border-color: var(--v4-orange);
+  background: var(--v4-orange);
+}
+
 .cinematic-timeline {
   position: relative;
-}
-
-.cinematic-role-card {
-  transition: transform 260ms ease, border-color 260ms ease, background 260ms ease;
-}
-
-.cinematic-role-card.is-active {
-  transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--v4-teal) 48%, var(--v4-line));
-}
-
-.cinematic-role-card.is-primary-role {
-  box-shadow: 0 24px 76px rgba(101, 214, 201, 0.12);
-}
-
-.cinematic-timeline {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -140,66 +111,54 @@
   scroll-snap-align: start;
   flex: 0 0 clamp(260px, 28vw, 320px);
   min-width: 0;
+  transition: transform 260ms ease, border-color 260ms ease, background 260ms ease;
+}
+
+.cinematic-role-card.is-active {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--v4-teal) 48%, var(--v4-line));
 }
 
 .cinematic-role-card.is-primary-role {
-  flex-basis: clamp(280px, 32vw, 360px);
+  flex-basis: clamp(290px, 34vw, 390px);
+  box-shadow: 0 24px 76px rgba(101, 214, 201, 0.12);
 }
-
-.norway-edge {
-  fill: none;
-  stroke: color-mix(in srgb, var(--v4-line) 55%, transparent);
-  stroke-width: 0.5;
-  stroke-dasharray: 1.5 1.5;
-}
-
-.india-shape {
-  fill: color-mix(in srgb, var(--v4-panel-strong) 84%, var(--v4-orange));
-  stroke: color-mix(in srgb, var(--v4-orange) 42%, transparent);
-  stroke-width: 0.6;
-}
-
-.sweden-route {
-  fill: none;
-  stroke: color-mix(in srgb, var(--v4-teal) 60%, transparent);
-  stroke-width: 0.7;
-  stroke-dasharray: 1.5 1.5;
-}
-
-.map-dot-kth { fill: var(--v4-amber); }
 
 .cinematic-role-card p:not(.meta) {
   font-size: 0.93rem;
 }
 
-.cinematic-role-card.is-primary-role {
-  min-height: calc(100% + 5px);
-}
-
 @media (max-width: 680px) {
-  #experience .container,
-  .experience-map {
+  #experience .container {
     min-width: 0;
     max-width: 100%;
   }
 
-  .experience-map {
-    min-height: 245px;
+  .experience-rail {
+    display: flex;
+    gap: 0;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 8px;
   }
 
-  .map-pin {
-    padding: 7px 9px;
-    font-size: 0.72rem;
+  .experience-rail::before {
+    left: 30px;
+    right: 30px;
+  }
+
+  .experience-stop {
+    flex: 0 0 145px;
   }
 
   .cinematic-timeline {
-    display: flex;
     gap: 12px;
     width: 100%;
     overflow-x: auto;
   }
 
-  .cinematic-role-card {
+  .cinematic-role-card,
+  .cinematic-role-card.is-primary-role {
     flex: 0 0 calc(100vw - 48px);
     min-width: 0;
   }
