@@ -1,3 +1,9 @@
+/* ────────────────────────────────────────────────────────────────────────
+   Thesis scrollytelling (w16 rebuild).
+   5 beats, cumulative reveal: geometry → +mesh → +flow → +thermal → +kpi.
+   Driven by `[data-story-key]` set on the root by the ScrollTrigger handler.
+   ──────────────────────────────────────────────────────────────────────── */
+
 .thesis-story-section {
   position: relative;
   overflow: clip;
@@ -9,7 +15,7 @@
 
 .thesis-story-shell {
   display: grid;
-  grid-template-columns: minmax(250px, 0.78fr) minmax(0, 1.22fr);
+  grid-template-columns: minmax(260px, 0.74fr) minmax(0, 1.26fr);
   gap: clamp(24px, 5vw, 64px);
   align-items: center;
 }
@@ -18,288 +24,357 @@
   max-width: 460px;
 }
 
+.thesis-story-copy .eyebrow {
+  margin-bottom: 8px;
+}
+
+.thesis-story-copy h2 {
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+  margin-bottom: 14px;
+}
+
+.thesis-story-copy .copy-lead {
+  margin-bottom: 18px;
+  color: var(--muted);
+}
+
 .thesis-story-stage {
-  min-height: clamp(440px, 58vw, 640px);
-  border: 1px solid var(--v4-line);
-  border-radius: var(--v4-radius);
-  background: var(--v4-panel-strong);
-  box-shadow: var(--v4-shadow);
-  overflow: hidden;
+  position: relative;
+  width: 100%;
+  display: grid;
+  gap: 18px;
 }
 
 .thesis-story-visual {
-  height: min(470px, 67vh);
+  width: 100%;
+  border-radius: 18px;
+  background: linear-gradient(140deg, color-mix(in srgb, var(--v4-panel-strong) 96%, transparent),
+                                       color-mix(in srgb, var(--v4-panel) 90%, transparent));
+  border: 1px solid var(--v4-line);
+  padding: 18px;
+  box-shadow: var(--v4-shadow);
 }
 
 .thesis-story-svg {
   width: 100%;
-  height: 100%;
-  min-height: inherit;
+  height: auto;
   display: block;
 }
 
-.thesis-story-svg .story-bg {
-  fill: color-mix(in srgb, var(--v4-panel-strong) 92%, transparent);
+/* ─── SVG base ──────────────────────────────────────────────────────────── */
+
+.story-bg {
+  fill: color-mix(in srgb, #050a14 88%, transparent);
+  stroke: color-mix(in srgb, var(--v4-line) 60%, transparent);
 }
 
-.thesis-story-svg .story-grid path {
-  stroke: color-mix(in srgb, var(--v4-line) 72%, transparent);
+html[data-theme="light"] .story-bg {
+  fill: color-mix(in srgb, #f5f7fb 92%, transparent);
+}
+
+.story-grid path {
+  stroke: color-mix(in srgb, var(--v4-line) 32%, transparent);
+  stroke-width: 0.5;
+  fill: none;
+}
+
+.story-section-label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: color-mix(in srgb, var(--v4-teal) 60%, var(--muted));
+}
+
+.story-note {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  fill: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+/* ─── Reducer geometry (beat 1, always visible) ─────────────────────────── */
+
+.reducer-wall {
+  fill: none;
+  stroke: var(--v4-teal, #65d6c9);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--v4-teal) 30%, transparent));
+}
+
+.dimension-annotation path {
+  stroke: color-mix(in srgb, var(--v4-amber) 60%, var(--muted));
   stroke-width: 0.7;
+  fill: none;
 }
 
-.story-layer {
+.dimension-annotation text {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  fill: color-mix(in srgb, var(--v4-amber) 75%, var(--text));
+}
+
+/* ─── Mesh layer (beat 2+) ──────────────────────────────────────────────── */
+
+.story-mesh {
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 220ms ease;
+  transition: opacity 540ms var(--motion-ease-out, ease);
 }
 
-[data-story-step="0"] [data-story-layer="geometry"],
-[data-story-step="1"] [data-story-layer="mesh"],
-[data-story-step="2"] [data-story-layer="flow"],
-[data-story-step="3"] [data-story-layer="thermal"],
-[data-story-step="4"] [data-story-layer="kpi"] {
+.story-mesh .mesh-lines path {
+  fill: none;
+  stroke: color-mix(in srgb, var(--v4-blue) 60%, transparent);
+  stroke-width: 0.45;
+}
+
+[data-story-key="mesh"] .story-mesh,
+[data-story-key="flow"] .story-mesh,
+[data-story-key="thermal"] .story-mesh,
+[data-story-key="kpi"] .story-mesh {
+  opacity: 0.85;
+}
+
+/* ─── Flow layer (beat 3+) ──────────────────────────────────────────────── */
+
+.story-flow {
+  opacity: 0;
+  transition: opacity 540ms var(--motion-ease-out, ease);
+}
+
+[data-story-key="flow"] .story-flow,
+[data-story-key="thermal"] .story-flow,
+[data-story-key="kpi"] .story-flow {
   opacity: 1;
 }
 
-.story-source-frame rect {
-  fill: color-mix(in srgb, var(--v4-panel) 82%, transparent);
-  stroke: var(--v4-line);
+/* Dim mesh when flow is active so streamlines read */
+[data-story-key="flow"] .story-mesh,
+[data-story-key="thermal"] .story-mesh,
+[data-story-key="kpi"] .story-mesh {
+  opacity: 0.30;
 }
 
-.story-source-frame image {
-  opacity: 0.96;
-}
-
-.story-frame-label,
-.story-note,
-.story-dimensions text,
-.biot-note text {
-  fill: var(--muted);
-  font-family: var(--mono, monospace);
-  letter-spacing: 0;
-}
-
-.story-frame-label {
-  fill: var(--v4-teal);
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.story-note,
-.story-dimensions text {
-  font-size: 10px;
-}
-
-.story-dimensions text:first-child,
-.story-dimensions text:nth-child(4) {
-  fill: var(--v4-teal);
-  font-weight: 700;
-}
-
-.story-callout {
+.flow-stream {
   fill: none;
-  stroke: var(--v4-amber);
-  stroke-dasharray: 3 3;
-}
-
-.flow-outline path {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.25;
-}
-
-.legacy-outline {
-  stroke: color-mix(in srgb, var(--v4-orange) 72%, var(--text));
-}
-
-.c2-outline {
-  stroke: var(--v4-amber);
-}
-
-.bounded-flow path,
-.separation-lobe {
-  fill: none;
-  stroke: url("#storyFluid");
-  stroke-linecap: round;
-  filter: url("#storySignal");
-  stroke-dasharray: 9 18;
-  animation: storyAdvect 950ms linear infinite;
-}
-
-.legacy-bounded-flow path {
+  stroke: url(#storyStream);
   stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-dasharray: 18 280;
+  stroke-dashoffset: 0;
+  animation: flow-advect 3s linear infinite;
+  animation-delay: var(--delay, 0s);
 }
 
-.c2-bounded-flow path {
-  stroke-width: 2.15;
-  animation-duration: 720ms;
+@keyframes flow-advect {
+  to { stroke-dashoffset: -298; }
+}
+
+html.motion-reduced .flow-stream {
+  animation: none;
+  stroke-dasharray: none;
+  stroke-width: 1.2;
+  opacity: 0.7;
 }
 
 .separation-lobe {
-  stroke: var(--v4-orange);
-  stroke-width: 1.2;
-  stroke-dasharray: 4 9;
-  animation-direction: reverse;
+  fill: color-mix(in srgb, var(--v4-orange) 30%, transparent);
+  stroke: color-mix(in srgb, var(--v4-orange) 70%, transparent);
+  stroke-width: 0.8;
+  animation: lobe-pulse 1.8s ease-in-out infinite;
 }
 
-@keyframes storyAdvect {
-  to {
-    stroke-dashoffset: -54;
-  }
+@keyframes lobe-pulse {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.85; }
 }
 
-.thermal-channel-wall {
+html.motion-reduced .separation-lobe { animation: none; opacity: 0.55; }
+
+.flow-note {
+  fill: color-mix(in srgb, var(--v4-orange) 65%, var(--text));
+  font-style: italic;
+}
+
+/* ─── Thermal layer (beat 4+) ───────────────────────────────────────────── */
+
+.story-thermal {
+  opacity: 0;
+  transition: opacity 540ms var(--motion-ease-out, ease);
+}
+
+[data-story-key="thermal"] .story-thermal,
+[data-story-key="kpi"] .story-thermal {
+  opacity: 1;
+}
+
+.thermal-wall {
   fill: none;
-  stroke: url("#storyWallHeat");
-  stroke-width: 16;
-  stroke-linecap: round;
-}
-
-.thermal-centreline {
-  fill: none;
-  stroke: color-mix(in srgb, var(--v4-teal) 66%, transparent);
-  stroke-dasharray: 5 7;
+  stroke: url(#storyHot);
+  stroke-width: 4;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--v4-orange) 38%, transparent));
 }
 
 .thermal-legend rect {
-  fill: url("#storyWallHeat");
+  fill: url(#storyHot);
 }
 
 .thermal-legend text {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 10px;
   fill: var(--muted);
-  font: 10px var(--mono, monospace);
 }
 
-.biot-note text:first-child {
-  fill: var(--v4-amber);
+.biot-callout text {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  fill: var(--text);
+}
+
+.biot-equation {
+  font-size: 14px;
+  font-weight: 600;
+  fill: var(--v4-teal, #65d6c9) !important;
+}
+
+.biot-meaning {
+  font-size: 11px;
+  fill: var(--muted) !important;
+}
+
+/* Dim mesh + flow once thermal beat is active */
+[data-story-key="thermal"] .story-mesh,
+[data-story-key="kpi"] .story-mesh {
+  opacity: 0.14;
+}
+
+[data-story-key="thermal"] .flow-stream,
+[data-story-key="kpi"] .flow-stream {
+  stroke: color-mix(in srgb, var(--v4-teal) 50%, transparent);
+  opacity: 0.45;
+}
+
+/* ─── KPI badges (beat 5) ──────────────────────────────────────────────── */
+
+.story-kpis {
+  opacity: 0;
+  transition: opacity 540ms var(--motion-ease-out, ease);
+}
+
+[data-story-key="kpi"] .story-kpis {
+  opacity: 1;
+}
+
+.kpi-badge {
+  transform-origin: center;
+  opacity: 0;
+  animation: kpi-fly-in 540ms var(--motion-ease-spring, cubic-bezier(0.34,1.56,0.64,1)) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes kpi-fly-in {
+  from { opacity: 0; transform: translateY(-12px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+html.motion-reduced .kpi-badge {
+  animation: none;
+  opacity: 1;
+}
+
+.kpi-badge rect {
+  fill: color-mix(in srgb, var(--v4-panel-strong) 95%, transparent);
+  stroke: var(--v4-teal, #65d6c9);
+  stroke-width: 1;
+}
+
+.kpi-value {
+  font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 14px;
   font-weight: 700;
+  fill: var(--v4-teal, #65d6c9);
 }
 
-.biot-note text:not(:first-child) {
-  font-size: 11px;
-}
-
-.story-kpis rect {
-  fill: color-mix(in srgb, var(--v4-panel) 88%, transparent);
-  stroke: var(--v4-line);
-}
-
-.story-kpis .kpi-value {
-  fill: var(--text);
-  font: 700 16px var(--mono, monospace);
-}
-
-.story-kpis .kpi-label {
+.kpi-label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   fill: var(--muted);
-  font: 11px var(--mono, monospace);
 }
 
 .kpi-trace {
+  stroke: color-mix(in srgb, var(--v4-teal) 50%, transparent);
+  stroke-width: 0.8;
+  stroke-dasharray: 3 4;
   fill: none;
-  stroke: color-mix(in srgb, var(--v4-teal) 66%, transparent);
-  stroke-dasharray: 4 4;
+  animation: trace-flow 1.6s linear infinite;
 }
+
+@keyframes trace-flow {
+  to { stroke-dashoffset: -7; }
+}
+
+html.motion-reduced .kpi-trace { animation: none; }
+
+/* ─── Beat copy panel ───────────────────────────────────────────────────── */
 
 .thesis-story-beats {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 6px;
-  padding: 0 18px 18px;
+  gap: 14px;
 }
 
 .thesis-story-beat {
-  border-top: 2px solid var(--v4-line);
-  padding: 10px 8px 0;
-  opacity: 0.44;
-  transition: opacity 180ms ease, border-color 180ms ease;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: color-mix(in srgb, var(--v4-panel) 50%, transparent);
+  transition: border-color 240ms ease, background 240ms ease, transform 240ms ease;
 }
 
 .thesis-story-beat.is-active {
-  opacity: 1;
-  border-color: var(--v4-teal);
+  border-color: color-mix(in srgb, var(--v4-teal) 60%, var(--v4-line));
+  background: color-mix(in srgb, var(--v4-teal) 8%, var(--v4-panel-strong));
+  transform: translateX(4px);
 }
 
 .thesis-story-beat span {
   display: block;
-  color: var(--v4-teal);
-  font: 700 0.68rem/1.2 var(--mono, monospace);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  color: color-mix(in srgb, var(--v4-amber) 80%, var(--muted));
+  letter-spacing: 0.08em;
 }
 
 .thesis-story-beat strong {
   display: block;
-  margin-top: 5px;
-  font-size: 0.82rem;
+  font-size: 1.05rem;
+  margin: 4px 0 4px;
 }
 
 .thesis-story-beat p {
-  display: none;
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.55;
 }
 
-.thesis-story-section.is-static .thesis-story-beat {
+/* ─── Reduced motion: show final state statically ───────────────────────── */
+
+.thesis-story-section.is-static .story-mesh,
+.thesis-story-section.is-static .story-flow,
+.thesis-story-section.is-static .story-thermal,
+.thesis-story-section.is-static .story-kpis {
   opacity: 1;
 }
 
-.thesis-story-section.is-static .thesis-story-beat p {
-  display: block;
-  color: var(--muted);
-  font-size: 0.78rem;
-}
+/* ─── Responsive: stack copy + visual on narrow screens ────────────────── */
 
-html[data-theme="light"] .story-source-frame image {
-  border-radius: 5px;
-}
-
-html[data-theme="light"] .story-frame-label,
-html[data-theme="light"] .story-dimensions text:first-child,
-html[data-theme="light"] .story-dimensions text:nth-child(4) {
-  fill: #086b68;
-}
-
-html[data-theme="light"] .story-note,
-html[data-theme="light"] .story-dimensions text,
-html[data-theme="light"] .biot-note text:not(:first-child),
-html[data-theme="light"] .thermal-legend text {
-  fill: #506575;
-}
-
-html[data-theme="light"] .biot-note text:first-child {
-  fill: #a4481b;
-}
-
-html[data-theme="light"] .story-kpis .kpi-label {
-  fill: #506575;
-}
-
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   .thesis-story-shell {
     grid-template-columns: 1fr;
   }
-
-  .thesis-story-stage {
-    min-height: 400px;
-  }
-
-  .thesis-story-visual {
-    height: auto;
-  }
-
-  .thesis-story-beats {
-    grid-template-columns: 1fr;
-  }
-
-  .thesis-story-beat p {
-    display: block;
-    margin-top: 6px;
-    color: var(--muted);
-    font-size: 0.84rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bounded-flow path,
-  .separation-lobe {
-    animation: none;
-  }
+  .thesis-story-copy { max-width: none; }
 }

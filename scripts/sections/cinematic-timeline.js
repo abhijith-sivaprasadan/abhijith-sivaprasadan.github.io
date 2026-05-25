@@ -1,8 +1,22 @@
+/**
+ * Cinematic timeline + geo-map on #experience.
+ *
+ * w16: better SVG silhouettes (Sweden outline + Kerala/India inset), tighter
+ * pin placement matching real geography, narrower viewBox for legibility at
+ * homepage scale.
+ *
+ * Pin positions (viewBox 100 × 100):
+ *   - Stockholm:  47, 45  (KTH)
+ *   - Finspång:   46, 47  (Siemens — slightly south of Stockholm)
+ *   - Sandviken:  44, 39  (Alleima — north-west of Stockholm)
+ *   - Kerala:     80, 80  (QBurst — in the India inset)
+ */
+
 const PLACES = [
-  { key: "siemens", label: "Siemens Energy", place: "Finspang", x: 32, y: 52 },
-  { key: "alleima", label: "Alleima", place: "Sandviken", x: 38, y: 42 },
-  { key: "kth", label: "KTH", place: "Stockholm", x: 43, y: 51 },
-  { key: "qburst", label: "QBurst", place: "Kerala", x: 79, y: 73 },
+  { key: "kth",     label: "KTH",     place: "Stockholm",  x: 47, y: 45 },
+  { key: "siemens", label: "Siemens", place: "Finspång",   x: 46, y: 47 },
+  { key: "alleima", label: "Alleima", place: "Sandviken",  x: 44, y: 39 },
+  { key: "qburst",  label: "QBurst",  place: "Kerala",     x: 80, y: 80 },
 ];
 
 function keyFromText(text) {
@@ -15,20 +29,63 @@ function keyFromText(text) {
 }
 
 function buildMap() {
+  // Sweden outline — stylised but recognisably proportioned (long-thin shape
+  // with the southern bulge at Skåne).
+  const swedenPath = `
+    M 41 8
+    Q 44 10 45 14
+    Q 47 18 47 22
+    Q 47 25 45 28
+    Q 47 30 49 34
+    Q 50 38 49 42
+    Q 49 46 47 50
+    Q 47 54 49 58
+    Q 49 61 47 63
+    Q 44 64 43 62
+    Q 40 60 38 58
+    Q 36 54 36 50
+    Q 38 47 38 43
+    Q 37 39 36 36
+    Q 38 32 39 28
+    Q 38 24 38 21
+    Q 39 16 41 12 Z
+  `.replace(/\s+/g, " ").trim();
+
+  // Norway shadow on the west side (decorative — lighter stroke, no fill)
+  const norwayPath = `
+    M 37 8 Q 35 12 33 18 Q 31 24 30 30 Q 28 36 29 42 Q 31 48 34 52 Q 36 56 38 58
+  `.replace(/\s+/g, " ").trim();
+
+  // India outline (in the inset box on the right). Stylised triangular shape.
+  const indiaPath = `
+    M 78 62
+    Q 82 64 84 68
+    Q 86 72 85 76
+    Q 84 80 80 84
+    Q 77 86 75 84
+    Q 73 80 73 76
+    Q 73 71 75 67
+    Q 76 64 78 62 Z
+  `.replace(/\s+/g, " ").trim();
+
+  // Connecting polyline through the three Swedish cities
+  const swedenRoute = "44,39 47,45 46,47";
+
   return `
     <div class="experience-map" data-experience-map>
       <div class="experience-map-grid" aria-hidden="true"></div>
-      <svg viewBox="0 0 100 100" role="img" aria-label="Experience locations">
+      <svg viewBox="0 0 100 100" role="img" aria-label="Experience locations: Sweden + Kerala">
         <g class="map-silhouette" aria-hidden="true">
-          <path class="sweden-shape" d="M34 11L39 14 40 22 44 27 42 35 46 43 45 52 39 60 37 70 32 75 29 66 31 56 28 47 31 37 29 29 32 22Z"></path>
-          <path class="kerala-inset" d="M69 58H91V87H69Z"></path>
-          <path class="kerala-shape" d="M79 62L82 66 81 71 84 76 82 82 79 84 78 78 76 73 77 68Z"></path>
-          <text x="26" y="88">SWEDEN</text>
-          <text x="70" y="94">KERALA INSET</text>
+          <path class="sweden-shape" d="${swedenPath}"></path>
+          <path class="norway-edge" d="${norwayPath}"></path>
+          <path class="kerala-inset" d="M70 58 H92 V90 H70 Z"></path>
+          <path class="india-shape" d="${indiaPath}"></path>
+          <text x="29" y="93">SWEDEN</text>
+          <text x="72" y="60">INDIA</text>
         </g>
-        <polyline points="38,42 43,51 32,52" />
+        <polyline class="sweden-route" points="${swedenRoute}" />
         ${PLACES.map((place) => `
-          <circle class="map-dot map-dot-${place.key}" cx="${place.x}" cy="${place.y}" r="1.7"></circle>`).join("")}
+          <circle class="map-dot map-dot-${place.key}" cx="${place.x}" cy="${place.y}" r="1.6"></circle>`).join("")}
       </svg>
       <div class="map-pin-layer">
         ${PLACES.map((place) => `

@@ -125,8 +125,8 @@
 }
 
 .cinematic-timeline {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(276px, 1fr));
+  display: flex;
+  flex-wrap: nowrap;
   overflow-x: auto;
   gap: 16px;
   padding: 6px 2px 14px;
@@ -138,7 +138,35 @@
 
 .cinematic-role-card {
   scroll-snap-align: start;
+  flex: 0 0 clamp(260px, 28vw, 320px);
+  min-width: 0;
 }
+
+.cinematic-role-card.is-primary-role {
+  flex-basis: clamp(280px, 32vw, 360px);
+}
+
+.norway-edge {
+  fill: none;
+  stroke: color-mix(in srgb, var(--v4-line) 55%, transparent);
+  stroke-width: 0.5;
+  stroke-dasharray: 1.5 1.5;
+}
+
+.india-shape {
+  fill: color-mix(in srgb, var(--v4-panel-strong) 84%, var(--v4-orange));
+  stroke: color-mix(in srgb, var(--v4-orange) 42%, transparent);
+  stroke-width: 0.6;
+}
+
+.sweden-route {
+  fill: none;
+  stroke: color-mix(in srgb, var(--v4-teal) 60%, transparent);
+  stroke-width: 0.7;
+  stroke-dasharray: 1.5 1.5;
+}
+
+.map-dot-kth { fill: var(--v4-amber); }
 
 .cinematic-role-card p:not(.meta) {
   font-size: 0.93rem;
