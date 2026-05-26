@@ -226,13 +226,26 @@ function drawThermalEvidence(ctx, width, height, now) {
   stageBackground(ctx, width, height);
   const S = chtState();
 
-  // ── Layout ──────────────────────────────────────────────────────────────
+  // ── Layout (w17f-1: distribute over full vertical) ─────────────────────
+  // Vertical budget for a 519×472 desktop canvas (default), scales to any
+  // size proportionally. Sections, top → bottom:
+  //   1. Header strip          (32 px)
+  //   2. T(x) profile plot     (~18% of height)
+  //   3. Cross-section band    (~28% of height) — gas / wall / ext zones
+  //   4. Temperature labels    (18 px)
+  //   5. Resistance bars       (~22% of height)
+  //   6. Bi regime banner      (~7% of height)
+  // Sub-band ratios sum to about 95%; the remainder is small gaps.
   const padX = 22;
-  const headerH = 38;
-  const wallY = 60;                       // top of the wall band
-  const wallH = Math.min(94, height * 0.29);   // room for the resistance rail below
-  const barsY = wallY + wallH + 38;            // top of the resistance bars
-  const barsH = Math.min(66, height * 0.18);
+  const headerH = 36;
+  const profileH = Math.max(64, height * 0.18);
+  const profileY = headerH + 8;
+  const wallY = profileY + profileH + 18;
+  const wallH = Math.max(86, height * 0.28);
+  const tempLabelsH = 18;
+  const barsLabelGap = 22;
+  const barsY = wallY + wallH + tempLabelsH + barsLabelGap;
+  const barsH = Math.max(72, height * 0.22);
 
   // Three sub-widths: gas zone, wall zone, ext zone (wall narrow on purpose)
   const innerW = width - padX * 2;
@@ -248,6 +261,91 @@ function drawThermalEvidence(ctx, width, height, now) {
     ? "KONJUGERAD VÄRMEÖVERFÖRING / TERMISKT MOTSTÅND I VÄGGEN"
     : "CHT / 1-D THERMAL RESISTANCE NETWORK", padX, 18, "#82a4b4");
   stageLabel(ctx, "TRITA-ITM-EX 2026:14 · Siemens Energy Finspång", padX, 32, "#65d6c9");
+
+  // ── T(x) temperature-profile plot ──────────────────────────────────────
+  // Piecewise-linear temperature profile sampled along the full gas → wall
+  // → ambient path. Y axis is T (K) from T_ext to T_gas; X axis matches the
+  // cross-section x-positions below so the eye can trace where the gradient
+  // is steep vs flat. The flat section across the wall is the visual
+  // proof of Bi ≪ 0.1.
+  // equation: linear T fall = q · R_zone across each leg
+  const profileXL = padX;
+  const profileXR = width - padX;
+  const profileXMin = profileXL;
+  const profileXMax = profileXR;
+  const T_min = S.T_ext - 20;
+  const T_max = S.T_gas + 20;
+  const yAtT = (T) => profileY + profileH - ((T - T_min) / (T_max - T_min)) * profileH;
+
+  // Plot frame
+  ctx.save();
+  ctx.strokeStyle = "rgba(101, 214, 201, 0.18)";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(profileXL + 0.5, profileY + 0.5, profileXMax - profileXMin - 1, profileH - 1);
+  // Y-axis ticks at T_ext, T_outer, T_inner, T_gas
+  ctx.fillStyle = "rgba(180, 192, 204, 0.7)";
+  ctx.font = "500 9px 'JetBrains Mono', ui-monospace, monospace";
+  [S.T_ext, S.T_outer, S.T_inner, S.T_gas].forEach((T) => {
+    const py = yAtT(T);
+    ctx.strokeStyle = "rgba(180, 192, 204, 0.10)";
+    ctx.beginPath();
+    ctx.moveTo(profileXMin, py);
+    ctx.lineTo(profileXMax, py);
+    ctx.stroke();
+    ctx.fillText(`${Math.round(T)}`, profileXMin + 4, py - 2);
+  });
+  ctx.fillStyle = "rgba(180, 192, 204, 0.85)";
+  ctx.fillText("T(x)  K", profileXMax - 60, profileY + 12);
+  ctx.restore();
+
+  // The 4 plot zone boundaries — these MUST match the cross-section
+  // x-positions used below so they line up visually.
+  const innerWidth = width - padX * 2;
+  const wWall_ = Math.max(34, innerWidth * 0.08);
+  const wGas_ = (innerWidth - wWall_) * 0.50;
+  const wExt_ = (innerWidth - wWall_) * 0.50;
+  const xGas_ = padX;
+  const xWall_ = xGas_ + wGas_;
+  const xExt_ = xWall_ + wWall_;
+
+  // Profile polyline: gas-film drop near wall, linear through wall, ambient
+  // film drop near outer face.
+  const filmFrac = 0.18;          // boundary-layer thickness as fraction of zone width
+  const segments = [
+    [xGas_,                              S.T_gas],
+    [xWall_ - wGas_ * filmFrac,          S.T_gas],
+    [xWall_,                             S.T_inner],
+    [xExt_,                              S.T_outer],
+    [xExt_ + wExt_ * filmFrac,           S.T_ext],
+    [xExt_ + wExt_,                      S.T_ext],
+  ];
+  ctx.save();
+  ctx.strokeStyle = "rgba(246, 200, 95, 0.92)";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  segments.forEach(([x, T], i) => {
+    const y = yAtT(T);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+  // Mark the inner / outer wall points with small dots
+  ctx.fillStyle = "rgba(246, 200, 95, 0.95)";
+  ctx.beginPath();
+  ctx.arc(xWall_, yAtT(S.T_inner), 3, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(xExt_, yAtT(S.T_outer), 3, 0, Math.PI * 2);
+  ctx.fill();
+  // Annotate the through-wall delta
+  const dT = (S.T_inner - S.T_outer).toFixed(1);
+  ctx.fillStyle = "rgba(255, 241, 199, 0.9)";
+  ctx.font = "600 10px 'JetBrains Mono', ui-monospace, monospace";
+  const midWallX = (xWall_ + xExt_) / 2;
+  ctx.textAlign = "center";
+  ctx.fillText(`ΔT_wall = ${dT} K`, midWallX, yAtT((S.T_inner + S.T_outer) / 2) - 8);
+  ctx.textAlign = "left";
+  ctx.restore();
 
   // ── Hot gas zone ───────────────────────────────────────────────────────
   const gasGrad = ctx.createLinearGradient(xGas, 0, xWall, 0);
@@ -679,21 +777,60 @@ function processBox(ctx, x, y, width, height, label, color) {
 // with a recovery loop and explicit baseline-vs-active emissions strip.
 // equation: EnPI = (E_elec + E_fuel) / production              (ISO 50006:2014)
 // equation: emissions intensity = (E_elec·g_elec + E_fuel·g_gas) / production
+// w17f-2: full Industrial scene rebuild.
+// The previous scene was Sankey-only. Now the headline visual is the actual
+// ISO 50006 EnPI methodology — a regression scatter of Energy vs Production
+// with baseline vs active fit lines and a deviation indicator. The Sankey
+// is compressed to a thin top strip so both stories are visible.
+//
+// Top  (~25%): compact 3-block Sankey — sources → conversion → process
+// Mid  (~55%): EnPI regression scatter (the analytical anchor)
+// Bot  (~12%): baseline-vs-active emissions intensity strip
+
+// 14-week synthetic historical dataset (production rate vs purchased energy).
+// Each point is scattered around a fixed baseline line E = 1.6 + 0.52·P + ε
+// to look like real operational data. Generated once, kept stable.
+const ENPI_HISTORY = [
+  [3.2, 3.45], [4.1, 3.78], [4.6, 4.10], [5.0, 4.42], [5.3, 4.51],
+  [5.8, 4.78], [6.2, 4.83], [6.8, 5.21], [7.1, 5.18], [7.4, 5.58],
+  [7.9, 5.79], [8.3, 5.94], [8.7, 6.25], [9.1, 6.32],
+];
+const ENPI_BASELINE_A = 1.6;       // intercept (idle utility load)
+const ENPI_BASELINE_B = 0.52;      // slope (MWh per production unit)
+function enpiBaselineE(production) {
+  return ENPI_BASELINE_A + ENPI_BASELINE_B * production;
+}
+
 function drawIndustrialBalance(ctx, width, height, controls, now) {
   stageBackground(ctx, width, height);
   const metrics = industrialModel(controls);
 
-  // ── Layout ─────────────────────────────────────────────────────────────
-  const sourceX = 22;
-  const processX = width * 0.52;
-  const processW = 112;
+  // ── Vertical layout (proportional to canvas height) ────────────────────
+  const padX = 22;
+  const headerH = 32;
+  const sankeyH = Math.max(80, height * 0.20);
+  const sankeyY = headerH;
+  const scatterY = sankeyY + sankeyH + 14;
+  const scatterH = Math.max(140, height * 0.48);
+  const stripY = scatterY + scatterH + 12;
+  const stripH = Math.min(34, height - stripY - 10);
+
+  // Sankey internal positions (compressed)
+  const sourceX = padX;
+  const sourceW = 84;
+  const midX = sourceX + sourceW + 18;
+  const midW = 84;
+  const procX = midX + midW + 18;
+  const procW = Math.max(70, width - procX - padX);
+  const topY = sankeyY + 4;
+  const bottomY = sankeyY + sankeyH - 30;
+  const midY = (topY + bottomY) / 2;
+  const blockH = (bottomY + 22 - topY) / 2;
+  // Legacy var aliases for the existing flow-path code below (left as-is)
+  const processX = procX;
+  const processW = procW;
+  const processY = midY - blockH / 2;
   const outputX = width - 124;
-  const topY = 56;
-  const midY = height * 0.40;
-  const bottomY = height * 0.62;
-  const processY = (topY + bottomY) / 2;
-  const sourceW = 108;
-  const blockH = 38;
 
   // ── Header ─────────────────────────────────────────────────────────────
   stageLabel(ctx, isSwedish()
@@ -718,8 +855,6 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   // ── Conversion node (heat pump or boiler) ─────────────────────────────
   // Active nodes pulse with a sin-modulated outer halo to telegraph that
   // they're currently dispatching energy.
-  const convX = sourceX + sourceW + 18;
-  const convW = 98;
   const nodePulse = 0.65 + 0.35 * Math.sin(now * 0.0042);
 
   const drawConversionNode = (x, y, w, h, label, sublabel, color, active) => {
@@ -743,74 +878,237 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
       ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
       ctx.restore();
     }
-    stageLabel(ctx, label, x + 8, y + 15, "#e6edf2");
-    stageLabel(ctx, sublabel, x + 8, y + h - 8, color);
+    stageLabel(ctx, label, x + 6, y + 13, "#e6edf2");
+    if (sublabel) stageLabel(ctx, sublabel, x + 6, y + h - 6, color);
   };
 
-  // ── Process + recovery (right) ────────────────────────────────────────
-  if (controls.recovery) {
-    processBox(ctx, outputX, topY, 100, blockH,
-      isSwedish() ? "ÅTERVINNING 22%" : "RECOVERY 22%", "#a3e635");
-    stageLabel(ctx, `${metrics.recovered.toFixed(2)} MW`, outputX + 8, topY + blockH + 14, "#a3e635");
+  // ── Conversion column: HP / E-Boiler / Gas-Boiler stacked vertically ──
+  // We render 3 slim slots in the conversion column. Active ones glow.
+  const slotH = (bottomY + blockH - topY) / 3 - 2;
+  if (controls.heatPump) {
+    drawConversionNode(midX, topY,                       midW, slotH,
+      isSwedish() ? "VÄRMEPUMP" : "HEAT PUMP", "COP 3.25", "#65d6c9", true);
+  } else {
+    drawConversionNode(midX, topY, midW, slotH,
+      isSwedish() ? "VP AV" : "HP OFF", "", "rgba(255,255,255,0.18)", false);
   }
+  if (controls.electricBoiler) {
+    drawConversionNode(midX, topY + slotH + 4,           midW, slotH,
+      isSwedish() ? "ELPANNA" : "E-BOILER", "η 0.98", "#7dd3fc", true);
+  } else {
+    drawConversionNode(midX, topY + slotH + 4, midW, slotH,
+      isSwedish() ? "EB AV" : "EB OFF", "", "rgba(255,255,255,0.18)", false);
+  }
+  drawConversionNode(midX, topY + (slotH + 4) * 2,       midW, slotH,
+    isSwedish() ? "GASPANNA" : "GAS BOILER", "η 0.90", "#d0622c",
+    metrics.gasInput > 0.01);
 
-  processBox(ctx, outputX, bottomY, 100, blockH,
-    isSwedish() ? "UTFALL" : "OUTPUT", "#2563a8");
-  stageLabel(ctx, `${(10 * controls.load / 100).toFixed(1)} u/h`, outputX + 8, bottomY + blockH + 14, "#7dd3fc");
+  // ── Process block (right of conversion) ───────────────────────────────
+  drawConversionNode(procX, topY, procW, sankeyH - 34,
+    "PROCESS",
+    `${metrics.heatDemand.toFixed(2)} MWth · ${(10 * controls.load / 100).toFixed(1)} u/h`,
+    "#f6c85f", false);
 
-  // ── Animated flow lines ────────────────────────────────────────────────
+  // ── Animated flow lines (compact) ─────────────────────────────────────
   const gridPath = new Path2D();
   gridPath.moveTo(sourceX + sourceW, topY + blockH / 2);
-  gridPath.bezierCurveTo(convX - 18, topY + blockH / 2, convX - 18, midY, convX, midY);
-
-  const convOutPath = new Path2D();
-  convOutPath.moveTo(convX + convW, midY);
-  convOutPath.bezierCurveTo(processX - 12, midY, processX - 12, (topY + bottomY) / 2 + blockH * 0.7, processX, (topY + bottomY) / 2 + blockH * 0.7);
+  gridPath.lineTo(midX, topY + slotH / 2);
 
   const fuelPath = new Path2D();
   fuelPath.moveTo(sourceX + sourceW, bottomY + blockH / 2);
-  fuelPath.bezierCurveTo(convX - 18, bottomY + blockH / 2, convX - 18, bottomY + 10, convX, bottomY + 10);
+  fuelPath.lineTo(midX, topY + (slotH + 4) * 2 + slotH / 2);
 
-  const gasOutPath = new Path2D();
-  gasOutPath.moveTo(convX + convW, bottomY + 10);
-  gasOutPath.bezierCurveTo(processX - 12, bottomY + 4, processX - 12, (topY + bottomY) / 2 + blockH * 0.7, processX, (topY + bottomY) / 2 + blockH * 0.7);
+  const convOutPath = new Path2D();
+  convOutPath.moveTo(midX + midW, (topY + bottomY + blockH) / 2);
+  convOutPath.lineTo(procX, (topY + bottomY + blockH) / 2);
 
-  const recoveryPath = new Path2D();
-  recoveryPath.moveTo(processX + processW, processY + 16);
-  recoveryPath.bezierCurveTo(outputX - 24, processY + 16, outputX - 24, topY + 18, outputX, topY + 18);
+  flowStroke(ctx, gridPath, Math.max(2, metrics.electricInput * 6), "#65d6c9", now, 0.035);
+  flowStroke(ctx, fuelPath, Math.max(2, metrics.gasInput * 3), "#d0622c", now, 0.025);
+  flowStroke(ctx, convOutPath, Math.max(2, metrics.heatDemand * 4), "#f6c85f", now, 0.040);
 
-  const outputPath = new Path2D();
-  outputPath.moveTo(processX + processW, processY + 34);
-  outputPath.bezierCurveTo(outputX - 24, processY + 34, outputX - 24, bottomY + 18, outputX, bottomY + 18);
+  // ── EnPI regression scatter chart (the analytical anchor) ─────────────
+  // Plots Energy_purchased (MWh) vs Production (units/h) with:
+  //   - 14 historical scatter points (synthetic, fixed)
+  //   - baseline regression line (orange, dashed)  E = 1.6 + 0.52·P
+  //   - active operating line (cyan, solid) computed from current dispatch
+  //   - current point highlighted with pulse + deviation arrow
+  // equation: EnPI = E_purchased / P  (ISO 50006:2014)
+  //           Baseline E_b(P) = a + b·P  (load-driver regression)
+  //           Deviation = (E_active − E_baseline) / E_baseline × 100 %
 
-  flowStroke(ctx, gridPath, Math.max(2, metrics.electricInput * 6), "#65d6c9", now, 0.030);
-  flowStroke(ctx, convOutPath, Math.max(2, (metrics.heatDemand - metrics.gasInput * 0.90 + metrics.recovered) * 4), "#65d6c9", now, 0.030);
-  flowStroke(ctx, fuelPath, Math.max(2, metrics.gasInput * 3), "#d0622c", now, 0.022);
-  flowStroke(ctx, gasOutPath, Math.max(2, metrics.gasInput * 0.90 * 4), "#d0622c", now, 0.022);
-  if (controls.recovery) {
-    flowStroke(ctx, recoveryPath, Math.max(2, metrics.recovered * 5), "#a3e635", now, 0.038);
+  const plotPadL = padX + 32;
+  const plotPadR = padX + 70;        // room for live labels
+  const plotPadT = 14;
+  const plotPadB = 18;
+  const scatterPlotX = plotPadL;
+  const scatterPlotY = scatterY + plotPadT;
+  const scatterPlotW = width - plotPadL - plotPadR;
+  const scatterPlotH = scatterH - plotPadT - plotPadB;
+
+  // X axis: 0..12 units/h.  Y axis: 0..10 MWh
+  const X_MIN = 0, X_MAX = 12;
+  const Y_MIN = 0, Y_MAX = 10;
+  const xToPx = (P) => scatterPlotX + ((P - X_MIN) / (X_MAX - X_MIN)) * scatterPlotW;
+  const yToPx = (E) => scatterPlotY + scatterPlotH - ((E - Y_MIN) / (Y_MAX - Y_MIN)) * scatterPlotH;
+
+  // Chart background + frame
+  ctx.save();
+  ctx.fillStyle = "rgba(13, 23, 28, 0.55)";
+  ctx.fillRect(scatterPlotX, scatterPlotY, scatterPlotW, scatterPlotH);
+  ctx.strokeStyle = "rgba(101, 214, 201, 0.18)";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(scatterPlotX + 0.5, scatterPlotY + 0.5, scatterPlotW - 1, scatterPlotH - 1);
+  // Grid
+  ctx.strokeStyle = "rgba(180, 192, 204, 0.07)";
+  for (let p = 2; p <= 12; p += 2) {
+    const gx = xToPx(p);
+    ctx.beginPath(); ctx.moveTo(gx, scatterPlotY); ctx.lineTo(gx, scatterPlotY + scatterPlotH); ctx.stroke();
   }
-  flowStroke(ctx, outputPath, Math.max(2, metrics.heatDemand * 1.6), "#2563a8", now, 0.025);
+  for (let e = 2; e <= 10; e += 2) {
+    const gy = yToPx(e);
+    ctx.beginPath(); ctx.moveTo(scatterPlotX, gy); ctx.lineTo(scatterPlotX + scatterPlotW, gy); ctx.stroke();
+  }
+  // Axis ticks
+  ctx.fillStyle = "rgba(180, 192, 204, 0.65)";
+  ctx.font = "500 9px 'JetBrains Mono', ui-monospace, monospace";
+  for (let p = 0; p <= 12; p += 4) {
+    ctx.fillText(`${p}`, xToPx(p) - 4, scatterPlotY + scatterPlotH + 13);
+  }
+  for (let e = 0; e <= 10; e += 2) {
+    ctx.textAlign = "right";
+    ctx.fillText(`${e}`, scatterPlotX - 4, yToPx(e) + 3);
+  }
+  ctx.textAlign = "left";
+  // Axis labels
+  ctx.fillStyle = "rgba(180, 192, 204, 0.85)";
+  ctx.font = "500 10px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText("Production  P  [u/h] →", scatterPlotX + scatterPlotW - 138, scatterPlotY + scatterPlotH - 6);
+  ctx.save();
+  ctx.translate(scatterPlotX - 22, scatterPlotY + 80);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText("Energy  E  [MWh] ↑", 0, 0);
+  ctx.restore();
+  ctx.restore();
 
-  // Draw conversion and process instrumentation above the moving flow lanes,
-  // keeping animated pipes legible without allowing them to overwrite labels.
-  if (controls.heatPump) {
-    drawConversionNode(convX, midY - blockH / 2, convW, blockH + 6,
-      isSwedish() ? "VARMEPUMP" : "HEAT PUMP", "COP 3.25", "#65d6c9", true);
-  }
-  if (controls.electricBoiler) {
-    drawConversionNode(convX, midY + 30, convW, blockH,
-      isSwedish() ? "ELPANNA" : "E-BOILER", "EFF 0.98", "#7dd3fc", true);
-  }
-  drawConversionNode(convX, bottomY - 10, convW, blockH + 2,
-    isSwedish() ? "GASPANNA" : "GAS BOILER", "EFF 0.90", "#d0622c",
-    metrics.gasInput > 0.01);
-  drawConversionNode(processX, processY, processW, 48,
-    "PROCESS", `${metrics.heatDemand.toFixed(2)} MWth`, "#f6c85f", false);
+  // Scatter points (faded with age — newest first / brightest)
+  ctx.save();
+  ENPI_HISTORY.forEach(([P, E], i) => {
+    const opacity = 0.30 + 0.55 * (i / ENPI_HISTORY.length);
+    ctx.fillStyle = `rgba(180, 192, 204, ${opacity.toFixed(2)})`;
+    ctx.beginPath();
+    ctx.arc(xToPx(P), yToPx(E), 2.6, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  ctx.restore();
+
+  // Baseline regression line (orange dashed): E = a + b·P
+  ctx.save();
+  ctx.strokeStyle = "rgba(208, 98, 44, 0.78)";
+  ctx.lineWidth = 1.6;
+  ctx.setLineDash([6, 5]);
+  ctx.beginPath();
+  ctx.moveTo(xToPx(0),       yToPx(enpiBaselineE(0)));
+  ctx.lineTo(xToPx(X_MAX),   yToPx(enpiBaselineE(X_MAX)));
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = "rgba(208, 98, 44, 0.95)";
+  ctx.font = "600 10px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText("Baseline  E = 1.6 + 0.52·P",
+    scatterPlotX + scatterPlotW - 192, yToPx(enpiBaselineE(X_MAX * 0.7)) - 6);
+  ctx.restore();
+
+  // Active operating line — from current EnPI extrapolated through origin's
+  // baseline intercept (so it's a line, not just a point). Slope reflects
+  // how much per-unit energy the current dispatch needs.
+  const currentP = 10 * controls.load / 100;
+  const currentE = metrics.electricInput + metrics.gasInput;
+  // Slope of active line: pivot from baseline intercept through current point
+  const activeSlope = currentP > 0.1 ? (currentE - ENPI_BASELINE_A) / currentP : ENPI_BASELINE_B;
+  ctx.save();
+  ctx.strokeStyle = "rgba(101, 214, 201, 0.95)";
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  ctx.moveTo(xToPx(0),     yToPx(ENPI_BASELINE_A));
+  ctx.lineTo(xToPx(X_MAX), yToPx(ENPI_BASELINE_A + activeSlope * X_MAX));
+  ctx.stroke();
+  ctx.restore();
+
+  // Current operating point — pulsing dot + vertical/horizontal guides
+  const cpx = xToPx(currentP);
+  const cpy = yToPx(currentE);
+  const pulseR = 5 + 2 * Math.sin(now * 0.005);
+  ctx.save();
+  // Guides
+  ctx.strokeStyle = "rgba(255, 241, 199, 0.30)";
+  ctx.lineWidth = 1;
+  ctx.setLineDash([2, 3]);
+  ctx.beginPath();
+  ctx.moveTo(cpx, scatterPlotY + scatterPlotH);
+  ctx.lineTo(cpx, cpy);
+  ctx.lineTo(scatterPlotX, cpy);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  // Halo
+  ctx.fillStyle = "rgba(255, 241, 199, 0.25)";
+  ctx.beginPath();
+  ctx.arc(cpx, cpy, pulseR + 4, 0, Math.PI * 2);
+  ctx.fill();
+  // Dot
+  ctx.fillStyle = "#fff1c7";
+  ctx.beginPath();
+  ctx.arc(cpx, cpy, 4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  // Deviation indicator: vertical arrow from current point to baseline at P
+  const baselineHere = enpiBaselineE(currentP);
+  const baselineY = yToPx(baselineHere);
+  const deviationPct = baselineHere > 0
+    ? ((currentE - baselineHere) / baselineHere) * 100
+    : 0;
+  ctx.save();
+  const arrowColor = deviationPct > 0 ? "#d0622c" : "#65d6c9";
+  ctx.strokeStyle = arrowColor;
+  ctx.fillStyle = arrowColor;
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  ctx.moveTo(cpx + 14, cpy);
+  ctx.lineTo(cpx + 14, baselineY);
+  ctx.stroke();
+  // arrowhead
+  const arrowDir = baselineY > cpy ? 1 : -1;
+  ctx.beginPath();
+  ctx.moveTo(cpx + 14, baselineY);
+  ctx.lineTo(cpx + 10, baselineY - 5 * arrowDir);
+  ctx.lineTo(cpx + 18, baselineY - 5 * arrowDir);
+  ctx.closePath();
+  ctx.fill();
+  // Deviation label
+  ctx.fillStyle = arrowColor;
+  ctx.font = "700 11px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText(`${deviationPct > 0 ? "+" : ""}${deviationPct.toFixed(1)} %`, cpx + 22, (cpy + baselineY) / 2 + 4);
+  ctx.restore();
+
+  // Right-side live readout
+  const readX = scatterPlotX + scatterPlotW + 8;
+  ctx.save();
+  ctx.fillStyle = "rgba(255, 241, 199, 0.92)";
+  ctx.font = "700 11px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText(`EnPI ${(currentE / Math.max(0.1, currentP)).toFixed(2)}`, readX, scatterPlotY + 18);
+  ctx.fillStyle = "rgba(180, 192, 204, 0.80)";
+  ctx.font = "500 10px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText("MWh/u", readX, scatterPlotY + 30);
+  ctx.fillStyle = "rgba(101, 214, 201, 0.92)";
+  ctx.fillText(`P  ${currentP.toFixed(1)}`, readX, scatterPlotY + 52);
+  ctx.fillStyle = "rgba(208, 98, 44, 0.92)";
+  ctx.fillText(`E  ${currentE.toFixed(2)}`, readX, scatterPlotY + 66);
+  ctx.fillStyle = "rgba(180, 192, 204, 0.70)";
+  ctx.fillText("Baseline:", readX, scatterPlotY + 90);
+  ctx.fillStyle = "rgba(208, 98, 44, 0.88)";
+  ctx.fillText(`a=1.6  b=0.52`, readX, scatterPlotY + 102);
+  ctx.restore();
 
   // ── Baseline vs Active emissions strip (bottom) ───────────────────────
-  const stripY = height - 38;
-  const stripH = 22;
   const stripPadL = sourceX;
   const stripW = width - stripPadL * 2;
   // Baseline = all heat from gas boiler, only base electric load
