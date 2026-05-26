@@ -1,8 +1,11 @@
-/* Hero instrument viewport: one readable surface for the active engineering lens. */
+/* Hero instrument viewport: one readable surface for the active engineering lens.
+   w17e2: viewport sized larger — canvas given more horizontal real estate
+   (1.06fr was text-favouring; switched to text-fluid + canvas-flexible) so
+   the engineering scenes have room to breathe and labels don't overlap. */
 body.signal-rebuild .hero-core {
   display: grid;
-  grid-template-columns: minmax(28rem, 1.06fr) minmax(23rem, 0.94fr);
-  gap: clamp(1.7rem, 4vw, 3.6rem);
+  grid-template-columns: minmax(26rem, 0.95fr) minmax(28rem, 1.10fr);
+  gap: clamp(1.4rem, 3.5vw, 3.2rem);
   align-items: start;
 }
 
@@ -85,7 +88,12 @@ html[data-theme="light"] .motion-ambient-canvas {
 .hero-instrument-surface {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 1.34;
+  /* w17e2: taller viewport (was 1.34) so multi-row scenes — CHT zone diagram
+     + resistance bars + Bi banner, stacked dispatch + legend + active-source
+     row, Sankey + emissions strip, nozzle + ladder — all fit without crowding.
+     1.10 ≈ near-square gives ~9% more vertical room per same width. */
+  aspect-ratio: 1.10;
+  min-height: 360px;
   border: 1px solid #152730;
   background: #05090d;
 }
@@ -170,7 +178,10 @@ html.motion-reduced .motion-ambient-canvas {
   }
 
   .hero-instrument-surface {
-    aspect-ratio: 1.55;
+    /* Stacked mobile layout: still taller than before, but slightly wider
+       than the desktop near-square because we have full content width. */
+    aspect-ratio: 1.35;
+    min-height: 320px;
   }
 }
 
@@ -195,6 +206,7 @@ html.motion-reduced .motion-ambient-canvas {
   }
 
   .hero-instrument-surface {
-    aspect-ratio: 1.35;
+    aspect-ratio: 1.22;
+    min-height: 260px;
   }
 }
