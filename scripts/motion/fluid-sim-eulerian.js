@@ -807,124 +807,213 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
 
   // ── Vertical layout (proportional to canvas height) ────────────────────
   const padX = 22;
-  const headerH = 32;
-  const sankeyH = Math.max(80, height * 0.20);
+  const headerH = 38;
+  // Sankey now uses a real ribbon diagram (filled bezier shapes) rather than
+  // pill-shaped stroked dashes — the previous look made arrival labels collide
+  // with the moving stroke. Slightly taller because ribbons need vertical
+  // room proportional to MW flow to be legible.
+  const sankeyH = Math.max(110, height * 0.26);
   const sankeyY = headerH;
   const scatterY = sankeyY + sankeyH + 14;
-  const scatterH = Math.max(140, height * 0.48);
+  const scatterH = Math.max(132, height * 0.42);
   const stripY = scatterY + scatterH + 12;
   const stripH = Math.min(34, height - stripY - 10);
-
-  // Sankey internal positions (compressed)
-  const sourceX = padX;
-  const sourceW = 84;
-  const midX = sourceX + sourceW + 18;
-  const midW = 84;
-  const procX = midX + midW + 18;
-  const procW = Math.max(70, width - procX - padX);
-  const topY = sankeyY + 4;
-  const bottomY = sankeyY + sankeyH - 30;
-  const midY = (topY + bottomY) / 2;
-  const blockH = (bottomY + 22 - topY) / 2;
-  // Legacy var aliases for the existing flow-path code below (left as-is)
-  const processX = procX;
-  const processW = procW;
-  const processY = midY - blockH / 2;
-  const outputX = width - 124;
 
   // ── Header ─────────────────────────────────────────────────────────────
   stageLabel(ctx, isSwedish()
     ? "ENERGIBALANS · ISO 50006 EnPI-RAM"
-    : "UTILITY BALANCE · ISO 50006 EnPI FRAME", sourceX, 18, "#82a4b4");
+    : "UTILITY BALANCE · ISO 50006 EnPI FRAME", padX, 18, "#82a4b4");
   stageLabel(ctx, isSwedish()
     ? "Skjut grid-intensitet → utsläppsskillnaden visas i nedre strecket."
-    : "Drag grid intensity → emissions delta shown in the bottom strip.",
-    sourceX, 32, "#65d6c9");
+    : "Drag grid intensity → emissions delta in bottom strip · ribbon width ∝ MW",
+    padX, 32, "#65d6c9");
 
-  // ── Source boxes (left) ────────────────────────────────────────────────
-  processBox(ctx, sourceX, topY, sourceW, blockH,
-    isSwedish() ? "ELNÄT" : "GRID", "#65d6c9");
-  stageLabel(ctx, `${metrics.electricInput.toFixed(2)} MW`, sourceX + 8, topY + blockH + 14, "#65d6c9");
-  stageLabel(ctx, `${controls.grid} kgCO₂e/MWh`, sourceX + 8, topY + blockH + 28, "#82a4b4");
+  // ── Sankey node layout (3 column: sources | converters | sink) ─────────
+  // Each node is a filled vertical bar; height proportional to MW it handles.
+  // Column geometry:
+  const colW = 70;                                   // bar thickness
+  const srcColX = padX;
+  const convColX = padX + 180;                       // ribbon span source→conv
+  const sinkColX = width - padX - colW;              // ribbon span conv→sink
+  const innerTop = sankeyY + 6;
+  const innerBot = sankeyY + sankeyH - 6;
+  const innerH = innerBot - innerTop;
 
-  processBox(ctx, sourceX, bottomY, sourceW, blockH,
-    isSwedish() ? "BRÄNSLE" : "FUEL", "#d0622c");
-  stageLabel(ctx, `${metrics.gasInput.toFixed(2)} MW`, sourceX + 8, bottomY + blockH + 14, "#d0622c");
-  stageLabel(ctx, "202 kgCO₂/MWh", sourceX + 8, bottomY + blockH + 28, "#82a4b4");
+  // MW totals — the diagram scale is set by the largest column total so the
+  // sink (PROCESS) fills nearly the full vertical room of the band.
+  const gridMW = Math.max(0.01, metrics.electricInput);
+  const fuelMW = Math.max(0.01, metrics.gasInput);
+  const sourceTotal = gridMW + fuelMW;
+  const heatPumpMW = controls.heatPump ? Math.max(0, metrics.heatDemand * 0.52) : 0;
+  const gasBoilerMW = Math.max(0, metrics.heatDemand - heatPumpMW);
+  const sinkTotal = Math.max(0.01, heatPumpMW + gasBoilerMW);
+  // MW-to-pixels — scale uses the larger of the two totals so nothing
+  // overflows the band, then leave a small margin so converters can slot in.
+  const mwScale = (innerH * 0.92) / Math.max(sourceTotal, sinkTotal);
 
-  // ── Conversion node (heat pump or boiler) ─────────────────────────────
-  // Active nodes pulse with a sin-modulated outer halo to telegraph that
-  // they're currently dispatching energy.
-  const nodePulse = 0.65 + 0.35 * Math.sin(now * 0.0042);
-
-  const drawConversionNode = (x, y, w, h, label, sublabel, color, active) => {
-    if (active) {
-      ctx.save();
-      ctx.shadowColor = color;
-      ctx.shadowBlur = 14 * nodePulse;
-      ctx.fillStyle = "rgba(13, 23, 28, 0.92)";
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 1 + nodePulse;
-      ctx.fillRect(x, y, w, h);
-      ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
-      ctx.shadowBlur = 0;
-      ctx.restore();
-    } else {
-      ctx.save();
-      ctx.fillStyle = "#0d171c";
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 1;
-      ctx.fillRect(x, y, w, h);
-      ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
-      ctx.restore();
+  // Helper — draw a vertical Sankey bar with rounded inner edge and a label
+  // inscribed at the top.
+  const drawBar = (x, yTop, h, color, label, valueLabel) => {
+    ctx.save();
+    // base fill (very dark) + colored inner panel
+    ctx.fillStyle = "rgba(13, 23, 28, 0.92)";
+    ctx.fillRect(x, yTop, colW, h);
+    // inner colored swatch along the connecting edge
+    const grad = ctx.createLinearGradient(x, yTop, x + colW, yTop);
+    grad.addColorStop(0, rgba(color, 0.22));
+    grad.addColorStop(1, rgba(color, 0.55));
+    ctx.fillStyle = grad;
+    ctx.fillRect(x, yTop, colW, h);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.2;
+    ctx.strokeRect(x + 0.5, yTop + 0.5, colW - 1, h - 1);
+    // labels — top label (name), MW under
+    ctx.fillStyle = "#e6edf2";
+    ctx.font = "700 10px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.fillText(label, x + 6, yTop + 13);
+    if (valueLabel) {
+      ctx.fillStyle = color;
+      ctx.font = "600 10px 'JetBrains Mono', ui-monospace, monospace";
+      ctx.fillText(valueLabel, x + 6, yTop + 26);
     }
-    stageLabel(ctx, label, x + 6, y + 13, "#e6edf2");
-    if (sublabel) stageLabel(ctx, sublabel, x + 6, y + h - 6, color);
+    ctx.restore();
   };
 
-  // ── Conversion column: HP / E-Boiler / Gas-Boiler stacked vertically ──
-  // We render 3 slim slots in the conversion column. Active ones glow.
-  const slotH = (bottomY + blockH - topY) / 3 - 2;
-  if (controls.heatPump) {
-    drawConversionNode(midX, topY,                       midW, slotH,
-      isSwedish() ? "VÄRMEPUMP" : "HEAT PUMP", "COP 3.25", "#65d6c9", true);
-  } else {
-    drawConversionNode(midX, topY, midW, slotH,
-      isSwedish() ? "VP AV" : "HP OFF", "", "rgba(255,255,255,0.18)", false);
-  }
-  if (controls.electricBoiler) {
-    drawConversionNode(midX, topY + slotH + 4,           midW, slotH,
-      isSwedish() ? "ELPANNA" : "E-BOILER", "η 0.98", "#7dd3fc", true);
-  } else {
-    drawConversionNode(midX, topY + slotH + 4, midW, slotH,
-      isSwedish() ? "EB AV" : "EB OFF", "", "rgba(255,255,255,0.18)", false);
-  }
-  drawConversionNode(midX, topY + (slotH + 4) * 2,       midW, slotH,
-    isSwedish() ? "GASPANNA" : "GAS BOILER", "η 0.90", "#d0622c",
-    metrics.gasInput > 0.01);
+  // Helper — draw a filled Sankey ribbon between (x1, y1a..y1b) on the left
+  // and (x2, y2a..y2b) on the right with a smooth horizontal bezier. Inside
+  // the ribbon, animated streak lines drift left→right to telegraph flow.
+  // equation: ribbon thickness ∝ MW flow; ribbon energy is conserved.
+  const drawRibbon = (x1, y1a, y1b, x2, y2a, y2b, color) => {
+    const cx1 = x1 + (x2 - x1) * 0.45;
+    const cx2 = x1 + (x2 - x1) * 0.55;
+    const path = new Path2D();
+    path.moveTo(x1, y1a);
+    path.bezierCurveTo(cx1, y1a, cx2, y2a, x2, y2a);
+    path.lineTo(x2, y2b);
+    path.bezierCurveTo(cx2, y2b, cx1, y1b, x1, y1b);
+    path.closePath();
+    // Fill with horizontal gradient (dim at source, glow at sink edge)
+    const grad = ctx.createLinearGradient(x1, 0, x2, 0);
+    grad.addColorStop(0,    rgba(color, 0.45));
+    grad.addColorStop(0.5,  rgba(color, 0.30));
+    grad.addColorStop(1,    rgba(color, 0.55));
+    ctx.save();
+    ctx.fillStyle = grad;
+    ctx.fill(path);
+    // soft outline so ribbons read against each other
+    ctx.strokeStyle = rgba(color, 0.65);
+    ctx.lineWidth = 1;
+    ctx.stroke(path);
+    // Animated streaks INSIDE the ribbon — short tangential dashes following
+    // 5 interior bezier centrelines. Phase-shifted so the flow direction is
+    // visible. Streaks are rendered as bright white-ish dashes (much higher
+    // contrast than the ribbon fill) with butt line caps so no rounded pill
+    // artifacts poke out beyond the ribbon edges.
+    ctx.clip(path);
+    const ribbonH = Math.max(Math.abs(y1b - y1a), Math.abs(y2b - y2a));
+    const streakCount = Math.max(3, Math.min(7, Math.round(ribbonH / 9)));
+    for (let s = 0; s < streakCount; s += 1) {
+      const t = (s + 1) / (streakCount + 1);
+      const yA = y1a + (y1b - y1a) * t;
+      const yB = y2a + (y2b - y2a) * t;
+      const streak = new Path2D();
+      streak.moveTo(x1, yA);
+      streak.bezierCurveTo(cx1, yA, cx2, yB, x2, yB);
+      // Bright streak: much lighter than the ribbon fill so the flow reads.
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.32)";
+      ctx.lineWidth = 1.4;
+      ctx.lineCap = "butt"; // no rounded pill caps
+      ctx.setLineDash([10, 22]);
+      // Faster phase so the streak motion is unambiguous (≈2–3 px/frame).
+      ctx.lineDashOffset = -((now * 0.18) + s * 9) % 32;
+      ctx.stroke(streak);
+    }
+    ctx.setLineDash([]);
+    ctx.restore();
+  };
 
-  // ── Process block (right of conversion) ───────────────────────────────
-  drawConversionNode(procX, topY, procW, sankeyH - 34,
+  // ── Source bars (left column) ──────────────────────────────────────────
+  const gridH = gridMW * mwScale;
+  const fuelH = fuelMW * mwScale;
+  const gridGap = 8;
+  const srcStackH = gridH + fuelH + gridGap;
+  const srcStartY = innerTop + (innerH - srcStackH) / 2;
+  const gridY = srcStartY;
+  const fuelY = gridY + gridH + gridGap;
+  drawBar(srcColX, gridY, gridH, "#65d6c9",
+    isSwedish() ? "ELNÄT" : "GRID",
+    `${gridMW.toFixed(2)} MW`);
+  drawBar(srcColX, fuelY, fuelH, "#d0622c",
+    isSwedish() ? "BRÄNSLE" : "FUEL",
+    `${fuelMW.toFixed(2)} MW`);
+  // tiny side annotations for grid intensity (placed OUTSIDE any ribbon zone)
+  ctx.save();
+  ctx.fillStyle = "rgba(130, 164, 180, 0.75)";
+  ctx.font = "500 9px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText(`${controls.grid} gCO₂/kWh`, srcColX, gridY + gridH + 16 > fuelY ? fuelY - 2 : gridY + gridH + 12);
+  ctx.fillText("202 gCO₂/kWh", srcColX, fuelY + fuelH + 12);
+  ctx.restore();
+
+  // ── Converter bars (middle column) — HP top, Gas Boiler below ─────────
+  const hpH = heatPumpMW * mwScale;
+  const gbH = gasBoilerMW * mwScale;
+  const convGap = 10;
+  const convStackH = hpH + gbH + convGap;
+  const convStartY = innerTop + (innerH - convStackH) / 2;
+  const hpY = convStartY;
+  const gbY = hpY + hpH + convGap;
+  if (heatPumpMW > 0.01) {
+    drawBar(convColX, hpY, Math.max(18, hpH), "#65d6c9", "HEAT PUMP", "COP 3.25");
+  }
+  if (gasBoilerMW > 0.01) {
+    drawBar(convColX, gbY, Math.max(18, gbH), "#d0622c", "GAS BOILER", "η 0.90");
+  }
+
+  // ── Sink bar (right column) — PROCESS ─────────────────────────────────
+  const sinkH = sinkTotal * mwScale;
+  const sinkY = innerTop + (innerH - sinkH) / 2;
+  drawBar(sinkColX, sinkY, sinkH, "#f6c85f",
     "PROCESS",
-    `${metrics.heatDemand.toFixed(2)} MWth · ${(10 * controls.load / 100).toFixed(1)} u/h`,
-    "#f6c85f", false);
+    `${metrics.heatDemand.toFixed(2)} MWth`);
+  // production-rate sublabel inside the bar (below MWth)
+  ctx.save();
+  ctx.fillStyle = "rgba(180, 192, 204, 0.75)";
+  ctx.font = "500 9px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText(`${(10 * controls.load / 100).toFixed(1)} u/h`, sinkColX + 6, sinkY + 38);
+  ctx.restore();
 
-  // ── Animated flow lines (compact) ─────────────────────────────────────
-  const gridPath = new Path2D();
-  gridPath.moveTo(sourceX + sourceW, topY + blockH / 2);
-  gridPath.lineTo(midX, topY + slotH / 2);
-
-  const fuelPath = new Path2D();
-  fuelPath.moveTo(sourceX + sourceW, bottomY + blockH / 2);
-  fuelPath.lineTo(midX, topY + (slotH + 4) * 2 + slotH / 2);
-
-  const convOutPath = new Path2D();
-  convOutPath.moveTo(midX + midW, (topY + bottomY + blockH) / 2);
-  convOutPath.lineTo(procX, (topY + bottomY + blockH) / 2);
-
-  flowStroke(ctx, gridPath, Math.max(2, metrics.electricInput * 6), "#65d6c9", now, 0.035);
-  flowStroke(ctx, fuelPath, Math.max(2, metrics.gasInput * 3), "#d0622c", now, 0.025);
-  flowStroke(ctx, convOutPath, Math.max(2, metrics.heatDemand * 4), "#f6c85f", now, 0.040);
+  // ── Ribbons (filled, color-graded, no pill artifacts) ──────────────────
+  // Source-side: split GRID between HP-input and (negligible) and FUEL→GB.
+  // For visual clarity, route all GRID into HP (matches model intent — HP
+  // is electric; E-Boiler off in this scene) and all FUEL into GB.
+  if (heatPumpMW > 0.01 && hpH > 0.5) {
+    // GRID → HP
+    drawRibbon(
+      srcColX + colW, gridY, gridY + gridH,
+      convColX,       hpY,   hpY + hpH,
+      "#65d6c9"
+    );
+    // HP → PROCESS (occupies top slice of sink)
+    drawRibbon(
+      convColX + colW, hpY,   hpY + hpH,
+      sinkColX,        sinkY, sinkY + hpH,
+      "#65d6c9"
+    );
+  }
+  if (gasBoilerMW > 0.01 && gbH > 0.5) {
+    // FUEL → GAS BOILER
+    drawRibbon(
+      srcColX + colW, fuelY, fuelY + fuelH,
+      convColX,       gbY,   gbY + gbH,
+      "#d0622c"
+    );
+    // GAS BOILER → PROCESS (occupies bottom slice of sink)
+    drawRibbon(
+      convColX + colW, gbY,            gbY + gbH,
+      sinkColX,        sinkY + hpH,    sinkY + sinkH,
+      "#d0622c"
+    );
+  }
 
   // ── EnPI regression scatter chart (the analytical anchor) ─────────────
   // Plots Energy_purchased (MWh) vs Production (units/h) with:
@@ -1109,7 +1198,7 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   ctx.restore();
 
   // ── Baseline vs Active emissions strip (bottom) ───────────────────────
-  const stripPadL = sourceX;
+  const stripPadL = padX;
   const stripW = width - stripPadL * 2;
   // Baseline = all heat from gas boiler, only base electric load
   const maxIntensity = Math.max(metrics.emissions, metrics.baselineEmissions);
