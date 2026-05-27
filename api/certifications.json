@@ -148,15 +148,6 @@
       }
     },
     {
-      "title": "Introduction to Enterprise Computing",
-      "issuer": "IBM",
-      "issued": "Nov 2020",
-      "link": {
-        "label": "Issuer",
-        "url": "https://www.ibm.com/training/"
-      }
-    },
-    {
       "title": "Git for Developers Using Github",
       "issuer": "Coursera",
       "issued": "Oct 2020",
