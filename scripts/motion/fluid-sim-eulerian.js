@@ -1403,6 +1403,22 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   ctx.fillText(`a=1.6  b=0.52`, readX, scatterPlotY + 102);
   ctx.restore();
 
+  // Draw conversion and process instrumentation above the moving flow lanes,
+  // keeping animated pipes legible without allowing them to overwrite labels.
+  if (controls.heatPump) {
+    drawConversionNode(convX, midY - blockH / 2, convW, blockH + 6,
+      isSwedish() ? "VARMEPUMP" : "HEAT PUMP", "COP 3.25", "#65d6c9", true);
+  }
+  if (controls.electricBoiler) {
+    drawConversionNode(convX, midY + 30, convW, blockH,
+      isSwedish() ? "ELPANNA" : "E-BOILER", "EFF 0.98", "#7dd3fc", true);
+  }
+  drawConversionNode(convX, bottomY - 10, convW, blockH + 2,
+    isSwedish() ? "GASPANNA" : "GAS BOILER", "EFF 0.90", "#d0622c",
+    metrics.gasInput > 0.01);
+  drawConversionNode(processX, processY, processW, 48,
+    "PROCESS", `${metrics.heatDemand.toFixed(2)} MWth`, "#f6c85f", false);
+
   // ── Baseline vs Active emissions strip (bottom) ───────────────────────
   const stripPadL = padX;
   const stripW = width - stripPadL * 2;
