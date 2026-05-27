@@ -402,15 +402,16 @@ html.motion-entrance-active body {
 
 .research-live-rail {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: 0.45rem;
 }
 
 .mode-telemetry .research-live-rail {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
 }
 
 .research-live-rail article {
+  position: relative;
   min-height: 3.75rem;
   padding: 0.55rem 0.62rem;
   border-top: 1px solid color-mix(in srgb, var(--accent, #38bdf8) 32%, var(--line));
@@ -426,6 +427,135 @@ html.motion-entrance-active body {
 .research-live-rail span {
   color: var(--muted);
   font-size: 0.7rem;
+}
+
+/* Equation symbol chip — small, monospace, sits above the value */
+.research-live-rail .cell-sym,
+.model-readouts .cell-sym {
+  display: inline-block;
+  margin-bottom: 0.18rem;
+  padding: 0.05rem 0.36rem;
+  border: 1px solid color-mix(in srgb, var(--accent, #38bdf8) 38%, transparent);
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--accent, #38bdf8) 80%, var(--text));
+  background: color-mix(in srgb, var(--accent, #38bdf8) 10%, transparent);
+  font: 600 0.66rem/1.1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.02em;
+}
+
+/* Per-mode tint for the symbol chip */
+body[data-home-mode="thermal"]        .research-live-rail .cell-sym,
+body[data-home-mode="thermal"]        .model-readouts .cell-sym { border-color: color-mix(in srgb, #f97316 50%, transparent); color: #f97316; background: color-mix(in srgb, #f97316 12%, transparent); }
+body[data-home-mode="energy"]         .research-live-rail .cell-sym { border-color: color-mix(in srgb, #22d3ee 50%, transparent); color: #22d3ee; background: color-mix(in srgb, #22d3ee 12%, transparent); }
+body[data-home-mode="decarbonisation"] .research-live-rail .cell-sym,
+body[data-home-mode="decarbonisation"] .model-readouts .cell-sym { border-color: color-mix(in srgb, #f59e0b 50%, transparent); color: #f59e0b; background: color-mix(in srgb, #f59e0b 12%, transparent); }
+body[data-home-mode="research"]       .research-live-rail .cell-sym { border-color: color-mix(in srgb, #a78bfa 50%, transparent); color: #a78bfa; background: color-mix(in srgb, #a78bfa 12%, transparent); }
+
+/* Methodology disclosure — equations + source-code citations */
+.lens-methodology {
+  margin-top: 1rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--accent, #38bdf8) 24%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg, #070907) 50%, transparent);
+  font-size: 0.82rem;
+}
+
+.lens-methodology > summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--accent, #38bdf8) 75%, var(--text));
+  list-style: none;
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+.lens-methodology > summary::-webkit-details-marker { display: none; }
+
+.lens-methodology > summary::after {
+  content: "+";
+  position: absolute;
+  right: 0.15rem;
+  top: -0.05rem;
+  font-weight: 400;
+  font-size: 1.05rem;
+  color: var(--muted);
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lens-methodology[open] > summary::after {
+  content: "−";
+  color: color-mix(in srgb, var(--accent, #38bdf8) 80%, var(--text));
+}
+
+.lens-methodology ul {
+  margin: 0.55rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.lens-methodology li + li {
+  margin-top: 0.35rem;
+}
+
+.lens-methodology code {
+  padding: 0.05rem 0.3rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent, #38bdf8) 12%, transparent);
+  color: color-mix(in srgb, var(--accent, #38bdf8) 80%, var(--text));
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.82em;
+}
+
+/* Geometry segmented control (Lens 1) */
+.lens-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.6rem 0 0.45rem;
+  font-size: 0.78rem;
+}
+
+.lens-controls-label {
+  color: var(--muted);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lens-segmented {
+  display: inline-flex;
+  gap: 0;
+  padding: 2px;
+  border: 1px solid color-mix(in srgb, var(--accent, #38bdf8) 28%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg, #070907) 60%, transparent);
+}
+
+.lens-seg-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: 600 0.78rem/1 inherit;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 200ms ease, background 200ms ease;
+}
+
+.lens-seg-btn:hover { color: var(--text); }
+
+.lens-seg-btn.is-active {
+  color: #0a0d10;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, #f97316 90%, white 10%),
+    #f97316 70%,
+    color-mix(in srgb, #f97316 88%, black 12%));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lens-methodology > summary::after { transition: none; }
 }
 
 html[data-theme="light"] .research-telemetry {

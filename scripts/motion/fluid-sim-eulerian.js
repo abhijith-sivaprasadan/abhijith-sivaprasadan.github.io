@@ -10,7 +10,57 @@
  *      with channel/deposit overlays and live metrics.
  *   4. Per-mode live telemetry is computed (or read from worker metrics) and
  *      pushed into the [data-*-metric] DOM nodes that markup adds to the hero.
+ *
+ * All formulas route through scripts/physics/ — one audited module per
+ * domain, every constant cited.
  */
+
+import {
+  // Constants
+  REDUCER_T0, REDUCER_T_AMBIENT, REDUCER_T_WALL_M, REDUCER_K_WALL,
+  REDUCER_H_GAS, REDUCER_H_EXT, REDUCER_D_HYDRAULIC,
+  REDUCER_MACH_SMOOTH, REDUCER_MACH_LEGACY,
+  GAMMA_AIR, GAMMA_CH4, PR_AIR, CP_CH4_COOL,
+  G_GAS_LHV, PEF_EL_EU, ETA_TES_RT, ETA_ELECTRIC_BOILER, ETA_GAS_BOILER,
+  T_BURNOUT_CU,
+  // Gas dynamics
+  staticTemperatureFromTotal, staticToTotalPressure, adiabaticWallTemperature,
+  reynoldsNumber, stantonNumber,
+  // Heat transfer
+  thermalResistanceCircuit, biotNumber,
+  conductanceHealthRatio, depositResistanceShare, burnoutMargin,
+  coolantTemperatureRise,
+  // Energy systems
+  heatPumpCarnotCOP, marginalHeatPriceFromElectricity,
+  energyPerformanceIndicator, emissionsIntensity as emissionsIntensityFn,
+  marginalAbatementCost, scopeSplit, toPrimaryEnergy,
+  heatRecoveryEffectiveness, dispatchMeritOrder,
+  specificEnergyConsumption,
+} from "../physics/index.js";
+
+// Rolling buffer for d(T_w)/dt — used by the research-lens time-to-margin.
+const __researchWallTBuf = [];
+function pushWallTSample(t_s, T_K) {
+  __researchWallTBuf.push({ t: t_s, T: T_K });
+  while (__researchWallTBuf.length > 12) __researchWallTBuf.shift();
+}
+function wallHeatingRateK_per_s() {
+  if (__researchWallTBuf.length < 2) return 0;
+  const a = __researchWallTBuf[0];
+  const b = __researchWallTBuf[__researchWallTBuf.length - 1];
+  if (b.t <= a.t) return 0;
+  return (b.T - a.T) / (b.t - a.t);
+}
+
+// Stated reference values for the regenerative-cooling closure. They are
+// representative inputs for a small-scale methalox demonstrator, NOT
+// measurements. All flagged in the lens-3 methodology disclosure.
+const NOZZLE_THROAT_WALL_AREA_M2 = 0.0025;  // m²   — throat-band wall area
+const NOZZLE_COOLANT_MASSFLOW    = 1.2;     // kg/s — CH4 coolant ṁ
+const NOZZLE_THROAT_DENSITY      = 0.62;    // kg/m³ — gas at throat (rep.)
+const NOZZLE_THROAT_VELOCITY     = 880;     // m/s  — sonic at throat (rep.)
+const NOZZLE_THROAT_CP           = 4200;    // J/kg·K — combustion-product cp
+const NOZZLE_THROAT_H_GAS        = 12500;   // W/m²·K — Bartz throat (matches worker)
 
 const PALETTES = {
   thermal: {
@@ -63,20 +113,55 @@ function quintic(value) {
 
 // ── Domain telemetry: thermal mode (compressible flow through C2 reducer) ─
 // Inputs are reported thesis signals: T0 = 673 K, Ma = 0.990 for the smooth
-// reducer and Bi = 0.003-0.004. The animation never perturbs these evidence
-// values; motion is a transport-field lens behind the reported result.
-// equation: T/T0 = (1 + (gamma - 1) / 2 * M^2)^-1 - Anderson, ch. 3.
+// reducer and Ma = 1.006 for the legacy two-step. The animation never
+// perturbs these evidence values; motion is a transport-field lens behind
+// the reported result.
+//
+// Geometry switch (data-thermal-geometry on body): "smooth" (default) or
+// "legacy" — both Mach numbers are reported in TRITA-ITM-EX 2026:14.
+// All formulas via scripts/physics/.
+const THERMAL_THESIS_BI_BAND = "0.003–0.004";
+
+function thermalGeometry() {
+  const sel = (document.body.dataset.thermalGeometry || "smooth").toLowerCase();
+  return sel === "legacy" ? "legacy" : "smooth";
+}
+
 function thermalTelemetry() {
-  const gamma = 1.4;
-  const T0 = 673;
-  const throatMach = 0.990;
-  const T_throat = T0 / (1 + ((gamma - 1) / 2) * throatMach ** 2);
-  // equation: Bi = h Lc / k; the thesis-reported band is used verbatim.
+  const geom = thermalGeometry();
+  const throatMach = geom === "legacy" ? REDUCER_MACH_LEGACY : REDUCER_MACH_SMOOTH;
+  const T_throat = staticTemperatureFromTotal(REDUCER_T0, throatMach);
+  const T_aw = adiabaticWallTemperature(throatMach, T_throat, PR_AIR);
+  const pRatio = staticToTotalPressure(throatMach);
+  // Reynolds at throat: p_static from p0=200 kPa abs (thesis-reported), D_h
+  // from the throat-side hydraulic diameter.
+  const p0_pa = 200_000;
+  const p_static = pRatio * p0_pa;
+  const Re = reynoldsNumber(throatMach, T_throat, p_static, REDUCER_D_HYDRAULIC);
+  // 1-D resistance circuit (uninsulated case, thesis Biot interpretation).
+  const cht = thermalResistanceCircuit({
+    T_hot: REDUCER_T0,
+    T_cold: REDUCER_T_AMBIENT,
+    h_internal: REDUCER_H_GAS,
+    wallThicknessM: REDUCER_T_WALL_M,
+    wallConductivity: REDUCER_K_WALL,
+    h_external: REDUCER_H_EXT,
+  });
+  const BiCalc = biotNumber(REDUCER_H_EXT, REDUCER_T_WALL_M, REDUCER_K_WALL);
   return {
+    geometry: geom,                                  // "smooth" | "legacy"
     mach: throatMach.toFixed(3),
     temperature: `${Math.round(T_throat)} K`,
-    pressureDrop: "CFD comparison",
-    biot: "0.003-0.004",
+    // Pressure drop swapped from the placeholder string to the static/total
+    // pressure ratio at the throat — a directly computed isentropic quantity.
+    // (updateThermalMetrics prepends "Bi " for the biot cell.)
+    pressureDrop: `p/p0 ${pRatio.toFixed(3)}`,
+    biot: `${BiCalc.toFixed(4)} (thesis ${THERMAL_THESIS_BI_BAND})`,
+    // New extended readouts (consumed by extended lens 1 cells):
+    heatFlux: `${cht.q.toFixed(0)} W/m²`,
+    wallOuter: `${cht.T_outer.toFixed(1)} K`,
+    adiabaticWall: `${T_aw.toFixed(1)} K`,
+    reynolds: `Re ${Re.toExponential(2)}`,
   };
 }
 
@@ -98,49 +183,149 @@ const PRO2_PRICE = [
   817.3, 834.3, 832.5, 827.3, 809.7, 832.5,
   810.9, 799.8, 725.5, 694.0, 694.8, 678.6,
 ];
+
+// Energy-system constants for the screening view. The TES tank capacity is a
+// stated reference, not a fitted value — typical small district-heating tank
+// for ~5 km loop sits in this band. The HP COP is the simple constant used
+// by the MILP study; lens 4 extends it to a Carnot-fraction model.
+const ENERGY_TES_CAPACITY_MWH = 14;     // MWh — stated reference tank size
+const ENERGY_HP_COP_THERMAL    = 3.20;  // [-]  PRO2 dispatch input
+const ENERGY_GRID_INTENSITY    = 25;    // gCO₂/kWh_el — SE3 area average
+const ENERGY_CHP_HEAT_FACTOR   = 220;   // gCO₂/MWh_th — gas-CHP heat slice
+const ENERGY_PEAK_MW = Math.max(...PRO2_DEMAND_MW);
+const ENERGY_DAILY_TOTAL_MWH = PRO2_DEMAND_MW.reduce((a, b) => a + b, 0); // 1 h Δt
+const ENERGY_AVG_PRICE = PRO2_PRICE.reduce((a, b) => a + b, 0) / PRO2_PRICE.length;
+
+function classifyMarginal(price, copHp) {
+  // physics-based threshold: heat-pump beats CHP when p_el/COP < c_chp_heat
+  // c_chp_heat ≈ 270 SEK/MWh_th (CHP fuel + O&M). Above 850 SEK/MWh_el the
+  // price spike justifies TES discharge against the fuel-heavy CHP.
+  const heatPriceHP = marginalHeatPriceFromElectricity(price, copHp);
+  if (price < 650) return { label: "Heat pump + charge", heatPriceHP };
+  if (price > 850) return { label: "CHP + TES discharge", heatPriceHP };
+  return { label: "CHP / heat pump", heatPriceHP };
+}
+
 function energyTelemetry(now) {
   const hour = Math.floor((now / 1666) % 24);
   const demand_MW = PRO2_DEMAND_MW[hour];
   const price = PRO2_PRICE[hour];
-  const marginal = price < 650 ? "Heat pump + charge" : price > 850 ? "CHP + TES discharge" : "CHP / heat pump";
-  let tesSOC = 50;
+  const marginal = classifyMarginal(price, ENERGY_HP_COP_THERMAL);
+  // TES SOC integrated through hour-by-hour policy rule (unchanged behaviour);
+  // mapped to MWh using the stated capacity for engineering legibility.
+  let tesSocPct = 50;
   for (let index = 0; index <= hour; index += 1) {
-    tesSOC += PRO2_PRICE[index] < 650 ? 8 : PRO2_PRICE[index] > 850 ? -10 : -2;
-    tesSOC = Math.max(15, Math.min(92, tesSOC));
+    tesSocPct += PRO2_PRICE[index] < 650 ? 8 : PRO2_PRICE[index] > 850 ? -10 : -2;
+    tesSocPct = Math.max(15, Math.min(92, tesSocPct));
   }
+  const tesMWh = (tesSocPct / 100) * ENERGY_TES_CAPACITY_MWH;
+  // Marginal CO₂ intensity depends on which source is on the margin.
+  const marginalGCO2 = marginal.label.startsWith("Heat pump")
+    ? ENERGY_GRID_INTENSITY / ENERGY_HP_COP_THERMAL * 1000   // gCO₂/MWh_th
+    : ENERGY_CHP_HEAT_FACTOR * 1000;
   return {
     hour: `${String(hour + 1).padStart(2, "0")}:00`,
-    demand: `${demand_MW.toFixed(1)} MW`,
-    marginal,
-    tes: `${tesSOC.toFixed(0)}%`,
+    demand: `${demand_MW.toFixed(2)} MW`,
+    marginal: marginal.label,
+    tes: `${tesSocPct.toFixed(0)}%`,
+    // Extended readouts (lens 2):
+    marginalPrice: `${marginal.heatPriceHP.toFixed(0)} SEK/MWh_th`,
+    tesEnergy: `${tesMWh.toFixed(1)} / ${ENERGY_TES_CAPACITY_MWH} MWh`,
+    dailyTotal: `${ENERGY_DAILY_TOTAL_MWH.toFixed(1)} MWh/day`,
+    peak: `${ENERGY_PEAK_MW.toFixed(2)} MW (${((demand_MW / ENERGY_PEAK_MW) * 100).toFixed(0)}% of peak)`,
+    priceDeviation: `${price.toFixed(0)} (avg ${ENERGY_AVG_PRICE.toFixed(0)}, ${((price / ENERGY_AVG_PRICE - 1) * 100).toFixed(1)}%)`,
+    roundTrip: `η_RT ${(ETA_TES_RT * 100).toFixed(0)}%`,
+    marginalCO2: `${(marginalGCO2 / 1000).toFixed(0)} kgCO₂/MWh_th`,
   };
 }
 
 // ── Industrial decarbonisation telemetry — physical model ────────────────
-// equation: EnPI = E_purchased / production  (ISO 50006:2014)
-// equation: emissions intensity = (E_elec · gCO2/kWh_elec + E_gas · gCO2/kWh_gas) / production
-// Heat pump COP assumed 3.25; electric boiler η = 0.98; condensing gas boiler η = 0.90.
+// Physical equations are now sourced from scripts/physics/energy-systems.js
+// (ISO 50006:2014 EnPI, IPCC AR5 NG factor on LHV, EU EED PEF, Carnot HP).
+//
+// Stated capacities and prices for the model boundary:
+const INDUSTRIAL_HP_CAPACITY_MW = 2.0;   // MW_th — typical mid-size industrial HP
+const INDUSTRIAL_EB_CAPACITY_MW = 1.8;   // MW_th — electric trim boiler
+const INDUSTRIAL_PARASITIC_KW   = 320;   // kW    — site parasitic load
+const INDUSTRIAL_PRICE_EL_SEK   = 850;   // SEK/MWh — industrial electricity
+const INDUSTRIAL_PRICE_GAS_SEK  = 350;   // SEK/MWh_LHV — industrial NG
+const INDUSTRIAL_HOURS_PER_YEAR = 7200;  // h/y   — 82% utilisation
+
 function industrialModel(controls) {
   const load = controls.load / 100;
-  const heatDemand = 5.2 * load;
-  const recovered = controls.recovery ? heatDemand * 0.22 : 0;
+  const heatDemand = 5.2 * load;                                      // MW
+  // Heat-recovery effectiveness η_HR is now load-dependent (extends the
+  // old fixed 22 %). η = 0.18 + 0.04·load gives 22 % at full load (preserves
+  // the old behaviour at load=1.0) and rolls down at part load.
+  const eta_hr = controls.recovery ? heatRecoveryEffectiveness(load) : 0;
+  const recovered = heatDemand * eta_hr;
   const netHeat = heatDemand - recovered;
-  const heatPumpHeat = controls.heatPump ? netHeat * 0.52 : 0;
-  const boilerHeat = controls.electricBoiler ? (netHeat - heatPumpHeat) * 0.62 : 0;
-  const gasHeat = Math.max(0, netHeat - heatPumpHeat - boilerHeat);
-  const electricInput = heatPumpHeat / 3.25 + boilerHeat / 0.98 + 0.32 * load;
-  const gasInput = gasHeat / 0.90;
-  const production = 10 * load;
+  // Heat-pump COP from Carnot fraction (process T from slider, default 80°C).
+  const processT_C = controls.processT ?? 80;
+  const copHP = heatPumpCarnotCOP(processT_C);                        // [-]
+  // Capacity-limited merit order replaces the arbitrary "52 % of net heat".
+  const dispatch = dispatchMeritOrder({
+    netHeatDemandMW: netHeat,
+    heatPumpEnabled: !!controls.heatPump,
+    heatPumpCapacityMW: INDUSTRIAL_HP_CAPACITY_MW,
+    electricBoilerEnabled: !!controls.electricBoiler,
+    electricBoilerCapacityMW: INDUSTRIAL_EB_CAPACITY_MW,
+    gasBoilerEnabled: true,  // gas covers any balance
+  });
+  const electricInput = dispatch.heatPumpHeat / copHP
+                      + dispatch.electricBoilerHeat / ETA_ELECTRIC_BOILER
+                      + (INDUSTRIAL_PARASITIC_KW / 1000) * load;       // MW
+  const gasInput = dispatch.gasBoilerHeat / ETA_GAS_BOILER;            // MW
+  const production = 10 * load;                                        // units/h
   const purchasedEnergy = electricInput + gasInput;
-  const emissions = electricInput * controls.grid + gasInput * 202; // gCO2/kWh_gas ≈ 202
-  const baselineElectricInput = 0.32 * load;
-  const baselineGasInput = heatDemand / 0.90;
-  const baselinePurchasedEnergy = baselineElectricInput + baselineGasInput;
-  const baselineEmissions = baselineElectricInput * controls.grid + baselineGasInput * 202;
-  const enpi = purchasedEnergy / production;
-  const baselineEnpi = baselinePurchasedEnergy / production;
-  const emissionsIntensity = emissions / production;
-  const baselineEmissionsIntensity = baselineEmissions / production;
+  // ISO 50006 EnPI. Intensity uses MW-scale inputs (matches the original
+  // model's compact display convention "g/u"); kWh-correct conversion is
+  // only used below for tonnes-CO₂/year and MAC.
+  const enpi          = energyPerformanceIndicator(purchasedEnergy, production);
+  const emissions     = emissionsIntensityFn({
+    electricityKwh: electricInput,
+    gasKwh:         gasInput,
+    production:     production,
+    gridEmissionFactor: controls.grid,
+    gasEmissionFactor: G_GAS_LHV,
+  });
+  // Baseline = no recovery, no HP/EB, gas covers everything (the "as-is").
+  const baselineElectricInput = (INDUSTRIAL_PARASITIC_KW / 1000) * load;
+  const baselineGasInput      = heatDemand / ETA_GAS_BOILER;
+  const baselinePurchased     = baselineElectricInput + baselineGasInput;
+  const baselineEnpi          = energyPerformanceIndicator(baselinePurchased, production);
+  const baselineEmissions     = emissionsIntensityFn({
+    electricityKwh: baselineElectricInput,
+    gasKwh:         baselineGasInput,
+    production:     production,
+    gridEmissionFactor: controls.grid,
+    gasEmissionFactor: G_GAS_LHV,
+  });
+  // Scope 1 / Scope 2 split per GHG Protocol — these stay in proper kWh/h units
+  // so the kgCO₂/h display is dimensionally honest.
+  const scopes = scopeSplit({
+    electricityKwh: electricInput * 1000,
+    gasKwh:         gasInput * 1000,
+    gridEmissionFactor: controls.grid,
+    gasEmissionFactor:  G_GAS_LHV,
+  });
+  // MAC (annualised). ΔOPEX = (E_new − E_base) priced; ΔCO₂ avoided in tonnes.
+  const deltaElecMWh = (electricInput - baselineElectricInput) * INDUSTRIAL_HOURS_PER_YEAR;
+  const deltaGasMWh  = (gasInput - baselineGasInput)           * INDUSTRIAL_HOURS_PER_YEAR;
+  const deltaOpex = deltaElecMWh * INDUSTRIAL_PRICE_EL_SEK
+                  + deltaGasMWh  * INDUSTRIAL_PRICE_GAS_SEK;
+  // Convert MW → kWh/h: 1 MW = 1000 kWh/h; emission factors are gCO₂/kWh.
+  // gCO₂/h → tCO₂/y: × hours/year ÷ 1e6 g/tonne.
+  const co2NowAnnual_t  = ((electricInput * 1000 * controls.grid)
+                          + (gasInput * 1000 * G_GAS_LHV))
+                          * INDUSTRIAL_HOURS_PER_YEAR / 1e6;
+  const co2BaseAnnual_t = ((baselineElectricInput * 1000 * controls.grid)
+                          + (baselineGasInput * 1000 * G_GAS_LHV))
+                          * INDUSTRIAL_HOURS_PER_YEAR / 1e6;
+  const co2Avoided_t    = co2BaseAnnual_t - co2NowAnnual_t;
+  const mac             = marginalAbatementCost(deltaOpex, co2Avoided_t);
+  // Primary energy (EU EED PEF) — for the electric portion only.
+  const primaryEnergy = toPrimaryEnergy(electricInput) + gasInput;
   return {
     heatDemand,
     recovered,
@@ -148,10 +333,18 @@ function industrialModel(controls) {
     gasInput,
     enpi,
     baselineEnpi,
-    emissions: emissionsIntensity,
-    baselineEmissions: baselineEmissionsIntensity,
+    emissions,
+    baselineEmissions,
     enpiImprovement: Math.max(0, ((baselineEnpi - enpi) / baselineEnpi) * 100),
-    emissionsReduction: Math.max(0, baselineEmissionsIntensity - emissionsIntensity),
+    emissionsReduction: Math.max(0, baselineEmissions - emissions),
+    // New extended outputs:
+    copHP,
+    eta_hr,
+    dispatch,                          // {heatPumpHeat, electricBoilerHeat, gasBoilerHeat, unmet}
+    sec: specificEnergyConsumption(purchasedEnergy, production),
+    scopes,                            // {scope1, scope2}  gCO₂
+    mac,                               // SEK/tCO₂  or NaN if no abatement
+    primaryEnergyMW: primaryEnergy,
   };
 }
 
@@ -205,21 +398,34 @@ function isSwedish() {
 // (Sieder-Tate-style internal h, free-convection external h for the
 // uninsulated reducer case described in TRITA-ITM-EX 2026:14).
 function chtState() {
-  const T_gas = 673;           // K — inlet stagnation (thesis)
-  const T_ext = 293;           // K — ambient
-  const t_wall = 0.005;        // m — 5 mm steel wall
-  const k_wall = 21.5;         // W/m·K — steel at ~673 K
-  const h_gas = 320;           // W/m²·K — forced convection inside the reducer
-  const h_ext = 14;            // W/m²·K — free convection on the outer wall
-  const R_gas = 1 / h_gas;     // m²·K/W
-  const R_wall = t_wall / k_wall;
-  const R_ext = 1 / h_ext;
-  const R_total = R_gas + R_wall + R_ext;
-  const q = (T_gas - T_ext) / R_total;     // W/m²
-  const T_inner = T_gas - q * R_gas;
-  const T_outer = T_inner - q * R_wall;
-  const Bi = h_ext * t_wall / k_wall;
-  return { T_gas, T_ext, t_wall, k_wall, h_gas, h_ext, R_gas, R_wall, R_ext, R_total, q, T_inner, T_outer, Bi };
+  // All inputs come from scripts/physics/constants.js (REDUCER_*).
+  // Computation delegated to thermalResistanceCircuit() so this code path
+  // exercises the same audited equations as the lens-1 telemetry.
+  const circuit = thermalResistanceCircuit({
+    T_hot: REDUCER_T0,
+    T_cold: REDUCER_T_AMBIENT,
+    h_internal: REDUCER_H_GAS,
+    wallThicknessM: REDUCER_T_WALL_M,
+    wallConductivity: REDUCER_K_WALL,
+    h_external: REDUCER_H_EXT,
+  });
+  const Bi = biotNumber(REDUCER_H_EXT, REDUCER_T_WALL_M, REDUCER_K_WALL);
+  return {
+    T_gas: REDUCER_T0,
+    T_ext: REDUCER_T_AMBIENT,
+    t_wall: REDUCER_T_WALL_M,
+    k_wall: REDUCER_K_WALL,
+    h_gas: REDUCER_H_GAS,
+    h_ext: REDUCER_H_EXT,
+    R_gas: circuit.R_gas,
+    R_wall: circuit.R_wall,
+    R_ext: circuit.R_ext,
+    R_total: circuit.R_total,
+    q: circuit.q,
+    T_inner: circuit.T_inner,
+    T_outer: circuit.T_outer,
+    Bi,
+  };
 }
 
 function drawThermalEvidence(ctx, width, height, now) {
@@ -1626,6 +1832,7 @@ export async function init(ctx) {
   const industrialControls = {
     load: 72,
     grid: 55,
+    processT: 80,     // °C — heat-pump sink temperature (drives Carnot COP)
     recovery: true,
     heatPump: true,
     electricBoiler: false,
@@ -1762,12 +1969,46 @@ export async function init(ctx) {
 
   // ── Telemetry DOM update functions ─────────────────────────────────────
   function updateResearchMetrics(metrics) {
+    // Track wall T for the dT/dt prediction.
+    pushWallTSample(metrics.simulatedTime, metrics.maxWallTemperature);
+    const dTdt = wallHeatingRateK_per_s();
+    // Derived quantities via shared physics layer:
+    const burnout = burnoutMargin(metrics.maxWallTemperature, T_BURNOUT_CU);
+    const dT_coolant = coolantTemperatureRise({
+      heatFluxWPerM2: metrics.heatFluxPeak,
+      wallAreaM2: NOZZLE_THROAT_WALL_AREA_M2,
+      coolantMassFlowKgs: NOZZLE_COOLANT_MASSFLOW,
+      coolantCpJperKgK: CP_CH4_COOL,
+    });
+    const pRatioExit = staticToTotalPressure(metrics.exitMach, GAMMA_CH4);
+    const St = stantonNumber(
+      NOZZLE_THROAT_H_GAS, NOZZLE_THROAT_DENSITY,
+      NOZZLE_THROAT_VELOCITY, NOZZLE_THROAT_CP,
+    );
+    // Time-to-margin: extrapolate current heating rate to T_burnout.
+    let timeToMargin;
+    if (dTdt > 0.01 && burnout.marginK > 0) {
+      timeToMargin = `${(burnout.marginK / dTdt).toFixed(0)} s`;
+    } else if (burnout.marginK <= 0) {
+      timeToMargin = "Past limit";
+    } else {
+      timeToMargin = "Stable (dT/dt ≤ 0)";
+    }
     const text = {
       exitMach: `Ma ${metrics.exitMach.toFixed(2)}`,
       wallTemperature: `${Math.round(metrics.maxWallTemperature)} K`,
       healthIndex: `${Math.round(metrics.healthIndex)} / 100`,
       runtime: `${Math.round(metrics.simulatedTime)} s`,
       depositThickness: `${Math.round(metrics.cokeThicknessMicrons)} µm`,
+      // Extended readouts:
+      throatHeatFlux: `${(metrics.heatFluxPeak / 1e6).toFixed(2)} MW/m²`,
+      depositResistanceShare: `${metrics.resistanceIncrease.toFixed(1)} %`,
+      conductanceRatio: `${metrics.healthIndex.toFixed(0)} %`,
+      coolantDeltaT: `${dT_coolant.toFixed(1)} K`,
+      burnoutMargin: `${burnout.marginK.toFixed(0)} K (T/T_burn ${(burnout.ratio * 100).toFixed(1)}%)`,
+      exitPressureRatio: `p_e/p_0 ${pRatioExit.toFixed(4)}`,
+      stantonNumber: `St ${St.toExponential(2)}`,
+      timeToMargin,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-research-metric="${key}"]`);
@@ -1782,12 +2023,32 @@ export async function init(ctx) {
       temperature: t.temperature,
       pressureDrop: t.pressureDrop,
       biot: `Bi ${t.biot}`,
+      // Extended readouts:
+      heatFlux: t.heatFlux,
+      wallOuter: t.wallOuter,
+      adiabaticWall: t.adiabaticWall,
+      reynolds: t.reynolds,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-thermal-metric="${key}"]`);
       if (node) node.textContent = value;
     });
+    // Reflect active geometry in the segmented control button state.
+    const geom = t.geometry;
+    document.querySelectorAll("[data-thermal-geom]").forEach((btn) => {
+      const active = btn.dataset.thermalGeom === geom;
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+    });
   }
+
+  // Wire the geometry toggle (smooth quintic C² vs legacy two-step).
+  document.querySelectorAll("[data-thermal-geom]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.body.dataset.thermalGeometry = btn.dataset.thermalGeom;
+      updateThermalMetrics();
+    });
+  });
 
   function updateEnergyMetrics(now) {
     const t = energyTelemetry(now);
@@ -1796,6 +2057,14 @@ export async function init(ctx) {
       demand: t.demand,
       marginal: t.marginal,
       tes: `TES ${t.tes}`,
+      // Extended readouts:
+      marginalPrice: t.marginalPrice,
+      tesEnergy: t.tesEnergy,
+      dailyTotal: t.dailyTotal,
+      peak: t.peak,
+      priceDeviation: t.priceDeviation,
+      roundTrip: t.roundTrip,
+      marginalCO2: t.marginalCO2,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-energy-metric="${key}"]`);
@@ -1805,13 +2074,32 @@ export async function init(ctx) {
 
   function updateIndustrialMetrics() {
     const metrics = industrialModel(industrialControls);
+    // Format scope split (gCO₂ → kgCO₂)
+    const s1 = (metrics.scopes.scope1 / 1000).toFixed(0);
+    const s2 = (metrics.scopes.scope2 / 1000).toFixed(0);
+    // Format dispatch split (MW_th)
+    const hp = metrics.dispatch.heatPumpHeat.toFixed(2);
+    const eb = metrics.dispatch.electricBoilerHeat.toFixed(2);
+    const gas = metrics.dispatch.gasBoilerHeat.toFixed(2);
+    // MAC may be NaN (no abatement) → show "—"
+    const macStr = Number.isFinite(metrics.mac)
+      ? `${metrics.mac.toFixed(0)} SEK/tCO₂`
+      : "— (no abatement)";
     const text = {
       heat: `${metrics.heatDemand.toFixed(2)} MW`,
       recovered: `${metrics.recovered.toFixed(2)} MW`,
       enpi: `${metrics.enpi.toFixed(3)} MWh/u`,
-      emissions: `${metrics.emissions.toFixed(1)} kg/u`,
+      emissions: `${metrics.emissions.toFixed(1)} g/u`,
       baselineEnpi: `${metrics.baselineEnpi.toFixed(3)} MWh/u`,
-      emissionsReduction: `-${metrics.emissionsReduction.toFixed(1)} kg/u`,
+      emissionsReduction: `-${metrics.emissionsReduction.toFixed(1)} g/u`,
+      // Extended readouts:
+      copHP: `${metrics.copHP.toFixed(2)}`,
+      dispatchSplit: `HP ${hp} / EB ${eb} / G ${gas} MW`,
+      mac: macStr,
+      sec: `${metrics.sec.toFixed(3)} MWh/u`,
+      scopes: `S1 ${s1} / S2 ${s2} kgCO₂/h`,
+      primary: `${metrics.primaryEnergyMW.toFixed(2)} MW (PEF 1.9)`,
+      etaHR: `${(metrics.eta_hr * 100).toFixed(1)} %`,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-industrial-metric="${key}"]`);
@@ -1826,11 +2114,15 @@ export async function init(ctx) {
       industrialControls[key] = input.type === "checkbox" ? input.checked : Number(input.value);
       const output = document.querySelector(`[data-industrial-output="${key}"]`);
       if (output) {
-        output.textContent = key === "load" ? `${industrialControls[key]}%` : `${industrialControls[key]} kg CO2e/MWh`;
+        if (key === "load") output.textContent = `${industrialControls[key]}%`;
+        else if (key === "processT") output.textContent = `${industrialControls[key]} °C`;
+        else output.textContent = `${industrialControls[key]} kg CO2e/MWh`;
       }
       updateIndustrialMetrics();
     });
   });
+  // Seed processT default in industrialControls if missing
+  if (industrialControls.processT === undefined) industrialControls.processT = 80;
   updateIndustrialMetrics();
 
   // Bus subscriptions for mode + theme swap

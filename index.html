@@ -20,16 +20,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=20260527-v4-tracks5" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260527-v4-tracks5" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260527-v4-tracks5" />
-  <script src="scripts/public-config.js?v=20260527-v4-tracks5" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260527-v4-lenses4" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260527-v4-lenses4" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260527-v4-lenses4" />
+  <script src="scripts/public-config.js?v=20260527-v4-lenses4" defer></script>
   <!-- v4 motion stack: GSAP + plugins (load before motion/index.js) -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="scripts/motion/index.js?v=20260527-v4-tracks5"></script>
-  <script src="scripts/motion/sw-register.js?v=20260527-v4-tracks5" defer></script>
+  <script type="module" src="scripts/motion/index.js?v=20260527-v4-lenses4"></script>
+  <script src="scripts/motion/sw-register.js?v=20260527-v4-lenses4" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -61,8 +61,8 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis", "k-omega SST turbulence model", "Compressible flow", "Mesh independence", "Biot number analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260527-v4-tracks5" defer></script>
-  <script src="scripts/animations.js?v=20260527-v4-tracks5" defer></script>
+  <script src="scripts/site.js?v=20260527-v4-lenses4" defer></script>
+  <script src="scripts/animations.js?v=20260527-v4-lenses4" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
@@ -215,13 +215,35 @@
             </div>
             <span class="model-badge">Reported thesis signals</span>
           </header>
-          <div class="research-live-rail" aria-live="polite">
-            <article title="Thesis-reported redesigned reducer throat signal"><strong data-thermal-metric="mach">Ma 0.990</strong><span>Throat Mach</span></article>
-            <article title="T = T0 / (1 + (gamma - 1) M^2 / 2), with T0 = 673 K and gamma = 1.4"><strong data-thermal-metric="temperature">561 K</strong><span>Isentropic static T</span></article>
-            <article title="Pressure-loss comparison is reported in the thesis case study rather than invented in-browser."><strong data-thermal-metric="pressureDrop">CFD comparison</strong><span>Pressure loss</span></article>
-            <article title="Bi = h Lc / k; band reported in TRITA-ITM-EX 2026:14"><strong data-thermal-metric="biot">Bi 0.003-0.004</strong><span>Wall interpretation</span></article>
+          <div class="lens-controls" role="group" aria-label="Reducer geometry toggle">
+            <span class="lens-controls-label">Geometry</span>
+            <div class="lens-segmented">
+              <button type="button" class="lens-seg-btn is-active" data-thermal-geom="smooth" aria-pressed="true">Quintic C²</button>
+              <button type="button" class="lens-seg-btn" data-thermal-geom="legacy" aria-pressed="false">Legacy 2-step</button>
+            </div>
           </div>
-          <p class="model-footnote">The instrument viewport explains the thesis Biot interpretation with a 1-D resistance network. Values above are thesis-reported or equation-derived, not browser CFD predictions.</p>
+          <div class="research-live-rail" aria-live="polite">
+            <article title="Throat Mach — TRITA-ITM-EX 2026:14 (smooth M=0.990, legacy M=1.006)"><span class="cell-sym">Ma</span><strong data-thermal-metric="mach">Ma 0.990</strong><span>Throat Mach</span></article>
+            <article title="T_throat = T0 / (1 + (γ−1)/2·M²);  T0 = 673 K, γ = 1.4 (Anderson Ch.3)"><span class="cell-sym">T</span><strong data-thermal-metric="temperature">563 K</strong><span>Static T (isentropic)</span></article>
+            <article title="p/p0 = (T/T0)^(γ/(γ−1));  Anderson Ch.3 isentropic"><span class="cell-sym">p/p₀</span><strong data-thermal-metric="pressureDrop">p/p0 0.534</strong><span>Pressure ratio at throat</span></article>
+            <article title="Bi = h_ext·t_w/k_wall = 14·0.005/21.5 = 0.00326;  thesis band 0.003–0.004"><span class="cell-sym">Bi</span><strong data-thermal-metric="biot">Bi 0.0033 (thesis 0.003–0.004)</strong><span>Calc Bi vs thesis band</span></article>
+            <article title="q = (T_gas−T_ext)/(R_gas+R_wall+R_ext);  R_gas=1/320, R_wall=0.005/21.5, R_ext=1/14"><span class="cell-sym">q″</span><strong data-thermal-metric="heatFlux">— W/m²</strong><span>Wall heat flux</span></article>
+            <article title="T_outer = T_inner − q·R_wall (from 1-D resistance network)"><span class="cell-sym">T_w,o</span><strong data-thermal-metric="wallOuter">— K</strong><span>Outer wall temperature</span></article>
+            <article title="T_aw = T_static·(1 + Pr^(1/3)·(γ−1)/2·M²);  Schlichting Ch.15"><span class="cell-sym">T_aw</span><strong data-thermal-metric="adiabaticWall">— K</strong><span>Adiabatic wall T</span></article>
+            <article title="Re = ρ·V·D_h/μ;  ρ = p/RT, V = M·√(γRT);  μ = Sutherland at 673 K"><span class="cell-sym">Re</span><strong data-thermal-metric="reynolds">Re —</strong><span>Throat Reynolds</span></article>
+          </div>
+          <p class="model-footnote">The instrument viewport explains the thesis Biot interpretation with a 1-D resistance network. Values above are thesis-reported or equation-derived (via <code>scripts/physics/</code>), not browser CFD predictions.</p>
+          <details class="lens-methodology">
+            <summary>Methodology &amp; equations</summary>
+            <ul>
+              <li><strong>Isentropic relations:</strong> Anderson, Modern Compressible Flow, Ch.3 — <code>staticTemperatureFromTotal</code>, <code>staticToTotalPressure</code> in <code>scripts/physics/gas-dynamics.js</code></li>
+              <li><strong>Adiabatic wall T:</strong> Schlichting, Boundary-Layer Theory Ch.15; r = Pr^(1/3) for turbulent BL — <code>adiabaticWallTemperature</code></li>
+              <li><strong>1-D resistance network:</strong> Incropera &amp; DeWitt Ch.3 — <code>thermalResistanceCircuit</code> in <code>scripts/physics/heat-transfer.js</code></li>
+              <li><strong>Biot:</strong> Bi = h·L_c/k — <code>biotNumber</code>; thesis-reported band 0.003–0.004 quoted from TRITA-ITM-EX 2026:14</li>
+              <li><strong>Reynolds:</strong> ideal-gas closure ρ = p/(R·T); μ via Sutherland at 673 K — <code>reynoldsNumber</code></li>
+              <li><strong>Inputs:</strong> T₀ = 673 K, p₀ = 200 kPa, h_gas = 320 W/m²K, h_ext = 14 W/m²K, t_w = 5 mm, k_steel = 21.5 W/mK (constants in <code>scripts/physics/constants.js</code>)</li>
+            </ul>
+          </details>
         </aside>
 
         <aside class="research-telemetry mode-telemetry" data-home-mode-target="energy" hidden aria-label="Energy systems dispatch input telemetry">
@@ -233,12 +255,30 @@
             <span class="model-badge">24-hour input playback</span>
           </header>
           <div class="research-live-rail" aria-live="polite">
-            <article title="Input hour from PRO2 time-series data"><strong data-energy-metric="hour">01:00</strong><span>Scenario hour</span></article>
-            <article title="Qdem = sum of five heating-load inputs in Demand profiles_heating.csv"><strong data-energy-metric="demand">1.5 MW</strong><span>Heat demand</span></article>
-            <article title="Screening label based on electricity-price input and a heat-pump/CHP/TES policy rule"><strong data-energy-metric="marginal">Heat pump + charge</strong><span>Marginal screen</span></article>
-            <article title="Illustrative TES state updated from charge/discharge policy, not the MILP optimum"><strong data-energy-metric="tes">TES 58%</strong><span>Storage screen</span></article>
+            <article title="Input hour from PRO2 time-series data (Demand profiles_heating.csv, elprice.csv)"><span class="cell-sym">t</span><strong data-energy-metric="hour">01:00</strong><span>Scenario hour</span></article>
+            <article title="Q_dem(t) = Σ Q_i — sum of five heating-load inputs from Demand profiles_heating.csv"><span class="cell-sym">Q_dem</span><strong data-energy-metric="demand">1.5 MW</strong><span>Heat demand</span></article>
+            <article title="Screening label based on p_el(t)/COP_HP vs gas-CHP marginal heat price"><span class="cell-sym">src</span><strong data-energy-metric="marginal">Heat pump + charge</strong><span>Marginal source</span></article>
+            <article title="Illustrative TES state updated from charge/discharge policy, not the MILP optimum"><span class="cell-sym">SOC</span><strong data-energy-metric="tes">TES 58%</strong><span>Storage state</span></article>
+            <article title="Marginal heat price = p_el(t) / COP_HP;  COP = 3.20 (PRO2 input)"><span class="cell-sym">c_h</span><strong data-energy-metric="marginalPrice">— SEK/MWh_th</strong><span>HP marginal heat price</span></article>
+            <article title="Storage energy = SOC × capacity (capacity stated 14 MWh)"><span class="cell-sym">E_TES</span><strong data-energy-metric="tesEnergy">— MWh</strong><span>TES energy</span></article>
+            <article title="Σ Q_dem(t)·Δt over 24 h, Δt = 1 h"><span class="cell-sym">E_d</span><strong data-energy-metric="dailyTotal">— MWh/day</strong><span>Daily heat total</span></article>
+            <article title="Q_peak = max(Q_dem(t));  current/Q_peak ×100%"><span class="cell-sym">Q_max</span><strong data-energy-metric="peak">— MW</strong><span>Daily peak / current</span></article>
+            <article title="Current price vs 24-hour mean and % deviation"><span class="cell-sym">p_el</span><strong data-energy-metric="priceDeviation">— SEK/MWh</strong><span>Price vs daily mean</span></article>
+            <article title="Sensible TES round-trip efficiency: typical 0.85–0.92 for small DH tanks"><span class="cell-sym">η_RT</span><strong data-energy-metric="roundTrip">— %</strong><span>TES round-trip</span></article>
+            <article title="CO₂ intensity of current marginal source (HP: g_grid/COP; CHP: ~220 g/kWh_th)"><span class="cell-sym">g_h</span><strong data-energy-metric="marginalCO2">— kgCO₂/MWh_th</strong><span>Marginal CO₂</span></article>
           </div>
-          <p class="model-footnote">Demand and electricity-price values are read from the PRO2 modelling inputs; the source label and storage state are a visible dispatch screening rule. The case-study page documents the MILP model.</p>
+          <p class="model-footnote">Demand and electricity-price values are read from the PRO2 modelling inputs; the source label and storage state are a visible dispatch screening rule. The case-study page documents the MILP model. All derived values via <code>scripts/physics/energy-systems.js</code>.</p>
+          <details class="lens-methodology">
+            <summary>Methodology &amp; equations</summary>
+            <ul>
+              <li><strong>Marginal heat price:</strong> c_heat = p_el / COP_HP — <code>marginalHeatPriceFromElectricity</code></li>
+              <li><strong>Marginal-source classification:</strong> HP charges when p_el &lt; 650 SEK/MWh, TES discharges with CHP when p_el &gt; 850 SEK/MWh; mixed band otherwise</li>
+              <li><strong>TES SOC integration:</strong> hour-by-hour policy rule (+8 charge / −10 discharge / −2 idle) bounded to [15 %, 92 %]; mapped to MWh using stated 14 MWh capacity</li>
+              <li><strong>Round-trip efficiency:</strong> η_RT = 0.90 (sensible TES, typical small-DH tank)</li>
+              <li><strong>CO₂ intensity (marginal):</strong> HP hour: g_grid/COP = 25/3.20 ≈ 7.8 kg/MWh_th; CHP hour: 220 kg/MWh_th (heat-credit allocation)</li>
+              <li><strong>Inputs:</strong> 24-h arrays from PRO2 portfolio inputs (<code>Demand profiles_heating.csv</code>, <code>elprice.csv</code>)</li>
+            </ul>
+          </details>
         </aside>
 
         <aside class="research-telemetry" data-home-mode-target="research" hidden aria-label="Animated methalox regenerative cooling scene telemetry">
@@ -253,18 +293,40 @@
             A continuous thermal plume passes through a regeneratively cooled nozzle while a deposit layer progressively raises hot-side thermal resistance. Each cycle resets to show clean-to-degraded cooling behaviour.
           </p>
           <div class="research-live-rail" aria-live="polite">
-            <article><strong data-research-metric="runtime">--</strong><span>Simulated firing time</span></article>
-            <article><strong data-research-metric="depositThickness">--</strong><span>Coke layer</span></article>
-            <article><strong data-research-metric="wallTemperature">--</strong><span>Hot-side surface</span></article>
-            <article><strong data-research-metric="healthIndex">--</strong><span>Thermal conductance</span></article>
-            <article><strong data-research-metric="exitMach">--</strong><span>Nozzle exit</span></article>
+            <article title="Simulated firing time within the 1080-frame burn cycle"><span class="cell-sym">t</span><strong data-research-metric="runtime">--</strong><span>Simulated firing time</span></article>
+            <article title="Coke layer thickness — quintic growth over the cycle"><span class="cell-sym">δ_dep</span><strong data-research-metric="depositThickness">--</strong><span>Coke layer</span></article>
+            <article title="Max hot-side wall temperature from Bartz-scaled local heat flux"><span class="cell-sym">T_w,max</span><strong data-research-metric="wallTemperature">--</strong><span>Hot-side surface</span></article>
+            <article title="Conductance health = R_clean/R_total ×100% (=100 when clean)"><span class="cell-sym">h/h₀</span><strong data-research-metric="healthIndex">--</strong><span>Conductance health</span></article>
+            <article title="Exit Mach from isentropic area-Mach inversion (Anderson Ch.3)"><span class="cell-sym">Ma_e</span><strong data-research-metric="exitMach">--</strong><span>Nozzle exit</span></article>
+            <article title="Peak heat flux at throat — Bartz local h_g via h_g/h_g*=(A_t/A)^0.9"><span class="cell-sym">q″_thr</span><strong data-research-metric="throatHeatFlux">--</strong><span>Throat heat flux</span></article>
+            <article title="Deposit's contribution to total resistance: (R_total/R_clean − 1) ×100%"><span class="cell-sym">R_dep/R</span><strong data-research-metric="depositResistanceShare">--</strong><span>Deposit resistance share</span></article>
+            <article title="Conductance ratio reframed — same number as health, with units"><span class="cell-sym">h/h₀</span><strong data-research-metric="conductanceRatio">--</strong><span>h/h_clean (clean=100%)</span></article>
+            <article title="ΔT_coolant = q″·A_wall/(ṁ·cp); ṁ=1.2 kg/s, cp=2.4 kJ/kgK CH₄ liquid"><span class="cell-sym">ΔT_c</span><strong data-research-metric="coolantDeltaT">--</strong><span>Coolant ΔT (closure)</span></article>
+            <article title="T_burnout = 1170 K (OFHC copper, AMS 4500). Margin = T_burn − T_w,max"><span class="cell-sym">ΔT_burn</span><strong data-research-metric="burnoutMargin">--</strong><span>Burnout margin</span></article>
+            <article title="p_e/p_0 = (1+(γ−1)/2·M²)^(-γ/(γ-1)); γ=1.299 for combustion products"><span class="cell-sym">p_e/p_0</span><strong data-research-metric="exitPressureRatio">--</strong><span>Exit pressure ratio</span></article>
+            <article title="St = h_g/(ρ·V·cp); throat reference state"><span class="cell-sym">St</span><strong data-research-metric="stantonNumber">--</strong><span>Stanton (throat)</span></article>
+            <article title="Time to reach T_burnout extrapolated from current dT_w/dt"><span class="cell-sym">τ_burn</span><strong data-research-metric="timeToMargin">--</strong><span>Time-to-margin</span></article>
           </div>
           <p class="model-footnote">
-            Equation-informed visual: isentropic area-Mach flow, Bartz-style heat-transfer scaling and a deposit thermal-resistance layer; illustrative, not measured thesis output.
+            Equation-informed visual: isentropic area-Mach flow, Bartz-style heat-transfer scaling and a deposit thermal-resistance layer; illustrative, not measured thesis output. Derived quantities computed via <code>scripts/physics/</code>.
             <a href="https://www.grc.nasa.gov/www/k-12/airplane/astar.html" target="_blank" rel="noopener">NASA relation</a>
             <a href="https://ntrs.nasa.gov/citations/19650013685" target="_blank" rel="noopener">Bartz</a>
             <a href="https://www.energy.kth.se/heat-and-power-technology/current-projects/merit-methane-in-rocket-nozzle-cooling-channels-conjugate-heat-transfer-measurements-1.928722" target="_blank" rel="noopener">MERiT+</a>
           </p>
+          <details class="lens-methodology">
+            <summary>Methodology &amp; equations</summary>
+            <ul>
+              <li><strong>Area-Mach + isentropic:</strong> Anderson Ch.3-5 — <code>staticToTotalPressure</code> for p_e/p₀</li>
+              <li><strong>Bartz local h_g:</strong> h_g/h_g* ≈ (A_t/A)^0.9 — NASA TN-19650013685 (worker-side <code>fluid-sim-worker.js:280</code>)</li>
+              <li><strong>Resistance network:</strong> R_total = 1/h_g + t_cu/k_cu + δ_dep/k_dep + 1/h_cool (worker-side <code>fluid-sim-worker.js:256</code>)</li>
+              <li><strong>Conductance health:</strong> h/h_clean = R_clean/R_total — <code>conductanceHealthRatio</code></li>
+              <li><strong>Deposit share:</strong> R_dep/R_total — <code>depositResistanceShare</code></li>
+              <li><strong>Coolant ΔT:</strong> q″·A_wall/(ṁ·cp_CH₄) — <code>coolantTemperatureRise</code>. Reference closure: A_wall=0.0025 m², ṁ=1.2 kg/s, cp=2400 J/kgK</li>
+              <li><strong>Burnout limit:</strong> T_burnout = 1170 K (OFHC copper, AMS 4500) — <code>burnoutMargin</code></li>
+              <li><strong>Stanton:</strong> St = h_g/(ρ·V·cp) — <code>stantonNumber</code></li>
+              <li><strong>Time-to-margin:</strong> τ = ΔT_burn / (dT_w/dt) from 12-sample rolling buffer</li>
+            </ul>
+          </details>
         </aside>
 
         <aside class="hero-model-console industrial-console" data-home-mode-target="decarbonisation" data-industrial-console hidden aria-label="Interactive industrial electrification process model">
@@ -285,24 +347,50 @@
                 <span>Grid intensity <output data-industrial-output="grid">55 kg CO2e/MWh</output></span>
                 <input type="range" data-industrial-control="grid" min="10" max="420" step="5" value="55" />
               </label>
+              <label class="model-slider" title="Heat-pump sink temperature drives COP via Carnot fraction: COP = η_2nd·T_sink/(T_sink−T_source)">
+                <span>Process T (heat-pump sink) <output data-industrial-output="processT">80 °C</output></span>
+                <input type="range" data-industrial-control="processT" min="60" max="140" step="5" value="80" />
+              </label>
               <div class="model-switches">
                 <label><input type="checkbox" data-industrial-control="recovery" checked /> Heat recovery loop</label>
-                <label><input type="checkbox" data-industrial-control="heatPump" checked /> Industrial heat pump</label>
-                <label><input type="checkbox" data-industrial-control="electricBoiler" /> Electric trim heating</label>
+                <label><input type="checkbox" data-industrial-control="heatPump" checked /> Industrial heat pump (≤ 2.0 MW)</label>
+                <label><input type="checkbox" data-industrial-control="electricBoiler" /> Electric trim heating (≤ 1.8 MW)</label>
               </div>
             </div>
             <div class="model-readouts" aria-live="polite">
-              <article><strong data-industrial-metric="heat">--</strong><span>Process heat demand</span></article>
-              <article><strong data-industrial-metric="recovered">--</strong><span>Recovered heat</span></article>
-              <article><strong data-industrial-metric="enpi">--</strong><span>EnPI, purchased energy</span></article>
-              <article><strong data-industrial-metric="emissions">--</strong><span>Emissions intensity</span></article>
-              <article><strong data-industrial-metric="baselineEnpi">--</strong><span>Baseline EnPI</span></article>
-              <article><strong data-industrial-metric="emissionsReduction">--</strong><span>Emissions reduction vs baseline</span></article>
+              <article title="Production heat demand = 5.2 MW × load"><span class="cell-sym">Q_dem</span><strong data-industrial-metric="heat">--</strong><span>Process heat demand</span></article>
+              <article title="Recovered = Q_dem × η_HR(load); η_HR = 0.18 + 0.04·load"><span class="cell-sym">Q_HR</span><strong data-industrial-metric="recovered">--</strong><span>Recovered heat</span></article>
+              <article title="ISO 50006:2014 §5 EnPI = E_purchased / production"><span class="cell-sym">EnPI</span><strong data-industrial-metric="enpi">--</strong><span>EnPI, purchased energy</span></article>
+              <article title="Weighted: (E_el·g_grid + E_gas·g_gas)/production; g_gas=202 gCO₂/kWh LHV (IPCC AR5)"><span class="cell-sym">e_CO₂</span><strong data-industrial-metric="emissions">--</strong><span>Emissions intensity</span></article>
+              <article title="Baseline = no HP/EB/recovery; gas covers everything"><span class="cell-sym">EnPI₀</span><strong data-industrial-metric="baselineEnpi">--</strong><span>Baseline EnPI</span></article>
+              <article title="Δ vs baseline = e_base − e_current"><span class="cell-sym">Δe</span><strong data-industrial-metric="emissionsReduction">--</strong><span>Emissions reduction</span></article>
+              <article title="Heat-pump COP from Carnot fraction with η_2nd = 0.50; source T = 10 °C ambient"><span class="cell-sym">COP</span><strong data-industrial-metric="copHP">--</strong><span>HP COP at process T</span></article>
+              <article title="Capacity-limited merit order — heat from each source (MW_th)"><span class="cell-sym">HP/EB/G</span><strong data-industrial-metric="dispatchSplit">--</strong><span>HP / EB / Gas heat split</span></article>
+              <article title="MAC = ΔOPEX_annual / ΔCO₂_avoided. Prices: el 850, gas 350 SEK/MWh; 7200 h/y"><span class="cell-sym">MAC</span><strong data-industrial-metric="mac">--</strong><span>Marginal abatement cost</span></article>
+              <article title="ISO 50001 partner KPI: SEC = E_total / production"><span class="cell-sym">SEC</span><strong data-industrial-metric="sec">--</strong><span>Specific energy consumption</span></article>
+              <article title="GHG Protocol scopes: S1 = direct (gas combustion); S2 = grid electricity"><span class="cell-sym">S1/S2</span><strong data-industrial-metric="scopes">--</strong><span>Scope 1 / Scope 2 CO₂</span></article>
+              <article title="EU EED Annex IV default PEF for electricity = 1.9"><span class="cell-sym">E_prim</span><strong data-industrial-metric="primary">--</strong><span>Primary energy</span></article>
+              <article title="Load-dependent heat-recovery effectiveness: η_HR = 0.18 + 0.04·load"><span class="cell-sym">η_HR</span><strong data-industrial-metric="etaHR">--</strong><span>Heat-recovery effectiveness</span></article>
             </div>
           </div>
           <p class="model-footnote">
-            Representative scenario model for portfolio communication; it does not publish Alleima operational data. Equations: EnPI = purchased energy / production; emissions intensity = weighted electricity and fuel emissions / production, following ISO 50006 performance-indicator framing.
+            Representative scenario model for portfolio communication; it does not publish Alleima operational data. Equations via <code>scripts/physics/energy-systems.js</code>. Constants: g_gas = 202 gCO₂/kWh on LHV basis (IPCC AR5 NG factor 0.198 kgCO₂/kWh); PEF_el = 1.9 (EU EED 2018/2002 Annex IV).
           </p>
+          <details class="lens-methodology">
+            <summary>Methodology &amp; equations</summary>
+            <ul>
+              <li><strong>EnPI:</strong> ISO 50006:2014 §5; EnPI = E_purchased / production — <code>energyPerformanceIndicator</code></li>
+              <li><strong>SEC:</strong> ISO 50001:2018 Annex A — <code>specificEnergyConsumption</code></li>
+              <li><strong>Carnot HP COP:</strong> COP = η_2nd·T_sink/(T_sink − T_source); η_2nd = 0.50 (Arpagaus et al., RSER 2018); T_source = 10 °C ambient — <code>heatPumpCarnotCOP</code></li>
+              <li><strong>Capacity-limited merit order:</strong> HP up to 2.0 MW, EB trim up to 1.8 MW, gas balance — <code>dispatchMeritOrder</code></li>
+              <li><strong>Heat-recovery curve:</strong> η_HR = 0.18 + 0.04·load (effectiveness floor + load slope) — <code>heatRecoveryEffectiveness</code></li>
+              <li><strong>Emissions:</strong> weighted (E_el·g_grid + E_gas·g_gas)/production — <code>emissionsIntensity</code></li>
+              <li><strong>Scopes:</strong> GHG Protocol Corporate Standard — <code>scopeSplit</code></li>
+              <li><strong>MAC:</strong> ΔOPEX_annual / ΔCO₂_avoided; el = 850 SEK/MWh, gas = 350 SEK/MWh_LHV, 7200 h/y — <code>marginalAbatementCost</code></li>
+              <li><strong>Primary energy:</strong> E_primary = PEF·E_final; PEF_el = 1.9 (EU EED) — <code>toPrimaryEnergy</code></li>
+              <li><strong>Boundaries:</strong> Q_dem = 5.2 MW × load; production = 10 u/h × load; parasitic = 320 kW × load</li>
+            </ul>
+          </details>
         </aside>
       </div>
     </section>
