@@ -5730,48 +5730,147 @@ body.signal-rebuild .hero-kicker {
   font-size: 0.86rem;
 }
 
+/* ── Hero mode toggle — per-track colored active state + entrance ── */
 body.signal-rebuild .home-mode-toggle {
+  position: relative;
   display: inline-flex;
   flex-wrap: wrap;
-  gap: 0.35rem;
+  gap: 0.25rem;
   margin-top: 1rem;
-  padding: 0.34rem;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 0.32rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.045);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    rgba(7, 8, 7, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 6px 22px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(10px);
+  isolation: isolate;
 }
 
+/* Hide the legacy indicator span (we use per-button active state instead) */
+body.signal-rebuild .home-mode-indicator { display: none; }
+
+/* Each button knows its own track color */
+body.signal-rebuild .home-mode-button[data-home-mode-button="thermal"]        { --btn-color: #f97316; --btn-glow: rgba(249, 115, 22, 0.45); }
+body.signal-rebuild .home-mode-button[data-home-mode-button="energy"]         { --btn-color: #22d3ee; --btn-glow: rgba(34, 211, 238, 0.40); }
+body.signal-rebuild .home-mode-button[data-home-mode-button="decarbonisation"] { --btn-color: #f59e0b; --btn-glow: rgba(245, 158, 11, 0.45); }
+body.signal-rebuild .home-mode-button[data-home-mode-button="research"]       { --btn-color: #a78bfa; --btn-glow: rgba(167, 139, 250, 0.42); }
+
 body.signal-rebuild .home-mode-button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 40px;
-  padding: 0 0.95rem;
-  border: 0;
+  gap: 0.45rem;
+  min-height: 38px;
+  padding: 0 1rem;
+  border: 1px solid transparent;
   border-radius: 999px;
   background: transparent;
   color: var(--signal-muted);
   font: inherit;
-  font-size: 0.9rem;
-  font-weight: 800;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+  transition:
+    color 240ms ease,
+    background 320ms cubic-bezier(0.34, 1.32, 0.64, 1),
+    border-color 240ms ease,
+    box-shadow 320ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1;
 }
 
+body.signal-rebuild .home-mode-icon {
+  flex-shrink: 0;
+  opacity: 0.5;
+  color: currentColor;
+  transition: opacity 240ms ease, transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1), color 240ms ease;
+}
+
+/* Hover (not on active button) */
 body.signal-rebuild .home-mode-button:hover {
   color: var(--signal-text);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
 }
 
+body.signal-rebuild .home-mode-button:hover .home-mode-icon {
+  opacity: 0.92;
+  color: var(--btn-color);
+  transform: rotate(-6deg) scale(1.1);
+}
+
+/* Active = colored pill with glow */
 body.signal-rebuild .home-mode-button.is-active {
-  background: var(--signal-green);
-  color: #091009;
-  box-shadow: 0 10px 28px rgba(155, 214, 159, 0.25);
+  color: #0a0d10;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--btn-color) 92%, white 8%),
+    var(--btn-color) 70%,
+    color-mix(in srgb, var(--btn-color) 88%, black 12%));
+  border-color: color-mix(in srgb, var(--btn-color) 78%, transparent);
+  box-shadow:
+    0 6px 22px var(--btn-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px);
+}
+
+body.signal-rebuild .home-mode-button.is-active .home-mode-icon {
+  opacity: 1;
+  color: rgba(10, 13, 16, 0.86);
+  transform: scale(1.08);
 }
 
 body.signal-rebuild .home-mode-button:focus-visible {
-  outline: 2px solid var(--signal-amber);
-  outline-offset: 2px;
+  outline: 2px solid var(--btn-color);
+  outline-offset: 3px;
+}
+
+/* Entrance stagger — only when the toggle is initialized */
+body.signal-rebuild .home-mode-toggle:not(.is-ready) .home-mode-button {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+body.signal-rebuild .home-mode-toggle.is-ready .home-mode-button {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    color 240ms ease,
+    background 320ms cubic-bezier(0.34, 1.32, 0.64, 1),
+    border-color 240ms ease,
+    box-shadow 320ms ease,
+    transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 420ms ease;
+}
+
+body.signal-rebuild .home-mode-toggle.is-ready .home-mode-button:nth-child(2) { transition-delay: 0ms, 0ms, 0ms, 70ms, 70ms; }
+body.signal-rebuild .home-mode-toggle.is-ready .home-mode-button:nth-child(3) { transition-delay: 0ms, 0ms, 0ms, 140ms, 140ms; }
+body.signal-rebuild .home-mode-toggle.is-ready .home-mode-button:nth-child(4) { transition-delay: 0ms, 0ms, 0ms, 210ms, 210ms; }
+body.signal-rebuild .home-mode-toggle.is-ready .home-mode-button:nth-child(5) { transition-delay: 0ms, 0ms, 0ms, 280ms, 280ms; }
+
+/* Active-state must keep its lift even after stagger */
+body.signal-rebuild .home-mode-toggle.is-ready .home-mode-button.is-active {
+  transform: translateY(-1px);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  body.signal-rebuild .home-mode-button,
+  body.signal-rebuild .home-mode-icon {
+    transition: none !important;
+    transform: none !important;
+  }
+  body.signal-rebuild .home-mode-toggle:not(.is-ready) .home-mode-button {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 body.signal-rebuild .signal-actions {
@@ -6752,15 +6851,188 @@ body.signal-rebuild .assignment-card:nth-child(4) { transition-delay: 260ms; }
   transition: border-color 260ms ease;
 }
 
-.role-card {
-  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 240ms ease,
-              border-color 240ms ease;
+/* ── Track color tokens ───────────────────────────────────────── */
+/* ── Progressive-disclosure wrapper for redundant track detail sections ── */
+.track-disclosure {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--card, rgba(255,255,255,0.02)) 80%, transparent);
+  padding: 1.1rem 1.4rem;
+  transition: border-color 220ms ease, background 220ms ease;
 }
 
+.track-disclosure[open] {
+  border-color: color-mix(in srgb, var(--accent, #38bdf8) 35%, var(--line));
+  background: color-mix(in srgb, var(--card, rgba(255,255,255,0.02)) 92%, transparent);
+}
+
+.track-disclosure > summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  gap: 0.15rem;
+  align-items: start;
+  position: relative;
+  padding-right: 2rem;
+}
+
+.track-disclosure > summary::-webkit-details-marker { display: none; }
+
+.track-disclosure > summary::after {
+  content: "+";
+  position: absolute;
+  right: 0.2rem;
+  top: 0.4rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms ease, color 200ms ease;
+}
+
+.track-disclosure[open] > summary::after {
+  content: "−";
+  transform: rotate(180deg);
+  border-color: var(--accent, #38bdf8);
+  color: var(--accent, #38bdf8);
+}
+
+.track-disclosure > summary:hover::after {
+  border-color: var(--accent, #38bdf8);
+  color: var(--accent, #38bdf8);
+}
+
+.track-disclosure .track-disclosure-title {
+  color: var(--fg, #e8eef7);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.track-disclosure .track-disclosure-hint {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.role-card[data-track="cfd"]      { --track-color: #f97316; --track-glow: rgba(249,115,22,0.16); }
+.role-card[data-track="model"]    { --track-color: #22d3ee; --track-glow: rgba(34,211,238,0.14); }
+.role-card[data-track="rd"]       { --track-color: #f59e0b; --track-glow: rgba(245,158,11,0.16); }
+.role-card[data-track="research"] { --track-color: #a78bfa; --track-glow: rgba(167,139,250,0.15); }
+
+/* ── Base card ────────────────────────────────────────────────── */
+.role-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 320ms ease,
+              background 320ms ease;
+}
+
+/* ── Top accent bar — draws in on reveal ────────────────────────
+   Uses ::before so ::after is still free for the shine sweep.    */
+.role-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--track-color, var(--accent)), transparent 85%);
+  border-radius: 0 2px 2px 0;
+  transition: width 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 180ms;
+  z-index: 1;
+}
+
+.role-card.is-revealed::before {
+  width: 72%;
+}
+
+/* ── Entrance: scale + translate (replaces generic stagger) ─────  */
+.role-track-grid [data-stagger-item] {
+  opacity: 0;
+  transform: translateY(28px) scale(0.96);
+  transition: opacity 540ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 540ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.role-track-grid [data-stagger-item].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Role icon — spring bounce entrance ─────────────────────────  */
+.role-card .role-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transform: scale(0.55);
+  opacity: 0;
+  transition: transform 440ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 220ms ease,
+              color 220ms ease,
+              background 220ms ease,
+              border-color 220ms ease;
+}
+
+.role-card.is-revealed .role-icon {
+  transform: scale(1);
+  opacity: 1;
+  transition-delay: 140ms;
+}
+
+/* Track icon SVG micro-anim */
+.track-icon-svg {
+  flex-shrink: 0;
+  color: var(--track-color, var(--accent));
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Hover — lift, colored glow, icon scale ─────────────────────  */
 .role-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.3);
+  transform: translateY(-7px) scale(1.008);
+  border-color: color-mix(in srgb, var(--track-color, var(--accent)) 45%, var(--line));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--track-color, var(--accent)) 22%, transparent),
+    0 16px 44px var(--track-glow, rgba(0,0,0,0.28)),
+    0 4px 12px rgba(0,0,0,0.2);
+  background:
+    radial-gradient(ellipse 60% 40% at 50% -10%, var(--track-glow, transparent), transparent 70%),
+    var(--card);
+}
+
+.role-card:hover .role-icon {
+  color: var(--track-color, var(--accent));
+  border-color: color-mix(in srgb, var(--track-color, var(--accent)) 48%, transparent);
+  background: color-mix(in srgb, var(--track-color, var(--accent)) 12%, rgba(167,176,189,0.1));
+}
+
+.role-card:hover .track-icon-svg {
+  transform: scale(1.18) rotate(-4deg);
+}
+
+/* ── Project-links: staggered fade-up on card hover ────────────  */
+.role-card .project-links {
+  opacity: 0.72;
+  transform: translateY(3px);
+  transition: opacity 240ms ease, transform 240ms cubic-bezier(0.22,1,0.36,1);
+}
+
+.role-card:hover .project-links {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Shine sweep (kept, works alongside ::before) ───────────────  */
+body[data-page-key="home"] .role-card::after {
+  transition-duration: 0.6s;
 }
 
 /* ============================================================

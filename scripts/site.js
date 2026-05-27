@@ -1953,6 +1953,7 @@ const initializeHomeModeToggle = () => {
   const targets = Array.from(document.querySelectorAll("[data-home-mode-target]"));
   if (!buttons.length || !targets.length) return;
 
+  const toggleEl = buttons[0].closest(".home-mode-toggle");
   const modes = new Set(buttons.map((button) => button.getAttribute("data-home-mode-button")).filter(Boolean));
   const storageKey = "homeAudienceMode";
 
@@ -1965,6 +1966,8 @@ const initializeHomeModeToggle = () => {
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-pressed", active ? "true" : "false");
     });
+
+    if (toggleEl) toggleEl.classList.add("is-ready");
 
     targets.forEach((target) => {
       const value = target.getAttribute("data-home-mode-target") || "";
