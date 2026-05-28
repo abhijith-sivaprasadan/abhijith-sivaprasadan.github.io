@@ -83,6 +83,60 @@
       </div>
     </section>
 
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Method</p>
+          <h2>How the EnPI mapping work was structured</h2>
+        </div>
+        <div class="case-panel">
+          <ol>
+            <li><strong>Site walk-down + meter inventory:</strong> document every utility meter (electricity, gas, steam, compressed air, cooling water), its scan interval and its current point of integration to site SCADA or to manual logs.</li>
+            <li><strong>Process boundary definition:</strong> classify each meter by GHG Protocol scope and by ISO 50006 energy use type. Identify metering gaps where a significant energy use (SEU) is implied but no direct meter exists.</li>
+            <li><strong>Load-driver candidates:</strong> for each EnPI candidate, propose load drivers (production volume, operating hours, ambient temperature, raw-material mix) and check which combination minimises baseline residual variance.</li>
+            <li><strong>Baseline regression:</strong> fit E = a + b·P + c·HDD or similar on the cleanest 12–18 months of data. Validate residuals are stationary; flag periods where they aren't (planned maintenance, batch-mix changes).</li>
+            <li><strong>Metering-readiness scoring:</strong> rate each EnPI from 0–4 on a custom scale: data resolution, time-stamp reliability, missing-data fraction and operator-visible baseline. Anything below 3 is flagged as needing meter upgrade before EnPI can be reported externally.</li>
+            <li><strong>Comparative framing:</strong> overlay Swedish EKL/EED reporting practice against German, Dutch, Czech, Indian, Chinese and US equivalents to identify which audit methods Alleima could re-use across its global plants.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Deliverables</p>
+          <h2>What I left behind</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li>EnPI catalogue covering utilities + process heat with formulas, drivers, baseline equation and readiness score per indicator.</li>
+            <li>Metering-gap register listing measurement points to install before each indicator can be reported externally with confidence.</li>
+            <li>Comparative regulatory matrix (7 countries × 6 method dimensions) supporting cross-plant audit-method selection.</li>
+            <li>Loss-analysis worksheets isolating compressed-air leaks, idle-mode utility draw and heat-recovery candidates.</li>
+            <li>One-page summary briefs designed for plant-manager review, with the technical detail moved to appendix and the decision moved to the headline.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Reflection</p>
+          <h2>What I learned about industrial energy work</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li><strong>Metering is the gate.</strong> No EnPI is more credible than the meter it rests on. Half of the work was sequencing meter upgrades before chasing energy improvements.</li>
+            <li><strong>Baseline normalisation is the lever.</strong> Without driver normalisation, a savings claim from a heat-recovery project gets buried by a busy production week. ISO 50006-style EnPI fixes this.</li>
+            <li><strong>Cross-plant comparisons are political.</strong> Plant-to-plant benchmarks require enough methodology consistency that the regional energy lead trusts them — and that means an audit-method specification, not just a number.</li>
+            <li><strong>The decision comes before the data.</strong> The most useful question I learned to ask: "What decision will this indicator support?" If the answer is unclear, the indicator is not worth the effort.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="section-heading">
@@ -91,7 +145,7 @@
         </div>
         <div class="case-panel">
           <p>This experience shows how I turn industrial energy context into practical measurement, KPI and decision-support structures for technical and management audiences.</p>
-          <p>It also fed the longer comparative report on global audit methods, where Sweden&rsquo;s EKL and EED model was translated into a tiered framework for sites with very different legal and technical maturity.</p>
+          <p>It also fed the longer comparative report on global audit methods, where Sweden&rsquo;s EKL and EED model was translated into a tiered framework for sites with very different legal and technical maturity. The methodology — boundary, baseline, drivers, residual diagnostics, metering readiness — is the same one that anchors the EnPI toolkit and the EU ETS calculator elsewhere in the portfolio.</p>
           <div class="project-links">
             <a href="../projects/alleima-energy-efficiency.html">Related case study</a>
           </div>

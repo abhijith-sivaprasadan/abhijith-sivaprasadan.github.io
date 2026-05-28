@@ -83,6 +83,60 @@
       </div>
     </section>
 
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Method</p>
+          <h2>Carbon-cost computation pipeline</h2>
+        </div>
+        <div class="case-panel">
+          <ol>
+            <li><strong>Activity data:</strong> ingest annual fuel use (TJ or m³), Scope 2 electricity (MWh) and any imported steam/heat with stated emission factors. Workbook follows the EU ETS Annex IV reporting template.</li>
+            <li><strong>Scope 1 emissions:</strong> compute t_CO₂ per fuel via E = AD · NCV · EF, where NCV is the net calorific value and EF is the IPCC AR5 default unless an installation-specific factor is provided.</li>
+            <li><strong>Allowance exposure:</strong> net allowances = total Scope 1 emissions − free allocation. Free allocation defaults to zero outside the carbon-leakage list; user overrides per installation.</li>
+            <li><strong>Price scenarios:</strong> three EUA-price trajectories (low/central/high) over a chosen 5- or 10-year horizon. Annual cost = net allowances × EUA price.</li>
+            <li><strong>Sensitivity:</strong> tornado plot showing relative impact of NCV, EF and EUA-price uncertainty on total exposure.</li>
+            <li><strong>Report:</strong> Streamlit dashboard for review, plus a PDF cover sheet with summary table and the three trajectory plots.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Outputs</p>
+          <h2>What the calculator produces</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li><strong>scenario_summary.csv</strong> — installation × year × scenario, with t_CO₂, allowances needed, EUA price, total cost</li>
+            <li><strong>sensitivity_tornado.png</strong> — relative-impact bars for the four uncertainty drivers</li>
+            <li><strong>emissions_trajectory.png</strong> — three EUA-price paths overlaid on the same chart</li>
+            <li><strong>carbon_cost_pdf.pdf</strong> — one-pager: summary, charts, methodology notes, citation list</li>
+            <li><strong>CLI runner</strong> — same pipeline callable headlessly via <code>python -m euets_calculator --config inputs.yaml</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Limitations</p>
+          <h2>What the calculator does not cover</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li>Does not model CBAM interactions — only the EU ETS Scope 1 directly-regulated emissions are quantified.</li>
+            <li>EUA price scenarios are user-supplied; the tool does not include a forward-curve forecast model.</li>
+            <li>Free-allocation logic is simplified — full benchmark allocation (BM × HAL × CL × CSCF) requires verified historical-activity data.</li>
+            <li>Steam and district-heat imports use stated emission factors; on-site cogeneration allocation (heat vs. power) needs an upstream calculation.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="section-heading">
@@ -90,7 +144,7 @@
           <h2>Why this matters</h2>
         </div>
         <div class="case-panel">
-          <p>This project demonstrates how regulatory carbon exposure can be converted into a usable engineering-finance tool: transparent assumptions, scenario comparison, sensitivity analysis and repeatable reporting.</p>
+          <p>This project demonstrates how regulatory carbon exposure can be converted into a usable engineering-finance tool: transparent assumptions, scenario comparison, sensitivity analysis and repeatable reporting. The same input → physics → cost → scenario pattern appears across the industrial-decarbonisation portfolio (EnPI toolkit, district-heating dispatch, Alleima methodology).</p>
           <div class="project-links">
             <a href="../downloads/eu-ets-calculator-package.zip" download>&#8595; Download tool package (ZIP, 35&nbsp;KB)</a>
           </div>

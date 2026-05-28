@@ -83,6 +83,59 @@
       </div>
     </section>
 
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Method</p>
+          <h2>EnPI normalisation workflow</h2>
+        </div>
+        <div class="case-panel">
+          <ol>
+            <li><strong>Ingest:</strong> read monthly utility data (electricity, gas, steam, compressed air) plus production volumes and operating hours from an Excel workbook (one row per period, one column per stream).</li>
+            <li><strong>Baseline regression:</strong> fit E = a + b·P + c·HDD on the baseline window (typically 12 prior months), where P is production and HDD is heating-degree-days for climate-driven loads. Residuals flag drift from the baseline relationship.</li>
+            <li><strong>Normalise:</strong> compute EnPI = E_actual / E_baseline (relative) and the absolute EnPI = E / P (kWh/unit). ISO 50006:2014 framing throughout.</li>
+            <li><strong>Diagnose:</strong> flag rows where |residual| &gt; 2σ (anomaly) or where the trailing-3-month residual mean is monotonic (drift).</li>
+            <li><strong>Report:</strong> Streamlit dashboard for review, plus a one-page PDF with chart + commentary box for management circulation.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Outputs</p>
+          <h2>What the tool produces</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li><strong>results.csv</strong> — period-by-period EnPI, residual, anomaly flag, drift flag</li>
+            <li><strong>actions.csv</strong> — auto-generated when a residual exceeds threshold, with assignee placeholder and 4-week follow-up date</li>
+            <li><strong>plots/</strong> — baseline scatter with current point highlighted, residual time-series with control limits, EnPI control chart</li>
+            <li><strong>updated_workbook.xlsx</strong> — original input with added results columns and chart sheets</li>
+            <li><strong>monthly_report.pdf</strong> — single page: headline EnPI, change vs. previous period, top 3 anomalies, suggested next actions</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Limitations</p>
+          <h2>What the tool does not do</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li>Does not perform measurement-and-verification (M&amp;V) to IPMVP Option C; the regression is a screening EnPI baseline, not a savings-verification protocol.</li>
+            <li>Does not handle sub-metering hierarchies — it assumes a single aggregate meter per stream. Sites with parallel metering need a pre-aggregation step.</li>
+            <li>The anomaly threshold (2σ) is a stand-in; production sites should calibrate to historical false-positive rate during the first 3 months of use.</li>
+            <li>No automated bill-data ingestion — utility bills must be transcribed or exported to the workbook template manually.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="section-heading">
@@ -90,7 +143,7 @@
           <h2>Why this matters</h2>
         </div>
         <div class="case-panel">
-          <p>This project turns ISO 50001-style energy-performance tracking into a practical workflow: structured inputs, transparent baseline assumptions, diagnostics, action ownership and management-ready reporting.</p>
+          <p>This project turns ISO 50001-style energy-performance tracking into a practical workflow: structured inputs, transparent baseline assumptions, diagnostics, action ownership and management-ready reporting. It directly supports the industrial-energy/decarbonisation track positioning by demonstrating reproducible, audit-friendly EnPI tooling that an ISO 50001 lead auditor or an energy-coordinator role can recognise.</p>
         </div>
       </div>
     </section>

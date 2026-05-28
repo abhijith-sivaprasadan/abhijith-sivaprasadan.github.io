@@ -83,6 +83,60 @@
       </div>
     </section>
 
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Method</p>
+          <h2>Multi-vector network model</h2>
+        </div>
+        <div class="case-panel">
+          <ol>
+            <li><strong>Nodes:</strong> renewable generators (wind/solar with hourly capacity factors), electrolysers (PEM, η_LHV ≈ 0.62), storage (battery + hydrogen pressure vessel), and demand sinks (industrial offtake).</li>
+            <li><strong>Edges:</strong> electricity transmission (with stated capacity), hydrogen pipelines (with Weymouth-type pressure-drop constraints), road truck routes (cost per kg-km).</li>
+            <li><strong>Optimisation:</strong> mixed-integer linear program in PuLP — minimise total annualised cost subject to demand balance at every node every hour, asset capacities, ramp limits and storage state-of-charge constraints.</li>
+            <li><strong>Scenarios:</strong> three demand growth trajectories (low/central/high) × two policy backdrops (with/without H₂ price support) = 6 scenarios per network configuration.</li>
+            <li><strong>Outputs:</strong> dispatch time-series per asset, marginal cost shadow prices, build-out plan (when a new asset becomes economic), and a multi-network comparison dashboard.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Outputs</p>
+          <h2>What the model produces</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li><strong>dispatch_hourly.csv</strong> — per-asset, per-hour generation/storage state and flows</li>
+            <li><strong>marginal_prices.csv</strong> — shadow price at each node × hour (€/MWh_el and €/kg_H₂)</li>
+            <li><strong>capacity_buildout.csv</strong> — when a new electrolyser/storage unit becomes part of the optimum</li>
+            <li><strong>network_map.html</strong> — interactive Plotly map of nodes + flow widths</li>
+            <li><strong>scenario_compare.pdf</strong> — total system cost, CO₂ avoided, and curtailment across the 6 scenarios</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Limitations</p>
+          <h2>What the model does not include</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li>The electrolyser efficiency is constant at the LHV operating point — no part-load curve; real PEM efficiency drops noticeably below 30 % load.</li>
+            <li>Pipeline constraints use the Weymouth steady-state form. Transient gas dynamics (line-pack effects) are not modelled.</li>
+            <li>Truck logistics use a fixed €/kg-km — no time-dependent congestion or driver-availability modelling.</li>
+            <li>The scenario set is for illustration; investment decisions for a real network need a full Monte-Carlo over demand, price and CAPEX uncertainty.</li>
+            <li>Hydrogen end-use (e.g. steel-mill DRI reduction) is treated as a fixed offtake; cross-sectoral coupling would extend the model significantly.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="section-heading">
@@ -90,7 +144,7 @@
           <h2>Why this matters</h2>
         </div>
         <div class="case-panel">
-          <p>This project extends my energy-systems portfolio beyond electricity-only modelling into multi-vector infrastructure: renewable power, hydrogen production, pipeline constraints and optimisation-based operations.</p>
+          <p>This project extends the energy-systems portfolio beyond electricity-only modelling into multi-vector infrastructure: renewable power, hydrogen production, pipeline constraints and optimisation-based operations. It transfers the MILP-dispatch logic from the district-heating case into a more complex multi-energy carrier setting — the same modelling discipline applied to a different boundary.</p>
         </div>
       </div>
     </section>
