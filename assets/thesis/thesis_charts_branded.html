@@ -1,0 +1,199 @@
+
+<style>
+  * { box-sizing: border-box; }
+  .wrap { padding: 1.5rem 0; font-family: var(--font-sans); }
+  .chart-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.5rem 1.5rem 1rem; margin-bottom: 1.5rem; }
+  .card-header { margin-bottom: 1.25rem; }
+  .card-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin: 0 0 4px; }
+  .card-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 1rem; line-height: 1.4; }
+  .kpi-row { display: flex; gap: 12px; margin-bottom: 1.25rem; }
+  .kpi { flex: 1; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
+  .kpi-label { font-size: 10px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 2px; }
+  .kpi-value { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin: 0; line-height: 1.2; }
+  .kpi-value span { font-size: 11px; font-weight: 400; color: var(--color-text-secondary); }
+  .kpi-delta { font-size: 11px; margin: 2px 0 0; }
+  .kpi-delta.up { color: #d0622c; }
+  .kpi-delta.down { color: #2563a8; }
+  .legend-row { display: flex; gap: 16px; margin-bottom: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-secondary); }
+  .legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .chart-wrap { position: relative; width: 100%; }
+  .annotation { font-size: 11px; color: var(--color-text-tertiary); border-left: 2px solid var(--color-border-secondary); padding-left: 8px; margin-top: 1rem; line-height: 1.5; }
+</style>
+
+<div class="wrap">
+<h2 class="sr-only">Thesis simulation results: thermal efficiency and external heat loss comparison between redesigned and legacy reducer geometries.</h2>
+
+<div class="chart-card">
+  <div class="card-header">
+    <p class="card-eyebrow">CHT simulation results · Cases A–C</p>
+    <p class="card-title">Thermal efficiency — redesigned vs legacy reducer</p>
+    <div class="kpi-row">
+      <div class="kpi">
+        <p class="kpi-label">Redesigned · Case A</p>
+        <p class="kpi-value">93.7<span>%</span></p>
+        <p class="kpi-delta down">↓ 2.1 pp vs legacy</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">Legacy · Case A</p>
+        <p class="kpi-value">95.8<span>%</span></p>
+        <p class="kpi-delta up">↑ higher surface area loss offset by compact geometry</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">Gap closes at</p>
+        <p class="kpi-value">Case C</p>
+        <p class="kpi-delta" style="color:var(--color-text-tertiary)">0.9 pp difference at high PR</p>
+      </div>
+    </div>
+  </div>
+  <div class="legend-row">
+    <span class="legend-item"><span class="legend-swatch" style="background:#2563a8"></span>Redesigned reducer</span>
+    <span class="legend-item"><span class="legend-swatch" style="background:#d0622c"></span>Legacy reducer</span>
+  </div>
+  <div class="chart-wrap" style="height:220px;">
+    <canvas id="effChart" role="img" aria-label="Thermal efficiency clustered bar chart. Redesigned: 93.7%, 87.0%, 75.6%. Legacy: 95.8%, 88.3%, 76.5%.">Redesigned: Case A 93.7%, Case B 87.0%, Case C 75.6%. Legacy: Case A 95.8%, Case B 88.3%, Case C 76.5%.</canvas>
+  </div>
+  <p class="annotation">Both geometries lose efficiency at higher pressure ratios (Case A → C). The 2 pp legacy advantage at Case A is a surface-area artifact: the compact two-step body exposes less wall to ambient, not better internal heat transfer — confirmed by the insulated reference cases.</p>
+</div>
+
+<div class="chart-card">
+  <div class="card-header">
+    <p class="card-eyebrow">CHT simulation results · Cases A–C</p>
+    <p class="card-title">Total external heat loss — redesigned vs legacy reducer</p>
+    <div class="kpi-row">
+      <div class="kpi">
+        <p class="kpi-label">Redesigned · avg</p>
+        <p class="kpi-value">55.7<span> W</span></p>
+        <p class="kpi-delta up">↑ 3× higher than legacy</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">Legacy · avg</p>
+        <p class="kpi-value">18.8<span> W</span></p>
+        <p class="kpi-delta down">↓ compact body, lower exposed area</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-label">Legacy sensitivity to PR</p>
+        <p class="kpi-value">≈ 0<span> W</span></p>
+        <p class="kpi-delta" style="color:var(--color-text-tertiary)">flat across all cases</p>
+      </div>
+    </div>
+  </div>
+  <div class="legend-row">
+    <span class="legend-item"><span class="legend-swatch" style="background:#2563a8"></span>Redesigned reducer</span>
+    <span class="legend-item"><span class="legend-swatch" style="background:#d0622c"></span>Legacy reducer</span>
+  </div>
+  <div class="chart-wrap" style="height:220px;">
+    <canvas id="heatChart" role="img" aria-label="External heat loss clustered bar chart. Redesigned: 53.4W, 56.6W, 57.2W. Legacy: 18.6W, 18.9W, 18.9W.">Redesigned: Case A 53.4W, Case B 56.6W, Case C 57.2W. Legacy: Case A 18.6W, Case B 18.9W, Case C 18.9W.</canvas>
+  </div>
+  <p class="annotation">The redesigned reducer's 150 mm quintic contraction exposes significantly more wall area to ambient than the compact two-step body. This is the primary trade-off: the quintic geometry recovers total pressure and eliminates the supersonic vena contracta, but at the cost of higher external thermal loss. The trade-off is the engineering decision this thesis quantifies.</p>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+const tickColor = isDark ? '#888780' : '#888780';
+const blue = '#2563a8';
+const orange = '#d0622c';
+const blueLight = isDark ? 'rgba(37,99,168,0.15)' : 'rgba(37,99,168,0.08)';
+
+const baseOpts = (yLabel, yMin, yMax, yStep, yCb) => ({
+  responsive: true,
+  maintainAspectRatio: false,
+  animation: { duration: 600, easing: 'easeOutQuart' },
+  plugins: {
+    legend: { display: false },
+    tooltip: {
+      backgroundColor: isDark ? '#2c2c2a' : '#fff',
+      borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)',
+      borderWidth: 1,
+      titleColor: isDark ? '#d3d1c7' : '#2c2c2a',
+      bodyColor: isDark ? '#888780' : '#5f5e5a',
+      padding: 10,
+      cornerRadius: 6,
+      callbacks: {
+        label: ctx => '  ' + ctx.dataset.label + ': ' + yCb(ctx.raw)
+      }
+    }
+  },
+  scales: {
+    x: {
+      ticks: { color: tickColor, font: { size: 12 }, padding: 4 },
+      grid: { display: false },
+      border: { color: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)', width: 0.5 }
+    },
+    y: {
+      min: yMin,
+      max: yMax,
+      ticks: {
+        color: tickColor,
+        font: { size: 11 },
+        callback: yCb,
+        stepSize: yStep,
+        padding: 6
+      },
+      grid: { color: gridColor, lineWidth: 0.5 },
+      border: { display: false },
+      title: { display: true, text: yLabel, color: tickColor, font: { size: 11 }, padding: { bottom: 4 } }
+    }
+  }
+});
+
+new Chart(document.getElementById('effChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Case A', 'Case B', 'Case C'],
+    datasets: [
+      {
+        label: 'Redesigned reducer',
+        data: [93.7, 87.0, 75.6],
+        backgroundColor: blue,
+        borderRadius: 3,
+        borderSkipped: false,
+        barPercentage: 0.55,
+        categoryPercentage: 0.7
+      },
+      {
+        label: 'Legacy reducer',
+        data: [95.8, 88.3, 76.5],
+        backgroundColor: orange,
+        borderRadius: 3,
+        borderSkipped: false,
+        barPercentage: 0.55,
+        categoryPercentage: 0.7
+      }
+    ]
+  },
+  options: baseOpts('Thermal efficiency η (%)', 70, 100, 5, v => v.toFixed(1) + '%')
+});
+
+new Chart(document.getElementById('heatChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Case A', 'Case B', 'Case C'],
+    datasets: [
+      {
+        label: 'Redesigned reducer',
+        data: [53.36, 56.58, 57.21],
+        backgroundColor: blue,
+        borderRadius: 3,
+        borderSkipped: false,
+        barPercentage: 0.55,
+        categoryPercentage: 0.7
+      },
+      {
+        label: 'Legacy reducer',
+        data: [18.59, 18.93, 18.88],
+        backgroundColor: orange,
+        borderRadius: 3,
+        borderSkipped: false,
+        barPercentage: 0.55,
+        categoryPercentage: 0.7
+      }
+    ]
+  },
+  options: baseOpts('External heat loss Q_ext (W)', 0, 70, 10, v => v.toFixed(1) + ' W')
+});
+</script>

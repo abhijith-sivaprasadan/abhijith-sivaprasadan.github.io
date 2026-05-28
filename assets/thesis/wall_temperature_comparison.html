@@ -1,0 +1,239 @@
+
+<style>
+  * { box-sizing: border-box; }
+  .wrap { padding: 1rem 0; font-family: var(--font-sans); }
+  .chart-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.5rem 1.5rem 1rem; margin-bottom: 1rem; }
+  .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin: 0 0 4px; }
+  .card-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 1rem; }
+  .kpi-row { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .kpi { flex: 1; min-width: 110px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
+  .kpi-label { font-size: 10px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 2px; }
+  .kpi-val { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin: 0; line-height: 1.2; }
+  .kpi-val span { font-size: 11px; font-weight: 400; color: var(--color-text-secondary); }
+  .kpi-sub { font-size: 10px; color: var(--color-text-tertiary); margin: 2px 0 0; }
+  .kpi-blue { color: #2563a8; }
+  .kpi-orange { color: #d0622c; }
+  .legend-row { display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-secondary); }
+  .legend-line { width: 20px; height: 2.5px; border-radius: 1px; }
+  .legend-dashed { width: 20px; height: 0; border-top: 2px dashed; }
+  .annotation { font-size: 11px; color: var(--color-text-tertiary); border-left: 2px solid var(--color-border-secondary); padding-left: 8px; margin-top: 1rem; line-height: 1.6; }
+</style>
+
+<div class="wrap">
+<h2 class="sr-only">Wall temperature profile comparison between legacy two-step reducer and redesigned quintic reducer, from ANSYS Fluent CHT simulation, normalized from start of contraction zone.</h2>
+
+<div class="chart-card">
+  <p class="eyebrow">ANSYS Fluent 2025 R1 · CHT simulation · Fine mesh · reducer_fluid wall surface</p>
+  <p class="card-title">Wall temperature along the contraction — legacy vs redesigned reducer</p>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <p class="kpi-label">Legacy · inlet wall T</p>
+      <p class="kpi-val kpi-orange">671.6<span> K</span></p>
+      <p class="kpi-sub">Near-isothermal plateau upstream</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Legacy · outlet wall T</p>
+      <p class="kpi-val kpi-orange">639.2<span> K</span></p>
+      <p class="kpi-sub">Abrupt drop at vena contracta</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Legacy · ΔT wall</p>
+      <p class="kpi-val kpi-orange">32.4<span> K</span></p>
+      <p class="kpi-sub">Concentrated in ~12 mm step zone</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">New · inlet wall T</p>
+      <p class="kpi-val kpi-blue">673.0<span> K</span></p>
+      <p class="kpi-sub">At inlet supply temperature</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">New · outlet wall T</p>
+      <p class="kpi-val kpi-blue">647.9<span> K</span></p>
+      <p class="kpi-sub">Smooth gradual cooling</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">New · ΔT wall</p>
+      <p class="kpi-val kpi-blue">25.1<span> K</span></p>
+      <p class="kpi-sub">Spread over 150 mm quintic zone</p>
+    </div>
+  </div>
+
+  <div class="legend-row">
+    <span class="legend-item"><span class="legend-line" style="background:#d0622c"></span>Legacy two-step reducer (abrupt contractions)</span>
+    <span class="legend-item"><span class="legend-line" style="background:#2563a8"></span>Redesigned quintic reducer (C² smooth contraction)</span>
+    <span class="legend-item"><span class="legend-dashed" style="border-color:#d0622c"></span>Step geometry zone (legacy)</span>
+    <span class="legend-item"><span class="legend-dashed" style="border-color:#888780"></span>T_inlet = 673 K</span>
+  </div>
+
+  <div style="position:relative;width:100%;height:300px;">
+    <canvas id="wallTChart" role="img" aria-label="Wall temperature vs distance from contraction start. Legacy: near-isothermal at 671.6K then abrupt drop to 639K over 12mm at step. New: smooth monotonic decrease from 673K to 648K over 150mm.">Wall temperature: Legacy 671.6K plateau then sharp drop to 639K at 26mm; New smooth 673K→648K over 150mm.</canvas>
+  </div>
+
+  <p class="annotation">The wall temperature profiles directly reflect the flow physics identified in the Mach number analysis. The legacy two-step geometry produces a near-isothermal wall upstream of the steps (~671 K, within 2 K of the gas inlet temperature), then a sharp 32 K drop concentrated in approximately 12 mm around the step zone where the vena contracta and turbulent jet drive intense localised heat transfer. The redesigned quintic contraction distributes the same energy exchange over 150 mm: wall temperature decreases monotonically from 673 K at the contraction inlet to 648 K at the throat, at an average rate of ~0.17 K/mm versus ~2.7 K/mm at the legacy step — a factor of 16 difference in local thermal gradient. This concentrated wall cooling in the legacy geometry is consistent with the Biot number analysis (Bi = 0.003–0.004): the solid wall temperature closely follows the local gas temperature, so the abrupt gas cooling at the vena contracta is reflected almost immediately in the wall profile. Note: the legacy dataset covers only the step region (0–38 mm); the redesigned dataset covers the full 150 mm quintic contraction zone.</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const gridCol = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+const tickCol = isDark ? '#888780' : '#888780';
+const blue = '#2563a8';
+const orange = '#d0622c';
+const gray = '#888780';
+
+// Legacy: normalize from x=0.200 → mm from contraction start
+const legXraw = [0.2002,0.2006,0.201,0.2013,0.2017,0.2021,0.2025,0.2029,0.2032,0.2036,0.204,0.2044,0.2048,0.2051,0.2055,0.2059,0.2063,0.2067,0.207,0.2074,0.2078,0.2082,0.2086,0.2089,0.2093,0.2097,0.2101,0.2104,0.2108,0.2112,0.2116,0.212,0.2124,0.2127,0.2131,0.2135,0.2139,0.2142,0.2146,0.215,0.2154,0.2158,0.2162,0.2165,0.2169,0.2173,0.2177,0.218,0.2184,0.2188,0.2192,0.2196,0.22,0.2203,0.2207,0.2211,0.2215,0.2218,0.2222,0.2226,0.223,0.2234,0.2238,0.2241,0.2245,0.2249,0.2253,0.2256,0.226,0.2264,0.2268,0.2272,0.2276,0.2279,0.2283,0.2287,0.2291,0.2294,0.2298,0.2302,0.2306,0.231,0.2314,0.2317,0.2321,0.2325,0.2329,0.2332,0.2336,0.234,0.2344,0.2348,0.2351,0.2355,0.2359,0.2363,0.2367,0.237,0.2374,0.2378];
+const legY = [670.514,670.817,670.795,670.776,670.764,670.76,670.764,670.778,670.799,670.826,670.86,670.898,670.946,670.99,671.04,671.088,671.135,671.18,671.218,671.254,671.287,671.315,671.339,671.361,671.375,671.391,671.401,671.41,671.416,671.417,671.421,671.421,671.42,671.421,671.416,671.416,671.41,671.408,671.403,671.4,671.395,671.391,671.387,671.383,671.379,671.375,671.372,671.37,671.369,671.368,671.369,671.371,671.375,671.382,671.392,671.404,671.421,671.441,671.464,671.491,671.523,671.546,671.557,671.561,671.562,668.014,649.526,642.535,641.051,640.905,641.995,643.418,644.506,645.161,645.46,645.508,645.386,645.154,644.902,644.587,644.268,643.969,643.655,643.385,643.1,642.818,642.532,642.256,641.965,641.702,641.437,641.189,640.93,640.66,640.417,640.176,639.918,639.698,639.455,639.186];
+
+// New: normalize from x=0.420 → mm from contraction start
+const newXraw = [0.4207,0.4222,0.4237,0.4252,0.4267,0.4282,0.4297,0.4312,0.4327,0.4342,0.4357,0.4372,0.4387,0.4402,0.4417,0.4432,0.4447,0.4462,0.4477,0.4492,0.4507,0.4522,0.4537,0.4552,0.4567,0.4582,0.4597,0.4612,0.4627,0.4642,0.4657,0.4672,0.4688,0.4702,0.4717,0.4732,0.4747,0.4762,0.4777,0.4792,0.4807,0.4822,0.4837,0.4852,0.4867,0.4882,0.4897,0.4912,0.4927,0.4942,0.4957,0.4972,0.4987,0.5002,0.5017,0.5032,0.5047,0.5062,0.5077,0.5092,0.5107,0.5122,0.5137,0.5152,0.5167,0.5182,0.5197,0.5212,0.5227,0.5242,0.5257,0.5272,0.5287,0.5302,0.5317,0.5333,0.5347,0.5362,0.5377,0.5393,0.5407,0.5422,0.5437,0.5453,0.5467,0.5482,0.5497,0.5513,0.5527,0.5542,0.5557,0.5572,0.5587,0.5602,0.5617,0.5632,0.5647,0.5662,0.5677,0.5692];
+const newY = [672.98,672.98,672.98,672.98,672.98,672.98,672.98,672.98,672.979,672.979,672.979,672.979,672.979,672.979,672.979,672.979,672.978,672.978,672.978,672.978,672.977,672.977,672.976,672.976,672.975,672.974,672.974,672.973,672.972,672.971,672.97,672.969,672.967,672.966,672.964,672.962,672.96,672.958,672.955,672.952,672.949,672.945,672.941,672.936,672.931,672.925,672.918,672.911,672.902,672.892,672.881,672.869,672.854,672.837,672.819,672.796,672.771,672.743,672.711,672.672,672.626,672.569,672.515,672.449,672.367,672.265,672.163,672.038,671.888,671.719,671.473,671.246,670.992,670.664,670.233,669.769,669.229,668.565,667.842,666.985,666.032,664.972,664.098,662.956,661.677,660.359,659.127,657.687,656.363,655.058,653.689,652.412,651.373,650.593,649.782,649.172,648.461,648.156,647.793,647.873];
+
+// Normalize to mm from start of contraction
+const legXmm = legXraw.map(x => Math.round((x - 0.200) * 1000 * 10) / 10);
+const newXmm = newXraw.map(x => Math.round((x - 0.420) * 1000 * 10) / 10);
+
+// Annotation plugins
+const stepZone = {
+  id: 'stepZone',
+  afterDraw(chart) {
+    const { ctx, scales: { x, y } } = chart;
+    // Step zone at ~26mm for legacy
+    const x1 = x.getPixelForValue(25);
+    const x2 = x.getPixelForValue(38);
+    ctx.save();
+    ctx.fillStyle = isDark ? 'rgba(208,98,44,0.07)' : 'rgba(208,98,44,0.08)';
+    ctx.fillRect(x1, chart.chartArea.top, x2 - x1, chart.chartArea.bottom - chart.chartArea.top);
+    ctx.restore();
+  }
+};
+
+const inletLine = {
+  id: 'inletLine',
+  afterDraw(chart) {
+    const { ctx, scales: { x, y } } = chart;
+    const yPx = y.getPixelForValue(673);
+    ctx.save();
+    ctx.strokeStyle = gray;
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 3]);
+    ctx.globalAlpha = 0.6;
+    ctx.beginPath();
+    ctx.moveTo(chart.chartArea.left, yPx);
+    ctx.lineTo(chart.chartArea.right, yPx);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.font = '10px sans-serif';
+    ctx.fillStyle = gray;
+    ctx.fillText('T_inlet = 673 K', chart.chartArea.left + 4, yPx - 4);
+    ctx.restore();
+  }
+};
+
+const stepArrow = {
+  id: 'stepArrow',
+  afterDraw(chart) {
+    const { ctx, scales: { x, y } } = chart;
+    const xPx = x.getPixelForValue(26);
+    ctx.save();
+    ctx.strokeStyle = orange;
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4, 3]);
+    ctx.globalAlpha = 0.7;
+    ctx.beginPath();
+    ctx.moveTo(xPx, chart.chartArea.top);
+    ctx.lineTo(xPx, chart.chartArea.bottom);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+    ctx.font = '9px sans-serif';
+    ctx.fillStyle = orange;
+    ctx.fillText('Step zone', xPx + 2, chart.chartArea.top + 14);
+    ctx.restore();
+  }
+};
+
+new Chart(document.getElementById('wallTChart'), {
+  type: 'line',
+  data: {
+    datasets: [
+      {
+        label: 'Legacy two-step reducer',
+        data: legXmm.map((x, i) => ({ x, y: legY[i] })),
+        borderColor: orange,
+        borderWidth: 2.5,
+        pointRadius: 0,
+        tension: 0.2,
+        fill: {
+          target: { value: 673 },
+          below: isDark ? 'rgba(208,98,44,0.08)' : 'rgba(208,98,44,0.06)'
+        }
+      },
+      {
+        label: 'Redesigned quintic reducer',
+        data: newXmm.map((x, i) => ({ x, y: newY[i] })),
+        borderColor: blue,
+        borderWidth: 2.5,
+        pointRadius: 0,
+        tension: 0.2,
+        fill: {
+          target: { value: 673 },
+          below: isDark ? 'rgba(37,99,168,0.08)' : 'rgba(37,99,168,0.05)'
+        }
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 700, easing: 'easeOutQuart' },
+    parsing: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: isDark ? '#2c2c2a' : '#fff',
+        borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)',
+        borderWidth: 1,
+        titleColor: isDark ? '#d3d1c7' : '#2c2c2a',
+        bodyColor: tickCol,
+        padding: 10,
+        cornerRadius: 6,
+        callbacks: {
+          title: ctx => 'Distance from contraction start: ' + ctx[0].parsed.x.toFixed(1) + ' mm',
+          label: ctx => '  ' + ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(2) + ' K'
+        }
+      },
+      stepZone: {},
+      inletLine: {},
+      stepArrow: {}
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        min: 0,
+        max: 155,
+        ticks: { color: tickCol, font: { size: 11 }, stepSize: 25, callback: v => v + ' mm' },
+        grid: { color: gridCol, lineWidth: 0.5 },
+        border: { display: false },
+        title: { display: true, text: 'Distance from contraction start (mm)', color: tickCol, font: { size: 11 } }
+      },
+      y: {
+        min: 635,
+        max: 675,
+        ticks: {
+          color: tickCol,
+          font: { size: 11 },
+          stepSize: 5,
+          callback: v => v + ' K'
+        },
+        grid: { color: gridCol, lineWidth: 0.5 },
+        border: { display: false },
+        title: { display: true, text: 'Wall temperature (K)', color: tickCol, font: { size: 11 } }
+      }
+    }
+  },
+  plugins: [stepZone, inletLine, stepArrow]
+});
+</script>

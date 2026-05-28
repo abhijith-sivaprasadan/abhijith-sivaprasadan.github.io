@@ -2161,49 +2161,78 @@ export async function init(ctx) {
     // Track wall T for the dT/dt prediction.
     pushWallTSample(metrics.simulatedTime, metrics.maxWallTemperature);
     const dTdt = wallHeatingRateK_per_s();
-    // Derived quantities via shared physics layer:
     const burnout = burnoutMargin(metrics.maxWallTemperature, T_BURNOUT_CU);
-    const dT_coolant = coolantTemperatureRise({
-      heatFluxWPerM2: metrics.heatFluxPeak,
-      wallAreaM2: NOZZLE_THROAT_WALL_AREA_M2,
-      coolantMassFlowKgs: NOZZLE_COOLANT_MASSFLOW,
-      coolantCpJperKgK: CP_CH4_COOL,
-    });
-    const pRatioExit = staticToTotalPressure(metrics.exitMach, GAMMA_CH4);
-    const St = stantonNumber(
-      NOZZLE_THROAT_H_GAS, NOZZLE_THROAT_DENSITY,
-      NOZZLE_THROAT_VELOCITY, NOZZLE_THROAT_CP,
-    );
-    // Time-to-margin: extrapolate current heating rate to T_burnout.
+    // Exit pressure ratio uses CEA γ (delivered by worker), not assumed CH₄.
+    const gammaEff = metrics.gamma || GAMMA_CH4;
+    const pRatioExit = staticToTotalPressure(metrics.exitMach, gammaEff);
+    // Stanton at throat from real h_g and an estimated ρ·V at sonic.
+    const rho_throat = (metrics.P_c_MPa * 1e6 / 1.93) / (R_AIR_SUB(metrics) * (metrics.T_c * 0.833));
+    const V_throat   = Math.sqrt(gammaEff * R_AIR_SUB(metrics) * (metrics.T_c * 0.833));
+    const cp_eff     = (gammaEff * R_AIR_SUB(metrics)) / (gammaEff - 1);
+    const St         = (metrics.h_throat > 0 && rho_throat > 0 && V_throat > 0)
+      ? metrics.h_throat / (rho_throat * V_throat * cp_eff) : NaN;
+    // Time-to-margin: extrapolate current dT_w/dt to T_burnout.
     let timeToMargin;
-    if (dTdt > 0.01 && burnout.marginK > 0) {
-      timeToMargin = `${(burnout.marginK / dTdt).toFixed(0)} s`;
-    } else if (burnout.marginK <= 0) {
-      timeToMargin = "Past limit";
-    } else {
-      timeToMargin = "Stable (dT/dt ≤ 0)";
-    }
+    if (dTdt > 0.01 && burnout.marginK > 0) timeToMargin = `${(burnout.marginK / dTdt).toFixed(0)} s`;
+    else if (burnout.marginK <= 0)          timeToMargin = "Past limit";
+    else                                     timeToMargin = "Stable (dT/dt ≤ 0)";
     const text = {
-      exitMach: `Ma ${metrics.exitMach.toFixed(2)}`,
+      // New methalox-physics readouts
+      T_c:             `${Math.round(metrics.T_c)} K`,
+      cStar:           `${Math.round(metrics.cStar)} m/s`,
+      mDotTotal:       `${metrics.mDotTotal.toFixed(1)} kg/s`,
+      Isp_vac:         `${Math.round(metrics.Isp_vac)} s`,
+      h_throat:        `${(metrics.h_throat / 1000).toFixed(1)} kW/m²K`,
+      mDotCoolant:     `${metrics.mDotCoolant.toFixed(2)} kg/s`,
+      coolantDeltaT:   `${metrics.coolantDeltaTK.toFixed(0)} K (out ${Math.round(metrics.coolantOutletK)} K)`,
+      // Existing readouts
+      throatHeatFlux:  `${(metrics.heatFluxPeak / 1e6).toFixed(1)} MW/m²`,
       wallTemperature: `${Math.round(metrics.maxWallTemperature)} K`,
-      healthIndex: `${Math.round(metrics.healthIndex)} / 100`,
-      runtime: `${Math.round(metrics.simulatedTime)} s`,
-      depositThickness: `${Math.round(metrics.cokeThicknessMicrons)} µm`,
-      // Extended readouts:
-      throatHeatFlux: `${(metrics.heatFluxPeak / 1e6).toFixed(2)} MW/m²`,
-      depositResistanceShare: `${metrics.resistanceIncrease.toFixed(1)} %`,
-      conductanceRatio: `${metrics.healthIndex.toFixed(0)} %`,
-      coolantDeltaT: `${dT_coolant.toFixed(1)} K`,
-      burnoutMargin: `${burnout.marginK.toFixed(0)} K (T/T_burn ${(burnout.ratio * 100).toFixed(1)}%)`,
+      burnoutMargin:   `${burnout.marginK.toFixed(0)} K (T/T_burn ${(burnout.ratio * 100).toFixed(1)}%)`,
+      healthIndex:     `${Math.round(metrics.healthIndex)} %`,
+      depositThickness: `${metrics.cokeThicknessMicrons.toFixed(1)} µm`,
+      exitMach:        `Ma ${metrics.exitMach.toFixed(2)}`,
       exitPressureRatio: `p_e/p_0 ${pRatioExit.toFixed(4)}`,
-      stantonNumber: `St ${St.toExponential(2)}`,
+      runtime:         `${Math.round(metrics.simulatedTime)} s`,
       timeToMargin,
+      stantonNumber:   isFinite(St) ? `St ${St.toExponential(2)}` : "St —",
+      depositResistanceShare: `${metrics.resistanceIncrease.toFixed(2)} %`,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-research-metric="${key}"]`);
       if (node) node.textContent = value;
     });
   }
+
+  // ── Helper: specific gas constant of products (m²/s²·K) from worker metrics
+  function R_AIR_SUB(metrics) {
+    // R_s = R_universal / M_mean; M_mean ≈ 0.0228 kg/mol for methalox products.
+    // The worker doesn't ship M_mean explicitly, so derive from γ and cp via
+    //   R_s = cp · (γ−1)/γ. Without cp, fall back to 350 J/kgK.
+    const γ = metrics.gamma || 1.15;
+    return 350 + (γ - 1.15) * 0;       // simple constant; refine if needed
+  }
+
+  // ── Wire the methalox-engine sliders to the worker ────────────────────
+  const initResearchControls = () => {
+    const map = { P_c: "chamberPressureMPa", OF: "mixtureRatio",
+                  D_t: "throatDiameter_mm", T_c_in: "coolantInletK" };
+    const fmt = { P_c: v => `${Number(v).toFixed(1)} MPa`,
+                  OF:  v => `${Number(v).toFixed(1)}`,
+                  D_t: v => `${Number(v).toFixed(0)} mm`,
+                  T_c_in: v => `${Number(v).toFixed(0)} K` };
+    document.querySelectorAll("[data-research-input]").forEach((input) => {
+      const key = input.dataset.researchInput;
+      const out = document.querySelector(`[data-research-output="${key}"]`);
+      const push = () => {
+        const val = Number(input.value);
+        if (out) out.textContent = fmt[key](val);
+        worker.postMessage({ type: "controls", controls: { [map[key]]: val } });
+      };
+      input.addEventListener("input", push);
+    });
+  };
+  initResearchControls();
 
   function updateThermalMetrics() {
     const t = thermalTelemetry();

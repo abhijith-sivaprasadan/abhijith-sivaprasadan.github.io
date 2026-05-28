@@ -1,0 +1,256 @@
+
+<style>
+  * { box-sizing: border-box; }
+  .wrap { padding: 1rem 0; font-family: var(--font-sans); }
+  .chart-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.5rem 1.5rem 1rem; margin-bottom: 1.5rem; }
+  .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin: 0 0 4px; }
+  .card-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 1rem; }
+  .kpi-row { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .kpi { flex: 1; min-width: 110px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
+  .kpi-label { font-size: 10px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 2px; }
+  .kpi-val { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin: 0; line-height: 1.2; }
+  .kpi-val span { font-size: 11px; font-weight: 400; color: var(--color-text-secondary); }
+  .kpi-sub { font-size: 10px; color: var(--color-text-tertiary); margin: 2px 0 0; }
+  .pass { color: #2563a8; }
+  .warn { color: #d0622c; }
+  .legend-row { display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-secondary); }
+  .legend-line { width: 20px; height: 2.5px; border-radius: 1px; }
+  .legend-dashed { width: 20px; height: 0; border-top: 2px dashed; }
+  .annotation { font-size: 11px; color: var(--color-text-tertiary); border-left: 2px solid var(--color-border-secondary); padding-left: 8px; margin-top: 1rem; line-height: 1.6; }
+  .verdict { display: inline-flex; align-items: center; gap: 5px; background: var(--color-background-success); color: var(--color-text-success); font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: var(--border-radius-md); }
+  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 600px) { .charts-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div class="wrap">
+<h2 class="sr-only">Mesh independence study: three-level refinement for both new and legacy reducer geometries, confirming spatial discretisation independence within 2% on all KPIs.</h2>
+
+<div class="chart-card">
+  <p class="eyebrow">ANSYS Fluent · Three-level mesh refinement · Both geometries</p>
+  <p class="card-title">Mesh independence study — convergence across coarse, baseline and fine meshes</p>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <p class="kpi-label">Independence threshold</p>
+      <p class="kpi-val warn">&lt; 2<span> %</span></p>
+      <p class="kpi-sub">Baseline → fine change required</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">New reducer · max Δ (baseline→fine)</p>
+      <p class="kpi-val pass">0.61<span> %</span></p>
+      <p class="kpi-sub">Pressure drop — worst KPI</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Legacy reducer · max Δ (baseline→fine)</p>
+      <p class="kpi-val pass">1.36<span> %</span></p>
+      <p class="kpi-sub">Pressure drop — worst KPI</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Verdict</p>
+      <p class="kpi-val pass">✓ Confirmed</p>
+      <p class="kpi-sub">All KPIs &lt; 2% both geometries</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Mach max Δ (baseline→fine)</p>
+      <p class="kpi-val pass">0.17<span> %</span></p>
+      <p class="kpi-sub">New reducer — 0.9904 → 0.9887</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Outlet temp Δ (baseline→fine)</p>
+      <p class="kpi-val pass">0.03<span> %</span></p>
+      <p class="kpi-sub">New: 590.33 → 590.48 K</p>
+    </div>
+  </div>
+
+  <div class="legend-row">
+    <span class="legend-item"><span class="legend-line" style="background:#2563a8"></span>New (quintic) reducer</span>
+    <span class="legend-item"><span class="legend-line" style="background:#d0622c"></span>Legacy two-step reducer</span>
+    <span class="legend-item"><span class="legend-dashed" style="border-color:#888780"></span>2% independence threshold</span>
+  </div>
+
+  <div class="charts-grid">
+    <div>
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin:0 0 6px;text-align:center;">Net static pressure drop (Pa)</p>
+      <div style="position:relative;width:100%;height:220px;">
+        <canvas id="pdChart" role="img" aria-label="Line chart of pressure drop convergence across three mesh levels. New reducer: 38810, 39146, 39387 Pa. Legacy: 36814, 36285, 35797 Pa. Both change less than 2% from baseline to fine.">Pressure drop convergence: New 38810→39146→39387 Pa; Legacy 36814→36285→35797 Pa.</canvas>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin:0 0 6px;text-align:center;">Maximum Mach number in domain</p>
+      <div style="position:relative;width:100%;height:220px;">
+        <canvas id="machChart" role="img" aria-label="Line chart of maximum Mach number convergence. New reducer: 0.9888, 0.9904, 0.9887. Legacy (baseline and fine only): 1.0148, 1.0164.">Mach convergence: New 0.9888→0.9904→0.9887; Legacy baseline 1.0148→fine 1.0164.</canvas>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin:0 0 6px;text-align:center;">Outlet temperature (K)</p>
+      <div style="position:relative;width:100%;height:220px;">
+        <canvas id="tempChart" role="img" aria-label="Line chart of outlet temperature convergence. New: 590.22, 590.33, 590.48 K. Legacy: 587.96, 587.31, 586.78 K.">Outlet temperature convergence: New 590.22→590.33→590.48 K; Legacy 587.96→587.31→586.78 K.</canvas>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin:0 0 6px;text-align:center;">% change from previous mesh level</p>
+      <div style="position:relative;width:100%;height:220px;">
+        <canvas id="pctChart" role="img" aria-label="Bar chart of percentage change between mesh levels. All baseline to fine values below 2 percent threshold.">% change: all baseline-to-fine values below 2% threshold.</canvas>
+      </div>
+    </div>
+  </div>
+
+  <p class="annotation">Three mesh levels were run for both geometries using the same boundary conditions, turbulence model and solver settings. The independence criterion of &lt;2% change from baseline to fine mesh was satisfied on all three KPIs for both geometries. The fine mesh was adopted for the full simulation campaign. Note: the legacy coarse mesh used a velocity-magnitude-max monitor rather than Mach-number-max; that data point is omitted from the Mach convergence panel.</p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const gridCol = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+const tickCol = isDark ? '#888780' : '#888780';
+const blue = '#2563a8';
+const orange = '#d0622c';
+const gray = '#888780';
+const labels = ['Coarse', 'Baseline', 'Fine'];
+
+const sharedLine = (datasets, yLabel, yMin, yMax, yCb) => ({
+  type: 'line',
+  data: { labels, datasets },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 600, easing: 'easeOutQuart' },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: isDark ? '#2c2c2a' : '#fff',
+        borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)',
+        borderWidth: 1,
+        titleColor: isDark ? '#d3d1c7' : '#2c2c2a',
+        bodyColor: tickCol,
+        padding: 10,
+        cornerRadius: 6,
+        callbacks: { label: ctx => '  ' + ctx.dataset.label + ': ' + yCb(ctx.parsed.y) }
+      }
+    },
+    scales: {
+      x: { ticks: { color: tickCol, font: { size: 11 } }, grid: { display: false }, border: { display: false } },
+      y: {
+        min: yMin, max: yMax,
+        ticks: { color: tickCol, font: { size: 10 }, callback: yCb, maxTicksLimit: 5 },
+        grid: { color: gridCol, lineWidth: 0.5 },
+        border: { display: false },
+        title: { display: false }
+      }
+    }
+  }
+});
+
+const ds = (label, data, color) => ({
+  label, data,
+  borderColor: color, borderWidth: 2.5,
+  pointRadius: 5, pointBackgroundColor: color,
+  pointBorderColor: isDark ? '#1a1a18' : '#fff',
+  pointBorderWidth: 2,
+  tension: 0.2, spanGaps: true
+});
+
+// Pressure drop
+new Chart(document.getElementById('pdChart'), sharedLine(
+  [
+    ds('New reducer',    [38810, 39146, 39387], blue),
+    ds('Legacy reducer', [36814, 36285, 35797], orange)
+  ],
+  'Net pressure drop (Pa)', 34000, 41000,
+  v => Math.round(v).toLocaleString() + ' Pa'
+));
+
+// Mach max (legacy coarse = null / gap)
+new Chart(document.getElementById('machChart'), sharedLine(
+  [
+    ds('New reducer',    [0.9888, 0.9904, 0.9887], blue),
+    ds('Legacy reducer', [null, 1.0148, 1.0164], orange)
+  ],
+  'Max Mach', 0.96, 1.04,
+  v => 'Ma ' + v.toFixed(4)
+));
+
+// Outlet temp
+new Chart(document.getElementById('tempChart'), sharedLine(
+  [
+    ds('New reducer',    [590.22, 590.33, 590.48], blue),
+    ds('Legacy reducer', [587.96, 587.31, 586.78], orange)
+  ],
+  'Outlet temperature (K)', 585, 592,
+  v => v.toFixed(2) + ' K'
+));
+
+// % change bar chart
+const threshold2pct = {
+  id: 'threshold',
+  afterDraw(chart) {
+    const { ctx, scales: { y } } = chart;
+    const y2 = y.getPixelForValue(2);
+    ctx.save();
+    ctx.strokeStyle = gray;
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.moveTo(chart.chartArea.left, y2);
+    ctx.lineTo(chart.chartArea.right, y2);
+    ctx.stroke();
+    ctx.font = '10px sans-serif';
+    ctx.fillStyle = gray;
+    ctx.fillText('2% threshold', chart.chartArea.left + 4, y2 - 4);
+    ctx.restore();
+  }
+};
+
+new Chart(document.getElementById('pctChart'), {
+  type: 'bar',
+  data: {
+    labels: ['New\nCoarse→Base', 'New\nBase→Fine', 'Legacy\nCoarse→Base', 'Legacy\nBase→Fine'],
+    datasets: [
+      {
+        label: 'Pressure drop % change',
+        data: [0.86, 0.61, 1.46, 1.36],
+        backgroundColor: [
+          'rgba(37,99,168,0.5)', 'rgba(37,99,168,0.9)',
+          'rgba(208,98,44,0.5)', 'rgba(208,98,44,0.9)'
+        ],
+        borderColor: [blue, blue, orange, orange],
+        borderWidth: 1.5,
+        borderRadius: 3
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 600 },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: isDark ? '#2c2c2a' : '#fff',
+        borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)',
+        borderWidth: 1,
+        titleColor: isDark ? '#d3d1c7' : '#2c2c2a',
+        bodyColor: tickCol,
+        padding: 10,
+        cornerRadius: 6,
+        callbacks: {
+          label: ctx => '  Pressure drop change: ' + ctx.parsed.y.toFixed(2) + '%'
+        }
+      },
+      threshold: {}
+    },
+    scales: {
+      x: { ticks: { color: tickCol, font: { size: 9 } }, grid: { display: false }, border: { display: false } },
+      y: {
+        min: 0, max: 2.5,
+        ticks: { color: tickCol, font: { size: 10 }, callback: v => v.toFixed(1) + '%' },
+        grid: { color: gridCol, lineWidth: 0.5 },
+        border: { display: false }
+      }
+    }
+  },
+  plugins: [threshold2pct]
+});
+</script>

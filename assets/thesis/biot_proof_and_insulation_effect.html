@@ -1,0 +1,230 @@
+
+<style>
+  *{box-sizing:border-box;}
+  .wrap{padding:1rem 0;font-family:var(--font-sans);}
+  .chart-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.5rem 1.5rem 1rem;margin-bottom:1.5rem;}
+  .eyebrow{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-tertiary);margin:0 0 4px;}
+  .card-title{font-size:14px;font-weight:500;color:var(--color-text-primary);margin:0 0 1rem;}
+  .kpi-row{display:flex;gap:10px;margin-bottom:1.25rem;flex-wrap:wrap;}
+  .kpi{flex:1;min-width:105px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;}
+  .kpi-label{font-size:10px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin:0 0 2px;}
+  .kpi-val{font-size:15px;font-weight:500;color:var(--color-text-primary);margin:0;line-height:1.2;}
+  .kpi-val span{font-size:10px;font-weight:400;color:var(--color-text-secondary);}
+  .kpi-sub{font-size:10px;color:var(--color-text-tertiary);margin:2px 0 0;}
+  .kpi-blue{color:#2563a8;} .kpi-orange{color:#d0622c;} .kpi-pass{color:#16a34a;} .kpi-warn{color:#d0622c;}
+  .legend-row{display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;align-items:center;}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--color-text-secondary);}
+  .lline{width:18px;height:2.5px;border-radius:1px;}
+  .ldash{width:18px;height:0;border-top:2px dashed;}
+  .panels{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  @media(max-width:580px){.panels{grid-template-columns:1fr;}}
+  .plabel{font-size:12px;font-weight:500;color:var(--color-text-secondary);text-align:center;margin:0 0 3px;}
+  .psub{font-size:10px;color:var(--color-text-tertiary);text-align:center;margin:0 0 8px;}
+  .annotation{font-size:11px;color:var(--color-text-tertiary);border-left:2px solid var(--color-border-secondary);padding-left:8px;margin-top:1rem;line-height:1.6;}
+</style>
+<div class="wrap">
+
+<!-- CHART 1: BIOT NUMBER PROOF -->
+<div class="chart-card">
+  <p class="eyebrow">ANSYS Fluent · CHT · Insulated 0 Pa · Inner wall (reducer_fluid) vs outer wall (reducer_solid)</p>
+  <p class="card-title">Biot number proof — through-wall temperature gradient in insulated cases</p>
+  <div class="kpi-row">
+    <div class="kpi">
+      <p class="kpi-label">Bi = hL/k_s</p>
+      <p class="kpi-val">0.003–0.004</p>
+      <p class="kpi-sub">Wall conduction ≪ convection</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Legacy · max ΔT wall</p>
+      <p class="kpi-val kpi-pass">0.70<span> K</span></p>
+      <p class="kpi-sub">Inner 666.5 K vs outer 665.8 K</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">New · max ΔT wall</p>
+      <p class="kpi-val kpi-pass">0.06<span> K</span></p>
+      <p class="kpi-sub">Inner 671.64 K vs outer 671.58 K</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Implication</p>
+      <p class="kpi-val kpi-pass">✓ Confirmed</p>
+      <p class="kpi-sub">External area governs heat loss</p>
+    </div>
+  </div>
+  <div class="legend-row">
+    <span class="legend-item"><span class="lline" style="background:#d0622c"></span>Inner wall — fluid-solid interface (reducer_fluid) · Legacy</span>
+    <span class="legend-item"><span class="ldash" style="border-color:#d0622c"></span>Outer wall — solid exterior (reducer_solid) · Legacy</span>
+    <span class="legend-item"><span class="lline" style="background:#2563a8"></span>Inner wall · New reducer</span>
+    <span class="legend-item"><span class="ldash" style="border-color:#2563a8"></span>Outer wall · New reducer</span>
+  </div>
+  <div class="panels">
+    <div>
+      <p class="plabel">Legacy two-step reducer</p>
+      <p class="psub">Max through-wall ΔT = 0.70 K — solid and fluid lines nearly coincident</p>
+      <div style="position:relative;width:100%;height:240px;">
+        <canvas id="biotLegChart" role="img" aria-label="Legacy reducer insulated case: inner wall 666.5K to 648.1K, outer wall 665.8K to 650.1K. Through-wall gradient max 0.7K confirming Bi<<1.">Legacy insulated: inner 666.5→648.1K, outer 665.8→650.1K. ΔT through wall ≤ 0.7K. Bi confirmed negligible.</canvas>
+      </div>
+    </div>
+    <div>
+      <p class="plabel">Redesigned quintic reducer</p>
+      <p class="psub">Max through-wall ΔT = 0.06 K — lines essentially identical</p>
+      <div style="position:relative;width:100%;height:240px;">
+        <canvas id="biotNewChart" role="img" aria-label="New reducer insulated case: inner wall 671.6K to 653.8K, outer wall 671.6K to 654.9K. Through-wall gradient max 0.06K confirming Bi<<1.">New insulated: inner 671.6→653.8K, outer 671.6→654.9K. ΔT through wall ≤ 0.06K. Bi confirmed negligible.</canvas>
+      </div>
+    </div>
+  </div>
+  <p class="annotation">In the insulated case (zero external heat flux), the solid wall should be nearly isothermal through its thickness in steady state — and the data confirms this precisely. The temperature difference between the inner wall (fluid-solid interface) and outer wall (solid exterior) is 0.70 K maximum for the legacy reducer and just 0.06 K for the new reducer. These values are negligible compared to the fluid-side temperature variation (~18 K and ~18 K respectively across the domain). The Biot number Bi = hL/k_s ≈ 0.003–0.004 means the conductive resistance through the solid is approximately 250× smaller than the external convective resistance. This directly validates the CHT modelling assumption and confirms that the thermal performance difference between the two geometries is driven entirely by external surface area — not by any difference in through-wall conduction.</p>
+</div>
+
+<!-- CHART 2: INSULATED vs UNINSULATED -->
+<div class="chart-card">
+  <p class="eyebrow">ANSYS Fluent · CHT · Same outlet BC: 0 Pa gauge · reducer_fluid inner wall surface</p>
+  <p class="card-title">Effect of external insulation on wall temperature — insulated vs uninsulated at identical pressure ratio</p>
+  <div class="kpi-row">
+    <div class="kpi">
+      <p class="kpi-label">Legacy · insulation effect</p>
+      <p class="kpi-val kpi-orange">+25.5<span> K</span></p>
+      <p class="kpi-sub">Wall warmer when insulated (inlet)</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">New · insulation effect</p>
+      <p class="kpi-val kpi-blue">+64.6<span> K</span></p>
+      <p class="kpi-sub">2.5× larger effect than legacy</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Why the difference</p>
+      <p class="kpi-val">~8×</p>
+      <p class="kpi-sub">More external surface area (new)</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Legacy insulated outlet T</p>
+      <p class="kpi-val kpi-orange">648.1<span> K</span></p>
+      <p class="kpi-sub">vs 627.2 K uninsulated (+20.9 K)</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">New insulated outlet T</p>
+      <p class="kpi-val kpi-blue">653.8<span> K</span></p>
+      <p class="kpi-sub">vs 597.6 K uninsulated (+56.2 K)</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Reversal confirmed</p>
+      <p class="kpi-val kpi-pass">✓</p>
+      <p class="kpi-sub">Insulated new &gt; insulated legacy</p>
+    </div>
+  </div>
+  <div class="legend-row">
+    <span class="legend-item"><span class="lline" style="background:#d0622c"></span>Legacy insulated (no ext. heat loss)</span>
+    <span class="legend-item"><span class="ldash" style="border-color:#d0622c"></span>Legacy uninsulated (ext. convection active)</span>
+    <span class="legend-item"><span class="lline" style="background:#2563a8"></span>New insulated (no ext. heat loss)</span>
+    <span class="legend-item"><span class="ldash" style="border-color:#2563a8"></span>New uninsulated (ext. convection active)</span>
+  </div>
+  <div class="panels">
+    <div>
+      <p class="plabel">Legacy two-step reducer</p>
+      <p class="psub">Insulation effect: +25.5 K at inlet, +20.9 K at outlet</p>
+      <div style="position:relative;width:100%;height:240px;">
+        <canvas id="insLegChart" role="img" aria-label="Legacy reducer: insulated fluid wall 666.5→648.1K, uninsulated 641→627K. Insulation adds ~25K throughout. Both show plateau then step-drop pattern.">Legacy: insulated 666.5→648.1K vs uninsulated 641→627K. +25K insulation effect. Both show step-drop character.</canvas>
+      </div>
+    </div>
+    <div>
+      <p class="plabel">Redesigned quintic reducer</p>
+      <p class="psub">Insulation effect: +64.6 K at inlet, +56.2 K at outlet</p>
+      <div style="position:relative;width:100%;height:240px;">
+        <canvas id="insNewChart" role="img" aria-label="New reducer: insulated fluid wall 671.6→653.8K, uninsulated 607→597.6K. Insulation adds ~65K — much larger than legacy due to greater surface area.">New: insulated 671.6→653.8K vs uninsulated 607→597.6K. +65K insulation effect — 2.5× legacy.</canvas>
+      </div>
+    </div>
+  </div>
+  <p class="annotation">Both cases use identical outlet boundary conditions (0 Pa gauge) so this is a clean comparison of the insulation effect alone. The insulated wall is consistently warmer because no heat escapes externally — the gas retains its thermal energy through the contraction. The legacy reducer shows a +25 K insulation effect; the new quintic reducer shows a +65 K effect, 2.5× larger. This directly quantifies the external surface area penalty of the redesigned geometry: the 150 mm quintic contraction exposes approximately 8× more wall area to ambient, so eliminating external convection has a far greater impact on the new reducer's wall temperature. Critically, the insulated new reducer achieves a higher outlet wall temperature (653.8 K) than the insulated legacy reducer (648.1 K), confirming the outlet temperature reversal reported in the thesis. Under insulated conditions, the new reducer's superior pressure recovery translates into a small but definite thermal advantage — the external area penalty is the only reason this advantage is obscured in the uninsulated CHT cases.</p>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark=matchMedia('(prefers-color-scheme: dark)').matches;
+const gc=isDark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.06)';
+const tc=isDark?'#888780':'#888780';
+const blue='#2563a8',orange='#d0622c';
+
+// All data at 0 Pa BC
+const ins_leg_fluid_xmm=[0.2,0.6,1.0,1.3,1.7,2.1,2.5,2.9,3.2,3.6,4.0,4.4,4.8,5.1,5.5,5.9,6.3,6.7,7.0,7.4,7.8,8.2,8.6,8.9,9.3,9.7,10.1,10.4,10.8,11.2,11.6,12.0,12.4,12.7,13.1,13.5,13.9,14.2,14.6,15.0,15.4,15.8,16.2,16.5,16.9,17.3,17.7,18.0,18.4,18.8,19.2,19.6,20.0,20.3,20.7,21.1,21.5,21.8,22.2,22.6,23.0,23.4,23.8,24.1,24.5,24.9,25.3,25.6,26.0,26.4,26.8,27.2,27.6,27.9,28.3,28.7,29.1,29.4,29.8,30.2,30.6,31.0,31.4,31.7,32.1,32.5,32.9,33.2,33.6,34.0,34.4,34.8,35.1,35.5,35.9,36.3,36.7,37.0,37.4,37.8];
+const ins_leg_fluid_y=[666.462,666.427,666.397,666.37,666.34,666.321,666.303,666.282,666.265,666.249,666.231,666.215,666.199,666.182,666.164,666.146,666.126,666.104,666.08,666.052,666.025,665.994,665.963,665.928,665.891,665.852,665.811,665.765,665.72,665.672,665.623,665.57,665.516,665.459,665.4,665.34,665.276,665.209,665.141,665.069,664.994,664.914,664.829,664.742,664.651,664.555,664.452,664.338,664.223,664.102,663.969,663.823,663.652,663.501,663.31,663.083,662.884,662.603,662.337,662.045,661.602,661.224,660.793,660.151,659.602,657.033,654.954,654.93,654.659,654.317,653.961,653.652,653.356,653.059,652.841,652.589,652.34,652.138,651.902,651.675,651.48,651.254,651.041,650.876,650.688,650.508,650.363,650.198,650.04,649.923,649.797,649.681,649.597,649.505,649.423,649.362,649.313,649.273,649.249,648.083];
+const ins_leg_solid_xmm=[0.2,0.6,1.0,1.3,1.7,2.1,2.5,2.9,3.2,3.6,4.0,4.4,4.8,5.1,5.5,5.9,6.3,6.7,7.0,7.4,7.8,8.2,8.6,8.9,9.3,9.7,10.1,10.4,10.8,11.2,11.6,12.0,12.4,12.7,13.1,13.5,13.9,14.2,14.6,15.0,15.8,16.5,16.9,17.3,18.0,18.4,18.8,19.2,20.0,20.7,21.1,21.5,21.8,22.2,22.6,23.0,23.4,23.8,24.1,24.5,24.9,25.6,26.0,26.4,27.2,27.9,28.3,28.7,29.1,29.4,30.2,30.6,31.0,31.4,31.7,32.1,32.5,32.9,33.2,33.6,34.0,34.4,34.8,35.1,35.5,35.9,36.3,36.7,37.0,37.8];
+const ins_leg_solid_y=[665.763,665.758,665.751,665.741,665.725,665.706,665.698,665.67,665.66,665.626,665.617,665.58,665.564,665.524,665.51,665.473,665.445,665.411,665.381,665.356,665.311,665.282,665.237,665.211,665.162,665.128,665.083,665.049,665.021,664.965,664.939,664.879,664.847,664.778,664.75,664.726,664.648,664.631,664.546,664.54,664.436,664.332,664.28,664.228,664.157,664.126,664.039,664.026,663.823,663.799,663.799,663.798,663.797,663.796,663.795,663.794,663.793,663.792,663.792,663.792,663.337,658.592,657.697,657.487,656.486,655.605,655.241,654.811,654.359,654.047,653.456,653.271,652.905,652.808,652.525,652.352,652.087,651.993,651.849,651.659,651.487,651.342,651.297,651.149,651.069,650.953,650.923,650.869,650.821,650.128];
+const ins_new_fluid_xmm=[0.7,2.2,3.7,5.2,6.7,8.2,9.7,11.2,12.7,14.2,15.7,17.2,18.7,20.2,21.7,23.2,24.7,26.2,27.7,29.2,30.7,32.2,33.7,35.2,36.7,38.2,39.7,41.2,42.7,44.2,45.7,47.2,48.8,50.2,51.7,53.2,54.7,56.2,57.7,59.2,60.7,62.2,63.7,65.2,66.7,68.2,69.7,71.2,72.7,74.2,75.7,77.2,78.7,80.2,81.7,83.2,84.7,86.2,87.7,89.2,90.7,92.2,93.7,95.2,96.7,98.2,99.7,101.2,102.7,104.2,105.7,107.2,108.7,110.2,111.7,113.3,114.7,116.2,117.7,119.3,120.7,122.2,123.7,125.3,126.7,128.2,129.7,131.3,132.7,134.2,135.7,137.2,138.7,140.2,141.7,143.2,144.7,146.2,147.7,149.2];
+const ins_new_fluid_y=[671.638,671.574,671.562,671.547,671.531,671.513,671.492,671.47,671.445,671.418,671.387,671.352,671.322,671.29,671.251,671.21,671.165,671.123,671.075,671.024,670.98,670.933,670.872,670.818,670.763,670.698,670.645,670.592,670.521,670.456,670.392,670.328,670.261,670.194,670.116,670.045,669.975,669.89,669.814,669.747,669.667,669.575,669.501,669.422,669.341,669.26,669.181,669.074,668.991,668.9,668.8,668.688,668.591,668.499,668.4,668.292,668.172,668.073,667.952,667.814,667.671,667.563,667.42,667.259,667.067,666.904,666.73,666.505,666.324,666.119,665.871,665.59,665.31,665.02,664.755,664.474,664.118,663.734,663.366,662.947,662.544,662.054,661.574,661.025,660.451,659.925,659.387,658.87,658.234,657.687,657.147,656.654,656.202,655.726,655.324,655.005,654.725,654.517,654.353,653.801];
+const ins_new_solid_xmm=[0.7,2.2,3.7,5.2,6.7,8.2,9.7,11.2,12.7,14.2,15.7,17.2,18.7,20.2,21.7,23.2,24.7,26.2,27.7,29.2,30.7,32.2,33.7,35.2,36.7,38.2,39.7,41.2,42.7,44.2,45.7,47.2,48.8,50.2,51.7,53.2,54.7,56.2,57.7,59.2,60.7,62.2,63.7,65.2,66.7,68.2,69.7,71.2,72.7,74.2,75.7,77.2,78.7,80.2,81.7,83.2,84.7,86.2,87.7,89.2,90.7,92.2,93.7,95.2,96.7,98.2,99.7,101.2,102.7,104.2,105.7,107.2,108.7,110.2,111.7,113.3,114.7,116.2,117.7,119.3,120.7,122.2,123.7,125.3,126.7,128.2,129.7,131.3,132.7,134.2,135.7,137.2,138.7,140.2,141.7,143.2,144.7,146.2,147.7,149.2];
+const ins_new_solid_y=[671.581,671.55,671.542,671.529,671.513,671.495,671.475,671.455,671.428,671.4,671.37,671.34,671.306,671.269,671.232,671.192,671.15,671.107,671.061,671.013,670.962,670.91,670.857,670.802,670.748,670.688,670.629,670.567,670.502,670.437,670.371,670.302,670.234,670.164,670.091,670.017,669.943,669.866,669.785,669.702,669.625,669.543,669.452,669.366,669.284,669.191,669.095,669.006,668.917,668.816,668.714,668.617,668.525,668.418,668.313,668.211,668.107,668.016,667.919,667.799,667.681,667.545,667.397,667.253,667.113,666.944,666.755,666.558,666.361,666.16,665.951,665.712,665.463,665.202,664.933,664.641,664.344,664.033,663.685,663.326,662.955,662.558,662.143,661.732,661.268,660.816,660.357,659.88,659.401,658.906,658.422,657.956,657.488,657.014,656.595,656.216,655.867,655.577,655.349,654.901];
+const unis_leg_fluid_xmm=[0.2,0.6,1.0,1.3,1.7,2.1,2.5,2.9,3.2,3.6,4.0,4.4,4.8,5.1,5.5,5.9,6.3,6.7,7.0,7.4,7.8,8.2,8.6,8.9,9.3,9.7,10.1,10.4,10.8,11.2,11.6,12.0,12.4,12.7,13.1,13.5,13.9,14.2,14.6,15.0,15.4,15.8,16.2,16.5,16.9,17.3,17.7,18.0,18.4,18.8,19.2,19.6,20.0,20.3,20.7,21.1,21.5,21.8,22.2,22.6,23.0,23.4,23.8,24.1,24.5,24.9,25.3,25.6,26.0,26.4,26.8,27.2,27.6,27.9,28.3,28.7,29.1,29.4,29.8,30.2,30.6,31.0,31.4,31.7,32.1,32.5,32.9,33.2,33.6,34.0,34.4,34.8,35.1,35.5,35.9,36.3,36.7,37.0,37.4,37.8];
+const unis_leg_fluid_y=[640.983,640.626,640.401,640.231,640.067,639.979,639.903,639.821,639.759,639.702,639.639,639.584,639.536,639.482,639.422,639.362,639.293,639.216,639.132,639.034,638.938,638.829,638.722,638.605,638.478,638.348,638.211,638.061,637.915,637.766,637.612,637.453,637.29,637.125,636.959,636.792,636.618,636.442,636.268,636.089,635.91,635.727,635.537,635.352,635.166,634.978,634.786,634.582,634.388,634.194,633.994,633.784,633.556,633.365,633.138,632.887,632.681,632.413,632.179,631.947,631.647,631.438,631.253,631.056,630.953,631.771,631.955,631.571,631.16,630.806,630.514,630.301,630.14,630.001,629.907,629.796,629.678,629.571,629.437,629.303,629.183,629.033,628.887,628.769,628.624,628.478,628.357,628.213,628.066,627.949,627.819,627.69,627.589,627.469,627.355,627.247,627.152,627.057,626.961,627.23];
+const unis_new_fluid_xmm=[0.7,2.2,3.7,5.2,6.7,8.2,9.7,11.2,12.7,14.2,15.7,17.2,18.7,20.2,21.7,23.2,24.7,26.2,27.7,29.2,30.7,32.2,33.7,35.2,36.7,38.2,39.7,41.2,42.7,44.2,45.7,47.2,48.8,50.2,51.7,53.2,54.7,56.2,57.7,59.2,60.7,62.2,63.7,65.2,66.7,68.2,69.7,71.2,72.7,74.2,75.7,77.2,78.7,80.2,81.7,83.2,84.7,86.2,87.7,89.2,90.7,92.2,93.7,95.2,96.7,98.2,99.7,101.2,102.7,104.2,105.7,107.2,108.7,110.2,111.7,113.3,114.7,116.2,117.7,119.3,120.7,122.2,123.7,125.3,126.7,128.2,129.7,131.3,132.7,134.2,135.7,137.2,138.7,140.2,141.7,143.2,144.7,146.2,147.7,149.2];
+const unis_new_fluid_y=[607.018,604.256,604.12,603.992,603.846,603.699,603.534,603.366,603.181,602.994,602.795,602.583,602.411,602.235,602.029,601.827,601.623,601.436,601.237,601.037,600.871,600.707,600.494,600.317,600.144,599.953,599.798,599.658,599.474,599.308,599.161,599.019,598.878,598.742,598.59,598.463,598.343,598.208,598.089,597.99,597.881,597.763,597.675,597.575,597.498,597.427,597.355,597.275,597.21,597.146,597.092,597.035,596.99,596.955,596.929,596.903,596.878,596.85,596.826,596.817,596.818,596.815,596.808,596.8,596.796,596.829,596.841,596.851,596.866,596.885,596.91,596.936,596.964,596.987,597.007,597.053,597.115,597.149,597.191,597.239,597.291,597.322,597.356,597.391,597.421,597.399,597.407,597.407,597.405,597.351,597.335,597.297,597.297,597.262,597.263,597.27,597.258,597.181,597.037,597.622];
+
+const stepZone={id:'sz',afterDraw(c){const{ctx,scales:{x}}=c;const x1=x.getPixelForValue(25),x2=x.getPixelForValue(38);ctx.save();ctx.fillStyle=isDark?'rgba(208,98,44,0.06)':'rgba(208,98,44,0.07)';ctx.fillRect(x1,c.chartArea.top,x2-x1,c.chartArea.bottom-c.chartArea.top);ctx.restore();}};
+
+const mkDs=(label,xmm,y,color,dash=false)=>({
+  label,data:xmm.map((x,i)=>({x,y:y[i]})),
+  borderColor:color,borderWidth:2.2,pointRadius:0,tension:0.2,
+  borderDash:dash?[5,3]:[]
+});
+
+const opts=(yMin,yMax,yStep,extraPlugins={})=>({
+  responsive:true,maintainAspectRatio:false,
+  animation:{duration:700,easing:'easeOutQuart'},parsing:false,
+  plugins:{
+    legend:{display:false},
+    tooltip:{
+      backgroundColor:isDark?'#2c2c2a':'#fff',
+      borderColor:isDark?'rgba(255,255,255,0.12)':'rgba(0,0,0,0.1)',
+      borderWidth:1,titleColor:isDark?'#d3d1c7':'#2c2c2a',bodyColor:tc,padding:10,cornerRadius:6,
+      callbacks:{
+        title:c=>'Pos: '+c[0].parsed.x.toFixed(1)+' mm from start',
+        label:c=>'  '+c.dataset.label+': '+c.parsed.y.toFixed(2)+' K'
+      }
+    },...extraPlugins
+  },
+  scales:{
+    x:{type:'linear',ticks:{color:tc,font:{size:10},callback:v=>v+' mm',maxTicksLimit:8},
+       grid:{color:gc,lineWidth:0.5},border:{display:false},
+       title:{display:true,text:'Distance from contraction start (mm)',color:tc,font:{size:10}}},
+    y:{min:yMin,max:yMax,
+       ticks:{color:tc,font:{size:10},stepSize:yStep,callback:v=>v+' K'},
+       grid:{color:gc,lineWidth:0.5},border:{display:false},
+       title:{display:true,text:'Wall temperature (K)',color:tc,font:{size:10}}}
+  }
+});
+
+// Biot charts (insulated only — solid vs fluid)
+new Chart(document.getElementById('biotLegChart'),{
+  type:'line',
+  data:{datasets:[
+    mkDs('Inner wall (fluid side)',ins_leg_fluid_xmm,ins_leg_fluid_y,orange,false),
+    mkDs('Outer wall (solid side)',ins_leg_solid_xmm,ins_leg_solid_y,orange,true)
+  ]},
+  options:opts(644,668,4,{sz:{}}),plugins:[stepZone]
+});
+new Chart(document.getElementById('biotNewChart'),{
+  type:'line',
+  data:{datasets:[
+    mkDs('Inner wall (fluid side)',ins_new_fluid_xmm,ins_new_fluid_y,blue,false),
+    mkDs('Outer wall (solid side)',ins_new_solid_xmm,ins_new_solid_y,blue,true)
+  ]},
+  options:opts(652,674,4,{})
+});
+
+// Insulated vs Uninsulated charts (fluid only)
+new Chart(document.getElementById('insLegChart'),{
+  type:'line',
+  data:{datasets:[
+    mkDs('Insulated (no ext. loss)',ins_leg_fluid_xmm,ins_leg_fluid_y,orange,false),
+    mkDs('Uninsulated (ext. convection)',unis_leg_fluid_xmm,unis_leg_fluid_y,orange,true)
+  ]},
+  options:opts(624,670,8,{sz:{}}),plugins:[stepZone]
+});
+new Chart(document.getElementById('insNewChart'),{
+  type:'line',
+  data:{datasets:[
+    mkDs('Insulated (no ext. loss)',ins_new_fluid_xmm,ins_new_fluid_y,blue,false),
+    mkDs('Uninsulated (ext. convection)',unis_new_fluid_xmm,unis_new_fluid_y,blue,true)
+  ]},
+  options:opts(594,674,16,{})
+});
+</script>

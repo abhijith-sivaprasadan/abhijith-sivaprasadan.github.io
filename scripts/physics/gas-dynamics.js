@@ -75,14 +75,70 @@ export function stantonNumber(heatTransferCoeff, density, velocity, cp) {
 
 /**
  * Bartz-style local heat-transfer coefficient scaling for a converging-
- * diverging nozzle:  h_g / h_g*  ≈ (A_t / A)^0.9.
+ * diverging nozzle (SIMPLIFIED area-ratio form):
+ *   h_g / h_g*  ≈ (A_t / A)^0.9
  * ref: Bartz, NASA TN-19650013685, 1965.
  *
- * This is the simplified area-ratio scaling used in the research lens; the
- * full Bartz equation also includes property corrections we omit here.
+ * Kept for the simpler legacy path. Prefer `bartzFullCoefficient` for
+ * methalox-grade rigor.
  */
 export function bartzLocalCoefficient(throatCoefficient, throatRadius, localRadius) {
   return throatCoefficient * Math.pow(throatRadius / localRadius, 1.8);
+}
+
+/**
+ * FULL Bartz equation with the σ transport-property correction.
+ *
+ * Throat heat-transfer coefficient:
+ *   h_g* = (0.026 / D_t^0.2) · (μ^0.2 · cp / Pr^0.6)
+ *          · (P_c · g / c*)^0.8 · (D_t / r_c)^0.1 · σ_throat
+ *
+ * Local-station correction (multiplies h_g*):
+ *   h_g(x) / h_g*  =  (A_t / A(x))^0.9 · (σ(x) / σ_throat)
+ *
+ * Property-correction factor σ(x):
+ *   σ = 1 / [ (½·(T_w/T_c)·(1 + (γ-1)/2·M²) + ½)^0.68
+ *            · (1 + (γ-1)/2·M²)^0.12 ]
+ *
+ * Inputs:
+ *   chamber: {T_c, gamma, cp, Pr, mu, c_star, P_c}  (from combustion.js)
+ *   D_throat_m : throat diameter [m]
+ *   r_curv_m   : throat curvature radius [m] (typically ≈ D_t)
+ *   M_local    : local Mach number
+ *   T_wall     : local hot-side wall temperature [K]
+ *   areaRatio  : A_local / A_throat
+ *
+ * ref: Bartz, NASA TN D-7973 (consolidated form); Sutton & Biblarz Eq. 8-3.
+ */
+export function bartzFullCoefficient({
+  chamber,
+  D_throat_m,
+  r_curv_m,
+  M_local,
+  T_wall,
+  areaRatio,
+}) {
+  const { T_c, gamma, cp, Pr, mu, c_star, P_c } = chamber;
+  // Throat reference coefficient (SI form, no g0 — the gravitational
+  // constant in the original English-unit Bartz drops out in SI).
+  const base = (0.026 / Math.pow(D_throat_m, 0.2))
+             * (Math.pow(mu, 0.2) * cp / Math.pow(Pr, 0.6))
+             * Math.pow(P_c / c_star, 0.8)
+             * Math.pow(D_throat_m / Math.max(r_curv_m, 0.5 * D_throat_m), 0.1);
+  // σ at the throat (M=1).
+  const sigmaAt = (M, Tw) => {
+    const therm = 1 + ((gamma - 1) / 2) * M * M;
+    const a = 0.5 * (Tw / T_c) * therm + 0.5;
+    return 1 / (Math.pow(a, 0.68) * Math.pow(therm, 0.12));
+  };
+  const sigma_t = sigmaAt(1.0, T_wall);
+  const h_throat = base * sigma_t;
+  // Local h via area-ratio + σ ratio.
+  const sigma_x = sigmaAt(M_local, T_wall);
+  const h_local = h_throat
+                * Math.pow(1 / Math.max(0.05, areaRatio), 0.9)
+                * (sigma_x / sigma_t);
+  return { h_throat, h_local, sigma_throat: sigma_t, sigma_local: sigma_x };
 }
 
 /**

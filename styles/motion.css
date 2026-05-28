@@ -429,6 +429,35 @@ html.motion-entrance-active body {
   font-size: 0.7rem;
 }
 
+/* Research-lens engine-control row (sliders that drive the worker model) */
+.research-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.55rem 0.9rem;
+  margin: 0.85rem 0;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--accent, #38bdf8) 24%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg, #070907) 60%, transparent);
+}
+.research-controls .model-slider {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.research-controls .model-slider span {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.02em;
+}
+.research-controls .model-slider output {
+  color: color-mix(in srgb, var(--accent, #38bdf8) 80%, var(--text));
+  font-weight: 700;
+}
+.research-controls input[type="range"] { width: 100%; accent-color: #a78bfa; }
+
 /* Equation symbol chip — small, monospace, sits above the value */
 .research-live-rail .cell-sym,
 .model-readouts .cell-sym {

@@ -109,6 +109,50 @@ export function depositResistanceShare(depositResistance, totalResistance) {
 }
 
 /**
+ * Pyrolytic-coke deposition rate via Arrhenius kinetics — methane.
+ *
+ *   dδ/dt  =  A · exp(−Eₐ / (R · T_w))    [m/s]
+ *
+ * Default activation energy:  245 kJ/mol  (Hayhurst & Lawrence,
+ *   Combust. Flame 91:67-79, 1992 — CH₄ pyrolysis on metallic walls).
+ * Pre-exponential factor calibrated to give ~6 nm/s growth at T_w = 1100 K
+ * (matches order-of-magnitude soot reports from regen-cooled CH₄ engines).
+ *
+ * Returns growth rate in metres per second; integrate with the time-step.
+ */
+export function cokeDepositionRate(wallTemperatureK, {
+  Ea_J_per_mol = 245_000,
+  A_m_per_s    = 2.0e3,        // calibrated for visible cycle growth
+} = {}) {
+  // NOTE: the pre-exponential A is calibrated to make deposit growth
+  // visible across the browser's ~30 s autonomous-cycle playback.
+  // Real measured CH₄ pyrolytic-coke rates are ~100-1000× slower at the
+  // same T_w; the temperature *sensitivity* (Arrhenius exponent) is the
+  // physically meaningful part, not the absolute rate.
+  const R = 8.3145;
+  if (wallTemperatureK <= 0) return 0;
+  return A_m_per_s * Math.exp(-Ea_J_per_mol / (R * wallTemperatureK));
+}
+
+/**
+ * Temperature-dependent thermal conductivity of OFHC copper.
+ *
+ *   k_Cu(T) ≈ 400 W/mK at 300 K
+ *   k_Cu(T) ≈ 330 W/mK at 800 K
+ *   k_Cu(T) ≈ 290 W/mK at 1100 K  (still well below the 1170 K AMS 4500 limit)
+ *
+ * Linear-fit between three NIST/CRC reference points; clamped to [240, 410].
+ */
+export function copperConductivityAtT(temperatureK) {
+  const T = Math.max(150, Math.min(1300, temperatureK));
+  let k;
+  if (T <= 300)      k = 400 + (300 - T) * 0.05;          // shallow rise toward cryo
+  else if (T <= 800) k = 400 + (T - 300) * (-70 / 500);    // 400 → 330 across 300-800
+  else               k = 330 + (T - 800) * (-40 / 300);    // 330 → 290 across 800-1100
+  return Math.max(240, Math.min(410, k));
+}
+
+/**
  * 4-layer thermal-resistance circuit: gas → metal wall → insulation → ambient.
  *
  * eq:  R_gas   = 1 / h_internal
