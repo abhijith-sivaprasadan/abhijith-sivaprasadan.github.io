@@ -1,3 +1,26 @@
+// ── Live Lens / Evidence Lens — dev-only flag ───────────────────────
+// The experimental telemetry panels + the hero-instrument canvas are
+// hidden by default (CSS guard on [data-live-lens]). Enable with
+//   - URL param ?lens=1            (toggles per-visit + sticks in localStorage)
+//   - URL param ?lens=0            (turns off + clears localStorage)
+//   - localStorage `lensDev = "1"` (sticky across visits)
+(function initLensDevFlag() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("lens")) {
+      const v = params.get("lens");
+      if (v === "0" || v === "false" || v === "off") {
+        window.localStorage.removeItem("lensDev");
+      } else {
+        window.localStorage.setItem("lensDev", "1");
+      }
+    }
+    if (window.localStorage.getItem("lensDev") === "1") {
+      document.body.classList.add("lens-dev");
+    }
+  } catch (e) { /* storage blocked → silently skip */ }
+})();
+
 const progressBar = document.querySelector(".scroll-progress");
 const scenes = document.querySelectorAll(".scroll-scene");
 const navLinks = document.querySelector(".nav-links");

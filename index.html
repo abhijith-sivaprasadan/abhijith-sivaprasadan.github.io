@@ -20,16 +20,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=20260527-v4-lenses7" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260527-v4-lenses7" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260527-v4-lenses7" />
-  <script src="scripts/public-config.js?v=20260527-v4-lenses7" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260527-v4-lensoff1" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260527-v4-lensoff1" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260527-v4-lensoff1" />
+  <script src="scripts/public-config.js?v=20260527-v4-lensoff1" defer></script>
   <!-- v4 motion stack: GSAP + plugins (load before motion/index.js) -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="scripts/motion/index.js?v=20260527-v4-lenses7"></script>
-  <script src="scripts/motion/sw-register.js?v=20260527-v4-lenses7" defer></script>
+  <script type="module" src="scripts/motion/index.js?v=20260527-v4-lensoff1"></script>
+  <script src="scripts/motion/sw-register.js?v=20260527-v4-lensoff1" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -61,12 +61,12 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis", "k-omega SST turbulence model", "Compressible flow", "Mesh independence", "Biot number analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260527-v4-lenses7" defer></script>
-  <script src="scripts/animations.js?v=20260527-v4-lenses7" defer></script>
+  <script src="scripts/site.js?v=20260527-v4-lensoff1" defer></script>
+  <script src="scripts/animations.js?v=20260527-v4-lensoff1" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
-<body data-page-key="home" class="future-v3 signal-rebuild" data-home-mode="thermal" data-motion-page-transition data-motion-entrance data-motion-cursor data-motion-scroll-rail>
+<body data-page-key="home" class="future-v3 signal-rebuild" data-home-mode="thermal" data-motion-page-transition data-motion-entrance data-motion-scroll-rail>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -150,7 +150,7 @@
             </div>
           </div>
 
-          <figure class="hero-instrument" data-hero-instrument>
+          <figure class="hero-instrument" data-hero-instrument data-live-lens>
             <div class="hero-instrument-head">
               <span data-home-mode-target="thermal" data-i18n-sv="EXPORTERADE CFD-RESULTAT">EXPORTED CFD RESULTS</span>
               <span data-home-mode-target="energy" data-i18n-sv="PRO2 INDATAUPPSPELNING" hidden>PRO2 INPUT PLAYBACK</span>
@@ -207,7 +207,7 @@
           <a href="#cv" data-home-mode-target="thermal energy decarbonisation research"><span>04</span><strong data-i18n-sv="CV-spår">CV track</strong></a>
         </div>
 
-        <aside class="research-telemetry mode-telemetry" data-home-mode-target="thermal" aria-label="Thesis-grounded reducer telemetry">
+        <aside class="research-telemetry mode-telemetry" data-home-mode-target="thermal" data-live-lens aria-label="Thesis-grounded reducer telemetry">
           <header class="research-telemetry-head">
             <div>
               <p class="eyebrow">Reducer evidence lens</p>
@@ -265,7 +265,7 @@
           </details>
         </aside>
 
-        <aside class="research-telemetry mode-telemetry" data-home-mode-target="energy" hidden aria-label="Energy systems dispatch input telemetry">
+        <aside class="research-telemetry mode-telemetry" data-home-mode-target="energy" data-live-lens hidden aria-label="Energy systems dispatch input telemetry">
           <header class="research-telemetry-head">
             <div>
               <p class="eyebrow">PRO2 evidence lens</p>
@@ -300,7 +300,7 @@
           </details>
         </aside>
 
-        <aside class="research-telemetry" data-home-mode-target="research" hidden aria-label="Animated methalox regenerative cooling scene telemetry">
+        <aside class="research-telemetry" data-home-mode-target="research" data-live-lens hidden aria-label="Animated methalox regenerative cooling scene telemetry">
           <header class="research-telemetry-head">
             <div>
               <p class="eyebrow">Animated research scene</p>
@@ -348,7 +348,7 @@
           </details>
         </aside>
 
-        <aside class="hero-model-console industrial-console" data-home-mode-target="decarbonisation" data-industrial-console hidden aria-label="Interactive industrial electrification process model">
+        <aside class="hero-model-console industrial-console" data-home-mode-target="decarbonisation" data-industrial-console data-live-lens hidden aria-label="Interactive industrial electrification process model">
           <header class="hero-model-head">
             <div>
               <p class="eyebrow">Interactive R&amp;D model</p>
@@ -1151,7 +1151,7 @@
           <article class="timeline-item">
             <div>
               <h3><a class="title-link" href="experience/alleima.html">Energy Efficiency Intern - Alleima AB</a></h3>
-              <p class="meta">Remote / Sandviken, Sweden &middot; Dec 2024 - Jun 2025</p>
+              <p class="meta">Remote (Sweden) &middot; Dec 2024 - Jun 2025</p>
             </div>
             <p>
               Developed ISO 50001/EED-aligned energy performance mapping methods: KPI/EnPI design, load-driver logic, metering readiness and measurement planning.

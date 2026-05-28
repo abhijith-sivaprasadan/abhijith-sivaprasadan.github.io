@@ -5730,6 +5730,13 @@ body.signal-rebuild .hero-kicker {
   font-size: 0.86rem;
 }
 
+/* ── Live Lens / Evidence Lens — dev-only gate ─────────────────────
+   The 4 telemetry panels + the hero-instrument canvas viewport are
+   experimental. They render only when body has `lens-dev`, which is
+   toggled via ?lens=1 URL param or localStorage `lensDev=1`. The
+   public hero stays clean until the lens work is stable. */
+body:not(.lens-dev) [data-live-lens] { display: none !important; }
+
 /* ── Hero mode toggle — per-track colored active state + entrance ── */
 body.signal-rebuild .home-mode-toggle {
   position: relative;
