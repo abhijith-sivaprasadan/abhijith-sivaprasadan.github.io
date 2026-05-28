@@ -26,7 +26,7 @@
   <script src="../scripts/site.js?v=20260526-v4-w18-final8" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
-<body data-page-key="case-study" data-motion-page-transition data-motion-cursor>
+<body data-page-key="case-study" data-motion-page-transition>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -83,6 +83,61 @@
       </div>
     </section>
 
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Method</p>
+          <h2>From phone accelerometer to FFT/PSD</h2>
+        </div>
+        <div class="case-panel">
+          <ol>
+            <li><strong>Sensor mount:</strong> phone fixed rigidly to the housing of a small rotating device (PC fan, drill). Phyphox records 3-axis acceleration at f_s ≈ 100 Hz (Nyquist 50 Hz, sufficient for low-RPM screening).</li>
+            <li><strong>Data acquisition:</strong> capture 60–120 s windows at three operating points (idle, nominal, loaded). Export to CSV with timestamps.</li>
+            <li><strong>Pre-processing:</strong> mean-removal, optional high-pass at 2 Hz to reject postural drift, then a Hann window before FFT.</li>
+            <li><strong>Spectra:</strong> Welch PSD with 50 % overlap and 4096-point segments. Identify the rotational fundamental f_r = RPM/60 and its first 5 harmonics.</li>
+            <li><strong>Spectrograms:</strong> 256-sample STFT to show whether spectral content drifts during a run (a soft proxy for unbalance development or thermal-growth effects).</li>
+            <li><strong>Report:</strong> bundled HTML with overlays of the three operating points, harmonic table and engineering commentary on what the spectral shape means.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Outputs</p>
+          <h2>What the mini-lab produces</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li><strong>time_traces.png</strong> — three-axis acceleration vs. time for each operating point, with RMS envelope overlay</li>
+            <li><strong>fft_overlay.png</strong> — Welch PSD overlay (idle / nominal / loaded) on a log-frequency axis, harmonics marked</li>
+            <li><strong>spectrogram_per_run.png</strong> — STFT heatmap with rotational fundamental and harmonics annotated</li>
+            <li><strong>summary_metrics.csv</strong> — RMS, peak, crest factor, dominant frequency, harmonic ratios per run</li>
+            <li><strong>report.html</strong> — single-file deliverable with charts, tables and an engineering note on aliasing risk and what a real industrial accelerometer (4–10 kHz BW) would add</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Limitations</p>
+          <h2>What a phone sensor cannot do</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li><strong>Bandwidth:</strong> phone IMUs are typically 100 Hz; bearing-fault frequencies (BPFO/BPFI) for industrial machinery sit at 5–20 kHz and are completely missed.</li>
+            <li><strong>Aliasing:</strong> any spectral content above 50 Hz folds back into the captured band — interpretations above 30 Hz should be treated as unreliable.</li>
+            <li><strong>Calibration:</strong> no traceable mV/g reference — amplitudes are relative, not engineering-unit-correct.</li>
+            <li><strong>Mounting:</strong> housing-coupled, not directly on the bearing — high-frequency transmission path is heavily attenuated.</li>
+            <li>The workflow is therefore a SCREENING tool for shape/trending, not a condition-monitoring system. The portfolio explicitly flags this.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="section-heading">
@@ -90,7 +145,7 @@
           <h2>Why this matters</h2>
         </div>
         <div class="case-panel">
-          <p>This project demonstrates practical signal-processing judgement: turning raw sensor data into interpretable frequency fingerprints while clearly communicating measurement-chain limitations.</p>
+          <p>This project demonstrates practical signal-processing judgement: turning raw sensor data into interpretable frequency fingerprints while clearly communicating measurement-chain limitations. The same RMS → FFT → harmonics → spectrogram pipeline transfers directly to NI-DAQ/LabVIEW data from the Siemens thesis rig, with the added rigor of calibrated industrial sensors.</p>
         </div>
       </div>
     </section>

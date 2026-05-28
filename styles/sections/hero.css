@@ -9,6 +9,22 @@ body.signal-rebuild .hero-core {
   align-items: start;
 }
 
+/* When the Live Lens is hidden (default for visitors), the right-side
+   canvas viewport is gone — let the hero copy span the full container
+   instead of staying inside the narrow left column. */
+body:not(.lens-dev).signal-rebuild .hero-core {
+  display: block;
+}
+body:not(.lens-dev).signal-rebuild .hero-core .hero-copy {
+  max-width: min(72rem, 100%);
+}
+body:not(.lens-dev).signal-rebuild .hero-core .signal-claim {
+  max-width: min(60rem, 100%);
+}
+body:not(.lens-dev).signal-rebuild .hero-core .hero-text {
+  max-width: min(58rem, 100%);
+}
+
 body.signal-rebuild .hero-copy {
   min-width: 0;
   display: grid;

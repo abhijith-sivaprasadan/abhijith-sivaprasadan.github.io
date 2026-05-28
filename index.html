@@ -20,16 +20,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=20260527-v4-lenses4" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260527-v4-lenses4" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260527-v4-lenses4" />
-  <script src="scripts/public-config.js?v=20260527-v4-lenses4" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260527-v4-lensphys4" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260527-v4-lensphys4" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260527-v4-lensphys4" />
+  <script src="scripts/public-config.js?v=20260527-v4-lensphys4" defer></script>
   <!-- v4 motion stack: GSAP + plugins (load before motion/index.js) -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="scripts/motion/index.js?v=20260527-v4-lenses4"></script>
-  <script src="scripts/motion/sw-register.js?v=20260527-v4-lenses4" defer></script>
+  <script type="module" src="scripts/motion/index.js?v=20260527-v4-lensphys4"></script>
+  <script src="scripts/motion/sw-register.js?v=20260527-v4-lensphys4" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -61,12 +61,12 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis", "k-omega SST turbulence model", "Compressible flow", "Mesh independence", "Biot number analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260527-v4-lenses4" defer></script>
-  <script src="scripts/animations.js?v=20260527-v4-lenses4" defer></script>
+  <script src="scripts/site.js?v=20260527-v4-lensphys4" defer></script>
+  <script src="scripts/animations.js?v=20260527-v4-lensphys4" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
-<body data-page-key="home" class="future-v3 signal-rebuild" data-home-mode="thermal" data-motion-page-transition data-motion-entrance data-motion-cursor data-motion-scroll-rail>
+<body data-page-key="home" class="future-v3 signal-rebuild" data-home-mode="thermal" data-motion-page-transition data-motion-entrance data-motion-scroll-rail>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -150,7 +150,7 @@
             </div>
           </div>
 
-          <figure class="hero-instrument" data-hero-instrument>
+          <figure class="hero-instrument" data-hero-instrument data-live-lens>
             <div class="hero-instrument-head">
               <span data-home-mode-target="thermal" data-i18n-sv="EXPORTERADE CFD-RESULTAT">EXPORTED CFD RESULTS</span>
               <span data-home-mode-target="energy" data-i18n-sv="PRO2 INDATAUPPSPELNING" hidden>PRO2 INPUT PLAYBACK</span>
@@ -207,7 +207,7 @@
           <a href="#cv" data-home-mode-target="thermal energy decarbonisation research"><span>04</span><strong data-i18n-sv="CV-spår">CV track</strong></a>
         </div>
 
-        <aside class="research-telemetry mode-telemetry" data-home-mode-target="thermal" aria-label="Thesis-grounded reducer telemetry">
+        <aside class="research-telemetry mode-telemetry" data-home-mode-target="thermal" data-live-lens aria-label="Thesis-grounded reducer telemetry">
           <header class="research-telemetry-head">
             <div>
               <p class="eyebrow">Reducer evidence lens</p>
@@ -222,6 +222,25 @@
               <button type="button" class="lens-seg-btn" data-thermal-geom="legacy" aria-pressed="false">Legacy 2-step</button>
             </div>
           </div>
+          <div class="lens-controls" role="group" aria-label="External insulation toggle">
+            <span class="lens-controls-label">Insulation</span>
+            <div class="lens-segmented">
+              <button type="button" class="lens-seg-btn is-active" data-thermal-insul="off" aria-pressed="true">Uninsulated</button>
+              <button type="button" class="lens-seg-btn" data-thermal-insul="on" aria-pressed="false">40 mm ceramic blanket</button>
+            </div>
+          </div>
+          <div class="lens-controls" role="group" aria-label="Back-pressure case selector">
+            <span class="lens-controls-label">Case</span>
+            <div class="lens-segmented">
+              <button type="button" class="lens-seg-btn" data-thermal-case="A" aria-pressed="false" title="80 kPa(g) outlet, subsonic">A · 80 kPa(g)</button>
+              <button type="button" class="lens-seg-btn" data-thermal-case="B" aria-pressed="false" title="40 kPa(g) outlet, high subsonic">B · 40 kPa(g)</button>
+              <button type="button" class="lens-seg-btn is-active" data-thermal-case="C" aria-pressed="true" title="0 kPa(g) outlet, supercritical PR=1.987">C · 0 kPa(g)</button>
+            </div>
+          </div>
+          <label class="lens-slider" title="Inlet stagnation temperature T₀ — thesis baseline = 673 K">
+            <span>Inlet T₀ <output data-thermal-output="T0">673 K</output></span>
+            <input type="range" data-thermal-input="T0" min="500" max="800" step="5" value="673" />
+          </label>
           <div class="research-live-rail" aria-live="polite">
             <article title="Throat Mach — TRITA-ITM-EX 2026:14 (smooth M=0.990, legacy M=1.006)"><span class="cell-sym">Ma</span><strong data-thermal-metric="mach">Ma 0.990</strong><span>Throat Mach</span></article>
             <article title="T_throat = T0 / (1 + (γ−1)/2·M²);  T0 = 673 K, γ = 1.4 (Anderson Ch.3)"><span class="cell-sym">T</span><strong data-thermal-metric="temperature">563 K</strong><span>Static T (isentropic)</span></article>
@@ -246,7 +265,7 @@
           </details>
         </aside>
 
-        <aside class="research-telemetry mode-telemetry" data-home-mode-target="energy" hidden aria-label="Energy systems dispatch input telemetry">
+        <aside class="research-telemetry mode-telemetry" data-home-mode-target="energy" data-live-lens hidden aria-label="Energy systems dispatch input telemetry">
           <header class="research-telemetry-head">
             <div>
               <p class="eyebrow">PRO2 evidence lens</p>
@@ -281,7 +300,7 @@
           </details>
         </aside>
 
-        <aside class="research-telemetry" data-home-mode-target="research" hidden aria-label="Animated methalox regenerative cooling scene telemetry">
+        <aside class="research-telemetry" data-home-mode-target="research" data-live-lens hidden aria-label="Animated methalox regenerative cooling scene telemetry">
           <header class="research-telemetry-head">
             <div>
               <p class="eyebrow">Animated research scene</p>
@@ -290,46 +309,72 @@
             <span class="model-badge">Autonomous burn cycle</span>
           </header>
           <p class="research-telemetry-copy">
-            A continuous thermal plume passes through a regeneratively cooled nozzle while a deposit layer progressively raises hot-side thermal resistance. Each cycle resets to show clean-to-degraded cooling behaviour.
+            A continuous methalox combustion plume passes through a regeneratively cooled de-Laval nozzle. Chamber thermochemistry is from a polynomial fit to NASA CEA across O/F 2.5–4.5 and P<sub>c</sub> 5–30 MPa. Wall heat transfer uses the full Bartz equation with the σ transport-property correction. Coke deposition follows Arrhenius kinetics on the local wall temperature.
           </p>
+          <div class="research-controls" role="group" aria-label="Methalox engine inputs">
+            <label class="model-slider" title="Chamber pressure — higher P_c raises q″ and Isp">
+              <span>Chamber pressure <output data-research-output="P_c">10 MPa</output></span>
+              <input type="range" data-research-input="P_c" min="5" max="30" step="0.5" value="10" />
+            </label>
+            <label class="model-slider" title="O/F mixture ratio — stoichiometric ≈ 3.989; engines run slightly fuel-rich for cooler walls">
+              <span>O/F ratio <output data-research-output="OF">3.6</output></span>
+              <input type="range" data-research-input="OF" min="2.5" max="4.5" step="0.1" value="3.6" />
+            </label>
+            <label class="model-slider" title="Throat diameter — sets mass flow ṁ = P_c·A_t/c*">
+              <span>Throat dia. <output data-research-output="D_t">100 mm</output></span>
+              <input type="range" data-research-input="D_t" min="40" max="200" step="5" value="100" />
+            </label>
+            <label class="model-slider" title="Coolant inlet T — liquid CH₄ regen coolant entering the channel">
+              <span>Coolant T_in <output data-research-output="T_c_in">130 K</output></span>
+              <input type="range" data-research-input="T_c_in" min="110" max="160" step="2" value="130" />
+            </label>
+          </div>
           <div class="research-live-rail" aria-live="polite">
-            <article title="Simulated firing time within the 1080-frame burn cycle"><span class="cell-sym">t</span><strong data-research-metric="runtime">--</strong><span>Simulated firing time</span></article>
-            <article title="Coke layer thickness — quintic growth over the cycle"><span class="cell-sym">δ_dep</span><strong data-research-metric="depositThickness">--</strong><span>Coke layer</span></article>
-            <article title="Max hot-side wall temperature from Bartz-scaled local heat flux"><span class="cell-sym">T_w,max</span><strong data-research-metric="wallTemperature">--</strong><span>Hot-side surface</span></article>
-            <article title="Conductance health = R_clean/R_total ×100% (=100 when clean)"><span class="cell-sym">h/h₀</span><strong data-research-metric="healthIndex">--</strong><span>Conductance health</span></article>
-            <article title="Exit Mach from isentropic area-Mach inversion (Anderson Ch.3)"><span class="cell-sym">Ma_e</span><strong data-research-metric="exitMach">--</strong><span>Nozzle exit</span></article>
-            <article title="Peak heat flux at throat — Bartz local h_g via h_g/h_g*=(A_t/A)^0.9"><span class="cell-sym">q″_thr</span><strong data-research-metric="throatHeatFlux">--</strong><span>Throat heat flux</span></article>
-            <article title="Deposit's contribution to total resistance: (R_total/R_clean − 1) ×100%"><span class="cell-sym">R_dep/R</span><strong data-research-metric="depositResistanceShare">--</strong><span>Deposit resistance share</span></article>
-            <article title="Conductance ratio reframed — same number as health, with units"><span class="cell-sym">h/h₀</span><strong data-research-metric="conductanceRatio">--</strong><span>h/h_clean (clean=100%)</span></article>
-            <article title="ΔT_coolant = q″·A_wall/(ṁ·cp); ṁ=1.2 kg/s, cp=2.4 kJ/kgK CH₄ liquid"><span class="cell-sym">ΔT_c</span><strong data-research-metric="coolantDeltaT">--</strong><span>Coolant ΔT (closure)</span></article>
+            <article title="CEA-fit chamber stagnation T from (P_c, OF) — peaks near OF=3.6"><span class="cell-sym">T_c</span><strong data-research-metric="T_c">--</strong><span>Chamber T (CEA fit)</span></article>
+            <article title="c* = √(R_s·T_c)/Γ;  Γ = √γ·(2/(γ+1))^((γ+1)/(2(γ-1)));  Sutton & Biblarz Eq. 3-32"><span class="cell-sym">c*</span><strong data-research-metric="cStar">--</strong><span>Characteristic velocity</span></article>
+            <article title="ṁ = P_c·A_t / c*  (choked-flow mass balance, Sutton & Biblarz Eq. 3-24)"><span class="cell-sym">ṁ</span><strong data-research-metric="mDotTotal">--</strong><span>Total mass flow</span></article>
+            <article title="Vacuum specific impulse from c* and area-ratio thrust coefficient; ε set at 60"><span class="cell-sym">Isp</span><strong data-research-metric="Isp_vac">--</strong><span>Vacuum Isp (ε=60)</span></article>
+            <article title="Throat h_g from FULL Bartz with σ(T_w/T_c, M);  NASA TN D-7973 form"><span class="cell-sym">h_g*</span><strong data-research-metric="h_throat">--</strong><span>Bartz throat coeff.</span></article>
+            <article title="Peak heat flux at throat = h_g·(T_aw − T_w); driven by P_c, OF, T_w"><span class="cell-sym">q″_thr</span><strong data-research-metric="throatHeatFlux">--</strong><span>Throat heat flux</span></article>
+            <article title="Max hot-side wall T from Picard iteration of h_g(T_w) ↔ q(T_w) ↔ T_w(q)"><span class="cell-sym">T_w,max</span><strong data-research-metric="wallTemperature">--</strong><span>Hot-side surface</span></article>
             <article title="T_burnout = 1170 K (OFHC copper, AMS 4500). Margin = T_burn − T_w,max"><span class="cell-sym">ΔT_burn</span><strong data-research-metric="burnoutMargin">--</strong><span>Burnout margin</span></article>
-            <article title="p_e/p_0 = (1+(γ−1)/2·M²)^(-γ/(γ-1)); γ=1.299 for combustion products"><span class="cell-sym">p_e/p_0</span><strong data-research-metric="exitPressureRatio">--</strong><span>Exit pressure ratio</span></article>
-            <article title="St = h_g/(ρ·V·cp); throat reference state"><span class="cell-sym">St</span><strong data-research-metric="stantonNumber">--</strong><span>Stanton (throat)</span></article>
+            <article title="ṁ_CH₄ = ṁ_total/(1+OF); regen-coolant mass-balance closure"><span class="cell-sym">ṁ_c</span><strong data-research-metric="mDotCoolant">--</strong><span>CH₄ coolant flow</span></article>
+            <article title="ΔT_c = ∫q″·dA / (ṁ_c·cp_CH₄);  cp ≈ 3.5 kJ/kgK supercritical CH₄"><span class="cell-sym">ΔT_c</span><strong data-research-metric="coolantDeltaT">--</strong><span>Coolant ΔT (closure)</span></article>
+            <article title="Conductance health = R_clean/R_total ×100% (=100 when clean)"><span class="cell-sym">h/h₀</span><strong data-research-metric="healthIndex">--</strong><span>Conductance health</span></article>
+            <article title="Coke layer growth — Arrhenius dδ/dt = A·exp(−Eₐ/RT_w), Eₐ=245 kJ/mol (Hayhurst & Lawrence 1992)"><span class="cell-sym">δ_dep</span><strong data-research-metric="depositThickness">--</strong><span>Coke layer (Arrhenius)</span></article>
+            <article title="Exit Mach from isentropic area-Mach inversion (Anderson Ch.3)"><span class="cell-sym">Ma_e</span><strong data-research-metric="exitMach">--</strong><span>Nozzle exit Mach</span></article>
+            <article title="p_e/p_0 = (1+(γ−1)/2·M²)^(-γ/(γ-1)); γ from CEA, not assumed"><span class="cell-sym">p_e/p_0</span><strong data-research-metric="exitPressureRatio">--</strong><span>Exit pressure ratio</span></article>
+            <article title="Simulated firing time within the autonomous-cycle visualisation"><span class="cell-sym">t</span><strong data-research-metric="runtime">--</strong><span>Simulated time</span></article>
             <article title="Time to reach T_burnout extrapolated from current dT_w/dt"><span class="cell-sym">τ_burn</span><strong data-research-metric="timeToMargin">--</strong><span>Time-to-margin</span></article>
+            <article title="St = h_g/(ρ·V·cp); throat reference state"><span class="cell-sym">St</span><strong data-research-metric="stantonNumber">--</strong><span>Stanton (throat)</span></article>
+            <article title="Deposit's contribution to total resistance: (R_total/R_clean − 1) ×100%"><span class="cell-sym">R_dep/R</span><strong data-research-metric="depositResistanceShare">--</strong><span>Deposit resistance share</span></article>
           </div>
           <p class="model-footnote">
-            Equation-informed visual: isentropic area-Mach flow, Bartz-style heat-transfer scaling and a deposit thermal-resistance layer; illustrative, not measured thesis output. Derived quantities computed via <code>scripts/physics/</code>.
-            <a href="https://www.grc.nasa.gov/www/k-12/airplane/astar.html" target="_blank" rel="noopener">NASA relation</a>
-            <a href="https://ntrs.nasa.gov/citations/19650013685" target="_blank" rel="noopener">Bartz</a>
-            <a href="https://www.energy.kth.se/heat-and-power-technology/current-projects/merit-methane-in-rocket-nozzle-cooling-channels-conjugate-heat-transfer-measurements-1.928722" target="_blank" rel="noopener">MERiT+</a>
+            Realistic methalox model — chamber state from NASA CEA polynomial fit, full Bartz with σ correction, Arrhenius coke kinetics, T-dependent k<sub>Cu</sub>, mass-conservation coolant closure. All formulas in <code>scripts/physics/</code>.
+            <a href="https://ntrs.nasa.gov/citations/19650013685" target="_blank" rel="noopener">Bartz 1965</a>
+            <a href="https://ntrs.nasa.gov/citations/19960044559" target="_blank" rel="noopener">Bartz σ (TN D-7973)</a>
+            <a href="https://ntrs.nasa.gov/citations/19960044559" target="_blank" rel="noopener">Gordon & McBride CEA</a>
+            <a href="https://doi.org/10.1016/0010-2180(92)90067-Y" target="_blank" rel="noopener">Hayhurst & Lawrence 1992</a>
           </p>
           <details class="lens-methodology">
             <summary>Methodology &amp; equations</summary>
             <ul>
-              <li><strong>Area-Mach + isentropic:</strong> Anderson Ch.3-5 — <code>staticToTotalPressure</code> for p_e/p₀</li>
-              <li><strong>Bartz local h_g:</strong> h_g/h_g* ≈ (A_t/A)^0.9 — NASA TN-19650013685 (worker-side <code>fluid-sim-worker.js:280</code>)</li>
-              <li><strong>Resistance network:</strong> R_total = 1/h_g + t_cu/k_cu + δ_dep/k_dep + 1/h_cool (worker-side <code>fluid-sim-worker.js:256</code>)</li>
-              <li><strong>Conductance health:</strong> h/h_clean = R_clean/R_total — <code>conductanceHealthRatio</code></li>
-              <li><strong>Deposit share:</strong> R_dep/R_total — <code>depositResistanceShare</code></li>
-              <li><strong>Coolant ΔT:</strong> q″·A_wall/(ṁ·cp_CH₄) — <code>coolantTemperatureRise</code>. Reference closure: A_wall=0.0025 m², ṁ=1.2 kg/s, cp=2400 J/kgK</li>
-              <li><strong>Burnout limit:</strong> T_burnout = 1170 K (OFHC copper, AMS 4500) — <code>burnoutMargin</code></li>
-              <li><strong>Stanton:</strong> St = h_g/(ρ·V·cp) — <code>stantonNumber</code></li>
-              <li><strong>Time-to-margin:</strong> τ = ΔT_burn / (dT_w/dt) from 12-sample rolling buffer</li>
+              <li><strong>Chamber thermochemistry:</strong> methaloxChamberState(P_c, OF) returns T_c, γ, R_s, cp, Pr, μ, c* — polynomial fit to NASA CEA (Gordon &amp; McBride, RP-1311) calibrated to T_c = 3550 K at OF = 3.6 / P_c = 10 MPa. <code>scripts/physics/combustion.js</code></li>
+              <li><strong>Choked mass flow:</strong> ṁ = P_c · A_t / c*  (Sutton &amp; Biblarz Eq. 3-24)</li>
+              <li><strong>Vacuum Isp:</strong> Isp_vac = c* · C_F_vac / g₀; C_F from area-ratio inversion (Newton iteration)</li>
+              <li><strong>Full Bartz with σ:</strong> h_g* = (0.026/D_t^0.2)·(μ^0.2·cp/Pr^0.6)·(P_c/c*)^0.8·(D_t/r_c)^0.1·σ;  σ = 1/[(½(T_w/T_c)(1+(γ−1)/2·M²) + ½)^0.68 · (1+(γ−1)/2·M²)^0.12]  (NASA TN D-7973)</li>
+              <li><strong>Local Bartz scaling:</strong> h_g(x) = h_g* · (A_t/A(x))^0.9 · σ(x)/σ_throat</li>
+              <li><strong>Wall T iteration:</strong> Picard loop (4 passes per axial station) for T_w — h_g depends on T_w via σ; T_w depends on q; q depends on h_g</li>
+              <li><strong>T-dependent k_Cu:</strong> 400 W/mK at 300 K → 330 at 800 K → 290 at 1100 K (NIST/CRC fits)</li>
+              <li><strong>Coolant ΔT closure:</strong> ΔT = ∫q″·dA / (ṁ_CH₄·cp_CH₄), with ṁ_CH₄ = ṁ_total/(1+OF) (mass conservation)</li>
+              <li><strong>Coke kinetics:</strong> dδ/dt = A·exp(−Eₐ/RT_w), Eₐ = 245 kJ/mol (Hayhurst &amp; Lawrence, Combust. Flame 91:67-79, 1992). Pre-exponential calibrated for ~30 s browser playback; real CH₄ coking is ~100× slower at the same T_w. The Arrhenius <em>temperature sensitivity</em> (exponent) is the physically meaningful part.</li>
+              <li><strong>Burnout limit:</strong> T_burnout = 1170 K (OFHC copper, AMS 4500)</li>
+              <li><strong>Conductance health:</strong> R_clean / R_total — coke layer's share of the thermal-resistance network</li>
             </ul>
           </details>
         </aside>
 
-        <aside class="hero-model-console industrial-console" data-home-mode-target="decarbonisation" data-industrial-console hidden aria-label="Interactive industrial electrification process model">
+        <aside class="hero-model-console industrial-console" data-home-mode-target="decarbonisation" data-industrial-console data-live-lens hidden aria-label="Interactive industrial electrification process model">
           <header class="hero-model-head">
             <div>
               <p class="eyebrow">Interactive R&amp;D model</p>
@@ -1132,7 +1177,7 @@
           <article class="timeline-item">
             <div>
               <h3><a class="title-link" href="experience/alleima.html">Energy Efficiency Intern - Alleima AB</a></h3>
-              <p class="meta">Remote / Sandviken, Sweden &middot; Dec 2024 - Jun 2025</p>
+              <p class="meta">Remote (Sweden) &middot; Dec 2024 - Jun 2025</p>
             </div>
             <p>
               Developed ISO 50001/EED-aligned energy performance mapping methods: KPI/EnPI design, load-driver logic, metering readiness and measurement planning.

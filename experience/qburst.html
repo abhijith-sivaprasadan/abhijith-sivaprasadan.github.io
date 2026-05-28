@@ -26,7 +26,7 @@
   <script src="../scripts/site.js?v=20260526-v4-w18-final8" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
-<body data-motion-page-transition data-motion-cursor>
+<body data-motion-page-transition>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -83,14 +83,50 @@
       </div>
     </section>
 
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">What I worked on</p>
+          <h2>Representative project work</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li><strong>Customer-facing REST API service:</strong> implemented and maintained NestJS controllers, services and DTOs for a SaaS product. Handled request validation (class-validator decorators), error normalisation and OpenAPI documentation generation.</li>
+            <li><strong>Authentication and authorisation layer:</strong> contributed to JWT-based session handling and role-based route guards across protected endpoints.</li>
+            <li><strong>Endpoint testing:</strong> wrote Postman test suites covering the happy path plus negative cases (malformed input, expired token, missing permission, downstream-service failure). Suites ran in CI on every pull request.</li>
+            <li><strong>Reliability fixes:</strong> traced and fixed production bugs from log evidence — common patterns included race conditions in transactional code, inconsistent error mapping between layers, and forgotten cache invalidation after writes.</li>
+            <li><strong>Code review &amp; documentation:</strong> reviewed peers' PRs and maintained README/changelog files; helped onboard newer engineers to the codebase conventions.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Habits I built</p>
+          <h2>Software-engineering practices</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li><strong>Version control discipline:</strong> small, focused commits with clear messages; feature-branch workflow; rebase before merge to keep history readable.</li>
+            <li><strong>Test-first when sensible:</strong> for new endpoints, write the Postman test before the controller — forces the contract to be specified before the implementation.</li>
+            <li><strong>Defensive parsing:</strong> never trust the input. Validate types, ranges and presence at the boundary; fail loudly with structured error responses.</li>
+            <li><strong>Reproducible local environment:</strong> Docker compose for the database/queue, scripted seed data, single command to reset and bring up the stack.</li>
+            <li><strong>Reading logs as a primary skill:</strong> the production bug that takes 10 minutes to fix often takes 90 minutes to find; learning to read logs efficiently was the highest-leverage skill of the role.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow">Transferable value</p>
           <h2>Why this experience matters</h2>
         </div>
         <div class="case-panel">
-          <p>The role gives my engineering profile a software-delivery base: version control, testing, modular APIs, documentation and practical maintainability for technical users.</p>
+          <p>The role gives my engineering profile a software-delivery base: version control, testing, modular APIs, documentation and practical maintainability for technical users. These habits transfer directly to the reproducible Python tooling I now build for energy and industrial-R&amp;D workflows — the same care given to a backend service applies to a calibration script, an EnPI runner or a dispatch model.</p>
         </div>
       </div>
     </section>

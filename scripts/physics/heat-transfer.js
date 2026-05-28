@@ -107,3 +107,90 @@ export function depositResistanceShare(depositResistance, totalResistance) {
   if (totalResistance <= 0) return 0;
   return depositResistance / totalResistance;
 }
+
+/**
+ * Pyrolytic-coke deposition rate via Arrhenius kinetics — methane.
+ *
+ *   dδ/dt  =  A · exp(−Eₐ / (R · T_w))    [m/s]
+ *
+ * Default activation energy:  245 kJ/mol  (Hayhurst & Lawrence,
+ *   Combust. Flame 91:67-79, 1992 — CH₄ pyrolysis on metallic walls).
+ * Pre-exponential factor calibrated to give ~6 nm/s growth at T_w = 1100 K
+ * (matches order-of-magnitude soot reports from regen-cooled CH₄ engines).
+ *
+ * Returns growth rate in metres per second; integrate with the time-step.
+ */
+export function cokeDepositionRate(wallTemperatureK, {
+  Ea_J_per_mol = 245_000,
+  A_m_per_s    = 2.0e3,        // calibrated for visible cycle growth
+} = {}) {
+  // NOTE: the pre-exponential A is calibrated to make deposit growth
+  // visible across the browser's ~30 s autonomous-cycle playback.
+  // Real measured CH₄ pyrolytic-coke rates are ~100-1000× slower at the
+  // same T_w; the temperature *sensitivity* (Arrhenius exponent) is the
+  // physically meaningful part, not the absolute rate.
+  const R = 8.3145;
+  if (wallTemperatureK <= 0) return 0;
+  return A_m_per_s * Math.exp(-Ea_J_per_mol / (R * wallTemperatureK));
+}
+
+/**
+ * Temperature-dependent thermal conductivity of OFHC copper.
+ *
+ *   k_Cu(T) ≈ 400 W/mK at 300 K
+ *   k_Cu(T) ≈ 330 W/mK at 800 K
+ *   k_Cu(T) ≈ 290 W/mK at 1100 K  (still well below the 1170 K AMS 4500 limit)
+ *
+ * Linear-fit between three NIST/CRC reference points; clamped to [240, 410].
+ */
+export function copperConductivityAtT(temperatureK) {
+  const T = Math.max(150, Math.min(1300, temperatureK));
+  let k;
+  if (T <= 300)      k = 400 + (300 - T) * 0.05;          // shallow rise toward cryo
+  else if (T <= 800) k = 400 + (T - 300) * (-70 / 500);    // 400 → 330 across 300-800
+  else               k = 330 + (T - 800) * (-40 / 300);    // 330 → 290 across 800-1100
+  return Math.max(240, Math.min(410, k));
+}
+
+/**
+ * 4-layer thermal-resistance circuit: gas → metal wall → insulation → ambient.
+ *
+ * eq:  R_gas   = 1 / h_internal
+ * eq:  R_wall  = t_wall / k_wall
+ * eq:  R_insul = t_insul / k_insul
+ * eq:  R_ext   = 1 / h_external
+ * eq:  q       = (T_hot - T_cold) / (R_gas + R_wall + R_insul + R_ext)
+ *
+ * Used by the Thermal lens when the insulation toggle is on. The thesis
+ * insulated reference simulations at Case C used a wrapped ceramic blanket
+ * (TRITA-ITM-EX 2026:14, Sec 4.x); we model that as a series-added layer.
+ */
+export function thermalResistanceCircuitInsulated({
+  T_hot,
+  T_cold,
+  h_internal,
+  wallThicknessM,
+  wallConductivity,
+  insulationThicknessM,
+  insulationConductivity,
+  h_external,
+}) {
+  const R_gas   = 1 / h_internal;
+  const R_wall  = wallThicknessM / wallConductivity;
+  const R_insul = insulationThicknessM / insulationConductivity;
+  const R_ext   = 1 / h_external;
+  const R_total = R_gas + R_wall + R_insul + R_ext;
+  const q       = (T_hot - T_cold) / R_total;          // W/m²
+  const T_inner = T_hot - q * R_gas;                   // gas-side wall
+  const T_metalOuter = T_inner - q * R_wall;           // steel ↔ insulation
+  const T_insulOuter = T_metalOuter - q * R_insul;     // insulation ↔ air
+  return {
+    R_gas, R_wall, R_insul, R_ext, R_total,
+    q,
+    T_inner, T_metalOuter, T_insulOuter,
+    f_gas:   R_gas   / R_total,
+    f_wall:  R_wall  / R_total,
+    f_insul: R_insul / R_total,
+    f_ext:   R_ext   / R_total,
+  };
+}

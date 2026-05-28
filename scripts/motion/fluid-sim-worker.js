@@ -2,22 +2,31 @@
  * Worker-side model engine for the hero's Research scene.
  *
  * Research paints an equation-informed de Laval nozzle / regenerative-cooling
- * thermal field. The older Stable Fluids transport functions remain available
- * only as a fallback for an unknown mode; evidence/data scenes do not burn
- * cycles on a decorative dye solve.
+ * thermal field. v4-lensphys1: the Research scene now imports the shared
+ * physics layer (chamber thermochemistry, full Bartz, Arrhenius coke) so
+ * the live readouts are defensible from real engine equations rather than
+ * representative constants.
+ *
  * State arrays:
- *   u, v       — velocity components
- *   u0, v0     — previous step velocity
- *   d, d0      — density (dye) for visualization
+ *   u, v       — velocity components (Stable-Fluids fallback path only)
  *   solid      — obstacle mask (1 = solid cell, 0 = fluid)
+ *   d, d0      — density (dye) for visualization (fallback only)
  *
  * Each frame the main thread sends:
- *   { type: "step", dt, viscosity, diffusion, force, dyeSource, mode }
- * The worker responds with a thermal scalar + zone and metric arrays for the
- * Research mode, or a lightweight animation tick for evidence/data scenes.
+ *   { type: "step", dt, viscosity, diffusion }
+ *   { type: "controls", controls: {...} }  ← new: methalox engine parameters
+ * The worker responds with a thermal scalar + zone + metrics for Research,
+ * or a lightweight animation tick for evidence/data scenes.
  *
- * No external dependencies; pure ES module worker.
+ * Imports the audited physics layer (loaded as ES module).
  */
+import {
+  methaloxChamberState, chokedMassFlow, vacuumSpecificImpulse,
+} from "../physics/combustion.js";
+import { bartzFullCoefficient } from "../physics/gas-dynamics.js";
+import {
+  cokeDepositionRate, copperConductivityAtT,
+} from "../physics/heat-transfer.js";
 
 let N_X = 96;
 let N_Y = 56;
@@ -34,10 +43,19 @@ let lastMode = "thermal";
 let frameCount = 0;
 let sceneControls = {
   field: "temperature",
-  chamberTemperature: 3500,
-  pressureRatio: 58,
-  cokeThickness: 0.02,
+  // Methalox engine controls (v4-lensphys1 — user-driven from the lens UI)
+  chamberPressureMPa: 10,           // P_c
+  mixtureRatio: 3.6,                // O/F
+  throatDiameter_mm: 100,           // D_t
+  coolantInletK: 130,               // T_coolant_in (liquid CH4)
+  areaRatioExit: 60,                // ε for Isp_vac
+  pressureRatio: 58,                // exit p_e / p_amb (used for plume look)
 };
+
+// Persistent coke-deposit state, integrated by Arrhenius across frames.
+// Reset when the user toggles a control (so they can A/B different inputs).
+let cokeThicknessMicrons = 0;
+let prevControlsKey = "";
 
 const idx = (i, j) => i + (N_X + 2) * j;
 
@@ -238,90 +256,158 @@ function reducerRadius(xn) {
 function buildNozzleThermalFrame() {
   const scalar = new Float32Array(SIZE);
   const zones = new Uint8Array(SIZE);
-  const cycleFrames = 1080;
-  const runProgress = (frameCount % cycleFrames) / cycleFrames;
-  const ignition = quintic(Math.min(1, runProgress / 0.08));
-  const depositionProgress = quintic(Math.max(0, Math.min(1, (runProgress - 0.12) / 0.78)));
-  const recovery = Math.sqrt(NOZZLE.prandtl);
-  const chamberTemperature = 112 + (NOZZLE.stagnationTemperature - 112) * ignition;
-  const cokeThickness = 0.002 + 0.058 * depositionProgress;
-  const cokeMeters = cokeThickness / 1000;
-  const wallThickness = 0.020;
-  const channelThickness = 0.040;
-  const throatGasCoefficient = 12500;
-  const throatGasResistance = 1 / throatGasCoefficient;
-  const copperResistance = 0.0012 / 320;
-  const coolantResistance = 1 / 26000;
-  const cokeResistance = cokeMeters / 1.15;
-  const throatTotalResistance = throatGasResistance + copperResistance + coolantResistance + cokeResistance;
-  const cleanThroatResistance = throatGasResistance + copperResistance + coolantResistance;
-  const coolantTemperature = 112;
-  let maxWallTemperature = coolantTemperature;
+
+  // ── Read controls, reset coke state if inputs changed ─────────────────
+  const ctlKey = [
+    sceneControls.chamberPressureMPa,
+    sceneControls.mixtureRatio,
+    sceneControls.throatDiameter_mm,
+    sceneControls.coolantInletK,
+  ].join("|");
+  if (ctlKey !== prevControlsKey) {
+    cokeThicknessMicrons = 0;
+    prevControlsKey = ctlKey;
+  }
+
+  // ── Compute chamber state from methalox thermochemistry ───────────────
+  const P_c = sceneControls.chamberPressureMPa * 1e6;
+  const OF  = sceneControls.mixtureRatio;
+  const D_t = sceneControls.throatDiameter_mm / 1000;
+  const A_t = Math.PI * D_t * D_t / 4;
+  const chamber = methaloxChamberState(P_c, OF);
+  const mDotTotal = chokedMassFlow(chamber, A_t);
+  const mDotCoolant = mDotTotal / (1 + OF);                   // CH4 fraction
+  const Isp_vac = vacuumSpecificImpulse(chamber, sceneControls.areaRatioExit);
+  const recovery = Math.pow(chamber.Pr, 1 / 3);               // turbulent recovery
+
+  // ── Cooling-channel and wall geometry ────────────────────────────────
+  const wallThickness_m = 0.0012;                             // 1.2 mm copper
+  // Channel-side film coefficient for supercritical CH4 in high-aspect-ratio
+  // ribbed regen channels — published values 100-200 kW/m²K (Pizzarelli et
+  // al., Acta Astronautica 2010; SpaceX Raptor cooling commentary).
+  const coolant_h = 150_000;                                  // W/m²K
+  const cp_CH4 = 3500;                                        // J/kgK supercritical CH4 ~150K
+  const coolantInletK = sceneControls.coolantInletK;
+  // Film-cooling efficiency: a fuel-rich curtain reduces effective T_aw on
+  // the wall. Methalox flight engines typically run 0.6-0.8 film efficiency
+  // on the throat liner (NASA SP-8124, Sutton & Biblarz Ch.8). 0.75 baseline.
+  const FILM_EFF = 0.75;
+
+  // ── Sweep the nozzle axis, computing local h_g and T_w with the full
+  //    Bartz σ correction (T_w-dependent → 3 Picard iterations per cell)
+  let maxWallTemperature = coolantInletK;
   let exitMach = 1;
-  let exitTemperature = chamberTemperature;
+  let exitTemperature = chamber.T_c;
   let heatFluxPeak = 0;
+  let h_throat_local = 0;
+  let totalHeatLoad_W = 0;                                    // ∫ q · dA  for ΔT_coolant
 
   for (let i = 1; i <= N_X; i++) {
     const xn = i / N_X;
     if (xn > NOZZLE.exitX) continue;
-    const radius = nozzleRadius(xn);
-    const areaRatio = (radius / NOZZLE.throatRadius) ** 2;
+    const radius_norm = nozzleRadius(xn);                     // normalised
+    const areaRatio = (radius_norm / NOZZLE.throatRadius) ** 2;
     const mach = solveMach(areaRatio, xn >= NOZZLE.throatX);
-    const thermalRatio = 1 + ((NOZZLE.gamma - 1) / 2) * mach * mach;
-    const staticTemperature = chamberTemperature / thermalRatio;
-    const adiabaticWallTemperature = staticTemperature * (1 + recovery * ((NOZZLE.gamma - 1) / 2) * mach * mach);
+    const thermalRatio = 1 + ((chamber.gamma - 1) / 2) * mach * mach;
+    const staticTemperature = chamber.T_c / thermalRatio;
+    const adiabaticWallTemperature = staticTemperature *
+      (1 + recovery * ((chamber.gamma - 1) / 2) * mach * mach);
     if (xn >= NOZZLE.exitX - 1 / N_X) {
       exitMach = mach;
       exitTemperature = staticTemperature;
     }
-    // Bartz-style local scaling: h_g / h_g* approximately follows
-    // (A_t / A)^0.9. Absolute coefficient and cooling-side values are
-    // representative inputs for this interactive research-direction model.
-    const areaHeatTransferScale = Math.pow(NOZZLE.throatRadius / radius, 1.8);
-    const gasCoefficient = throatGasCoefficient * areaHeatTransferScale;
-    const localTotalResistance = 1 / gasCoefficient + copperResistance + coolantResistance + cokeResistance;
-    const heatFlux = (adiabaticWallTemperature - coolantTemperature) / localTotalResistance;
-    const hotWallTemperature = coolantTemperature + heatFlux * (coolantResistance + copperResistance + cokeResistance);
+    // Picard iteration: T_w depends on h_g (via Bartz σ), h_g depends on T_w.
+    let T_w = coolantInletK + 600;                            // initial guess
+    let h_g = 0, heatFlux = 0, k_Cu = 360;
+    for (let it = 0; it < 4; it += 1) {
+      const bz = bartzFullCoefficient({
+        chamber, D_throat_m: D_t, r_curv_m: D_t,
+        M_local: mach, T_wall: T_w, areaRatio,
+      });
+      h_g = bz.h_local;
+      k_Cu = copperConductivityAtT(T_w);
+      const R_gas    = 1 / h_g;
+      const R_wall   = wallThickness_m / k_Cu;
+      const R_coke   = (cokeThicknessMicrons * 1e-6) / 1.15;  // k_coke ≈ 1.15 W/mK
+      const R_cool   = 1 / coolant_h;
+      const R_total  = R_gas + R_wall + R_coke + R_cool;
+      // Film-cooled effective T_aw — fuel curtain reduces wall-side gas T.
+      const T_aw_eff = coolantInletK + FILM_EFF * (adiabaticWallTemperature - coolantInletK);
+      heatFlux = (T_aw_eff - coolantInletK) / R_total;
+      T_w = coolantInletK + heatFlux * (R_wall + R_coke + R_cool);
+    }
     heatFluxPeak = Math.max(heatFluxPeak, heatFlux);
-    maxWallTemperature = Math.max(maxWallTemperature, hotWallTemperature);
+    maxWallTemperature = Math.max(maxWallTemperature, T_w);
+    if (xn >= NOZZLE.throatX - 0.01 && xn <= NOZZLE.throatX + 0.01) {
+      h_throat_local = h_g;
+    }
+    // Accumulate heat load on cooling channel (annulus area dA ≈ 2π·r·dx_actual).
+    // Approximate dx_actual = scale·dx_norm where scale ≈ 4·D_t (typical L_nozzle).
+    const dA = 2 * Math.PI * (radius_norm * 4 * D_t) * (4 * D_t / N_X);
+    totalHeatLoad_W += heatFlux * dA;
 
-    // Traveling expansion wave inside the diverging section.
-    // Represents pressure/density pulses propagating downstream from the
-    // throat at finite acoustic-relative speed; visualises that the supersonic
-    // half of the nozzle has continuous fluid motion (not a static field).
-    // equation: phase = k·x - ω·t, with k chosen so ~3 wavelengths fit
-    // between throat and exit.
+    // Traveling expansion wave in the diverging section (visualisation only —
+    // illustrates that the supersonic half has continuous fluid motion).
     const inDivergent = xn > NOZZLE.throatX && xn <= NOZZLE.exitX;
     const wavePhase = inDivergent
       ? ((xn - NOZZLE.throatX) / (NOZZLE.exitX - NOZZLE.throatX)) * Math.PI * 6 - frameCount * 0.22
       : 0;
     const travelingWave = inDivergent ? 0.18 * Math.sin(wavePhase) : 0;
 
+    // Visualisation: scalar field for the colour map + zone classification.
+    // wallThickness_vis / channelThickness_vis are normalised display widths
+    // (NOT the physical 1.2 mm — that would be invisible at this scale).
+    const wallThickness_vis = 0.020;
+    const channelThickness_vis = 0.040;
+    // Coke deposit thickness (µm) → normalised visual band.
+    const cokeNorm = cokeThicknessMicrons * 1e-4;       // 100 µm → 0.01 norm
     for (let j = 1; j <= N_Y; j++) {
       const yn = Math.abs((j / N_Y - 0.5) * 2);
       const k = idx(i, j);
-      if (yn > radius && yn < radius + wallThickness) zones[k] = 1;
-      if (yn >= radius + wallThickness && yn < radius + wallThickness + channelThickness) zones[k] = 2;
-      const depositVisualThickness = cokeThickness > 0
-        ? Math.max(0.003, cokeThickness * 0.18)
+      if (yn > radius_norm && yn < radius_norm + wallThickness_vis) zones[k] = 1;
+      if (yn >= radius_norm + wallThickness_vis && yn < radius_norm + wallThickness_vis + channelThickness_vis) zones[k] = 2;
+      const depositVisualThickness = cokeNorm > 0
+        ? Math.max(0.003, cokeNorm * 0.6)
         : 0;
-      if (depositVisualThickness && yn >= radius - depositVisualThickness && yn <= radius) zones[k] = 3;
-      if (yn > radius) continue;
-      const eta = Math.min(1, yn / radius);
+      if (depositVisualThickness && yn >= radius_norm - depositVisualThickness && yn <= radius_norm) zones[k] = 3;
+      if (yn > radius_norm) continue;
+      const eta = Math.min(1, yn / radius_norm);
       const wallBlend = eta < 0.72 ? 0 : quintic((eta - 0.72) / 0.28);
       const localTemperature = staticTemperature + (adiabaticWallTemperature - staticTemperature) * wallBlend;
-      const localPressure = thermalRatio ** (-NOZZLE.gamma / (NOZZLE.gamma - 1));
-      // Centreline weighting for the traveling wave (1 at centre, 0 at wall)
+      const localPressure = thermalRatio ** (-chamber.gamma / (chamber.gamma - 1));
       const centreWeight = 1 - eta * eta;
       const waveContribution = travelingWave * centreWeight;
       if (sceneControls.field === "mach") scalar[k] = Math.min(1, mach / 3.5 + waveContribution);
       else if (sceneControls.field === "pressure") scalar[k] = Math.min(1, localPressure + waveContribution * 0.4);
-      else if (sceneControls.field === "wall") scalar[k] = wallBlend ? Math.min(1, hotWallTemperature / 1600) : Math.min(0.20, localTemperature / chamberTemperature);
-      else scalar[k] = Math.max(0.03, Math.min(1, localTemperature / chamberTemperature + waveContribution));
+      else if (sceneControls.field === "wall") scalar[k] = wallBlend ? Math.min(1, T_w / 1600) : Math.min(0.20, localTemperature / chamber.T_c);
+      else scalar[k] = Math.max(0.03, Math.min(1, localTemperature / chamber.T_c + waveContribution));
     }
   }
 
-  const exitPressureRatio = (1 + ((NOZZLE.gamma - 1) / 2) * exitMach * exitMach) ** (-NOZZLE.gamma / (NOZZLE.gamma - 1));
+  // ── Coke growth: integrate Arrhenius rate at the hottest wall T ────────
+  // dt_sim is the per-frame wall-clock; we scale ×10 so failure-mode runs
+  // are observable in the ~30 s lens-watch window without being instant.
+  // The Arrhenius *temperature-sensitivity* is the physically meaningful
+  // part (Hayhurst & Lawrence 1992, Eₐ = 245 kJ/mol).
+  const dt_sim = 0.033;
+  cokeThicknessMicrons += cokeDepositionRate(maxWallTemperature) * 1e6 * dt_sim * 10;
+  cokeThicknessMicrons = Math.min(120, cokeThicknessMicrons);
+
+  // ── Coolant ΔT closure (real signal in a regen-cooled engine) ─────────
+  const dT_coolant_K = (mDotCoolant > 0)
+    ? totalHeatLoad_W / (mDotCoolant * cp_CH4) : 0;
+  const T_coolant_out = coolantInletK + dT_coolant_K;
+
+  // ── Health / failure-mode indicators ──────────────────────────────────
+  const R_dep = (cokeThicknessMicrons * 1e-6) / 1.15;
+  const R_clean_throat = (1 / Math.max(h_throat_local, 100))
+                       + (wallThickness_m / copperConductivityAtT(maxWallTemperature))
+                       + (1 / coolant_h);
+  const R_total_throat = R_clean_throat + R_dep;
+  const resistanceIncrease = ((R_total_throat / R_clean_throat) - 1) * 100;
+  const healthIndex = Math.max(0, Math.min(100, (R_clean_throat / R_total_throat) * 100));
+
+  const exitPressureRatio = (1 + ((chamber.gamma - 1) / 2) * exitMach * exitMach) ** (-chamber.gamma / (chamber.gamma - 1));
   const pressureMismatch = exitPressureRatio * sceneControls.pressureRatio - 1;
   // Plume animation amplitudes boosted in v4-w16c so shock cells + roll-up
   // are clearly readable; previous values were physically right but visually
@@ -353,22 +439,36 @@ function buildNozzleThermalFrame() {
       else if (sceneControls.field === "pressure") scalar[k] = Math.min(1, Math.abs(pressureMismatch) * core * (0.18 + 0.16 * Math.abs(shockCell)) + curlIntensity * 0.2);
       else if (sceneControls.field === "wall") scalar[k] = curlIntensity * 0.25;
       // Default field: 1.4× plume brightness so it doesn't fade against dark bg
-      else scalar[k] = Math.min(1, (plumeTemperature / chamberTemperature) * core * 1.4 + curlIntensity * 1.2);
+      else scalar[k] = Math.min(1, (plumeTemperature / chamber.T_c) * core * 1.4 + curlIntensity * 1.2);
     }
   }
   return {
     scalar,
     zones,
     metrics: {
+      // Existing fields (kept for back-compat with the main-thread renderer):
       exitMach,
       exitTemperature,
       heatFluxPeak,
       maxWallTemperature,
-      resistanceIncrease: ((throatTotalResistance / cleanThroatResistance) - 1) * 100,
-      healthIndex: Math.max(0, Math.min(100, (cleanThroatResistance / throatTotalResistance) * 100)),
-      stagnationTemperature: chamberTemperature,
-      cokeThicknessMicrons: cokeThickness * 1000,
-      simulatedTime: runProgress * 180,
+      resistanceIncrease,
+      healthIndex,
+      stagnationTemperature: chamber.T_c,
+      cokeThicknessMicrons,
+      simulatedTime: (frameCount % 1080) / 1080 * 180,
+      // New methalox-physics readouts (drive the realistic Research telemetry):
+      T_c:           chamber.T_c,
+      gamma:         chamber.gamma,
+      cStar:         chamber.c_star,
+      Isp_vac,
+      mDotTotal,
+      mDotCoolant,
+      coolantOutletK: T_coolant_out,
+      coolantDeltaTK: dT_coolant_K,
+      h_throat:      h_throat_local,
+      P_c_MPa:       sceneControls.chamberPressureMPa,
+      OF:            sceneControls.mixtureRatio,
+      D_throat_mm:   sceneControls.throatDiameter_mm,
     },
   };
 }

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Automatic sanitizer dispenser prototype evidence page covering rapid low-cost Arduino prototyping and contactless dispensing logic." />
-  <meta property="og:title" content="Automatic Sanitizer Dispenser | Abhijith Sivaprasadan" />
-  <meta property="og:description" content="Rapid hardware prototype using basic Arduino logic and reused components for contactless dispensing." />
+  <meta name="description" content="Automatic hand sanitizer dispenser built by NSS Unit 539 at College of Engineering Perumon during the 2020 COVID-19 first wave. Arduino Nano + HC-SR04 ultrasonic sensing on e-waste components. Seven units deployed at the COVID First Line Treatment Centre under the Break the Chain campaign." />
+  <meta property="og:title" content="Automatic Sanitizer Dispenser — NSS Unit 539 · Break the Chain | Abhijith Sivaprasadan" />
+  <meta property="og:description" content="Seven contactless dispensers built on e-waste components, inaugurated by Smt. J. Mercykutty Amma, deployed at the Panayam COVID First Line Treatment Centre. Newspaper coverage and Arduino build notes." />
   <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-thermal-prototype.svg" />
-  <title>Automatic Sanitizer Dispenser | Abhijith Sivaprasadan</title>
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/sanitizer/inauguration-minister.jpg" />
+  <title>Automatic Sanitizer Dispenser — NSS Unit 539 · Break the Chain | Abhijith Sivaprasadan</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +25,7 @@
   <script src="../scripts/site.js?v=20260526-v4-w18-final8" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
-<body data-page-key="case-study" data-motion-page-transition data-motion-cursor>
+<body data-page-key="case-study" data-motion-page-transition>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -51,10 +51,15 @@
     <section class="case-hero">
       <div class="container">
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
-        <p class="eyebrow">Prototype &middot; Arduino &middot; Low-cost hardware</p>
-        <h1>Automatic Sanitizer Dispenser</h1>
-        <p class="hero-text">A compact student prototype for contactless dispensing, included as early evidence of fast hardware iteration, sensor-actuator logic and practical build constraints.</p>
-        <img class="case-visual" src="../assets/thumb-thermal-prototype.svg" alt="Prototype project visual" loading="lazy" width="960" height="540" />
+        <p class="eyebrow">NSS Unit 539 &middot; College of Engineering Perumon &middot; COVID-19 community response &middot; Jul 2020</p>
+        <h1>Automatic Hand Sanitizing Dispenser &mdash; built on e-waste, deployed during &ldquo;Break the Chain&rdquo;</h1>
+        <p class="hero-text">
+          Seven contactless dispensers designed and built by the NSS Unit 539 team at College of Engineering Perumon during the first COVID-19 wave in Kerala. Arduino Nano logic, an HC-SR04 ultrasonic sensor and a relay-driven pump &mdash; entirely on e-waste and bench-recovered components. Inaugurated by Smt. J. Mercykutty Amma (Minister for Fisheries, Harbour Engineering and Cashew Industry, Government of Kerala) and deployed at the Panayam COVID First Line Treatment Centre under the state &ldquo;Break the Chain&rdquo; campaign.
+        </p>
+        <picture>
+          <source srcset="../assets/sanitizer/inauguration-minister.webp" type="image/webp" />
+          <img class="case-visual" src="../assets/sanitizer/inauguration-minister.jpg" alt="Inauguration of the NSS-built sanitizer dispenser by Minister Smt. J. Mercykutty Amma at College of Engineering Perumon, July 2020" loading="lazy" width="960" height="540" />
+        </picture>
       </div>
     </section>
 
@@ -63,29 +68,109 @@
         <aside class="case-panel">
           <h2>Project snapshot</h2>
           <ul>
-            <li><strong>Context:</strong> APJ Abdul Kalam Technological University student project</li>
-            <li><strong>Period:</strong> Jun 2020 to Jul 2020</li>
-            <li><strong>Tools:</strong> Arduino IDE, low-cost sensing and reused components</li>
-            <li><strong>Theme:</strong> contactless dispensing and rapid prototyping</li>
+            <li><strong>Team:</strong> NSS Unit 539, College of Engineering Perumon</li>
+            <li><strong>Programme:</strong> &ldquo;Break the Chain&rdquo; (Kerala state COVID-19 hygiene campaign)</li>
+            <li><strong>Period:</strong> Jul 2020 (first lockdown wave)</li>
+            <li><strong>Output:</strong> 7 production units</li>
+            <li><strong>Deployment:</strong> Panayam Grama Panchayath COVID First Line Treatment Centre, CE Perumon campus</li>
+            <li><strong>Inauguration:</strong> Smt. J. Mercykutty Amma, Minister for Fisheries, Harbour Engineering and Cashew Industry</li>
+            <li><strong>Coverage:</strong> Three regional Malayalam dailies (Mathrubhumi-style format) ran the unit and the deployment</li>
+            <li><strong>Build budget:</strong> effectively zero &mdash; e-waste + lab-bench salvage</li>
+            <li><strong>Stack:</strong> Arduino Nano, HC-SR04 ultrasonic distance sensor, 1-channel relay module, 2 &times; 9&nbsp;V battery pack, peristaltic-style discharge tube</li>
           </ul>
         </aside>
         <article class="case-panel">
-          <h2>Technical question</h2>
-          <p>Can a simple contactless dispensing prototype be built with inexpensive electronics and reused components while keeping the sensing, actuation and refill mechanism understandable for a student team?</p>
+          <h2>Why we built it</h2>
+          <p>
+            By mid-2020 the Panayam panchayath had converted a wing of the college into a COVID First Line Treatment Centre. Hand-hygiene compliance at the entrance, dining and treatment-room thresholds was a real operational risk. Commercial automatic dispensers were either out of stock or out of budget. The NSS team had access to the electronics teaching lab, a box of recovered Arduino Nanos, a few HC-SR04 sensors, a handful of small relays and a stack of 9&nbsp;V batteries from older lab modules.
+          </p>
+          <p>
+            The brief from the panchayath was simple: a working contactless dispenser, replicated enough times to cover the centre&rsquo;s flow points, ready before the next intake of treatment patients. We had about three weeks and no funding.
+          </p>
 
-          <h2>Method</h2>
+          <h2>Build &mdash; bench prototype</h2>
+          <p>
+            The control loop is intentionally minimal: an HC-SR04 reads distance every ~50&nbsp;ms; if the reading falls below a configured threshold (~6&nbsp;cm) for two consecutive samples the Arduino drives a relay closed for a fixed dispense duration, then enforces a refractory window so a held hand can&rsquo;t trigger repeatedly. The relay switches a small pump driving a flexible delivery tube from the sanitiser reservoir. The first stable bench prototype is below &mdash; HC-SR04 mounted to the edge of a desk, Arduino Nano on a breadboard, two 9&nbsp;V cells in series feeding the relay rail.
+          </p>
+          <picture>
+            <source srcset="../assets/sanitizer/bench-arduino-prototype.webp" type="image/webp" />
+            <img src="../assets/sanitizer/bench-arduino-prototype.jpg" alt="Bench prototype: Arduino Nano on breadboard, HC-SR04 ultrasonic sensor at desk edge, two 9 V Eveready batteries powering a relay module that switches the dispenser pump. Arduino IDE open on laptop." loading="lazy" />
+            <figcaption>Bench prototype, Jul 2020. HC-SR04 sensor and Arduino Nano wired through a relay to the dispenser pump rail. The IDE on the right shows the proximity-threshold logic running.</figcaption>
+          </picture>
+
+          <h2>From one unit to seven</h2>
+          <p>
+            Once the control loop was reliable, the constraint shifted from electronics to manufacturing. We standardised on a wooden enclosure painted high-visibility blue (so it would read clearly against the institutional white walls), drilled a 6&nbsp;mm dispensing nozzle on the front face and routed the HC-SR04 sensor through two flush-mounted apertures. Each unit got a power-rocker switch and an indicator LED at the top, and the NSS Unit 539 / &ldquo;Break the Chain&rdquo; livery on the side panel.
+          </p>
+          <picture>
+            <source srcset="../assets/sanitizer/field-units-assembly.webp" type="image/webp" />
+            <img src="../assets/sanitizer/field-units-assembly.jpg" alt="Seven completed dispenser units lined up on a porch ledge, each with NSS Unit 539 markings and the Break the Chain branding." loading="lazy" />
+            <figcaption>The full batch of seven units after final assembly, ready for deployment.</figcaption>
+          </picture>
+
+          <h2>The control loop in plain words</h2>
           <ul>
-            <li>Defined a compact hardware chain: proximity detection, microcontroller logic and dispenser actuation.</li>
-            <li>Used Arduino programming for threshold-based control rather than a complex embedded stack.</li>
-            <li>Prioritised available materials and e-waste reuse over custom fabrication.</li>
+            <li><strong>Sense:</strong> HC-SR04 emits a 40&nbsp;kHz pulse, times the echo, converts to distance via the speed-of-sound constant; readings averaged in pairs to suppress the occasional bad echo.</li>
+            <li><strong>Decide:</strong> if distance is below the dispense threshold for two consecutive reads, fire. After firing, enforce a ~3&nbsp;s refractory window before the next decision is allowed.</li>
+            <li><strong>Act:</strong> Arduino digital pin drives the relay coil; the relay&rsquo;s NO contact closes the pump&rsquo;s power line for the configured dispense duration.</li>
+            <li><strong>Power:</strong> battery rail keeps the unit independent of the building&rsquo;s outlet topology &mdash; useful for the entrance vestibule where there was no convenient mains point.</li>
           </ul>
 
-          <h2>What it shows</h2>
-          <p>This is not a target-role centrepiece. It is useful supporting evidence because it shows comfort with practical prototyping: translating a need into a working sensor-actuator loop, making build choices under material constraints and documenting an early engineering artifact.</p>
+          <h2>Deployment day</h2>
+          <p>
+            The seven units were transported to the panchayath in a shared car (everything moved together because the panchayath wanted simultaneous coverage at all flow points). The deployment was inaugurated by Smt. J. Mercykutty Amma, who was the local minister at the time. The unit she inaugurated &mdash; the white &ldquo;Break the Chain&rdquo; cabinet &mdash; was the standardised reference build that the team adopted as the public-facing finish.
+          </p>
+          <div class="image-grid two">
+            <picture>
+              <source srcset="../assets/sanitizer/transport-distribution.webp" type="image/webp" />
+              <img src="../assets/sanitizer/transport-distribution.jpg" alt="Seven dispenser units loaded into the boot of a small car for transport to the COVID First Line Treatment Centre." loading="lazy" />
+              <figcaption>All seven units moving together &mdash; the panchayath wanted full coverage on day one.</figcaption>
+            </picture>
+            <picture>
+              <source srcset="../assets/sanitizer/break-the-chain-unit.webp" type="image/webp" />
+              <img src="../assets/sanitizer/break-the-chain-unit.jpg" alt="Single dispenser in its public-facing white finish with the Break the Chain campaign branding and the NSS Unit 539 mark." loading="lazy" />
+              <figcaption>The public-facing finish &mdash; the unit the minister inaugurated. The clean white case made the campaign branding readable from a distance.</figcaption>
+            </picture>
+          </div>
+          <picture>
+            <source srcset="../assets/sanitizer/covid-treatment-centre.webp" type="image/webp" />
+            <img src="../assets/sanitizer/covid-treatment-centre.jpg" alt="Entrance of College of Engineering Perumon, repurposed as the Panayam Grama Panchayath COVID First Line Treatment Centre, July 2020." loading="lazy" />
+            <figcaption>The deployment site &mdash; the same college campus, now an official COVID First Line Treatment Centre.</figcaption>
+          </picture>
+          <picture>
+            <source srcset="../assets/sanitizer/deployment-lineup.webp" type="image/webp" />
+            <img src="../assets/sanitizer/deployment-lineup.jpg" alt="Row of finished blue dispenser units on the porch of the campus building, awaiting placement at the panchayath treatment centre." loading="lazy" />
+            <figcaption>Finished blue field-build units on the porch before placement.</figcaption>
+          </picture>
 
-          <h2>Limitations</h2>
-          <p>The public portfolio keeps this page concise because the available evidence is limited compared with the later Siemens thesis, energy-system modelling and design-report projects.</p>
+          <h2>What it shows about the engineering reflex</h2>
+          <p>
+            This is not a centrepiece in the way the Siemens thesis or the energy-system modelling work is. It is included here for what it taught early:
+          </p>
+          <ul>
+            <li><strong>Constraint thinking.</strong> The interesting variable in the project wasn&rsquo;t the algorithm &mdash; the algorithm is two if-statements. The interesting variable was &ldquo;what can we actually source by Tuesday from things people already threw out?&rdquo; That framing &mdash; what is the binding constraint, and is it a technical one or a logistics one &mdash; carries directly into industrial decarbonisation work where the binding constraint is rarely the heat-pump COP.</li>
+            <li><strong>Sensor-actuator loop discipline.</strong> Closing a feedback loop, suppressing noise, enforcing a refractory window so a steady hand doesn&rsquo;t drain the reservoir &mdash; these are the same disciplines that show up later in the Siemens thesis instrumentation chain (NI-DAQ thresholds, monitor-then-act).</li>
+            <li><strong>Replicability over cleverness.</strong> One clever unit isn&rsquo;t useful if you can&rsquo;t make seven of them with the same parts list. The standardised enclosure, the documented threshold values and the visible Break-the-Chain livery were the deliverables, not the proof-of-concept.</li>
+            <li><strong>Public engineering.</strong> A part of the reflex that informs the targeted KTH PhD direction is that engineering is for someone &mdash; a panchayath, a treatment centre, an operations team &mdash; not just for a thesis defence. That framing started here.</li>
+          </ul>
+
+          <h2>Limitations and honest framing</h2>
+          <p>
+            The project does not generalise to anything I would put on a thermal-fluid CV. The 6&nbsp;cm trigger threshold was set by trial, not calibrated against a published HC-SR04 datasheet error model. The dispense volume was set by clock duration, not by a flow-rate sensor &mdash; so a viscosity change in the sanitiser stock would have shifted the delivered dose without being measured. The enclosures were wooden because plywood was free; they were not waterproof. Battery life was short enough that the panchayath replaced cells on a rota.
+          </p>
+          <p>
+            What it is: a credible early evidence of building under a real constraint, finishing the job, and standing next to the people who would use it.
+          </p>
         </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow">Cross-references</p>
+        <p>
+          For later, related work see the <a href="siemens-thesis.html">Siemens Energy thesis case study</a> (instrumentation-chain validation), the <a href="alleima-energy-efficiency.html">Alleima industrial energy-performance methodology</a> (constraint-thinking under operational data limits), and the broader <a href="../research.html">research statement</a>.
+        </p>
       </div>
     </section>
   </main>
@@ -97,4 +182,3 @@
   </footer>
 </body>
 </html>
-

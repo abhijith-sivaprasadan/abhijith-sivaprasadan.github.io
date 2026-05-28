@@ -1,0 +1,283 @@
+
+<style>
+  * { box-sizing: border-box; }
+  .wrap { padding: 1rem 0; font-family: var(--font-sans); }
+  .chart-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.5rem 1.5rem 1rem; margin-bottom: 1.5rem; }
+  .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin: 0 0 4px; }
+  .card-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 1rem; }
+  .kpi-row { display: flex; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .kpi { flex: 1; min-width: 120px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
+  .kpi-label { font-size: 10px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 2px; }
+  .kpi-val { font-size: 17px; font-weight: 500; color: var(--color-text-primary); margin: 0; line-height: 1.2; }
+  .kpi-val span { font-size: 11px; font-weight: 400; color: var(--color-text-secondary); }
+  .kpi-sub { font-size: 11px; color: var(--color-text-tertiary); margin: 2px 0 0; }
+  .legend-row { display: flex; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-secondary); }
+  .legend-line { width: 18px; height: 2px; border-radius: 1px; }
+  .legend-dash { width: 18px; height: 0px; border-top: 2px dashed; border-radius: 1px; }
+  .annotation { font-size: 11px; color: var(--color-text-tertiary); border-left: 2px solid var(--color-border-secondary); padding-left: 8px; margin-top: 1rem; line-height: 1.6; }
+  .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; padding: 3px 8px; border-radius: var(--border-radius-md); margin-bottom: 10px; }
+  .badge-waiting { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .badge-loaded { background: var(--color-background-success); color: var(--color-text-success); }
+</style>
+
+<div class="wrap">
+<h2 class="sr-only">Legacy reducer centerline flow profiles from ANSYS Fluent: Mach number and total pressure along the axial position.</h2>
+
+<!-- MACH NUMBER CARD -->
+<div class="chart-card">
+  <p class="eyebrow">ANSYS Fluent · Fine mesh · Adiabatic · Centerline</p>
+  <p class="card-title">Centerline Mach number along the legacy reducer</p>
+  <div class="kpi-row">
+    <div class="kpi">
+      <p class="kpi-label">Inlet Ma</p>
+      <p class="kpi-val">0.016<span></span></p>
+      <p class="kpi-sub">Large Ø35.05 mm pipe</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Vena contracta peak</p>
+      <p class="kpi-val" style="color:#d0622c">0.908<span></span></p>
+      <p class="kpi-sub">Supersonic pocket at x ≈ 227 mm</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Outlet Ma</p>
+      <p class="kpi-val">0.791<span></span></p>
+      <p class="kpi-sub">Ø6 mm pipe, post-recovery</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Total pressure loss</p>
+      <p class="kpi-val" style="color:#d0622c">3,688<span> Pa</span></p>
+      <p class="kpi-sub">3.7% of 100 kPa supply</p>
+    </div>
+  </div>
+  <div class="legend-row">
+    <span class="legend-item"><span class="legend-line" style="background:#2563a8"></span>Legacy reducer (Case L — fine mesh)</span>
+    <span class="legend-item"><span class="legend-dash" style="border-color:#d0622c"></span>Vena contracta peak (Ma 0.908)</span>
+    <span class="legend-item"><span class="legend-dash" style="border-color:#888780"></span>Step geometry zone</span>
+    <span class="status-badge badge-waiting">⏳ Redesigned reducer data pending</span>
+  </div>
+  <div style="position:relative; width:100%; height:260px;">
+    <canvas id="machChart" role="img" aria-label="Line chart of Mach number vs axial position for legacy reducer. Rises from 0.016 at inlet to a peak of 0.908 at the vena contracta near x=227mm then recovers to 0.79 downstream.">Legacy reducer Mach number: 0.016 at inlet, peak 0.908 at vena contracta (x≈227mm), settling at 0.79 at outlet.</canvas>
+  </div>
+  <p class="annotation">The legacy two-step geometry creates cumulative Borda–Carnot losses at each abrupt contraction. The centerline Mach number peaks at 0.908 — exceeding sonic conditions locally at the vena contracta despite subcritical nominal pressure ratios — confirming that the effective throat is displaced downstream of the geometric throat. The flow then recovers to approximately 0.79 in the Ø6 mm outlet pipe.</p>
+</div>
+
+<!-- TOTAL PRESSURE CARD -->
+<div class="chart-card">
+  <p class="eyebrow">ANSYS Fluent · Fine mesh · Adiabatic · Centerline</p>
+  <p class="card-title">Centerline total pressure along the legacy reducer</p>
+  <div class="kpi-row">
+    <div class="kpi">
+      <p class="kpi-label">Supply pressure</p>
+      <p class="kpi-val">100,000<span> Pa</span></p>
+      <p class="kpi-sub">Maintained through inlet pipe</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Outlet total pressure</p>
+      <p class="kpi-val" style="color:#d0622c">96,312<span> Pa</span></p>
+      <p class="kpi-sub">After two Borda–Carnot losses</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Net loss</p>
+      <p class="kpi-val" style="color:#d0622c">3,688<span> Pa</span></p>
+      <p class="kpi-sub">≈ 3.7% of supply</p>
+    </div>
+    <div class="kpi">
+      <p class="kpi-label">Redesigned loss (est.)</p>
+      <p class="kpi-val" style="color:#2563a8">~200<span> Pa</span></p>
+      <p class="kpi-sub">~18× lower — awaiting data</p>
+    </div>
+  </div>
+  <div class="legend-row">
+    <span class="legend-item"><span class="legend-line" style="background:#2563a8"></span>Legacy reducer total pressure</span>
+    <span class="legend-item"><span class="legend-dash" style="border-color:#888780"></span>Step geometry zone</span>
+    <span class="status-badge badge-waiting">⏳ Redesigned reducer data pending</span>
+  </div>
+  <div style="position:relative; width:100%; height:260px;">
+    <canvas id="presChart" role="img" aria-label="Line chart of total pressure vs axial position for legacy reducer. Maintained near 100000 Pa through inlet then drops sharply at the step contractions to around 96300 Pa at outlet.">Legacy reducer total pressure: 100000 Pa at inlet, drops at step geometry, settles at ~96312 Pa at outlet — loss of 3688 Pa.</canvas>
+  </div>
+  <p class="annotation">Total pressure remains at 100,000 Pa through the large-diameter inlet pipe, confirming negligible friction losses upstream of the contractions. The sharp drop at the step geometry zone (x ≈ 220–228 mm) marks the two cumulative Borda–Carnot loss events. The outlet total pressure of 96,312 Pa means the sensor sees a reduced effective supply pressure, directly affecting calibration accuracy of the Pulsatorn rig — the core problem this thesis addresses.</p>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const gridCol = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+const tickCol = isDark ? '#888780' : '#888780';
+const blue = '#2563a8';
+const orange = '#d0622c';
+const gray = '#888780';
+
+// Binned legacy Mach data (100 bins from ANSYS Fluent fine mesh)
+const xL = [0.1655,0.1665,0.1676,0.1686,0.1696,0.1707,0.1717,0.1727,0.1738,0.1748,0.1758,0.1768,0.1779,0.1789,0.1799,0.181,0.182,0.183,0.184,0.1851,0.1861,0.1871,0.1882,0.1892,0.1902,0.1913,0.1923,0.1933,0.1944,0.1954,0.1964,0.1974,0.1985,0.1995,0.2005,0.2016,0.2026,0.2036,0.2047,0.2057,0.2067,0.2077,0.2088,0.2098,0.2108,0.2119,0.2129,0.2139,0.215,0.216,0.217,0.218,0.2191,0.2201,0.2211,0.2222,0.2232,0.2242,0.2253,0.2263,0.2273,0.2283,0.2294,0.2304,0.2314,0.2325,0.2335,0.2345,0.2356,0.2366,0.2376,0.2386,0.2397,0.2407,0.2417,0.2428,0.2438,0.2448,0.2459,0.2469,0.2479,0.2489,0.25,0.251,0.252,0.2531,0.2541,0.2551,0.2562,0.2572,0.2582,0.2592,0.2603,0.2613,0.2623,0.2634,0.2644,0.2654,0.2665,0.2675];
+const machL = [0.0157,0.0157,0.0157,0.0158,0.0158,0.0158,0.0159,0.016,0.016,0.0161,0.0162,0.0164,0.0165,0.0167,0.0169,0.0172,0.0175,0.0178,0.0184,0.0189,0.0199,0.0211,0.0221,0.0239,0.0262,0.029,0.032,0.0372,0.0424,0.052,0.0643,0.0811,0.1035,0.1237,0.1478,0.1698,0.1805,0.1895,0.1935,0.1936,0.1916,0.1888,0.1857,0.1826,0.18,0.1779,0.1763,0.175,0.1739,0.1734,0.1737,0.1751,0.1788,0.1856,0.1982,0.2244,0.2735,0.4146,0.6453,0.8464,0.898,0.8668,0.8283,0.8069,0.792,0.7812,0.7735,0.768,0.7648,0.7625,0.7615,0.7606,0.7604,0.7607,0.7612,0.762,0.7629,0.7638,0.765,0.7665,0.7678,0.7687,0.7703,0.7715,0.7732,0.7742,0.7753,0.7758,0.7778,0.7796,0.7812,0.7825,0.7827,0.7835,0.7857,0.7849,0.7884,0.789,0.7893,0.791];
+
+// Binned legacy total pressure data
+const presL = [100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,99999.9,99999.9,99999.9,99999.9,99999.9,99999.9,99999.9,99999.9,100000,99999.9,99999.9,100000,99999.9,100000,99999.4,99999.6,99998.9,99999,99998,99992.4,99985,99981.5,99977.7,99976.9,99974.8,99963.3,99961.4,99960.5,99956.6,99957.5,99957.7,99957.4,99958.6,99960,99955.3,99957.9,99959.4,99956.8,99957.9,99959.9,99958.9,99960.1,99963.1,99982.7,99919.3,99840.1,99599.2,99326.8,99198.8,98897.3,99042.3,98929.2,99009.6,99088.2,99053.3,99063.9,99020.8,99030.8,99063.6,99035.1,99022.5,99024.5,99028.5,99037.8,99044.4,99000.4,98967.5,98990,98947.8,98861.4,98896.4,98728.7,98710,98754.2,98564.3,98271.1,98270.9,98103.6,98045.7,98088.2,97696.9,97386.4,97341.8,96941.6,97197.9,96849.9,96464.6,96312.3];
+
+// Convert x to mm for display
+const xMm = xL.map(v => Math.round(v * 1000));
+
+// Step zone annotation plugin
+const stepZone = {
+  id: 'stepZone',
+  afterDraw(chart) {
+    const {ctx, scales: {x, y}} = chart;
+    const x1 = x.getPixelForValue(220);
+    const x2 = x.getPixelForValue(228);
+    ctx.save();
+    ctx.fillStyle = isDark ? 'rgba(200,180,100,0.06)' : 'rgba(200,160,60,0.07)';
+    ctx.fillRect(x1, chart.chartArea.top, x2-x1, chart.chartArea.bottom - chart.chartArea.top);
+    ctx.restore();
+  }
+};
+
+const peakLine = {
+  id: 'peakLine',
+  afterDraw(chart, args, opts) {
+    if (!opts.x) return;
+    const {ctx, scales: {x, y}} = chart;
+    const px = x.getPixelForValue(opts.x);
+    ctx.save();
+    ctx.strokeStyle = orange;
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath();
+    ctx.moveTo(px, chart.chartArea.top);
+    ctx.lineTo(px, chart.chartArea.bottom);
+    ctx.stroke();
+    ctx.restore();
+  }
+};
+
+const baseScale = {
+  x: {
+    type: 'linear',
+    ticks: { color: tickCol, font: {size:11}, callback: v => v + ' mm', maxTicksLimit: 10 },
+    grid: { color: gridCol, lineWidth: 0.5 },
+    border: { display: false },
+    title: { display: true, text: 'Axial position (mm)', color: tickCol, font: {size:11} }
+  }
+};
+
+// MACH CHART
+new Chart(document.getElementById('machChart'), {
+  type: 'line',
+  data: {
+    labels: xMm,
+    datasets: [
+      {
+        label: 'Legacy reducer',
+        data: machL,
+        borderColor: blue,
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.3,
+        fill: {
+          target: 'origin',
+          above: isDark ? 'rgba(37,99,168,0.08)' : 'rgba(37,99,168,0.05)'
+        }
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 700, easing: 'easeOutQuart' },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: isDark ? '#2c2c2a' : '#fff',
+        borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)',
+        borderWidth: 1,
+        titleColor: isDark ? '#d3d1c7' : '#2c2c2a',
+        bodyColor: tickCol,
+        padding: 10,
+        cornerRadius: 6,
+        callbacks: {
+          title: ctx => 'Position: ' + ctx[0].label + ' mm',
+          label: ctx => ' Ma = ' + ctx.raw.toFixed(4)
+        }
+      },
+      stepZone: {},
+      peakLine: { x: 227 }
+    },
+    scales: {
+      ...baseScale,
+      y: {
+        min: 0,
+        max: 1.0,
+        ticks: { color: tickCol, font: {size:11}, stepSize: 0.2, callback: v => 'Ma ' + v.toFixed(1) },
+        grid: { color: gridCol, lineWidth: 0.5 },
+        border: { display: false },
+        title: { display: true, text: 'Mach number', color: tickCol, font: {size:11} }
+      }
+    }
+  },
+  plugins: [stepZone, peakLine]
+});
+
+// PRESSURE CHART
+new Chart(document.getElementById('presChart'), {
+  type: 'line',
+  data: {
+    labels: xMm,
+    datasets: [
+      {
+        label: 'Legacy reducer',
+        data: presL,
+        borderColor: blue,
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.3,
+        fill: {
+          target: { value: 96000 },
+          above: isDark ? 'rgba(37,99,168,0.08)' : 'rgba(37,99,168,0.05)'
+        }
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 700, easing: 'easeOutQuart' },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: isDark ? '#2c2c2a' : '#fff',
+        borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)',
+        borderWidth: 1,
+        titleColor: isDark ? '#d3d1c7' : '#2c2c2a',
+        bodyColor: tickCol,
+        padding: 10,
+        cornerRadius: 6,
+        callbacks: {
+          title: ctx => 'Position: ' + ctx[0].label + ' mm',
+          label: ctx => ' P₀ = ' + Math.round(ctx.raw).toLocaleString() + ' Pa'
+        }
+      },
+      stepZone: {},
+      peakLine: {}
+    },
+    scales: {
+      ...baseScale,
+      y: {
+        min: 95500,
+        max: 100500,
+        ticks: {
+          color: tickCol,
+          font: {size:11},
+          callback: v => (v/1000).toFixed(1) + ' kPa',
+          stepSize: 1000
+        },
+        grid: { color: gridCol, lineWidth: 0.5 },
+        border: { display: false },
+        title: { display: true, text: 'Total pressure (Pa)', color: tickCol, font: {size:11} }
+      }
+    }
+  },
+  plugins: [stepZone, peakLine]
+});
+</script>

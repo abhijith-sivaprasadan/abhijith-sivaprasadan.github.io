@@ -25,16 +25,42 @@ export const K_COKE       = 1.15;        // W/m·K   carbonaceous deposit, mid-r
 
 // ── Siemens reducer (lens 1, thesis-anchored) ──────────────────────────────
 // All values traceable to TRITA-ITM-EX 2026:14 unless otherwise noted.
-export const REDUCER_T0          = 673;     // K     stagnation inlet T (thesis)
-export const REDUCER_T_AMBIENT   = 293;     // K     uninsulated outer ambient
-export const REDUCER_T_WALL_M    = 0.005;   // m     5 mm steel wall
-export const REDUCER_K_WALL      = 21.5;    // W/m·K AISI 304 @ ~673 K
+export const REDUCER_T0          = 673;     // K     stagnation inlet T (thesis, sec 3.4)
+export const REDUCER_T_AMBIENT   = 293;     // K     uninsulated outer ambient (293.15 K used in CHT BC)
+export const REDUCER_T_WALL_M    = 0.005;   // m     representative wall thickness for the 1-D circuit
+export const REDUCER_K_WALL      = 16.27;   // W/m·K stainless steel from thesis Table 3.1 footer
 export const REDUCER_H_GAS       = 320;     // W/m²·K Sieder-Tate, thesis Re band
-export const REDUCER_H_EXT       = 14;      // W/m²·K free convection, uninsulated
-export const REDUCER_D_HYDRAULIC = 0.020;   // m     throat hydraulic diameter
+export const REDUCER_H_EXT       = 10;      // W/m²·K free convection, uninsulated (thesis Bi calc)
+export const REDUCER_D_HYDRAULIC = 0.020;   // m     throat hydraulic diameter (approx.)
+export const REDUCER_P0_PA       = 201_325; // Pa    inlet absolute pressure (1 bar(g) + 1 atm)
 // Geometry-dependent Mach number reported in TRITA-ITM-EX 2026:14:
-export const REDUCER_MACH_SMOOTH = 0.990;   // C² quintic redesigned reducer
-export const REDUCER_MACH_LEGACY = 1.006;   // two-step (slightly supersonic)
+export const REDUCER_MACH_SMOOTH = 0.990;   // C² quintic redesigned reducer at Case C
+export const REDUCER_MACH_LEGACY = 1.006;   // two-step at Case C (slightly supersonic)
+
+// Three operating cases from thesis Study 2 (back-pressure → flow regime).
+// Mach values are from the CHT campaign; Case A and B use isentropic mapping
+// from PR, Case C uses the thesis-reported choked-flow Ma per geometry.
+export const REDUCER_CASES = {
+  A: { gaugePa: 80_000, prAbs: 1.110, label: "Case A · 80 kPa(g) · subsonic",
+       machSmooth: 0.43, machLegacy: 0.44 },
+  B: { gaugePa: 40_000, prAbs: 1.424, label: "Case B · 40 kPa(g) · high subsonic",
+       machSmooth: 0.74, machLegacy: 0.77 },
+  C: { gaugePa: 0,      prAbs: 1.987, label: "Case C · 0 kPa(g) · supercritical PR",
+       machSmooth: REDUCER_MACH_SMOOTH, machLegacy: REDUCER_MACH_LEGACY },
+};
+// External convective surface area ratio (redesigned / legacy) — thesis Table 3.1.
+export const REDUCER_AEXT_RATIO_NEW_LEGACY = 3.349;
+
+// ── Insulation (thesis comparator) ─────────────────────────────────────────
+// The thesis ran insulated reference simulations at Case C that reduced the
+// outlet-T gap from 3.36 K → 1.24 K and reversed its sign in favour of the
+// redesigned reducer. We model the insulated case as a 40 mm ceramic-blanket
+// added in series with the steel wall.
+export const INSULATION_T_M      = 0.040;   // m    40 mm ceramic blanket
+export const INSULATION_K        = 0.10;    // W/m·K typical alumina-silica blanket
+                                            //       (ASTM C892 mid-range)
+export const INSULATION_H_EXT    = 5;       // W/m²·K still-air convection on
+                                            //       insulation surface (cooler outer)
 
 // ── ISO 50001 / ISO 50006 industrial energy ────────────────────────────────
 // IPCC AR5 WG3 Annex II: natural-gas emission factor on LHV basis.

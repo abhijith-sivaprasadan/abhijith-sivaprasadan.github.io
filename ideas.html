@@ -25,7 +25,7 @@
   <script src="scripts/site.js?v=20260526-v4-w18-final8" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
-<body data-motion-page-transition data-motion-cursor data-page-key="ideas">
+<body data-motion-page-transition data-page-key="ideas">
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -91,9 +91,34 @@
                 <h3 data-editable="title">FMEA / RCA toolkit for energy systems</h3>
                 <p data-editable="summary">A structured way to catalogue failure modes, symptoms, causes and follow-up actions across thermal and process assets.</p>
               </article>
+              <article class="entry-card">
+                <span class="entry-status">Open-source</span>
+                <h3>Browser-side physics layer (extracted)</h3>
+                <p>The <code>scripts/physics/</code> module on this site already pulls together isentropic relations, 1-D thermal resistance circuits, Bartz heat-transfer scaling and ISO 50006 EnPI in one audited place. Pulling that out into a standalone npm package (or a Python twin) would let other portfolios + course assignments reuse the same audited formulas.</p>
+              </article>
+              <article class="entry-card">
+                <span class="entry-status">CHT validation</span>
+                <h3>Bartz vs. RANS calibration on a test bench</h3>
+                <p>A natural follow-on to the Siemens thesis: design a small heated-channel rig (Re 10⁴–10⁵, q'' up to ~50 kW/m²) instrumented with embedded thermocouples and a precision power meter. Compare measured h_g to Bartz-scaled predictions and to RANS k-ω SST results. Tight calibration loop for hyper-sonic / regen-cooling research.</p>
+              </article>
+              <article class="entry-card">
+                <span class="entry-status">Industrial decarbonisation</span>
+                <h3>EnPI baseline-drift detector</h3>
+                <p>An online add-on to the EnPI toolkit that flags when a baseline regression has lost predictive power. Uses rolling KS-test or CUSUM on residuals to suggest "this baseline needs re-fitting before reporting Q2 results". Closes the loop between metering, regression and audit-ready reporting.</p>
+              </article>
+              <article class="entry-card">
+                <span class="entry-status">Method study</span>
+                <h3>Insulation cost-benefit overlay on the Pulsatorn rig</h3>
+                <p>Take the thesis insulation case (40 mm ceramic blanket reverses the uninsulated heat-loss disadvantage) and extend it to a parameter sweep: blanket thickness 20–100 mm, k 0.05–0.15 W/mK, h_ext 2–10 W/m²K. Output a Pareto front of cost vs. delivered-temperature loss for the next rig-build decision.</p>
+              </article>
             </div>
           </article>
         </div>
+
+        <section class="page-panel" style="margin-top: 28px;">
+          <h2>How ideas become projects</h2>
+          <p>Each idea here is a candidate, not a commitment. The filter I apply: <em>does this idea reuse a method I already have audited, on a different evidence base?</em> When the answer is yes — like the EnPI drift detector reusing the toolkit, or the insulation parameter sweep reusing the thesis physics — it tends to make it onto the actual project list within a few months. When the answer is no, it stays here as a thinking artefact.</p>
+        </section>
 
       </div>
     </section>

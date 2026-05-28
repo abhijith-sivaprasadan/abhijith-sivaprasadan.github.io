@@ -26,7 +26,7 @@
   <script src="../scripts/site.js?v=20260526-v4-w18-final8" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
-<body data-page-key="case-study" data-motion-page-transition data-motion-cursor>
+<body data-page-key="case-study" data-motion-page-transition>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -82,6 +82,58 @@
 <li>Documented the model transparently as a simplified Netherlands-inspired screening model, not a validated Dutch TSO operational grid model.</li>
           </ul>
         </article>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Exploratory work</p>
+          <h2>What I did</h2>
+        </div>
+        <div class="case-panel">
+          <ol>
+            <li><strong>PyPSA-NL setup:</strong> cloned the published Dutch transmission-network model and stepped through the data preparation (network topology, line capacities, generator portfolio, demand timeseries) until I had a reproducible solve on my machine.</li>
+            <li><strong>Congestion screening:</strong> ran a representative weekly snapshot and identified the most-loaded lines under the baseline. Mapped the result against published TenneT congestion notices to sanity-check the model behaviour.</li>
+            <li><strong>BESS placement screening:</strong> added candidate battery storage at three congestion-hotspot nodes (5 MW / 20 MWh each) and compared shadow-price reduction across snapshots.</li>
+            <li><strong>Dashboard:</strong> built a Streamlit interface that plots node loadings, line flows and the BESS dispatch overlay — used for the learning bundle deliverable.</li>
+          </ol>
+          <p style="margin-top:0.85rem;color:var(--muted);"><em>Disclosure:</em> this project is presented as <strong>exploratory learning</strong>, not as a definitive grid study. The model is a public reference; calibration to TenneT operational data was not performed.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">What I learned</p>
+          <h2>Takeaways from the learning project</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li>PyPSA's network-LP framing makes congestion + storage screening fast — the bottleneck is data preparation, not the solve.</li>
+            <li>Shadow-price-driven BESS placement gives directionally useful screening but is not a substitute for full investment-grade DCOPF + multi-year capacity expansion.</li>
+            <li>Working with the published model exposed which assumptions are robust to the dataset and which need operational calibration before any conclusion is defensible.</li>
+            <li>The learning carries over directly to MILP dispatch work in the district-heating case and to the multi-vector PyNEXUS model elsewhere in the portfolio.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Honest limitations</p>
+          <h2>Why this is framed as learning</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li>The network model is published reference data, not validated against TenneT operational measurements.</li>
+            <li>Demand and renewable profiles use generic snapshots, not the actual weather year + dispatch outturn for the period.</li>
+            <li>BESS placement is a single-snapshot screening, not a full year-round capacity-expansion optimisation.</li>
+            <li>No N−1 contingency analysis was attempted, which a real grid-flexibility study would require.</li>
+          </ul>
+        </div>
       </div>
     </section>
 

@@ -1,15 +1,34 @@
-/* Bento mini-preview canvas — overlaid on each featured project tile.
-   Sits behind the project text so labels stay readable.
+/* Bento mini-preview canvas — overlaid on the project card's THUMBNAIL only.
+   Previously this was inset:0 across the entire card, which caused the
+   streamline/wave animation to bleed into the chips, headline and bullet
+   list below. Now it tracks the thumbnail's height (clamped) and sits
+   above the static thumbnail at a low opacity so the thumbnail and the
+   live preview blend cleanly.
 */
 .bento-preview {
   position: absolute;
-  inset: 0;
+  inset: 0 0 auto 0;        /* tracks the top of the card, never the full body */
+  /* Match the underlying thumbnail's 16:9 aspect ratio so the live preview
+     sits cleanly within the visual area instead of bleeding into chips
+     and bullets. Falls back to a sensible height on older engines. */
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 60vh;
   pointer-events: none;
   z-index: 0;
   border-radius: inherit;
   overflow: hidden;
-  opacity: 0.62;
+  opacity: 0.34;
   transition: opacity 220ms var(--motion-ease-out, ease);
+  /* Soft fade at the bottom edge so the preview never has a hard cut line
+     where it meets the card text. */
+  mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 82%, transparent 100%);
+}
+
+/* Engines without aspect-ratio: fall back to clamped height */
+@supports not (aspect-ratio: 16 / 9) {
+  .bento-preview { height: clamp(160px, 32%, 320px); }
 }
 
 .bento-preview canvas {
@@ -18,7 +37,7 @@
   display: block;
 }
 
-.project-card:hover .bento-preview { opacity: 0.92; }
+.project-card:hover .bento-preview { opacity: 0.62; }
 
 /* Keep card body above the preview */
 [data-project-id] { position: relative; }
