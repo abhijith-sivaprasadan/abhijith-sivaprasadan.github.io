@@ -1339,50 +1339,74 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
     );
   }
 
-  // ── HEAT RECOVERY back-arrow ribbon (literal arrow PROCESS → input) ────
-  // When recovery is enabled, a translucent ribbon arches from the PROCESS
-  // sink back down to the demand side, width proportional to recovered MW.
-  // The visible loop is the "−Q_HR" the controller is offsetting from gross
-  // heat demand. Vanishes entirely when toggle is off.
+  // ── HEAT RECOVERY back-arrow ribbon (filled, not stroked-dashed) ──────
+  // Filled Bezier ribbon below the sankey band — left arrowhead, animated
+  // streaks inside (butt caps → no pill artefacts). Vanishes when off.
   if (controls.recovery && recoveredMW > 0.01) {
-    const recH = Math.max(6, recoveredMW * mwScale);
-    const arcStartX = sinkColX + colW * 0.5;
-    const arcEndX   = srcColX;
-    const arcStartY = sinkY + sinkH + 6;
-    const arcMidY   = arcStartY + 28;
-    const arcEndY   = innerBot - 6;
+    const recH = Math.max(7, Math.min(14, recoveredMW * mwScale * 0.55));
+    const ribbonBandY = sankeyY + sankeyH + 4;
+    const ribbonBandH = Math.min(30, scatterY - ribbonBandY - 6);
+    const ribbonTop  = ribbonBandY + Math.max(2, (ribbonBandH - recH) / 2);
+    const ribbonBot  = ribbonTop + recH;
+    const xL = srcColX;                          // arrowhead lands here
+    const xR = sinkColX + colW * 0.5;            // ribbon takeoff from PROCESS bar
+    const ahW = 12;
+    const cp1x = xL + (xR - xL) * 0.35;
+    const cp2x = xL + (xR - xL) * 0.65;
     ctx.save();
+    // Filled ribbon body
+    const ribbon = new Path2D();
+    ribbon.moveTo(xL + ahW, ribbonTop);
+    ribbon.bezierCurveTo(cp1x, ribbonTop, cp2x, ribbonTop, xR, ribbonTop);
+    ribbon.lineTo(xR, ribbonBot);
+    ribbon.bezierCurveTo(cp2x, ribbonBot, cp1x, ribbonBot, xL + ahW, ribbonBot);
+    ribbon.closePath();
+    const grad = ctx.createLinearGradient(xL, 0, xR, 0);
+    grad.addColorStop(0,   "rgba(155, 214, 159, 0.62)");
+    grad.addColorStop(0.5, "rgba(155, 214, 159, 0.40)");
+    grad.addColorStop(1,   "rgba(155, 214, 159, 0.55)");
+    ctx.fillStyle = grad;
+    ctx.fill(ribbon);
     ctx.strokeStyle = "rgba(155, 214, 159, 0.78)";
-    ctx.lineWidth = Math.max(2, recH * 0.5);
-    ctx.lineCap = "round";
-    ctx.setLineDash([8, 8]);
-    ctx.lineDashOffset = -(now * 0.10) % 32;
-    ctx.beginPath();
-    ctx.moveTo(arcStartX, arcStartY);
-    ctx.bezierCurveTo(
-      arcStartX, arcMidY,
-      arcEndX + 80, arcEndY,
-      arcEndX + 10, arcEndY
-    );
-    ctx.stroke();
-    ctx.setLineDash([]);
-    // Arrowhead at the receiving end
+    ctx.lineWidth = 1;
+    ctx.stroke(ribbon);
+    // Triangular arrowhead pointing LEFT into the GRID area
     ctx.fillStyle = "rgba(155, 214, 159, 0.95)";
     ctx.beginPath();
-    ctx.moveTo(arcEndX + 10, arcEndY - 6);
-    ctx.lineTo(arcEndX,      arcEndY);
-    ctx.lineTo(arcEndX + 10, arcEndY + 6);
+    ctx.moveTo(xL,            ribbonTop + recH / 2);
+    ctx.lineTo(xL + ahW + 1,  ribbonTop - 2);
+    ctx.lineTo(xL + ahW + 1,  ribbonBot + 2);
     ctx.closePath();
     ctx.fill();
-    // Label
+    // Subtle flow streaks inside (butt caps — no pill ends)
+    ctx.clip(ribbon);
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.22)";
+    ctx.lineWidth = 1.1;
+    ctx.lineCap = "butt";
+    ctx.setLineDash([12, 18]);
+    ctx.lineDashOffset = ((now * 0.10) % 30);
+    const streakRows = Math.max(2, Math.round(recH / 4));
+    for (let s = 0; s < streakRows; s += 1) {
+      const t = (s + 1) / (streakRows + 1);
+      const y = ribbonTop + recH * t;
+      ctx.beginPath();
+      ctx.moveTo(xL + ahW, y);
+      ctx.bezierCurveTo(cp1x, y, cp2x, y, xR, y);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+    ctx.restore();
+    // Centred label beneath the ribbon — clear of other labels above and
+    // the scatter chart below.
+    ctx.save();
     ctx.fillStyle = "rgba(155, 214, 159, 0.95)";
     ctx.font = "700 10px 'JetBrains Mono', ui-monospace, monospace";
-    ctx.fillText(
-      isSwedish()
-        ? `VÄRMEÅTERV.  −${recoveredMW.toFixed(2)} MW  (η_HR ${(metrics.eta_hr * 100).toFixed(0)}%)`
-        : `HEAT RECOVERY  −${recoveredMW.toFixed(2)} MW  (η_HR ${(metrics.eta_hr * 100).toFixed(0)}%)`,
-      arcEndX + 16, arcEndY - 8
-    );
+    ctx.textAlign = "center";
+    const txt = isSwedish()
+      ? `↩ VÄRMEÅTERV.  −${recoveredMW.toFixed(2)} MW  ·  η_HR ${(metrics.eta_hr * 100).toFixed(0)}%`
+      : `↩ HEAT RECOVERY  −${recoveredMW.toFixed(2)} MW  ·  η_HR ${(metrics.eta_hr * 100).toFixed(0)}%`;
+    ctx.fillText(txt, (xL + xR) / 2, ribbonBot + 13);
+    ctx.textAlign = "left";
     ctx.restore();
   }
 

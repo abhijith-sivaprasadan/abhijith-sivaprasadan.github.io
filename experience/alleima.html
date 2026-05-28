@@ -64,20 +64,23 @@
         <aside class="case-panel">
           <h2>Role snapshot</h2>
           <ul>
-            <li>Organisation: Alleima AB</li>
-            <li>Period: Dec 2024 - Jun 2025</li>
-            <li>Mode: Remote / Sandviken, Sweden</li>
-            <li>Focus: EnPI logic, load drivers, normalisation, metering readiness, loss analysis, comparative audit methods</li>
+            <li><strong>Organisation:</strong> Alleima AB · Tube EHS</li>
+            <li><strong>Period:</strong> Dec 2024 – Jun 2025</li>
+            <li><strong>Mode:</strong> Remote / Sandviken, Sweden</li>
+            <li><strong>Brief:</strong> harmonise energy-audit practice across Alleima's global manufacturing sites using Sweden's EKL framework + Alleima's internal <code>ENV1</code> standard as the baseline</li>
+            <li><strong>Sites in scope:</strong> Sandviken (SE), Chomutov (CZ), Werther (DE), Venlo (NL), Mehsana (IN), Zhenjiang (CN), Kennewick + Scranton (US)</li>
+            <li><strong>Deliverable:</strong> 39-page consultancy report — <em>"Global Adaptation of Swedish Energy Audit Frameworks: A Comparative Study Across Manufacturing Sites"</em></li>
           </ul>
         </aside>
         <article class="case-panel">
           <h2>What I contributed</h2>
           <ul>
-            <li>Built an ISO 50001/EED-aligned mapping approach for industrial energy follow-up.</li>
-            <li>Defined KPI/EnPI structures, relevant load drivers, baseline logic and normalisation concepts.</li>
-            <li>Assessed metering and data readiness across sites, including signals, sampling needs, baselines and follow-up reliability.</li>
-            <li>Developed workflows to compare operating states, identify loss mechanisms and frame roadmap opportunities across utilities, process heat, compressed air and heat recovery.</li>
-            <li>Contributed to the comparative regulatory report covering Sweden, Germany, the Netherlands, Czechia, India, China and the United States.</li>
+            <li>Built a comparative regulatory matrix across <strong>7 jurisdictions</strong> (Sweden/EU, Germany, Netherlands, Czechia, US-WA, India, China) — covering the relevant act, certifying standard, enforcement body and Alleima-specific implication for each.</li>
+            <li>Designed a <strong>3-tier methodology framework</strong> mapping each site to the right audit strategy: Tier 1 (ISO 50001-certified, fully ENV1-integrated), Tier 2 (active EMS, hybrid audits), Tier 3 (non-certified, simplified ENV1-lite).</li>
+            <li>Specified <strong>core audit components</strong> common across all tiers: annual energy balance, site walkthrough, EnPI baseline, measure identification, CAPEX/OPEX analysis, M&amp;V, ENV1 upload.</li>
+            <li>Drafted <strong>site-specific adaptations</strong> per facility (e.g. "formalise EMS docs at Mehsana, pilot ISO 50001-lite", "link ISO audit outputs to ENV1 at Zhenjiang", "shift Scranton from PennTAP audits to hybrid + M&amp;V").</li>
+            <li>Wrote the <strong>2025–2027 phased rollout</strong> (year-by-year milestones), governance section (quarterly Corporate Energy Audit Forum, benchmarking dashboards, shared audit library) and ESG-alignment chapter.</li>
+            <li>Authored the <strong>M&amp;V chapter</strong>: methodology for verifying claimed savings, site-level verified impact summaries, honest data limitations and recommendations for strengthening quantification.</li>
           </ul>
         </article>
       </div>
@@ -86,18 +89,21 @@
     <section class="section subtle">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Method</p>
-          <h2>How the EnPI mapping work was structured</h2>
+          <p class="eyebrow">Regulatory matrix</p>
+          <h2>7-country comparison driving the harmonisation choice</h2>
         </div>
         <div class="case-panel">
-          <ol>
-            <li><strong>Site walk-down + meter inventory:</strong> document every utility meter (electricity, gas, steam, compressed air, cooling water), its scan interval and its current point of integration to site SCADA or to manual logs.</li>
-            <li><strong>Process boundary definition:</strong> classify each meter by GHG Protocol scope and by ISO 50006 energy use type. Identify metering gaps where a significant energy use (SEU) is implied but no direct meter exists.</li>
-            <li><strong>Load-driver candidates:</strong> for each EnPI candidate, propose load drivers (production volume, operating hours, ambient temperature, raw-material mix) and check which combination minimises baseline residual variance.</li>
-            <li><strong>Baseline regression:</strong> fit E = a + b·P + c·HDD or similar on the cleanest 12–18 months of data. Validate residuals are stationary; flag periods where they aren't (planned maintenance, batch-mix changes).</li>
-            <li><strong>Metering-readiness scoring:</strong> rate each EnPI from 0–4 on a custom scale: data resolution, time-stamp reliability, missing-data fraction and operator-visible baseline. Anything below 3 is flagged as needing meter upgrade before EnPI can be reported externally.</li>
-            <li><strong>Comparative framing:</strong> overlay Swedish EKL/EED reporting practice against German, Dutch, Czech, Indian, Chinese and US equivalents to identify which audit methods Alleima could re-use across its global plants.</li>
-          </ol>
+          <p>The report opens with a comparative table of audit obligations across every jurisdiction where Alleima manufactures. Each cell answers: <em>what's mandatory, which standard, who enforces it, what's the Alleima implication?</em></p>
+          <ul>
+            <li><strong>Sweden / EU</strong> — mandatory above 3.8 GWh/yr; ISO 50001 certified audit or <code>ENV1</code> as the EKL/EED-compliant pathway; Energimyndigheten enforces.</li>
+            <li><strong>Germany</strong> — mandatory under EDL-G; ISO 50001 is the common path; BAFA enforces; subsidies available for SMEs.</li>
+            <li><strong>Netherlands</strong> — linked to permits via ISO 14001; municipal inspections; energy reviews are indirect.</li>
+            <li><strong>Czech Republic</strong> — EU-mandate; ISO 50001 certified; National Energy Authority; site already runs advanced monitoring.</li>
+            <li><strong>United States (WA)</strong> — state-specific Climate Commitment Act; EPA / WA Dept. of Ecology; utility-data-driven.</li>
+            <li><strong>India</strong> — sector-specific PAT scheme; Bureau of Energy Efficiency; coverage varies by industry.</li>
+            <li><strong>China</strong> — national audit guidelines for large users only; provincial authorities; regional variation.</li>
+          </ul>
+          <p><em>Conclusion drawn:</em> regulations diverge widely, but every regime requires recurring audits, identification of Significant Energy Users (SEUs) and economic assessment of measures. ISO 50001 is the EU lingua-franca but is not universally practical; <code>ENV1</code> is more scalable.</p>
         </div>
       </div>
     </section>
@@ -105,16 +111,34 @@
     <section class="section">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Deliverables</p>
-          <h2>What I left behind</h2>
+          <p class="eyebrow">Methodology</p>
+          <h2>Three-tier framework adapted to site maturity</h2>
         </div>
         <div class="case-panel">
+          <p>To balance regulatory diversity and site EMS maturity, the report proposes a three-tiered approach. All tiers share a common cycle and reporting template so cross-site comparisons stay valid.</p>
           <ul>
-            <li>EnPI catalogue covering utilities + process heat with formulas, drivers, baseline equation and readiness score per indicator.</li>
-            <li>Metering-gap register listing measurement points to install before each indicator can be reported externally with confidence.</li>
-            <li>Comparative regulatory matrix (7 countries × 6 method dimensions) supporting cross-plant audit-method selection.</li>
-            <li>Loss-analysis worksheets isolating compressed-air leaks, idle-mode utility draw and heat-recovery candidates.</li>
-            <li>One-page summary briefs designed for plant-manager review, with the technical detail moved to appendix and the decision moved to the headline.</li>
+            <li><strong>Tier 1 — ISO 50001-certified, EU-regulated:</strong> EnMS-driven audits, fully integrated with ENV1, continuous monitoring. Illustrative sites: <em>Sandviken, Chomutov, Werther</em>.</li>
+            <li><strong>Tier 2 — Active EMS but not ISO 50001-certified:</strong> hybrid audits — internal reviews + selective third-party verification. Illustrative sites: <em>Mehsana, Zhenjiang</em>.</li>
+            <li><strong>Tier 3 — Non-certified / voluntary contexts:</strong> simplified ENV1-lite audits, basic KPIs, external support where needed. Illustrative sites: <em>Kennewick, Scranton</em>.</li>
+          </ul>
+          <h3 style="margin-top:1rem;">Core audit components shared across all tiers</h3>
+          <ul>
+            <li>Annual energy balance (electricity, fuels, compressed air, steam, cooling)</li>
+            <li>Site walkthrough (processes, support systems, maintenance practice)</li>
+            <li>Baseline + EnPIs at process and plant level</li>
+            <li>Measure identification with quantified savings, cost, payback</li>
+            <li>CAPEX/OPEX analysis (payback, ROI, lifecycle cost)</li>
+            <li>Measurement &amp; Verification (M&amp;V) for post-implementation tracking</li>
+            <li>ENV1 upload — findings go into Alleima's corporate system, not just a PDF</li>
+          </ul>
+          <h3 style="margin-top:1rem;">Site-specific adaptations</h3>
+          <ul>
+            <li><strong>Mehsana (IN):</strong> formalise EMS documentation, pilot "ISO 50001-lite", automate EnPI collection.</li>
+            <li><strong>Zhenjiang (CN):</strong> link ISO audit outputs to ENV1, expand PV monitoring, cover all production lines.</li>
+            <li><strong>Kennewick (US):</strong> develop low-cost EnPIs, align state reporting with ENV1, explore DOE voluntary programs.</li>
+            <li><strong>Scranton (US):</strong> shift from PennTAP audits to hybrid audits tied to CAPEX and M&amp;V.</li>
+            <li><strong>Venlo (NL):</strong> upgrade from ISO 14001 to ISO 50001, automate HVAC controls, standardise reporting cycle.</li>
+            <li><strong>Werther (DE):</strong> formalise internal audits, adopt LEEN-network best practices for KPI harmonisation.</li>
           </ul>
         </div>
       </div>
@@ -123,15 +147,57 @@
     <section class="section subtle">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Reflection</p>
-          <h2>What I learned about industrial energy work</h2>
+          <p class="eyebrow">Rollout &amp; governance</p>
+          <h2>2025–2027 phased adoption + Corporate Energy Audit Forum</h2>
         </div>
         <div class="case-panel">
           <ul>
-            <li><strong>Metering is the gate.</strong> No EnPI is more credible than the meter it rests on. Half of the work was sequencing meter upgrades before chasing energy improvements.</li>
-            <li><strong>Baseline normalisation is the lever.</strong> Without driver normalisation, a savings claim from a heat-recovery project gets buried by a busy production week. ISO 50006-style EnPI fixes this.</li>
-            <li><strong>Cross-plant comparisons are political.</strong> Plant-to-plant benchmarks require enough methodology consistency that the regional energy lead trusts them — and that means an audit-method specification, not just a number.</li>
-            <li><strong>The decision comes before the data.</strong> The most useful question I learned to ask: "What decision will this indicator support?" If the answer is unclear, the indicator is not worth the effort.</li>
+            <li><strong>2025</strong> — develop standard templates, upgrade ENV1 modules, pilot ISO 50001-lite at Mehsana.</li>
+            <li><strong>2026</strong> — expand Tier 2 to Mehsana &amp; Zhenjiang; deliver digital audit training for site leads.</li>
+            <li><strong>2027</strong> — onboard Tier 3 sites (Scranton, Kennewick); assess ISO 50001 pathways. Deliverables: EnPI handbooks, dashboards, site implementation plans.</li>
+          </ul>
+          <p><strong>Governance mechanisms proposed:</strong></p>
+          <ul>
+            <li>Corporate Energy Audit Forum — quarterly sessions for site leads</li>
+            <li>Benchmarking dashboards — real-time EnPI comparison across sites</li>
+            <li>Shared audit library — central repository for templates, best practices, M&amp;V reports</li>
+          </ul>
+          <p>Intent: shift audits from compliance exercises into strategic management tools.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Five key recommendations</p>
+          <h2>What management was asked to adopt</h2>
+        </div>
+        <div class="case-panel">
+          <ol>
+            <li>Adopt <code>ENV1</code> globally as the baseline method for energy mapping.</li>
+            <li>Use ISO 50001 selectively — only where required or for high-energy users.</li>
+            <li>Standardise reporting: kWh/MWh, EUR (with local currency in brackets), all sites included in every table.</li>
+            <li>Clarify terminology: focus on "energy mapping" (ENV1), not generic EnMS audits.</li>
+            <li>Stronger follow-up on identified measures, with priority for those that pay back in under three years.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Reflection</p>
+          <h2>What I learned about cross-plant industrial energy work</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li><strong>Metering is the gate.</strong> No EnPI is more credible than the meter it rests on. Half the report's recommendations sequence meter upgrades before chasing energy improvements.</li>
+            <li><strong>Harmonisation beats certification.</strong> Pushing every site to ISO 50001 is unrealistic; a tiered framework with one shared internal standard (ENV1) is what actually scales.</li>
+            <li><strong>Cross-plant comparisons are political.</strong> Plant-to-plant benchmarks require enough methodology consistency that the regional energy lead trusts the number — and that means an audit-method specification, not just a KPI.</li>
+            <li><strong>Governance is the multiplier.</strong> A quarterly forum + a shared library does more long-term work than any single audit cycle.</li>
+            <li><strong>The decision comes before the data.</strong> The most useful filter I learned: <em>"What decision will this indicator support?"</em> If the answer is unclear, the indicator is not worth the effort.</li>
           </ul>
         </div>
       </div>
@@ -144,10 +210,11 @@
           <h2>Why this experience matters</h2>
         </div>
         <div class="case-panel">
-          <p>This experience shows how I turn industrial energy context into practical measurement, KPI and decision-support structures for technical and management audiences.</p>
-          <p>It also fed the longer comparative report on global audit methods, where Sweden&rsquo;s EKL and EED model was translated into a tiered framework for sites with very different legal and technical maturity. The methodology — boundary, baseline, drivers, residual diagnostics, metering readiness — is the same one that anchors the EnPI toolkit and the EU ETS calculator elsewhere in the portfolio.</p>
+          <p>The 39-page report translated Sweden's EKL/EED model into a tiered framework that fits sites with very different legal and technical maturity. The methodology — boundary, baseline, drivers, residual diagnostics, metering readiness, M&amp;V, governance — is the same one that anchors the EnPI Toolkit and the EU ETS Calculator elsewhere in the portfolio. The role demonstrates how I turn industrial energy context into practical measurement, KPI and decision-support structures for both technical and management audiences.</p>
           <div class="project-links">
             <a href="../projects/alleima-energy-efficiency.html">Related case study</a>
+            <a href="../projects/industrial-energy-kpi-toolkit.html">Industrial Energy KPI Toolkit</a>
+            <a href="../projects/eu-ets-exposure-calculator.html">EU ETS Exposure Calculator</a>
           </div>
         </div>
       </div>
