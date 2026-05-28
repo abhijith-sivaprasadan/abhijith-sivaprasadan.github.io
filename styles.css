@@ -5733,9 +5733,95 @@ body.signal-rebuild .hero-kicker {
 /* ── Live Lens / Evidence Lens — dev-only gate ─────────────────────
    The 4 telemetry panels + the hero-instrument canvas viewport are
    experimental. They render only when body has `lens-dev`, which is
-   toggled via ?lens=1 URL param or localStorage `lensDev=1`. The
-   public hero stays clean until the lens work is stable. */
+   toggled via the floating .lens-dev-toggle button, ?lens=1 URL param,
+   or localStorage `lensDev=1`. The public hero stays clean until the
+   lens work is stable. */
 body:not(.lens-dev) [data-live-lens] { display: none !important; }
+
+/* Floating toggle button — bottom-right of viewport, subtle until hover */
+.lens-dev-toggle {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.78rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(7, 8, 7, 0.84);
+  color: rgba(220, 226, 234, 0.78);
+  font: 600 0.76rem/1 "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.42);
+  opacity: 0.55;
+  transition:
+    opacity 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lens-dev-toggle:hover {
+  opacity: 1;
+  color: #fff;
+  border-color: rgba(56, 189, 248, 0.55);
+  background: rgba(7, 8, 7, 0.95);
+  transform: translateY(-1px);
+}
+
+.lens-dev-toggle:focus-visible {
+  outline: 2px solid rgba(56, 189, 248, 0.7);
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+.lens-dev-toggle svg { flex-shrink: 0; }
+
+.lens-dev-toggle-state::after {
+  content: "OFF";
+  display: inline-block;
+  padding: 0.06rem 0.32rem;
+  border: 1px solid rgba(180, 192, 204, 0.32);
+  border-radius: 3px;
+  color: rgba(180, 192, 204, 0.85);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.lens-dev-toggle.is-on {
+  opacity: 1;
+  color: #fff;
+  border-color: rgba(56, 189, 248, 0.55);
+  background: linear-gradient(180deg,
+    rgba(56, 189, 248, 0.18),
+    rgba(7, 8, 7, 0.92));
+}
+
+.lens-dev-toggle.is-on .lens-dev-toggle-state::after {
+  content: "ON";
+  border-color: rgba(56, 189, 248, 0.7);
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+}
+
+/* Hide on print and reduced motion */
+@media print {
+  .lens-dev-toggle { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lens-dev-toggle { transition: none; }
+}
+
+/* Compact label on narrow screens */
+@media (max-width: 600px) {
+  .lens-dev-toggle-label { display: none; }
+}
 
 /* ── Hero mode toggle — per-track colored active state + entrance ── */
 body.signal-rebuild .home-mode-toggle {

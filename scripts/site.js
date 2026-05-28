@@ -1,25 +1,73 @@
 // ── Live Lens / Evidence Lens — dev-only flag ───────────────────────
 // The experimental telemetry panels + the hero-instrument canvas are
-// hidden by default (CSS guard on [data-live-lens]). Enable with
-//   - URL param ?lens=1            (toggles per-visit + sticks in localStorage)
-//   - URL param ?lens=0            (turns off + clears localStorage)
-//   - localStorage `lensDev = "1"` (sticky across visits)
+// hidden by default (CSS guard on [data-live-lens]). Three ways to enable:
+//   - the floating "Live lens" toggle button (rendered by mountLensToggle)
+//   - URL param ?lens=1   (turns on + sticks in localStorage)
+//   - URL param ?lens=0   (turns off + clears localStorage)
+function setLensDev(on) {
+  try {
+    if (on) {
+      window.localStorage.setItem("lensDev", "1");
+      document.body.classList.add("lens-dev");
+    } else {
+      window.localStorage.removeItem("lensDev");
+      document.body.classList.remove("lens-dev");
+    }
+  } catch (e) { /* storage blocked → just toggle class for this session */
+    document.body.classList.toggle("lens-dev", on);
+  }
+  // Refresh the toggle button's visual state if it exists.
+  const btn = document.querySelector("[data-lens-toggle]");
+  if (btn) {
+    btn.classList.toggle("is-on", on);
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+    btn.title = on
+      ? "Live lens ON — click to hide experimental panels"
+      : "Live lens OFF — click to show experimental panels";
+  }
+}
 (function initLensDevFlag() {
   try {
     const params = new URLSearchParams(window.location.search);
     if (params.has("lens")) {
       const v = params.get("lens");
-      if (v === "0" || v === "false" || v === "off") {
-        window.localStorage.removeItem("lensDev");
-      } else {
-        window.localStorage.setItem("lensDev", "1");
-      }
-    }
-    if (window.localStorage.getItem("lensDev") === "1") {
+      const on = !(v === "0" || v === "false" || v === "off");
+      setLensDev(on);
+    } else if (window.localStorage.getItem("lensDev") === "1") {
       document.body.classList.add("lens-dev");
     }
   } catch (e) { /* storage blocked → silently skip */ }
 })();
+function mountLensToggle() {
+  if (document.querySelector("[data-lens-toggle]")) return;
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "lens-dev-toggle";
+  const isOn = document.body.classList.contains("lens-dev");
+  btn.classList.toggle("is-on", isOn);
+  btn.setAttribute("data-lens-toggle", "");
+  btn.setAttribute("aria-pressed", isOn ? "true" : "false");
+  btn.setAttribute("aria-label", "Toggle live lens / evidence lens panels");
+  btn.title = isOn
+    ? "Live lens ON — click to hide experimental panels"
+    : "Live lens OFF — click to show experimental panels";
+  btn.innerHTML =
+    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">' +
+      '<circle cx="6" cy="6" r="3.4" stroke="currentColor" stroke-width="1.3" fill="none"/>' +
+      '<path d="M8.6 8.6L12 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+    '</svg>' +
+    '<span class="lens-dev-toggle-label">Live lens</span>' +
+    '<span class="lens-dev-toggle-state" aria-hidden="true"></span>';
+  btn.addEventListener("click", () => {
+    setLensDev(!document.body.classList.contains("lens-dev"));
+  });
+  document.body.appendChild(btn);
+}
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", mountLensToggle);
+} else {
+  mountLensToggle();
+}
 
 const progressBar = document.querySelector(".scroll-progress");
 const scenes = document.querySelectorAll(".scroll-scene");
