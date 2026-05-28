@@ -18,8 +18,9 @@
 import {
   // Constants
   REDUCER_T0, REDUCER_T_AMBIENT, REDUCER_T_WALL_M, REDUCER_K_WALL,
-  REDUCER_H_GAS, REDUCER_H_EXT, REDUCER_D_HYDRAULIC,
-  REDUCER_MACH_SMOOTH, REDUCER_MACH_LEGACY,
+  REDUCER_H_GAS, REDUCER_H_EXT, REDUCER_D_HYDRAULIC, REDUCER_P0_PA,
+  REDUCER_MACH_SMOOTH, REDUCER_MACH_LEGACY, REDUCER_CASES,
+  INSULATION_T_M, INSULATION_K, INSULATION_H_EXT,
   GAMMA_AIR, GAMMA_CH4, PR_AIR, CP_CH4_COOL,
   G_GAS_LHV, PEF_EL_EU, ETA_TES_RT, ETA_ELECTRIC_BOILER, ETA_GAS_BOILER,
   T_BURNOUT_CU,
@@ -27,7 +28,7 @@ import {
   staticTemperatureFromTotal, staticToTotalPressure, adiabaticWallTemperature,
   reynoldsNumber, stantonNumber,
   // Heat transfer
-  thermalResistanceCircuit, biotNumber,
+  thermalResistanceCircuit, thermalResistanceCircuitInsulated, biotNumber,
   conductanceHealthRatio, depositResistanceShare, burnoutMargin,
   coolantTemperatureRise,
   // Energy systems
@@ -122,46 +123,74 @@ function quintic(value) {
 // All formulas via scripts/physics/.
 const THERMAL_THESIS_BI_BAND = "0.003–0.004";
 
-function thermalGeometry() {
-  const sel = (document.body.dataset.thermalGeometry || "smooth").toLowerCase();
-  return sel === "legacy" ? "legacy" : "smooth";
+function thermalControls() {
+  const geom = (document.body.dataset.thermalGeometry || "smooth").toLowerCase();
+  const insul = document.body.dataset.thermalInsulation === "on";
+  const caseKey = (document.body.dataset.thermalCase || "C").toUpperCase();
+  const T0 = Number(document.body.dataset.thermalT0) || REDUCER_T0;
+  return {
+    geometry: geom === "legacy" ? "legacy" : "smooth",
+    insulation: insul,
+    caseKey: ["A", "B", "C"].includes(caseKey) ? caseKey : "C",
+    T0,
+  };
 }
 
 function thermalTelemetry() {
-  const geom = thermalGeometry();
-  const throatMach = geom === "legacy" ? REDUCER_MACH_LEGACY : REDUCER_MACH_SMOOTH;
-  const T_throat = staticTemperatureFromTotal(REDUCER_T0, throatMach);
+  const ctrl = thermalControls();
+  const caseDef = REDUCER_CASES[ctrl.caseKey];
+  // Mach selection from thesis-reported case/geometry table.
+  const throatMach = ctrl.geometry === "legacy" ? caseDef.machLegacy : caseDef.machSmooth;
+  // Isentropic state at the throat using the user-controlled T₀.
+  const T_throat = staticTemperatureFromTotal(ctrl.T0, throatMach);
   const T_aw = adiabaticWallTemperature(throatMach, T_throat, PR_AIR);
   const pRatio = staticToTotalPressure(throatMach);
-  // Reynolds at throat: p_static from p0=200 kPa abs (thesis-reported), D_h
-  // from the throat-side hydraulic diameter.
-  const p0_pa = 200_000;
-  const p_static = pRatio * p0_pa;
+  const p_static = pRatio * REDUCER_P0_PA;
   const Re = reynoldsNumber(throatMach, T_throat, p_static, REDUCER_D_HYDRAULIC);
-  // 1-D resistance circuit (uninsulated case, thesis Biot interpretation).
-  const cht = thermalResistanceCircuit({
-    T_hot: REDUCER_T0,
-    T_cold: REDUCER_T_AMBIENT,
-    h_internal: REDUCER_H_GAS,
-    wallThicknessM: REDUCER_T_WALL_M,
-    wallConductivity: REDUCER_K_WALL,
-    h_external: REDUCER_H_EXT,
-  });
-  const BiCalc = biotNumber(REDUCER_H_EXT, REDUCER_T_WALL_M, REDUCER_K_WALL);
+  // Choose resistance circuit (3-layer uninsulated, 4-layer insulated).
+  let cht, T_outer, BiCalc;
+  if (ctrl.insulation) {
+    cht = thermalResistanceCircuitInsulated({
+      T_hot: ctrl.T0,
+      T_cold: REDUCER_T_AMBIENT,
+      h_internal: REDUCER_H_GAS,
+      wallThicknessM: REDUCER_T_WALL_M,
+      wallConductivity: REDUCER_K_WALL,
+      insulationThicknessM: INSULATION_T_M,
+      insulationConductivity: INSULATION_K,
+      h_external: INSULATION_H_EXT,
+    });
+    T_outer = cht.T_insulOuter;
+    // With insulation the dominant Bi is the insulation/air boundary.
+    BiCalc = biotNumber(INSULATION_H_EXT, INSULATION_T_M, INSULATION_K);
+  } else {
+    cht = thermalResistanceCircuit({
+      T_hot: ctrl.T0,
+      T_cold: REDUCER_T_AMBIENT,
+      h_internal: REDUCER_H_GAS,
+      wallThicknessM: REDUCER_T_WALL_M,
+      wallConductivity: REDUCER_K_WALL,
+      h_external: REDUCER_H_EXT,
+    });
+    T_outer = cht.T_outer;
+    BiCalc = biotNumber(REDUCER_H_EXT, REDUCER_T_WALL_M, REDUCER_K_WALL);
+  }
   return {
-    geometry: geom,                                  // "smooth" | "legacy"
+    geometry: ctrl.geometry,
+    insulation: ctrl.insulation,
+    caseKey: ctrl.caseKey,
+    T0_K: ctrl.T0,
     mach: throatMach.toFixed(3),
     temperature: `${Math.round(T_throat)} K`,
-    // Pressure drop swapped from the placeholder string to the static/total
-    // pressure ratio at the throat — a directly computed isentropic quantity.
-    // (updateThermalMetrics prepends "Bi " for the biot cell.)
     pressureDrop: `p/p0 ${pRatio.toFixed(3)}`,
-    biot: `${BiCalc.toFixed(4)} (thesis ${THERMAL_THESIS_BI_BAND})`,
-    // New extended readouts (consumed by extended lens 1 cells):
+    biot: ctrl.insulation
+      ? `${BiCalc.toFixed(3)} (insulation layer; not lumped)`
+      : `${BiCalc.toFixed(4)} (thesis ${THERMAL_THESIS_BI_BAND})`,
     heatFlux: `${cht.q.toFixed(0)} W/m²`,
-    wallOuter: `${cht.T_outer.toFixed(1)} K`,
+    wallOuter: `${T_outer.toFixed(1)} K`,
     adiabaticWall: `${T_aw.toFixed(1)} K`,
     reynolds: `Re ${Re.toExponential(2)}`,
+    _cht: cht,
   };
 }
 
@@ -398,32 +427,53 @@ function isSwedish() {
 // (Sieder-Tate-style internal h, free-convection external h for the
 // uninsulated reducer case described in TRITA-ITM-EX 2026:14).
 function chtState() {
-  // All inputs come from scripts/physics/constants.js (REDUCER_*).
-  // Computation delegated to thermalResistanceCircuit() so this code path
-  // exercises the same audited equations as the lens-1 telemetry.
-  const circuit = thermalResistanceCircuit({
-    T_hot: REDUCER_T0,
-    T_cold: REDUCER_T_AMBIENT,
-    h_internal: REDUCER_H_GAS,
-    wallThicknessM: REDUCER_T_WALL_M,
-    wallConductivity: REDUCER_K_WALL,
-    h_external: REDUCER_H_EXT,
-  });
+  // Reads live state from thermalTelemetry() — picks up the current
+  // T₀ slider, insulation toggle, geometry toggle, case selector.
+  const t = thermalTelemetry();
+  const insul = !!t.insulation;
+  const c = t._cht;
+  // 3-resistor (uninsulated) vs 4-resistor (insulated) — caller sees a
+  // unified shape via T_outer + an optional T_insulOuter + R_insul.
+  if (insul) {
+    const Bi_insul = biotNumber(INSULATION_H_EXT, INSULATION_T_M, INSULATION_K);
+    return {
+      insulated: true,
+      T_gas: t.T0_K,
+      T_ext: REDUCER_T_AMBIENT,
+      t_wall: REDUCER_T_WALL_M,
+      k_wall: REDUCER_K_WALL,
+      h_gas: REDUCER_H_GAS,
+      h_ext: INSULATION_H_EXT,
+      t_insul: INSULATION_T_M,
+      k_insul: INSULATION_K,
+      R_gas: c.R_gas,
+      R_wall: c.R_wall,
+      R_insul: c.R_insul,
+      R_ext: c.R_ext,
+      R_total: c.R_total,
+      q: c.q,
+      T_inner: c.T_inner,
+      T_metalOuter: c.T_metalOuter,
+      T_outer: c.T_insulOuter,
+      Bi: Bi_insul,
+    };
+  }
   const Bi = biotNumber(REDUCER_H_EXT, REDUCER_T_WALL_M, REDUCER_K_WALL);
   return {
-    T_gas: REDUCER_T0,
+    insulated: false,
+    T_gas: t.T0_K,
     T_ext: REDUCER_T_AMBIENT,
     t_wall: REDUCER_T_WALL_M,
     k_wall: REDUCER_K_WALL,
     h_gas: REDUCER_H_GAS,
     h_ext: REDUCER_H_EXT,
-    R_gas: circuit.R_gas,
-    R_wall: circuit.R_wall,
-    R_ext: circuit.R_ext,
-    R_total: circuit.R_total,
-    q: circuit.q,
-    T_inner: circuit.T_inner,
-    T_outer: circuit.T_outer,
+    R_gas: c.R_gas,
+    R_wall: c.R_wall,
+    R_ext: c.R_ext,
+    R_total: c.R_total,
+    q: c.q,
+    T_inner: c.T_inner,
+    T_outer: c.T_outer,
     Bi,
   };
 }
@@ -453,14 +503,18 @@ function drawThermalEvidence(ctx, width, height, now) {
   const barsY = wallY + wallH + tempLabelsH + barsLabelGap;
   const barsH = Math.max(72, height * 0.22);
 
-  // Three sub-widths: gas zone, wall zone, ext zone (wall narrow on purpose)
+  // Cross-section sub-widths: gas | wall | (insulation | ) ext
+  // When insulated, an insulation band sits between the steel wall and the
+  // external ambient zone — visually proportional to its physical thickness.
   const innerW = width - padX * 2;
   const wWall = Math.max(34, innerW * 0.08);
-  const wGas = (innerW - wWall) * 0.50;
-  const wExt = (innerW - wWall) * 0.50;
+  const wInsul = S.insulated ? Math.max(40, innerW * 0.18) : 0;
+  const wGas = (innerW - wWall - wInsul) * 0.50;
+  const wExt = (innerW - wWall - wInsul) * 0.50;
   const xGas = padX;
   const xWall = xGas + wGas;
-  const xExt = xWall + wWall;
+  const xInsul = xWall + wWall;             // insulation start (= xExt when no insul)
+  const xExt = xInsul + wInsul;
 
   // ── Header ──────────────────────────────────────────────────────────────
   stageLabel(ctx, isSwedish()
@@ -504,20 +558,24 @@ function drawThermalEvidence(ctx, width, height, now) {
   ctx.fillText("T(x)  K", profileXMax - 60, profileY + 12);
   ctx.restore();
 
-  // The 4 plot zone boundaries — these MUST match the cross-section
-  // x-positions used below so they line up visually.
-  const innerWidth = width - padX * 2;
-  const wWall_ = Math.max(34, innerWidth * 0.08);
-  const wGas_ = (innerWidth - wWall_) * 0.50;
-  const wExt_ = (innerWidth - wWall_) * 0.50;
-  const xGas_ = padX;
-  const xWall_ = xGas_ + wGas_;
-  const xExt_ = xWall_ + wWall_;
-
-  // Profile polyline: gas-film drop near wall, linear through wall, ambient
-  // film drop near outer face.
-  const filmFrac = 0.18;          // boundary-layer thickness as fraction of zone width
-  const segments = [
+  // T(x) zone boundaries — must match the cross-section x-positions.
+  // When insulated, the polyline gains a 5th leg through the insulation.
+  const xGas_ = xGas;
+  const xWall_ = xWall;
+  const xInsul_ = xInsul;
+  const xExt_ = xExt;
+  const wGas_ = wGas;
+  const wExt_ = wExt;
+  const filmFrac = 0.18;
+  const segments = S.insulated ? [
+    [xGas_,                              S.T_gas],
+    [xWall_ - wGas_ * filmFrac,          S.T_gas],
+    [xWall_,                             S.T_inner],
+    [xInsul_,                            S.T_metalOuter],
+    [xExt_,                              S.T_outer],         // = T_insulOuter
+    [xExt_ + wExt_ * filmFrac,           S.T_ext],
+    [xExt_ + wExt_,                      S.T_ext],
+  ] : [
     [xGas_,                              S.T_gas],
     [xWall_ - wGas_ * filmFrac,          S.T_gas],
     [xWall_,                             S.T_inner],
@@ -562,9 +620,7 @@ function drawThermalEvidence(ctx, width, height, now) {
   ctx.fillRect(xGas, wallY, wGas, wallH);
 
   // ── Wall zone (steel) ──────────────────────────────────────────────────
-  const wallGrad = ctx.createLinearGradient(xWall, 0, xExt, 0);
-  // Through-wall gradient is tiny in reality (~1 K). Show as a near-uniform
-  // dark band with two faint hatch marks to indicate "structural steel".
+  const wallGrad = ctx.createLinearGradient(xWall, 0, xInsul, 0);
   wallGrad.addColorStop(0, "#3a3f4a");
   wallGrad.addColorStop(1, "#2c313b");
   ctx.fillStyle = wallGrad;
@@ -577,6 +633,29 @@ function drawThermalEvidence(ctx, width, height, now) {
     ctx.moveTo(xWall + 3, hy);
     ctx.lineTo(xWall + wWall - 3, hy);
     ctx.stroke();
+  }
+
+  // ── Insulation zone (40 mm ceramic blanket; visible only when toggled) ─
+  if (S.insulated) {
+    const insulGrad = ctx.createLinearGradient(xInsul, 0, xExt, 0);
+    insulGrad.addColorStop(0, "#8b4513");
+    insulGrad.addColorStop(0.5, "#a0522d");
+    insulGrad.addColorStop(1, "#cd853f");
+    ctx.fillStyle = insulGrad;
+    ctx.fillRect(xInsul, wallY, wInsul, wallH);
+    // Cross-hatch fibre texture so it reads as insulation, not metal.
+    ctx.strokeStyle = "rgba(255, 230, 200, 0.18)";
+    ctx.lineWidth = 0.8;
+    for (let i = 0; i < 8; i++) {
+      const xx = xInsul + 4 + i * ((wInsul - 8) / 7);
+      ctx.beginPath();
+      ctx.moveTo(xx, wallY + 4);
+      ctx.lineTo(xx, wallY + wallH - 4);
+      ctx.stroke();
+    }
+    stageLabel(ctx, "INSUL", xInsul + 4, wallY + 14, "#ffe6c8");
+    stageLabel(ctx, `${(S.t_insul * 1000).toFixed(0)}mm k=${S.k_insul}`,
+               xInsul + 4, wallY + wallH - 8, "#ffe6c8");
   }
 
   // ── External air zone ──────────────────────────────────────────────────
@@ -686,33 +765,40 @@ function drawThermalEvidence(ctx, width, height, now) {
     padX, barsY - 12, "#82a4b4");
 
   // Bars are drawn horizontally with shared baseline; lengths scaled to R_max
-  const R_max = Math.max(S.R_gas, S.R_wall, S.R_ext);
+  const barEntries = S.insulated
+    ? [
+        ["R_gas",   S.R_gas,   "rgba(208, 98, 44, 0.85)"],
+        ["R_wall",  S.R_wall,  "rgba(180, 188, 198, 0.85)"],
+        ["R_insul", S.R_insul, "rgba(205, 133, 63, 0.85)"],
+        ["R_ext",   S.R_ext,   "rgba(37, 99, 168, 0.85)"],
+      ]
+    : [
+        ["R_gas",   S.R_gas,   "rgba(208, 98, 44, 0.85)"],
+        ["R_wall",  S.R_wall,  "rgba(180, 188, 198, 0.85)"],
+        ["R_ext",   S.R_ext,   "rgba(37, 99, 168, 0.85)"],
+      ];
+  const R_max = Math.max(...barEntries.map((e) => e[1]));
   const barXBase = padX + 70;
   const barMaxW = width - barXBase - padX;
-  const barRowH = barsH / 3;
+  const barRowH = barsH / barEntries.length;
 
   const drawBar = (row, label, R, color) => {
     const y = barsY + row * barRowH + 4;
     const barH = barRowH - 8;
     const barW = (R / R_max) * barMaxW;
-    // label
     ctx.save();
     ctx.fillStyle = "rgba(220, 226, 234, 0.88)";
     ctx.font = "600 11px 'JetBrains Mono', ui-monospace, monospace";
     ctx.fillText(label, padX, y + barH * 0.65);
-    // bar
     ctx.fillStyle = color;
     ctx.fillRect(barXBase, y, Math.max(2, barW), barH);
-    // value
     ctx.fillStyle = "rgba(220, 226, 234, 0.85)";
     ctx.textAlign = "right";
     ctx.fillText(R.toFixed(4), width - padX, y + barH * 0.65);
     ctx.textAlign = "left";
     ctx.restore();
   };
-  drawBar(0, "R_gas", S.R_gas, "rgba(208, 98, 44, 0.85)");
-  drawBar(1, "R_wall", S.R_wall, "rgba(180, 188, 198, 0.85)");
-  drawBar(2, "R_ext", S.R_ext, "rgba(37, 99, 168, 0.85)");
+  barEntries.forEach((entry, i) => drawBar(i, entry[0], entry[1], entry[2]));
 
   // ── Bi banner ──────────────────────────────────────────────────────────
   const bannerY = barsY + barsH + 14;
@@ -1045,14 +1131,17 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   const innerBot = sankeyY + sankeyH - 6;
   const innerH = innerBot - innerTop;
 
-  // MW totals — the diagram scale is set by the largest column total so the
-  // sink (PROCESS) fills nearly the full vertical room of the band.
+  // MW totals — drawn from the live merit-order dispatch so the diagram
+  // matches the controls panel exactly. Previously this used an arbitrary
+  // "52% of net heat" rule that ignored Electric Boiler and process-T.
   const gridMW = Math.max(0.01, metrics.electricInput);
   const fuelMW = Math.max(0.01, metrics.gasInput);
   const sourceTotal = gridMW + fuelMW;
-  const heatPumpMW = controls.heatPump ? Math.max(0, metrics.heatDemand * 0.52) : 0;
-  const gasBoilerMW = Math.max(0, metrics.heatDemand - heatPumpMW);
-  const sinkTotal = Math.max(0.01, heatPumpMW + gasBoilerMW);
+  const heatPumpMW       = Math.max(0, metrics.dispatch.heatPumpHeat);
+  const electricBoilerMW = Math.max(0, metrics.dispatch.electricBoilerHeat);
+  const gasBoilerMW      = Math.max(0, metrics.dispatch.gasBoilerHeat);
+  const recoveredMW      = Math.max(0, metrics.recovered);
+  const sinkTotal = Math.max(0.01, heatPumpMW + electricBoilerMW + gasBoilerMW);
   // MW-to-pixels — scale uses the larger of the two totals so nothing
   // overflows the band, then leave a small margin so converters can slot in.
   const mwScale = (innerH * 0.92) / Math.max(sourceTotal, sinkTotal);
@@ -1160,19 +1249,34 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   ctx.fillText("202 gCO₂/kWh", srcColX, fuelY + fuelH + 12);
   ctx.restore();
 
-  // ── Converter bars (middle column) — HP top, Gas Boiler below ─────────
+  // ── Converter bars (middle column) — HP top, EB middle, Gas Boiler bottom
   const hpH = heatPumpMW * mwScale;
+  const ebH = electricBoilerMW * mwScale;
   const gbH = gasBoilerMW * mwScale;
-  const convGap = 10;
-  const convStackH = hpH + gbH + convGap;
+  const convGap = 8;
+  const convStackH = hpH + (electricBoilerMW > 0.01 ? ebH + convGap : 0)
+                   + (gasBoilerMW > 0.01 ? gbH + convGap : 0);
   const convStartY = innerTop + (innerH - convStackH) / 2;
-  const hpY = convStartY;
-  const gbY = hpY + hpH + convGap;
+  let convCursor = convStartY;
+  const hpY = convCursor;
   if (heatPumpMW > 0.01) {
-    drawBar(convColX, hpY, Math.max(18, hpH), "#65d6c9", "HEAT PUMP", "COP 3.25");
+    drawBar(convColX, hpY, Math.max(18, hpH), "#65d6c9",
+      "HEAT PUMP",
+      `COP ${metrics.copHP.toFixed(2)} · T${(controls.processT ?? 80)}°C`);
+    convCursor += hpH + convGap;
   }
+  const ebY = convCursor;
+  if (electricBoilerMW > 0.01) {
+    drawBar(convColX, ebY, Math.max(18, ebH), "#ffd166",
+      isSwedish() ? "EL-PANNA" : "ELECTRIC BOILER",
+      `η ${ETA_ELECTRIC_BOILER.toFixed(2)}`);
+    convCursor += ebH + convGap;
+  }
+  const gbY = convCursor;
   if (gasBoilerMW > 0.01) {
-    drawBar(convColX, gbY, Math.max(18, gbH), "#d0622c", "GAS BOILER", "η 0.90");
+    drawBar(convColX, gbY, Math.max(18, gbH), "#d0622c",
+      isSwedish() ? "GASPANNA" : "GAS BOILER",
+      `η ${ETA_GAS_BOILER.toFixed(2)}`);
   }
 
   // ── Sink bar (right column) — PROCESS ─────────────────────────────────
@@ -1188,37 +1292,98 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   ctx.fillText(`${(10 * controls.load / 100).toFixed(1)} u/h`, sinkColX + 6, sinkY + 38);
   ctx.restore();
 
-  // ── Ribbons (filled, color-graded, no pill artifacts) ──────────────────
-  // Source-side: split GRID between HP-input and (negligible) and FUEL→GB.
-  // For visual clarity, route all GRID into HP (matches model intent — HP
-  // is electric; E-Boiler off in this scene) and all FUEL into GB.
+  // ── Ribbons (filled, color-graded) ─────────────────────────────────────
+  // GRID splits between HP and EB (both electric); FUEL feeds GB only.
+  const gridSplitForHP = (heatPumpMW > 0.01)
+    ? (heatPumpMW / metrics.copHP) / Math.max(gridMW, 0.001) : 0;
+  const gridSplitForEB = (electricBoilerMW > 0.01)
+    ? (electricBoilerMW / ETA_ELECTRIC_BOILER) / Math.max(gridMW, 0.001) : 0;
+  const gridHPSlice = gridH * Math.min(1, gridSplitForHP);
+  const gridEBSlice = gridH * Math.min(1 - Math.min(1, gridSplitForHP), gridSplitForEB);
+  const gridY_HP = gridY;
+  const gridY_EB = gridY + gridHPSlice;
   if (heatPumpMW > 0.01 && hpH > 0.5) {
-    // GRID → HP
     drawRibbon(
-      srcColX + colW, gridY, gridY + gridH,
-      convColX,       hpY,   hpY + hpH,
+      srcColX + colW, gridY_HP, gridY_HP + gridHPSlice,
+      convColX,       hpY,      hpY + hpH,
       "#65d6c9"
     );
-    // HP → PROCESS (occupies top slice of sink)
     drawRibbon(
       convColX + colW, hpY,   hpY + hpH,
       sinkColX,        sinkY, sinkY + hpH,
       "#65d6c9"
     );
   }
+  if (electricBoilerMW > 0.01 && ebH > 0.5) {
+    drawRibbon(
+      srcColX + colW, gridY_EB, gridY_EB + gridEBSlice,
+      convColX,       ebY,      ebY + ebH,
+      "#ffd166"
+    );
+    drawRibbon(
+      convColX + colW, ebY,           ebY + ebH,
+      sinkColX,        sinkY + hpH,   sinkY + hpH + ebH,
+      "#ffd166"
+    );
+  }
   if (gasBoilerMW > 0.01 && gbH > 0.5) {
-    // FUEL → GAS BOILER
     drawRibbon(
       srcColX + colW, fuelY, fuelY + fuelH,
       convColX,       gbY,   gbY + gbH,
       "#d0622c"
     );
-    // GAS BOILER → PROCESS (occupies bottom slice of sink)
     drawRibbon(
-      convColX + colW, gbY,            gbY + gbH,
-      sinkColX,        sinkY + hpH,    sinkY + sinkH,
+      convColX + colW, gbY,                 gbY + gbH,
+      sinkColX,        sinkY + hpH + ebH,   sinkY + sinkH,
       "#d0622c"
     );
+  }
+
+  // ── HEAT RECOVERY back-arrow ribbon (literal arrow PROCESS → input) ────
+  // When recovery is enabled, a translucent ribbon arches from the PROCESS
+  // sink back down to the demand side, width proportional to recovered MW.
+  // The visible loop is the "−Q_HR" the controller is offsetting from gross
+  // heat demand. Vanishes entirely when toggle is off.
+  if (controls.recovery && recoveredMW > 0.01) {
+    const recH = Math.max(6, recoveredMW * mwScale);
+    const arcStartX = sinkColX + colW * 0.5;
+    const arcEndX   = srcColX;
+    const arcStartY = sinkY + sinkH + 6;
+    const arcMidY   = arcStartY + 28;
+    const arcEndY   = innerBot - 6;
+    ctx.save();
+    ctx.strokeStyle = "rgba(155, 214, 159, 0.78)";
+    ctx.lineWidth = Math.max(2, recH * 0.5);
+    ctx.lineCap = "round";
+    ctx.setLineDash([8, 8]);
+    ctx.lineDashOffset = -(now * 0.10) % 32;
+    ctx.beginPath();
+    ctx.moveTo(arcStartX, arcStartY);
+    ctx.bezierCurveTo(
+      arcStartX, arcMidY,
+      arcEndX + 80, arcEndY,
+      arcEndX + 10, arcEndY
+    );
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // Arrowhead at the receiving end
+    ctx.fillStyle = "rgba(155, 214, 159, 0.95)";
+    ctx.beginPath();
+    ctx.moveTo(arcEndX + 10, arcEndY - 6);
+    ctx.lineTo(arcEndX,      arcEndY);
+    ctx.lineTo(arcEndX + 10, arcEndY + 6);
+    ctx.closePath();
+    ctx.fill();
+    // Label
+    ctx.fillStyle = "rgba(155, 214, 159, 0.95)";
+    ctx.font = "700 10px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.fillText(
+      isSwedish()
+        ? `VÄRMEÅTERV.  −${recoveredMW.toFixed(2)} MW  (η_HR ${(metrics.eta_hr * 100).toFixed(0)}%)`
+        : `HEAT RECOVERY  −${recoveredMW.toFixed(2)} MW  (η_HR ${(metrics.eta_hr * 100).toFixed(0)}%)`,
+      arcEndX + 16, arcEndY - 8
+    );
+    ctx.restore();
   }
 
   // ── EnPI regression scatter chart (the analytical anchor) ─────────────
@@ -2065,6 +2230,39 @@ export async function init(ctx) {
       updateThermalMetrics();
     });
   });
+  // Wire the insulation toggle.
+  document.querySelectorAll("[data-thermal-insul]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.body.dataset.thermalInsulation = btn.dataset.thermalInsul;
+      document.querySelectorAll("[data-thermal-insul]").forEach((b) => {
+        const active = b.dataset.thermalInsul === btn.dataset.thermalInsul;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+      updateThermalMetrics();
+    });
+  });
+  // Wire the case selector (Case A / B / C — thesis back-pressure conditions).
+  document.querySelectorAll("[data-thermal-case]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.body.dataset.thermalCase = btn.dataset.thermalCase;
+      document.querySelectorAll("[data-thermal-case]").forEach((b) => {
+        const active = b.dataset.thermalCase === btn.dataset.thermalCase;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+      updateThermalMetrics();
+    });
+  });
+  // Wire the inlet T₀ slider.
+  document.querySelectorAll("[data-thermal-input='T0']").forEach((input) => {
+    input.addEventListener("input", () => {
+      document.body.dataset.thermalT0 = input.value;
+      const out = document.querySelector("[data-thermal-output='T0']");
+      if (out) out.textContent = `${input.value} K`;
+      updateThermalMetrics();
+    });
+  });
 
   function updateEnergyMetrics(now) {
     const t = energyTelemetry(now);
@@ -2152,7 +2350,14 @@ export async function init(ctx) {
     renderCtx.clearRect(0, 0, cssW, cssH);
     frameBuf = null;
     worker.postMessage({ type: "mode", mode, reducedMotion: ctx.reducedMotion });
-    if (ctx.reducedMotion) step();
+    // Force the render loop to tick at least once after the mode swap.
+    // Without this, if the previous frame's rAF was suppressed (document.hidden
+    // or scroll-pause), the loop never wakes back up after switching tracks.
+    if (ctx.reducedMotion) {
+      step();
+    } else {
+      requestAnimationFrame(scheduleStep);
+    }
   });
   const offTheme = ctx.bus.on("motion:theme-change", ({ theme: t }) => {
     theme = t === "light" ? "light" : "dark";

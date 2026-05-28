@@ -107,3 +107,46 @@ export function depositResistanceShare(depositResistance, totalResistance) {
   if (totalResistance <= 0) return 0;
   return depositResistance / totalResistance;
 }
+
+/**
+ * 4-layer thermal-resistance circuit: gas → metal wall → insulation → ambient.
+ *
+ * eq:  R_gas   = 1 / h_internal
+ * eq:  R_wall  = t_wall / k_wall
+ * eq:  R_insul = t_insul / k_insul
+ * eq:  R_ext   = 1 / h_external
+ * eq:  q       = (T_hot - T_cold) / (R_gas + R_wall + R_insul + R_ext)
+ *
+ * Used by the Thermal lens when the insulation toggle is on. The thesis
+ * insulated reference simulations at Case C used a wrapped ceramic blanket
+ * (TRITA-ITM-EX 2026:14, Sec 4.x); we model that as a series-added layer.
+ */
+export function thermalResistanceCircuitInsulated({
+  T_hot,
+  T_cold,
+  h_internal,
+  wallThicknessM,
+  wallConductivity,
+  insulationThicknessM,
+  insulationConductivity,
+  h_external,
+}) {
+  const R_gas   = 1 / h_internal;
+  const R_wall  = wallThicknessM / wallConductivity;
+  const R_insul = insulationThicknessM / insulationConductivity;
+  const R_ext   = 1 / h_external;
+  const R_total = R_gas + R_wall + R_insul + R_ext;
+  const q       = (T_hot - T_cold) / R_total;          // W/m²
+  const T_inner = T_hot - q * R_gas;                   // gas-side wall
+  const T_metalOuter = T_inner - q * R_wall;           // steel ↔ insulation
+  const T_insulOuter = T_metalOuter - q * R_insul;     // insulation ↔ air
+  return {
+    R_gas, R_wall, R_insul, R_ext, R_total,
+    q,
+    T_inner, T_metalOuter, T_insulOuter,
+    f_gas:   R_gas   / R_total,
+    f_wall:  R_wall  / R_total,
+    f_insul: R_insul / R_total,
+    f_ext:   R_ext   / R_total,
+  };
+}
