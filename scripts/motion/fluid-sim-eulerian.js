@@ -175,6 +175,27 @@ function thermalTelemetry() {
     T_outer = cht.T_outer;
     BiCalc = biotNumber(REDUCER_H_EXT, REDUCER_T_WALL_M, REDUCER_K_WALL);
   }
+  // New rigour readouts:
+  // y+ = ρ·u_τ·Δy/μ;  u_τ = √(τ_w/ρ);  τ_w = 0.5·ρ·V²·C_f;  C_f ≈ 0.046·Re^(−0.2)
+  // Δy = 0.05 mm typical first-cell size in the thesis' near-wall mesh.
+  const p0_pa = REDUCER_P0_PA;
+  const p_static_pa = pRatio * p0_pa;
+  const rho_throat = p_static_pa / (287.05 * T_throat);
+  const V_throat = throatMach * Math.sqrt(GAMMA_AIR * 287.05 * T_throat);
+  const Cf = 0.046 * Math.pow(Re, -0.2);
+  const tau_wall = 0.5 * rho_throat * V_throat * V_throat * Cf;
+  const u_tau = Math.sqrt(tau_wall / rho_throat);
+  const delta_y_first = 5e-5;                 // 50 µm — typical thesis first cell
+  const yPlus = (rho_throat * u_tau * delta_y_first) / 3.30e-5;
+  // Nusselt at throat:  Nu = h_int · D_h / k_air ;  k_air(T) ≈ 0.0454 W/mK at 561 K
+  const k_air_throat = 0.0454;
+  const Nu = (REDUCER_H_GAS * REDUCER_D_HYDRAULIC) / k_air_throat;
+  // Pressure-loss coefficient K = (p0_in − p0_out) / (½·ρ·V²)
+  // Thesis Δp0 reported per case; approximate from the contraction loss model.
+  const Cc = 0.62;                            // sharp-edged contraction
+  const K_loss = ctrl.geometry === "legacy"
+    ? (1 / Cc - 1) ** 2                       // Borda-Carnot per step × 2 steps
+    : 0.04 + 0.02 * (throatMach - 0.5);       // smooth-quintic, low frictional
   return {
     geometry: ctrl.geometry,
     insulation: ctrl.insulation,
@@ -190,6 +211,10 @@ function thermalTelemetry() {
     wallOuter: `${T_outer.toFixed(1)} K`,
     adiabaticWall: `${T_aw.toFixed(1)} K`,
     reynolds: `Re ${Re.toExponential(2)}`,
+    // New rigour readouts:
+    yPlus: `y⁺ ${yPlus.toFixed(1)}  (target <1 SST)`,
+    nusselt: `Nu ${Nu.toFixed(0)}  (Dittus-Boelter check)`,
+    lossK: `K ${(K_loss * 100).toFixed(1)}%  (${ctrl.geometry === "legacy" ? "Borda-Carnot ×2" : "smooth contraction"})`,
     _cht: cht,
   };
 }
@@ -252,6 +277,33 @@ function energyTelemetry(now) {
   const marginalGCO2 = marginal.label.startsWith("Heat pump")
     ? ENERGY_GRID_INTENSITY / ENERGY_HP_COP_THERMAL * 1000   // gCO₂/MWh_th
     : ENERGY_CHP_HEAT_FACTOR * 1000;
+  // ── Cumulative CO₂ saved vs gas-only baseline (24 h integration) ──────
+  // Gas-only baseline: every MWh_th from a gas boiler at 90 % η ⇒ ~220 kg CO₂/MWh_th.
+  // Active strategy: weighted by hourly marginal source.
+  const GAS_ONLY_INTENSITY = 224;        // kgCO₂/MWh_th (LHV NG / η_GB)
+  let co2SavedKgPerDay = 0;
+  for (let i = 0; i < 24; i += 1) {
+    const m = classifyMarginal(PRO2_PRICE[i], ENERGY_HP_COP_THERMAL);
+    const intensity_kg = m.label.startsWith("Heat pump")
+      ? ENERGY_GRID_INTENSITY / ENERGY_HP_COP_THERMAL
+      : ENERGY_CHP_HEAT_FACTOR;
+    co2SavedKgPerDay += (GAS_ONLY_INTENSITY - intensity_kg) * PRO2_DEMAND_MW[i];
+  }
+  // ── Spot-market arbitrage potential ──────────────────────────────────
+  // Best (lowest 6 h average) vs worst (highest 6 h average) price spread,
+  // × TES capacity × round-trip efficiency × cycles/day.
+  const sortedPrices = [...PRO2_PRICE].sort((a, b) => a - b);
+  const lowAvg = sortedPrices.slice(0, 6).reduce((a, b) => a + b, 0) / 6;
+  const highAvg = sortedPrices.slice(-6).reduce((a, b) => a + b, 0) / 6;
+  const arbSEKperDay =
+    (highAvg - lowAvg) * ENERGY_TES_CAPACITY_MWH * ETA_TES_RT;
+  // ── Carnot benchmark HP COP at typical DH supply / return ───────────
+  // DH supply = 80 °C, return = 50 °C, ambient source = 5 °C.
+  // COP_Carnot = T_sink / (T_sink − T_source); real with η_2nd = 0.55.
+  const T_sink_K = 80 + 273.15;
+  const T_source_K = 5 + 273.15;
+  const COP_carnot = T_sink_K / (T_sink_K - T_source_K);
+  const COP_real = 0.55 * COP_carnot;
   return {
     hour: `${String(hour + 1).padStart(2, "0")}:00`,
     demand: `${demand_MW.toFixed(2)} MW`,
@@ -265,6 +317,10 @@ function energyTelemetry(now) {
     priceDeviation: `${price.toFixed(0)} (avg ${ENERGY_AVG_PRICE.toFixed(0)}, ${((price / ENERGY_AVG_PRICE - 1) * 100).toFixed(1)}%)`,
     roundTrip: `η_RT ${(ETA_TES_RT * 100).toFixed(0)}%`,
     marginalCO2: `${(marginalGCO2 / 1000).toFixed(0)} kgCO₂/MWh_th`,
+    // New rigour readouts:
+    co2Saved: `${(co2SavedKgPerDay / 1000).toFixed(1)} tCO₂/day  (vs gas-only)`,
+    arbitrage: `${arbSEKperDay.toFixed(0)} SEK/day  (Δ${(highAvg - lowAvg).toFixed(0)}·E_TES·η_RT)`,
+    carnotHP: `COP_real ${COP_real.toFixed(2)}  (Carnot ${COP_carnot.toFixed(1)}, η_2nd=0.55)`,
   };
 }
 
@@ -374,6 +430,24 @@ function industrialModel(controls) {
     scopes,                            // {scope1, scope2}  gCO₂
     mac,                               // SEK/tCO₂  or NaN if no abatement
     primaryEnergyMW: primaryEnergy,
+    // ── New rigour outputs ───────────────────────────────────────────
+    // Carnot upper bound for an ideal HP at the same temperature lift.
+    carnotCopMax: (processT_C + 273.15) / (processT_C - T_SOURCE_AMBIENT_C),
+    // Exergy efficiency: useful heat exergy out / total exergy input.
+    //   ψ_heat = 1 - T_ambient/T_process   (Carnot fraction of heat at T)
+    //   exergy_in_elec = electricInput  (electricity = pure exergy)
+    //   exergy_in_gas  = gasInput · (1 - T_amb/T_flame),  T_flame ≈ 2100 K
+    //   exergy_out     = heatDemand · ψ_heat
+    exergyEff: (() => {
+      const T_amb_K = 293.15;
+      const psi_heat = Math.max(0, 1 - T_amb_K / (processT_C + 273.15));
+      const psi_gas  = Math.max(0, 1 - T_amb_K / 2100);
+      const exIn  = electricInput * 1.0 + gasInput * psi_gas;
+      const exOut = heatDemand * psi_heat;
+      return exIn > 0 ? exOut / exIn : 0;
+    })(),
+    // Cumulative tCO₂/year at current load (7200 h/y utilisation).
+    cumCO2Saved_t_per_yr: co2Avoided_t,
   };
 }
 
@@ -1662,25 +1736,54 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   const xExit = width * 0.54;
   const centreY = height * 0.49;
   const domain = nozzleDomainPath(xStart, xExit, centreY, height);
-  const plumeEnd = width - 15;
+  // ── Derived visual drivers from live metrics (every slider feeds these) ──
+  const P_c_MPa = metrics?.P_c_MPa || 10;
+  const T_c     = metrics?.T_c     || 3550;
+  const mDot    = metrics?.mDotTotal || 45;
+  const q_thr   = metrics?.heatFluxPeak || 60e6;
+  const T_w_max = metrics?.maxWallTemperature || 850;
+  const Me      = metrics?.exitMach || 2.76;
+  const coke_um = metrics?.cokeThicknessMicrons || 0;
+  const health  = (metrics?.healthIndex ?? 100) / 100;
+  // Plume length scales with √P_c (jet momentum thrust ∝ ṁ·V_e ∝ √P_c).
+  const plumeFracMax = 0.42;            // fraction of canvas dedicated to plume max
+  const plumeFracMin = 0.18;
+  const plumeFrac = plumeFracMin + (plumeFracMax - plumeFracMin) * Math.min(1, Math.sqrt(P_c_MPa / 30));
+  const plumeEnd = xExit + (width - xExit) * (plumeFrac / 0.42);
   const exitRadius = nozzlePlotRadius(1, height);
-  const shimmer = 0.82 + 0.12 * Math.sin(now * 0.002);
+  // Brightness of plume / chamber gas tracks T_c (CEA-derived).
+  const Tnorm = Math.max(0, Math.min(1, (T_c - 2800) / 800));   // 2800→0, 3600→1
+  const shimmer = (0.65 + 0.30 * Tnorm) + 0.10 * Math.sin(now * 0.002);
+  // Throat glow pulse — q_throat in MW/m² (real signal of failure-mode push).
+  const qNorm = Math.max(0, Math.min(1, q_thr / 1.2e8));        // 0→0, 120 MW→1
+  const throatPulse = qNorm * (0.55 + 0.30 * Math.sin(now * 0.012));
 
   stageLabel(ctx, isSwedish() ? "DE LAVAL / KYLKANAL / TERMISKT MOTSTÅND" : "DE LAVAL / COOLING CHANNEL / THERMAL RESISTANCE", 14, 19, "#82a4b4");
-  stageLabel(ctx, "MODEL: AREA-MACH + BARTZ + Rdep=t/k", 14, 33, "#82a4b4");
+  stageLabel(ctx, `P_c ${P_c_MPa.toFixed(1)} MPa  ·  T_c ${Math.round(T_c)} K  ·  ṁ ${mDot.toFixed(1)} kg/s  ·  Ma_e ${Me.toFixed(2)}`, 14, 33, "#65d6c9");
 
   // Gas temperature contours are clipped to the analytical de Laval domain.
-  // equation: A/A* = (1/M)[2/(gamma+1)(1 + (gamma-1)M^2/2)]^((gamma+1)/(2(gamma-1))).
+  // Brightness scales with chamber T_c — slider on O/F or P_c lights it up.
   ctx.save();
   ctx.clip(domain);
   const gasGradient = ctx.createLinearGradient(xStart, 0, xExit, 0);
-  gasGradient.addColorStop(0, "#fff1c7");
-  gasGradient.addColorStop(0.45, "#f6c85f");
+  // Cool side (chamber inlet) stays bright; supersonic side cools (Mach).
+  gasGradient.addColorStop(0,    `rgba(255,${Math.round(241 - 60*(1-Tnorm))},${Math.round(199 - 100*(1-Tnorm))},${shimmer})`);
+  gasGradient.addColorStop(0.45, `rgba(${246 - 40*(1-Tnorm)},${Math.round(200 - 40*(1-Tnorm))},95,${shimmer})`);
   gasGradient.addColorStop(0.72, "#d0622c");
   gasGradient.addColorStop(1, "#2563a8");
-  ctx.globalAlpha = shimmer;
+  ctx.globalAlpha = 1.0;
   ctx.fillStyle = gasGradient;
   ctx.fillRect(xStart, centreY - height * 0.3, xExit - xStart, height * 0.6);
+  // Throat glow ring — pulses when q_throat is high (engine being pushed)
+  if (throatPulse > 0.05) {
+    const throatX = xStart + (xExit - xStart) * 0.42;
+    const grad = ctx.createRadialGradient(throatX, centreY, 4, throatX, centreY, exitRadius * 2.2);
+    grad.addColorStop(0, `rgba(255, 241, 199, ${throatPulse * 0.95})`);
+    grad.addColorStop(0.5, `rgba(246, 200, 95, ${throatPulse * 0.55})`);
+    grad.addColorStop(1, "rgba(208, 98, 44, 0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(throatX - exitRadius * 2.2, centreY - exitRadius * 2.2, exitRadius * 4.4, exitRadius * 4.4);
+  }
   // Diverging-section gas contours — sped up 4× so the dashed acceleration
   // streaks visibly translate downstream (was 0.017+0.006 → 0.068+0.024).
   [0.28, 0.53, 0.77].forEach((fraction, index) => {
@@ -1693,30 +1796,30 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   });
   ctx.restore();
 
-  // Downstream exhaust: smooth expanding envelope + pressure-cell contours.
-  // The plume envelope itself wobbles slightly to read as live exhaust.
+  // Downstream exhaust — length scales with √P_c, brightness with T_c.
+  const plumeFlare = 1.0 + 0.4 * Math.min(1, (P_c_MPa - 5) / 25);
   const plumeWobble = Math.sin(now * 0.0042) * exitRadius * 0.10;
   const plume = new Path2D();
   plume.moveTo(xExit, centreY - exitRadius);
-  plume.bezierCurveTo(width * 0.64, centreY - exitRadius * 1.04 + plumeWobble, width * 0.83, centreY - exitRadius * 1.5 + plumeWobble * 0.6, plumeEnd, centreY - exitRadius * 1.65);
-  plume.lineTo(plumeEnd, centreY + exitRadius * 1.65);
-  plume.bezierCurveTo(width * 0.83, centreY + exitRadius * 1.5 - plumeWobble * 0.6, width * 0.64, centreY + exitRadius * 1.04 - plumeWobble, xExit, centreY + exitRadius);
+  plume.bezierCurveTo(width * 0.64, centreY - exitRadius * 1.04 + plumeWobble, width * 0.83, centreY - exitRadius * 1.5 * plumeFlare + plumeWobble * 0.6, plumeEnd, centreY - exitRadius * 1.65 * plumeFlare);
+  plume.lineTo(plumeEnd, centreY + exitRadius * 1.65 * plumeFlare);
+  plume.bezierCurveTo(width * 0.83, centreY + exitRadius * 1.5 * plumeFlare - plumeWobble * 0.6, width * 0.64, centreY + exitRadius * 1.04 - plumeWobble, xExit, centreY + exitRadius);
   plume.closePath();
+  // Hotter chamber → brighter / more yellow plume; cooler → more orange-red.
   const plumeGradient = ctx.createLinearGradient(xExit, 0, plumeEnd, 0);
-  plumeGradient.addColorStop(0, "rgba(208,98,44,0.85)");
-  plumeGradient.addColorStop(0.38, "rgba(246,200,95,0.58)");
+  plumeGradient.addColorStop(0, `rgba(${208 + 30*Tnorm},${98 + 60*Tnorm},${44 + 90*Tnorm},${0.65 + 0.30*Tnorm})`);
+  plumeGradient.addColorStop(0.38, `rgba(${246},${200 + 30*Tnorm},${95 + 60*Tnorm},${0.45 + 0.25*Tnorm})`);
   plumeGradient.addColorStop(1, "rgba(37,99,168,0.16)");
   ctx.fillStyle = plumeGradient;
   ctx.fill(plume);
   ctx.save();
   ctx.clip(plume);
-  // Expansion cells: ~8× faster phase (was 0.0024) + cell positions translate
-  // downstream over time so the shock-diamond pattern is obviously dynamic.
-  // equation: cells move at u_exit through the underexpanded plume.
+  // Shock-cell COUNT scales with exit Mach — higher Me → more cells.
+  const cellCount = Math.max(3, Math.min(7, Math.round(Me * 1.8)));
   const cellShift = (now * 0.00018) % 0.20;
-  for (let cell = 0; cell < 4; cell += 1) {
-    const x = xExit + (plumeEnd - xExit) * ((0.16 + cell * 0.2 + cellShift) % 1);
-    const half = exitRadius * (0.35 + cell * 0.12);
+  for (let cell = 0; cell < cellCount; cell += 1) {
+    const x = xExit + (plumeEnd - xExit) * ((0.16 + cell * (0.8 / cellCount) + cellShift) % 1);
+    const half = exitRadius * (0.35 + cell * 0.12) * plumeFlare;
     const alpha = 0.28 + 0.18 * Math.sin(now * 0.018 + cell);
     ctx.strokeStyle = `rgba(246,200,95,${alpha})`;
     ctx.lineWidth = 1.3;
@@ -1742,25 +1845,56 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   ctx.setLineDash([]);
   ctx.restore();
 
-  // Wall, methane coolant channel and deposit layer remain separate signals.
-  const deposit = Math.max(1.2, Math.min(6, (metrics?.cokeThicknessMicrons || 0) / 10));
+  // Wall heatmap: copper-brown when cool (≤900 K) → orange when hot (≥1100 K)
+  //               → glowing red at burnout (≥1170 K AMS 4500 limit).
+  const Twn = Math.max(0, Math.min(1, (T_w_max - 600) / 700));   // 600 K → 0, 1300 K → 1
+  const wallR = Math.round(196 + (255 - 196) * Twn);
+  const wallG = Math.round(142 - 80 * Twn);
+  const wallB = Math.round(86 - 60 * Twn);
+  const wallColor = `rgb(${wallR},${wallG},${wallB})`;
+  const burnoutHot = T_w_max > 1170;
+  const wallGlow = burnoutHot
+    ? `rgba(255,${80 + 40*Math.sin(now*0.008)},40,0.45)`
+    : `rgba(255,180,90,0)`;
+  // Deposit layer thickness — visible as soon as it exceeds 1 µm.
+  const deposit = Math.max(1.2, Math.min(8, coke_um / 8));
+  // Coolant flow speed scales with ṁ_coolant — higher flow = faster dashes.
+  const mDotCool = metrics?.mDotCoolant || 8;
+  const flowSpeed = 0.05 + 0.08 * Math.min(1, mDotCool / 20);
+  // Coolant brightness drops if health degrades (deposit choking channel).
+  const coolBrightness = 0.50 + 0.45 * health;
   [-1, 1].forEach((sign) => {
     const wall = nozzleWallPath(xStart, xExit, centreY, height, sign);
     const channel = nozzleWallPath(xStart, xExit, centreY, height, sign, 11);
-    ctx.strokeStyle = "#c48e56";
+    // Burnout glow (outer halo) — only when T_w > 1170 K
+    if (burnoutHot) {
+      ctx.save();
+      ctx.shadowColor = wallGlow;
+      ctx.shadowBlur = 8;
+      ctx.strokeStyle = wallGlow;
+      ctx.lineWidth = 10;
+      ctx.stroke(wall);
+      ctx.restore();
+    }
+    // Wall (colored by T_w,max)
+    ctx.strokeStyle = wallColor;
     ctx.lineWidth = 6;
     ctx.stroke(wall);
-    ctx.strokeStyle = "#65d6c9";
+    // Channel outline
+    ctx.strokeStyle = `rgba(101,214,201,${coolBrightness})`;
     ctx.lineWidth = 4;
     ctx.stroke(channel);
-    ctx.strokeStyle = "#382218";
-    ctx.lineWidth = deposit;
-    ctx.stroke(wall);
-    // Coolant flow animation — sped up 4× for visibility (was 0.024)
-    ctx.strokeStyle = "rgba(101,214,201,0.85)";
+    // Coke deposit on hot-side — opacity tracks resistance share.
+    if (deposit > 0.5) {
+      ctx.strokeStyle = `rgba(56,34,24,${0.55 + 0.40 * Math.min(1, coke_um / 60)})`;
+      ctx.lineWidth = deposit;
+      ctx.stroke(wall);
+    }
+    // Coolant flow dashes — speed = ṁ-driven, brightness = health-driven.
+    ctx.strokeStyle = `rgba(101,214,201,${coolBrightness})`;
     ctx.lineWidth = 1.4;
     ctx.setLineDash([9, 10]);
-    ctx.lineDashOffset = -(now * 0.10) % 38;
+    ctx.lineDashOffset = -(now * flowSpeed) % 38;
     ctx.stroke(channel);
     ctx.setLineDash([]);
   });
@@ -2241,11 +2375,13 @@ export async function init(ctx) {
       temperature: t.temperature,
       pressureDrop: t.pressureDrop,
       biot: `Bi ${t.biot}`,
-      // Extended readouts:
       heatFlux: t.heatFlux,
       wallOuter: t.wallOuter,
       adiabaticWall: t.adiabaticWall,
       reynolds: t.reynolds,
+      yPlus: t.yPlus,
+      nusselt: t.nusselt,
+      lossK: t.lossK,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-thermal-metric="${key}"]`);
@@ -2316,6 +2452,9 @@ export async function init(ctx) {
       priceDeviation: t.priceDeviation,
       roundTrip: t.roundTrip,
       marginalCO2: t.marginalCO2,
+      co2Saved: t.co2Saved,
+      arbitrage: t.arbitrage,
+      carnotHP: t.carnotHP,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-energy-metric="${key}"]`);
@@ -2351,6 +2490,9 @@ export async function init(ctx) {
       scopes: `S1 ${s1} / S2 ${s2} kgCO₂/h`,
       primary: `${metrics.primaryEnergyMW.toFixed(2)} MW (PEF 1.9)`,
       etaHR: `${(metrics.eta_hr * 100).toFixed(1)} %`,
+      carnotMax: `${metrics.carnotCopMax.toFixed(2)}  (η_2nd = ${(metrics.copHP / metrics.carnotCopMax).toFixed(2)})`,
+      exergyEff: `${(metrics.exergyEff * 100).toFixed(1)} %`,
+      cumCO2: `${(metrics.cumCO2Saved_t_per_yr).toFixed(0)} tCO₂/y`,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-industrial-metric="${key}"]`);
