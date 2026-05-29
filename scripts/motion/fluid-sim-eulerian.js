@@ -1885,6 +1885,133 @@ function jetColor(t) {
   return [last[1], last[2], last[3]];
 }
 
+// Field-temperature display mode for the Research lens: "static" (T drops as
+// the gas accelerates — the dramatic contour) or "total" (stagnation T, ~flat
+// — the teaching contrast). Toggled from the UI; read by the renderer.
+let researchTempMode = "static";
+
+// ── Realistic flame-plume particle system (persists across frames) ──────────
+const rkParticles = [];
+let rkLastNow = 0;
+let rkSprites = null;
+function getRkSprites() {
+  if (rkSprites) return rkSprites;
+  const make = (stops) => {
+    const c = document.createElement("canvas");
+    c.width = c.height = 64;
+    const g = c.getContext("2d");
+    const grd = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+    stops.forEach(([o, col]) => grd.addColorStop(o, col));
+    g.fillStyle = grd;
+    g.fillRect(0, 0, 64, 64);
+    return c;
+  };
+  rkSprites = {
+    // Warm glow: dense overlapping young particles sum (additive) to a white-
+    // hot core; sparse older ones read as dim amber — a real flame's gradient.
+    glow: make([
+      [0.0, "rgba(255,246,220,0.92)"],
+      [0.16, "rgba(255,214,140,0.72)"],
+      [0.5, "rgba(255,132,52,0.30)"],
+      [1.0, "rgba(255,70,24,0)"],
+    ]),
+    // Sooty smoke puff (translucent, billows and fades).
+    smoke: make([
+      [0.0, "rgba(150,144,138,0.55)"],
+      [0.6, "rgba(108,102,96,0.26)"],
+      [1.0, "rgba(74,70,66,0)"],
+    ]),
+  };
+  return rkSprites;
+}
+
+/**
+ * Layer a turbulent, particle-based flame plume over the contour plume:
+ * a hot additive-glow core near the exit, sooty smoke in the shear layer,
+ * and Kelvin–Helmholtz-style eddies — all driven by the live physics
+ * (mass flow → density/brightness, O/F richness → soot, altitude → less
+ * sooty afterburn toward vacuum).
+ */
+function renderResearchPlume(ctx, p) {
+  const reduced = document.documentElement.classList.contains("motion-reduced");
+  let dt = p.now - rkLastNow;
+  rkLastNow = p.now;
+  if (!(dt > 0)) dt = 16;
+  if (dt > 200) { rkParticles.length = 0; dt = 16; }   // returned from another scene
+  if (reduced) { rkParticles.length = 0; return; }
+  dt = Math.min(dt, 48);
+
+  const { xExit, centreY, exitRadius, wLip, plumeRight, now, width, height } = p;
+  const plumeLen = Math.max(40, plumeRight - xExit);
+  const baseSpeed = plumeLen / 900;                    // px/ms → crosses in ~0.9 s
+  const xCap = Math.min(plumeRight, width - 26);
+  // Denser, brighter flame at higher mass flow; soot grows with fuel richness
+  // and dies toward vacuum (no atmospheric afterburn up high).
+  const intensity = Math.max(0.3, Math.min(1.7, p.mDot / 45));
+  const smokeFrac = Math.max(0, Math.min(0.7, (0.22 + 0.5 * p.richness) * (1 - p.altKm / 30)));
+  const emit = Math.round((dt / 16) * 7 * intensity);
+  for (let i = 0; i < emit && rkParticles.length < 440; i += 1) {
+    const r = Math.random() * 2 - 1;
+    const edge = Math.abs(r) > 0.55;
+    const isSmoke = edge && Math.random() < smokeFrac;
+    rkParticles.push({
+      x: xExit + Math.random() * 4,
+      y: centreY + r * wLip * 0.85,
+      vx: baseSpeed * (0.7 + 0.5 * Math.random()),
+      vy: r * baseSpeed * 0.16 + (Math.random() - 0.5) * baseSpeed * 0.14,
+      age: 0,
+      life: isSmoke ? 900 + Math.random() * 950 : 340 + Math.random() * 420,
+      size: isSmoke ? exitRadius * (0.5 + Math.random() * 0.55) : exitRadius * (0.15 + Math.random() * 0.2),
+      seed: Math.random() * 6.283,
+      kind: isSmoke ? "smoke" : (Math.random() < 0.12 ? "spark" : "flame"),
+    });
+  }
+
+  const sprites = getRkSprites();
+  const turb = baseSpeed * 0.5;
+  // Pass 0: advance physics + draw smoke (behind). Pass 1: additive flame.
+  for (let pass = 0; pass < 2; pass += 1) {
+    ctx.save();
+    ctx.globalCompositeOperation = pass === 0 ? "source-over" : "lighter";
+    for (let k = rkParticles.length - 1; k >= 0; k -= 1) {
+      const q = rkParticles[k];
+      if (pass === 0) {
+        const downstream = (q.x - xExit) / plumeLen;
+        const shear = (q.y - centreY) / Math.max(6, exitRadius);
+        // Turbulent shear (stronger away from the axis) + a second curl layer.
+        q.vy += Math.sin(q.x * 0.05 + now * 0.005 + q.seed) * turb * 0.03 * (0.4 + Math.abs(shear));
+        q.vy += Math.cos(q.x * 0.11 - now * 0.003 + q.seed * 1.7) * turb * 0.018;
+        q.vx += Math.sin(q.y * 0.08 + now * 0.004) * turb * 0.01;
+        q.vy += Math.sign(q.y - centreY || 1) * baseSpeed * 0.02 * downstream;   // jet spreading
+        q.x += q.vx * dt;
+        q.y += q.vy * dt;
+        q.vx *= 0.9985;
+        q.age += dt;
+        if (q.kind === "smoke") q.size += dt * 0.02;
+        if (q.age > q.life || q.x > xCap || q.y < 4 || q.y > height - 4) {
+          rkParticles.splice(k, 1);
+          continue;
+        }
+      }
+      const lifeT = q.age / q.life;
+      if (q.kind === "smoke") {
+        if (pass !== 0) continue;
+        const a = Math.sin(Math.min(1, lifeT) * Math.PI) * 0.16;
+        const r = q.size * (1 + lifeT * 1.5);
+        ctx.globalAlpha = a;
+        ctx.drawImage(sprites.smoke, q.x - r, q.y - r, r * 2, r * 2);
+      } else {
+        if (pass !== 1) continue;
+        const a = (1 - lifeT) * (q.kind === "spark" ? 0.7 : 0.32);
+        const r = q.size * (q.kind === "spark" ? 0.6 : 1) * (1 + lifeT * 0.6);
+        ctx.globalAlpha = Math.max(0, a);
+        ctx.drawImage(sprites.glow, q.x - r, q.y - r, r * 2, r * 2);
+      }
+    }
+    ctx.restore();
+  }
+}
+
 function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   stageBackground(ctx, width, height);
   const xStart = 14;
@@ -1933,7 +2060,13 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   const machAtFrac = (f) => (f <= throatFrac)
     ? 0.22 + (1 - 0.22) * (f / throatFrac)
     : 1 + (Me - 1) * ((f - throatFrac) / (1 - throatFrac));
-  const gasTempAtFrac = (f) => T_c / (1 + ((gam - 1) / 2) * machAtFrac(f) ** 2);
+  // STATIC mode: T falls as the gas accelerates, T = T0/(1+(γ-1)/2·M²).
+  // TOTAL mode: stagnation temperature is conserved → the field is ~flat at T_c.
+  // (Same total energy everywhere; static mode shows it converted to kinetic.)
+  const totalMode = researchTempMode === "total";
+  const gasTempAtFrac = (f) => totalMode
+    ? T_c
+    : T_c / (1 + ((gam - 1) / 2) * machAtFrac(f) ** 2);
 
   stageLabel(ctx, isSwedish() ? "DE LAVAL · REGENKYLD DYSA" : "DE LAVAL · REGEN-COOLED NOZZLE", 14, 19, "#82a4b4");
 
@@ -1973,6 +2106,27 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.stroke(nozzleWallPath(xStart, xExit, centreY, height, -1, 0, fraction));
     ctx.stroke(nozzleWallPath(xStart, xExit, centreY, height, 1, 0, fraction));
   });
+  // Isotherm contour lines at each temperature-band boundary, clipped to the
+  // nozzle so they read as Fluent-style contour lines. (Static mode only — the
+  // total-temperature field is flat and therefore has no isotherms.)
+  if (!totalMode) {
+    ctx.setLineDash([]);
+    ctx.strokeStyle = "rgba(6,12,18,0.5)";
+    ctx.lineWidth = 1;
+    let prevLvl = null;
+    for (let i = 0; i <= 140; i += 1) {
+      const f = i / 140;
+      const lvl = Math.round(((gasTempAtFrac(f) - T_scaleMin) / (T_scaleMax - T_scaleMin)) * NLEVELS);
+      if (prevLvl !== null && lvl !== prevLvl) {
+        const x = xStart + (xExit - xStart) * f;
+        ctx.beginPath();
+        ctx.moveTo(x, centreY - height * 0.3);
+        ctx.lineTo(x, centreY + height * 0.3);
+        ctx.stroke();
+      }
+      prevLvl = lvl;
+    }
+  }
   ctx.restore();
 
   // ── Downstream exhaust — morphs with ALTITUDE (the showpiece) ────────
@@ -2020,7 +2174,11 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   //   downstream — the cold far-field a temperature contour should show.
   //   Opacity tapers so the jet dissolves into the background like a real plot.
   const T_ambK = 250;
-  const plumeTempAt = (s) => T_ambK + (exitT - T_ambK) * Math.exp(-2.0 * s);
+  // In total mode the near-plume stays hot (T_c) and persists further before
+  // mixing dilutes it; in static mode it starts from the cooler exit value.
+  const plumeStartT = totalMode ? T_c : exitT;
+  const plumeDecay  = totalMode ? 1.3 : 2.0;
+  const plumeTempAt = (s) => T_ambK + (plumeStartT - T_ambK) * Math.exp(-plumeDecay * s);
   const plumeGradient = ctx.createLinearGradient(xExit, 0, plumeEnd, 0);
   const NSP = 36;
   for (let i = 0; i <= NSP; i += 1) {
@@ -2073,6 +2231,17 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.fill();
   }
   ctx.restore();
+
+  // ── Realistic flame plume: turbulent particles, sooty smoke & shear eddies,
+  //    layered over the contour base and driven by the live physics. ─────────
+  {
+    const OFv = metrics?.OF ?? 3.6;
+    renderResearchPlume(ctx, {
+      xExit, centreY, exitRadius, wLip, plumeRight, now, width, height,
+      mDot, altKm, separated,
+      richness: Math.max(0, Math.min(1, (3.7 - OFv) / 2.2)),
+    });
+  }
 
   // Separation shocks at the lip (overexpanded · separated).
   if (separated) {
@@ -2161,7 +2330,7 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.textAlign = "left";
     ctx.fillText(`${Math.round(T_scaleMin)}`, cbX, cbY + cbH + 9);
     ctx.textAlign = "center";
-    ctx.fillText("STATIC TEMP [K]", cbX + cbW / 2, cbY - 3);
+    ctx.fillText(totalMode ? "TOTAL TEMP T₀ [K]" : "STATIC TEMP [K]", cbX + cbW / 2, cbY - 3);
     ctx.textAlign = "right";
     ctx.fillText(`${Math.round(T_scaleMax)}`, cbX2, cbY + cbH + 9);
     ctx.textAlign = "left";
@@ -2850,6 +3019,17 @@ export async function init(ctx) {
         if (state === "active") { stopLaunch(); }
         else if (state === "done") { stopLaunch(); setAltitude(0); }
         else { startLaunch(); }
+      });
+    }
+
+    // ── Static ⇄ Total temperature field toggle (render-only) ────────────
+    const tempBtn = document.querySelector("[data-research-tempmode]");
+    if (tempBtn) {
+      tempBtn.addEventListener("click", () => {
+        researchTempMode = researchTempMode === "static" ? "total" : "static";
+        const total = researchTempMode === "total";
+        tempBtn.innerHTML = total ? "Field: Total&nbsp;T₀" : "Field: Static&nbsp;T";
+        tempBtn.setAttribute("aria-pressed", total ? "true" : "false");
       });
     }
   };
