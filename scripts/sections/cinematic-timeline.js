@@ -9,7 +9,7 @@
 const MILESTONES = [
   { key: "qburst", years: "2021-23", label: "QBurst", place: "Kerala", discipline: "Software delivery" },
   { key: "kth", years: "2024", label: "KTH", place: "Stockholm", discipline: "Pyrolysis research" },
-  { key: "alleima", years: "2024-25", label: "Alleima", place: "Sandviken", discipline: "Energy performance" },
+  { key: "alleima", years: "2024-25", label: "Alleima", place: "Remote", discipline: "Energy performance" },
   { key: "siemens", years: "2025", label: "Siemens Energy", place: "Finsp&aring;ng", discipline: "CFD / CHT thesis" },
 ];
 
