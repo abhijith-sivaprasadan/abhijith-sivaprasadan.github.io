@@ -2487,7 +2487,15 @@ export async function init(ctx) {
   }
 
   function step() {
-    if (document.hidden) return;
+    if (document.hidden) return;   // visibilitychange handler resumes the loop
+    // Don't burn the physics worker when the scene isn't actually on screen:
+    // the Live Lens is off by default (stage hidden), and it scrolls out of
+    // view. Poll slowly so the loop resumes the instant the stage is shown.
+    const stageVisible = stage.offsetParent !== null && stage.clientWidth > 2;
+    if (!stageVisible) {
+      setTimeout(() => requestAnimationFrame(scheduleStep), 500);
+      return;
+    }
     worker.postMessage({ type: "step", dt: 0.08, viscosity: 5e-6, diffusion: 8e-5 });
   }
 
