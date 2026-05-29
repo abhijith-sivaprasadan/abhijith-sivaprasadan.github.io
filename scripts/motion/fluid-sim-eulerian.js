@@ -1854,6 +1854,34 @@ function nozzleDomainPath(xStart, xExit, centreY, height) {
   return path;
 }
 
+// ── CFD/ANSYS rainbow ("jet") colormap — the canonical thermal-contour palette
+//    used in Fluent / Mechanical post-processing. t∈[0,1] maps cold→hot:
+//    deep blue → blue → cyan → green → yellow → red → dark red.
+const JET_STOPS = [
+  [0.000,   0,   0, 143],
+  [0.125,   0,   0, 255],
+  [0.375,   0, 255, 255],
+  [0.625, 255, 255,   0],
+  [0.875, 255,   0,   0],
+  [1.000, 128,   0,   0],
+];
+function jetColor(t) {
+  t = Math.max(0, Math.min(1, t));
+  for (let i = 1; i < JET_STOPS.length; i += 1) {
+    if (t <= JET_STOPS[i][0]) {
+      const a = JET_STOPS[i - 1], b = JET_STOPS[i];
+      const f = (t - a[0]) / (b[0] - a[0] || 1);
+      return [
+        Math.round(a[1] + (b[1] - a[1]) * f),
+        Math.round(a[2] + (b[2] - a[2]) * f),
+        Math.round(a[3] + (b[3] - a[3]) * f),
+      ];
+    }
+  }
+  const last = JET_STOPS[JET_STOPS.length - 1];
+  return [last[1], last[2], last[3]];
+}
+
 function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   stageBackground(ctx, width, height);
   const xStart = 14;
@@ -1881,20 +1909,28 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   // Throat glow pulse — q_throat in MW/m² (real signal of failure-mode push).
   const qNorm = Math.max(0, Math.min(1, q_thr / 1.2e8));        // 0→0, 120 MW→1
   const throatPulse = qNorm * (0.55 + 0.30 * Math.sin(now * 0.012));
-  // ── Exhaust-colour drivers (every slider visibly recolours the plume) ────
-  //  exitTn  — static EXIT-gas temperature → overall incandescent brightness.
-  //  richness— fuel-rich (low O/F) burns sooty-luminous (orange); leaner/hotter
-  //            burns cleaner and bluer. Methalox stoichiometric O/F ≈ 3.7.
-  const exitT    = metrics?.exitTemperature ?? 1600;
-  const OFv      = metrics?.OF ?? 3.6;
-  const exitTn   = Math.max(0, Math.min(1, (exitT - 900) / 1500));   // 900K→0, 2400K→1
-  const richness = Math.max(0, Math.min(1, (3.7 - OFv) / 2.2));      // OF 3.7→0, 1.5→1
-  const mixRGB = (a, b, t) => [
-    Math.round(a[0] + (b[0] - a[0]) * t),
-    Math.round(a[1] + (b[1] - a[1]) * t),
-    Math.round(a[2] + (b[2] - a[2]) * t),
-  ];
-  const rgbaStr = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+  // ── Thermal-contour colour scale (ANSYS "jet" colormap) ─────────────────
+  //   Every gas/plume pixel is coloured by static temperature, so the chamber
+  //   reads red-hot, the accelerating gas cools through yellow/green, the exit
+  //   plane is cyan and the cold far-field plume is blue — the convention of a
+  //   Fluent/Mechanical temperature contour (here blue == cold, not "wrong").
+  const gam        = metrics?.gamma || 1.146;
+  const exitT      = metrics?.exitTemperature ?? 1600;
+  const T_scaleMax = Math.max(T_c, 1200);            // hot end (chamber) → red
+  const T_scaleMin = 240;                            // cold end (≈ambient) → blue
+  const NLEVELS    = 14;                             // discrete contour bands
+  const bandColor  = (T) => {
+    const t = (T - T_scaleMin) / (T_scaleMax - T_scaleMin);
+    const lvl = Math.round(Math.max(0, Math.min(1, t)) * NLEVELS) / NLEVELS;
+    return jetColor(lvl);
+  };
+  // Axial Mach profile (subsonic chamber → M=1 throat → Me exit) → static
+  // temperature T(x) = T_c / (1 + (γ-1)/2·M²) for the contour fill.
+  const throatFrac = 0.42;                           // matches the plotted throat
+  const machAtFrac = (f) => (f <= throatFrac)
+    ? 0.22 + (1 - 0.22) * (f / throatFrac)
+    : 1 + (Me - 1) * ((f - throatFrac) / (1 - throatFrac));
+  const gasTempAtFrac = (f) => T_c / (1 + ((gam - 1) / 2) * machAtFrac(f) ** 2);
 
   stageLabel(ctx, isSwedish() ? "DE LAVAL · REGENKYLD DYSA" : "DE LAVAL · REGEN-COOLED NOZZLE", 14, 19, "#82a4b4");
 
@@ -1902,15 +1938,15 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   // Brightness scales with chamber T_c — slider on O/F or P_c lights it up.
   ctx.save();
   ctx.clip(domain);
+  // Banded temperature contour along the nozzle axis: discrete jet-colormap
+  // levels sampled from T(x), so the field reads as a Fluent/Mechanical plot.
   const gasGradient = ctx.createLinearGradient(xStart, 0, xExit, 0);
-  // Cool side (chamber inlet) stays bright; supersonic side cools (Mach).
-  gasGradient.addColorStop(0,    `rgba(255,${Math.round(241 - 60*(1-Tnorm))},${Math.round(199 - 100*(1-Tnorm))},${shimmer})`);
-  gasGradient.addColorStop(0.45, `rgba(${246 - 40*(1-Tnorm)},${Math.round(200 - 40*(1-Tnorm))},95,${shimmer})`);
-  gasGradient.addColorStop(0.72, "#d0622c");
-  // Exit-plane gas: supersonic expansion cools it, but at ~1500 K it still
-  // glows ember-orange — not blue. Darkens as exit temperature falls (lower
-  // P_c / off-stoichiometric O/F), so the slider response is visible here too.
-  gasGradient.addColorStop(1, rgbaStr(mixRGB([122, 52, 30], [216, 96, 44], exitTn), shimmer));
+  const NS = 48;
+  for (let i = 0; i <= NS; i += 1) {
+    const f = i / NS;
+    const c = bandColor(gasTempAtFrac(f));
+    gasGradient.addColorStop(f, `rgba(${c[0]},${c[1]},${c[2]},${shimmer})`);
+  }
   ctx.globalAlpha = 1.0;
   ctx.fillStyle = gasGradient;
   ctx.fillRect(xStart, centreY - height * 0.3, xExit - xStart, height * 0.6);
@@ -1918,9 +1954,9 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   if (throatPulse > 0.05) {
     const throatX = xStart + (xExit - xStart) * 0.42;
     const grad = ctx.createRadialGradient(throatX, centreY, 4, throatX, centreY, exitRadius * 2.2);
-    grad.addColorStop(0, `rgba(255, 241, 199, ${throatPulse * 0.95})`);
-    grad.addColorStop(0.5, `rgba(246, 200, 95, ${throatPulse * 0.55})`);
-    grad.addColorStop(1, "rgba(208, 98, 44, 0)");
+    grad.addColorStop(0, `rgba(255, 245, 220, ${throatPulse * 0.60})`);   // white-hot core
+    grad.addColorStop(0.5, `rgba(255, 90, 40, ${throatPulse * 0.32})`);   // jet red
+    grad.addColorStop(1, "rgba(150, 0, 0, 0)");
     ctx.fillStyle = grad;
     ctx.fillRect(throatX - exitRadius * 2.2, centreY - exitRadius * 2.2, exitRadius * 4.4, exitRadius * 4.4);
   }
@@ -1975,26 +2011,21 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     plume.lineTo(x, centreY + halfAt(s) + plumeWobble * s);
   }
   plume.closePath();
-  // ── Plume colour — physically driven, every slider changes it ───────────
-  //  • afterburn: fuel-rich exhaust re-ignites in atmospheric O₂ → a bright
-  //    orange column at low altitude that dies toward vacuum, where a methalox
-  //    plume is a faint translucent blue. (So blue only appears high up — at
-  //    sea level the exhaust reads hot/orange, as it should.)
-  //  • warmth: how orange-vs-blue the column reads (atmosphere + fuel richness).
-  //  • exitTn: hotter exit gas → whiter, brighter, more opaque.
-  const afterburn = Math.max(0, Math.min(1, 1 - altKm / 25));
-  const warmth    = Math.max(0, Math.min(1, 0.28 + 0.55 * afterburn + 0.32 * richness));
-  const C_white  = [255, 247, 228];
-  const C_amber  = [255, 170, 74];
-  const C_orange = [233, 112, 48];
-  const C_blue   = [150, 196, 240];
-  const tailRGB = mixRGB(C_blue, C_amber, warmth);                  // cool→warm
-  const bodyRGB = mixRGB(tailRGB, C_white, 0.30 + 0.45 * exitTn);   // hotter→whiter
-  const lipRGB  = mixRGB(C_orange, C_white, exitTn);                // exit-T brightness
+  // ── Plume colour — continues the SAME thermal-contour scale ─────────────
+  //   Static temperature decays from the exit value toward ambient as the jet
+  //   entrains and over-expands, so the column cools cyan → green → blue
+  //   downstream — the cold far-field a temperature contour should show.
+  //   Opacity tapers so the jet dissolves into the background like a real plot.
+  const T_ambK = 250;
+  const plumeTempAt = (s) => T_ambK + (exitT - T_ambK) * Math.exp(-2.0 * s);
   const plumeGradient = ctx.createLinearGradient(xExit, 0, plumeEnd, 0);
-  plumeGradient.addColorStop(0,   rgbaStr(lipRGB,  0.74 + 0.20 * exitTn));
-  plumeGradient.addColorStop(0.4, rgbaStr(bodyRGB, (0.38 + 0.30 * exitTn) * (0.55 + 0.45 * afterburn)));
-  plumeGradient.addColorStop(1,   rgbaStr(tailRGB, 0.08 + 0.18 * afterburn));
+  const NSP = 36;
+  for (let i = 0; i <= NSP; i += 1) {
+    const s = i / NSP;
+    const c = bandColor(plumeTempAt(s));
+    const a = 0.84 * (1 - 0.80 * s);                 // taper toward the tail
+    plumeGradient.addColorStop(Math.min(1, s), `rgba(${c[0]},${c[1]},${c[2]},${a.toFixed(3)})`);
+  }
   ctx.fillStyle = plumeGradient;
   ctx.fill(plume);
 
@@ -2009,9 +2040,11 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     if (sc > 1) continue;
     const x = xExit + (plumeRight - xExit) * sc;
     const half = halfAt(sc) * 0.7;
-    const a = (0.22 + 0.20 * Math.sin(now * 0.02 + cell)) * (regime === "over" ? 1.2 : 0.7);
-    ctx.strokeStyle = `rgba(255,236,180,${Math.min(0.5, a)})`;
-    ctx.lineWidth = 1.2;
+    const a = (0.34 + 0.26 * Math.sin(now * 0.02 + cell)) * (regime === "over" ? 1.2 : 0.8);
+    // Shock recompression locally reheats the gas → warm (yellow/amber) cells
+    // standing out against the cooler green/blue expanding plume.
+    ctx.strokeStyle = `rgba(255,205,70,${Math.min(0.72, a)})`;
+    ctx.lineWidth = 1.3;
     ctx.beginPath();
     ctx.moveTo(x - half * 1.7, centreY);
     ctx.lineTo(x, centreY - half);
@@ -2099,6 +2132,36 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.fillText(`ALT ${altKm.toFixed(0)} km · ${layer}`, chipX + 8, 19);
     ctx.fillStyle = regColor;
     ctx.fillText(regimeShort, chipX + 8, 32);
+    ctx.restore();
+  }
+
+  // ── Temperature colourbar legend (ANSYS-style), top-centre ──────────────
+  //   Makes the rainbow field read unambiguously as a CFD temperature contour:
+  //   blue = cold (≈ambient), red = hot (chamber T_c). Placed in the free band
+  //   between the M(x) inset (left) and the flight chip (right).
+  if (width > 360) {
+    const cbX  = Math.round(width * 0.33);
+    const cbX2 = Math.round(Math.min(width * 0.67, width - 196));   // clear of flight chip
+    const cbW  = Math.max(60, cbX2 - cbX);
+    const cbY = 11, cbH = 8, NB = 14;
+    ctx.save();
+    for (let i = 0; i < NB; i += 1) {
+      const c = jetColor(i / (NB - 1));
+      ctx.fillStyle = `rgb(${c[0]},${c[1]},${c[2]})`;
+      ctx.fillRect(cbX + (cbW * i) / NB, cbY, cbW / NB + 0.6, cbH);
+    }
+    ctx.strokeStyle = "rgba(180,196,208,0.55)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(cbX + 0.5, cbY + 0.5, cbW - 1, cbH - 1);
+    ctx.fillStyle = "rgba(190,202,214,0.92)";
+    ctx.font = "600 8px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.textAlign = "left";
+    ctx.fillText(`${Math.round(T_scaleMin)}`, cbX, cbY + cbH + 9);
+    ctx.textAlign = "center";
+    ctx.fillText("STATIC TEMP [K]", cbX + cbW / 2, cbY - 3);
+    ctx.textAlign = "right";
+    ctx.fillText(`${Math.round(T_scaleMax)}`, cbX2, cbY + cbH + 9);
+    ctx.textAlign = "left";
     ctx.restore();
   }
 
