@@ -1033,6 +1033,41 @@ function drawEnergyDispatch(ctx, width, height, now) {
     padX, 18, "#82a4b4");
   stageLabel(ctx, "MW", padX - 22, chartY + 8, "#82a4b4");
 
+  // ── Day/night sky ribbon — conveys the 24-h cycle at a glance ─────────
+  // Sky colour sweeps midnight → dawn → noon → dusk → midnight; a sun (day)
+  // or crescent moon (night) rides the playhead. Driven by the same hour.
+  {
+    const ribY = 22, ribH = 8;
+    const x0 = padX, x1 = padX + chartW;
+    const sky = ctx.createLinearGradient(x0, 0, x1, 0);
+    sky.addColorStop(0.00, "#0b1020");
+    sky.addColorStop(0.25, "#b9602c");
+    sky.addColorStop(0.50, "#2a6fb0");
+    sky.addColorStop(0.75, "#b9602c");
+    sky.addColorStop(1.00, "#0b1020");
+    ctx.save();
+    ctx.fillStyle = sky;
+    ctx.fillRect(x0, ribY, x1 - x0, ribH);
+    ctx.strokeStyle = "rgba(130,164,180,0.25)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x0 + 0.5, ribY + 0.5, x1 - x0 - 1, ribH - 1);
+    const cx = xAt(hour + subHour);
+    const cy = ribY + ribH / 2;
+    const isDay = hourProgress >= 6 && hourProgress < 18;
+    if (isDay) {
+      ctx.fillStyle = "#ffd166";
+      ctx.shadowColor = "rgba(255,209,102,0.8)";
+      ctx.shadowBlur = 6;
+      ctx.beginPath(); ctx.arc(cx, cy, 4.5, 0, Math.PI * 2); ctx.fill();
+    } else {
+      ctx.fillStyle = "#dfe7f2";
+      ctx.beginPath(); ctx.arc(cx, cy, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#0b1020";   // crescent cut-out
+      ctx.beginPath(); ctx.arc(cx + 2, cy - 1, 3.8, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
   // ── Stacked areas — built up to the current hour (animated fill-in) ─────
   // Cursor position determines how far the dispatch is "filled". Past hours
   // are fully opaque; future hours are dimmed to indicate they haven't been
@@ -1765,6 +1800,26 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   ctx.fillText(`${metrics.baselineEmissions.toFixed(1)} kg/u`, stripPadL + stripW - 6, stripY + 9);
   ctx.fillText(`${metrics.emissions.toFixed(1)} kg/u  delta -${metrics.emissionsReduction.toFixed(1)}`, stripPadL + stripW - 6, stripY + stripH - 1);
   ctx.textAlign = "left";
+  // ── CO₂ puffs — gas baseline smokes heavily, electrified barely ───────
+  // Puff rate ∝ each scenario's emission intensity. As you toggle on the
+  // heat pump / recovery, the active puffs thin out and stop: live
+  // decarbonisation. (Dark = fossil CO₂; teal = near-clean vapour.)
+  const puffStack = (xTip, yBase, rate, dark) => {
+    const n = Math.max(0, Math.round(rate * 5));
+    for (let p = 0; p < n; p++) {
+      const ph = ((now * 0.0006) + p / Math.max(1, n)) % 1;
+      const py = yBase - ph * 15;
+      const px = xTip + Math.sin(ph * 6 + p) * 3;
+      const r = 1.3 + ph * 2.4;
+      const a = (1 - ph) * 0.5 * rate;
+      ctx.fillStyle = dark ? `rgba(74,64,56,${a})` : `rgba(120,200,190,${a})`;
+      ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2); ctx.fill();
+    }
+  };
+  const baseRate = Math.min(1, metrics.baselineEmissions / Math.max(1, maxIntensity));
+  const actRate  = Math.min(1, metrics.emissions / Math.max(1, maxIntensity));
+  puffStack(stripPadL + Math.max(8, baselineW) - 6, stripY + 2, baseRate, true);
+  puffStack(stripPadL + Math.max(8, activeW) - 6, stripY + stripH * 0.55 + 2, actRate, false);
   ctx.restore();
 }
 
