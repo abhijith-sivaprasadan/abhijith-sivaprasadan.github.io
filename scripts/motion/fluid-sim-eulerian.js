@@ -798,29 +798,40 @@ function drawThermalEvidence(ctx, width, height, now) {
   ctx.fillStyle = extGrad;
   ctx.fillRect(xExt, wallY, wExt, wallH);
 
-  // ── Heat-flux arrows (animated; opacity pulses with q-magnitude rhythm)
-  // The pulse is illustrative — it suggests transient response, not a real
-  // unsteady solution.
+  // ── Heat-flux stream — speed, density, rows & brightness all ∝ q ──────
+  // The escaping heat flux is the live signal: toggling the insulation
+  // blanket cuts q ~6× (≈3670 → ≈630 W/m²), and the stream visibly
+  // throttles — fewer, slower, dimmer arrows. This is the thesis insulation
+  // finding made kinetic. q from the 1-D resistance circuit (chtState).
+  const qNorm = Math.max(0.10, Math.min(1, S.q / 5000));
+  const rows = Math.max(1, Math.round(1 + 3 * qNorm));        // 1 (insul) → ~4 (hot)
+  const spacing = 64 - 30 * qNorm;                            // denser when hot
+  const speed = 0.025 + 0.085 * qNorm;                        // faster when hot
+  const arrowOffset = (now * speed) % spacing;
+  const bright = 0.30 + 0.55 * qNorm;
   ctx.save();
-  const arrowOffset = (now * 0.065) % 36;
-  const pulse = 0.65 + 0.25 * Math.sin(now * 0.0018);
-  for (let row = 0; row < 3; row++) {
-    const rowY = wallY + wallH * (0.30 + row * 0.20);
-    ctx.strokeStyle = `rgba(255, 241, 199, ${0.55 + 0.35 * pulse})`;
-    ctx.lineWidth = 1.4 + 0.4 * pulse;
+  for (let row = 0; row < rows; row++) {
+    const rowY = wallY + wallH * ((row + 0.5) / rows);
+    ctx.strokeStyle = `rgba(255, 241, 199, ${bright})`;
+    ctx.lineWidth = 1.1 + 0.8 * qNorm;
     ctx.beginPath();
-    for (let x = xGas + 6 + arrowOffset - 36; x < xExt + wExt; x += 36) {
-      const ax = x;
-      ctx.moveTo(ax, rowY);
-      ctx.lineTo(ax + 22, rowY);
-      ctx.moveTo(ax + 18, rowY - 3);
-      ctx.lineTo(ax + 22, rowY);
-      ctx.lineTo(ax + 18, rowY + 3);
+    for (let x = xGas + 6 + arrowOffset - spacing; x < xExt + wExt; x += spacing) {
+      // In the insulated case, arrows fade as they cross the blanket — the
+      // heat is being held back, not conducted through.
+      const inInsul = S.insulated && x > xInsul && x < xExt;
+      if (inInsul && Math.random() > 0.5) continue;   // sparse in the blanket
+      ctx.moveTo(x, rowY);
+      ctx.lineTo(x + 20, rowY);
+      ctx.moveTo(x + 16, rowY - 3);
+      ctx.lineTo(x + 20, rowY);
+      ctx.lineTo(x + 16, rowY + 3);
     }
     ctx.stroke();
   }
   ctx.restore();
-  stageLabel(ctx, "Q  →", xExt + wExt - 24, wallY - 6, "#fff1c7");
+  // Flux magnitude tag + a compact bar showing q vs the uninsulated max.
+  stageLabel(ctx, `Q ${Math.round(S.q)} W/m²  →`, xExt + wExt - 118, wallY - 6,
+             S.insulated ? "#9bd69f" : "#fff1c7");
 
   // ── Sweeping thermal probe ─────────────────────────────────────────────
   // Vertical readout that slides across the cross-section showing local
@@ -1817,7 +1828,7 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   const throatPulse = qNorm * (0.55 + 0.30 * Math.sin(now * 0.012));
 
   stageLabel(ctx, isSwedish() ? "DE LAVAL / KYLKANAL / TERMISKT MOTSTÅND" : "DE LAVAL / COOLING CHANNEL / THERMAL RESISTANCE", 14, 19, "#82a4b4");
-  stageLabel(ctx, `P_c ${P_c_MPa.toFixed(1)} MPa  ·  T_c ${Math.round(T_c)} K  ·  ṁ ${mDot.toFixed(1)} kg/s  ·  Ma_e ${Me.toFixed(2)}`, 14, 33, "#65d6c9");
+  stageLabel(ctx, `P_c ${P_c_MPa.toFixed(1)} MPa  ·  T_c ${Math.round(T_c)} K  ·  ṁ ${mDot.toFixed(1)} kg/s`, 14, 33, "#65d6c9");
 
   // Gas temperature contours are clipped to the analytical de Laval domain.
   // Brightness scales with chamber T_c — slider on O/F or P_c lights it up.
@@ -2058,15 +2069,17 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.setLineDash([]);
   });
 
-  // ── Mach-profile inset (bottom-right) ────────────────────────────────
+  // ── Mach-profile inset (top-left, above the converging nozzle) ───────
   // Small chart showing M(x) along the nozzle axis. Computed from the
   // analytical area-Mach relation using the same nozzleRadius() that
   // drives the cross-section drawing — so the inset truly mirrors the
   // engine you've configured. Anderson Ch.3, A/A* relation.
-  const insetW = Math.min(170, width * 0.20);
-  const insetH = Math.min(70, height * 0.16);
-  const insetX = width - insetW - 10;
-  const insetY = height - insetH - 8;
+  // Placed top-left (clear of the bottom thermal-resistance ladder, the
+  // right-edge altitude gauge, and the top-right flight chip).
+  const insetW = Math.min(154, width * 0.21);
+  const insetH = Math.min(58, height * 0.14);
+  const insetX = 16;
+  const insetY = 44;
   ctx.save();
   ctx.fillStyle = "rgba(7, 11, 16, 0.78)";
   ctx.fillRect(insetX, insetY, insetW, insetH);
@@ -2134,7 +2147,7 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   ctx.moveTo(xStart + (xExit - xStart) * 0.205, centreY - 12);
   ctx.lineTo(xStart + (xExit - xStart) * 0.205, centreY + 12);
   ctx.stroke();
-  stageLabel(ctx, isSwedish() ? "METANKYLKANAL" : "CH4 COOLANT", 18, height * 0.15, "#65d6c9");
+  stageLabel(ctx, isSwedish() ? "METANKYLKANAL" : "CH4 COOLANT", 18, height * 0.205, "#65d6c9");
   stageLabel(ctx, "THROAT", xStart + (xExit - xStart) * 0.205 - 20, centreY + 27, "#f6c85f");
   // ── Thermal resistance ladder (bottom strip) ──────────────────────────
   // Shows the 1-D heat flux path: gas → copper → coke (GROWING) → coolant.
