@@ -1863,25 +1863,33 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   const separated  = !!metrics?.separated;
   const regime     = metrics?.expansionRegime || "perfect";
   const altKm      = metrics?.altitudeKm ?? 0;
-  const wMax  = exitRadius * (0.5 + 0.9 * flare);     // max barrel half-width
-  const wTip  = exitRadius * 0.28;
-  const sBulge = regime === "under" ? 0.34 : 0.24;
-  const wLip  = separated ? exitRadius * 0.6 : exitRadius;  // jet narrows at lip if separated
+  // Keep the plume clear of the right-edge altitude gauge.
+  const plumeRight = Math.min(plumeEnd, width - 30);
+  // Half-width envelope: starts at the lip, swells to the barrel max near
+  // sBulge, then stays open (fades via the gradient) rather than pinching to
+  // a point. wMax kept modest so even a vacuum balloon fits the canvas.
+  const wMax  = exitRadius * (0.55 + 0.5 * flare);   // flare 0.45→0.78, 2.6→1.85
+  const sBulge = regime === "under" ? 0.40 : 0.26;
+  const wLip  = separated ? exitRadius * 0.6 : exitRadius;
+  const smoothstep = (a, b, x) => {
+    const t = Math.max(0, Math.min(1, (x - a) / (b - a)));
+    return t * t * (3 - 2 * t);
+  };
   const halfAt = (s) => {
-    const hump  = Math.exp(-Math.pow((s - sBulge) / 0.40, 2));
-    const taper = wTip + (wLip - wTip) * Math.max(0, 1 - s * 1.4);
-    return Math.max(taper, wMax * hump);
+    const rise  = smoothstep(0, sBulge, s);            // lip → barrel max
+    const decay = 1 - 0.42 * smoothstep(sBulge, 1, s); // gentle, stays open
+    return wLip + (wMax - wLip) * rise * decay;
   };
   const plumeWobble = Math.sin(now * 0.0042) * exitRadius * 0.08;
-  const N = 28;
+  const N = 30;
   const plume = new Path2D();
   plume.moveTo(xExit, centreY - wLip);
   for (let s = 1 / N; s <= 1.0001; s += 1 / N) {
-    const x = xExit + (plumeEnd - xExit) * s;
+    const x = xExit + (plumeRight - xExit) * s;
     plume.lineTo(x, centreY - halfAt(s) - plumeWobble * s);
   }
   for (let s = 1; s >= -0.0001; s -= 1 / N) {
-    const x = xExit + (plumeEnd - xExit) * s;
+    const x = xExit + (plumeRight - xExit) * s;
     plume.lineTo(x, centreY + halfAt(s) + plumeWobble * s);
   }
   plume.closePath();
@@ -1903,11 +1911,11 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   for (let cell = 0; cell < cellCount; cell += 1) {
     const sc = 0.10 + cell * (0.85 / cellCount) + cellShift;
     if (sc > 1) continue;
-    const x = xExit + (plumeEnd - xExit) * sc;
-    const half = halfAt(sc) * 0.85;
-    const a = (0.22 + 0.20 * Math.sin(now * 0.02 + cell)) * (regime === "over" ? 1.2 : 0.8);
-    ctx.strokeStyle = `rgba(255,236,180,${Math.min(0.55, a)})`;
-    ctx.lineWidth = 1.3;
+    const x = xExit + (plumeRight - xExit) * sc;
+    const half = halfAt(sc) * 0.7;
+    const a = (0.22 + 0.20 * Math.sin(now * 0.02 + cell)) * (regime === "over" ? 1.2 : 0.7);
+    ctx.strokeStyle = `rgba(255,236,180,${Math.min(0.5, a)})`;
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.moveTo(x - half * 1.7, centreY);
     ctx.lineTo(x, centreY - half);
@@ -1916,18 +1924,20 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.closePath();
     ctx.stroke();
   }
-  // Mach disk — bright transverse normal-shock band when far from perfect.
+  // Mach disk — compact bright normal-shock disk (transverse to the flow),
+  // appears when far from perfectly expanded. Sits near the first barrel.
   if (machDiskS > 0.18) {
-    const sDisk = Math.min(0.8, 0.16 + 0.16 * Math.min(1.8, flare));
-    const xDisk = xExit + (plumeEnd - xExit) * sDisk;
-    const diskHalf = halfAt(sDisk) * 0.92;
-    const g = ctx.createLinearGradient(xDisk - 7, 0, xDisk + 7, 0);
+    const sDisk = Math.min(0.7, 0.18 + 0.16 * Math.min(1.6, flare));
+    const xDisk = xExit + (plumeRight - xExit) * sDisk;
+    const diskHalf = halfAt(sDisk) * (0.32 + 0.18 * machDiskS);   // compact
+    const rx = 6 + 6 * machDiskS;
+    const g = ctx.createLinearGradient(xDisk - rx, 0, xDisk + rx, 0);
     g.addColorStop(0, "rgba(255,255,255,0)");
-    g.addColorStop(0.5, `rgba(255,250,230,${0.30 + 0.45 * machDiskS})`);
+    g.addColorStop(0.5, `rgba(255,252,235,${0.45 + 0.40 * machDiskS})`);
     g.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = g;
     ctx.beginPath();
-    ctx.ellipse(xDisk, centreY, 5 + 4 * machDiskS, diskHalf, 0, 0, Math.PI * 2);
+    ctx.ellipse(xDisk, centreY, rx, diskHalf, 0, 0, Math.PI * 2);
     ctx.fill();
   }
   ctx.restore();
@@ -1940,7 +1950,7 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     [-1, 1].forEach((sgn) => {
       ctx.beginPath();
       ctx.moveTo(xExit, centreY + sgn * exitRadius);
-      ctx.lineTo(xExit + (plumeEnd - xExit) * 0.18, centreY + sgn * wLip * 0.5);
+      ctx.lineTo(xExit + (plumeRight - xExit) * 0.18, centreY + sgn * wLip * 0.5);
       ctx.stroke();
     });
     stageLabel(ctx, "FLOW SEPARATION", xExit + 6, centreY - exitRadius - 8, "#ff9a5a");
@@ -2126,7 +2136,6 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   ctx.stroke();
   stageLabel(ctx, isSwedish() ? "METANKYLKANAL" : "CH4 COOLANT", 18, height * 0.15, "#65d6c9");
   stageLabel(ctx, "THROAT", xStart + (xExit - xStart) * 0.205 - 20, centreY + 27, "#f6c85f");
-  stageLabel(ctx, "EXPANSION CELLS", xExit + 12, centreY - exitRadius * 1.95, "#f6c85f");
   // ── Thermal resistance ladder (bottom strip) ──────────────────────────
   // Shows the 1-D heat flux path: gas → copper → coke (GROWING) → coolant.
   // R_coke bar width grows with the simulated coke thickness, dramatising
