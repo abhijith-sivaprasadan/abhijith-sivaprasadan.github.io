@@ -1854,16 +1854,19 @@ function nozzleDomainPath(xStart, xExit, centreY, height) {
   return path;
 }
 
-// ── CFD/ANSYS rainbow ("jet") colormap — the canonical thermal-contour palette
-//    used in Fluent / Mechanical post-processing. t∈[0,1] maps cold→hot:
-//    deep blue → blue → cyan → green → yellow → red → dark red.
+// ── CFD/ANSYS rainbow colormap — the canonical thermal-contour palette used
+//    in Fluent / CFD-Post. t∈[0,1] maps cold→hot: blue → cyan → green → yellow
+//    → orange → red. (Deliberately ends at BRIGHT red, not MATLAB-jet's dark
+//    red, so the hottest point reads as the brightest — otherwise the chamber,
+//    being the hottest, would look darker than the slightly cooler throat.)
 const JET_STOPS = [
-  [0.000,   0,   0, 143],
-  [0.125,   0,   0, 255],
-  [0.375,   0, 255, 255],
-  [0.625, 255, 255,   0],
-  [0.875, 255,   0,   0],
-  [1.000, 128,   0,   0],
+  [0.000,   0,  40, 230],   // blue   (coldest)
+  [0.200,   0, 175, 255],   // azure
+  [0.380,   0, 235, 215],   // cyan
+  [0.540,  70, 220,  90],   // green
+  [0.700, 200, 230,  30],   // lime / yellow-green
+  [0.840, 255, 195,   0],   // amber
+  [1.000, 235,  35,  25],   // red    (hottest)
 ];
 function jetColor(t) {
   t = Math.max(0, Math.min(1, t));
