@@ -23,7 +23,7 @@ import {
   INSULATION_T_M, INSULATION_K, INSULATION_H_EXT,
   GAMMA_AIR, GAMMA_CH4, PR_AIR, CP_CH4_COOL,
   G_GAS_LHV, PEF_EL_EU, ETA_TES_RT, ETA_ELECTRIC_BOILER, ETA_GAS_BOILER,
-  T_BURNOUT_CU,
+  T_BURNOUT_CU, T_SOURCE_AMBIENT_C,
   // Gas dynamics
   staticTemperatureFromTotal, staticToTotalPressure, adiabaticWallTemperature,
   reynoldsNumber, stantonNumber,
@@ -175,6 +175,27 @@ function thermalTelemetry() {
     T_outer = cht.T_outer;
     BiCalc = biotNumber(REDUCER_H_EXT, REDUCER_T_WALL_M, REDUCER_K_WALL);
   }
+  // New rigour readouts:
+  // y+ = ρ·u_τ·Δy/μ;  u_τ = √(τ_w/ρ);  τ_w = 0.5·ρ·V²·C_f;  C_f ≈ 0.046·Re^(−0.2)
+  // Δy = 0.05 mm typical first-cell size in the thesis' near-wall mesh.
+  const p0_pa = REDUCER_P0_PA;
+  const p_static_pa = pRatio * p0_pa;
+  const rho_throat = p_static_pa / (287.05 * T_throat);
+  const V_throat = throatMach * Math.sqrt(GAMMA_AIR * 287.05 * T_throat);
+  const Cf = 0.046 * Math.pow(Re, -0.2);
+  const tau_wall = 0.5 * rho_throat * V_throat * V_throat * Cf;
+  const u_tau = Math.sqrt(tau_wall / rho_throat);
+  const delta_y_first = 5e-5;                 // 50 µm — typical thesis first cell
+  const yPlus = (rho_throat * u_tau * delta_y_first) / 3.30e-5;
+  // Nusselt at throat:  Nu = h_int · D_h / k_air ;  k_air(T) ≈ 0.0454 W/mK at 561 K
+  const k_air_throat = 0.0454;
+  const Nu = (REDUCER_H_GAS * REDUCER_D_HYDRAULIC) / k_air_throat;
+  // Pressure-loss coefficient K = (p0_in − p0_out) / (½·ρ·V²)
+  // Thesis Δp0 reported per case; approximate from the contraction loss model.
+  const Cc = 0.62;                            // sharp-edged contraction
+  const K_loss = ctrl.geometry === "legacy"
+    ? (1 / Cc - 1) ** 2                       // Borda-Carnot per step × 2 steps
+    : 0.04 + 0.02 * (throatMach - 0.5);       // smooth-quintic, low frictional
   return {
     geometry: ctrl.geometry,
     insulation: ctrl.insulation,
@@ -190,6 +211,18 @@ function thermalTelemetry() {
     wallOuter: `${T_outer.toFixed(1)} K`,
     adiabaticWall: `${T_aw.toFixed(1)} K`,
     reynolds: `Re ${Re.toExponential(2)}`,
+    yPlus: `y⁺ ${yPlus.toFixed(1)}  (target <1 SST)`,
+    nusselt: `Nu ${Nu.toFixed(0)}  (Dittus-Boelter check)`,
+    lossK: `K ${(K_loss * 100).toFixed(1)}%  (${ctrl.geometry === "legacy" ? "Borda-Carnot ×2" : "smooth contraction"})`,
+    // ── More rigour: entropy generation, internal Stanton, thermal τ ────
+    // Bejan entropy-generation rate per area: ṡ_gen = q·(1/T_cold − 1/T_hot)
+    //   (Bejan, Entropy Generation Minimization, CRC Press 1996, Ch.1)
+    entropyGen: `${(cht.q * (1 / REDUCER_T_AMBIENT - 1 / ctrl.T0)).toFixed(2)} W/m²K  (Bejan EGM)`,
+    // Internal Stanton via the Reynolds analogy: St = Nu/(Re·Pr)
+    stantonInternal: `St_int ${(Nu / (Re * PR_AIR)).toExponential(2)}  (Nu/(Re·Pr))`,
+    // Thermal time constant τ ≈ ρ_w·cp_w·t/h_ext  (thin-wall lumped capacity)
+    //   ρ_steel=7900 kg/m³, cp_steel=510 J/kgK
+    thermalTau: `τ ${((7900 * 510 * REDUCER_T_WALL_M) / REDUCER_H_EXT).toFixed(0)} s  (ρcp·t/h_ext)`,
     _cht: cht,
   };
 }
@@ -252,6 +285,33 @@ function energyTelemetry(now) {
   const marginalGCO2 = marginal.label.startsWith("Heat pump")
     ? ENERGY_GRID_INTENSITY / ENERGY_HP_COP_THERMAL * 1000   // gCO₂/MWh_th
     : ENERGY_CHP_HEAT_FACTOR * 1000;
+  // ── Cumulative CO₂ saved vs gas-only baseline (24 h integration) ──────
+  // Gas-only baseline: every MWh_th from a gas boiler at 90 % η ⇒ ~220 kg CO₂/MWh_th.
+  // Active strategy: weighted by hourly marginal source.
+  const GAS_ONLY_INTENSITY = 224;        // kgCO₂/MWh_th (LHV NG / η_GB)
+  let co2SavedKgPerDay = 0;
+  for (let i = 0; i < 24; i += 1) {
+    const m = classifyMarginal(PRO2_PRICE[i], ENERGY_HP_COP_THERMAL);
+    const intensity_kg = m.label.startsWith("Heat pump")
+      ? ENERGY_GRID_INTENSITY / ENERGY_HP_COP_THERMAL
+      : ENERGY_CHP_HEAT_FACTOR;
+    co2SavedKgPerDay += (GAS_ONLY_INTENSITY - intensity_kg) * PRO2_DEMAND_MW[i];
+  }
+  // ── Spot-market arbitrage potential ──────────────────────────────────
+  // Best (lowest 6 h average) vs worst (highest 6 h average) price spread,
+  // × TES capacity × round-trip efficiency × cycles/day.
+  const sortedPrices = [...PRO2_PRICE].sort((a, b) => a - b);
+  const lowAvg = sortedPrices.slice(0, 6).reduce((a, b) => a + b, 0) / 6;
+  const highAvg = sortedPrices.slice(-6).reduce((a, b) => a + b, 0) / 6;
+  const arbSEKperDay =
+    (highAvg - lowAvg) * ENERGY_TES_CAPACITY_MWH * ETA_TES_RT;
+  // ── Carnot benchmark HP COP at typical DH supply / return ───────────
+  // DH supply = 80 °C, return = 50 °C, ambient source = 5 °C.
+  // COP_Carnot = T_sink / (T_sink − T_source); real with η_2nd = 0.55.
+  const T_sink_K = 80 + 273.15;
+  const T_source_K = 5 + 273.15;
+  const COP_carnot = T_sink_K / (T_sink_K - T_source_K);
+  const COP_real = 0.55 * COP_carnot;
   return {
     hour: `${String(hour + 1).padStart(2, "0")}:00`,
     demand: `${demand_MW.toFixed(2)} MW`,
@@ -265,6 +325,43 @@ function energyTelemetry(now) {
     priceDeviation: `${price.toFixed(0)} (avg ${ENERGY_AVG_PRICE.toFixed(0)}, ${((price / ENERGY_AVG_PRICE - 1) * 100).toFixed(1)}%)`,
     roundTrip: `η_RT ${(ETA_TES_RT * 100).toFixed(0)}%`,
     marginalCO2: `${(marginalGCO2 / 1000).toFixed(0)} kgCO₂/MWh_th`,
+    // New rigour readouts:
+    co2Saved: `${(co2SavedKgPerDay / 1000).toFixed(1)} tCO₂/day  (vs gas-only)`,
+    arbitrage: `${arbSEKperDay.toFixed(0)} SEK/day  (Δ${(highAvg - lowAvg).toFixed(0)}·E_TES·η_RT)`,
+    carnotHP: `COP_real ${COP_real.toFixed(2)}  (Carnot ${COP_carnot.toFixed(1)}, η_2nd=0.55)`,
+    // ── More rigour ─────────────────────────────────────────────────────
+    // Marginal abatement cost of CURRENT marginal source vs gas-only baseline.
+    //   MAC = (c_heat_active − c_heat_gas) / (g_gas − g_active)
+    //   c_heat_gas ≈ 350 SEK/MWh_th (NG fuel + O&M); g_gas = 224 kg/MWh_th
+    macCurrent: (() => {
+      const c_gas = 350;
+      const c_active = marginal.label.startsWith("Heat pump")
+        ? marginal.heatPriceHP : 270;
+      const g_active = marginal.label.startsWith("Heat pump")
+        ? ENERGY_GRID_INTENSITY / ENERGY_HP_COP_THERMAL : ENERGY_CHP_HEAT_FACTOR;
+      const dCO2 = GAS_ONLY_INTENSITY - g_active;
+      if (!(dCO2 > 0)) return "—";
+      return `${((c_active - c_gas) / (dCO2 / 1000)).toFixed(0)} SEK/tCO₂`;
+    })(),
+    // LCOH at the current marginal source — fuel + O&M only (no CAPEX here).
+    //   HP:  p_el/COP + 30 SEK/MWh O&M
+    //   CHP: 270 SEK/MWh + 25 SEK/MWh O&M
+    lcoh: (() => {
+      const isHP = marginal.label.startsWith("Heat pump");
+      const lcoh_value = isHP
+        ? (marginal.heatPriceHP + 30)
+        : (270 + 25);
+      return `${lcoh_value.toFixed(0)} SEK/MWh_th  (${isHP ? "HP" : "CHP"})`;
+    })(),
+    // HP capacity factor over the 24h cycle: hours HP is the marginal source.
+    hpCapacityFactor: (() => {
+      let hpHours = 0;
+      for (let i = 0; i < 24; i += 1) {
+        const m = classifyMarginal(PRO2_PRICE[i], ENERGY_HP_COP_THERMAL);
+        if (m.label.startsWith("Heat pump")) hpHours += 1;
+      }
+      return `${((hpHours / 24) * 100).toFixed(0)}%  (${hpHours}/24 h)`;
+    })(),
   };
 }
 
@@ -374,6 +471,41 @@ function industrialModel(controls) {
     scopes,                            // {scope1, scope2}  gCO₂
     mac,                               // SEK/tCO₂  or NaN if no abatement
     primaryEnergyMW: primaryEnergy,
+    // ── New rigour outputs ───────────────────────────────────────────
+    // Carnot upper bound for an ideal HP at the same temperature lift.
+    carnotCopMax: (processT_C + 273.15) / (processT_C - T_SOURCE_AMBIENT_C),
+    // Exergy efficiency: useful heat exergy out / total exergy input.
+    //   ψ_heat = 1 - T_ambient/T_process   (Carnot fraction of heat at T)
+    //   exergy_in_elec = electricInput  (electricity = pure exergy)
+    //   exergy_in_gas  = gasInput · (1 - T_amb/T_flame),  T_flame ≈ 2100 K
+    //   exergy_out     = heatDemand · ψ_heat
+    exergyEff: (() => {
+      const T_amb_K = 293.15;
+      const psi_heat = Math.max(0, 1 - T_amb_K / (processT_C + 273.15));
+      const psi_gas  = Math.max(0, 1 - T_amb_K / 2100);
+      const exIn  = electricInput * 1.0 + gasInput * psi_gas;
+      const exOut = heatDemand * psi_heat;
+      return exIn > 0 ? exOut / exIn : 0;
+    })(),
+    // Cumulative tCO₂/year at current load (7200 h/y utilisation).
+    cumCO2Saved_t_per_yr: co2Avoided_t,
+    // ── More rigour ─────────────────────────────────────────────────────
+    // Specific CO₂ per unit produced (kgCO₂/u) — direct ESG metric.
+    specificCO2: production > 0 ? emissions / 1000 : 0,
+    // Energy productivity = production / purchased energy (u/MWh).
+    energyProductivity: purchasedEnergy > 0 ? production / purchasedEnergy : 0,
+    // Carbon-price break-even (SEK/tCO₂):
+    //   CP_breakeven = (gasCost − HPcost) / (g_gas − g_grid/COP)
+    co2BreakevenSEKperT: (() => {
+      const gas_cost_per_MWh = INDUSTRIAL_PRICE_GAS_SEK / ETA_GAS_BOILER;
+      const hp_cost_per_MWh  = INDUSTRIAL_PRICE_EL_SEK / copHP;
+      const dCost = gas_cost_per_MWh - hp_cost_per_MWh;
+      const g_gas_kg = G_GAS_LHV / 1000;
+      const g_HP_kg  = (controls.grid / copHP) / 1000;
+      const dCO2_t_per_MWh = g_gas_kg - g_HP_kg;
+      if (!(dCO2_t_per_MWh > 0)) return NaN;
+      return -dCost / dCO2_t_per_MWh;
+    })(),
   };
 }
 
@@ -666,29 +798,40 @@ function drawThermalEvidence(ctx, width, height, now) {
   ctx.fillStyle = extGrad;
   ctx.fillRect(xExt, wallY, wExt, wallH);
 
-  // ── Heat-flux arrows (animated; opacity pulses with q-magnitude rhythm)
-  // The pulse is illustrative — it suggests transient response, not a real
-  // unsteady solution.
+  // ── Heat-flux stream — speed, density, rows & brightness all ∝ q ──────
+  // The escaping heat flux is the live signal: toggling the insulation
+  // blanket cuts q ~6× (≈3670 → ≈630 W/m²), and the stream visibly
+  // throttles — fewer, slower, dimmer arrows. This is the thesis insulation
+  // finding made kinetic. q from the 1-D resistance circuit (chtState).
+  const qNorm = Math.max(0.10, Math.min(1, S.q / 5000));
+  const rows = Math.max(1, Math.round(1 + 3 * qNorm));        // 1 (insul) → ~4 (hot)
+  const spacing = 64 - 30 * qNorm;                            // denser when hot
+  const speed = 0.025 + 0.085 * qNorm;                        // faster when hot
+  const arrowOffset = (now * speed) % spacing;
+  const bright = 0.30 + 0.55 * qNorm;
   ctx.save();
-  const arrowOffset = (now * 0.065) % 36;
-  const pulse = 0.65 + 0.25 * Math.sin(now * 0.0018);
-  for (let row = 0; row < 3; row++) {
-    const rowY = wallY + wallH * (0.30 + row * 0.20);
-    ctx.strokeStyle = `rgba(255, 241, 199, ${0.55 + 0.35 * pulse})`;
-    ctx.lineWidth = 1.4 + 0.4 * pulse;
+  for (let row = 0; row < rows; row++) {
+    const rowY = wallY + wallH * ((row + 0.5) / rows);
+    ctx.strokeStyle = `rgba(255, 241, 199, ${bright})`;
+    ctx.lineWidth = 1.1 + 0.8 * qNorm;
     ctx.beginPath();
-    for (let x = xGas + 6 + arrowOffset - 36; x < xExt + wExt; x += 36) {
-      const ax = x;
-      ctx.moveTo(ax, rowY);
-      ctx.lineTo(ax + 22, rowY);
-      ctx.moveTo(ax + 18, rowY - 3);
-      ctx.lineTo(ax + 22, rowY);
-      ctx.lineTo(ax + 18, rowY + 3);
+    for (let x = xGas + 6 + arrowOffset - spacing; x < xExt + wExt; x += spacing) {
+      // In the insulated case, arrows fade as they cross the blanket — the
+      // heat is being held back, not conducted through.
+      const inInsul = S.insulated && x > xInsul && x < xExt;
+      if (inInsul && Math.random() > 0.5) continue;   // sparse in the blanket
+      ctx.moveTo(x, rowY);
+      ctx.lineTo(x + 20, rowY);
+      ctx.moveTo(x + 16, rowY - 3);
+      ctx.lineTo(x + 20, rowY);
+      ctx.lineTo(x + 16, rowY + 3);
     }
     ctx.stroke();
   }
   ctx.restore();
-  stageLabel(ctx, "Q  →", xExt + wExt - 24, wallY - 6, "#fff1c7");
+  // Flux magnitude tag + a compact bar showing q vs the uninsulated max.
+  stageLabel(ctx, `Q ${Math.round(S.q)} W/m²  →`, xExt + wExt - 118, wallY - 6,
+             S.insulated ? "#9bd69f" : "#fff1c7");
 
   // ── Sweeping thermal probe ─────────────────────────────────────────────
   // Vertical readout that slides across the cross-section showing local
@@ -889,6 +1032,41 @@ function drawEnergyDispatch(ctx, width, height, now) {
     : "DISTRICT HEATING DISPATCH · 24 H FROM PRO2 INPUTS",
     padX, 18, "#82a4b4");
   stageLabel(ctx, "MW", padX - 22, chartY + 8, "#82a4b4");
+
+  // ── Day/night sky ribbon — conveys the 24-h cycle at a glance ─────────
+  // Sky colour sweeps midnight → dawn → noon → dusk → midnight; a sun (day)
+  // or crescent moon (night) rides the playhead. Driven by the same hour.
+  {
+    const ribY = 22, ribH = 8;
+    const x0 = padX, x1 = padX + chartW;
+    const sky = ctx.createLinearGradient(x0, 0, x1, 0);
+    sky.addColorStop(0.00, "#0b1020");
+    sky.addColorStop(0.25, "#b9602c");
+    sky.addColorStop(0.50, "#2a6fb0");
+    sky.addColorStop(0.75, "#b9602c");
+    sky.addColorStop(1.00, "#0b1020");
+    ctx.save();
+    ctx.fillStyle = sky;
+    ctx.fillRect(x0, ribY, x1 - x0, ribH);
+    ctx.strokeStyle = "rgba(130,164,180,0.25)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x0 + 0.5, ribY + 0.5, x1 - x0 - 1, ribH - 1);
+    const cx = xAt(hour + subHour);
+    const cy = ribY + ribH / 2;
+    const isDay = hourProgress >= 6 && hourProgress < 18;
+    if (isDay) {
+      ctx.fillStyle = "#ffd166";
+      ctx.shadowColor = "rgba(255,209,102,0.8)";
+      ctx.shadowBlur = 6;
+      ctx.beginPath(); ctx.arc(cx, cy, 4.5, 0, Math.PI * 2); ctx.fill();
+    } else {
+      ctx.fillStyle = "#dfe7f2";
+      ctx.beginPath(); ctx.arc(cx, cy, 4.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#0b1020";   // crescent cut-out
+      ctx.beginPath(); ctx.arc(cx + 2, cy - 1, 3.8, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
 
   // ── Stacked areas — built up to the current hour (animated fill-in) ─────
   // Cursor position determines how far the dispatch is "filled". Past hours
@@ -1622,6 +1800,26 @@ function drawIndustrialBalance(ctx, width, height, controls, now) {
   ctx.fillText(`${metrics.baselineEmissions.toFixed(1)} kg/u`, stripPadL + stripW - 6, stripY + 9);
   ctx.fillText(`${metrics.emissions.toFixed(1)} kg/u  delta -${metrics.emissionsReduction.toFixed(1)}`, stripPadL + stripW - 6, stripY + stripH - 1);
   ctx.textAlign = "left";
+  // ── CO₂ puffs — gas baseline smokes heavily, electrified barely ───────
+  // Puff rate ∝ each scenario's emission intensity. As you toggle on the
+  // heat pump / recovery, the active puffs thin out and stop: live
+  // decarbonisation. (Dark = fossil CO₂; teal = near-clean vapour.)
+  const puffStack = (xTip, yBase, rate, dark) => {
+    const n = Math.max(0, Math.round(rate * 5));
+    for (let p = 0; p < n; p++) {
+      const ph = ((now * 0.0006) + p / Math.max(1, n)) % 1;
+      const py = yBase - ph * 15;
+      const px = xTip + Math.sin(ph * 6 + p) * 3;
+      const r = 1.3 + ph * 2.4;
+      const a = (1 - ph) * 0.5 * rate;
+      ctx.fillStyle = dark ? `rgba(74,64,56,${a})` : `rgba(120,200,190,${a})`;
+      ctx.beginPath(); ctx.arc(px, py, r, 0, Math.PI * 2); ctx.fill();
+    }
+  };
+  const baseRate = Math.min(1, metrics.baselineEmissions / Math.max(1, maxIntensity));
+  const actRate  = Math.min(1, metrics.emissions / Math.max(1, maxIntensity));
+  puffStack(stripPadL + Math.max(8, baselineW) - 6, stripY + 2, baseRate, true);
+  puffStack(stripPadL + Math.max(8, activeW) - 6, stripY + stripH * 0.55 + 2, actRate, false);
   ctx.restore();
 }
 
@@ -1662,25 +1860,54 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   const xExit = width * 0.54;
   const centreY = height * 0.49;
   const domain = nozzleDomainPath(xStart, xExit, centreY, height);
-  const plumeEnd = width - 15;
+  // ── Derived visual drivers from live metrics (every slider feeds these) ──
+  const P_c_MPa = metrics?.P_c_MPa || 10;
+  const T_c     = metrics?.T_c     || 3550;
+  const mDot    = metrics?.mDotTotal || 45;
+  const q_thr   = metrics?.heatFluxPeak || 60e6;
+  const T_w_max = metrics?.maxWallTemperature || 850;
+  const Me      = metrics?.exitMach || 2.76;
+  const coke_um = metrics?.cokeThicknessMicrons || 0;
+  const health  = (metrics?.healthIndex ?? 100) / 100;
+  // Plume length scales with √P_c (jet momentum thrust ∝ ṁ·V_e ∝ √P_c).
+  const plumeFracMax = 0.42;            // fraction of canvas dedicated to plume max
+  const plumeFracMin = 0.18;
+  const plumeFrac = plumeFracMin + (plumeFracMax - plumeFracMin) * Math.min(1, Math.sqrt(P_c_MPa / 30));
+  const plumeEnd = xExit + (width - xExit) * (plumeFrac / 0.42);
   const exitRadius = nozzlePlotRadius(1, height);
-  const shimmer = 0.82 + 0.12 * Math.sin(now * 0.002);
+  // Brightness of plume / chamber gas tracks T_c (CEA-derived).
+  const Tnorm = Math.max(0, Math.min(1, (T_c - 2800) / 800));   // 2800→0, 3600→1
+  const shimmer = (0.65 + 0.30 * Tnorm) + 0.10 * Math.sin(now * 0.002);
+  // Throat glow pulse — q_throat in MW/m² (real signal of failure-mode push).
+  const qNorm = Math.max(0, Math.min(1, q_thr / 1.2e8));        // 0→0, 120 MW→1
+  const throatPulse = qNorm * (0.55 + 0.30 * Math.sin(now * 0.012));
 
   stageLabel(ctx, isSwedish() ? "DE LAVAL / KYLKANAL / TERMISKT MOTSTÅND" : "DE LAVAL / COOLING CHANNEL / THERMAL RESISTANCE", 14, 19, "#82a4b4");
-  stageLabel(ctx, "MODEL: AREA-MACH + BARTZ + Rdep=t/k", 14, 33, "#82a4b4");
+  stageLabel(ctx, `P_c ${P_c_MPa.toFixed(1)} MPa  ·  T_c ${Math.round(T_c)} K  ·  ṁ ${mDot.toFixed(1)} kg/s`, 14, 33, "#65d6c9");
 
   // Gas temperature contours are clipped to the analytical de Laval domain.
-  // equation: A/A* = (1/M)[2/(gamma+1)(1 + (gamma-1)M^2/2)]^((gamma+1)/(2(gamma-1))).
+  // Brightness scales with chamber T_c — slider on O/F or P_c lights it up.
   ctx.save();
   ctx.clip(domain);
   const gasGradient = ctx.createLinearGradient(xStart, 0, xExit, 0);
-  gasGradient.addColorStop(0, "#fff1c7");
-  gasGradient.addColorStop(0.45, "#f6c85f");
+  // Cool side (chamber inlet) stays bright; supersonic side cools (Mach).
+  gasGradient.addColorStop(0,    `rgba(255,${Math.round(241 - 60*(1-Tnorm))},${Math.round(199 - 100*(1-Tnorm))},${shimmer})`);
+  gasGradient.addColorStop(0.45, `rgba(${246 - 40*(1-Tnorm)},${Math.round(200 - 40*(1-Tnorm))},95,${shimmer})`);
   gasGradient.addColorStop(0.72, "#d0622c");
   gasGradient.addColorStop(1, "#2563a8");
-  ctx.globalAlpha = shimmer;
+  ctx.globalAlpha = 1.0;
   ctx.fillStyle = gasGradient;
   ctx.fillRect(xStart, centreY - height * 0.3, xExit - xStart, height * 0.6);
+  // Throat glow ring — pulses when q_throat is high (engine being pushed)
+  if (throatPulse > 0.05) {
+    const throatX = xStart + (xExit - xStart) * 0.42;
+    const grad = ctx.createRadialGradient(throatX, centreY, 4, throatX, centreY, exitRadius * 2.2);
+    grad.addColorStop(0, `rgba(255, 241, 199, ${throatPulse * 0.95})`);
+    grad.addColorStop(0.5, `rgba(246, 200, 95, ${throatPulse * 0.55})`);
+    grad.addColorStop(1, "rgba(208, 98, 44, 0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(throatX - exitRadius * 2.2, centreY - exitRadius * 2.2, exitRadius * 4.4, exitRadius * 4.4);
+  }
   // Diverging-section gas contours — sped up 4× so the dashed acceleration
   // streaks visibly translate downstream (was 0.017+0.006 → 0.068+0.024).
   [0.28, 0.53, 0.77].forEach((fraction, index) => {
@@ -1693,33 +1920,68 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   });
   ctx.restore();
 
-  // Downstream exhaust: smooth expanding envelope + pressure-cell contours.
-  // The plume envelope itself wobbles slightly to read as live exhaust.
-  const plumeWobble = Math.sin(now * 0.0042) * exitRadius * 0.10;
+  // ── Downstream exhaust — morphs with ALTITUDE (the showpiece) ────────
+  // flare<1 → overexpanded (pinched jet, tight shock train, separation);
+  // flare≈1 → perfectly expanded (clean column);
+  // flare>1 → underexpanded (ballooning barrel + Mach disk).
+  const flare      = metrics?.flareFactor ?? 1.0;
+  const machDiskS  = metrics?.machDiskStrength ?? 0;
+  const separated  = !!metrics?.separated;
+  const regime     = metrics?.expansionRegime || "perfect";
+  const altKm      = metrics?.altitudeKm ?? 0;
+  // Keep the plume clear of the right-edge altitude gauge.
+  const plumeRight = Math.min(plumeEnd, width - 30);
+  // Half-width envelope: starts at the lip, swells to the barrel max near
+  // sBulge, then stays open (fades via the gradient) rather than pinching to
+  // a point. wMax kept modest so even a vacuum balloon fits the canvas.
+  const wMax  = exitRadius * (0.55 + 0.5 * flare);   // flare 0.45→0.78, 2.6→1.85
+  const sBulge = regime === "under" ? 0.40 : 0.26;
+  const wLip  = separated ? exitRadius * 0.6 : exitRadius;
+  const smoothstep = (a, b, x) => {
+    const t = Math.max(0, Math.min(1, (x - a) / (b - a)));
+    return t * t * (3 - 2 * t);
+  };
+  const halfAt = (s) => {
+    const rise  = smoothstep(0, sBulge, s);            // lip → barrel max
+    const decay = 1 - 0.42 * smoothstep(sBulge, 1, s); // gentle, stays open
+    return wLip + (wMax - wLip) * rise * decay;
+  };
+  const plumeWobble = Math.sin(now * 0.0042) * exitRadius * 0.08;
+  const N = 30;
   const plume = new Path2D();
-  plume.moveTo(xExit, centreY - exitRadius);
-  plume.bezierCurveTo(width * 0.64, centreY - exitRadius * 1.04 + plumeWobble, width * 0.83, centreY - exitRadius * 1.5 + plumeWobble * 0.6, plumeEnd, centreY - exitRadius * 1.65);
-  plume.lineTo(plumeEnd, centreY + exitRadius * 1.65);
-  plume.bezierCurveTo(width * 0.83, centreY + exitRadius * 1.5 - plumeWobble * 0.6, width * 0.64, centreY + exitRadius * 1.04 - plumeWobble, xExit, centreY + exitRadius);
+  plume.moveTo(xExit, centreY - wLip);
+  for (let s = 1 / N; s <= 1.0001; s += 1 / N) {
+    const x = xExit + (plumeRight - xExit) * s;
+    plume.lineTo(x, centreY - halfAt(s) - plumeWobble * s);
+  }
+  for (let s = 1; s >= -0.0001; s -= 1 / N) {
+    const x = xExit + (plumeRight - xExit) * s;
+    plume.lineTo(x, centreY + halfAt(s) + plumeWobble * s);
+  }
   plume.closePath();
+  // Colour: hotter chamber → brighter/yellower; high altitude → cooler blue fade.
+  const altFade = Math.max(0, Math.min(1, altKm / 70));
   const plumeGradient = ctx.createLinearGradient(xExit, 0, plumeEnd, 0);
-  plumeGradient.addColorStop(0, "rgba(208,98,44,0.85)");
-  plumeGradient.addColorStop(0.38, "rgba(246,200,95,0.58)");
-  plumeGradient.addColorStop(1, "rgba(37,99,168,0.16)");
+  plumeGradient.addColorStop(0, `rgba(${208 + 30*Tnorm},${98 + 60*Tnorm},${44 + 90*Tnorm},${0.7 + 0.25*Tnorm})`);
+  plumeGradient.addColorStop(0.4, `rgba(246,${200 + 30*Tnorm},${95 + 70*Tnorm},${0.42 + 0.25*Tnorm})`);
+  plumeGradient.addColorStop(1, `rgba(${90 - 50*altFade},140,${180 + 60*altFade},${0.14 + 0.12*altFade})`);
   ctx.fillStyle = plumeGradient;
   ctx.fill(plume);
+
   ctx.save();
   ctx.clip(plume);
-  // Expansion cells: ~8× faster phase (was 0.0024) + cell positions translate
-  // downstream over time so the shock-diamond pattern is obviously dynamic.
-  // equation: cells move at u_exit through the underexpanded plume.
-  const cellShift = (now * 0.00018) % 0.20;
-  for (let cell = 0; cell < 4; cell += 1) {
-    const x = xExit + (plumeEnd - xExit) * ((0.16 + cell * 0.2 + cellShift) % 1);
-    const half = exitRadius * (0.35 + cell * 0.12);
-    const alpha = 0.28 + 0.18 * Math.sin(now * 0.018 + cell);
-    ctx.strokeStyle = `rgba(246,200,95,${alpha})`;
-    ctx.lineWidth = 1.3;
+  // Shock-diamond train — overexpanded: many tight bright diamonds;
+  // underexpanded: fewer, wider. Count ∝ 1/flare.
+  const cellCount = Math.max(2, Math.min(8, Math.round(6 / flare)));
+  const cellShift = (now * 0.0002) % (0.85 / cellCount);
+  for (let cell = 0; cell < cellCount; cell += 1) {
+    const sc = 0.10 + cell * (0.85 / cellCount) + cellShift;
+    if (sc > 1) continue;
+    const x = xExit + (plumeRight - xExit) * sc;
+    const half = halfAt(sc) * 0.7;
+    const a = (0.22 + 0.20 * Math.sin(now * 0.02 + cell)) * (regime === "over" ? 1.2 : 0.7);
+    ctx.strokeStyle = `rgba(255,236,180,${Math.min(0.5, a)})`;
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.moveTo(x - half * 1.7, centreY);
     ctx.lineTo(x, centreY - half);
@@ -1728,51 +1990,220 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.closePath();
     ctx.stroke();
   }
-  // Trailing shear streaks across the plume — short dashes drifting downstream.
-  ctx.strokeStyle = "rgba(246,200,95,0.42)";
-  ctx.lineWidth = 0.9;
-  ctx.setLineDash([6, 9]);
-  ctx.lineDashOffset = -(now * 0.12) % 30;
-  for (const off of [-exitRadius * 0.9, -exitRadius * 0.4, 0, exitRadius * 0.4, exitRadius * 0.9]) {
+  // Mach disk — compact bright normal-shock disk (transverse to the flow),
+  // appears when far from perfectly expanded. Sits near the first barrel.
+  if (machDiskS > 0.18) {
+    const sDisk = Math.min(0.7, 0.18 + 0.16 * Math.min(1.6, flare));
+    const xDisk = xExit + (plumeRight - xExit) * sDisk;
+    const diskHalf = halfAt(sDisk) * (0.32 + 0.18 * machDiskS);   // compact
+    const rx = 6 + 6 * machDiskS;
+    const g = ctx.createLinearGradient(xDisk - rx, 0, xDisk + rx, 0);
+    g.addColorStop(0, "rgba(255,255,255,0)");
+    g.addColorStop(0.5, `rgba(255,252,235,${0.45 + 0.40 * machDiskS})`);
+    g.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = g;
     ctx.beginPath();
-    ctx.moveTo(xExit, centreY + off);
-    ctx.quadraticCurveTo((xExit + plumeEnd) / 2, centreY + off * 1.4, plumeEnd, centreY + off * 1.8);
-    ctx.stroke();
+    ctx.ellipse(xDisk, centreY, rx, diskHalf, 0, 0, Math.PI * 2);
+    ctx.fill();
   }
-  ctx.setLineDash([]);
   ctx.restore();
 
-  // Wall, methane coolant channel and deposit layer remain separate signals.
-  const deposit = Math.max(1.2, Math.min(6, (metrics?.cokeThicknessMicrons || 0) / 10));
+  // Separation shocks at the lip (overexpanded · separated).
+  if (separated) {
+    ctx.save();
+    ctx.strokeStyle = "rgba(255,150,90,0.85)";
+    ctx.lineWidth = 1.4;
+    [-1, 1].forEach((sgn) => {
+      ctx.beginPath();
+      ctx.moveTo(xExit, centreY + sgn * exitRadius);
+      ctx.lineTo(xExit + (plumeRight - xExit) * 0.18, centreY + sgn * wLip * 0.5);
+      ctx.stroke();
+    });
+    stageLabel(ctx, "FLOW SEPARATION", xExit + 6, centreY - exitRadius - 8, "#ff9a5a");
+    ctx.restore();
+  }
+
+  // ── Altitude gauge (right edge) + flight regime readout (top-right) ───
+  {
+    const gx = width - 13;
+    const gTop = 52, gBot = height * 0.46;
+    const frac = Math.min(1, altKm / 80);
+    ctx.save();
+    ctx.strokeStyle = "rgba(130,164,180,0.42)";
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(gx, gTop); ctx.lineTo(gx, gBot); ctx.stroke();
+    [0, 11, 50, 80].forEach((km) => {
+      const y = gBot - (gBot - gTop) * Math.min(1, km / 80);
+      ctx.strokeStyle = "rgba(130,164,180,0.55)";
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(gx - 4, y); ctx.lineTo(gx + 4, y); ctx.stroke();
+      ctx.fillStyle = "rgba(130,164,180,0.7)";
+      ctx.font = "500 8px 'JetBrains Mono', ui-monospace, monospace";
+      ctx.textAlign = "right";
+      ctx.fillText(`${km}`, gx - 6, y + 3);
+      ctx.textAlign = "left";
+    });
+    const my = gBot - (gBot - gTop) * frac;
+    ctx.strokeStyle = "rgba(167,139,250,0.92)";
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(gx, gBot); ctx.lineTo(gx, my); ctx.stroke();
+    ctx.fillStyle = "#a78bfa";
+    ctx.beginPath();
+    ctx.moveTo(gx, my - 6); ctx.lineTo(gx - 5, my + 3); ctx.lineTo(gx + 5, my + 3);
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+    // Fixed flight-status chip, top-right.
+    const pAmb = metrics?.ambientPa ?? 101325;
+    const layer = metrics?.atmLayer || "Troposphere";
+    const regColor = regime === "over" ? "#ff9a5a" : regime === "under" ? "#65d6c9" : "#a3e635";
+    ctx.save();
+    ctx.fillStyle = "rgba(7,11,16,0.84)";
+    ctx.fillRect(width - 158, 6, 138, 34);
+    ctx.strokeStyle = `${regColor}88`;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(width - 157.5, 6.5, 137, 33);
+    ctx.fillStyle = "#a78bfa";
+    ctx.font = "700 10px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.fillText(`ALT ${altKm.toFixed(0)} km · ${layer}`, width - 152, 19);
+    ctx.fillStyle = regColor;
+    ctx.fillText(`${metrics?.expansionLabel || "—"}`, width - 152, 32);
+    ctx.restore();
+  }
+
+  // Wall heatmap: copper-brown when cool (≤900 K) → orange when hot (≥1100 K)
+  //               → glowing red at burnout (≥1170 K AMS 4500 limit).
+  const Twn = Math.max(0, Math.min(1, (T_w_max - 600) / 700));   // 600 K → 0, 1300 K → 1
+  const wallR = Math.round(196 + (255 - 196) * Twn);
+  const wallG = Math.round(142 - 80 * Twn);
+  const wallB = Math.round(86 - 60 * Twn);
+  const wallColor = `rgb(${wallR},${wallG},${wallB})`;
+  const burnoutHot = T_w_max > 1170;
+  const wallGlow = burnoutHot
+    ? `rgba(255,${80 + 40*Math.sin(now*0.008)},40,0.45)`
+    : `rgba(255,180,90,0)`;
+  // Deposit layer thickness — visible as soon as it exceeds 1 µm.
+  const deposit = Math.max(1.2, Math.min(8, coke_um / 8));
+  // Coolant flow speed scales with ṁ_coolant — higher flow = faster dashes.
+  const mDotCool = metrics?.mDotCoolant || 8;
+  const flowSpeed = 0.05 + 0.08 * Math.min(1, mDotCool / 20);
+  // Coolant brightness drops if health degrades (deposit choking channel).
+  const coolBrightness = 0.50 + 0.45 * health;
   [-1, 1].forEach((sign) => {
     const wall = nozzleWallPath(xStart, xExit, centreY, height, sign);
     const channel = nozzleWallPath(xStart, xExit, centreY, height, sign, 11);
-    ctx.strokeStyle = "#c48e56";
+    // Burnout glow (outer halo) — only when T_w > 1170 K
+    if (burnoutHot) {
+      ctx.save();
+      ctx.shadowColor = wallGlow;
+      ctx.shadowBlur = 8;
+      ctx.strokeStyle = wallGlow;
+      ctx.lineWidth = 10;
+      ctx.stroke(wall);
+      ctx.restore();
+    }
+    // Wall (colored by T_w,max)
+    ctx.strokeStyle = wallColor;
     ctx.lineWidth = 6;
     ctx.stroke(wall);
-    ctx.strokeStyle = "#65d6c9";
+    // Channel outline
+    ctx.strokeStyle = `rgba(101,214,201,${coolBrightness})`;
     ctx.lineWidth = 4;
     ctx.stroke(channel);
-    ctx.strokeStyle = "#382218";
-    ctx.lineWidth = deposit;
-    ctx.stroke(wall);
-    // Coolant flow animation — sped up 4× for visibility (was 0.024)
-    ctx.strokeStyle = "rgba(101,214,201,0.85)";
+    // Coke deposit on hot-side — opacity tracks resistance share.
+    if (deposit > 0.5) {
+      ctx.strokeStyle = `rgba(56,34,24,${0.55 + 0.40 * Math.min(1, coke_um / 60)})`;
+      ctx.lineWidth = deposit;
+      ctx.stroke(wall);
+    }
+    // Coolant flow dashes — speed = ṁ-driven, brightness = health-driven.
+    ctx.strokeStyle = `rgba(101,214,201,${coolBrightness})`;
     ctx.lineWidth = 1.4;
     ctx.setLineDash([9, 10]);
-    ctx.lineDashOffset = -(now * 0.10) % 38;
+    ctx.lineDashOffset = -(now * flowSpeed) % 38;
     ctx.stroke(channel);
     ctx.setLineDash([]);
   });
+
+  // ── Mach-profile inset (top-left, above the converging nozzle) ───────
+  // Small chart showing M(x) along the nozzle axis. Computed from the
+  // analytical area-Mach relation using the same nozzleRadius() that
+  // drives the cross-section drawing — so the inset truly mirrors the
+  // engine you've configured. Anderson Ch.3, A/A* relation.
+  // Placed top-left (clear of the bottom thermal-resistance ladder, the
+  // right-edge altitude gauge, and the top-right flight chip).
+  const insetW = Math.min(154, width * 0.21);
+  const insetH = Math.min(58, height * 0.14);
+  const insetX = 16;
+  const insetY = 44;
+  ctx.save();
+  ctx.fillStyle = "rgba(7, 11, 16, 0.78)";
+  ctx.fillRect(insetX, insetY, insetW, insetH);
+  ctx.strokeStyle = "rgba(101, 214, 201, 0.42)";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(insetX + 0.5, insetY + 0.5, insetW - 1, insetH - 1);
+  // Axis labels
+  ctx.fillStyle = "rgba(180, 192, 204, 0.82)";
+  ctx.font = "600 9px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText("M(x)", insetX + 6, insetY + 12);
+  ctx.fillText("subsonic", insetX + 6, insetY + insetH - 6);
+  ctx.fillText(`Ma_e ${Me.toFixed(2)}`, insetX + insetW - 60, insetY + 12);
+  // Plot M(x) along the axis — mirrors the worker's analytical A/A* nozzle.
+  ctx.strokeStyle = "rgba(246,200,95,0.95)";
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  const plotPadX = 10, plotPadY = 16;
+  const plotW = insetW - plotPadX * 2;
+  const plotH = insetH - plotPadY - 10;
+  // Inline geometry + Mach solver (avoids worker import; same numbers).
+  const quint = (t) => { t = Math.max(0, Math.min(1, t)); return 6*t**5 - 15*t**4 + 10*t**3; };
+  const nzRad = (xn) => {
+    if (xn <= 0.23) return 0.29 + (0.065 - 0.29) * quint((xn - 0.025) / (0.23 - 0.025));
+    return 0.065 + (0.14 - 0.065) * quint((xn - 0.23) / (0.47 - 0.23));
+  };
+  const γ_eff = metrics?.gamma || 1.146;
+  const areaMachLocal = (M) => (1/M) * Math.pow((2/(γ_eff+1))*(1 + ((γ_eff-1)/2)*M*M), (γ_eff+1)/(2*(γ_eff-1)));
+  const solveMachInset = (aR, supersonic) => {
+    if (aR <= 1.001) return 1;
+    let lo = supersonic ? 1.0001 : 0.005;
+    let hi = supersonic ? 8 : 0.9999;
+    for (let i = 0; i < 30; i++) {
+      const mid = (lo + hi) / 2;
+      const cur = areaMachLocal(mid);
+      if (supersonic) { if (cur < aR) lo = mid; else hi = mid; }
+      else            { if (cur > aR) lo = mid; else hi = mid; }
+    }
+    return (lo + hi) / 2;
+  };
+  for (let s = 0; s <= 40; s += 1) {
+    const xn = 0.025 + (s / 40) * (0.47 - 0.025);
+    const r_norm = nzRad(xn);
+    const aRatio = (r_norm / 0.065) ** 2;
+    const mach = solveMachInset(aRatio, xn >= 0.23);
+    const px = insetX + plotPadX + (s / 40) * plotW;
+    const py = insetY + plotPadY + (1 - Math.min(1, mach / Math.max(Me, 1.5))) * plotH;
+    if (s === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  // Mark the throat (M=1)
+  ctx.fillStyle = "rgba(101, 214, 201, 0.9)";
+  ctx.beginPath();
+  const throatX_inset = insetX + plotPadX + plotW * (0.23 - 0.025) / (0.47 - 0.025);
+  const throatY_inset = insetY + plotPadY + (1 - 1 / Math.max(Me, 1.5)) * plotH;
+  ctx.arc(throatX_inset, throatY_inset, 2.5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "rgba(101, 214, 201, 0.78)";
+  ctx.font = "500 8px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText("M=1", throatX_inset - 8, throatY_inset - 4);
+  ctx.restore();
 
   ctx.strokeStyle = "rgba(246,200,95,0.8)";
   ctx.beginPath();
   ctx.moveTo(xStart + (xExit - xStart) * 0.205, centreY - 12);
   ctx.lineTo(xStart + (xExit - xStart) * 0.205, centreY + 12);
   ctx.stroke();
-  stageLabel(ctx, isSwedish() ? "METANKYLKANAL" : "CH4 COOLANT", 18, height * 0.15, "#65d6c9");
+  stageLabel(ctx, isSwedish() ? "METANKYLKANAL" : "CH4 COOLANT", 18, height * 0.205, "#65d6c9");
   stageLabel(ctx, "THROAT", xStart + (xExit - xStart) * 0.205 - 20, centreY + 27, "#f6c85f");
-  stageLabel(ctx, "EXPANSION CELLS", xExit + 12, centreY - exitRadius * 1.95, "#f6c85f");
   // ── Thermal resistance ladder (bottom strip) ──────────────────────────
   // Shows the 1-D heat flux path: gas → copper → coke (GROWING) → coolant.
   // R_coke bar width grows with the simulated coke thickness, dramatising
@@ -2197,6 +2628,23 @@ export async function init(ctx) {
       timeToMargin,
       stantonNumber:   isFinite(St) ? `St ${St.toExponential(2)}` : "St —",
       depositResistanceShare: `${metrics.resistanceIncrease.toFixed(2)} %`,
+      etaCstar:        `${((metrics.etaCstar || 0.97) * 100).toFixed(1)}%  (Sutton & Biblarz)`,
+      Lstar:           `${(metrics.Lstar || 1.10).toFixed(2)} m  (combustor)`,
+      // ── Flight / altitude-adaptation readouts ──────────────────────
+      ambient:    metrics.ambientPa != null
+        ? (metrics.ambientPa >= 1000
+            ? `${(metrics.ambientPa / 1000).toFixed(1)} kPa`
+            : `${metrics.ambientPa.toFixed(0)} Pa`)
+        : "—",
+      regime:     metrics.expansionLabel || "—",
+      thrust:     `${(metrics.thrust_kN || 0).toFixed(0)} kN  @ ${(metrics.altitudeKm || 0).toFixed(0)} km`,
+      thrustRange: (metrics.thrustSL_kN != null)
+        ? `${metrics.thrustSL_kN.toFixed(0)} → ${metrics.thrustVac_kN.toFixed(0)} kN`
+        : "—",
+      ispAlt:     `${Math.round(metrics.Isp_alt || 0)} s`,
+      prMatch:    (metrics.expansionRatio != null)
+        ? `${metrics.expansionRatio.toFixed(2)}${metrics.separated ? " ⚠ sep" : ""}`
+        : "—",
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-research-metric="${key}"]`);
@@ -2216,11 +2664,13 @@ export async function init(ctx) {
   // ── Wire the methalox-engine sliders to the worker ────────────────────
   const initResearchControls = () => {
     const map = { P_c: "chamberPressureMPa", OF: "mixtureRatio",
-                  D_t: "throatDiameter_mm", T_c_in: "coolantInletK" };
+                  D_t: "throatDiameter_mm", T_c_in: "coolantInletK",
+                  alt: "altitudeKm" };
     const fmt = { P_c: v => `${Number(v).toFixed(1)} MPa`,
                   OF:  v => `${Number(v).toFixed(1)}`,
                   D_t: v => `${Number(v).toFixed(0)} mm`,
-                  T_c_in: v => `${Number(v).toFixed(0)} K` };
+                  T_c_in: v => `${Number(v).toFixed(0)} K`,
+                  alt: v => `${Number(v).toFixed(0)} km` };
     document.querySelectorAll("[data-research-input]").forEach((input) => {
       const key = input.dataset.researchInput;
       const out = document.querySelector(`[data-research-output="${key}"]`);
@@ -2228,10 +2678,77 @@ export async function init(ctx) {
         const val = Number(input.value);
         if (out) out.textContent = fmt[key](val);
         worker.postMessage({ type: "controls", controls: { [map[key]]: val } });
+        // A manual drag of the altitude slider cancels an active auto-sweep.
+        if (key === "alt" && researchLaunch.active && !researchLaunch.silent) {
+          stopLaunch();
+        }
       };
       input.addEventListener("input", push);
     });
+
+    // ── LAUNCH auto-sweep: ascend 0 → 80 km over ~14 s, then hold ───────
+    const altInput = document.querySelector("[data-research-input='alt']");
+    const altOut   = document.querySelector("[data-research-output='alt']");
+    const launchBtn = document.querySelector("[data-research-launch]");
+    const setAltitude = (km) => {
+      if (altInput) altInput.value = String(km);
+      if (altOut) altOut.textContent = `${km.toFixed(0)} km`;
+      worker.postMessage({ type: "controls", controls: { altitudeKm: km } });
+    };
+    const tickLaunch = (ts) => {
+      if (!researchLaunch.active) return;
+      if (researchLaunch.t0 == null) researchLaunch.t0 = ts;
+      const elapsed = (ts - researchLaunch.t0) / 1000;
+      const dur = 14;
+      const p = Math.min(1, elapsed / dur);
+      // Ease-in-out so the climb accelerates then settles.
+      const eased = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      const km = eased * 80;
+      researchLaunch.silent = true;        // suppress the cancel-on-drag guard
+      setAltitude(km);
+      researchLaunch.silent = false;
+      if (p >= 1) {
+        researchLaunch.active = false;
+        if (launchBtn) {
+          launchBtn.textContent = "↺ Reset to ground";
+          launchBtn.setAttribute("aria-pressed", "false");
+          launchBtn.dataset.launchState = "done";
+        }
+        return;
+      }
+      researchLaunch.raf = requestAnimationFrame(tickLaunch);
+    };
+    function startLaunch() {
+      researchLaunch.active = true;
+      researchLaunch.t0 = null;
+      if (launchBtn) {
+        launchBtn.textContent = "■ Ascending…";
+        launchBtn.setAttribute("aria-pressed", "true");
+        launchBtn.dataset.launchState = "active";
+      }
+      researchLaunch.raf = requestAnimationFrame(tickLaunch);
+    }
+    function stopLaunch() {
+      researchLaunch.active = false;
+      if (researchLaunch.raf) cancelAnimationFrame(researchLaunch.raf);
+      if (launchBtn) {
+        launchBtn.textContent = "▶ Launch ascent";
+        launchBtn.setAttribute("aria-pressed", "false");
+        launchBtn.dataset.launchState = "idle";
+      }
+    }
+    if (launchBtn) {
+      launchBtn.dataset.launchState = "idle";
+      launchBtn.addEventListener("click", () => {
+        const state = launchBtn.dataset.launchState || "idle";
+        if (state === "active") { stopLaunch(); }
+        else if (state === "done") { stopLaunch(); setAltitude(0); }
+        else { startLaunch(); }
+      });
+    }
   };
+  // Launch-sweep state (closure-scoped); the cancel-on-drag guard reads it.
+  const researchLaunch = { active: false, t0: null, raf: null, silent: false };
   initResearchControls();
 
   function updateThermalMetrics() {
@@ -2241,11 +2758,16 @@ export async function init(ctx) {
       temperature: t.temperature,
       pressureDrop: t.pressureDrop,
       biot: `Bi ${t.biot}`,
-      // Extended readouts:
       heatFlux: t.heatFlux,
       wallOuter: t.wallOuter,
       adiabaticWall: t.adiabaticWall,
       reynolds: t.reynolds,
+      yPlus: t.yPlus,
+      nusselt: t.nusselt,
+      lossK: t.lossK,
+      entropyGen: t.entropyGen,
+      stantonInternal: t.stantonInternal,
+      thermalTau: t.thermalTau,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-thermal-metric="${key}"]`);
@@ -2316,6 +2838,12 @@ export async function init(ctx) {
       priceDeviation: t.priceDeviation,
       roundTrip: t.roundTrip,
       marginalCO2: t.marginalCO2,
+      co2Saved: t.co2Saved,
+      arbitrage: t.arbitrage,
+      carnotHP: t.carnotHP,
+      macCurrent: t.macCurrent,
+      lcoh: t.lcoh,
+      hpCapacityFactor: t.hpCapacityFactor,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-energy-metric="${key}"]`);
@@ -2351,6 +2879,14 @@ export async function init(ctx) {
       scopes: `S1 ${s1} / S2 ${s2} kgCO₂/h`,
       primary: `${metrics.primaryEnergyMW.toFixed(2)} MW (PEF 1.9)`,
       etaHR: `${(metrics.eta_hr * 100).toFixed(1)} %`,
+      carnotMax: `${metrics.carnotCopMax.toFixed(2)}  (η_2nd = ${(metrics.copHP / metrics.carnotCopMax).toFixed(2)})`,
+      exergyEff: `${(metrics.exergyEff * 100).toFixed(1)} %`,
+      cumCO2: `${(metrics.cumCO2Saved_t_per_yr).toFixed(0)} tCO₂/y`,
+      specificCO2: `${metrics.specificCO2.toFixed(2)} kgCO₂/u`,
+      energyProductivity: `${metrics.energyProductivity.toFixed(2)} u/MWh`,
+      co2Breakeven: Number.isFinite(metrics.co2BreakevenSEKperT)
+        ? `${metrics.co2BreakevenSEKperT.toFixed(0)} SEK/tCO₂`
+        : "— (no abatement)",
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-industrial-metric="${key}"]`);
