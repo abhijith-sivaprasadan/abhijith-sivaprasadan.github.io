@@ -20,16 +20,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
-  <link rel="stylesheet" href="styles.css?v=20260527-v4-lenspow3" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260527-v4-lenspow3" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260527-v4-lenspow3" />
-  <script src="scripts/public-config.js?v=20260527-v4-lenspow3" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260529-v4-lenspow4" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260529-v4-lenspow4" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260529-v4-lenspow4" />
+  <script src="scripts/public-config.js?v=20260529-v4-lenspow4" defer></script>
   <!-- v4 motion stack: GSAP + plugins (load before motion/index.js) -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="scripts/motion/index.js?v=20260527-v4-lenspow3"></script>
-  <script src="scripts/motion/sw-register.js?v=20260527-v4-lenspow3" defer></script>
+  <script type="module" src="scripts/motion/index.js?v=20260529-v4-lenspow4"></script>
+  <script src="scripts/motion/sw-register.js?v=20260529-v4-lenspow4" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -61,8 +61,8 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis", "k-omega SST turbulence model", "Compressible flow", "Mesh independence", "Biot number analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260527-v4-lenspow3" defer></script>
-  <script src="scripts/animations.js?v=20260527-v4-lenspow3" defer></script>
+  <script src="scripts/site.js?v=20260529-v4-lenspow4" defer></script>
+  <script src="scripts/animations.js?v=20260529-v4-lenspow4" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
@@ -253,6 +253,9 @@
             <article title="y⁺ = ρ·u_τ·Δy/μ ;  u_τ = √(τ_w/ρ) ;  τ_w from C_f = 0.046·Re^(−0.2). Δy = 50 µm first-cell size from thesis mesh"><span class="cell-sym">y⁺</span><strong data-thermal-metric="yPlus">y⁺ —</strong><span>First-cell wall units</span></article>
             <article title="Nu = h_int · D_h / k_air ;  k_air ≈ 0.045 W/mK at 561 K ;  cross-check h via Dittus-Boelter"><span class="cell-sym">Nu</span><strong data-thermal-metric="nusselt">Nu —</strong><span>Nusselt at throat</span></article>
             <article title="K = (p0_in − p0_out)/(½ρV²) ;  legacy = 2·(1/Cc − 1)² Borda-Carnot ;  smooth ≈ 4-6% frictional only"><span class="cell-sym">K</span><strong data-thermal-metric="lossK">K —</strong><span>Pressure-loss coefficient</span></article>
+            <article title="ṡ_gen = q·(1/T_cold − 1/T_hot)  —  Bejan, Entropy Generation Minimization, CRC 1996"><span class="cell-sym">ṡ_gen</span><strong data-thermal-metric="entropyGen">—</strong><span>Entropy generation (Bejan)</span></article>
+            <article title="St_int = Nu/(Re·Pr)  —  Reynolds analogy at the internal surface"><span class="cell-sym">St_int</span><strong data-thermal-metric="stantonInternal">—</strong><span>Internal Stanton</span></article>
+            <article title="τ ≈ ρ·cp·t/h_ext  —  thin-wall lumped-capacity thermal time. ρ_steel=7900, cp=510"><span class="cell-sym">τ</span><strong data-thermal-metric="thermalTau">—</strong><span>Thermal time constant</span></article>
           </div>
           <p class="model-footnote">The instrument viewport explains the thesis Biot interpretation with a 1-D resistance network. Values above are thesis-reported or equation-derived (via <code>scripts/physics/</code>), not browser CFD predictions.</p>
           <details class="lens-methodology">
@@ -291,6 +294,9 @@
             <article title="Σ over 24 h of (g_gas_baseline − g_marginal) × Q_dem(t).  Gas-only ≈ 224 kg/MWh_th LHV"><span class="cell-sym">ΔCO₂</span><strong data-energy-metric="co2Saved">— tCO₂/day</strong><span>Cumulative CO₂ saved</span></article>
             <article title="Best (lowest 6h-avg) vs worst (highest 6h-avg) price spread × TES capacity × η_RT.  Spot-arbitrage upper bound"><span class="cell-sym">SEK/d</span><strong data-energy-metric="arbitrage">— SEK/day</strong><span>Spot-price arbitrage</span></article>
             <article title="COP = η_2nd · T_sink/(T_sink − T_source).  T_sink = 80 °C DH supply, T_source = 5 °C ambient, η_2nd = 0.55"><span class="cell-sym">COP_HP</span><strong data-energy-metric="carnotHP">—</strong><span>Carnot HP benchmark</span></article>
+            <article title="MAC = (c_active − c_gas)/(g_gas − g_active).  Marginal abatement cost of switching to the current marginal source"><span class="cell-sym">MAC</span><strong data-energy-metric="macCurrent">—</strong><span>Marginal abatement cost</span></article>
+            <article title="LCOH at the current marginal source — fuel + O&M only.  HP: p_el/COP + 30 SEK/MWh ;  CHP: 295 SEK/MWh"><span class="cell-sym">LCOH</span><strong data-energy-metric="lcoh">—</strong><span>Levelized heat cost</span></article>
+            <article title="HP capacity factor = hours HP is marginal source / 24.  Higher when the price profile is consistently cheap"><span class="cell-sym">CF_HP</span><strong data-energy-metric="hpCapacityFactor">—</strong><span>HP capacity factor</span></article>
           </div>
           <p class="model-footnote">Demand and electricity-price values are read from the PRO2 modelling inputs; the source label and storage state are a visible dispatch screening rule. The case-study page documents the MILP model. All derived values via <code>scripts/physics/energy-systems.js</code>.</p>
           <details class="lens-methodology">
@@ -354,6 +360,9 @@
             <article title="Time to reach T_burnout extrapolated from current dT_w/dt"><span class="cell-sym">τ_burn</span><strong data-research-metric="timeToMargin">--</strong><span>Time-to-margin</span></article>
             <article title="St = h_g/(ρ·V·cp); throat reference state"><span class="cell-sym">St</span><strong data-research-metric="stantonNumber">--</strong><span>Stanton (throat)</span></article>
             <article title="Deposit's contribution to total resistance: (R_total/R_clean − 1) ×100%"><span class="cell-sym">R_dep/R</span><strong data-research-metric="depositResistanceShare">--</strong><span>Deposit resistance share</span></article>
+            <article title="Vacuum thrust F = ṁ·V_e + p_e·A_e ;  V_e = Ma_e·√(γ·R·T_e) ;  Sutton & Biblarz Eq. 3-29"><span class="cell-sym">F</span><strong data-research-metric="thrust">--</strong><span>Vacuum thrust (kN)</span></article>
+            <article title="η_c* = c*_measured / c*_theoretical ;  typical methalox engines 0.95-0.98 ;  Sutton & Biblarz Ch.5"><span class="cell-sym">η_c*</span><strong data-research-metric="etaCstar">--</strong><span>Combustion efficiency</span></article>
+            <article title="L* = V_chamber / A_t ;  combustor-sizing characteristic length ;  methalox typical 1.0-1.3 m"><span class="cell-sym">L*</span><strong data-research-metric="Lstar">--</strong><span>Characteristic length</span></article>
           </div>
           <p class="model-footnote">
             Realistic methalox model — chamber state from NASA CEA polynomial fit, full Bartz with σ correction, Arrhenius coke kinetics, T-dependent k<sub>Cu</sub>, mass-conservation coolant closure. All formulas in <code>scripts/physics/</code>.
@@ -425,6 +434,9 @@
               <article title="COP_max = T_sink/(T_sink − T_source) — thermodynamic ceiling at the lift; η_2nd is COP/COP_max"><span class="cell-sym">COP_max</span><strong data-industrial-metric="carnotMax">--</strong><span>Carnot COP ceiling</span></article>
               <article title="Exergy out / exergy in.  ψ_heat = 1 − T_amb/T_sink ;  electricity = pure exergy ;  gas exergy via T_flame ≈ 2100 K"><span class="cell-sym">ψ</span><strong data-industrial-metric="exergyEff">--</strong><span>Exergy efficiency</span></article>
               <article title="Annualised CO₂ avoided vs baseline at current load + dispatch.  7200 h/y utilisation"><span class="cell-sym">ΣΔCO₂</span><strong data-industrial-metric="cumCO2">--</strong><span>Cumulative tCO₂/year</span></article>
+              <article title="kgCO₂ per unit of production — direct ESG metric.  Weighted by electricity + gas emission factors"><span class="cell-sym">e_u</span><strong data-industrial-metric="specificCO2">--</strong><span>Specific CO₂ per unit</span></article>
+              <article title="Energy productivity = production / purchased energy (units per MWh).  Inverse of EnPI, business framing"><span class="cell-sym">EP</span><strong data-industrial-metric="energyProductivity">--</strong><span>Energy productivity</span></article>
+              <article title="Carbon-price break-even (SEK/tCO₂) where electrification (HP) beats gas. Positive = electrification still needs a CO₂ price; negative = already cheaper without one"><span class="cell-sym">CP_be</span><strong data-industrial-metric="co2Breakeven">--</strong><span>CO₂-price break-even</span></article>
             </div>
           </div>
           <p class="model-footnote">

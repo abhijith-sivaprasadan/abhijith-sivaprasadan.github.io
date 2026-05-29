@@ -211,10 +211,18 @@ function thermalTelemetry() {
     wallOuter: `${T_outer.toFixed(1)} K`,
     adiabaticWall: `${T_aw.toFixed(1)} K`,
     reynolds: `Re ${Re.toExponential(2)}`,
-    // New rigour readouts:
     yPlus: `y⁺ ${yPlus.toFixed(1)}  (target <1 SST)`,
     nusselt: `Nu ${Nu.toFixed(0)}  (Dittus-Boelter check)`,
     lossK: `K ${(K_loss * 100).toFixed(1)}%  (${ctrl.geometry === "legacy" ? "Borda-Carnot ×2" : "smooth contraction"})`,
+    // ── More rigour: entropy generation, internal Stanton, thermal τ ────
+    // Bejan entropy-generation rate per area: ṡ_gen = q·(1/T_cold − 1/T_hot)
+    //   (Bejan, Entropy Generation Minimization, CRC Press 1996, Ch.1)
+    entropyGen: `${(cht.q * (1 / REDUCER_T_AMBIENT - 1 / ctrl.T0)).toFixed(2)} W/m²K  (Bejan EGM)`,
+    // Internal Stanton via the Reynolds analogy: St = Nu/(Re·Pr)
+    stantonInternal: `St_int ${(Nu / (Re * PR_AIR)).toExponential(2)}  (Nu/(Re·Pr))`,
+    // Thermal time constant τ ≈ ρ_w·cp_w·t/h_ext  (thin-wall lumped capacity)
+    //   ρ_steel=7900 kg/m³, cp_steel=510 J/kgK
+    thermalTau: `τ ${((7900 * 510 * REDUCER_T_WALL_M) / REDUCER_H_EXT).toFixed(0)} s  (ρcp·t/h_ext)`,
     _cht: cht,
   };
 }
@@ -321,6 +329,39 @@ function energyTelemetry(now) {
     co2Saved: `${(co2SavedKgPerDay / 1000).toFixed(1)} tCO₂/day  (vs gas-only)`,
     arbitrage: `${arbSEKperDay.toFixed(0)} SEK/day  (Δ${(highAvg - lowAvg).toFixed(0)}·E_TES·η_RT)`,
     carnotHP: `COP_real ${COP_real.toFixed(2)}  (Carnot ${COP_carnot.toFixed(1)}, η_2nd=0.55)`,
+    // ── More rigour ─────────────────────────────────────────────────────
+    // Marginal abatement cost of CURRENT marginal source vs gas-only baseline.
+    //   MAC = (c_heat_active − c_heat_gas) / (g_gas − g_active)
+    //   c_heat_gas ≈ 350 SEK/MWh_th (NG fuel + O&M); g_gas = 224 kg/MWh_th
+    macCurrent: (() => {
+      const c_gas = 350;
+      const c_active = marginal.label.startsWith("Heat pump")
+        ? marginal.heatPriceHP : 270;
+      const g_active = marginal.label.startsWith("Heat pump")
+        ? ENERGY_GRID_INTENSITY / ENERGY_HP_COP_THERMAL : ENERGY_CHP_HEAT_FACTOR;
+      const dCO2 = GAS_ONLY_INTENSITY - g_active;
+      if (!(dCO2 > 0)) return "—";
+      return `${((c_active - c_gas) / (dCO2 / 1000)).toFixed(0)} SEK/tCO₂`;
+    })(),
+    // LCOH at the current marginal source — fuel + O&M only (no CAPEX here).
+    //   HP:  p_el/COP + 30 SEK/MWh O&M
+    //   CHP: 270 SEK/MWh + 25 SEK/MWh O&M
+    lcoh: (() => {
+      const isHP = marginal.label.startsWith("Heat pump");
+      const lcoh_value = isHP
+        ? (marginal.heatPriceHP + 30)
+        : (270 + 25);
+      return `${lcoh_value.toFixed(0)} SEK/MWh_th  (${isHP ? "HP" : "CHP"})`;
+    })(),
+    // HP capacity factor over the 24h cycle: hours HP is the marginal source.
+    hpCapacityFactor: (() => {
+      let hpHours = 0;
+      for (let i = 0; i < 24; i += 1) {
+        const m = classifyMarginal(PRO2_PRICE[i], ENERGY_HP_COP_THERMAL);
+        if (m.label.startsWith("Heat pump")) hpHours += 1;
+      }
+      return `${((hpHours / 24) * 100).toFixed(0)}%  (${hpHours}/24 h)`;
+    })(),
   };
 }
 
@@ -448,6 +489,23 @@ function industrialModel(controls) {
     })(),
     // Cumulative tCO₂/year at current load (7200 h/y utilisation).
     cumCO2Saved_t_per_yr: co2Avoided_t,
+    // ── More rigour ─────────────────────────────────────────────────────
+    // Specific CO₂ per unit produced (kgCO₂/u) — direct ESG metric.
+    specificCO2: production > 0 ? emissions / 1000 : 0,
+    // Energy productivity = production / purchased energy (u/MWh).
+    energyProductivity: purchasedEnergy > 0 ? production / purchasedEnergy : 0,
+    // Carbon-price break-even (SEK/tCO₂):
+    //   CP_breakeven = (gasCost − HPcost) / (g_gas − g_grid/COP)
+    co2BreakevenSEKperT: (() => {
+      const gas_cost_per_MWh = INDUSTRIAL_PRICE_GAS_SEK / ETA_GAS_BOILER;
+      const hp_cost_per_MWh  = INDUSTRIAL_PRICE_EL_SEK / copHP;
+      const dCost = gas_cost_per_MWh - hp_cost_per_MWh;
+      const g_gas_kg = G_GAS_LHV / 1000;
+      const g_HP_kg  = (controls.grid / copHP) / 1000;
+      const dCO2_t_per_MWh = g_gas_kg - g_HP_kg;
+      if (!(dCO2_t_per_MWh > 0)) return NaN;
+      return -dCost / dCO2_t_per_MWh;
+    })(),
   };
 }
 
@@ -1899,6 +1957,77 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.setLineDash([]);
   });
 
+  // ── Mach-profile inset (bottom-right) ────────────────────────────────
+  // Small chart showing M(x) along the nozzle axis. Computed from the
+  // analytical area-Mach relation using the same nozzleRadius() that
+  // drives the cross-section drawing — so the inset truly mirrors the
+  // engine you've configured. Anderson Ch.3, A/A* relation.
+  const insetW = Math.min(170, width * 0.20);
+  const insetH = Math.min(70, height * 0.16);
+  const insetX = width - insetW - 10;
+  const insetY = height - insetH - 8;
+  ctx.save();
+  ctx.fillStyle = "rgba(7, 11, 16, 0.78)";
+  ctx.fillRect(insetX, insetY, insetW, insetH);
+  ctx.strokeStyle = "rgba(101, 214, 201, 0.42)";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(insetX + 0.5, insetY + 0.5, insetW - 1, insetH - 1);
+  // Axis labels
+  ctx.fillStyle = "rgba(180, 192, 204, 0.82)";
+  ctx.font = "600 9px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText("M(x)", insetX + 6, insetY + 12);
+  ctx.fillText("subsonic", insetX + 6, insetY + insetH - 6);
+  ctx.fillText(`Ma_e ${Me.toFixed(2)}`, insetX + insetW - 60, insetY + 12);
+  // Plot M(x) along the axis — mirrors the worker's analytical A/A* nozzle.
+  ctx.strokeStyle = "rgba(246,200,95,0.95)";
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+  const plotPadX = 10, plotPadY = 16;
+  const plotW = insetW - plotPadX * 2;
+  const plotH = insetH - plotPadY - 10;
+  // Inline geometry + Mach solver (avoids worker import; same numbers).
+  const quint = (t) => { t = Math.max(0, Math.min(1, t)); return 6*t**5 - 15*t**4 + 10*t**3; };
+  const nzRad = (xn) => {
+    if (xn <= 0.23) return 0.29 + (0.065 - 0.29) * quint((xn - 0.025) / (0.23 - 0.025));
+    return 0.065 + (0.14 - 0.065) * quint((xn - 0.23) / (0.47 - 0.23));
+  };
+  const γ_eff = metrics?.gamma || 1.146;
+  const areaMachLocal = (M) => (1/M) * Math.pow((2/(γ_eff+1))*(1 + ((γ_eff-1)/2)*M*M), (γ_eff+1)/(2*(γ_eff-1)));
+  const solveMachInset = (aR, supersonic) => {
+    if (aR <= 1.001) return 1;
+    let lo = supersonic ? 1.0001 : 0.005;
+    let hi = supersonic ? 8 : 0.9999;
+    for (let i = 0; i < 30; i++) {
+      const mid = (lo + hi) / 2;
+      const cur = areaMachLocal(mid);
+      if (supersonic) { if (cur < aR) lo = mid; else hi = mid; }
+      else            { if (cur > aR) lo = mid; else hi = mid; }
+    }
+    return (lo + hi) / 2;
+  };
+  for (let s = 0; s <= 40; s += 1) {
+    const xn = 0.025 + (s / 40) * (0.47 - 0.025);
+    const r_norm = nzRad(xn);
+    const aRatio = (r_norm / 0.065) ** 2;
+    const mach = solveMachInset(aRatio, xn >= 0.23);
+    const px = insetX + plotPadX + (s / 40) * plotW;
+    const py = insetY + plotPadY + (1 - Math.min(1, mach / Math.max(Me, 1.5))) * plotH;
+    if (s === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  // Mark the throat (M=1)
+  ctx.fillStyle = "rgba(101, 214, 201, 0.9)";
+  ctx.beginPath();
+  const throatX_inset = insetX + plotPadX + plotW * (0.23 - 0.025) / (0.47 - 0.025);
+  const throatY_inset = insetY + plotPadY + (1 - 1 / Math.max(Me, 1.5)) * plotH;
+  ctx.arc(throatX_inset, throatY_inset, 2.5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "rgba(101, 214, 201, 0.78)";
+  ctx.font = "500 8px 'JetBrains Mono', ui-monospace, monospace";
+  ctx.fillText("M=1", throatX_inset - 8, throatY_inset - 4);
+  ctx.restore();
+
   ctx.strokeStyle = "rgba(246,200,95,0.8)";
   ctx.beginPath();
   ctx.moveTo(xStart + (xExit - xStart) * 0.205, centreY - 12);
@@ -2331,6 +2460,9 @@ export async function init(ctx) {
       timeToMargin,
       stantonNumber:   isFinite(St) ? `St ${St.toExponential(2)}` : "St —",
       depositResistanceShare: `${metrics.resistanceIncrease.toFixed(2)} %`,
+      thrust:          `${(metrics.thrust_kN || 0).toFixed(1)} kN  (vac)`,
+      etaCstar:        `${((metrics.etaCstar || 0.97) * 100).toFixed(1)}%  (Sutton & Biblarz)`,
+      Lstar:           `${(metrics.Lstar || 1.10).toFixed(2)} m  (combustor)`,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-research-metric="${key}"]`);
@@ -2382,6 +2514,9 @@ export async function init(ctx) {
       yPlus: t.yPlus,
       nusselt: t.nusselt,
       lossK: t.lossK,
+      entropyGen: t.entropyGen,
+      stantonInternal: t.stantonInternal,
+      thermalTau: t.thermalTau,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-thermal-metric="${key}"]`);
@@ -2455,6 +2590,9 @@ export async function init(ctx) {
       co2Saved: t.co2Saved,
       arbitrage: t.arbitrage,
       carnotHP: t.carnotHP,
+      macCurrent: t.macCurrent,
+      lcoh: t.lcoh,
+      hpCapacityFactor: t.hpCapacityFactor,
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-energy-metric="${key}"]`);
@@ -2493,6 +2631,11 @@ export async function init(ctx) {
       carnotMax: `${metrics.carnotCopMax.toFixed(2)}  (η_2nd = ${(metrics.copHP / metrics.carnotCopMax).toFixed(2)})`,
       exergyEff: `${(metrics.exergyEff * 100).toFixed(1)} %`,
       cumCO2: `${(metrics.cumCO2Saved_t_per_yr).toFixed(0)} tCO₂/y`,
+      specificCO2: `${metrics.specificCO2.toFixed(2)} kgCO₂/u`,
+      energyProductivity: `${metrics.energyProductivity.toFixed(2)} u/MWh`,
+      co2Breakeven: Number.isFinite(metrics.co2BreakevenSEKperT)
+        ? `${metrics.co2BreakevenSEKperT.toFixed(0)} SEK/tCO₂`
+        : "— (no abatement)",
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-industrial-metric="${key}"]`);

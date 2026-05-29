@@ -469,6 +469,25 @@ function buildNozzleThermalFrame() {
       P_c_MPa:       sceneControls.chamberPressureMPa,
       OF:            sceneControls.mixtureRatio,
       D_throat_mm:   sceneControls.throatDiameter_mm,
+      // ── More rigour ─────────────────────────────────────────────
+      // Vacuum thrust: F = ṁ·V_e + (p_e − 0)·A_e
+      //   V_e = Ma_e · √(γ·R_s·T_static_e)
+      //   p_e = p_e/p_0 · P_c
+      //   A_e = ε · A_t
+      thrust_kN: (() => {
+        const T_e = chamber.T_c / (1 + ((chamber.gamma - 1) / 2) * exitMach * exitMach);
+        const V_e = exitMach * Math.sqrt(chamber.gamma * chamber.R_s * T_e);
+        const p_e = exitPressureRatio * chamber.P_c;
+        const A_e = sceneControls.areaRatioExit * A_t;
+        return ((mDotTotal * V_e + p_e * A_e) / 1000);
+      })(),
+      // Combustion efficiency: typical methalox engines achieve 95-98 %
+      // of theoretical c*. We expose 0.97 (Sutton & Biblarz Ch.5).
+      etaCstar: 0.97,
+      // Characteristic length L* = V_chamber / A_t.
+      // Stated reference V_chamber for a methalox engine at this P_c is
+      // ~0.8-1.5 m for L* ≈ 1.0-1.3 m (typical methalox combustor sizing).
+      Lstar: 1.10,
     },
   };
 }
