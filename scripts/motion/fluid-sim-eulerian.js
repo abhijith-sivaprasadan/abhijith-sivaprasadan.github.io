@@ -1881,6 +1881,20 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   // Throat glow pulse — q_throat in MW/m² (real signal of failure-mode push).
   const qNorm = Math.max(0, Math.min(1, q_thr / 1.2e8));        // 0→0, 120 MW→1
   const throatPulse = qNorm * (0.55 + 0.30 * Math.sin(now * 0.012));
+  // ── Exhaust-colour drivers (every slider visibly recolours the plume) ────
+  //  exitTn  — static EXIT-gas temperature → overall incandescent brightness.
+  //  richness— fuel-rich (low O/F) burns sooty-luminous (orange); leaner/hotter
+  //            burns cleaner and bluer. Methalox stoichiometric O/F ≈ 3.7.
+  const exitT    = metrics?.exitTemperature ?? 1600;
+  const OFv      = metrics?.OF ?? 3.6;
+  const exitTn   = Math.max(0, Math.min(1, (exitT - 900) / 1500));   // 900K→0, 2400K→1
+  const richness = Math.max(0, Math.min(1, (3.7 - OFv) / 2.2));      // OF 3.7→0, 1.5→1
+  const mixRGB = (a, b, t) => [
+    Math.round(a[0] + (b[0] - a[0]) * t),
+    Math.round(a[1] + (b[1] - a[1]) * t),
+    Math.round(a[2] + (b[2] - a[2]) * t),
+  ];
+  const rgbaStr = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
 
   stageLabel(ctx, isSwedish() ? "DE LAVAL · REGENKYLD DYSA" : "DE LAVAL · REGEN-COOLED NOZZLE", 14, 19, "#82a4b4");
 
@@ -1893,7 +1907,10 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   gasGradient.addColorStop(0,    `rgba(255,${Math.round(241 - 60*(1-Tnorm))},${Math.round(199 - 100*(1-Tnorm))},${shimmer})`);
   gasGradient.addColorStop(0.45, `rgba(${246 - 40*(1-Tnorm)},${Math.round(200 - 40*(1-Tnorm))},95,${shimmer})`);
   gasGradient.addColorStop(0.72, "#d0622c");
-  gasGradient.addColorStop(1, "#2563a8");
+  // Exit-plane gas: supersonic expansion cools it, but at ~1500 K it still
+  // glows ember-orange — not blue. Darkens as exit temperature falls (lower
+  // P_c / off-stoichiometric O/F), so the slider response is visible here too.
+  gasGradient.addColorStop(1, rgbaStr(mixRGB([122, 52, 30], [216, 96, 44], exitTn), shimmer));
   ctx.globalAlpha = 1.0;
   ctx.fillStyle = gasGradient;
   ctx.fillRect(xStart, centreY - height * 0.3, xExit - xStart, height * 0.6);
@@ -1958,12 +1975,26 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     plume.lineTo(x, centreY + halfAt(s) + plumeWobble * s);
   }
   plume.closePath();
-  // Colour: hotter chamber → brighter/yellower; high altitude → cooler blue fade.
-  const altFade = Math.max(0, Math.min(1, altKm / 70));
+  // ── Plume colour — physically driven, every slider changes it ───────────
+  //  • afterburn: fuel-rich exhaust re-ignites in atmospheric O₂ → a bright
+  //    orange column at low altitude that dies toward vacuum, where a methalox
+  //    plume is a faint translucent blue. (So blue only appears high up — at
+  //    sea level the exhaust reads hot/orange, as it should.)
+  //  • warmth: how orange-vs-blue the column reads (atmosphere + fuel richness).
+  //  • exitTn: hotter exit gas → whiter, brighter, more opaque.
+  const afterburn = Math.max(0, Math.min(1, 1 - altKm / 25));
+  const warmth    = Math.max(0, Math.min(1, 0.28 + 0.55 * afterburn + 0.32 * richness));
+  const C_white  = [255, 247, 228];
+  const C_amber  = [255, 170, 74];
+  const C_orange = [233, 112, 48];
+  const C_blue   = [150, 196, 240];
+  const tailRGB = mixRGB(C_blue, C_amber, warmth);                  // cool→warm
+  const bodyRGB = mixRGB(tailRGB, C_white, 0.30 + 0.45 * exitTn);   // hotter→whiter
+  const lipRGB  = mixRGB(C_orange, C_white, exitTn);                // exit-T brightness
   const plumeGradient = ctx.createLinearGradient(xExit, 0, plumeEnd, 0);
-  plumeGradient.addColorStop(0, `rgba(${208 + 30*Tnorm},${98 + 60*Tnorm},${44 + 90*Tnorm},${0.7 + 0.25*Tnorm})`);
-  plumeGradient.addColorStop(0.4, `rgba(246,${200 + 30*Tnorm},${95 + 70*Tnorm},${0.42 + 0.25*Tnorm})`);
-  plumeGradient.addColorStop(1, `rgba(${90 - 50*altFade},140,${180 + 60*altFade},${0.14 + 0.12*altFade})`);
+  plumeGradient.addColorStop(0,   rgbaStr(lipRGB,  0.74 + 0.20 * exitTn));
+  plumeGradient.addColorStop(0.4, rgbaStr(bodyRGB, (0.38 + 0.30 * exitTn) * (0.55 + 0.45 * afterburn)));
+  plumeGradient.addColorStop(1,   rgbaStr(tailRGB, 0.08 + 0.18 * afterburn));
   ctx.fillStyle = plumeGradient;
   ctx.fill(plume);
 

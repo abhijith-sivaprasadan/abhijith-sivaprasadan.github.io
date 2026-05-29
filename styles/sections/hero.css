@@ -4,10 +4,11 @@
    the engineering scenes have room to breathe and labels don't overlap. */
 body.signal-rebuild .hero-core {
   display: grid;
-  /* Give the instrument viewport more width so the live-lens scenes have
-     breathing room (copy column shrinks a touch). */
-  grid-template-columns: minmax(22rem, 0.82fr) minmax(30rem, 1.30fr);
-  gap: clamp(1.2rem, 3vw, 2.6rem);
+  /* Copy column needs enough room that the headline ("Sivaprasadan" is a long
+     single word) never forces its inner track wider than the column and spills
+     toward the instrument. The panel stays wide enough for the dense scenes. */
+  grid-template-columns: minmax(23rem, 1fr) minmax(26rem, 1.04fr);
+  gap: clamp(1.8rem, 3.6vw, 3.1rem);
   align-items: start;
 }
 
@@ -36,6 +37,19 @@ body.signal-rebuild .hero-copy {
 body.signal-rebuild .hero-core h1 {
   max-width: none;
   font-size: clamp(3.4rem, 5.1vw, 4.9rem);
+}
+
+/* Live Lens ON: the copy shares the row with the instrument. Keep every copy
+   block strictly inside its own column and let the long surname wrap rather
+   than force the track wider, so nothing ever reads as overlapping the panel. */
+body.lens-dev.signal-rebuild .hero-core h1 {
+  min-width: 0;
+  overflow-wrap: break-word;
+  font-size: clamp(2.9rem, 4.4vw, 4.4rem);
+}
+body.lens-dev.signal-rebuild .hero-core .signal-claim,
+body.lens-dev.signal-rebuild .hero-core .hero-text {
+  max-width: 100%;
 }
 
 body.signal-rebuild .hero-core .signal-claim {
