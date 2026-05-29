@@ -4,8 +4,10 @@
    the engineering scenes have room to breathe and labels don't overlap. */
 body.signal-rebuild .hero-core {
   display: grid;
-  grid-template-columns: minmax(26rem, 0.95fr) minmax(28rem, 1.10fr);
-  gap: clamp(1.4rem, 3.5vw, 3.2rem);
+  /* Give the instrument viewport more width so the live-lens scenes have
+     breathing room (copy column shrinks a touch). */
+  grid-template-columns: minmax(22rem, 0.82fr) minmax(30rem, 1.30fr);
+  gap: clamp(1.2rem, 3vw, 2.6rem);
   align-items: start;
 }
 
@@ -104,12 +106,13 @@ html[data-theme="light"] .motion-ambient-canvas {
 .hero-instrument-surface {
   position: relative;
   overflow: hidden;
-  /* w17e2: taller viewport (was 1.34) so multi-row scenes — CHT zone diagram
-     + resistance bars + Bi banner, stacked dispatch + legend + active-source
-     row, Sankey + emissions strip, nozzle + ladder — all fit without crowding.
-     1.10 ≈ near-square gives ~9% more vertical room per same width. */
-  aspect-ratio: 1.10;
-  min-height: 360px;
+  /* Taller, near-portrait viewport so the data-dense scenes (nozzle + plume
+     + altitude gauge + M(x) inset + resistance ladder; stacked dispatch +
+     day/night ribbon; Sankey + recovery + emissions strip + CO2 puffs) all
+     fit without components clashing. 0.92 gives ~20% more vertical room than
+     the old 1.10 at the same width. */
+  aspect-ratio: 0.92;
+  min-height: 460px;
   border: 1px solid #152730;
   background: #05090d;
 }

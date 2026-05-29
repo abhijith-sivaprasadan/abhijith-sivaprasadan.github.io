@@ -1882,8 +1882,7 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   const qNorm = Math.max(0, Math.min(1, q_thr / 1.2e8));        // 0→0, 120 MW→1
   const throatPulse = qNorm * (0.55 + 0.30 * Math.sin(now * 0.012));
 
-  stageLabel(ctx, isSwedish() ? "DE LAVAL / KYLKANAL / TERMISKT MOTSTÅND" : "DE LAVAL / COOLING CHANNEL / THERMAL RESISTANCE", 14, 19, "#82a4b4");
-  stageLabel(ctx, `P_c ${P_c_MPa.toFixed(1)} MPa  ·  T_c ${Math.round(T_c)} K  ·  ṁ ${mDot.toFixed(1)} kg/s`, 14, 33, "#65d6c9");
+  stageLabel(ctx, isSwedish() ? "DE LAVAL · REGENKYLD DYSA" : "DE LAVAL · REGEN-COOLED NOZZLE", 14, 19, "#82a4b4");
 
   // Gas temperature contours are clipped to the analytical de Laval domain.
   // Brightness scales with chamber T_c — slider on O/F or P_c lights it up.
@@ -2052,21 +2051,23 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.moveTo(gx, my - 6); ctx.lineTo(gx - 5, my + 3); ctx.lineTo(gx + 5, my + 3);
     ctx.closePath(); ctx.fill();
     ctx.restore();
-    // Fixed flight-status chip, top-right.
-    const pAmb = metrics?.ambientPa ?? 101325;
+    // Fixed flight-status chip, top-right. Width fits the longest label.
     const layer = metrics?.atmLayer || "Troposphere";
     const regColor = regime === "over" ? "#ff9a5a" : regime === "under" ? "#65d6c9" : "#a3e635";
+    // Abbreviate "· separated" → "· sep" so it fits the chip.
+    const regimeShort = (metrics?.expansionLabel || "—").replace("· separated", "· sep");
+    const chipW = 176, chipX = width - chipW - 8;
     ctx.save();
-    ctx.fillStyle = "rgba(7,11,16,0.84)";
-    ctx.fillRect(width - 158, 6, 138, 34);
+    ctx.fillStyle = "rgba(7,11,16,0.88)";
+    ctx.fillRect(chipX, 6, chipW, 34);
     ctx.strokeStyle = `${regColor}88`;
     ctx.lineWidth = 1;
-    ctx.strokeRect(width - 157.5, 6.5, 137, 33);
+    ctx.strokeRect(chipX + 0.5, 6.5, chipW - 1, 33);
     ctx.fillStyle = "#a78bfa";
     ctx.font = "700 10px 'JetBrains Mono', ui-monospace, monospace";
-    ctx.fillText(`ALT ${altKm.toFixed(0)} km · ${layer}`, width - 152, 19);
+    ctx.fillText(`ALT ${altKm.toFixed(0)} km · ${layer}`, chipX + 8, 19);
     ctx.fillStyle = regColor;
-    ctx.fillText(`${metrics?.expansionLabel || "—"}`, width - 152, 32);
+    ctx.fillText(regimeShort, chipX + 8, 32);
     ctx.restore();
   }
 
@@ -2131,10 +2132,10 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   // engine you've configured. Anderson Ch.3, A/A* relation.
   // Placed top-left (clear of the bottom thermal-resistance ladder, the
   // right-edge altitude gauge, and the top-right flight chip).
-  const insetW = Math.min(154, width * 0.21);
-  const insetH = Math.min(58, height * 0.14);
+  const insetW = Math.min(150, width * 0.26);
+  const insetH = Math.min(56, height * 0.13);
   const insetX = 16;
-  const insetY = 44;
+  const insetY = 28;
   ctx.save();
   ctx.fillStyle = "rgba(7, 11, 16, 0.78)";
   ctx.fillRect(insetX, insetY, insetW, insetH);
@@ -2202,7 +2203,7 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   ctx.moveTo(xStart + (xExit - xStart) * 0.205, centreY - 12);
   ctx.lineTo(xStart + (xExit - xStart) * 0.205, centreY + 12);
   ctx.stroke();
-  stageLabel(ctx, isSwedish() ? "METANKYLKANAL" : "CH4 COOLANT", 18, height * 0.205, "#65d6c9");
+  stageLabel(ctx, isSwedish() ? "METANKYLKANAL" : "CH4 COOLANT", 18, height * 0.255, "#65d6c9");
   stageLabel(ctx, "THROAT", xStart + (xExit - xStart) * 0.205 - 20, centreY + 27, "#f6c85f");
   // ── Thermal resistance ladder (bottom strip) ──────────────────────────
   // Shows the 1-D heat flux path: gas → copper → coke (GROWING) → coolant.
