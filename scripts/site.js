@@ -52,16 +52,35 @@ function mountLensToggle() {
     ? "Live lens ON — click to hide experimental panels"
     : "Live lens OFF — click to show experimental panels";
   btn.innerHTML =
-    '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">' +
+    '<svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden="true">' +
       '<circle cx="6" cy="6" r="3.4" stroke="currentColor" stroke-width="1.3" fill="none"/>' +
       '<path d="M8.6 8.6L12 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
     '</svg>' +
-    '<span class="lens-dev-toggle-label">Live lens</span>' +
+    '<span class="lens-dev-toggle-text">' +
+      '<span class="lens-dev-toggle-label">Live Lens</span>' +
+      '<span class="lens-dev-toggle-cap">Interactive physics models</span>' +
+    '</span>' +
     '<span class="lens-dev-toggle-state" aria-hidden="true"></span>';
   btn.addEventListener("click", () => {
     setLensDev(!document.body.classList.contains("lens-dev"));
   });
   document.body.appendChild(btn);
+
+  // The Live Lens only controls hero-section panels, so fade the toggle out
+  // once the visitor scrolls past the hero — keeps it from floating over the
+  // rest of the page content.
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const past = window.scrollY > window.innerHeight * 0.85;
+      btn.classList.toggle("is-scrolled-away", past);
+      ticking = false;
+    });
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 }
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", mountLensToggle);
