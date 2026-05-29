@@ -458,6 +458,51 @@ html.motion-entrance-active body {
 }
 .research-controls input[type="range"] { width: 100%; accent-color: #a78bfa; }
 
+/* Altitude slider + LAUNCH button — the flight-mode showpiece controls */
+.research-controls .research-altitude {
+  grid-column: 1 / -1;
+  border-top: 1px solid color-mix(in srgb, var(--accent, #38bdf8) 18%, var(--line));
+  padding-top: 0.55rem;
+  margin-top: 0.15rem;
+}
+.research-controls .research-altitude input[type="range"] { accent-color: #65d6c9; }
+.research-launch-btn {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 0.1rem;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid color-mix(in srgb, #a78bfa 55%, transparent);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(167,139,250,0.22), rgba(7,8,7,0.6));
+  color: #d6ccff;
+  font: 700 0.82rem/1 "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, transform 160ms cubic-bezier(0.22,1,0.36,1), box-shadow 200ms ease;
+}
+.research-launch-btn:hover {
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(167,139,250,0.32);
+}
+.research-launch-btn[data-launch-state="active"] {
+  background: linear-gradient(180deg, rgba(101,214,201,0.30), rgba(7,8,7,0.6));
+  border-color: color-mix(in srgb, #65d6c9 60%, transparent);
+  color: #bdf5ec;
+}
+.research-launch-btn:focus-visible { outline: 2px solid #a78bfa; outline-offset: 2px; }
+
+/* Flight readout rail sits below the main rail with a subtle divider */
+.research-flight-rail {
+  margin-top: 0.5rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed color-mix(in srgb, #65d6c9 30%, var(--line));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .research-launch-btn { transition: none; }
+}
+
 /* Equation symbol chip — small, monospace, sits above the value */
 .research-live-rail .cell-sym,
 .model-readouts .cell-sym {

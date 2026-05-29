@@ -23,7 +23,7 @@ import {
   INSULATION_T_M, INSULATION_K, INSULATION_H_EXT,
   GAMMA_AIR, GAMMA_CH4, PR_AIR, CP_CH4_COOL,
   G_GAS_LHV, PEF_EL_EU, ETA_TES_RT, ETA_ELECTRIC_BOILER, ETA_GAS_BOILER,
-  T_BURNOUT_CU,
+  T_BURNOUT_CU, T_SOURCE_AMBIENT_C,
   // Gas dynamics
   staticTemperatureFromTotal, staticToTotalPressure, adiabaticWallTemperature,
   reynoldsNumber, stantonNumber,
@@ -1854,32 +1854,59 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
   });
   ctx.restore();
 
-  // Downstream exhaust — length scales with √P_c, brightness with T_c.
-  const plumeFlare = 1.0 + 0.4 * Math.min(1, (P_c_MPa - 5) / 25);
-  const plumeWobble = Math.sin(now * 0.0042) * exitRadius * 0.10;
+  // ── Downstream exhaust — morphs with ALTITUDE (the showpiece) ────────
+  // flare<1 → overexpanded (pinched jet, tight shock train, separation);
+  // flare≈1 → perfectly expanded (clean column);
+  // flare>1 → underexpanded (ballooning barrel + Mach disk).
+  const flare      = metrics?.flareFactor ?? 1.0;
+  const machDiskS  = metrics?.machDiskStrength ?? 0;
+  const separated  = !!metrics?.separated;
+  const regime     = metrics?.expansionRegime || "perfect";
+  const altKm      = metrics?.altitudeKm ?? 0;
+  const wMax  = exitRadius * (0.5 + 0.9 * flare);     // max barrel half-width
+  const wTip  = exitRadius * 0.28;
+  const sBulge = regime === "under" ? 0.34 : 0.24;
+  const wLip  = separated ? exitRadius * 0.6 : exitRadius;  // jet narrows at lip if separated
+  const halfAt = (s) => {
+    const hump  = Math.exp(-Math.pow((s - sBulge) / 0.40, 2));
+    const taper = wTip + (wLip - wTip) * Math.max(0, 1 - s * 1.4);
+    return Math.max(taper, wMax * hump);
+  };
+  const plumeWobble = Math.sin(now * 0.0042) * exitRadius * 0.08;
+  const N = 28;
   const plume = new Path2D();
-  plume.moveTo(xExit, centreY - exitRadius);
-  plume.bezierCurveTo(width * 0.64, centreY - exitRadius * 1.04 + plumeWobble, width * 0.83, centreY - exitRadius * 1.5 * plumeFlare + plumeWobble * 0.6, plumeEnd, centreY - exitRadius * 1.65 * plumeFlare);
-  plume.lineTo(plumeEnd, centreY + exitRadius * 1.65 * plumeFlare);
-  plume.bezierCurveTo(width * 0.83, centreY + exitRadius * 1.5 * plumeFlare - plumeWobble * 0.6, width * 0.64, centreY + exitRadius * 1.04 - plumeWobble, xExit, centreY + exitRadius);
+  plume.moveTo(xExit, centreY - wLip);
+  for (let s = 1 / N; s <= 1.0001; s += 1 / N) {
+    const x = xExit + (plumeEnd - xExit) * s;
+    plume.lineTo(x, centreY - halfAt(s) - plumeWobble * s);
+  }
+  for (let s = 1; s >= -0.0001; s -= 1 / N) {
+    const x = xExit + (plumeEnd - xExit) * s;
+    plume.lineTo(x, centreY + halfAt(s) + plumeWobble * s);
+  }
   plume.closePath();
-  // Hotter chamber → brighter / more yellow plume; cooler → more orange-red.
+  // Colour: hotter chamber → brighter/yellower; high altitude → cooler blue fade.
+  const altFade = Math.max(0, Math.min(1, altKm / 70));
   const plumeGradient = ctx.createLinearGradient(xExit, 0, plumeEnd, 0);
-  plumeGradient.addColorStop(0, `rgba(${208 + 30*Tnorm},${98 + 60*Tnorm},${44 + 90*Tnorm},${0.65 + 0.30*Tnorm})`);
-  plumeGradient.addColorStop(0.38, `rgba(${246},${200 + 30*Tnorm},${95 + 60*Tnorm},${0.45 + 0.25*Tnorm})`);
-  plumeGradient.addColorStop(1, "rgba(37,99,168,0.16)");
+  plumeGradient.addColorStop(0, `rgba(${208 + 30*Tnorm},${98 + 60*Tnorm},${44 + 90*Tnorm},${0.7 + 0.25*Tnorm})`);
+  plumeGradient.addColorStop(0.4, `rgba(246,${200 + 30*Tnorm},${95 + 70*Tnorm},${0.42 + 0.25*Tnorm})`);
+  plumeGradient.addColorStop(1, `rgba(${90 - 50*altFade},140,${180 + 60*altFade},${0.14 + 0.12*altFade})`);
   ctx.fillStyle = plumeGradient;
   ctx.fill(plume);
+
   ctx.save();
   ctx.clip(plume);
-  // Shock-cell COUNT scales with exit Mach — higher Me → more cells.
-  const cellCount = Math.max(3, Math.min(7, Math.round(Me * 1.8)));
-  const cellShift = (now * 0.00018) % 0.20;
+  // Shock-diamond train — overexpanded: many tight bright diamonds;
+  // underexpanded: fewer, wider. Count ∝ 1/flare.
+  const cellCount = Math.max(2, Math.min(8, Math.round(6 / flare)));
+  const cellShift = (now * 0.0002) % (0.85 / cellCount);
   for (let cell = 0; cell < cellCount; cell += 1) {
-    const x = xExit + (plumeEnd - xExit) * ((0.16 + cell * (0.8 / cellCount) + cellShift) % 1);
-    const half = exitRadius * (0.35 + cell * 0.12) * plumeFlare;
-    const alpha = 0.28 + 0.18 * Math.sin(now * 0.018 + cell);
-    ctx.strokeStyle = `rgba(246,200,95,${alpha})`;
+    const sc = 0.10 + cell * (0.85 / cellCount) + cellShift;
+    if (sc > 1) continue;
+    const x = xExit + (plumeEnd - xExit) * sc;
+    const half = halfAt(sc) * 0.85;
+    const a = (0.22 + 0.20 * Math.sin(now * 0.02 + cell)) * (regime === "over" ? 1.2 : 0.8);
+    ctx.strokeStyle = `rgba(255,236,180,${Math.min(0.55, a)})`;
     ctx.lineWidth = 1.3;
     ctx.beginPath();
     ctx.moveTo(x - half * 1.7, centreY);
@@ -1889,19 +1916,83 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.closePath();
     ctx.stroke();
   }
-  // Trailing shear streaks across the plume — short dashes drifting downstream.
-  ctx.strokeStyle = "rgba(246,200,95,0.42)";
-  ctx.lineWidth = 0.9;
-  ctx.setLineDash([6, 9]);
-  ctx.lineDashOffset = -(now * 0.12) % 30;
-  for (const off of [-exitRadius * 0.9, -exitRadius * 0.4, 0, exitRadius * 0.4, exitRadius * 0.9]) {
+  // Mach disk — bright transverse normal-shock band when far from perfect.
+  if (machDiskS > 0.18) {
+    const sDisk = Math.min(0.8, 0.16 + 0.16 * Math.min(1.8, flare));
+    const xDisk = xExit + (plumeEnd - xExit) * sDisk;
+    const diskHalf = halfAt(sDisk) * 0.92;
+    const g = ctx.createLinearGradient(xDisk - 7, 0, xDisk + 7, 0);
+    g.addColorStop(0, "rgba(255,255,255,0)");
+    g.addColorStop(0.5, `rgba(255,250,230,${0.30 + 0.45 * machDiskS})`);
+    g.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = g;
     ctx.beginPath();
-    ctx.moveTo(xExit, centreY + off);
-    ctx.quadraticCurveTo((xExit + plumeEnd) / 2, centreY + off * 1.4, plumeEnd, centreY + off * 1.8);
-    ctx.stroke();
+    ctx.ellipse(xDisk, centreY, 5 + 4 * machDiskS, diskHalf, 0, 0, Math.PI * 2);
+    ctx.fill();
   }
-  ctx.setLineDash([]);
   ctx.restore();
+
+  // Separation shocks at the lip (overexpanded · separated).
+  if (separated) {
+    ctx.save();
+    ctx.strokeStyle = "rgba(255,150,90,0.85)";
+    ctx.lineWidth = 1.4;
+    [-1, 1].forEach((sgn) => {
+      ctx.beginPath();
+      ctx.moveTo(xExit, centreY + sgn * exitRadius);
+      ctx.lineTo(xExit + (plumeEnd - xExit) * 0.18, centreY + sgn * wLip * 0.5);
+      ctx.stroke();
+    });
+    stageLabel(ctx, "FLOW SEPARATION", xExit + 6, centreY - exitRadius - 8, "#ff9a5a");
+    ctx.restore();
+  }
+
+  // ── Altitude gauge (right edge) + flight regime readout (top-right) ───
+  {
+    const gx = width - 13;
+    const gTop = 52, gBot = height * 0.46;
+    const frac = Math.min(1, altKm / 80);
+    ctx.save();
+    ctx.strokeStyle = "rgba(130,164,180,0.42)";
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(gx, gTop); ctx.lineTo(gx, gBot); ctx.stroke();
+    [0, 11, 50, 80].forEach((km) => {
+      const y = gBot - (gBot - gTop) * Math.min(1, km / 80);
+      ctx.strokeStyle = "rgba(130,164,180,0.55)";
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(gx - 4, y); ctx.lineTo(gx + 4, y); ctx.stroke();
+      ctx.fillStyle = "rgba(130,164,180,0.7)";
+      ctx.font = "500 8px 'JetBrains Mono', ui-monospace, monospace";
+      ctx.textAlign = "right";
+      ctx.fillText(`${km}`, gx - 6, y + 3);
+      ctx.textAlign = "left";
+    });
+    const my = gBot - (gBot - gTop) * frac;
+    ctx.strokeStyle = "rgba(167,139,250,0.92)";
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(gx, gBot); ctx.lineTo(gx, my); ctx.stroke();
+    ctx.fillStyle = "#a78bfa";
+    ctx.beginPath();
+    ctx.moveTo(gx, my - 6); ctx.lineTo(gx - 5, my + 3); ctx.lineTo(gx + 5, my + 3);
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+    // Fixed flight-status chip, top-right.
+    const pAmb = metrics?.ambientPa ?? 101325;
+    const layer = metrics?.atmLayer || "Troposphere";
+    const regColor = regime === "over" ? "#ff9a5a" : regime === "under" ? "#65d6c9" : "#a3e635";
+    ctx.save();
+    ctx.fillStyle = "rgba(7,11,16,0.84)";
+    ctx.fillRect(width - 158, 6, 138, 34);
+    ctx.strokeStyle = `${regColor}88`;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(width - 157.5, 6.5, 137, 33);
+    ctx.fillStyle = "#a78bfa";
+    ctx.font = "700 10px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.fillText(`ALT ${altKm.toFixed(0)} km · ${layer}`, width - 152, 19);
+    ctx.fillStyle = regColor;
+    ctx.fillText(`${metrics?.expansionLabel || "—"}`, width - 152, 32);
+    ctx.restore();
+  }
 
   // Wall heatmap: copper-brown when cool (≤900 K) → orange when hot (≥1100 K)
   //               → glowing red at burnout (≥1170 K AMS 4500 limit).
@@ -2460,9 +2551,23 @@ export async function init(ctx) {
       timeToMargin,
       stantonNumber:   isFinite(St) ? `St ${St.toExponential(2)}` : "St —",
       depositResistanceShare: `${metrics.resistanceIncrease.toFixed(2)} %`,
-      thrust:          `${(metrics.thrust_kN || 0).toFixed(1)} kN  (vac)`,
       etaCstar:        `${((metrics.etaCstar || 0.97) * 100).toFixed(1)}%  (Sutton & Biblarz)`,
       Lstar:           `${(metrics.Lstar || 1.10).toFixed(2)} m  (combustor)`,
+      // ── Flight / altitude-adaptation readouts ──────────────────────
+      ambient:    metrics.ambientPa != null
+        ? (metrics.ambientPa >= 1000
+            ? `${(metrics.ambientPa / 1000).toFixed(1)} kPa`
+            : `${metrics.ambientPa.toFixed(0)} Pa`)
+        : "—",
+      regime:     metrics.expansionLabel || "—",
+      thrust:     `${(metrics.thrust_kN || 0).toFixed(0)} kN  @ ${(metrics.altitudeKm || 0).toFixed(0)} km`,
+      thrustRange: (metrics.thrustSL_kN != null)
+        ? `${metrics.thrustSL_kN.toFixed(0)} → ${metrics.thrustVac_kN.toFixed(0)} kN`
+        : "—",
+      ispAlt:     `${Math.round(metrics.Isp_alt || 0)} s`,
+      prMatch:    (metrics.expansionRatio != null)
+        ? `${metrics.expansionRatio.toFixed(2)}${metrics.separated ? " ⚠ sep" : ""}`
+        : "—",
     };
     Object.entries(text).forEach(([key, value]) => {
       const node = document.querySelector(`[data-research-metric="${key}"]`);
@@ -2482,11 +2587,13 @@ export async function init(ctx) {
   // ── Wire the methalox-engine sliders to the worker ────────────────────
   const initResearchControls = () => {
     const map = { P_c: "chamberPressureMPa", OF: "mixtureRatio",
-                  D_t: "throatDiameter_mm", T_c_in: "coolantInletK" };
+                  D_t: "throatDiameter_mm", T_c_in: "coolantInletK",
+                  alt: "altitudeKm" };
     const fmt = { P_c: v => `${Number(v).toFixed(1)} MPa`,
                   OF:  v => `${Number(v).toFixed(1)}`,
                   D_t: v => `${Number(v).toFixed(0)} mm`,
-                  T_c_in: v => `${Number(v).toFixed(0)} K` };
+                  T_c_in: v => `${Number(v).toFixed(0)} K`,
+                  alt: v => `${Number(v).toFixed(0)} km` };
     document.querySelectorAll("[data-research-input]").forEach((input) => {
       const key = input.dataset.researchInput;
       const out = document.querySelector(`[data-research-output="${key}"]`);
@@ -2494,10 +2601,77 @@ export async function init(ctx) {
         const val = Number(input.value);
         if (out) out.textContent = fmt[key](val);
         worker.postMessage({ type: "controls", controls: { [map[key]]: val } });
+        // A manual drag of the altitude slider cancels an active auto-sweep.
+        if (key === "alt" && researchLaunch.active && !researchLaunch.silent) {
+          stopLaunch();
+        }
       };
       input.addEventListener("input", push);
     });
+
+    // ── LAUNCH auto-sweep: ascend 0 → 80 km over ~14 s, then hold ───────
+    const altInput = document.querySelector("[data-research-input='alt']");
+    const altOut   = document.querySelector("[data-research-output='alt']");
+    const launchBtn = document.querySelector("[data-research-launch]");
+    const setAltitude = (km) => {
+      if (altInput) altInput.value = String(km);
+      if (altOut) altOut.textContent = `${km.toFixed(0)} km`;
+      worker.postMessage({ type: "controls", controls: { altitudeKm: km } });
+    };
+    const tickLaunch = (ts) => {
+      if (!researchLaunch.active) return;
+      if (researchLaunch.t0 == null) researchLaunch.t0 = ts;
+      const elapsed = (ts - researchLaunch.t0) / 1000;
+      const dur = 14;
+      const p = Math.min(1, elapsed / dur);
+      // Ease-in-out so the climb accelerates then settles.
+      const eased = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      const km = eased * 80;
+      researchLaunch.silent = true;        // suppress the cancel-on-drag guard
+      setAltitude(km);
+      researchLaunch.silent = false;
+      if (p >= 1) {
+        researchLaunch.active = false;
+        if (launchBtn) {
+          launchBtn.textContent = "↺ Reset to ground";
+          launchBtn.setAttribute("aria-pressed", "false");
+          launchBtn.dataset.launchState = "done";
+        }
+        return;
+      }
+      researchLaunch.raf = requestAnimationFrame(tickLaunch);
+    };
+    function startLaunch() {
+      researchLaunch.active = true;
+      researchLaunch.t0 = null;
+      if (launchBtn) {
+        launchBtn.textContent = "■ Ascending…";
+        launchBtn.setAttribute("aria-pressed", "true");
+        launchBtn.dataset.launchState = "active";
+      }
+      researchLaunch.raf = requestAnimationFrame(tickLaunch);
+    }
+    function stopLaunch() {
+      researchLaunch.active = false;
+      if (researchLaunch.raf) cancelAnimationFrame(researchLaunch.raf);
+      if (launchBtn) {
+        launchBtn.textContent = "▶ Launch ascent";
+        launchBtn.setAttribute("aria-pressed", "false");
+        launchBtn.dataset.launchState = "idle";
+      }
+    }
+    if (launchBtn) {
+      launchBtn.dataset.launchState = "idle";
+      launchBtn.addEventListener("click", () => {
+        const state = launchBtn.dataset.launchState || "idle";
+        if (state === "active") { stopLaunch(); }
+        else if (state === "done") { stopLaunch(); setAltitude(0); }
+        else { startLaunch(); }
+      });
+    }
   };
+  // Launch-sweep state (closure-scoped); the cancel-on-drag guard reads it.
+  const researchLaunch = { active: false, t0: null, raf: null, silent: false };
   initResearchControls();
 
   function updateThermalMetrics() {

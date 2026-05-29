@@ -27,6 +27,10 @@ import { bartzFullCoefficient } from "../physics/gas-dynamics.js";
 import {
   cokeDepositionRate, copperConductivityAtT,
 } from "../physics/heat-transfer.js";
+import {
+  ambientPressure, expansionState, atmosphereLayer,
+  thrust as thrustEq, specificImpulse,
+} from "../physics/atmosphere.js";
 
 let N_X = 96;
 let N_Y = 56;
@@ -50,6 +54,7 @@ let sceneControls = {
   coolantInletK: 130,               // T_coolant_in (liquid CH4)
   areaRatioExit: 60,                // ε for Isp_vac
   pressureRatio: 58,                // exit p_e / p_amb (used for plume look)
+  altitudeKm: 0,                    // flight altitude → ambient pressure
 };
 
 // Persistent coke-deposit state, integrated by Arrhenius across frames.
@@ -469,25 +474,51 @@ function buildNozzleThermalFrame() {
       P_c_MPa:       sceneControls.chamberPressureMPa,
       OF:            sceneControls.mixtureRatio,
       D_throat_mm:   sceneControls.throatDiameter_mm,
-      // ── More rigour ─────────────────────────────────────────────
-      // Vacuum thrust: F = ṁ·V_e + (p_e − 0)·A_e
-      //   V_e = Ma_e · √(γ·R_s·T_static_e)
-      //   p_e = p_e/p_0 · P_c
-      //   A_e = ε · A_t
-      thrust_kN: (() => {
-        const T_e = chamber.T_c / (1 + ((chamber.gamma - 1) / 2) * exitMach * exitMach);
-        const V_e = exitMach * Math.sqrt(chamber.gamma * chamber.R_s * T_e);
-        const p_e = exitPressureRatio * chamber.P_c;
-        const A_e = sceneControls.areaRatioExit * A_t;
-        return ((mDotTotal * V_e + p_e * A_e) / 1000);
-      })(),
       // Combustion efficiency: typical methalox engines achieve 95-98 %
       // of theoretical c*. We expose 0.97 (Sutton & Biblarz Ch.5).
       etaCstar: 0.97,
-      // Characteristic length L* = V_chamber / A_t.
-      // Stated reference V_chamber for a methalox engine at this P_c is
-      // ~0.8-1.5 m for L* ≈ 1.0-1.3 m (typical methalox combustor sizing).
+      // Characteristic length L* = V_chamber / A_t (typical methalox 1.0-1.3 m)
       Lstar: 1.10,
+      // ── Flight / altitude-adaptation physics (the showpiece) ─────────
+      //   F = ṁ·V_e + (p_e − p_amb)·A_e   (Sutton & Biblarz Eq. 3-29)
+      //   regime + plume morph from p_e/p_amb (Summerfield separation).
+      ...(() => {
+        // Self-consistent at the nozzle expansion ratio ε: solve the exit
+        // Mach for ε, then derive V_e, p_e and A_e from the SAME ε. (The
+        // geometry-derived `exitMach` drives the visual plume; the thrust
+        // physics uses the ε-consistent value so F, p_e and Isp agree.)
+        const eps = sceneControls.areaRatioExit;
+        const Me = solveMach(eps, true);
+        const T_e = chamber.T_c / (1 + ((chamber.gamma - 1) / 2) * Me * Me);
+        const V_e = Me * Math.sqrt(chamber.gamma * chamber.R_s * T_e);
+        const p_e = chamber.P_c *
+          Math.pow(1 + ((chamber.gamma - 1) / 2) * Me * Me,
+                   -chamber.gamma / (chamber.gamma - 1));
+        const A_e = eps * A_t;
+        const altKm = sceneControls.altitudeKm || 0;
+        const p_amb = ambientPressure(altKm * 1000);
+        const exp = expansionState(p_e, p_amb);
+        const F_alt = thrustEq(mDotTotal, V_e, p_e, p_amb, A_e);
+        const F_SL  = thrustEq(mDotTotal, V_e, p_e, 101325, A_e);
+        const F_vac = thrustEq(mDotTotal, V_e, p_e, 0, A_e);
+        return {
+          thrust_kN:    F_alt / 1000,
+          thrustSL_kN:  F_SL / 1000,
+          thrustVac_kN: F_vac / 1000,
+          Isp_alt:      specificImpulse(F_alt, mDotTotal),
+          exitVelocity: V_e,
+          altitudeKm:   altKm,
+          ambientPa:    p_amb,
+          exitPa:       p_e,
+          expansionRatio: exp.ratio,
+          expansionLabel: exp.label,
+          expansionRegime: exp.regime,
+          separated:    exp.separated,
+          flareFactor:  exp.flare,
+          machDiskStrength: exp.machDisk,
+          atmLayer:     atmosphereLayer(altKm),
+        };
+      })(),
     },
   };
 }
