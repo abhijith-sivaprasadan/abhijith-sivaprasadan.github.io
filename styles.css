@@ -5354,9 +5354,10 @@ body.future-v3 .section::after {
 
 body.future-v3 .hero {
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(14px) scale(0.992);
-  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* The hero is painted immediately — no opacity:0 reveal gate — so it can
+     never become a delayed LCP on slow mobile (it previously stayed hidden
+     until JS added .page-launched, which is late on a slow CPU). A subtle
+     entrance is handled transform-only in entrance.js. */
 }
 
 body.future-v3.page-launched .hero {
