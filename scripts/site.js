@@ -122,7 +122,10 @@ const assetVersion = "20260523-cleanup";
 const apiVersion = "20260523-cleanup";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
-let apiBaseUrl = window.PORTFOLIO_API_BASE_URL || "https://abhijith-portfolio-api.onrender.com";
+// Empty by default → fall back to the committed api/*.json files (see
+// public-config.js). No hardcoded remote base, so a misconfigured/sleeping
+// backend can't reintroduce console errors or critical-path timeouts.
+let apiBaseUrl = window.PORTFOLIO_API_BASE_URL || "";
 let adminEmailHashes = new Set(
   window.PORTFOLIO_ADMIN_EMAIL_HASHES || [
     "82ff3995db9c955db8a17b3565c7b354a53bb6d0b6351e783e3ff8b2a5910b8f",
@@ -1342,7 +1345,7 @@ const renderProjectCard = (project) => {
   const imageSrc = projectImageSrc(project);
   const highlights = Array.isArray(project.highlights) ? project.highlights : [];
   const links = [
-    project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}">Case study</a>` : "",
+    project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}" aria-label="${escapeHtml(project.title || "Project")} — case study">Case study</a>` : "",
     project.repoUrl ? `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noreferrer">GitHub</a>` : "",
   ].filter(Boolean);
   const tone = projectTone(project);
@@ -1375,7 +1378,7 @@ const renderProjectBrowserItem = (project, index) => {
   const audienceTags = project.audienceTags || [];
   const highlights = Array.isArray(project.highlights) ? project.highlights : [];
   const links = [
-    project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}">Case study</a>` : "",
+    project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}" aria-label="${escapeHtml(project.title || "Project")} — case study">Case study</a>` : "",
     project.repoUrl ? `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noreferrer">GitHub</a>` : "",
   ].filter(Boolean);
   const imageSrc = projectImageSrc(project);

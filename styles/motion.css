@@ -204,7 +204,7 @@ html[data-theme="light"] .motion-cursor {
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
   z-index: 50;
   opacity: 0;
   transition: opacity var(--motion-dur-base) var(--motion-ease-out);
@@ -214,19 +214,33 @@ html[data-theme="light"] .motion-cursor {
   opacity: 1;
 }
 
+/* 24px button = accessible hit area; the visible 10px dot is drawn by ::before.
+   (Targets were 10x10 with 10px gaps, which failed the touch-target audit.) */
 .motion-scroll-rail button {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.motion-scroll-rail button::before {
+  content: "";
   width: 10px;
   height: 10px;
   border-radius: 999px;
   background: transparent;
   border: 1px solid var(--accent, #38bdf8);
-  cursor: pointer;
-  position: relative;
-  transition: transform var(--motion-dur-fast) var(--motion-ease-spring);
-  padding: 0;
+  transition: transform var(--motion-dur-fast) var(--motion-ease-spring),
+              background var(--motion-dur-fast) var(--motion-ease-spring);
 }
 
-.motion-scroll-rail button[aria-current="true"] {
+.motion-scroll-rail button[aria-current="true"]::before {
   background: var(--accent, #38bdf8);
   transform: scale(1.4);
 }
@@ -235,7 +249,8 @@ html[data-theme="light"] .motion-cursor {
 .motion-scroll-rail button[data-passed="true"]::after {
   content: "";
   position: absolute;
-  inset: -2px;
+  width: 14px;
+  height: 14px;
   border-radius: 999px;
   border: 1px solid var(--accent, #38bdf8);
   opacity: 0.5;
@@ -251,13 +266,13 @@ html[data-theme="light"] .motion-cursor {
   .motion-scroll-rail { display: none; }
 }
 
-html[data-theme="light"] .motion-scroll-rail button {
+html[data-theme="light"] .motion-scroll-rail button::before {
   border-color: #007478;
   background: rgba(255, 255, 255, 0.82);
   box-shadow: 0 6px 18px rgba(15, 25, 35, 0.12);
 }
 
-html[data-theme="light"] .motion-scroll-rail button[aria-current="true"] {
+html[data-theme="light"] .motion-scroll-rail button[aria-current="true"]::before {
   background: #007478;
 }
 

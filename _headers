@@ -1,0 +1,48 @@
+# HTTP response headers for Netlify / Cloudflare Pages.
+#
+# NOTE: GitHub Pages ignores this file (it can't set custom headers, and caps
+# static-asset cache at ~10 min — the "Use efficient cache lifetimes" PageSpeed
+# flag). This file is ready-to-use: point the domain at Cloudflare Pages or
+# Netlify (same repo, build command = none, publish dir = ".") and these headers
+# take effect immediately — giving long cache lifetimes (big repeat-visit win)
+# plus the HSTS / COOP / clickjacking protections Lighthouse asks for.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+
+# Versioned CSS/JS (busted with ?v=…) can be cached forever.
+/scripts/*
+  Cache-Control: public, max-age=31536000, immutable
+/styles/*
+  Cache-Control: public, max-age=31536000, immutable
+*.css
+  Cache-Control: public, max-age=31536000, immutable
+*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images / fonts / icons — long but not immutable (filenames aren't hashed).
+*.webp
+  Cache-Control: public, max-age=2592000
+*.svg
+  Cache-Control: public, max-age=2592000
+*.png
+  Cache-Control: public, max-age=2592000
+*.jpg
+  Cache-Control: public, max-age=2592000
+*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML: revalidate so content updates are picked up promptly.
+/*.html
+  Cache-Control: public, max-age=600, must-revalidate
+
+# A Content-Security-Policy is intentionally omitted here: it must be validated
+# against every external origin the site uses (jsdelivr, plausible, fonts,
+# formspree, firebase) before enforcing, or it will silently break features.
+# Add it once tested, e.g.:
+#   Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://formspree.io https://*.googleapis.com; frame-ancestors 'none'
