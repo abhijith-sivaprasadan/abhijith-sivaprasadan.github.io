@@ -4,8 +4,20 @@
    perfect fourth) for clearer hierarchy.
    ──────────────────────────────────────────────────────────────────────── */
 
+/* Metric-matched fallback so swapping fallback→Inter causes no reflow (the
+   "Font display … mitigate layout shifts with font metric overrides" hint).
+   Arial scaled to Inter's metrics; documented values, not guessed. */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
 :root {
-  --font-sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans:  "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono:  "JetBrains Mono", ui-monospace, "SFMono-Regular", "Roboto Mono", monospace;
 
   /* Modular scale 1.250 (perfect fourth) anchored at 1rem */
