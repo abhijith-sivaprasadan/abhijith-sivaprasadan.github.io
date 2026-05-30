@@ -156,10 +156,13 @@ function boot() {
 
   // Auto-load subsystems present on the page
   const autoload = [
-    // Eulerian Stable Fluids — preferred on capable devices.
-    { name: "fluid-sim-eulerian", selector: "[data-motion-fluid-sim]", skip: () => !supportsWorkers },
+    // Eulerian Stable Fluids — preferred on capable devices. The fluid-sim
+    // (44 KB + the physics chain) only drives the Live Lens canvas, which is
+    // hidden by default — so gate it on body.lens-dev. It stays off the default
+    // (lens-off) critical path and only loads once a visitor opens the lens.
+    { name: "fluid-sim-eulerian", selector: "[data-motion-fluid-sim]", skip: () => !supportsWorkers || !document.body.classList.contains("lens-dev") },
     // Legacy canvas fallback remains only for browsers without Worker support.
-    { name: "fluid-sim",     selector: "[data-motion-fluid-sim]", skip: () => reducedMotion || supportsWorkers },
+    { name: "fluid-sim",     selector: "[data-motion-fluid-sim]", skip: () => reducedMotion || supportsWorkers || !document.body.classList.contains("lens-dev") },
     { name: "cursor",        selector: "[data-motion-cursor]",        skip: () => touchOnly || reducedMotion },
     { name: "springs",       selector: "[data-motion-spring], .button.primary, [data-home-mode-button], .signal-routes a", skip: () => reducedMotion || touchOnly },
     { name: "scrollytelling",selector: "[data-motion-scrollyt]" },
@@ -199,6 +202,12 @@ function boot() {
   // is not dependent on script execution order.
   const mountObserver = new MutationObserver(() => loadPresentSubsystems());
   mountObserver.observe(document.body, { childList: true, subtree: true });
+
+  // The fluid-sim is gated on body.lens-dev (see autoload). Opening the Live
+  // Lens flips that class — an attribute change, not a DOM insertion — so watch
+  // the body's own class to load the subsystem on demand.
+  const bodyClassObserver = new MutationObserver(() => loadPresentSubsystems());
+  bodyClassObserver.observe(document.body, { attributes: true, attributeFilter: ["class"] });
 
   // ScrollTrigger can alter document geometry after the browser has already
   // attempted an initial hash jump. Reapply deep links after motion settles.

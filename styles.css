@@ -6429,6 +6429,22 @@ body.signal-rebuild .assignment-card:nth-child(4) { transition-delay: 260ms; }
   to { background-position: 54px 54px, 54px 54px, 0 0; }
 }
 
+/* Perf: these continuous, non-composited decorative animations repaint
+   full-screen background layers every frame. They're barely perceptible on a
+   phone but dominate the mobile main-thread budget (a top "Avoid non-composited
+   animations" offender). Pause them on phones/tablets — the elements stay fully
+   visible, just static. Desktop (already fast) keeps the full effect. Only the
+   safe-to-freeze ones are listed (SVG stroke-dash reveals are excluded, since
+   freezing those would leave the paths hidden). */
+@media (max-width: 980px) {
+  body.future-v3::before,
+  .signal-grid-bg,
+  .atmosphere-grid,
+  .looking-for-banner .status-dot {
+    animation: none !important;
+  }
+}
+
 @media (max-width: 960px) {
   body.signal-rebuild .signal-hero {
     min-height: auto;
