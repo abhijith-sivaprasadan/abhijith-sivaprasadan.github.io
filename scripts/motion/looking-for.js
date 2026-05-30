@@ -51,10 +51,25 @@ function build(htmlText) {
 }
 
 export async function init(ctx) {
-  if (isDismissed()) return null;
-  const banner = build(resolveContent());
-  document.body.insertBefore(banner, document.body.firstChild);
-  banner.querySelector(".dismiss").addEventListener("click", () => {
+  // Prefer a static banner rendered in the HTML — it paints with FCP, so it
+  // doesn't delay LCP or shift `main` down (a JS-injected one does both).
+  let banner = document.querySelector(".looking-for-banner");
+  if (isDismissed()) {
+    if (banner) banner.remove();        // drop the static placeholder if dismissed
+    return null;
+  }
+  if (banner) {
+    // Static banner already on screen; only refresh text if CMS/meta/locale
+    // gives something different (default EN copy matches, so this is a no-op).
+    const text = banner.querySelector(".status-text");
+    const next = resolveContent();
+    if (text && text.innerHTML.trim() !== next) text.innerHTML = next;
+  } else {
+    // Pages without a static banner: build and insert (legacy path).
+    banner = build(resolveContent());
+    document.body.insertBefore(banner, document.body.firstChild);
+  }
+  banner.querySelector(".dismiss")?.addEventListener("click", () => {
     banner.remove();
     markDismissed();
   });
