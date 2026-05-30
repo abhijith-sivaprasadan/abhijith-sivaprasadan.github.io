@@ -2632,11 +2632,12 @@ export async function init(ctx) {
 
   function step() {
     if (document.hidden) return;   // visibilitychange handler resumes the loop
-    // Don't burn the physics worker when the scene isn't actually on screen:
-    // the Live Lens is off by default (stage hidden), and it scrolls out of
-    // view. Poll slowly so the loop resumes the instant the stage is shown.
-    const stageVisible = stage.offsetParent !== null && stage.clientWidth > 2;
-    if (!stageVisible) {
+    // Gate on lens-dev: the canvas only exists when the Live Lens is open.
+    // Using classList directly avoids offsetParent's dependency on layout
+    // timing — offsetParent can transiently return null before the browser
+    // has painted the lens-dev CSS update, trapping the loop in a 500ms poll
+    // that never exits even though the canvas is visually on screen.
+    if (!document.body.classList.contains("lens-dev")) {
       setTimeout(() => requestAnimationFrame(scheduleStep), 500);
       return;
     }
