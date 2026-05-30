@@ -6440,7 +6440,7 @@ body.signal-rebuild .assignment-card:nth-child(4) { transition-delay: 260ms; }
   body.future-v3::before,
   .signal-grid-bg,
   .atmosphere-grid,
-  .looking-for-banner .status-dot {
+  .looking-for-banner .status-dot::after {
     animation: none !important;
   }
 }
