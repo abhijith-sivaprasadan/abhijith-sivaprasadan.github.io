@@ -1984,6 +1984,27 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.stroke(nozzleWallPath(xStart, xExit, centreY, height, -1, 0, fraction));
     ctx.stroke(nozzleWallPath(xStart, xExit, centreY, height, 1, 0, fraction));
   });
+  // Isotherm contour lines at each temperature-band boundary, clipped to the
+  // nozzle so they read as Fluent-style contour lines. (Static mode only — the
+  // total-temperature field is flat and therefore has no isotherms.)
+  if (!totalMode) {
+    ctx.setLineDash([]);
+    ctx.strokeStyle = "rgba(6,12,18,0.5)";
+    ctx.lineWidth = 1;
+    let prevLvl = null;
+    for (let i = 0; i <= 140; i += 1) {
+      const f = i / 140;
+      const lvl = Math.round(((gasTempAtFrac(f) - T_scaleMin) / (T_scaleMax - T_scaleMin)) * NLEVELS);
+      if (prevLvl !== null && lvl !== prevLvl) {
+        const x = xStart + (xExit - xStart) * f;
+        ctx.beginPath();
+        ctx.moveTo(x, centreY - height * 0.3);
+        ctx.lineTo(x, centreY + height * 0.3);
+        ctx.stroke();
+      }
+      prevLvl = lvl;
+    }
+  }
   ctx.restore();
 
   // ── Downstream exhaust — morphs with ALTITUDE (the showpiece) ────────
@@ -2088,6 +2109,17 @@ function drawResearchDiagnostic(ctx, width, height, metrics, now) {
     ctx.fill();
   }
   ctx.restore();
+
+  // ── Realistic flame plume: turbulent particles, sooty smoke & shear eddies,
+  //    layered over the contour base and driven by the live physics. ─────────
+  {
+    const OFv = metrics?.OF ?? 3.6;
+    renderResearchPlume(ctx, {
+      xExit, centreY, exitRadius, wLip, plumeRight, now, width, height,
+      mDot, altKm, separated,
+      richness: Math.max(0, Math.min(1, (3.7 - OFv) / 2.2)),
+    });
+  }
 
   // Separation shocks at the lip (overexpanded · separated).
   if (separated) {
