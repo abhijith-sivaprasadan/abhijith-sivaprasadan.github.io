@@ -10,6 +10,19 @@ The modular files in styles/sections/ and styles/components/ remain the SOURCE
 OF TRUTH. After editing any of them, re-run:  python build-css.py
 """
 import os
+import re
+
+
+def minify(css):
+    """Conservative CSS minify: strip comments, collapse whitespace, trim only
+    around structural punctuation ({ } ; ,). Deliberately leaves spaces around
+    : + - > ~ * / untouched so calc() and combinators can't break."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{};,])\s*", r"\1", css)
+    css = css.replace(";}", "}")
+    return css.strip()
+
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 STYLES = os.path.join(ROOT, "styles")
@@ -53,18 +66,18 @@ HEADER = (
 )
 
 def main():
-    chunks = [HEADER]
+    body = []
     for rel, media in PARTS:
         path = os.path.join(STYLES, rel.replace("/", os.sep))
         with open(path, encoding="utf-8") as fh:
             css = fh.read().strip("\n")
-        chunks.append("/* ---- %s ---- */\n" % rel)
         if media:
-            chunks.append("@media %s {\n%s\n}\n" % (media, css))
+            body.append("@media %s {\n%s\n}\n" % (media, css))
         else:
-            chunks.append(css + "\n")
-        chunks.append("\n")
-    out = "\n".join(chunks)
+            body.append(css)
+    # Keep the HEADER readable; minify the concatenated body. (Transfer is also
+    # gzipped by the host; this mainly trims parse bytes for the generated file.)
+    out = HEADER + minify("\n".join(body)) + "\n"
     with open(OUT, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(out)
     print("Bundled %d stylesheets -> styles/v4.css (%d bytes)" % (len(PARTS), len(out)))
