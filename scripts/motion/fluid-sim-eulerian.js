@@ -1868,6 +1868,79 @@ const JET_STOPS = [
   [0.840, 255, 195,   0],   // amber
   [1.000, 235,  35,  25],   // red    (hottest)
 ];
+// Turbulent flame plume overlay: sooty smoke, particle streaks, shear eddies.
+// Called from drawResearchDiagnostic after the base contour plume is drawn.
+function renderResearchPlume(ctx, { xExit, centreY, exitRadius, wLip, plumeRight, now, width, height, mDot, altKm, separated, richness }) {
+  const span = plumeRight - xExit;
+  if (span <= 2) return;
+
+  // ── Turbulent streak particles ──────────────────────────────────────────
+  // Deterministic pseudo-random streaks driven by now and index for smooth animation.
+  const STREAKS = 28;
+  ctx.save();
+  // Clip to plume envelope (wide enough to allow slight overshoot for realism)
+  const plumeClip = new Path2D();
+  plumeClip.rect(xExit, centreY - exitRadius * 2.6, span + 6, exitRadius * 5.2);
+  ctx.clip(plumeClip);
+
+  for (let i = 0; i < STREAKS; i++) {
+    const phase = (i * 1.618 + now * 0.00024) % 1;           // advect downstream
+    const sx = xExit + span * phase;
+    const rndY = Math.sin(i * 7.3 + now * 0.00031) * 0.5 + 0.5; // 0-1 cross-stream
+    const halfW = wLip + (exitRadius * 0.55 - wLip) * Math.min(1, phase * 3); // envelope
+    const sy = centreY + (rndY - 0.5) * 2 * halfW * 0.82;
+    const len = 8 + 14 * Math.abs(Math.sin(i * 3.1));
+    const alpha = (0.12 + 0.14 * richness) * (1 - phase * 0.7);
+    // Rich → sooty dark streaks; lean → bright yellow-white
+    const r = richness > 0.5 ? 30 + Math.round(richness * 40) : 255;
+    const g = richness > 0.5 ? 22 + Math.round(richness * 28) : 210 - Math.round(richness * 120);
+    const b = richness > 0.5 ? 14 : 80 - Math.round(richness * 60);
+    ctx.strokeStyle = `rgba(${r},${g},${b},${alpha.toFixed(3)})`;
+    ctx.lineWidth = 1.1 + richness * 0.8;
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.lineTo(sx + len, sy + Math.sin(i * 5.7 + now * 0.0004) * 3.5);
+    ctx.stroke();
+  }
+
+  // ── Shear eddies at plume boundary ─────────────────────────────────────
+  const EDDIES = 6;
+  for (let i = 0; i < EDDIES; i++) {
+    const t = ((i / EDDIES) + now * 0.000055) % 1;
+    const ex = xExit + span * (0.08 + t * 0.82);
+    const halfAt = wLip + (exitRadius * 0.52 - wLip) * Math.min(1, t * 3);
+    const r = halfAt * (0.28 + 0.16 * Math.sin(i * 2.4));
+    for (const sgn of [-1, 1]) {
+      const ey = centreY + sgn * (halfAt * 0.88);
+      const alpha = 0.07 + 0.07 * richness;
+      ctx.strokeStyle = `rgba(255,180,60,${alpha.toFixed(3)})`;
+      ctx.lineWidth = 0.9;
+      ctx.beginPath();
+      ctx.arc(ex, ey, r, 0, Math.PI * 2 * (0.55 + 0.35 * Math.sin(now * 0.00045 + i)));
+      ctx.stroke();
+    }
+  }
+
+  // ── Sooty smoke puffs (rich mixture only) ──────────────────────────────
+  if (richness > 0.25) {
+    const PUFFS = 10;
+    for (let i = 0; i < PUFFS; i++) {
+      const phase = ((i * 0.37 + now * 0.000078) % 1);
+      const px = xExit + span * (0.15 + phase * 0.8);
+      const py = centreY + Math.sin(i * 4.1 + now * 0.00019) * exitRadius * 1.1;
+      const pr = (4 + 9 * Math.sin(i * 2.9) * Math.sin(i * 2.9)) * richness;
+      const alpha = (0.06 + 0.09 * richness) * (0.3 + 0.7 * Math.sin(Math.PI * phase));
+      ctx.fillStyle = `rgba(20,16,12,${alpha.toFixed(3)})`;
+      ctx.beginPath();
+      ctx.arc(px, py, pr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  ctx.restore();
+}
+
 function jetColor(t) {
   t = Math.max(0, Math.min(1, t));
   for (let i = 1; i < JET_STOPS.length; i += 1) {
