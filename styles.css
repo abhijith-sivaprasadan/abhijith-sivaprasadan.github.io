@@ -174,11 +174,13 @@ main,
 }
 
 .atmosphere-grid {
+  inset: -58px; /* extend by one tile so transform loop has no edge gaps */
   background-image:
     linear-gradient(to right, var(--atmo-grid) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(143, 167, 179, 0.055) 1px, transparent 1px);
   background-size: 58px 58px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.88), transparent 92%);
+  will-change: transform;
   animation: atmosphere-grid-drift 34s linear infinite;
 }
 
@@ -225,7 +227,8 @@ body[data-page-key="research"] .atmosphere-grid {
 }
 
 @keyframes atmosphere-grid-drift {
-  to { background-position: 58px 58px; }
+  from { transform: translate(0, 0); }
+  to { transform: translate(58px, 58px); }
 }
 
 @keyframes atmosphere-scan {
@@ -5601,11 +5604,13 @@ body.signal-rebuild strong {
 }
 
 body.signal-rebuild::before {
+  inset: -36px; /* extend by one tile; fixed pos clips at viewport edge */
   opacity: 0.16;
   background-image:
     linear-gradient(to right, rgba(155, 214, 159, 0.08) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(143, 167, 179, 0.06) 1px, transparent 1px);
   background-size: 36px 36px;
+  will-change: transform;
   animation: signal-bg-drift 28s linear infinite;
 }
 
@@ -5646,6 +5651,7 @@ body.signal-rebuild .signal-hero {
   padding: 112px 0 44px;
   background:
     linear-gradient(120deg, rgba(7, 8, 7, 0.94), rgba(7, 8, 7, 0.78)),
+    linear-gradient(180deg, transparent, rgba(7, 8, 7, 0.76)),
     url("assets/thumb-siemens-validation.svg");
   background-size: cover;
   background-position: center;
@@ -5660,14 +5666,14 @@ body.signal-rebuild .hero::after {
 
 body.signal-rebuild .signal-grid-bg {
   position: absolute;
-  inset: 0;
+  inset: -54px; /* extend by one tile; .signal-hero { overflow: hidden } clips edges */
   pointer-events: none;
   background:
     linear-gradient(to right, rgba(155, 214, 159, 0.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(143, 167, 179, 0.09) 1px, transparent 1px),
-    linear-gradient(180deg, transparent, rgba(7, 8, 7, 0.76));
-  background-size: 54px 54px, 54px 54px, 100% 100%;
+    linear-gradient(to bottom, rgba(143, 167, 179, 0.09) 1px, transparent 1px);
+  background-size: 54px 54px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), transparent 96%);
+  will-change: transform;
   animation: signal-grid-drift 22s linear infinite;
 }
 
@@ -6422,11 +6428,13 @@ body.signal-rebuild .assignment-card:nth-child(4) { transition-delay: 260ms; }
 }
 
 @keyframes signal-bg-drift {
-  to { background-position: 36px 36px; }
+  from { transform: translate(0, 0); }
+  to { transform: translate(36px, 36px); }
 }
 
 @keyframes signal-grid-drift {
-  to { background-position: 54px 54px, 54px 54px, 0 0; }
+  from { transform: translate(0, 0); }
+  to { transform: translate(54px, 54px); }
 }
 
 /* Perf: these continuous, non-composited decorative animations repaint
@@ -6440,7 +6448,7 @@ body.signal-rebuild .assignment-card:nth-child(4) { transition-delay: 260ms; }
   body.future-v3::before,
   .signal-grid-bg,
   .atmosphere-grid,
-  .looking-for-banner .status-dot {
+  .looking-for-banner .status-dot::after {
     animation: none !important;
   }
 }

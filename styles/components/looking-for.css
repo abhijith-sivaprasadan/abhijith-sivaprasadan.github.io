@@ -24,13 +24,22 @@
   height: 8px;
   border-radius: 999px;
   background: #22c55e;
-  box-shadow: 0 0 0 4px color-mix(in srgb, #22c55e 30%, transparent);
+  position: relative;
+}
+
+.looking-for-banner .status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, #22c55e 36%, transparent);
+  will-change: transform, opacity;
   animation: looking-for-pulse 2.4s ease-in-out infinite;
 }
 
 @keyframes looking-for-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, #22c55e 36%, transparent); }
-  50%      { box-shadow: 0 0 0 8px color-mix(in srgb, #22c55e 0%, transparent); }
+  0%, 100% { transform: scale(0.5); opacity: 0.8; }
+  50%      { transform: scale(2); opacity: 0; }
 }
 
 .looking-for-banner a {
@@ -63,7 +72,7 @@
   border-color: color-mix(in srgb, var(--accent) 50%, var(--v4-line));
 }
 
-html.motion-reduced .looking-for-banner .status-dot {
+html.motion-reduced .looking-for-banner .status-dot::after {
   animation: none;
 }
 
