@@ -12,14 +12,16 @@ body.signal-rebuild .hero-core {
   align-items: start;
 }
 
-/* When the Live Lens is hidden (default for visitors), the right-side
-   canvas viewport is gone — let the hero copy span the full container
-   instead of staying inside the narrow left column. */
+/* When the Live Lens is hidden (default for visitors), keep a visible
+   design-system evidence panel in the hero so the rebuild is apparent
+   above the fold without exposing the heavier dev-only canvas viewport. */
 body:not(.lens-dev).signal-rebuild .hero-core {
-  display: block;
+  display: grid;
+  grid-template-columns: minmax(25rem, 1fr) minmax(22rem, 0.78fr);
+  align-items: center;
 }
 body:not(.lens-dev).signal-rebuild .hero-core .hero-copy {
-  max-width: min(72rem, 100%);
+  max-width: min(64rem, 100%);
 }
 body:not(.lens-dev).signal-rebuild .hero-core .signal-claim {
   max-width: min(60rem, 100%);
@@ -59,6 +61,200 @@ body.signal-rebuild .hero-core .signal-claim {
 
 body.signal-rebuild .hero-core .hero-text {
   max-width: 42rem;
+}
+
+.home-signal-console {
+  position: relative;
+  min-width: 0;
+  align-self: stretch;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  min-height: clamp(22rem, 31vw, 31rem);
+  margin-top: 0.35rem;
+  padding: clamp(0.85rem, 1.4vw, 1rem);
+  border: 1px solid color-mix(in srgb, var(--accent, var(--v4-teal)) 38%, var(--v4-line));
+  border-radius: var(--v4-radius-sm, 8px);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--accent, var(--v4-teal)) 12%, transparent), transparent 48%),
+    rgba(7, 13, 18, 0.84);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 28px 80px rgba(0, 0, 0, 0.26);
+  overflow: hidden;
+}
+
+.home-signal-console::before,
+.home-signal-console::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.home-signal-console::before {
+  background-image:
+    linear-gradient(rgba(144, 226, 217, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(144, 226, 217, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(110deg, transparent, #000 18%, #000 82%, transparent);
+}
+
+.home-signal-console::after {
+  width: 42%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent, var(--v4-teal)) 16%, transparent), transparent);
+  transform: translateX(-120%);
+  animation: home-console-scan 6s linear infinite;
+}
+
+.home-signal-console-head,
+.home-signal-console-foot,
+.home-signal-stage {
+  position: relative;
+  z-index: 1;
+}
+
+.home-signal-console-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  color: var(--v4-teal);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-signal-console-head strong {
+  color: var(--v4-amber);
+}
+
+.home-signal-stage {
+  display: grid;
+  min-height: 0;
+  border: 1px solid color-mix(in srgb, var(--accent, var(--v4-teal)) 28%, var(--v4-line));
+  border-radius: 6px;
+  background: rgba(3, 8, 13, 0.52);
+  overflow: hidden;
+}
+
+.home-signal-stage svg {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  min-height: 18rem;
+  display: block;
+}
+
+.home-signal-stage text {
+  fill: color-mix(in srgb, var(--v4-text) 72%, var(--v4-teal));
+  font: 700 0.72rem/1 var(--font-mono);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.console-grid-line {
+  stroke: rgba(167, 176, 189, 0.18);
+  stroke-width: 1;
+}
+
+.console-reducer-wall,
+.console-c2-wall,
+.console-nozzle,
+.console-cooling-loop,
+.console-box {
+  stroke: color-mix(in srgb, var(--accent, var(--v4-teal)) 78%, white);
+  stroke-width: 2.2;
+  fill: rgba(11, 20, 30, 0.55);
+  vector-effect: non-scaling-stroke;
+}
+
+.console-c2-wall,
+.console-cooling-loop {
+  stroke: var(--v4-teal);
+}
+
+.console-nozzle {
+  stroke: var(--v4-amber);
+  fill: rgba(208, 98, 44, 0.12);
+}
+
+.console-flow,
+.console-energy-curve,
+.console-plume {
+  fill: none;
+  stroke: var(--accent, var(--v4-teal));
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 9 13;
+  animation: home-console-flow 3s linear infinite;
+  vector-effect: non-scaling-stroke;
+}
+
+.console-flow.strong,
+.console-energy-curve {
+  stroke-width: 4;
+}
+
+.console-flow.secondary,
+.console-energy-curve.secondary,
+.console-plume.lower {
+  opacity: 0.62;
+  animation-duration: 4.4s;
+}
+
+.console-hot-band,
+.console-cool-band {
+  fill: var(--v4-amber);
+  opacity: 0.74;
+}
+
+.console-cool-band {
+  fill: var(--v4-teal);
+}
+
+.console-node {
+  fill: var(--accent, var(--v4-teal));
+  stroke: rgba(5, 8, 12, 0.85);
+  stroke-width: 2;
+}
+
+.console-box.amber {
+  stroke: var(--v4-amber);
+}
+
+.console-box.blue {
+  stroke: var(--v4-blue);
+}
+
+.console-energy-curve.recovery {
+  stroke: #9bd69f;
+}
+
+.home-signal-console-foot {
+  color: color-mix(in srgb, var(--v4-muted) 74%, var(--v4-text));
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+body.lens-dev.signal-rebuild .home-signal-console {
+  display: none;
+}
+
+html[data-theme="light"] .home-signal-console {
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--accent, var(--v4-teal)) 10%, transparent), transparent 50%),
+    rgba(248, 251, 252, 0.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.84),
+    0 24px 70px rgba(31, 47, 59, 0.12);
+}
+
+html[data-theme="light"] .home-signal-stage {
+  background: rgba(255, 255, 255, 0.56);
 }
 
 .motion-ambient-canvas {
@@ -165,6 +361,21 @@ html[data-theme="light"] .hero-instrument {
 
 html.motion-reduced .motion-ambient-canvas {
   opacity: 0.16;
+}
+
+@keyframes home-console-flow {
+  to {
+    stroke-dashoffset: -66;
+  }
+}
+
+@keyframes home-console-scan {
+  0% {
+    transform: translateX(-120%);
+  }
+  45%, 100% {
+    transform: translateX(260%);
+  }
 }
 
 body.signal-rebuild .signal-rail .rail-grid {
@@ -337,6 +548,13 @@ body.signal-rebuild .signal-rail .validation-card {
     margin-top: 0;
   }
 
+  .home-signal-console {
+    order: 3;
+    width: 100%;
+    min-height: 20rem;
+    margin-top: 0;
+  }
+
   body.signal-rebuild .hero-copy .hero-text {
     order: 4;
   }
@@ -380,5 +598,13 @@ body.signal-rebuild .signal-rail .validation-card {
   .hero-instrument-surface {
     aspect-ratio: 1.22;
     min-height: 260px;
+  }
+
+  .home-signal-console {
+    min-height: 16rem;
+  }
+
+  .home-signal-stage svg {
+    min-height: 14rem;
   }
 }
