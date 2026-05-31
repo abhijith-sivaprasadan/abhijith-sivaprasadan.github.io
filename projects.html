@@ -13,16 +13,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260531-structural-fea-crops" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260531-structural-fea-crops" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260531-structural-fea-crops" />
-  <script src="scripts/public-config.js?v=20260531-structural-fea-crops" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260601-ui-cache-fix" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260601-ui-cache-fix" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260601-ui-cache-fix" />
+  <script src="scripts/public-config.js?v=20260601-ui-cache-fix" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="scripts/motion/index.js?v=20260531-structural-fea-crops"></script>
-  <script src="scripts/motion/sw-register.js?v=20260531-structural-fea-crops" defer></script>
-  <script src="scripts/site.js?v=20260531-structural-fea-crops" defer></script>
+  <script type="module" src="scripts/motion/index.js?v=20260601-ui-cache-fix"></script>
+  <script src="scripts/motion/sw-register.js?v=20260601-ui-cache-fix" defer></script>
+  <script src="scripts/site.js?v=20260601-ui-cache-fix" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body class="signal-rebuild" data-motion-page-transition data-page-key="projects">
@@ -133,7 +133,7 @@
               <div class="project-browser-summary-text">
                 <span class="project-browser-kicker">Structural FEA</span>
                 <h3><a class="title-link" href="projects/structural-fea-reactor-internals.html">Structural FEA Reactor Internals Pilot Study</a></h3>
-                <p>Westinghouse-role-fit ANSYS Mechanical pilot study for a simplified reactor-internals-inspired stainless-steel support plate, covering mesh convergence, load-case screening, reaction checks and boundary-condition judgement.</p>
+                <p>Westinghouse-role-fit ANSYS Mechanical pilot study for a simplified reactor-internals-inspired stainless-steel support plate, covering mesh convergence, load-case screening, reaction checks, LC4R support mapping and boundary-condition judgement.</p>
               </div>
               <div class="project-browser-meta">
                 <span>ANSYS Mechanical / SpaceClaim / Python</span>
@@ -145,16 +145,17 @@
                 <img src="assets/projects/structural-fea/web/structural-fea-hero-board-web.png" alt="Curated structural FEA evidence board showing stress, mesh and convergence outputs" loading="lazy" width="1800" height="1080" />
               </div>
               <div class="project-browser-copy">
-                <div class="tag-row"><span class="tag-hot">ANSYS Mechanical</span><span>ANSYS SpaceClaim</span><span>Reaction checks</span><span>Mesh convergence</span><span>Python reports</span></div>
+                <div class="tag-row"><span class="tag-hot">ANSYS Mechanical</span><span>ANSYS SpaceClaim</span><span>Reaction checks</span><span>Mesh convergence</span><span>3-2-1 LC4R</span><span>Python reports</span></div>
                 <div class="result-metric-row">
                   <span class="result-metric-card"><strong>245,658 elements</strong><small>Fine mesh selected for final reporting</small></span>
                   <span class="result-metric-card"><strong>20.65 MPa</strong><small>Peak von Mises in the 5 kN lateral case</small></span>
                   <span class="result-metric-card"><strong>3605.6 N</strong><small>LC3 reaction resultant matches applied load vector</small></span>
+                  <span class="result-metric-card"><strong>0.0171 MPa</strong><small>LC4R relaxed thermal stress</small></span>
                 </div>
                 <ul class="evidence-list">
                   <li>Screened LC1-LC3 mechanical load cases with reaction-force checks and preliminary factors of safety against an assumed 205 MPa screening yield.</li>
                   <li>Ran LC1 mesh convergence from coarse to very fine; final reporting used the fine mesh with 416,866 nodes and 245,658 elements.</li>
-                  <li>Separated an intentionally over-constrained thermal case from a relaxed 3-2-1 support case to show boundary-condition judgment.</li>
+                  <li>Documented the final LC4R global-coordinate RD1/RD2/RD3 support mapping and rejected pivot, missing-result-file or disconnected-attachment solve states.</li>
                   <li>Positioned honestly as an educational ANSYS portfolio study, not an ASME BPVC, Eurocode, EN13001 or certified nuclear-component design calculation.</li>
                 </ul>
                 <div class="project-links">

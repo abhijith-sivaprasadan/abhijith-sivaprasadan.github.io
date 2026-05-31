@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ANSYS Mechanical structural-analysis pilot study for a reactor-internals-inspired support plate: mesh convergence, load-case screening, reaction checks, thermal-expansion boundary-condition sensitivity and role-fit evidence for structural analysis engineering." />
+  <meta name="description" content="ANSYS Mechanical structural-analysis pilot study for a reactor-internals-inspired support plate: mesh convergence, load-case screening, reaction checks, LC4R thermal-expansion support mapping and role-fit evidence for structural analysis engineering." />
   <meta property="og:title" content="Structural FEA Reactor Internals Pilot Study" />
   <meta property="og:description" content="ANSYS Mechanical structural screening of a simplified stainless-steel support plate, with LC1-LC4R load cases, mesh convergence, reaction checks and thermal expansion interpretation." />
   <meta property="og:type" content="article" />
@@ -13,16 +13,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="../styles.css?v=20260531-structural-fea-crops" />
-  <link rel="stylesheet" href="../styles/motion.css?v=20260531-structural-fea-crops" />
-  <link rel="stylesheet" href="../styles/v4.css?v=20260531-structural-fea-crops" />
-  <script src="../scripts/public-config.js?v=20260531-structural-fea-crops" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=20260601-ui-cache-fix" />
+  <link rel="stylesheet" href="../styles/motion.css?v=20260601-ui-cache-fix" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260601-ui-cache-fix" />
+  <script src="../scripts/public-config.js?v=20260601-ui-cache-fix" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="../scripts/motion/index.js?v=20260531-structural-fea-crops"></script>
-  <script src="../scripts/motion/sw-register.js?v=20260531-structural-fea-crops" defer></script>
-  <script src="../scripts/site.js?v=20260531-structural-fea-crops" defer></script>
+  <script type="module" src="../scripts/motion/index.js?v=20260601-ui-cache-fix"></script>
+  <script src="../scripts/motion/sw-register.js?v=20260601-ui-cache-fix" defer></script>
+  <script src="../scripts/site.js?v=20260601-ui-cache-fix" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body class="signal-rebuild" data-page-key="case-study" data-motion-page-transition>
@@ -53,9 +53,10 @@
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
         <p class="eyebrow">ANSYS Mechanical &middot; Structural FEA &middot; Reactor-internals-inspired screening &middot; Python reporting</p>
         <h1>Structural FEA Reactor Internals Pilot Study</h1>
-        <p class="hero-text">Educational ANSYS Mechanical pilot study for a simplified reactor-internals-inspired stainless-steel support plate, framed for structural-analysis roles that need careful FEM setup, load-case traceability, result interpretation and clear engineering reports.</p>
+        <p class="hero-text">Educational ANSYS Mechanical pilot study for a simplified reactor-internals-inspired stainless-steel support plate, framed for structural-analysis roles that need careful FEM setup, load-case traceability, result interpretation, thermal-support judgement and clear engineering reports.</p>
         <div class="button-row">
           <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals" target="_blank" rel="noreferrer">GitHub repository</a>
+          <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals/blob/main/report/final_structural_fem_report.md" target="_blank" rel="noreferrer">Final report</a>
         </div>
         <figure class="structural-hero-composite">
           <img src="../assets/projects/structural-fea/web/structural-fea-hero-board-web.png" alt="Designed structural FEA evidence board showing LC2 stress, selected mesh and convergence plot" loading="lazy" width="1800" height="1080" />
@@ -72,6 +73,7 @@
             <li><strong>Tools:</strong> ANSYS Mechanical Student, ANSYS SpaceClaim, Python, pandas, matplotlib</li>
             <li><strong>Geometry:</strong> simplified 316 stainless-steel support plate with central guide opening, mounting holes, bosses and radial ribs</li>
             <li><strong>Load cases:</strong> LC1 2 kN lateral, LC2 5 kN lateral, LC3 3 kN lateral + 2 kN vertical, LC4 constrained +100 C, LC4R relaxed +100 C</li>
+            <li><strong>Evidence base:</strong> final FEM report, LC4R thermal notes, acceptance checks, safety-factor summary and Python-generated result tables</li>
             <li><strong>Role lens:</strong> structural-analysis engineering practice: FEM setup, reaction checks, reporting and safety-minded interpretation</li>
             <li><strong>Scope:</strong> preliminary linear-elastic screening and modelling judgment, not a certified pressure-boundary or nuclear component calculation</li>
           </ul>
@@ -85,6 +87,7 @@
             <span class="result-metric-card"><strong>245,658 elements</strong><small>Fine mesh selected for final reporting</small></span>
             <span class="result-metric-card"><strong>20.65 MPa</strong><small>Peak von Mises in the 5 kN lateral case</small></span>
             <span class="result-metric-card"><strong>3605.6 N</strong><small>LC3 reaction resultant from ANSYS, matching the applied vector resultant</small></span>
+            <span class="result-metric-card"><strong>0.0171 MPa</strong><small>LC4R thermal stress after expansion was allowed</small></span>
           </div>
         </article>
       </div>
@@ -168,8 +171,61 @@
             <li><strong>Boundary conditions:</strong> compared fixed mounting-hole supports for mechanical cases with a relaxed 3-2-1 locating/sliding support for realistic thermal expansion.</li>
             <li><strong>Mesh convergence:</strong> ran LC1 across coarse, medium, fine and very-fine tetrahedral meshes; final fine mesh used 416,866 nodes and 245,658 elements.</li>
             <li><strong>Verification:</strong> checked reaction forces against the applied loads, including LC3 resultant reaction: sqrt(3000^2 + 2000^2) = 3605.5 N versus 3605.6 N from ANSYS.</li>
+            <li><strong>Thermal solve gate:</strong> accepted LC4R only after solver results displayed normally, remote reactions stayed negligible and pivot, missing-result-file or disconnected-attachment states were removed.</li>
             <li><strong>Post-processing:</strong> exported result CSVs and generated summary tables, figures and reporting values with Python.</li>
           </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Acceptance criteria</p>
+          <h2>What the final report checked before freezing the model</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            The project uses an ASME-aware screening mindset without claiming formal ASME BPVC compliance. The repository now records the checks as an explicit acceptance matrix, so the analysis reads as an engineering workflow rather than an isolated contour-plot gallery.
+          </p>
+          <div class="case-data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Quantity</th>
+                  <th>Criterion</th>
+                  <th>How checked</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Max von Mises stress</td>
+                  <td>Below preliminary yield-strength screen</td>
+                  <td>Compared with 205 MPa assumed yield strength for annealed 316 stainless steel.</td>
+                </tr>
+                <tr>
+                  <td>Max deformation</td>
+                  <td>Small relative to component size and support function</td>
+                  <td>Reviewed displacement magnitude and deformation pattern for each load case.</td>
+                </tr>
+                <tr>
+                  <td>Reaction force</td>
+                  <td>Balance applied mechanical load</td>
+                  <td>Compared ANSYS reaction resultants with LC1, LC2 and LC3 applied load resultants.</td>
+                </tr>
+                <tr>
+                  <td>Mesh convergence</td>
+                  <td>Stable final mesh response</td>
+                  <td>Used the LC1 coarse, medium, fine and very-fine mesh convergence study.</td>
+                </tr>
+                <tr>
+                  <td>Thermal stress</td>
+                  <td>Interpreted through support realism</td>
+                  <td>Compared fixed-hole LC4 with relaxed 3-2-1 LC4R before accepting the thermal case.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
@@ -225,6 +281,114 @@
               </tbody>
             </table>
           </div>
+          <h3>Preliminary safety screening</h3>
+          <p>
+            The mechanical cases are screened against an assumed 205 MPa yield strength for annealed 316 stainless steel. LC4 is deliberately excluded from design screening because its peak stress is the fixed-hole thermal over-constraint artifact.
+          </p>
+          <div class="case-data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Case</th>
+                  <th>Max von Mises</th>
+                  <th>Screening yield</th>
+                  <th>Preliminary FOS</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>LC1</td>
+                  <td>8.26 MPa</td>
+                  <td>205 MPa</td>
+                  <td>24.82</td>
+                  <td>Pass preliminary screening.</td>
+                </tr>
+                <tr>
+                  <td>LC2</td>
+                  <td>20.65 MPa</td>
+                  <td>205 MPa</td>
+                  <td>9.93</td>
+                  <td>Pass preliminary screening.</td>
+                </tr>
+                <tr>
+                  <td>LC3</td>
+                  <td>19.572 MPa</td>
+                  <td>205 MPa</td>
+                  <td>10.47</td>
+                  <td>Pass preliminary screening.</td>
+                </tr>
+                <tr>
+                  <td>LC4 constrained thermal</td>
+                  <td>2705.7 MPa</td>
+                  <td>205 MPa</td>
+                  <td>N/A</td>
+                  <td>Not design-screened; retained as over-constraint comparison.</td>
+                </tr>
+                <tr>
+                  <td>LC4R relaxed thermal</td>
+                  <td>0.0171 MPa</td>
+                  <td>205 MPa</td>
+                  <td>Very large</td>
+                  <td>Pass thermal sanity check.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>LC1 mesh convergence detail</h3>
+          <div class="case-data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Mesh level</th>
+                  <th>Global size</th>
+                  <th>Nodes</th>
+                  <th>Elements</th>
+                  <th>Max deformation</th>
+                  <th>Max von Mises</th>
+                  <th>Max principal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Coarse</td>
+                  <td>8.0 mm</td>
+                  <td>104,904</td>
+                  <td>60,697</td>
+                  <td>0.00036555 mm</td>
+                  <td>6.0707 MPa</td>
+                  <td>6.0963 MPa</td>
+                </tr>
+                <tr>
+                  <td>Medium</td>
+                  <td>5.0 mm</td>
+                  <td>217,130</td>
+                  <td>127,301</td>
+                  <td>0.00036585 mm</td>
+                  <td>6.2094 MPa</td>
+                  <td>6.8885 MPa</td>
+                </tr>
+                <tr>
+                  <td>Fine</td>
+                  <td>3.0 mm</td>
+                  <td>416,866</td>
+                  <td>245,658</td>
+                  <td>0.00036606 mm</td>
+                  <td>8.2600 MPa</td>
+                  <td>7.1615 MPa</td>
+                </tr>
+                <tr>
+                  <td>Very fine</td>
+                  <td>2.0 mm</td>
+                  <td>798,700</td>
+                  <td>472,372</td>
+                  <td>0.00036618 mm</td>
+                  <td>8.5602 MPa</td>
+                  <td>8.1603 MPa</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
@@ -242,6 +406,62 @@
           <p>
             The takeaway is exactly the kind of FEA discipline I want the portfolio to show: maximum stress contours are not self-interpreting. Boundary conditions, mesh refinement, reactions and physical support realism must be read together.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Latest LC4R update</p>
+          <h2>Exact support mapping and clean-solve gate</h2>
+        </div>
+        <div class="case-grid">
+          <article class="case-panel">
+            <h3>Final 3-2-1 support implementation</h3>
+            <p>
+              The latest thermal notes preserve the locating/sliding intent while documenting the actual global-coordinate constraints used in the solved ANSYS model. All remote-point rotations remain free to avoid artificial bending restraint.
+            </p>
+            <div class="case-data-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Remote support</th>
+                    <th>Translation constraints</th>
+                    <th>Rotations</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>RD1 locating support</td>
+                    <td>UX = 0, UY = 0, UZ = 0</td>
+                    <td>RX, RY, RZ free</td>
+                  </tr>
+                  <tr>
+                    <td>RD2 sliding support</td>
+                    <td>UX = 0, UY = free, UZ = 0</td>
+                    <td>RX, RY, RZ free</td>
+                  </tr>
+                  <tr>
+                    <td>RD3 plane support</td>
+                    <td>UX = free, UY = free, UZ = 0</td>
+                    <td>RX, RY, RZ free</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+          <aside class="case-panel">
+            <h3>Accepted warnings versus rejected states</h3>
+            <p>
+              LC4R retained only non-fatal warnings about low constraint stiffness and remote boundary conditions scoped to many elements. Those warnings are acceptable because the case is intentionally lightly constrained, the result fields display normally and the remote reaction totals stay below 1 N.
+            </p>
+            <ul>
+              <li><strong>Accepted:</strong> low-constraint stiffness warning with normal result display.</li>
+              <li><strong>Accepted:</strong> remote-boundary-condition element-count warning treated as a performance warning.</li>
+              <li><strong>Rejected:</strong> solver pivot warning, missing result file or disconnected remote attachment.</li>
+            </ul>
+          </aside>
         </div>
       </div>
     </section>
@@ -267,12 +487,39 @@
           </article>
           <article class="case-role-card">
             <h3>Reporting readiness</h3>
-            <p>Python-generated tables, CSV summaries and final figures support the kind of written analysis record expected in project-based engineering work.</p>
+            <p>Python-generated tables, CSV summaries, final figures and markdown reports support the kind of written analysis record expected in project-based engineering work.</p>
           </article>
         </div>
         <div class="standards-note">
           <h3>Standards-readiness, stated honestly</h3>
           <p>This project is not an ASME BPVC, Eurocode or EN13001 calculation. It is a portfolio study showing transferable analysis habits: assumption control, load-case traceability, mesh sensitivity, reaction checks, boundary-condition judgement and conservative interpretation before formal code work.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Repository traceability</p>
+          <h2>Source artifacts behind the case study</h2>
+        </div>
+        <div class="case-role-grid">
+          <article class="case-role-card">
+            <h3>Final FEM report</h3>
+            <p>Consolidates objective, acceptance criteria, ANSYS settings, load-case results, safety screening, thermal interpretation, limitations and figure plan.</p>
+          </article>
+          <article class="case-role-card">
+            <h3>LC4R thermal notes</h3>
+            <p>Records the relaxed support logic, final RD1/RD2/RD3 constraint mapping, remote reactions and warning interpretation for the accepted thermal case.</p>
+          </article>
+          <article class="case-role-card">
+            <h3>Generated result tables</h3>
+            <p>Captures load-case summary, force balance, LC2 scaling, mesh convergence and safety-factor screening from exported ANSYS values.</p>
+          </article>
+          <article class="case-role-card">
+            <h3>Design recommendations</h3>
+            <p>Identifies the next geometry-improvement focus: rib-to-boss fillets, underside mounting-hole fillets, counterbore transitions and washer-seat realism.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -307,6 +554,7 @@
           </p>
           <div class="project-links">
             <a href="https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals" target="_blank" rel="noreferrer">Open GitHub repository</a>
+            <a href="https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals/blob/main/report/final_structural_fem_report.md" target="_blank" rel="noreferrer">Read final report</a>
             <a href="../projects.html">Back to project library</a>
           </div>
         </div>
