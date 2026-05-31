@@ -114,6 +114,46 @@ body.signal-rebuild #projects .project-grid[data-featured-projects] .project-car
   pointer-events: none;
 }
 
+.structural-thumb-stack {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(96px, 0.62fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  min-height: 230px;
+  padding: 10px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--v4-blue) 36%, var(--v4-line));
+  border-radius: var(--v4-radius-sm, 8px);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    color-mix(in srgb, var(--v4-panel) 92%, #020617);
+  background-size: 34px 34px;
+}
+
+.structural-thumb-stack img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+  border: 1px solid color-mix(in srgb, var(--v4-line) 86%, transparent);
+  border-radius: 6px;
+  background: #f6f7f8;
+}
+
+.structural-thumb-stack .featured-badge {
+  position: absolute;
+  z-index: 3;
+  left: 14px;
+  top: 14px;
+}
+
+.structural-thumb-stack .structural-thumb-primary {
+  grid-row: span 2;
+}
+
 @keyframes signal-project-scan {
   from { transform: translateX(-115%) skewX(-17deg); }
   to { transform: translateX(115%) skewX(-17deg); }
@@ -195,6 +235,20 @@ body.signal-rebuild #projects .project-grid[data-featured-projects] .project-car
     flex-basis: 100%;
     margin-left: 0;
     padding: 4px 2px 0;
+  }
+
+  .structural-thumb-stack {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .structural-thumb-stack .structural-thumb-primary {
+    grid-row: auto;
+  }
+
+  .structural-thumb-stack img {
+    aspect-ratio: 16 / 9;
+    height: auto;
   }
 }
 
@@ -293,6 +347,197 @@ body.signal-rebuild #projects .project-grid[data-featured-projects] .project-car
   text-transform: uppercase;
 }
 
+.structural-hero-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.72fr);
+  grid-template-rows: auto auto;
+  gap: clamp(12px, 1.7vw, 18px);
+  margin-top: clamp(28px, 5vw, 48px);
+  padding: clamp(12px, 1.7vw, 18px);
+  border: 1px solid color-mix(in srgb, var(--v4-blue) 48%, var(--v4-line));
+  border-radius: clamp(14px, 2vw, 22px);
+  background:
+    radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--v4-teal) 11%, transparent), transparent 30%),
+    linear-gradient(135deg, color-mix(in srgb, var(--v4-panel-strong) 88%, transparent), color-mix(in srgb, var(--v4-panel) 94%, transparent));
+  box-shadow: 0 30px 90px color-mix(in srgb, #000 28%, transparent);
+}
+
+.structural-hero-shot,
+.structural-figure-card {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--v4-line);
+  border-radius: var(--v4-radius-sm, 8px);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--v4-panel-strong) 92%, transparent), color-mix(in srgb, var(--v4-panel) 96%, transparent));
+}
+
+.structural-hero-shot.is-primary {
+  grid-row: 1 / span 2;
+}
+
+.structural-hero-shot img,
+.structural-figure-card img {
+  display: block;
+  width: 100%;
+  object-fit: contain;
+  background:
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    #f6f7f8;
+  background-size: 32px 32px;
+  border-bottom: 1px solid var(--v4-line);
+}
+
+.structural-hero-shot img {
+  aspect-ratio: 16 / 10;
+}
+
+.structural-hero-shot.is-primary img {
+  aspect-ratio: 16 / 9;
+}
+
+.structural-hero-shot figcaption,
+.structural-figure-card figcaption {
+  display: grid;
+  gap: 5px;
+  padding: 12px 14px 14px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.structural-hero-shot figcaption strong,
+.structural-figure-card figcaption strong {
+  color: var(--text);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.structural-figure-deck {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.structural-figure-card {
+  grid-column: span 3;
+  box-shadow: 0 18px 52px color-mix(in srgb, #000 21%, transparent);
+}
+
+.structural-figure-card.is-wide {
+  grid-column: span 6;
+}
+
+.structural-figure-card.is-mesh,
+.structural-figure-card.is-plot {
+  grid-column: span 3;
+}
+
+.structural-figure-card img {
+  aspect-ratio: 16 / 9;
+}
+
+.structural-figure-card.is-wide img {
+  aspect-ratio: 21 / 9;
+}
+
+.structural-figure-card.is-mesh img {
+  aspect-ratio: 4 / 3;
+}
+
+.structural-figure-card.is-plot img {
+  aspect-ratio: 16 / 9;
+}
+
+.figure-kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--v4-line);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--v4-teal) 10%, transparent), transparent 48%),
+    color-mix(in srgb, var(--v4-panel-strong) 86%, transparent);
+}
+
+.figure-kpi-row span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 25px;
+  border: 1px solid color-mix(in srgb, var(--v4-line) 80%, transparent);
+  border-radius: 999px;
+  padding: 4px 9px;
+  color: color-mix(in srgb, var(--v4-teal) 78%, var(--text));
+  font: 700 0.66rem/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--v4-panel) 62%, transparent);
+}
+
+.structural-comparison {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.46fr) minmax(0, 1fr);
+  gap: clamp(16px, 2.4vw, 28px);
+  align-items: start;
+  margin-top: clamp(20px, 3vw, 32px);
+  padding: clamp(16px, 2.4vw, 24px);
+  border: 1px solid color-mix(in srgb, var(--v4-amber) 28%, var(--v4-line));
+  border-radius: var(--v4-radius, 12px);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--v4-amber) 8%, transparent), transparent 60%),
+    color-mix(in srgb, var(--v4-panel-strong) 78%, transparent);
+}
+
+.structural-comparison-copy {
+  position: sticky;
+  top: 96px;
+}
+
+.structural-comparison-copy h3 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: clamp(1.3rem, 2.1vw, 1.9rem);
+}
+
+.structural-comparison-copy p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.structural-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 20px);
+}
+
+.structural-figure-card.is-alert {
+  border-color: color-mix(in srgb, var(--v4-orange) 38%, var(--v4-line));
+}
+
+.structural-figure-card.is-alert .figure-kpi-row {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--v4-orange) 13%, transparent), transparent 56%),
+    color-mix(in srgb, var(--v4-panel-strong) 86%, transparent);
+}
+
+.structural-figure-card.is-accepted {
+  border-color: color-mix(in srgb, var(--v4-teal) 42%, var(--v4-line));
+}
+
+html[data-theme="light"] .structural-hero-board,
+html[data-theme="light"] .structural-hero-shot,
+html[data-theme="light"] .structural-figure-card,
+html[data-theme="light"] .structural-comparison {
+  box-shadow: 0 18px 46px rgba(15, 23, 42, 0.08);
+}
+
 .case-role-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -337,11 +582,40 @@ body.signal-rebuild #projects .project-grid[data-featured-projects] .project-car
   .case-role-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .structural-hero-board,
+  .structural-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .structural-hero-shot.is-primary {
+    grid-row: auto;
+  }
+
+  .structural-comparison-copy {
+    position: static;
+  }
 }
 
 @media (max-width: 720px) {
   .case-media-grid,
-  .case-role-grid {
+  .case-role-grid,
+  .structural-figure-deck,
+  .structural-comparison-grid {
     grid-template-columns: 1fr;
+  }
+
+  .structural-figure-card,
+  .structural-figure-card.is-wide,
+  .structural-figure-card.is-mesh,
+  .structural-figure-card.is-plot {
+    grid-column: auto;
+  }
+
+  .structural-figure-card.is-wide img,
+  .structural-figure-card img,
+  .structural-hero-shot img,
+  .structural-hero-shot.is-primary img {
+    aspect-ratio: 4 / 3;
   }
 }
