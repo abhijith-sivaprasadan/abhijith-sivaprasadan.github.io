@@ -157,10 +157,9 @@ function boot() {
 
   // Auto-load subsystems present on the page
   const autoload = [
-    // Eulerian Stable Fluids — preferred on capable devices. The fluid-sim
-    // (44 KB + the physics chain) only drives the Live Lens canvas, which is
-    // hidden by default — so gate it on body.lens-dev. It stays off the default
-    // (lens-off) critical path and only loads once a visitor opens the lens.
+    // Eulerian Stable Fluids — preferred on capable devices. The homepage
+    // enables Live Lens by default; when a visitor explicitly turns it off,
+    // keep the solver off and let the static Signal console serve as fallback.
     { name: "fluid-sim-eulerian", selector: "[data-motion-fluid-sim]", skip: () => !supportsWorkers || !document.body.classList.contains("lens-dev") },
     // Legacy canvas fallback remains only for browsers without Worker support.
     { name: "fluid-sim",     selector: "[data-motion-fluid-sim]", skip: () => reducedMotion || supportsWorkers || !document.body.classList.contains("lens-dev") },
