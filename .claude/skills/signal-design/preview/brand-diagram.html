@@ -78,8 +78,21 @@
       g.innerHTML = `<div class="gl">${grp} <b>${items.length}</b></div><div class="grid"></div>`;
       const gr = g.querySelector(".grid");
       for (const [file, label] of items) {
-        const f = document.createElement("figure"); f.className = "fig";
-        f.innerHTML = `<div class="frame"><img src="../assets/${file}.svg" alt="" loading="lazy"/><div class="scan"></div></div><figcaption class="cap">${label}</figcaption>`;
+        const f = document.createElement("figure");
+        f.className = "fig";
+        const frame = document.createElement("div");
+        frame.className = "frame";
+        const img = document.createElement("img");
+        img.src = `../assets/${file}.svg`;
+        img.alt = "";
+        img.loading = "lazy";
+        const scan = document.createElement("div");
+        scan.className = "scan";
+        const caption = document.createElement("figcaption");
+        caption.className = "cap";
+        caption.textContent = label;
+        frame.append(img, scan);
+        f.append(frame, caption);
         gr.appendChild(f);
       }
       out.appendChild(g);
