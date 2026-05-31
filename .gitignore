@@ -20,3 +20,7 @@ sanity/node_modules/
 sanity/.env*
 sanity/dist/
 sanity/.sanity/
+
+# Local working exports / temporary clones
+_tmp_structural_fea_repo/
+Signal — Abhijith Sivaprasadan Design System/

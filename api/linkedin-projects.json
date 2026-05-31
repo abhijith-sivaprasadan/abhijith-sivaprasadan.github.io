@@ -47,7 +47,7 @@
       "order": 2,
       "period": "2026",
       "associatedWith": "Portfolio project",
-      "summary": "ANSYS Mechanical pilot study for a simplified reactor-internals-inspired 316 stainless-steel support plate, covering structural screening, mesh convergence, mechanical load cases and thermal-expansion boundary-condition sensitivity.",
+      "summary": "Westinghouse-role-fit ANSYS Mechanical pilot study for a simplified reactor-internals-inspired 316 stainless-steel support plate, covering structural screening, mesh convergence, reaction checks, mechanical load cases and thermal-expansion boundary-condition sensitivity.",
       "audienceTags": [
         "Thermal & Fluid",
         "Research",
@@ -63,17 +63,20 @@
       "skills": [
         "Structural FEA",
         "Mesh convergence",
+        "Reaction-force checks",
         "Boundary-condition sensitivity",
         "Thermal expansion interpretation"
       ],
-      "image": "assets/thumb-structural-fea-reactor.svg",
+      "image": "assets/projects/structural-fea/final-fine-mesh.png",
       "caseStudyUrl": "projects/structural-fea-reactor-internals.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals",
       "highlights": [
         "Built a simplified, non-proprietary reactor-internals-inspired support plate in SpaceClaim and screened it in ANSYS Mechanical Student.",
         "Reported the final fine mesh at 245,658 elements and 416,866 nodes after LC1 convergence checks.",
         "Mechanical load cases LC1-LC3 remained below 20.65 MPa peak von Mises, with reaction-force checks matching the applied load resultants.",
-        "Compared constrained thermal expansion against a relaxed 3-2-1 support case to show why the LC4 peak stress is a boundary-condition artifact rather than a design stress."
+        "LC3 reaction-force check gave 3605.6 N in ANSYS versus sqrt(3000^2 + 2000^2) = 3605.5 N from the applied load vector.",
+        "Compared constrained thermal expansion against a relaxed 3-2-1 support case to show why the LC4 peak stress is a boundary-condition artifact rather than a design stress.",
+        "Positioned honestly as standards-readiness evidence: not an ASME BPVC, Eurocode, EN13001 or certified nuclear-component calculation."
       ]
     },
     {

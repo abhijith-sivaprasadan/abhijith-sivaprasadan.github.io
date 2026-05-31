@@ -133,3 +133,98 @@
 .case-data-table tr:last-child td {
   border-bottom: 0;
 }
+
+.case-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.case-media-card {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--v4-line);
+  border-radius: var(--v4-radius-sm, 8px);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--v4-panel-strong) 86%, transparent), color-mix(in srgb, var(--v4-panel) 92%, transparent));
+  box-shadow: 0 18px 50px color-mix(in srgb, #000 24%, transparent);
+}
+
+.case-media-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #f7f8fa;
+  border-bottom: 1px solid var(--v4-line);
+}
+
+.case-media-card figcaption {
+  padding: 13px 15px 15px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.case-media-card figcaption strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.case-role-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.6vw, 18px);
+}
+
+.case-role-card,
+.standards-note {
+  border: 1px solid var(--v4-line);
+  border-radius: var(--v4-radius-sm, 8px);
+  background: color-mix(in srgb, var(--v4-panel-strong) 78%, transparent);
+}
+
+.case-role-card {
+  padding: clamp(16px, 2vw, 20px);
+}
+
+.case-role-card h3,
+.standards-note h3 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.case-role-card p,
+.standards-note p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.standards-note {
+  margin-top: clamp(16px, 2vw, 22px);
+  padding: clamp(18px, 2.2vw, 24px);
+  border-color: color-mix(in srgb, var(--v4-amber) 34%, var(--v4-line));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--v4-amber) 10%, transparent), transparent 56%),
+    color-mix(in srgb, var(--v4-panel-strong) 84%, transparent);
+}
+
+@media (max-width: 980px) {
+  .case-role-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .case-media-grid,
+  .case-role-grid {
+    grid-template-columns: 1fr;
+  }
+}
