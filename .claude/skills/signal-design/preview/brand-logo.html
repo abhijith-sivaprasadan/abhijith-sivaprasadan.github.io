@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 24px 22px; background: #070908;
+         background-image: radial-gradient(120% 130% at 0% -20%, rgba(120,210,150,0.06), transparent 55%); }
+  .block { display:grid; gap:20px; }
+  .unit { display:grid; gap:10px; }
+  .tag { font:500 0.6rem/1 var(--font-mono); letter-spacing:.14em; text-transform:uppercase; color:rgba(155,214,159,0.55); }
+
+  /* primary — Inter display, as on the hero (natural case) */
+  .display { font:600 2.5rem/1 var(--font-sans); color:var(--text); letter-spacing:-0.02em;
+    font-variation-settings:'opsz' 32, 'wght' 620; }
+  .role { font:400 0.86rem/1 var(--font-sans); color:var(--muted); }
+  .role b { color:#9bd69f; font-weight:500; }
+
+  /* wordmark — mono nav lockup with green caret + signal underline */
+  .wm { display:inline-flex; flex-direction:column; gap:7px; }
+  .wmrow { display:flex; align-items:baseline; gap:10px; }
+  .wmrow .idx { font:600 0.8rem/1 var(--font-mono); color:#9bd69f; letter-spacing:.08em; }
+  .wmrow .nm { font:500 1rem/1 var(--font-mono); color:var(--text); text-transform:uppercase; letter-spacing:.18em; }
+  .uline { height:2px; width:100%; border-radius:2px; background:linear-gradient(90deg,#9bd69f,transparent); box-shadow:0 0 8px rgba(155,214,159,0.4); }
+
+  .variants { display:flex; gap:10px; flex-wrap:wrap; }
+  .v { display:flex; flex-direction:column; gap:6px; padding:11px 13px; border-radius:10px; border:1px solid rgba(155,214,159,0.16); background:rgba(13,17,14,0.6); }
+  .v small { font:500 0.56rem/1 var(--font-mono); text-transform:uppercase; letter-spacing:.06em; color:rgba(168,173,164,0.5); }
+  .v .lk { font:500 0.92rem/1 var(--font-mono); color:var(--text); letter-spacing:.01em; }
+  .v .lk .c { color:#9bd69f; }
+  .v .stk { display:flex; flex-direction:column; gap:2px; }
+  .v .stk b { font:600 0.82rem/1.1 var(--font-sans); color:var(--text); letter-spacing:-0.01em; }
+  .v .stk span { font:400 0.56rem/1 var(--font-mono); color:rgba(155,214,159,0.55); letter-spacing:.05em; text-transform:uppercase; }
+  .divider { height:1px; background:rgba(155,214,159,0.12); }
+</style>
+</head>
+<body>
+  <div class="block">
+    <div class="unit">
+      <span class="tag">Display · Inter</span>
+      <span class="display">Abhijith Sivaprasadan</span>
+      <span class="role">Thermal-Fluid &amp; Energy Systems Engineer · <b>KTH 2026</b></span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="unit">
+      <span class="tag">Nav wordmark · JetBrains Mono</span>
+      <span class="wm">
+        <span class="wmrow"><span class="idx">//</span><span class="nm">Abhijith Sivaprasadan</span></span>
+        <span class="uline"></span>
+      </span>
+    </div>
+
+    <div class="variants">
+      <div class="v"><span class="lk"><span class="c">//</span>&nbsp;A. Sivaprasadan</span><small>Compact nav</small></div>
+      <div class="v"><span class="stk"><b>Abhijith Sivaprasadan</b><span>Stockholm · SE</span></span><small>Footer / stacked</small></div>
+    </div>
+  </div>
+</body>
+</html>

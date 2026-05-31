@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Thermal prototype test assembly thermocouple instrumentation temperature measurement DAQ">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"></stop><stop offset="1" stop-color="#070c16"></stop>
+    </linearGradient>
+    <linearGradient id="tgrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#2563a8" stop-opacity="0.7"></stop>
+      <stop offset="40%" stop-color="#65d6c9" stop-opacity="0.5"></stop>
+      <stop offset="70%" stop-color="#f6c85f" stop-opacity="0.5"></stop>
+      <stop offset="100%" stop-color="#d0622c" stop-opacity="0.8"></stop>
+    </linearGradient>
+    <marker id="arr" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#f6c85f"></path>
+    </marker>
+    <marker id="arb" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#38bdf8"></path>
+    </marker>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"></rect>
+
+
+  <rect x="24" y="14" width="912" height="36" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="38" font-family="monospace" font-size="14" fill="#f6c85f" font-weight="bold">THERMAL PROTOTYPE · TEST ASSEMBLY · TC INSTRUMENTATION + DAQ CHAIN</text>
+
+
+  <rect x="30" y="64" width="520" height="420" rx="4" fill="#0d1a2e"></rect>
+  <text x="290" y="86" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">THERMAL TEST STACK — CROSS-SECTION</text>
+
+
+  <rect x="68" y="105" width="28" height="330" fill="url(#tgrad)" rx="3"></rect>
+  <text x="82" y="100" font-family="monospace" font-size="8" fill="#d0622c" text-anchor="middle">T_hot</text>
+  <text x="82" y="443" font-family="monospace" font-size="8" fill="#38bdf8" text-anchor="middle">T_cold</text>
+
+
+  <rect x="100" y="360" width="340" height="50" rx="4" fill="#2a1000" stroke="#d0622c" stroke-width="2.5"></rect>
+
+  <line x1="120" y1="375" x2="420" y2="375" stroke="#d0622c" stroke-width="1.5" stroke-dasharray="8,4"></line>
+  <line x1="120" y1="390" x2="420" y2="390" stroke="#d0622c" stroke-width="1.5" stroke-dasharray="8,4"></line>
+  <text x="270" y="378" font-family="monospace" font-size="10" fill="#d0622c" text-anchor="middle" font-weight="bold">HEATER PLATE</text>
+  <text x="270" y="396" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="middle">Al 6061 · T_set = 100°C · 150 W</text>
+
+  <line x1="160" y1="358" x2="160" y2="344" stroke="#d0622c" stroke-width="2" marker-end="url(#arr)"></line>
+  <line x1="220" y1="358" x2="220" y2="344" stroke="#d0622c" stroke-width="2" marker-end="url(#arr)"></line>
+  <line x1="280" y1="358" x2="280" y2="344" stroke="#d0622c" stroke-width="2" marker-end="url(#arr)"></line>
+  <line x1="340" y1="358" x2="340" y2="344" stroke="#d0622c" stroke-width="2" marker-end="url(#arr)"></line>
+  <line x1="400" y1="358" x2="400" y2="344" stroke="#d0622c" stroke-width="2" marker-end="url(#arr)"></line>
+  <text x="456" y="356" font-family="monospace" font-size="9" fill="#d0622c">Q_in</text>
+
+
+  <rect x="100" y="330" width="340" height="28" rx="2" fill="#0f2240" stroke="#f6c85f" stroke-width="1.5"></rect>
+  <text x="270" y="345" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="middle">TIM — Indium foil · 0.5 mm · λ = 82 W/m·K</text>
+
+  <circle cx="170" cy="330" r="5" fill="#f6c85f"></circle>
+  <text x="152" y="324" font-family="monospace" font-size="8" fill="#f6c85f" text-anchor="end">TC1</text>
+  <circle cx="370" cy="330" r="5" fill="#f6c85f"></circle>
+  <text x="388" y="324" font-family="monospace" font-size="8" fill="#f6c85f">TC2</text>
+
+
+  <rect x="100" y="220" width="340" height="108" rx="3" fill="#0f2240" stroke="#65d6c9" stroke-width="2"></rect>
+  <text x="270" y="260" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle" font-weight="bold">TEST SPECIMEN</text>
+  <text x="270" y="278" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">Stainless 316L · 30×30×50 mm</text>
+  <text x="270" y="296" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">λ = 16 W/m·K (measured)</text>
+
+  <circle cx="210" cy="248" r="4" fill="#f6c85f"></circle>
+  <text x="196" y="244" font-family="monospace" font-size="8" fill="#f6c85f" text-anchor="end">TC3</text>
+  <circle cx="270" cy="274" r="4" fill="#f6c85f"></circle>
+  <text x="256" y="270" font-family="monospace" font-size="8" fill="#f6c85f" text-anchor="end">TC4</text>
+  <circle cx="330" cy="300" r="4" fill="#f6c85f"></circle>
+  <text x="346" y="296" font-family="monospace" font-size="8" fill="#f6c85f">TC5</text>
+
+
+  <rect x="100" y="165" width="340" height="53" rx="4" fill="#0d2040" stroke="#38bdf8" stroke-width="2.5"></rect>
+  <text x="270" y="186" font-family="monospace" font-size="10" fill="#38bdf8" text-anchor="middle" font-weight="bold">COLD PLATE</text>
+  <text x="270" y="204" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">water-cooled · T_in = 20°C · flow 2 L/min</text>
+
+  <circle cx="200" cy="218" r="5" fill="#f6c85f"></circle>
+  <text x="186" y="214" font-family="monospace" font-size="8" fill="#f6c85f" text-anchor="end">TC6</text>
+  <circle cx="340" cy="218" r="5" fill="#f6c85f"></circle>
+  <text x="356" y="214" font-family="monospace" font-size="8" fill="#f6c85f">TC7</text>
+
+
+  <line x1="160" y1="165" x2="160" y2="152" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arb)"></line>
+  <line x1="270" y1="165" x2="270" y2="152" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arb)"></line>
+  <line x1="380" y1="165" x2="380" y2="152" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arb)"></line>
+  <text x="456" y="158" font-family="monospace" font-size="9" fill="#38bdf8">Q_out</text>
+
+
+  <text x="448" y="395" font-family="monospace" font-size="8" fill="#d0622c">Layer 1</text>
+  <text x="448" y="350" font-family="monospace" font-size="8" fill="#f6c85f">Layer 2</text>
+  <text x="448" y="275" font-family="monospace" font-size="8" fill="#65d6c9">Layer 3</text>
+  <text x="448" y="200" font-family="monospace" font-size="8" fill="#38bdf8">Layer 4</text>
+
+
+  <rect x="88" y="165" width="12" height="245" rx="2" fill="#152540" stroke="#2a4060" stroke-width="1"></rect>
+  <text x="75" y="293" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle" transform="rotate(-90,75,293)">insulation</text>
+  <rect x="440" y="165" width="12" height="245" rx="2" fill="#152540" stroke="#2a4060" stroke-width="1"></rect>
+
+
+
+  <line x1="460" y1="248" x2="490" y2="248" stroke="#f6c85f" stroke-width="1.5" stroke-dasharray="4,2"></line>
+  <line x1="460" y1="274" x2="490" y2="274" stroke="#f6c85f" stroke-width="1.5" stroke-dasharray="4,2"></line>
+  <line x1="460" y1="300" x2="490" y2="300" stroke="#f6c85f" stroke-width="1.5" stroke-dasharray="4,2"></line>
+  <line x1="460" y1="330" x2="490" y2="330" stroke="#f6c85f" stroke-width="1.5" stroke-dasharray="4,2"></line>
+
+
+  <rect x="100" y="98" width="200" height="56" rx="4" fill="#0f2240" stroke="#f6c85f" stroke-width="1.5"></rect>
+  <text x="200" y="119" font-family="monospace" font-size="10" fill="#f6c85f" text-anchor="middle" font-weight="bold">SIGNAL CONDITIONER</text>
+  <text x="200" y="137" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">cold-junction comp. · amplifier · 16-bit</text>
+
+
+  <rect x="566" y="64" width="370" height="420" rx="4" fill="#0d1a2e"></rect>
+  <text x="751" y="86" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">MEASURED TEMPERATURE PROFILE</text>
+
+
+  <line x1="610" y1="108" x2="610" y2="420" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="610" y1="420" x2="900" y2="420" stroke="#2a4060" stroke-width="1"></line>
+
+
+  <text x="604" y="424" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">0</text>
+  <text x="604" y="345" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">0.25</text>
+  <text x="604" y="266" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">0.50</text>
+  <text x="604" y="187" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">0.75</text>
+  <text x="604" y="112" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">1.0</text>
+  <text x="596" y="270" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle" transform="rotate(-90,596,270)">position z/L</text>
+
+
+
+  <text x="610" y="436" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle">20</text>
+  <text x="697" y="436" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle">50</text>
+  <text x="784" y="436" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle">80</text>
+  <text x="871" y="436" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle">110°C</text>
+
+
+  <line x1="697" y1="108" x2="697" y2="420" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="784" y1="108" x2="784" y2="420" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="871" y1="108" x2="871" y2="420" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="610" y1="345" x2="900" y2="345" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="610" y1="266" x2="900" y2="266" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="610" y1="187" x2="900" y2="187" stroke="#152540" stroke-width="0.5"></line>
+
+
+
+
+
+
+
+
+
+  <polyline points="616,420 620,358 691,344 790,188 807,155 842,112" fill="none" stroke="#65d6c9" stroke-width="2.5"></polyline>
+
+
+  <circle cx="616" cy="420" r="5" fill="#f6c85f" stroke="#0d1a2e" stroke-width="1"></circle>
+  <text x="624" y="418" font-family="monospace" font-size="8" fill="#f6c85f">22°C</text>
+  <circle cx="645" cy="358" r="5" fill="#f6c85f" stroke="#0d1a2e" stroke-width="1"></circle>
+  <text x="653" y="355" font-family="monospace" font-size="8" fill="#f6c85f">40°C</text>
+  <circle cx="691" cy="326" r="5" fill="#f6c85f" stroke="#0d1a2e" stroke-width="1"></circle>
+  <text x="699" y="323" font-family="monospace" font-size="8" fill="#f6c85f">51°C</text>
+  <circle cx="770" cy="220" r="5" fill="#f6c85f" stroke="#0d1a2e" stroke-width="1"></circle>
+  <text x="778" y="217" font-family="monospace" font-size="8" fill="#f6c85f">76°C</text>
+  <circle cx="807" cy="164" r="5" fill="#f6c85f" stroke="#0d1a2e" stroke-width="1"></circle>
+  <text x="815" y="161" font-family="monospace" font-size="8" fill="#f6c85f">88°C</text>
+  <circle cx="842" cy="120" r="5" fill="#f6c85f" stroke="#0d1a2e" stroke-width="1"></circle>
+  <text x="850" y="117" font-family="monospace" font-size="8" fill="#f6c85f">99°C</text>
+
+
+  <rect x="608" y="154" width="3" height="12" fill="#38bdf8" opacity="0.7"></rect>
+  <rect x="608" y="302" width="3" height="12" fill="#f6c85f" opacity="0.7"></rect>
+  <rect x="608" y="400" width="3" height="12" fill="#d0622c" opacity="0.7"></rect>
+
+
+  <rect x="574" y="388" width="354" height="84" rx="4" fill="#0f2240" stroke="#65d6c9" stroke-width="1"></rect>
+  <text x="751" y="408" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle" font-weight="bold">DERIVED THERMAL PROPERTIES</text>
+  <text x="582" y="426" font-family="monospace" font-size="9" fill="#2a4060">Effective conductivity (specimen):</text>
+  <text x="916" y="426" font-family="monospace" font-size="9" fill="#38bdf8" text-anchor="end">λ_eff = 15.8 W/m·K</text>
+  <text x="582" y="444" font-family="monospace" font-size="9" fill="#2a4060">Interface resistance (TIM):</text>
+  <text x="916" y="444" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="end">R_int = 1.4×10⁻⁴ m²K/W</text>
+  <text x="582" y="462" font-family="monospace" font-size="9" fill="#2a4060">Heat flux (steady-state):</text>
+  <text x="916" y="462" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="end">q = 2 640 W/m²</text>
+
+
+  <rect x="24" y="490" width="912" height="34" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="512" font-family="monospace" font-size="11" fill="#2a4060">Thermocouple · TIM · Heat flux · Thermal resistance · Cold plate · NI-DAQ · Instrumentation</text>
+</svg>

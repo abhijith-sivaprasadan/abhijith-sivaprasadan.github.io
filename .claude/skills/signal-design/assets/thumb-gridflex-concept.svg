@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="GridFlex load shifting battery storage dispatch demand curve flattening 24 hour">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"></stop><stop offset="1" stop-color="#070c16"></stop>
+    </linearGradient>
+    <linearGradient id="socfill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#65d6c9" stop-opacity="0.35"></stop>
+      <stop offset="100%" stop-color="#65d6c9" stop-opacity="0.04"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"></rect>
+
+
+  <rect x="24" y="14" width="912" height="36" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="38" font-family="monospace" font-size="14" fill="#65d6c9" font-weight="bold">GRIDFLEX · BATTERY STORAGE DISPATCH · PEAK SHAVING + LOAD SHIFTING</text>
+
+
+  <rect x="30" y="64" width="680" height="420" rx="4" fill="#0d1a2e"></rect>
+  <text x="370" y="86" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">24-HOUR DEMAND + SHIFTED DEMAND + BATTERY SOC</text>
+
+
+  <line x1="80" y1="95" x2="80" y2="440" stroke="#2a4060" stroke-width="1.2"></line>
+  <line x1="80" y1="440" x2="680" y2="440" stroke="#2a4060" stroke-width="1.2"></line>
+
+  <line x1="680" y1="95" x2="680" y2="440" stroke="#152540" stroke-width="0.8"></line>
+
+
+
+  <text x="74" y="444" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">0</text>
+  <text x="74" y="386" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">10</text>
+  <text x="74" y="328" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">20</text>
+  <text x="74" y="270" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">30</text>
+  <text x="74" y="212" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">40</text>
+  <text x="74" y="154" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">50</text>
+  <text x="74" y="97" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">60</text>
+  <text x="56" y="280" font-family="monospace" font-size="9" fill="#2a4060" transform="rotate(-90,56,280)" text-anchor="middle">Power [MW]</text>
+
+
+  <text x="686" y="444" font-family="monospace" font-size="9" fill="#65d6c9">0%</text>
+  <text x="686" y="375" font-family="monospace" font-size="9" fill="#65d6c9">20%</text>
+  <text x="686" y="306" font-family="monospace" font-size="9" fill="#65d6c9">40%</text>
+  <text x="686" y="237" font-family="monospace" font-size="9" fill="#65d6c9">60%</text>
+  <text x="686" y="168" font-family="monospace" font-size="9" fill="#65d6c9">80%</text>
+  <text x="686" y="99" font-family="monospace" font-size="9" fill="#65d6c9">100%</text>
+
+
+
+  <text x="80" y="458" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">00</text>
+  <text x="155" y="458" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">03</text>
+  <text x="230" y="458" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">06</text>
+  <text x="305" y="458" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">09</text>
+  <text x="380" y="458" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">12</text>
+  <text x="455" y="458" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">15</text>
+  <text x="530" y="458" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">18</text>
+  <text x="605" y="458" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">21</text>
+  <text x="680" y="458" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">24 h</text>
+
+
+  <line x1="155" y1="95" x2="155" y2="440" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="230" y1="95" x2="230" y2="440" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="305" y1="95" x2="305" y2="440" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="380" y1="95" x2="380" y2="440" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="455" y1="95" x2="455" y2="440" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="530" y1="95" x2="530" y2="440" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="605" y1="95" x2="605" y2="440" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+
+
+  <line x1="80" y1="386" x2="680" y2="386" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="80" y1="328" x2="680" y2="328" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="80" y1="270" x2="680" y2="270" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="80" y1="212" x2="680" y2="212" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="80" y1="154" x2="680" y2="154" stroke="#152540" stroke-width="0.5"></line>
+
+
+
+
+
+
+  <polygon points="80,440 80,343 155,274 230,226 280,191 305,164 330,285 380,261 455,212 480,191 530,157 555,309 605,357 680,343 680,440" fill="url(#socfill)"></polygon>
+  <polyline points="80,343 155,274 230,226 280,191 305,164 330,285 380,261 455,212 480,191 530,157 555,309 605,357 680,343" fill="none" stroke="#65d6c9" stroke-width="1.5" stroke-dasharray="4,2"></polyline>
+
+
+
+
+
+  <polyline points="80,354 155,371 230,342 255,268 280,176 305,141 330,170 380,187 430,227 455,216 480,176 530,141 555,124 580,158 605,210 630,279 680,354" fill="none" stroke="#d0622c" stroke-width="2.5"></polyline>
+
+
+
+
+  <polyline points="80,342 155,354 230,330 255,279 280,221 305,210 330,221 380,221 430,227 455,221 480,216 530,210 555,199 580,210 605,227 630,279 680,342" fill="none" stroke="#38bdf8" stroke-width="2.5"></polyline>
+
+
+  <polygon points="530,141 555,124 555,199 530,210" fill="#d0622c" opacity="0.18"></polygon>
+
+
+  <line x1="555" y1="124" x2="555" y2="199" stroke="#f6c85f" stroke-width="1"></line>
+  <polygon points="551,128 555,120 559,128" fill="#f6c85f"></polygon>
+  <polygon points="551,195 555,203 559,195" fill="#f6c85f"></polygon>
+  <text x="564" y="166" font-family="monospace" font-size="9" fill="#f6c85f">−14 MW</text>
+  <text x="564" y="180" font-family="monospace" font-size="8" fill="#f6c85f">peak cut</text>
+
+
+  <rect x="88" y="102" width="250" height="56" rx="3" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <line x1="96" y1="116" x2="118" y2="116" stroke="#d0622c" stroke-width="2.5"></line>
+  <text x="124" y="120" font-family="monospace" font-size="9" fill="#d0622c">Original demand</text>
+  <line x1="96" y1="132" x2="118" y2="132" stroke="#38bdf8" stroke-width="2.5"></line>
+  <text x="124" y="136" font-family="monospace" font-size="9" fill="#38bdf8">Shifted demand (BESS dispatch)</text>
+  <line x1="96" y1="148" x2="118" y2="148" stroke="#65d6c9" stroke-width="1.5" stroke-dasharray="4,2"></line>
+  <text x="124" y="152" font-family="monospace" font-size="9" fill="#65d6c9">Battery SOC (right axis)</text>
+
+
+  <rect x="728" y="64" width="210" height="420" rx="4" fill="#0d1a2e"></rect>
+  <text x="833" y="86" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle" font-weight="bold">SYSTEM METRICS</text>
+
+
+  <rect x="738" y="100" width="190" height="50" rx="3" fill="#0f2240" stroke="#d0622c" stroke-width="1"></rect>
+  <text x="833" y="120" font-family="monospace" font-size="10" fill="#d0622c" text-anchor="middle">Peak demand reduction</text>
+  <text x="833" y="140" font-family="monospace" font-size="16" fill="#d0622c" text-anchor="middle" font-weight="bold">−25.5%</text>
+
+  <rect x="738" y="162" width="190" height="50" rx="3" fill="#0f2240" stroke="#38bdf8" stroke-width="1"></rect>
+  <text x="833" y="182" font-family="monospace" font-size="10" fill="#38bdf8" text-anchor="middle">Import cost saving</text>
+  <text x="833" y="202" font-family="monospace" font-size="16" fill="#38bdf8" text-anchor="middle" font-weight="bold">€1 800/d</text>
+
+  <rect x="738" y="224" width="190" height="50" rx="3" fill="#0f2240" stroke="#65d6c9" stroke-width="1"></rect>
+  <text x="833" y="244" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">BESS utilisation</text>
+  <text x="833" y="264" font-family="monospace" font-size="16" fill="#65d6c9" text-anchor="middle" font-weight="bold">82%</text>
+
+
+  <rect x="738" y="286" width="190" height="102" rx="3" fill="#0f2240" stroke="#152540" stroke-width="1"></rect>
+  <text x="833" y="306" font-family="monospace" font-size="9" fill="#c8d8ea" text-anchor="middle" font-weight="bold">BESS SPECIFICATION</text>
+  <text x="746" y="322" font-family="monospace" font-size="9" fill="#2a4060">Capacity: 2 MWh</text>
+  <text x="746" y="338" font-family="monospace" font-size="9" fill="#2a4060">Max power: ±1 MW</text>
+  <text x="746" y="354" font-family="monospace" font-size="9" fill="#2a4060">Round-trip η: 92%</text>
+  <text x="746" y="370" font-family="monospace" font-size="9" fill="#2a4060">Cycle life: 4000+</text>
+  <text x="746" y="386" font-family="monospace" font-size="9" fill="#2a4060">Dispatch: ML-optimised</text>
+
+
+  <rect x="738" y="400" width="190" height="72" rx="3" fill="#0f2240" stroke="#4ade80" stroke-width="1"></rect>
+  <text x="833" y="420" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle" font-weight="bold">OPTIMISATION</text>
+  <text x="746" y="438" font-family="monospace" font-size="9" fill="#2a4060">Model: MILP / MPC</text>
+  <text x="746" y="454" font-family="monospace" font-size="9" fill="#2a4060">Horizon: 24h ahead</text>
+  <text x="746" y="470" font-family="monospace" font-size="9" fill="#2a4060">PyPSA + Python</text>
+
+
+  <rect x="24" y="490" width="912" height="34" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="512" font-family="monospace" font-size="11" fill="#2a4060">BESS · Peak shaving · Load shifting · SOC · Dispatch · MILP · Python · Grid flexibility</text>
+</svg>

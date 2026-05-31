@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 18px; background: var(--bg);
+         background-image: radial-gradient(120% 80% at 12% -10%, rgba(155,214,159,0.05), transparent 60%); }
+  .tag { font: 500 var(--type-xs)/1.3 var(--font-mono); color: var(--muted); margin: 0 0 12px; text-transform: uppercase; letter-spacing:.04em;}
+  .row { display: flex; gap: 10px; }
+  /* accents shown the way the product uses them: on a dark console tile */
+  .sw { flex: 1; height: 92px; border-radius: var(--radius-sm); padding: 11px 12px;
+        background: linear-gradient(180deg, rgba(29,32,39,0.92), rgba(18,19,24,0.94));
+        border: 1px solid var(--line); border-left: 3px solid var(--c);
+        display: flex; flex-direction: column; justify-content: space-between;
+        box-shadow: 0 0 20px color-mix(in srgb, var(--c) 14%, transparent); }
+  .dot { width: 13px; height: 13px; border-radius: 50%; background: var(--c);
+         box-shadow: 0 0 10px color-mix(in srgb, var(--c) 70%, transparent); }
+  .sw b { font: 500 var(--type-sm)/1.2 var(--font-mono); color: var(--c); }
+  .sw span { font: 400 var(--type-xs)/1.3 var(--font-mono); color: var(--muted); }
+</style>
+</head>
+<body>
+  <p class="tag">Accents — one primary at a time, on the dark console</p>
+  <div class="row">
+    <div class="sw" style="--c:#9bd69f"><span class="dot"></span><div><b>green · primary</b><br><span>#9bd69f</span></div></div>
+    <div class="sw" style="--c:#d7b46a"><span class="dot"></span><div><b>amber · 2nd</b><br><span>#d7b46a</span></div></div>
+    <div class="sw" style="--c:#8fa7b3"><span class="dot"></span><div><b>steel</b><br><span>#8fa7b3</span></div></div>
+    <div class="sw" style="--c:#d98b7d"><span class="dot"></span><div><b>red · alert</b><br><span>#d98b7d</span></div></div>
+  </div>
+</body>
+</html>

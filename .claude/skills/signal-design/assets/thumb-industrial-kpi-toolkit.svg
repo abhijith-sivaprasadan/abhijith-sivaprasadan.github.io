@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Industrial energy KPI normalisation and Python data pipeline">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"></stop><stop offset="1" stop-color="#070c16"></stop>
+    </linearGradient>
+    <marker id="arr" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#38bdf8"></path>
+    </marker>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"></rect>
+
+
+  <rect x="24" y="14" width="912" height="36" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="38" font-family="monospace" font-size="14" fill="#65d6c9" font-weight="bold">INDUSTRIAL KPI TOOLKIT · DATA PIPELINE · NORMALISATION ENGINE</text>
+
+
+
+  <rect x="30" y="70" width="150" height="140" rx="6" fill="#0d1a2e" stroke="#2563a8" stroke-width="1.5"></rect>
+  <text x="105" y="92" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle" font-weight="bold">DATA</text>
+  <text x="105" y="106" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle" font-weight="bold">SOURCES</text>
+  <line x1="45" y1="115" x2="165" y2="115" stroke="#152540" stroke-width="0.8"></line>
+  <text x="105" y="132" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Energy meters</text>
+  <text x="105" y="146" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Process sensors</text>
+  <text x="105" y="160" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Production logs</text>
+  <text x="105" y="174" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Weather data</text>
+  <text x="105" y="198" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">CSV / API / SCADA</text>
+
+
+  <line x1="182" y1="140" x2="218" y2="140" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arr)"></line>
+
+
+  <rect x="220" y="70" width="150" height="140" rx="6" fill="#0d1a2e" stroke="#38bdf8" stroke-width="1.5"></rect>
+  <text x="295" y="92" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle" font-weight="bold">INGEST</text>
+  <text x="295" y="106" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle" font-weight="bold">+ CLEAN</text>
+  <line x1="235" y1="115" x2="355" y2="115" stroke="#152540" stroke-width="0.8"></line>
+  <text x="295" y="132" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Outlier removal</text>
+  <text x="295" y="146" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Gap filling</text>
+  <text x="295" y="160" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Unit harmonisation</text>
+  <text x="295" y="174" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Timestamp align</text>
+  <text x="295" y="198" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">pandas / numpy</text>
+
+
+  <line x1="372" y1="140" x2="408" y2="140" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arr)"></line>
+
+
+  <rect x="410" y="70" width="150" height="140" rx="6" fill="#0d1a2e" stroke="#65d6c9" stroke-width="2"></rect>
+  <text x="485" y="92" font-family="monospace" font-size="11" fill="#65d6c9" text-anchor="middle" font-weight="bold">NORMALISE</text>
+  <line x1="425" y1="105" x2="545" y2="105" stroke="#152540" stroke-width="0.8"></line>
+
+  <text x="485" y="122" font-family="monospace" font-size="10" fill="#f6c85f" text-anchor="middle">EnPI = E / D</text>
+  <line x1="425" y1="130" x2="545" y2="130" stroke="#152540" stroke-width="0.6"></line>
+  <text x="485" y="146" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Load drivers</text>
+  <text x="485" y="160" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Production tonnage</text>
+  <text x="485" y="174" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Degree-hours</text>
+  <text x="485" y="198" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">ISO 50001 method</text>
+
+
+  <line x1="562" y1="140" x2="598" y2="140" stroke="#f6c85f" stroke-width="1.8" marker-end="url(#arr)"></line>
+
+
+  <rect x="600" y="70" width="150" height="140" rx="6" fill="#0d1a2e" stroke="#f6c85f" stroke-width="1.5"></rect>
+  <text x="675" y="92" font-family="monospace" font-size="11" fill="#f6c85f" text-anchor="middle" font-weight="bold">KPI</text>
+  <text x="675" y="106" font-family="monospace" font-size="11" fill="#f6c85f" text-anchor="middle" font-weight="bold">ENGINE</text>
+  <line x1="615" y1="115" x2="735" y2="115" stroke="#152540" stroke-width="0.8"></line>
+  <text x="675" y="132" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="middle">SEC [kWh/t]</text>
+  <text x="675" y="146" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="middle">EUI [kWh/m²]</text>
+  <text x="675" y="160" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="middle">Carbon intensity</text>
+  <text x="675" y="174" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="middle">Baseline deviation</text>
+  <text x="675" y="198" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">Configurable rules</text>
+
+
+  <line x1="752" y1="140" x2="788" y2="140" stroke="#f6c85f" stroke-width="1.8" marker-end="url(#arr)"></line>
+
+
+  <rect x="790" y="70" width="150" height="140" rx="6" fill="#0d1a2e" stroke="#4ade80" stroke-width="1.5"></rect>
+  <text x="865" y="92" font-family="monospace" font-size="11" fill="#4ade80" text-anchor="middle" font-weight="bold">REPORT</text>
+  <line x1="805" y1="105" x2="925" y2="105" stroke="#152540" stroke-width="0.8"></line>
+  <text x="865" y="122" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">Excel export</text>
+  <text x="865" y="136" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">PDF summary</text>
+  <text x="865" y="150" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">Trend charts</text>
+  <text x="865" y="164" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">Target tracking</text>
+  <text x="865" y="198" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">matplotlib / openpyxl</text>
+
+
+
+  <rect x="30" y="240" width="280" height="200" rx="6" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <text x="170" y="262" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">SEC TREND [kWh/t]</text>
+
+  <line x1="60" y1="275" x2="60" y2="420" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="60" y1="420" x2="290" y2="420" stroke="#2a4060" stroke-width="1"></line>
+
+  <line x1="60" y1="360" x2="290" y2="360" stroke="#4ade80" stroke-width="1" stroke-dasharray="4,3"></line>
+  <text x="294" y="363" font-family="monospace" font-size="8" fill="#4ade80">target</text>
+
+  <polyline points="70,400 110,388 150,378 190,368 230,358 270,348" fill="none" stroke="#f6c85f" stroke-width="2"></polyline>
+  <circle cx="70" cy="400" r="3" fill="#f6c85f"></circle>
+  <circle cx="110" cy="388" r="3" fill="#f6c85f"></circle>
+  <circle cx="150" cy="378" r="3" fill="#f6c85f"></circle>
+  <circle cx="190" cy="368" r="3" fill="#f6c85f"></circle>
+  <circle cx="230" cy="358" r="3" fill="#f6c85f"></circle>
+  <circle cx="270" cy="348" r="3" fill="#f6c85f"></circle>
+
+
+  <rect x="340" y="240" width="280" height="200" rx="6" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <text x="480" y="262" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">MONTHLY CONSUMPTION</text>
+
+  <line x1="365" y1="275" x2="365" y2="420" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="365" y1="420" x2="600" y2="420" stroke="#2a4060" stroke-width="1"></line>
+
+  <line x1="365" y1="340" x2="600" y2="340" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"></line>
+  <rect x="372" y="345" width="24" height="75" rx="1" fill="#38bdf8" opacity="0.6"></rect>
+  <rect x="404" y="350" width="24" height="70" rx="1" fill="#38bdf8" opacity="0.6"></rect>
+  <rect x="436" y="320" width="24" height="100" rx="1" fill="#d0622c" opacity="0.7"></rect>
+  <rect x="468" y="348" width="24" height="72" rx="1" fill="#38bdf8" opacity="0.6"></rect>
+  <rect x="500" y="355" width="24" height="65" rx="1" fill="#4ade80" opacity="0.6"></rect>
+  <rect x="532" y="360" width="24" height="60" rx="1" fill="#4ade80" opacity="0.6"></rect>
+  <rect x="564" y="342" width="24" height="78" rx="1" fill="#38bdf8" opacity="0.6"></rect>
+
+
+  <rect x="650" y="240" width="290" height="200" rx="6" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <text x="795" y="262" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">IMPROVEMENT WATERFALL</text>
+  <line x1="670" y1="380" x2="920" y2="380" stroke="#2a4060" stroke-width="1"></line>
+
+  <rect x="678" y="310" width="36" height="70" rx="1" fill="#38bdf8" opacity="0.7"></rect>
+  <text x="696" y="428" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle">Base</text>
+  <rect x="726" y="335" width="36" height="45" rx="1" fill="#4ade80" opacity="0.7"></rect>
+  <text x="744" y="428" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle">VFD</text>
+  <rect x="774" y="350" width="36" height="30" rx="1" fill="#4ade80" opacity="0.7"></rect>
+  <text x="792" y="428" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle">HRec</text>
+  <rect x="822" y="358" width="36" height="22" rx="1" fill="#4ade80" opacity="0.7"></rect>
+  <text x="840" y="428" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle">Light</text>
+  <rect x="870" y="295" width="36" height="85" rx="1" fill="#d0622c" opacity="0.7"></rect>
+  <text x="888" y="428" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="middle">Target</text>
+
+
+  <rect x="24" y="490" width="912" height="34" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="512" font-family="monospace" font-size="11" fill="#2a4060">Python · pandas · ISO 50001 · EnPI normalisation · KPI tracking · Excel/PDF reporting</text>
+</svg>

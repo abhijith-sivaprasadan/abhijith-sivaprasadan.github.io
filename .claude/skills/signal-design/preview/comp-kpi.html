@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 20px; background: var(--bg); display:flex; gap:12px; flex-wrap:wrap; }
+  .kpi { border:1px solid color-mix(in srgb,var(--i-teal) 40%,var(--line)); border-radius:10px;
+    background:color-mix(in srgb,#0d1a2e 80%,transparent); padding:11px 14px; min-width:120px; }
+  .kpi b { display:block; font:700 1.5rem/1 var(--font-mono); color:var(--i-teal); letter-spacing:-0.02em; }
+  .kpi span { display:block; margin-top:5px; font:500 10px/1.2 var(--font-mono); text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); }
+  .kpi.warm b { color:var(--i-amber); }
+  .kpi.warm { border-color:color-mix(in srgb,var(--i-amber) 40%,var(--line)); }
+</style>
+</head>
+<body>
+  <div class="kpi"><b>0.003</b><span>Biot number</span></div>
+  <div class="kpi warm"><b>700°C</b><span>Rig temperature</span></div>
+  <div class="kpi"><b>0.990</b><span>Mach · throat</span></div>
+  <div class="kpi warm"><b>115 hp</b><span>KTH credits</span></div>
+</body>
+</html>

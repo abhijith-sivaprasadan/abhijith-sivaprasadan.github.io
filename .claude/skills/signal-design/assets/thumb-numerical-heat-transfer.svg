@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Numerical heat transfer finite difference 2D conduction isotherm grid explicit implicit scheme">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"></stop><stop offset="1" stop-color="#070c16"></stop>
+    </linearGradient>
+    <linearGradient id="heatgrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d0622c" stop-opacity="0.7"></stop>
+      <stop offset="25%" stop-color="#f6c85f" stop-opacity="0.5"></stop>
+      <stop offset="50%" stop-color="#65d6c9" stop-opacity="0.35"></stop>
+      <stop offset="75%" stop-color="#38bdf8" stop-opacity="0.4"></stop>
+      <stop offset="100%" stop-color="#2563a8" stop-opacity="0.6"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"></rect>
+
+
+  <rect x="24" y="14" width="912" height="36" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="38" font-family="monospace" font-size="14" fill="#65d6c9" font-weight="bold">NUMERICAL HEAT TRANSFER · 2D FINITE DIFFERENCE · ISOTHERM CONTOURS</text>
+
+
+  <rect x="30" y="64" width="550" height="410" rx="4" fill="#0d1a2e"></rect>
+  <text x="305" y="86" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">2D CONDUCTION — STEADY-STATE FD SOLUTION (9×7 NODES)</text>
+
+
+  <rect x="70" y="100" width="470" height="310" fill="url(#heatgrad)" rx="2" opacity="0.5"></rect>
+
+
+
+
+
+
+
+  <line x1="70" y1="100" x2="540" y2="100" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="70" y1="152" x2="540" y2="152" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="70" y1="204" x2="540" y2="204" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="70" y1="256" x2="540" y2="256" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="70" y1="308" x2="540" y2="308" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="70" y1="360" x2="540" y2="360" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="70" y1="410" x2="540" y2="410" stroke="#2a4060" stroke-width="0.8"></line>
+
+
+  <line x1="70" y1="100" x2="70" y2="410" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="129" y1="100" x2="129" y2="410" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="188" y1="100" x2="188" y2="410" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="247" y1="100" x2="247" y2="410" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="306" y1="100" x2="306" y2="410" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="365" y1="100" x2="365" y2="410" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="424" y1="100" x2="424" y2="410" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="483" y1="100" x2="483" y2="410" stroke="#2a4060" stroke-width="0.8"></line>
+  <line x1="540" y1="100" x2="540" y2="410" stroke="#2a4060" stroke-width="0.8"></line>
+
+
+  <circle cx="70" cy="100" r="3.5" fill="#d0622c"></circle>
+  <circle cx="129" cy="100" r="3.5" fill="#e07044"></circle>
+  <circle cx="188" cy="100" r="3.5" fill="#f0a060"></circle>
+  <circle cx="247" cy="100" r="3.5" fill="#f0c080"></circle>
+  <circle cx="306" cy="100" r="3.5" fill="#65d6c9"></circle>
+  <circle cx="365" cy="100" r="3.5" fill="#4ab0d0"></circle>
+  <circle cx="424" cy="100" r="3.5" fill="#3898d8"></circle>
+  <circle cx="483" cy="100" r="3.5" fill="#2c80c8"></circle>
+  <circle cx="540" cy="100" r="3.5" fill="#2563a8"></circle>
+
+  <circle cx="70" cy="152" r="3.5" fill="#d0622c"></circle>
+  <circle cx="129" cy="152" r="3" fill="#e07044" opacity="0.8"></circle>
+  <circle cx="188" cy="152" r="3" fill="#f0a060" opacity="0.8"></circle>
+  <circle cx="247" cy="152" r="3" fill="#f0c080" opacity="0.8"></circle>
+  <circle cx="306" cy="152" r="3" fill="#65d6c9" opacity="0.8"></circle>
+  <circle cx="365" cy="152" r="3" fill="#4ab0d0" opacity="0.8"></circle>
+  <circle cx="424" cy="152" r="3" fill="#3898d8" opacity="0.8"></circle>
+  <circle cx="483" cy="152" r="3" fill="#2c80c8" opacity="0.8"></circle>
+  <circle cx="540" cy="152" r="3.5" fill="#2563a8"></circle>
+
+  <circle cx="70" cy="204" r="3.5" fill="#d0622c"></circle>
+  <circle cx="306" cy="204" r="3" fill="#65d6c9" opacity="0.8"></circle>
+  <circle cx="540" cy="204" r="3.5" fill="#2563a8"></circle>
+
+  <circle cx="70" cy="256" r="3.5" fill="#d0622c"></circle>
+  <circle cx="306" cy="256" r="3" fill="#65d6c9" opacity="0.8"></circle>
+  <circle cx="540" cy="256" r="3.5" fill="#2563a8"></circle>
+
+  <circle cx="70" cy="308" r="3.5" fill="#d0622c"></circle>
+  <circle cx="306" cy="308" r="3" fill="#65d6c9" opacity="0.8"></circle>
+  <circle cx="540" cy="308" r="3.5" fill="#2563a8"></circle>
+
+  <circle cx="70" cy="360" r="3.5" fill="#d0622c"></circle>
+  <circle cx="129" cy="360" r="3" fill="#e07044" opacity="0.8"></circle>
+  <circle cx="188" cy="360" r="3" fill="#f0a060" opacity="0.8"></circle>
+  <circle cx="247" cy="360" r="3" fill="#f0c080" opacity="0.8"></circle>
+  <circle cx="306" cy="360" r="3" fill="#65d6c9" opacity="0.8"></circle>
+  <circle cx="365" cy="360" r="3" fill="#4ab0d0" opacity="0.8"></circle>
+  <circle cx="424" cy="360" r="3" fill="#3898d8" opacity="0.8"></circle>
+  <circle cx="483" cy="360" r="3" fill="#2c80c8" opacity="0.8"></circle>
+  <circle cx="540" cy="360" r="3.5" fill="#2563a8"></circle>
+
+  <circle cx="70" cy="410" r="3.5" fill="#d0622c"></circle>
+  <circle cx="129" cy="410" r="3.5" fill="#e07044"></circle>
+  <circle cx="188" cy="410" r="3.5" fill="#f0a060"></circle>
+  <circle cx="247" cy="410" r="3.5" fill="#f0c080"></circle>
+  <circle cx="306" cy="410" r="3.5" fill="#65d6c9"></circle>
+  <circle cx="365" cy="410" r="3.5" fill="#4ab0d0"></circle>
+  <circle cx="424" cy="410" r="3.5" fill="#3898d8"></circle>
+  <circle cx="483" cy="410" r="3.5" fill="#2c80c8"></circle>
+  <circle cx="540" cy="410" r="3.5" fill="#2563a8"></circle>
+
+
+
+  <path d="M 129,100 Q 135,200 129,305 Q 133,360 129,410" fill="none" stroke="#d87040" stroke-width="1.5" opacity="0.7"></path>
+
+  <path d="M 188,100 Q 196,200 188,305 Q 192,360 188,410" fill="none" stroke="#e8a040" stroke-width="1.5" opacity="0.7"></path>
+
+  <path d="M 247,100 Q 258,200 247,305 Q 253,360 247,410" fill="none" stroke="#f0c860" stroke-width="1.5" opacity="0.7"></path>
+
+  <path d="M 306,100 Q 308,255 306,410" fill="none" stroke="#65d6c9" stroke-width="1.8" stroke-dasharray="5,3" opacity="0.9"></path>
+
+  <path d="M 365,100 Q 356,200 365,305 Q 360,360 365,410" fill="none" stroke="#4ab8d4" stroke-width="1.5" opacity="0.7"></path>
+
+  <path d="M 424,100 Q 414,200 424,305 Q 418,360 424,410" fill="none" stroke="#38a0d8" stroke-width="1.5" opacity="0.7"></path>
+
+  <path d="M 483,100 Q 471,200 483,305 Q 476,360 483,410" fill="none" stroke="#2c85c4" stroke-width="1.5" opacity="0.7"></path>
+
+
+  <rect x="30" y="100" width="40" height="310" rx="2" fill="#d0622c" opacity="0.35"></rect>
+  <text x="50" y="262" font-family="monospace" font-size="10" fill="#d0622c" text-anchor="middle" transform="rotate(-90,50,262)" font-weight="bold">T_hot = 200°C</text>
+
+
+  <rect x="540" y="100" width="38" height="310" rx="2" fill="#2563a8" opacity="0.35"></rect>
+  <text x="559" y="262" font-family="monospace" font-size="10" fill="#38bdf8" text-anchor="middle" transform="rotate(-90,559,262)" font-weight="bold">T_cold = 20°C</text>
+
+
+  <text x="305" y="97" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">insulated (∂T/∂y = 0)</text>
+  <text x="305" y="423" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">insulated (∂T/∂y = 0)</text>
+
+
+  <text x="310" y="242" font-family="monospace" font-size="9" fill="#65d6c9">T = 100°C</text>
+
+
+  <rect x="596" y="64" width="350" height="410" rx="4" fill="#0d1a2e"></rect>
+  <text x="771" y="86" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle" font-weight="bold">SCHEME COMPARISON &amp; TEMPERATURE PROFILE</text>
+
+
+  <text x="771" y="112" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">T(x) along centreline y = L/2</text>
+  <line x1="620" y1="120" x2="620" y2="230" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="620" y1="230" x2="930" y2="230" stroke="#2a4060" stroke-width="1"></line>
+
+  <polyline points="620,128 930,218" fill="none" stroke="#65d6c9" stroke-width="2"></polyline>
+
+  <text x="620" y="244" font-family="monospace" font-size="8" fill="#2a4060">x=0</text>
+  <text x="930" y="244" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">x=L</text>
+
+  <text x="614" y="132" font-family="monospace" font-size="8" fill="#d0622c" text-anchor="end">200</text>
+  <text x="614" y="222" font-family="monospace" font-size="8" fill="#38bdf8" text-anchor="end">20°C</text>
+
+
+  <text x="771" y="270" font-family="monospace" font-size="9" fill="#c8d8ea" text-anchor="middle">FD STENCIL (central difference)</text>
+
+  <circle cx="771" cy="300" r="6" fill="#2563a8" opacity="0.9"></circle>
+  <circle cx="731" cy="300" r="5" fill="#2a4060" opacity="0.9"></circle>
+  <circle cx="811" cy="300" r="5" fill="#2a4060" opacity="0.9"></circle>
+  <circle cx="771" cy="268" r="5" fill="#2a4060" opacity="0.9"></circle>
+  <circle cx="771" cy="332" r="5" fill="#2a4060" opacity="0.9"></circle>
+  <line x1="737" y1="300" x2="765" y2="300" stroke="#38bdf8" stroke-width="1.5"></line>
+  <line x1="777" y1="300" x2="805" y2="300" stroke="#38bdf8" stroke-width="1.5"></line>
+  <line x1="771" y1="274" x2="771" y2="294" stroke="#38bdf8" stroke-width="1.5"></line>
+  <line x1="771" y1="306" x2="771" y2="326" stroke="#38bdf8" stroke-width="1.5"></line>
+  <text x="856" y="295" font-family="monospace" font-size="8" fill="#38bdf8">T_{i+1,j}</text>
+  <text x="680" y="295" font-family="monospace" font-size="8" fill="#38bdf8" text-anchor="end">T_{i-1,j}</text>
+  <text x="771" y="260" font-family="monospace" font-size="8" fill="#38bdf8" text-anchor="middle">T_{i,j-1}</text>
+  <text x="771" y="350" font-family="monospace" font-size="8" fill="#38bdf8" text-anchor="middle">T_{i,j+1}</text>
+  <text x="785" y="305" font-family="monospace" font-size="9" fill="#65d6c9">T_{i,j}</text>
+
+
+  <rect x="608" y="370" width="330" height="92" rx="4" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <text x="773" y="390" font-family="monospace" font-size="9" fill="#c8d8ea" text-anchor="middle" font-weight="bold">NUMERICAL PARAMETERS</text>
+  <text x="616" y="408" font-family="monospace" font-size="9" fill="#2a4060">Grid: 9×7 nodes · Δx = Δy = L/8</text>
+  <text x="616" y="424" font-family="monospace" font-size="9" fill="#2a4060">Explicit Fo ≤ 0.25 · Implicit unconditional</text>
+  <text x="616" y="440" font-family="monospace" font-size="9" fill="#38bdf8">Residual tolerance: ε &lt; 10⁻⁵</text>
+  <text x="616" y="456" font-family="monospace" font-size="9" fill="#4ade80">Converged in 47 iterations (SOR ω=1.6)</text>
+
+
+  <rect x="24" y="490" width="912" height="34" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="512" font-family="monospace" font-size="11" fill="#2a4060">FD · 2D conduction · Isotherms · Explicit · Implicit · TDMA · Gauss-Seidel · MATLAB/Python</text>
+</svg>

@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Battery discharge characterisation multi-C-rate voltage capacity curves Ni-MH">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"></stop><stop offset="1" stop-color="#070c16"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"></rect>
+
+
+  <rect x="24" y="14" width="912" height="36" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="38" font-family="monospace" font-size="14" fill="#65d6c9" font-weight="bold">BATTERY DISCHARGE LAB · MULTI-C-RATE V–DoD CURVES · NI-MH CHARACTERISATION</text>
+
+
+  <rect x="30" y="64" width="590" height="400" rx="4" fill="#0d1a2e"></rect>
+  <text x="325" y="86" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">CELL VOLTAGE vs DEPTH OF DISCHARGE [NI-MH, 1200 mAh, 20°C]</text>
+
+
+  <line x1="80" y1="100" x2="80" y2="420" stroke="#2a4060" stroke-width="1.2"></line>
+  <line x1="80" y1="420" x2="585" y2="420" stroke="#2a4060" stroke-width="1.2"></line>
+
+
+
+  <text x="74" y="424" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">0.8</text>
+  <text x="74" y="344" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">1.0</text>
+  <text x="74" y="264" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">1.2</text>
+  <text x="74" y="184" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">1.4</text>
+  <text x="74" y="104" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">1.6 V</text>
+  <text x="60" y="280" font-family="monospace" font-size="9" fill="#2a4060" transform="rotate(-90,60,280)" text-anchor="middle">Cell voltage [V]</text>
+
+
+  <line x1="80" y1="340" x2="585" y2="340" stroke="#152540" stroke-width="0.6"></line>
+  <line x1="80" y1="260" x2="585" y2="260" stroke="#152540" stroke-width="0.6"></line>
+  <line x1="80" y1="180" x2="585" y2="180" stroke="#152540" stroke-width="0.6"></line>
+
+
+
+  <text x="80" y="436" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">0</text>
+  <text x="181" y="436" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">20</text>
+  <text x="282" y="436" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">40</text>
+  <text x="383" y="436" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">60</text>
+  <text x="484" y="436" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">80</text>
+  <text x="585" y="436" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">100 %</text>
+  <text x="332" y="452" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">Depth of discharge [%]</text>
+
+
+  <line x1="181" y1="100" x2="181" y2="420" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="282" y1="100" x2="282" y2="420" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="383" y1="100" x2="383" y2="420" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="484" y1="100" x2="484" y2="420" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+
+
+  <line x1="80" y1="340" x2="585" y2="340" stroke="#2a4060" stroke-width="1" stroke-dasharray="8,4"></line>
+  <text x="588" y="344" font-family="monospace" font-size="8" fill="#2a4060">V_cutoff</text>
+
+
+
+  <polyline points="80,188 100,220 140,226 250,228 430,230 510,234 540,260 560,310 575,340" fill="none" stroke="#65d6c9" stroke-width="2.5"></polyline>
+
+
+
+  <polyline points="80,200 110,232 155,238 280,240 430,243 495,250 525,278 548,320 562,340" fill="none" stroke="#38bdf8" stroke-width="2.5"></polyline>
+
+
+
+  <polyline points="80,212 115,246 165,252 290,255 420,258 482,268 510,300 532,335 545,345" fill="none" stroke="#f6c85f" stroke-width="2.5"></polyline>
+
+
+
+  <polyline points="80,228 120,262 170,270 300,274 400,278 458,290 488,318 515,345 526,348" fill="none" stroke="#d0622c" stroke-width="2.5"></polyline>
+
+
+  <text x="88" y="182" font-family="monospace" font-size="10" fill="#65d6c9" font-weight="bold">C/5</text>
+  <text x="88" y="196" font-family="monospace" font-size="10" fill="#38bdf8" font-weight="bold">C/2</text>
+  <text x="88" y="209" font-family="monospace" font-size="10" fill="#f6c85f" font-weight="bold">1C</text>
+  <text x="88" y="226" font-family="monospace" font-size="10" fill="#d0622c" font-weight="bold">2C</text>
+
+
+  <rect x="410" y="362" width="165" height="46" rx="3" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <text x="492" y="378" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="middle">Capacity retention</text>
+  <text x="418" y="394" font-family="monospace" font-size="9" fill="#65d6c9">C/5: 100% · C/2: 97%</text>
+  <text x="418" y="406" font-family="monospace" font-size="9" fill="#d0622c">1C: 91% · 2C: 82%</text>
+
+
+  <rect x="640" y="64" width="300" height="400" rx="4" fill="#0d1a2e"></rect>
+  <text x="790" y="86" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">CAPACITY vs C-RATE</text>
+
+
+  <line x1="680" y1="110" x2="680" y2="340" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="680" y1="340" x2="920" y2="340" stroke="#2a4060" stroke-width="1"></line>
+
+
+  <text x="674" y="344" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">0</text>
+  <text x="674" y="286" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">25</text>
+  <text x="674" y="228" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">50</text>
+  <text x="674" y="170" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">75</text>
+  <text x="674" y="112" font-family="monospace" font-size="8" fill="#2a4060" text-anchor="end">100%</text>
+
+
+  <line x1="680" y1="286" x2="920" y2="286" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="680" y1="228" x2="920" y2="228" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="680" y1="170" x2="920" y2="170" stroke="#152540" stroke-width="0.5"></line>
+
+
+
+  <rect x="690" y="110" width="38" height="230" rx="2" fill="#65d6c9" opacity="0.8"></rect>
+  <text x="709" y="360" font-family="monospace" font-size="8" fill="#65d6c9" text-anchor="middle">C/5</text>
+  <text x="709" y="106" font-family="monospace" font-size="8" fill="#65d6c9" text-anchor="middle">100%</text>
+
+
+  <rect x="740" y="117" width="38" height="223" rx="2" fill="#38bdf8" opacity="0.8"></rect>
+  <text x="759" y="360" font-family="monospace" font-size="8" fill="#38bdf8" text-anchor="middle">C/2</text>
+  <text x="759" y="113" font-family="monospace" font-size="8" fill="#38bdf8" text-anchor="middle">97%</text>
+
+
+  <rect x="790" y="131" width="38" height="209" rx="2" fill="#f6c85f" opacity="0.8"></rect>
+  <text x="809" y="360" font-family="monospace" font-size="8" fill="#f6c85f" text-anchor="middle">1C</text>
+  <text x="809" y="127" font-family="monospace" font-size="8" fill="#f6c85f" text-anchor="middle">91%</text>
+
+
+  <rect x="840" y="151" width="38" height="189" rx="2" fill="#d0622c" opacity="0.8"></rect>
+  <text x="859" y="360" font-family="monospace" font-size="8" fill="#d0622c" text-anchor="middle">2C</text>
+  <text x="859" y="147" font-family="monospace" font-size="8" fill="#d0622c" text-anchor="middle">82%</text>
+
+
+  <rect x="648" y="362" width="284" height="90" rx="4" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <text x="790" y="380" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle" font-weight="bold">TEST CONDITIONS</text>
+  <text x="656" y="396" font-family="monospace" font-size="9" fill="#2a4060">Chemistry:  Ni-MH (AA, 1200 mAh)</text>
+  <text x="656" y="412" font-family="monospace" font-size="9" fill="#2a4060">Temp: 20°C · V_cutoff: 1.0 V</text>
+  <text x="656" y="428" font-family="monospace" font-size="9" fill="#2a4060">Charge: ΔPEAK, –ΔV termination</text>
+  <text x="656" y="444" font-family="monospace" font-size="9" fill="#2a4060">DAQ: 1 Hz, T-comp. applied</text>
+
+
+  <rect x="24" y="490" width="912" height="34" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="512" font-family="monospace" font-size="11" fill="#2a4060">Ni-MH · C-rate · V-DoD curve · Capacity retention · Discharge characterisation · Battery lab</text>
+</svg>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 0; background: #050705; font-family:var(--font-mono); }
+  .stage { position:relative; height:188px; overflow:hidden; background:#050705;
+    background-image:
+      linear-gradient(rgba(120,210,150,0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,210,150,0.12) 1px, transparent 1px);
+    background-size: 22px 22px; }
+  .stage::before { content:""; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(120,210,150,0.20) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,210,150,0.20) 1px, transparent 1px);
+    background-size: 88px 88px; }
+  canvas { position:absolute; inset:0; width:100%; height:100%; z-index:1; }
+  .glow { position:absolute; inset:0; background:radial-gradient(75% 95% at 28% 0%, rgba(120,210,150,0.10), transparent 60%); z-index:2; }
+  .vig { position:absolute; inset:0; box-shadow:inset 0 0 80px rgba(5,7,5,0.9); pointer-events:none; z-index:2; }
+  .cell { position:absolute; left:44px; top:44px; width:88px; height:88px; z-index:3;
+    background:rgba(120,210,150,0.08); border:1px solid rgba(120,210,150,0.5); }
+  .cell span { position:absolute; left:6px; top:5px; font:500 9px/1 var(--font-mono); color:rgba(155,214,159,0.75); }
+  .tag { position:absolute; left:16px; top:12px; z-index:4; font:500 10px/1 var(--font-mono); letter-spacing:.14em; text-transform:uppercase; color:#9bd69f; }
+  .cap { position:absolute; left:16px; bottom:12px; right:16px; z-index:4; display:flex; justify-content:space-between; align-items:center; }
+  .cap b { font:500 0.72rem/1 var(--font-mono); color:#c6e6cb; text-transform:uppercase; letter-spacing:.06em; }
+  .cap span { font:400 0.62rem/1 var(--font-mono); color:rgba(155,214,159,0.55); }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <canvas id="p"></canvas>
+    <div class="glow"></div>
+    <span class="tag">FOUNDATION · LAYOUT GRID</span>
+    <div class="cell"><span>88</span></div>
+    <div class="vig"></div>
+    <div class="cap"><b>Ambient grid</b><span>22px cell · drifting particle field</span></div>
+  </div>
+  <script>
+    const cv = document.getElementById("p"), ctx = cv.getContext("2d");
+    let W, H, dpr, parts = [];
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    resize(); addEventListener("resize", resize);
+    for (let i = 0; i < 46; i++) parts.push({
+      x: Math.random(), y: Math.random(),
+      vx: (Math.random()-0.5)*0.0006 + 0.0004, vy: (Math.random()-0.5)*0.0005,
+      r: Math.random()*1.4 + 0.6, a: Math.random()*0.5 + 0.25
+    });
+    function tick() {
+      ctx.clearRect(0,0,W,H);
+      for (const p of parts) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x > 1.02) p.x = -0.02; if (p.x < -0.02) p.x = 1.02;
+        if (p.y > 1.02) p.y = -0.02; if (p.y < -0.02) p.y = 1.02;
+        const x = p.x * W, y = p.y * H;
+        ctx.beginPath(); ctx.arc(x, y, p.r, 0, 7);
+        ctx.fillStyle = `rgba(155,214,159,${p.a})`;
+        ctx.shadowBlur = 6; ctx.shadowColor = "rgba(155,214,159,0.8)";
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+      // faint links between nearby particles
+      for (let i = 0; i < parts.length; i++) for (let j = i+1; j < parts.length; j++) {
+        const a = parts[i], b = parts[j], dx = (a.x-b.x)*W, dy = (a.y-b.y)*H, d = Math.hypot(dx,dy);
+        if (d < 64) { ctx.strokeStyle = `rgba(120,210,150,${0.10*(1-d/64)})`; ctx.lineWidth = 0.6;
+          ctx.beginPath(); ctx.moveTo(a.x*W,a.y*H); ctx.lineTo(b.x*W,b.y*H); ctx.stroke(); }
+      }
+      requestAnimationFrame(tick);
+    }
+    tick();
+  </script>
+</body>
+</html>

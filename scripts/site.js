@@ -782,6 +782,10 @@ const primarySkillTerms = [
   "ni-daq",
   "labview",
   "siemens nx",
+  "ansys mechanical",
+  "spaceclaim",
+  "structural fea",
+  "mesh convergence",
   "cfd/cht",
   "compressible cfd",
   "conjugate heat transfer",
@@ -811,6 +815,32 @@ const isPrimarySkill = (label = "") => {
 };
 
 const skillProfiles = {
+  "mechanical-simulation": {
+    title: "Structural FEA and Mechanical Simulation",
+    summary:
+      "ANSYS Mechanical portfolio evidence covering structural screening, mesh convergence, boundary-condition sensitivity and thermal-expansion interpretation.",
+    sections: [
+      {
+        heading: "Applied evidence",
+        items: [
+          "Built a simplified 316 stainless-steel support plate model in SpaceClaim and screened it in ANSYS Mechanical Student.",
+          "Ran LC1 mesh convergence from coarse to very fine and selected the fine mesh for final reporting.",
+          "Compared over-constrained and relaxed thermal-expansion support assumptions to separate modelling artifact from physical interpretation.",
+        ],
+      },
+      {
+        heading: "Evidence",
+        items: [
+          "Structural FEA Reactor Internals Pilot Study.",
+          "Final reporting values and Python post-processing available in the public GitHub repository.",
+        ],
+      },
+    ],
+    links: [
+      { label: "Case study", href: "projects/structural-fea-reactor-internals.html" },
+      { label: "GitHub repository", href: "https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals" },
+    ],
+  },
   "ansys-fluent": {
     title: "ANSYS Fluent",
     summary:
@@ -1165,6 +1195,16 @@ const skillProfiles = {
 const skillKeyForLabel = (label = "") => {
   const normalized = String(label).toLowerCase();
   if (normalized.includes("ansys fluent")) return "ansys-fluent";
+  if (
+    normalized.includes("ansys mechanical") ||
+    normalized.includes("spaceclaim") ||
+    normalized.includes("structural fea") ||
+    normalized.includes("mesh convergence") ||
+    normalized.includes("thermal expansion interpretation") ||
+    normalized.includes("boundary-condition")
+  ) {
+    return "mechanical-simulation";
+  }
   if (normalized.includes("ni-daq") || normalized.includes("ni daq")) return "ni-daq";
   if (normalized.includes("labview")) return "labview";
   if (normalized.includes("siemens nx")) return "siemens-nx";

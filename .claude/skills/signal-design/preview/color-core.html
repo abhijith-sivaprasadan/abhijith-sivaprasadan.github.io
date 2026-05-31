@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 16px 18px; background: #060806; position: relative;
+         /* green-phosphor console: faint grid + signal glow */
+         background-image:
+           radial-gradient(120% 80% at 12% -10%, rgba(120,210,150,0.10), transparent 55%),
+           linear-gradient(to right, rgba(120,210,150,0.045) 1px, transparent 1px),
+           linear-gradient(to bottom, rgba(120,210,150,0.045) 1px, transparent 1px);
+         background-size: auto, 26px 26px, 26px 26px; }
+  /* CRT scanline veil — very light */
+  body::after { content:""; position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(0deg, rgba(155,214,159,0.035) 0 1px, transparent 1px 3px); }
+  .hud { display:flex; justify-content:space-between; align-items:center; margin:0 0 11px;
+    font: 500 var(--type-xs)/1.3 var(--font-mono); letter-spacing:.12em; text-transform:uppercase;
+    color: #9bd69f; }
+  .hud span { color: rgba(155,214,159,0.55); }
+  .row { display: flex; gap: 9px; position:relative; }
+  .sw { flex: 1; height: 92px; border-radius: 5px; position: relative; padding: 9px 10px;
+        border: 1px solid rgba(155,214,159,0.22);
+        display: flex; flex-direction: column; justify-content: flex-end; }
+  /* HUD corner brackets */
+  .sw::before, .sw::after { content:""; position:absolute; width:9px; height:9px; pointer-events:none;
+    border: 1.5px solid rgba(155,214,159,0.6); }
+  .sw::before { top:5px; left:5px; border-right:0; border-bottom:0; }
+  .sw::after { bottom:5px; right:5px; border-left:0; border-top:0; }
+  .sw b { font: 500 var(--type-sm)/1.2 var(--font-mono); color: #b9e6bd; }
+  .sw span { font: 400 var(--type-xs)/1.3 var(--font-mono); color: rgba(155,214,159,0.5); }
+  .sw.accent { border-color: rgba(155,214,159,0.7);
+               box-shadow: 0 0 20px rgba(155,214,159,0.28), inset 0 0 18px rgba(155,214,159,0.10); }
+  .sw.accent b { color:#071007; } .sw.accent span { color: rgba(7,16,7,0.65); }
+  .sw.accent::before, .sw.accent::after { border-color: rgba(7,16,7,0.45); }
+  .sw.ink b { color:#101; } .sw.ink span { color:#445; }
+  .sw.ink::before, .sw.ink::after { border-color: rgba(20,28,20,0.4); }
+</style>
+</head>
+<body>
+  <div class="hud"><span>PALETTE</span>CORE · SIGNAL DARK<span>06</span></div>
+  <div class="row">
+    <div class="sw" style="background:#070807"><b>bg</b><span>#070807</span></div>
+    <div class="sw" style="background:#0c110c"><b>surface</b><span>#101410</span></div>
+    <div class="sw" style="background:#121a13"><b>surface-2</b><span>#151b16</span></div>
+    <div class="sw" style="background:#1d2a21"><b>line</b><span>#2d3a31</span></div>
+    <div class="sw accent" style="background:#9bd69f"><b>signal</b><span>#9bd69f</span></div>
+    <div class="sw ink" style="background:#f2f0e7"><b>text</b><span>#f2f0e7</span></div>
+  </div>
+</body>
+</html>

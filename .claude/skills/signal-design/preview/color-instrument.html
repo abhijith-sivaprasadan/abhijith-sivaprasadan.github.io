@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 18px; background: #070c16;
+         background-image:
+           linear-gradient(to right, rgba(56,189,248,0.05) 1px, transparent 1px),
+           linear-gradient(to bottom, rgba(56,189,248,0.05) 1px, transparent 1px);
+         background-size: 26px 26px; }
+  .tag { font: 500 var(--type-xs)/1.3 var(--font-mono); color: #65d6c9; margin: 0 0 12px; text-transform: uppercase; letter-spacing:.04em;}
+  .row { display: flex; gap: 9px; flex-wrap: wrap; }
+  /* dark diagram tiles; colour confined to a small sample chip */
+  .sw { width: calc(33.33% - 6px); border-radius: 6px; padding: 11px 12px;
+        background: rgba(13,26,46,0.72); border: 1px solid #1c2f4d;
+        display: flex; align-items: center; gap: 11px; }
+  .chip { width: 26px; height: 26px; border-radius: 5px; flex: none; background: var(--c);
+          box-shadow: 0 0 10px color-mix(in srgb, var(--c) 45%, transparent); }
+  .lbl { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .lbl b { font: 500 var(--type-sm)/1.1 var(--font-mono); color: #c6d6e8; }
+  .lbl span { font: 400 11px/1.2 var(--font-mono); color: #5d7794; }
+</style>
+</head>
+<body>
+  <p class="tag">Instrument palette — diagrams &amp; KPI badges only, never UI chrome</p>
+  <div class="row">
+    <div class="sw" style="--c:#2563a8"><span class="chip"></span><span class="lbl"><b>blue</b><span>#2563a8</span></span></div>
+    <div class="sw" style="--c:#38bdf8"><span class="chip"></span><span class="lbl"><b>sky</b><span>#38bdf8</span></span></div>
+    <div class="sw" style="--c:#65d6c9"><span class="chip"></span><span class="lbl"><b>teal</b><span>#65d6c9</span></span></div>
+    <div class="sw" style="--c:#d0622c"><span class="chip"></span><span class="lbl"><b>orange</b><span>#d0622c</span></span></div>
+    <div class="sw" style="--c:#f6c85f"><span class="chip"></span><span class="lbl"><b>amber</b><span>#f6c85f</span></span></div>
+    <div class="sw" style="--c:#8f7fff"><span class="chip"></span><span class="lbl"><b>violet</b><span>#8f7fff</span></span></div>
+  </div>
+</body>
+</html>

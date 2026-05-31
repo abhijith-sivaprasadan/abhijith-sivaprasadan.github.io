@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 0; background: #060806;
+         background-image:
+           radial-gradient(120% 100% at 50% -40%, rgba(120,210,150,0.06), transparent 60%),
+           linear-gradient(to right, rgba(120,210,150,0.03) 1px, transparent 1px),
+           linear-gradient(to bottom, rgba(120,210,150,0.03) 1px, transparent 1px);
+         background-size: auto, 26px 26px, 26px 26px; }
+
+  /* status banner */
+  .banner { display:flex; align-items:center; justify-content:center; gap:11px; padding:9px 18px;
+    border-bottom:1px solid rgba(155,214,159,0.16);
+    background:linear-gradient(90deg, color-mix(in srgb,var(--i-blue) 11%,transparent), color-mix(in srgb,var(--green) 12%,transparent));
+    font:400 0.82rem/1 var(--font-sans); color:var(--text); }
+  .dot { width:8px; height:8px; border-radius:999px; background:#22c55e; position:relative; }
+  .dot::after { content:''; position:absolute; inset:-4px; border-radius:999px;
+    background:color-mix(in srgb,#22c55e 36%,transparent); animation:p 2.4s ease-in-out infinite; }
+  @keyframes p { 0%,100%{transform:scale(.5);opacity:.8} 50%{transform:scale(2);opacity:0} }
+  .banner a { color:inherit; text-decoration:underline; text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb,var(--green) 60%,transparent); }
+
+  /* header — clean console bar */
+  .header { display:flex; align-items:center; justify-content:space-between; padding:0 24px; min-height:62px; gap:24px;
+    background:rgba(7,8,7,0.72); backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(155,214,159,0.18);
+    box-shadow:0 1px 0 rgba(155,214,159,0.04); position:relative; }
+  /* faint signal underline along the whole bar */
+  .header::after { content:""; position:absolute; left:0; bottom:-1px; height:1px; width:100%;
+    background:linear-gradient(90deg, transparent, rgba(155,214,159,0.35) 20%, rgba(155,214,159,0.35) 80%, transparent); }
+
+  /* wordmark — no icon, a green index caret + spaced name */
+  .logo { display:flex; align-items:baseline; gap:9px; text-decoration:none; }
+  .logo .idx { font:600 0.72rem/1 var(--font-mono); color:#9bd69f; letter-spacing:.1em; }
+  .logo .name { font:500 0.86rem/1 var(--font-mono); color:var(--text); text-transform:uppercase; letter-spacing:0.14em; }
+
+  .nav { display:flex; gap:2px; align-items:center; }
+  .nav a { position:relative; padding:20px 13px; font-family:var(--font-mono); font-size:0.74rem;
+    text-transform:uppercase; color:var(--muted); text-decoration:none; letter-spacing:0.04em; transition:color .18s; }
+  .nav a:hover { color:var(--text); }
+  .nav a.on { color:#9bd69f; }
+  /* underline interaction — hover hints, active locks in with glow */
+  .nav a::after { content:""; position:absolute; left:13px; right:13px; bottom:-1px; height:2px; z-index:1;
+    background:#9bd69f; transform:scaleX(0); transform-origin:center; transition:transform .2s var(--ease-out), opacity .2s; opacity:0; }
+  .nav a:hover::after { transform:scaleX(0.55); opacity:0.5; }
+  .nav a.on::after { transform:scaleX(1); opacity:1; box-shadow:0 0 12px rgba(155,214,159,0.8); }
+
+  /* right cluster: hamburger only — nav stays uniform */
+  .right { display:flex; align-items:center; gap:12px; }
+  .more { padding:20px 13px; }
+  .more svg { width:9px; height:9px; vertical-align:middle; margin-left:3px; }
+  .menu-btn { display:inline-flex; align-items:center; gap:8px; padding:8px 13px; border-radius:6px; cursor:pointer;
+    border:1px solid rgba(155,214,159,0.3); background:rgba(12,16,12,0.4); color:var(--text);
+    font:500 0.72rem/1 var(--font-mono); text-transform:uppercase; letter-spacing:.06em; }
+  .menu-btn:hover { border-color:rgba(155,214,159,0.55); box-shadow:0 0 16px rgba(155,214,159,0.18); }
+  .burger { display:grid; gap:3px; }
+  .burger i { width:15px; height:1.6px; background:#9bd69f; border-radius:2px; }
+  .meta { font:500 0.66rem/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; color:rgba(155,214,159,0.5); }
+  /* language toggle */
+  .lang { display:inline-flex; align-items:center; gap:5px; padding:4px 6px; border-radius:6px;
+    border:1px solid rgba(155,214,159,0.2); background:rgba(12,16,12,0.4); }
+  .lang > svg { width:13px; height:13px; color:rgba(155,214,159,0.7); }
+  .lang button { border:0; background:transparent; cursor:pointer; padding:3px 6px; border-radius:4px;
+    font:500 0.66rem/1 var(--font-mono); letter-spacing:.04em; color:var(--muted); }
+  .lang button.on { color:#071007; background:#9bd69f; }
+  .lang button:hover:not(.on) { color:var(--text); }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <span class="dot"></span>
+    <span>Currently targeting <a href="#">PhD positions</a> and <a href="#">industrial R&amp;D roles</a> in Sweden &amp; the EU.</span>
+  </div>
+  <header class="header">
+    <a class="logo" href="#"><span class="idx">//</span><span class="name">Abhijith Sivaprasadan</span></a>
+    <nav class="nav">
+      <a class="on">Signal</a><a>Research</a><a>Energy Systems</a><a>Projects</a><a>Contact</a>
+    </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Language">
+        <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.1"/><path d="M1.5 7h11M7 1.5c1.6 1.5 1.6 9.5 0 11M7 1.5c-1.6 1.5-1.6 9.5 0 11" stroke="currentColor" stroke-width="1.1"/></svg>
+        <button class="on">EN</button><button>SV</button>
+      </div>
+      <button class="menu-btn"><span class="burger"><i></i><i></i><i></i></span>Menu</button>
+    </div>
+  </header>
+</body>
+</html>

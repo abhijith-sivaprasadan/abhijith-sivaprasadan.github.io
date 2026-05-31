@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 16px 18px; background: #060806; font-family:var(--font-mono);
+         background-image: radial-gradient(120% 60% at 0% -10%, rgba(120,210,150,0.06), transparent 55%); }
+  .hud { display:flex; justify-content:space-between; align-items:center; margin:0 0 12px;
+    font:500 var(--type-xs)/1 var(--font-mono); letter-spacing:.12em; text-transform:uppercase; color:#9bd69f; }
+  .hud span { color:rgba(155,214,159,0.5); }
+  .group { margin-bottom:16px; }
+  .gl { display:flex; align-items:center; gap:10px; margin:0 0 10px;
+    font:500 0.64rem/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; color:rgba(155,214,159,0.65); }
+  .gl::after { content:""; flex:1; height:1px; background:rgba(155,214,159,0.14); }
+  .gl b { color:rgba(168,173,164,0.5); font-weight:500; }
+  .grid { display:grid; grid-template-columns:repeat(5,1fr); gap:9px; }
+  .fig { margin:0; border:1px solid rgba(101,214,201,0.24); border-radius:7px; overflow:hidden; background:#070c16; }
+  .frame { position:relative; aspect-ratio:16/9; overflow:hidden; }
+  .frame img { width:100%; height:100%; object-fit:cover; display:block; }
+  .frame::before, .frame::after { content:""; position:absolute; width:7px; height:7px; z-index:2; pointer-events:none; }
+  .frame::before { left:5px; top:5px; border-left:1.3px solid rgba(101,214,201,0.6); border-top:1.3px solid rgba(101,214,201,0.6); }
+  .frame::after { right:5px; bottom:5px; border-right:1.3px solid rgba(101,214,201,0.6); border-bottom:1.3px solid rgba(101,214,201,0.6); }
+  .scan { position:absolute; inset:0; z-index:1; pointer-events:none; background:repeating-linear-gradient(0deg, rgba(101,214,201,0.045) 0 1px, transparent 1px 3px); }
+  .cap { padding:5px 7px; border-top:1px solid rgba(101,214,201,0.14); font:500 0.5rem/1.25 var(--font-mono); color:#9fb6c8; text-transform:uppercase; letter-spacing:.02em; }
+</style>
+</head>
+<body>
+  <div class="hud"><span>BRAND</span>INSTRUMENT DIAGRAM LIBRARY<span id="ct">SVG</span></div>
+  <div id="out"></div>
+  <script>
+    const DIAGRAMS = {
+      "Thermal & Fluid · CFD": [
+        ["thumb-siemens-validation","Reducer CFD/CHT · Pulsatorn rig"],
+        ["thumb-numerical-heat-transfer","2D conduction FDM · explicit/implicit"],
+        ["thumb-mtes-pcm-lab","PCM RT60 · T–enthalpy hysteresis"],
+        ["thumb-thermal-prototype","Thermocouple DAQ prototype rig"],
+        ["thumb-tes-peak-shaving","TES district-cooling peak shaving"],
+      ],
+      "Energy Systems": [
+        ["thumb-pypsa-grid","PyPSA-NL congestion + BESS"],
+        ["thumb-district-heating","DH network dispatch optimisation"],
+        ["thumb-distribution-grid","Distribution power flow · N-1"],
+        ["thumb-heating-forecast","Seasonal demand · pred vs actual"],
+        ["thumb-hylkysaari-energy-island","Hylkysaari island microgrid"],
+        ["thumb-residential-heating-technoeconomics","Heat-pump vs gas vs DH"],
+        ["thumb-germany-leap-transition","Germany LEAP 2020–45"],
+        ["thumb-pynexus","Green H₂ wind-to-electrolyser"],
+        ["thumb-gridflex-concept","GridFlex 24h load-shift"],
+        ["thumb-built-environment","IDA ICE HVAC supply compare"],
+        ["thumb-emergency-energy-module","Post-disaster polygeneration"],
+        ["thumb-waste-to-energy","MSW grate combustion + steam"],
+      ],
+      "Industrial R&D · Sustainability": [
+        ["thumb-energy-kpi","ISO 50001 EnPI framework"],
+        ["thumb-industrial-kpi-toolkit","KPI normalisation pipeline"],
+        ["thumb-eu-ets","EU ETS price + exposure"],
+        ["thumb-backend-api","Portfolio API + admin"],
+        ["thumb-course-assignments","KTH MSc assignment set"],
+      ],
+      "Mechanical & Diagnostics": [
+        ["thumb-vibration-minilab","Rotating-machinery FFT spectrum"],
+        ["thumb-mechanical-design","Truss member-force analysis"],
+        ["thumb-battery-discharge","Multi-C-rate V–capacity curves"],
+      ],
+      "Experience": [
+        ["thumb-experience-siemens","Siemens test-rig + CFD workflow"],
+        ["thumb-experience-alleima","Alleima EnPI roadmap"],
+        ["thumb-experience-kth","KTH pyrolysis reactor yields"],
+        ["thumb-experience-qburst","QBurst REST / NestJS backend"],
+      ],
+    };
+    let total = 0;
+    const out = document.getElementById("out");
+    for (const [grp, items] of Object.entries(DIAGRAMS)) {
+      total += items.length;
+      const g = document.createElement("div"); g.className = "group";
+      g.innerHTML = `<div class="gl">${grp} <b>${items.length}</b></div><div class="grid"></div>`;
+      const gr = g.querySelector(".grid");
+      for (const [file, label] of items) {
+        const f = document.createElement("figure"); f.className = "fig";
+        f.innerHTML = `<div class="frame"><img src="../assets/${file}.svg" alt="" loading="lazy"/><div class="scan"></div></div><figcaption class="cap">${label}</figcaption>`;
+        gr.appendChild(f);
+      }
+      out.appendChild(g);
+    }
+    document.getElementById("ct").textContent = total + " SVG";
+  </script>
+</body>
+</html>
