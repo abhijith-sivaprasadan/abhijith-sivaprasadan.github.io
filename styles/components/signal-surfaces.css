@@ -1,0 +1,264 @@
+/* Signal design-system surface layer.
+   Presentation only: no content, KPI, simulation or data changes. */
+
+body.signal-rebuild .card,
+body.signal-rebuild .project-card,
+body.signal-rebuild .testimonial-card,
+body.signal-rebuild .assignment-card,
+body.signal-rebuild .skill-block,
+body.signal-rebuild .track-disclosure,
+body.signal-rebuild .contact-card,
+body.signal-rebuild .contact-cal,
+body.signal-rebuild .capability-radar,
+body.signal-rebuild .v4-evidence-graph {
+  border-color: color-mix(in srgb, var(--accent, var(--v4-teal)) 20%, var(--v4-line));
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--accent, var(--v4-teal)) 5%, transparent), transparent 46%),
+    color-mix(in srgb, var(--v4-panel-strong) 88%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 6%, transparent),
+    0 22px 70px color-mix(in srgb, #000 20%, transparent);
+}
+
+body.signal-rebuild .card,
+body.signal-rebuild .project-card,
+body.signal-rebuild .testimonial-card,
+body.signal-rebuild .assignment-card,
+body.signal-rebuild .skill-block,
+body.signal-rebuild .contact-cal {
+  border-radius: var(--v4-radius-sm, 8px);
+}
+
+body.signal-rebuild .card:hover,
+body.signal-rebuild .project-card:hover,
+body.signal-rebuild .testimonial-card:hover,
+body.signal-rebuild .assignment-card:hover,
+body.signal-rebuild .skill-block:hover {
+  border-color: color-mix(in srgb, var(--accent, var(--v4-teal)) 42%, var(--v4-line));
+}
+
+body.signal-rebuild .section-head .eyebrow,
+body.signal-rebuild .evidence-map-copy .eyebrow,
+body.signal-rebuild .contact-intro .eyebrow {
+  color: color-mix(in srgb, var(--accent, var(--v4-teal)) 76%, var(--v4-amber));
+}
+
+body.signal-rebuild[data-signal-lens="thermal"] { --signal-lens-color: var(--v4-teal); }
+body.signal-rebuild[data-signal-lens="energy"] { --signal-lens-color: #9bd69f; }
+body.signal-rebuild[data-signal-lens="industrial"] { --signal-lens-color: var(--v4-amber); }
+body.signal-rebuild[data-signal-lens="research"] { --signal-lens-color: #8ec8ff; }
+body.signal-rebuild[data-signal-lens="structural"] { --signal-lens-color: #a78bfa; }
+body.signal-rebuild[data-signal-lens="software"] { --signal-lens-color: #7dd3fc; }
+
+body.signal-rebuild .has-signal-page-art {
+  position: relative;
+}
+
+body.signal-rebuild .case-hero .container.has-signal-page-art,
+body.signal-rebuild .page-shell-grid .hero-slab.has-signal-page-art,
+body.signal-rebuild .page-shell .container.has-signal-page-art {
+  padding-right: clamp(1.25rem, 22vw, 18rem);
+}
+
+body.signal-rebuild .signal-page-art {
+  position: absolute;
+  top: clamp(1rem, 2.2vw, 1.6rem);
+  right: clamp(1rem, 2vw, 1.5rem);
+  z-index: 0;
+  width: clamp(11rem, 22vw, 17rem);
+  max-width: min(34%, 18rem);
+  padding: 0.62rem;
+  border: 1px solid color-mix(in srgb, var(--signal-lens-color, var(--accent, var(--v4-teal))) 34%, var(--v4-line));
+  border-radius: var(--v4-radius-sm, 8px);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--signal-lens-color, var(--accent, var(--v4-teal))) 12%, transparent), transparent 62%),
+    color-mix(in srgb, var(--v4-panel-strong) 70%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 7%, transparent);
+  pointer-events: none;
+  opacity: 0.82;
+}
+
+body.signal-rebuild .signal-page-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(to right, color-mix(in srgb, var(--v4-line) 52%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--v4-line) 52%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+body.signal-rebuild .signal-art-head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.3rem;
+  color: color-mix(in srgb, var(--signal-lens-color, var(--accent, var(--v4-teal))) 78%, var(--muted));
+  font: 700 0.58rem/1.2 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+body.signal-rebuild .signal-art-head b {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+body.signal-rebuild .signal-page-art svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+body.signal-rebuild .signal-page-art path,
+body.signal-rebuild .signal-page-art rect,
+body.signal-rebuild .signal-page-art circle {
+  vector-effect: non-scaling-stroke;
+}
+
+body.signal-rebuild .signal-page-art .grid-line,
+body.signal-rebuild .signal-page-art .mesh-line {
+  stroke: color-mix(in srgb, var(--muted) 38%, transparent);
+  stroke-width: 1;
+}
+
+body.signal-rebuild .signal-page-art .flow-line,
+body.signal-rebuild .signal-page-art .energy-curve,
+body.signal-rebuild .signal-page-art .plume-core,
+body.signal-rebuild .signal-page-art .reducer-c2,
+body.signal-rebuild .signal-page-art .cooling-loop {
+  stroke: var(--signal-lens-color, var(--accent, var(--v4-teal)));
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 5 8;
+  animation: signal-art-flow 3.8s linear infinite;
+}
+
+body.signal-rebuild .signal-page-art .secondary {
+  opacity: 0.64;
+  animation-duration: 5.2s;
+}
+
+body.signal-rebuild .signal-page-art .reducer-wall,
+body.signal-rebuild .signal-page-art .nozzle-wall,
+body.signal-rebuild .signal-page-art .mesh-outline,
+body.signal-rebuild .signal-page-art .process-box {
+  stroke: color-mix(in srgb, var(--signal-lens-color, var(--accent, var(--v4-teal))) 62%, var(--text));
+  stroke-width: 1.6;
+  fill: color-mix(in srgb, var(--signal-lens-color, var(--accent, var(--v4-teal))) 8%, transparent);
+}
+
+body.signal-rebuild .signal-page-art .thermal-band,
+body.signal-rebuild .signal-page-art .deposit-strip,
+body.signal-rebuild .signal-page-art .recovery,
+body.signal-rebuild .signal-page-art .load-arrow {
+  stroke: var(--v4-amber);
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+body.signal-rebuild .signal-page-art .constraint,
+body.signal-rebuild .signal-page-art .node-set circle {
+  fill: var(--signal-lens-color, var(--accent, var(--v4-teal)));
+  stroke: color-mix(in srgb, #000 22%, transparent);
+}
+
+@keyframes signal-art-flow {
+  to { stroke-dashoffset: -52; }
+}
+
+body.signal-rebuild .signal-heading-icon {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+
+body.signal-rebuild .signal-mini-icon {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  margin-top: 0.05rem;
+  border: 1px solid color-mix(in srgb, var(--signal-lens-color, var(--accent, var(--v4-teal))) 38%, var(--v4-line));
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--signal-lens-color, var(--accent, var(--v4-teal))) 10%, transparent);
+  color: var(--signal-lens-color, var(--accent, var(--v4-teal)));
+}
+
+body.signal-rebuild .signal-mini-icon svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: currentColor;
+  stroke-width: 1.45;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+body.signal-rebuild .tag-row span,
+body.signal-rebuild .audience-chip-row span,
+body.signal-rebuild .skill-pill,
+body.signal-rebuild .tool-icon-card,
+body.signal-rebuild .contact-links a {
+  border-color: color-mix(in srgb, var(--accent, var(--v4-teal)) 28%, var(--v4-line));
+  background: color-mix(in srgb, var(--accent, var(--v4-teal)) 7%, transparent);
+}
+
+html[data-theme="light"] body.signal-rebuild .card,
+html[data-theme="light"] body.signal-rebuild .project-card,
+html[data-theme="light"] body.signal-rebuild .testimonial-card,
+html[data-theme="light"] body.signal-rebuild .assignment-card,
+html[data-theme="light"] body.signal-rebuild .skill-block,
+html[data-theme="light"] body.signal-rebuild .track-disclosure,
+html[data-theme="light"] body.signal-rebuild .contact-card,
+html[data-theme="light"] body.signal-rebuild .contact-cal,
+html[data-theme="light"] body.signal-rebuild .capability-radar,
+html[data-theme="light"] body.signal-rebuild .v4-evidence-graph {
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--accent, var(--v4-teal)) 5%, transparent), transparent 46%),
+    rgba(255, 255, 255, 0.9);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 20px 54px rgba(21, 45, 60, 0.12);
+}
+
+@media (max-width: 980px) {
+  body.signal-rebuild .case-hero .container.has-signal-page-art,
+  body.signal-rebuild .page-shell-grid .hero-slab.has-signal-page-art,
+  body.signal-rebuild .page-shell .container.has-signal-page-art {
+    padding-right: revert;
+  }
+
+  body.signal-rebuild .signal-page-art {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    max-width: 26rem;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 620px) {
+  body.signal-rebuild .signal-page-art {
+    display: none;
+  }
+}
+
+html.motion-reduced body.signal-rebuild .signal-page-art .flow-line,
+html.motion-reduced body.signal-rebuild .signal-page-art .energy-curve,
+html.motion-reduced body.signal-rebuild .signal-page-art .plume-core,
+html.motion-reduced body.signal-rebuild .signal-page-art .reducer-c2,
+html.motion-reduced body.signal-rebuild .signal-page-art .cooling-loop {
+  animation: none;
+}

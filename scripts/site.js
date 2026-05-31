@@ -1384,6 +1384,9 @@ const renderProjectCard = (project) => {
   const audienceTags = project.audienceTags || [];
   const imageSrc = projectImageSrc(project);
   const highlights = Array.isArray(project.highlights) ? project.highlights : [];
+  const filterTags = [project.category, project.title, ...(project.audienceTags || []), ...(project.tools || []), ...(project.skills || [])]
+    .filter(Boolean)
+    .join(" ");
   const links = [
     project.caseStudyUrl ? `<a href="${escapeHtml(project.caseStudyUrl)}" aria-label="${escapeHtml(project.title || "Project")} — case study">Case study</a>` : "",
     project.repoUrl ? `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noreferrer">GitHub</a>` : "",
@@ -1397,7 +1400,7 @@ const renderProjectCard = (project) => {
   const primaryClass = project.id === "siemens-thesis" ? "primary-differentiator" : "";
 
   return `
-    <article class="project-card tone-${tone} ${project.featured ? "featured" : ""} ${primaryClass}">
+    <article class="project-card tone-${tone} ${project.featured ? "featured" : ""} ${primaryClass}" data-project-id="${escapeHtml(project.id || "")}" data-project-category="${escapeHtml(project.category || "")}" data-project-tags="${escapeHtml(filterTags)}">
       ${visual}
       ${audienceTags.length ? `<div class="audience-chip-row">${audienceTags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
       <div class="tag-row">${tags.map(renderTag).join("")}</div>

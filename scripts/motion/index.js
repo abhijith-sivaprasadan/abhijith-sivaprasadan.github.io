@@ -148,6 +148,7 @@ function boot() {
     root: document.documentElement,
   };
   document.documentElement.classList.add("motion-ready");
+  document.body?.classList.add("signal-rebuild");
   if (reducedMotion) document.documentElement.classList.add("motion-reduced");
   if (touchOnly) document.documentElement.classList.add("motion-touch");
   if (supportsViewTransitions) document.documentElement.classList.add("motion-vt");
@@ -170,7 +171,9 @@ function boot() {
     { name: "transitions",   selector: "[data-motion-page-transition], a[data-page-transition]" },
     { name: "entrance",      selector: "[data-motion-entrance]",      skip: () => reducedMotion },
     { name: "chips",         selector: ".tag-row span, .audience-chip-row span, .skill-pill, .chip, .pill" },
+    { name: "signal-page-art", selector: "body", path: `${BASE}../sections/signal-page-art.js` },
     { name: "bento-projects", selector: "[data-featured-projects]", path: `${BASE}../sections/bento-projects.js` },
+    { name: "featured-project-filters", selector: "[data-featured-project-filters]", path: `${BASE}../sections/featured-project-filters.js` },
     { name: "evidence-graph", selector: ".evidence-lanes", path: `${BASE}../sections/evidence-graph.js` },
     { name: "skill-radar", selector: "[data-dynamic-skills]", path: `${BASE}../sections/skill-radar.js` },
     { name: "cinematic-timeline", selector: "#experience .timeline", path: `${BASE}../sections/cinematic-timeline.js` },
