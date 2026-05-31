@@ -167,6 +167,141 @@ html.motion-reduced .motion-ambient-canvas {
   opacity: 0.16;
 }
 
+body.signal-rebuild .signal-rail .rail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(240px, 0.72fr);
+  gap: 14px;
+  align-items: stretch;
+  margin-top: 18px;
+}
+
+body.signal-rebuild .signal-rail .rail-grid .rail-metrics {
+  margin-top: 0;
+}
+
+body.signal-rebuild .signal-rail .validation-card {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--accent, #65d6c9) 28%, var(--v4-line));
+  border-radius: 10px;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--accent, #65d6c9) 10%, transparent), transparent 52%),
+    color-mix(in srgb, var(--v4-panel-strong) 76%, transparent);
+  box-shadow: 0 14px 42px color-mix(in srgb, #000 22%, transparent);
+}
+
+.vc-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.vc-title {
+  position: relative;
+  padding-left: 13px;
+  color: color-mix(in srgb, var(--accent, #65d6c9) 72%, var(--muted));
+  font: 600 0.66rem/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.vc-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--accent, #65d6c9);
+  box-shadow: 0 0 9px color-mix(in srgb, var(--accent, #65d6c9) 80%, transparent);
+  animation: vc-pulse 1.9s ease-in-out infinite;
+}
+
+.vc-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font: 600 0.62rem/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.vc-live i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--v4-teal, #65d6c9);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--v4-teal, #65d6c9) 70%, transparent);
+}
+
+.vc-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.vc-kpi b {
+  display: block;
+  color: var(--v4-teal, #65d6c9);
+  font: 750 1.45rem/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: -0.02em;
+}
+
+.vc-kpi.amber b {
+  color: var(--v4-amber, #f6c85f);
+}
+
+.vc-kpi span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font: 600 0.58rem/1.25 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.vc-spark {
+  width: 100%;
+  height: 36px;
+}
+
+.vc-spark .vc-draw {
+  stroke: var(--accent, #65d6c9);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 360;
+  stroke-dashoffset: 360;
+  animation: vc-draw 3.4s var(--motion-ease-out, ease) infinite;
+}
+
+.vc-head-dot {
+  fill: var(--v4-amber, #f6c85f);
+  animation: vc-fade 3.4s ease infinite;
+}
+
+@keyframes vc-pulse {
+  50% { opacity: 0.42; }
+}
+
+@keyframes vc-draw {
+  0% { stroke-dashoffset: 360; }
+  62%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes vc-fade {
+  0%, 45% { opacity: 0; }
+  65%, 100% { opacity: 1; }
+}
+
 @media (max-width: 1050px) {
   body.signal-rebuild .hero-core {
     grid-template-columns: minmax(22rem, 1fr) minmax(19rem, 0.9fr);
@@ -215,6 +350,10 @@ html.motion-reduced .motion-ambient-canvas {
        than the desktop near-square because we have full content width. */
     aspect-ratio: 1.35;
     min-height: 320px;
+  }
+
+  body.signal-rebuild .signal-rail .rail-grid {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -21,16 +21,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://abhijith-portfolio-api.onrender.com" />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260531-structural-fea-role" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260531-structural-fea-role" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260531-structural-fea-role" />
-  <script src="scripts/public-config.js?v=20260531-structural-fea-role" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260531-signal-system-wide" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260531-signal-system-wide" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260531-signal-system-wide" />
+  <script src="scripts/public-config.js?v=20260531-signal-system-wide" defer></script>
   <!-- v4 motion stack: GSAP + plugins (load before motion/index.js) -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="scripts/motion/index.js?v=20260531-structural-fea-role"></script>
-  <script src="scripts/motion/sw-register.js?v=20260531-structural-fea-role" defer></script>
+  <script type="module" src="scripts/motion/index.js?v=20260531-signal-system-wide"></script>
+  <script src="scripts/motion/sw-register.js?v=20260531-signal-system-wide" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,8 +62,8 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis", "k-omega SST turbulence model", "Compressible flow", "Mesh independence", "Biot number analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260531-structural-fea-role" defer></script>
-  <script src="scripts/animations.js?v=20260531-structural-fea-role" defer></script>
+  <script src="scripts/site.js?v=20260531-signal-system-wide" defer></script>
+  <script src="scripts/animations.js?v=20260531-signal-system-wide" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
@@ -187,11 +187,27 @@
             <span data-home-mode-target="decarbonisation" data-i18n-sv="Avkarboniseringslins: KPI/EnPI-logik, mätberedskap och industriella försörjningssystem." hidden>Decarbonisation lens: KPI/EnPI logic, metering readiness and industrial utilities.</span>
             <span data-home-mode-target="research" data-i18n-sv="Forskningslins: termiskt motstånd, yttillstånd och valideringslogik." hidden>Research lens: thermal resistance, surface condition and validation logic.</span>
           </div>
-          <div class="rail-metrics">
-            <article><strong>673 K</strong><span>inlet temperature</span></article>
-            <article><strong>Bi 0.003-0.004</strong><span>thermal interpretation band</span></article>
-            <article><strong>Ma 0.990-1.006</strong><span>flow regime range</span></article>
-            <article><strong>8/8</strong><span>validation checks passed</span></article>
+          <div class="rail-grid">
+            <div class="rail-metrics">
+              <article><strong>673 K</strong><span>inlet temperature</span></article>
+              <article><strong>Bi 0.003-0.004</strong><span>thermal interpretation band</span></article>
+              <article><strong>Ma 0.990-1.006</strong><span>flow regime range</span></article>
+              <article><strong>8/8</strong><span>validation checks passed</span></article>
+            </div>
+            <article class="validation-card" aria-label="Validation signal">
+              <div class="vc-head">
+                <span class="vc-title">Validation signal</span>
+                <span class="vc-live"><i></i>Live</span>
+              </div>
+              <div class="vc-stats">
+                <div class="vc-kpi"><b>0.003</b><span>Biot number</span></div>
+                <div class="vc-kpi amber"><b>0.990</b><span>Mach · throat</span></div>
+              </div>
+              <svg class="vc-spark" viewBox="0 0 220 36" preserveAspectRatio="none" fill="none" aria-hidden="true">
+                <polyline class="vc-draw" points="0,30 30,24 60,27 90,15 120,19 150,9 180,13 220,4" />
+                <circle class="vc-head-dot" cx="220" cy="4" r="3" />
+              </svg>
+            </article>
           </div>
           <div class="rail-wave" aria-hidden="true">
             <svg viewBox="0 0 1180 120" preserveAspectRatio="none">
@@ -660,6 +676,16 @@
           <div class="section-actions">
             <a class="button secondary" href="projects.html">Open full project library</a>
           </div>
+        </div>
+
+        <div class="signal-filter-bar" data-featured-project-filters aria-label="Featured project filters">
+          <button type="button" class="signal-chip is-active" data-featured-filter="All" aria-pressed="true">All</button>
+          <button type="button" class="signal-chip" data-featured-filter="CFD & Testing" aria-pressed="false">CFD &amp; Testing</button>
+          <button type="button" class="signal-chip" data-featured-filter="Mechanical & Structural Simulation" aria-pressed="false">Structural FEA</button>
+          <button type="button" class="signal-chip" data-featured-filter="Energy Systems" aria-pressed="false">Energy Systems</button>
+          <button type="button" class="signal-chip" data-featured-filter="Industrial R&D" aria-pressed="false">Industrial R&amp;D</button>
+          <button type="button" class="signal-chip" data-featured-filter="Research" aria-pressed="false">Research</button>
+          <span class="signal-filter-count" data-featured-filter-count aria-live="polite">6 / 6</span>
         </div>
 
         <div class="project-grid" data-featured-projects data-api-resource="projects" data-stagger>

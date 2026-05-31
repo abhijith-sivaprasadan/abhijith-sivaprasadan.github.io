@@ -52,6 +52,7 @@ PARTS = [
     ("sections/experience.css", None),
     ("sections/research-mindmap.css", None),
     ("sections/testimonials.css", None),
+    ("components/signal-surfaces.css", None),
     ("print.css", "print"),
 ]
 
