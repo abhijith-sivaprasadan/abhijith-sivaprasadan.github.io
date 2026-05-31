@@ -5731,12 +5731,11 @@ body.signal-rebuild .hero-kicker {
   font-size: 0.86rem;
 }
 
-/* ── Live Lens / Evidence Lens — dev-only gate ─────────────────────
-   The 4 telemetry panels + the hero-instrument canvas viewport are
-   experimental. They render only when body has `lens-dev`, which is
-   toggled via the floating .lens-dev-toggle button, ?lens=1 URL param,
-   or localStorage `lensDev=1`. The public hero stays clean until the
-   lens work is stable. */
+/* ── Live Lens / Evidence Lens gate ────────────────────────────────
+   The 4 telemetry panels + the hero-instrument canvas viewport render
+   when body has `lens-dev`. The homepage now enables that class by
+   default; ?lens=0 or the floating toggle can explicitly show the static
+   Signal fallback instead. */
 body:not(.lens-dev) [data-live-lens] { display: none !important; }
 
 /* Floating toggle button — bottom-right of viewport, subtle until hover */

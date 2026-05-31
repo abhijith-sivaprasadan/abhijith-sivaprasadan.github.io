@@ -1,16 +1,17 @@
-// ── Live Lens / Evidence Lens — dev-only flag ───────────────────────
-// The experimental telemetry panels + the hero-instrument canvas are
-// hidden by default (CSS guard on [data-live-lens]). Three ways to enable:
-//   - the floating "Live lens" toggle button (rendered by mountLensToggle)
-//   - URL param ?lens=1   (turns on + sticks in localStorage)
-//   - URL param ?lens=0   (turns off + clears localStorage)
+// ── Live Lens / Evidence Lens ───────────────────────────────────────
+// The hero physics panels are the intended homepage experience. They stay
+// enabled by default on pages with [data-motion-fluid-sim], while the static
+// Signal console is only the fallback/off state.
+//   - URL param ?lens=1   turns on + sticks in localStorage
+//   - URL param ?lens=0   turns off + sticks in localStorage
+//   - the floating "Live Lens" toggle can switch either way
 function setLensDev(on) {
   try {
     if (on) {
       window.localStorage.setItem("lensDev", "1");
       document.body.classList.add("lens-dev");
     } else {
-      window.localStorage.removeItem("lensDev");
+      window.localStorage.setItem("lensDev", "0");
       document.body.classList.remove("lens-dev");
     }
   } catch (e) { /* storage blocked → just toggle class for this session */
@@ -33,8 +34,16 @@ function setLensDev(on) {
       const v = params.get("lens");
       const on = !(v === "0" || v === "false" || v === "off");
       setLensDev(on);
-    } else if (window.localStorage.getItem("lensDev") === "1") {
-      document.body.classList.add("lens-dev");
+      return;
+    }
+
+    const stored = window.localStorage.getItem("lensDev");
+    if (stored === "0") {
+      document.body.classList.remove("lens-dev");
+      return;
+    }
+    if (stored === "1" || document.querySelector("[data-motion-fluid-sim]")) {
+      setLensDev(true);
     }
   } catch (e) { /* storage blocked → silently skip */ }
 })();
