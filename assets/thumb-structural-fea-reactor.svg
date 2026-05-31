@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Structural FEA support plate visual</title>
+  <desc id="desc">Instrument-style finite element mesh and stress contour view for a stainless-steel reactor internals support plate pilot study.</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1220"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="stress" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2563a8"/>
+      <stop offset="0.45" stop-color="#65d6c9"/>
+      <stop offset="0.72" stop-color="#f6c85f"/>
+      <stop offset="1" stop-color="#d0622c"/>
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="960" height="540" fill="url(#panel)"/>
+  <g opacity="0.36" stroke="#2a3b50" stroke-width="1">
+    <path d="M80 84H880M80 144H880M80 204H880M80 264H880M80 324H880M80 384H880M80 444H880"/>
+    <path d="M120 64V476M200 64V476M280 64V476M360 64V476M440 64V476M520 64V476M600 64V476M680 64V476M760 64V476M840 64V476"/>
+  </g>
+  <rect x="58" y="48" width="844" height="444" rx="18" fill="none" stroke="#334155" stroke-width="2"/>
+  <text x="84" y="90" fill="#65d6c9" font-family="JetBrains Mono, Consolas, monospace" font-size="20" font-weight="700">ANSYS MECHANICAL / STRUCTURAL SCREENING</text>
+  <text x="84" y="122" fill="#94a3b8" font-family="JetBrains Mono, Consolas, monospace" font-size="15">316 stainless support plate - mesh convergence - load cases LC1-LC4R</text>
+
+  <g transform="translate(120 148)">
+    <path d="M245 34C323 34 386 97 386 175C386 253 323 316 245 316C167 316 104 253 104 175C104 97 167 34 245 34Z" fill="#111827" stroke="#5f6f83" stroke-width="5"/>
+    <path d="M245 58C310 58 362 110 362 175C362 240 310 292 245 292C180 292 128 240 128 175C128 110 180 58 245 58Z" fill="url(#stress)" opacity="0.68" filter="url(#softGlow)"/>
+    <circle cx="245" cy="175" r="58" fill="#0b1220" stroke="#cbd5e1" stroke-width="4"/>
+    <circle cx="137" cy="67" r="24" fill="#0b1220" stroke="#65d6c9" stroke-width="4"/>
+    <circle cx="353" cy="67" r="24" fill="#0b1220" stroke="#65d6c9" stroke-width="4"/>
+    <circle cx="137" cy="283" r="24" fill="#0b1220" stroke="#65d6c9" stroke-width="4"/>
+    <circle cx="353" cy="283" r="24" fill="#0b1220" stroke="#65d6c9" stroke-width="4"/>
+    <path d="M184 130L145 88M306 130L345 88M184 220L145 262M306 220L345 262" stroke="#94a3b8" stroke-width="16" stroke-linecap="round" opacity="0.68"/>
+    <g stroke="#e5edf7" stroke-width="0.8" opacity="0.28">
+      <path d="M128 175H362M245 58V292M162 92L328 258M328 92L162 258"/>
+      <path d="M148 120L342 145L320 236L174 246Z"/>
+      <path d="M150 229L232 77L343 198L214 290Z"/>
+      <path d="M116 170L188 71L371 170L307 290Z"/>
+    </g>
+    <path d="M80 175H19" stroke="#f6c85f" stroke-width="5" stroke-linecap="round"/>
+    <path d="M24 163L0 175L24 187" fill="none" stroke="#f6c85f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="12" y="154" fill="#f6c85f" font-family="JetBrains Mono, Consolas, monospace" font-size="16" font-weight="700">LC2 5 kN</text>
+  </g>
+
+  <g transform="translate(604 166)" font-family="JetBrains Mono, Consolas, monospace">
+    <rect x="0" y="0" width="238" height="70" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="16" y="28" fill="#94a3b8" font-size="15">Fine mesh</text>
+    <text x="16" y="56" fill="#65d6c9" font-size="22" font-weight="700">245,658 elements</text>
+    <rect x="0" y="88" width="238" height="70" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="16" y="116" fill="#94a3b8" font-size="15">Peak mechanical VM</text>
+    <text x="16" y="144" fill="#f6c85f" font-size="22" font-weight="700">20.65 MPa</text>
+    <rect x="0" y="176" width="238" height="70" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="16" y="204" fill="#94a3b8" font-size="15">LC4R thermal VM</text>
+    <text x="16" y="232" fill="#65d6c9" font-size="22" font-weight="700">0.017 MPa</text>
+  </g>
+
+  <g transform="translate(84 446)" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#94a3b8">
+    <text>preliminary linear-elastic screen - mesh convergence - boundary-condition sensitivity - Python post-processing</text>
+  </g>
+</svg>

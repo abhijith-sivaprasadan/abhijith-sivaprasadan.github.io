@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="PCM phase change material RT60 temperature-enthalpy hysteresis lab characterisation">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"></stop><stop offset="1" stop-color="#070c16"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"></rect>
+
+
+  <rect x="24" y="14" width="912" height="36" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="38" font-family="monospace" font-size="14" fill="#d0622c" font-weight="bold">M-TES PCM LAB · RT60 HC · TEMPERATURE–ENTHALPY HYSTERESIS CURVE</text>
+
+
+  <rect x="30" y="64" width="510" height="400" rx="4" fill="#0d1a2e"></rect>
+  <text x="285" y="86" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">T – H PHASE DIAGRAM [RT60 HC, 5 g sample, 0.5 K/min]</text>
+
+
+  <line x1="80" y1="95" x2="80" y2="430" stroke="#2a4060" stroke-width="1.2"></line>
+  <line x1="80" y1="430" x2="505" y2="430" stroke="#2a4060" stroke-width="1.2"></line>
+
+
+  <text x="74" y="434" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">30</text>
+  <text x="74" y="367" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">40</text>
+  <text x="74" y="300" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">50</text>
+  <text x="74" y="233" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">60</text>
+  <text x="74" y="166" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">70</text>
+  <text x="74" y="99" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">80</text>
+  <text x="62" y="280" font-family="monospace" font-size="9" fill="#2a4060" transform="rotate(-90,62,280)" text-anchor="middle">T [°C]</text>
+
+
+  <line x1="80" y1="367" x2="505" y2="367" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="80" y1="300" x2="505" y2="300" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="80" y1="233" x2="505" y2="233" stroke="#152540" stroke-width="0.5"></line>
+  <line x1="80" y1="166" x2="505" y2="166" stroke="#152540" stroke-width="0.5"></line>
+
+
+  <text x="80" y="446" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">0</text>
+  <text x="200" y="446" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">100</text>
+  <text x="320" y="446" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">200</text>
+  <text x="440" y="446" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">300</text>
+  <text x="505" y="446" font-family="monospace" font-size="9" fill="#2a4060">350 kJ/kg</text>
+
+
+  <line x1="200" y1="95" x2="200" y2="430" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="320" y1="95" x2="320" y2="430" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+  <line x1="440" y1="95" x2="440" y2="430" stroke="#152540" stroke-width="0.5" stroke-dasharray="3,4"></line>
+
+
+
+
+
+
+  <polygon points="182,236 438,229 438,253 182,253" fill="#38bdf8" opacity="0.10"></polygon>
+
+
+  <polyline points="80,410 140,338 182,236 438,229 500,148" fill="none" stroke="#d0622c" stroke-width="2.5"></polyline>
+
+  <polygon points="496,143 504,148 496,153" fill="#d0622c"></polygon>
+
+
+  <polyline points="80,410 140,347 182,253 438,253 500,148" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="6,3"></polyline>
+
+  <polygon points="84,414 76,410 84,406" fill="#38bdf8"></polygon>
+
+
+  <text x="310" y="222" font-family="monospace" font-size="9" fill="#d0622c" text-anchor="middle">melting ≈ 59°C</text>
+  <line x1="310" y1="226" x2="310" y2="232" stroke="#d0622c" stroke-width="0.8"></line>
+
+
+  <text x="310" y="270" font-family="monospace" font-size="9" fill="#38bdf8" text-anchor="middle">solidification ≈ 56.6°C</text>
+  <line x1="310" y1="256" x2="310" y2="266" stroke="#38bdf8" stroke-width="0.8"></line>
+
+
+  <line x1="458" y1="236" x2="458" y2="253" stroke="#f6c85f" stroke-width="1.2"></line>
+  <polygon points="454,250 458,258 462,250" fill="#f6c85f"></polygon>
+  <text x="464" y="247" font-family="monospace" font-size="9" fill="#f6c85f">ΔT=2.4°C</text>
+
+
+  <line x1="182" y1="340" x2="438" y2="340" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="182" y1="336" x2="182" y2="344" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="438" y1="336" x2="438" y2="344" stroke="#2a4060" stroke-width="1"></line>
+  <text x="310" y="357" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">L = 213 kJ/kg (latent heat)</text>
+
+
+  <rect x="86" y="100" width="172" height="42" rx="3" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <line x1="94" y1="114" x2="114" y2="114" stroke="#d0622c" stroke-width="2.5"></line>
+  <text x="120" y="118" font-family="monospace" font-size="9" fill="#d0622c">Charging (heating)</text>
+  <line x1="94" y1="132" x2="114" y2="132" stroke="#38bdf8" stroke-width="2" stroke-dasharray="5,3"></line>
+  <text x="120" y="136" font-family="monospace" font-size="9" fill="#38bdf8">Discharging (cooling)</text>
+
+
+  <rect x="556" y="64" width="380" height="400" rx="4" fill="#0d1a2e"></rect>
+  <text x="746" y="86" font-family="monospace" font-size="11" fill="#c8d8ea" text-anchor="middle" font-weight="bold">PCM TEST CONTAINER — TC ARRAY</text>
+
+
+  <rect x="614" y="104" width="120" height="200" rx="8" fill="#0f2240" stroke="#d0622c" stroke-width="2"></rect>
+
+  <rect x="618" y="204" width="112" height="96" rx="4" fill="#152540" opacity="0.9"></rect>
+  <text x="674" y="256" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">Solid PCM</text>
+
+  <rect x="618" y="108" width="112" height="96" rx="4" fill="#1e3a5c" opacity="0.7"></rect>
+  <text x="674" y="161" font-family="monospace" font-size="9" fill="#38bdf8" text-anchor="middle">Liquid PCM</text>
+
+
+  <line x1="618" y1="204" x2="730" y2="204" stroke="#f6c85f" stroke-width="1.5" stroke-dasharray="5,3"></line>
+  <text x="736" y="208" font-family="monospace" font-size="8" fill="#f6c85f">front</text>
+
+
+  <circle cx="674" cy="122" r="4" fill="#f6c85f"></circle>
+  <line x1="670" y1="122" x2="608" y2="114" stroke="#f6c85f" stroke-width="1"></line>
+  <text x="604" y="118" font-family="monospace" font-size="8" fill="#f6c85f" text-anchor="end">TC1</text>
+
+  <circle cx="674" cy="160" r="4" fill="#f6c85f"></circle>
+  <line x1="670" y1="160" x2="608" y2="158" stroke="#f6c85f" stroke-width="1"></line>
+  <text x="604" y="162" font-family="monospace" font-size="8" fill="#f6c85f" text-anchor="end">TC2</text>
+
+  <circle cx="674" cy="218" r="4" fill="#f6c85f"></circle>
+  <line x1="670" y1="222" x2="608" y2="228" stroke="#f6c85f" stroke-width="1"></line>
+  <text x="604" y="232" font-family="monospace" font-size="8" fill="#f6c85f" text-anchor="end">TC3</text>
+
+  <circle cx="674" cy="272" r="4" fill="#f6c85f"></circle>
+  <line x1="670" y1="276" x2="608" y2="282" stroke="#f6c85f" stroke-width="1"></line>
+  <text x="604" y="286" font-family="monospace" font-size="8" fill="#f6c85f" text-anchor="end">TC4</text>
+
+
+  <text x="754" y="126" font-family="monospace" font-size="9" fill="#d0622c">→ Q_in</text>
+  <text x="754" y="142" font-family="monospace" font-size="8" fill="#d0622c">(charging)</text>
+  <text x="754" y="242" font-family="monospace" font-size="9" fill="#38bdf8">← Q_out</text>
+  <text x="754" y="258" font-family="monospace" font-size="8" fill="#38bdf8">(discharging)</text>
+
+
+  <rect x="568" y="322" width="354" height="128" rx="4" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <text x="745" y="342" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle" font-weight="bold">RT60 HC THERMOPHYSICAL PROPERTIES</text>
+  <line x1="570" y1="348" x2="920" y2="348" stroke="#152540" stroke-width="0.8"></line>
+  <text x="576" y="364" font-family="monospace" font-size="9" fill="#2a4060">Melting range:</text>
+  <text x="916" y="364" font-family="monospace" font-size="9" fill="#38bdf8" text-anchor="end">58–60 °C</text>
+  <text x="576" y="380" font-family="monospace" font-size="9" fill="#2a4060">Latent heat (L):</text>
+  <text x="916" y="380" font-family="monospace" font-size="9" fill="#38bdf8" text-anchor="end">213 kJ/kg</text>
+  <text x="576" y="396" font-family="monospace" font-size="9" fill="#2a4060">C_p solid / liquid:</text>
+  <text x="916" y="396" font-family="monospace" font-size="9" fill="#38bdf8" text-anchor="end">2.0 / 2.2 kJ/kg·K</text>
+  <text x="576" y="412" font-family="monospace" font-size="9" fill="#2a4060">Density (liquid):</text>
+  <text x="916" y="412" font-family="monospace" font-size="9" fill="#38bdf8" text-anchor="end">770 kg/m³</text>
+  <text x="576" y="428" font-family="monospace" font-size="9" fill="#2a4060">Hysteresis (ΔT):</text>
+  <text x="916" y="428" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="end">2.4 °C</text>
+
+
+  <rect x="24" y="490" width="912" height="34" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="512" font-family="monospace" font-size="11" fill="#2a4060">PCM · RT60 HC · Latent heat · T-H curve · Hysteresis · DSC · TES · Thermal characterisation</text>
+</svg>

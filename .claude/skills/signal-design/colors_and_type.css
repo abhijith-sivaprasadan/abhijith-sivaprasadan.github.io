@@ -1,0 +1,189 @@
+/* ============================================================
+   SIGNAL — Design System
+   Abhijith Sivaprasadan · Thermal-Fluid & Energy Systems portfolio
+   Foundational color + type tokens.
+   Load this first, then layer component styles on top.
+   ============================================================ */
+
+/* ---- Fonts (Google Fonts; no local files in source repo) ---- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+:root {
+  /* ----------------------------------------------------------
+     CORE PALETTE — "Signal" dark (the live site default)
+     A near-black, green-tinted instrument console.
+     ---------------------------------------------------------- */
+  --bg:          #070807;   /* page background, green-black */
+  --bg-2:        #0b0e0b;   /* gradient floor */
+  --surface:     #101410;   /* panel / card */
+  --surface-2:   #151b16;   /* raised panel */
+  --line:        #2d3a31;   /* hairline borders */
+  --text:        #f2f0e7;   /* warm off-white ink */
+  --muted:       #a8ada4;   /* secondary text */
+
+  /* ---- Accents ---- */
+  --green:       #9bd69f;   /* PRIMARY accent — sage signal-green */
+  --amber:       #d7b46a;   /* secondary — instrument amber */
+  --steel:       #8fa7b3;   /* tertiary — cool steel */
+  --red:         #d98b7d;   /* alert / fault — terracotta */
+
+  /* ---- Audience-lens tints (the hero "mode" switch) ----
+     The whole site re-tints --green per active lens. */
+  --lens-thermal: #65d6c9;  /* teal  — Thermal & Fluid */
+  --lens-energy:  #9bd69f;  /* green — Energy Systems */
+  --lens-decarb:  #d7b46a;  /* amber — Industrial R&D */
+  --lens-research:#8fb7ff;  /* blue  — Research */
+
+  /* ----------------------------------------------------------
+     INSTRUMENT PALETTE — used inside technical diagrams,
+     KPI badges, CFD/thermal schematics. Higher-chroma.
+     ---------------------------------------------------------- */
+  --i-blue:      #2563a8;   /* structural / inlet */
+  --i-sky:       #38bdf8;   /* flow vectors */
+  --i-teal:      #65d6c9;   /* validated signal */
+  --i-orange:    #d0622c;   /* heat / wall flux */
+  --i-amber:     #f6c85f;   /* highlight / warm field */
+  --i-violet:    #8f7fff;   /* mach / compressible */
+  --i-navy:      #0b1220;   /* diagram background top */
+  --i-navy-2:    #070c16;   /* diagram background bottom */
+  --i-panel:     #0d1a2e;   /* diagram label chips */
+  --i-grid:      #152540;   /* diagram gridlines */
+  --i-dim:       #2a4060;   /* diagram dim labels */
+
+  /* ----------------------------------------------------------
+     TYPE
+     ---------------------------------------------------------- */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Roboto Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Modular scale — ratio ≈ 1.25 (major third) */
+  --type-xs:   0.8rem;     /* 12.8px — mono captions */
+  --type-sm:   0.875rem;   /* 14px   — labels, meta */
+  --type-base: 1rem;       /* 16px   — body */
+  --type-md:   1.125rem;   /* 18px   — lead body */
+  --type-lg:   1.406rem;   /* 22.5px — h3 */
+  --type-xl:   1.758rem;   /* 28px */
+  --type-2xl:  2.197rem;   /* 35px   — h2 */
+  --type-3xl:  2.747rem;   /* 44px */
+  --type-4xl:  3.434rem;   /* 55px   — h1 / hero */
+
+  --leading-tight: 1.14;
+  --leading-snug:  1.3;
+  --leading-body:  1.6;
+
+  /* ----------------------------------------------------------
+     SHAPE / ELEVATION
+     Signal favours SMALL, technical radii.
+     ---------------------------------------------------------- */
+  --radius-btn:   6px;      /* buttons — crisp, instrument-like */
+  --radius-sm:    8px;      /* chips, small panels */
+  --radius:       14px;     /* standard card */
+  --radius-lg:    22px;     /* hero / feature card */
+  --radius-pill:  999px;
+
+  --shadow:        0 18px 60px rgba(0, 0, 0, 0.28);
+  --shadow-strong: 0 28px 90px rgba(0, 0, 0, 0.38);
+  --shadow-panel:  0 26px 80px rgba(0, 0, 0, 0.28);
+
+  /* ---- Motion ---- */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast:    180ms;
+  --dur:         220ms;
+
+  /* ---- Layout ---- */
+  --max-width: 1180px;
+  --grid-unit: 36px;  /* the ambient background grid pitch */
+}
+
+/* ============================================================
+   LIGHT THEME — set html[data-theme="light"]
+   ============================================================ */
+html[data-theme="light"] {
+  --bg:        #f5f3ea;
+  --bg-2:      #eef0e7;
+  --surface:   #ffffff;
+  --surface-2: #f6f8f2;
+  --line:      rgba(24, 37, 47, 0.14);
+  --text:      #121a25;
+  --muted:     #53606d;
+  --green:     #007478;   /* accents darken for contrast on light */
+  --amber:     #a9550c;
+  --steel:     #4a6373;
+  --i-blue:    #2563a8;
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT STYLES
+   ============================================================ */
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11", "calt";
+  font-variation-settings: "opsz" 18;
+  font-size: var(--type-base);
+  line-height: var(--leading-body);
+  color: var(--text);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--green) 8%, transparent), transparent 18rem),
+    linear-gradient(180deg, var(--bg), var(--bg-2) 56%, var(--bg));
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-variation-settings: "opsz" 28, "wght" 540;
+  letter-spacing: -0.012em;
+  line-height: var(--leading-tight);
+  color: var(--text);
+}
+h1 { font-size: clamp(2.2rem, 4.4vw, var(--type-4xl)); line-height: 1.05; }
+h2 { font-size: clamp(1.8rem, 3.4vw, var(--type-2xl)); line-height: 1.18; }
+h3 { font-size: var(--type-lg); line-height: 1.28; }
+h4 { font-size: var(--type-md); line-height: 1.35; }
+
+/* Hero headings: heavier optical weight, tighter tracking */
+.display, .hero h1 {
+  font-variation-settings: "opsz" 32, "wght" 640;
+  letter-spacing: -0.018em;
+  font-size: clamp(3rem, 5.1vw, 4.9rem);
+}
+
+p { color: var(--muted); margin: 0; }
+.lead { font-size: var(--type-md); color: var(--muted); line-height: var(--leading-body); }
+
+a { color: var(--green); text-decoration-color: color-mix(in srgb, var(--green) 50%, transparent); }
+
+/* ---- Eyebrow: the signature mono-uppercase kicker ---- */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--amber);
+  margin: 0 0 12px;
+}
+
+/* ---- Kicker / mono meta line ---- */
+.kicker, .meta {
+  font-family: var(--font-mono);
+  font-size: var(--type-sm);
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
+/* ---- Code / telemetry ---- */
+code, pre, kbd, samp, .mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "ss01", "cv11", "tnum";
+}
+
+/* Numeric readouts — tabular figures, the instrument look */
+.readout {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+  letter-spacing: -0.01em;
+}

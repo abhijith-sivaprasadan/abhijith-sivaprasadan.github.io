@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="ISO 50001 energy KPI and EnPI framework diagram">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"></stop><stop offset="1" stop-color="#070c16"></stop>
+    </linearGradient>
+    <marker id="arr" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#38bdf8"></path>
+    </marker>
+    <marker id="arr2" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#f6c85f"></path>
+    </marker>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"></rect>
+
+
+  <rect x="24" y="14" width="912" height="36" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="38" font-family="monospace" font-size="14" fill="#65d6c9" font-weight="bold">INDUSTRIAL ENERGY KPI · ISO 50001 / EED FRAMEWORK · ALLEIMA</text>
+
+
+
+  <rect x="40" y="120" width="150" height="220" rx="8" fill="#0d1a2e" stroke="#2563a8" stroke-width="1.5"></rect>
+  <text x="115" y="148" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle" font-weight="bold">ENERGY</text>
+  <text x="115" y="163" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle" font-weight="bold">INPUT</text>
+  <line x1="55" y1="178" x2="175" y2="178" stroke="#152540" stroke-width="0.8"></line>
+
+  <rect x="55" y="186" width="120" height="16" rx="3" fill="#152540"></rect>
+  <text x="115" y="198" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">Electricity [MWh]</text>
+  <rect x="55" y="208" width="120" height="16" rx="3" fill="#152540"></rect>
+  <text x="115" y="220" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">Natural gas [MWh]</text>
+  <rect x="55" y="230" width="120" height="16" rx="3" fill="#152540"></rect>
+  <text x="115" y="242" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">Steam [GJ]</text>
+  <rect x="55" y="252" width="120" height="16" rx="3" fill="#152540"></rect>
+  <text x="115" y="264" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">Compressed air</text>
+  <rect x="55" y="274" width="120" height="16" rx="3" fill="#152540"></rect>
+  <text x="115" y="286" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">Fuel oil [tonnes]</text>
+  <text x="115" y="322" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">Metering readiness</text>
+  <text x="115" y="336" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">+ measurement plan</text>
+
+
+  <line x1="192" y1="230" x2="228" y2="230" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arr)"></line>
+
+
+  <rect x="230" y="120" width="150" height="220" rx="8" fill="#0d1a2e" stroke="#38bdf8" stroke-width="1.5"></rect>
+  <text x="305" y="148" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle" font-weight="bold">BASELINE</text>
+  <text x="305" y="163" font-family="monospace" font-size="11" fill="#38bdf8" text-anchor="middle" font-weight="bold">PERIOD</text>
+  <line x1="245" y1="178" x2="365" y2="178" stroke="#152540" stroke-width="0.8"></line>
+
+  <polyline points="250,310 270,295 290,300 310,280 330,270 350,255 365,248" fill="none" stroke="#38bdf8" stroke-width="1.5"></polyline>
+  <line x1="245" y1="315" x2="370" y2="315" stroke="#152540" stroke-width="0.8"></line>
+  <line x1="245" y1="245" x2="245" y2="315" stroke="#152540" stroke-width="0.8"></line>
+  <text x="305" y="208" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">12-month energy</text>
+  <text x="305" y="222" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">consumption trend</text>
+  <text x="305" y="332" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">Boundary definition</text>
+
+
+  <line x1="382" y1="230" x2="418" y2="230" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arr)"></line>
+
+
+  <rect x="420" y="120" width="150" height="220" rx="8" fill="#0d1a2e" stroke="#65d6c9" stroke-width="2"></rect>
+  <text x="495" y="148" font-family="monospace" font-size="11" fill="#65d6c9" text-anchor="middle" font-weight="bold">EnPI / KPI</text>
+  <text x="495" y="163" font-family="monospace" font-size="11" fill="#65d6c9" text-anchor="middle" font-weight="bold">DESIGN</text>
+  <line x1="435" y1="178" x2="555" y2="178" stroke="#152540" stroke-width="0.8"></line>
+  <text x="495" y="202" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">SEC [kWh/t]</text>
+  <text x="495" y="220" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">SEI [kWh/€]</text>
+  <text x="495" y="238" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle">EUI [kWh/m²]</text>
+  <line x1="435" y1="250" x2="555" y2="250" stroke="#152540" stroke-width="0.8"></line>
+
+  <rect x="438" y="258" width="108" height="44" rx="3" fill="#0f2240"></rect>
+  <text x="492" y="274" font-family="monospace" font-size="9" fill="#8f7fff" text-anchor="middle">Normalisation</text>
+  <text x="492" y="288" font-family="monospace" font-size="9" fill="#8f7fff" text-anchor="middle">load drivers</text>
+  <text x="495" y="330" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">ISO 50001 / EED</text>
+
+
+  <line x1="572" y1="230" x2="608" y2="230" stroke="#f6c85f" stroke-width="1.8" marker-end="url(#arr2)"></line>
+
+
+  <rect x="610" y="120" width="150" height="220" rx="8" fill="#0d1a2e" stroke="#f6c85f" stroke-width="1.5"></rect>
+  <text x="685" y="148" font-family="monospace" font-size="11" fill="#f6c85f" text-anchor="middle" font-weight="bold">IMPROVEMENT</text>
+  <text x="685" y="163" font-family="monospace" font-size="11" fill="#f6c85f" text-anchor="middle" font-weight="bold">ROADMAP</text>
+  <line x1="625" y1="178" x2="745" y2="178" stroke="#152540" stroke-width="0.8"></line>
+
+  <rect x="626" y="186" width="118" height="14" rx="3" fill="#0f2240"></rect>
+  <text x="685" y="197" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">● VFD retrofit</text>
+  <rect x="626" y="206" width="118" height="14" rx="3" fill="#0f2240"></rect>
+  <text x="685" y="217" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">● Compressed air leak</text>
+  <rect x="626" y="226" width="118" height="14" rx="3" fill="#0f2240"></rect>
+  <text x="685" y="237" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="middle">● Heat recovery</text>
+  <rect x="626" y="246" width="118" height="14" rx="3" fill="#0f2240"></rect>
+  <text x="685" y="257" font-family="monospace" font-size="9" fill="#f6c85f" text-anchor="middle">● Lighting upgrade</text>
+  <rect x="626" y="266" width="118" height="14" rx="3" fill="#0f2240"></rect>
+  <text x="685" y="277" font-family="monospace" font-size="9" fill="#d0622c" text-anchor="middle">● Furnace schedule</text>
+  <text x="685" y="330" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">Decision-support</text>
+
+
+  <line x1="762" y1="230" x2="798" y2="230" stroke="#f6c85f" stroke-width="1.8" marker-end="url(#arr2)"></line>
+
+
+  <rect x="800" y="120" width="144" height="220" rx="8" fill="#0d1a2e" stroke="#d0622c" stroke-width="1.5"></rect>
+  <text x="872" y="148" font-family="monospace" font-size="11" fill="#d0622c" text-anchor="middle" font-weight="bold">TARGET</text>
+  <text x="872" y="163" font-family="monospace" font-size="11" fill="#d0622c" text-anchor="middle" font-weight="bold">TRACKING</text>
+  <line x1="815" y1="178" x2="929" y2="178" stroke="#152540" stroke-width="0.8"></line>
+
+  <text x="872" y="202" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle">−12% SEC/yr</text>
+  <rect x="820" y="212" width="104" height="14" rx="3" fill="#0f2240"></rect>
+  <rect x="820" y="212" width="76" height="14" rx="3" fill="#4ade80" opacity="0.7"></rect>
+  <text x="872" y="225" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">73% to target</text>
+  <line x1="815" y1="236" x2="929" y2="236" stroke="#152540" stroke-width="0.8"></line>
+  <text x="872" y="258" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle">Monthly</text>
+  <text x="872" y="272" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle">review cycle</text>
+  <text x="872" y="290" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle">Structured</text>
+  <text x="872" y="304" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle">reporting</text>
+  <text x="872" y="330" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle">Continuous</text>
+
+
+  <rect x="40" y="370" width="912" height="60" rx="6" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <text x="480" y="390" font-family="monospace" font-size="11" fill="#2a4060" text-anchor="middle">ISO 50001 · PLAN–DO–CHECK–ACT</text>
+  <text x="120" y="415" font-family="monospace" font-size="11" fill="#2563a8" text-anchor="middle">PLAN: Define scope + EnPI</text>
+  <text x="352" y="415" font-family="monospace" font-size="11" fill="#65d6c9" text-anchor="middle">DO: Collect + normalise data</text>
+  <text x="592" y="415" font-family="monospace" font-size="11" fill="#f6c85f" text-anchor="middle">CHECK: Review vs target</text>
+  <text x="820" y="415" font-family="monospace" font-size="11" fill="#4ade80" text-anchor="middle">ACT: Update roadmap</text>
+
+
+  <rect x="24" y="490" width="912" height="34" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="512" font-family="monospace" font-size="11" fill="#2a4060">ISO 50001 · EU EED · KPI/EnPI Design · Load Drivers · Normalisation · Improvement Roadmap</text>
+</svg>

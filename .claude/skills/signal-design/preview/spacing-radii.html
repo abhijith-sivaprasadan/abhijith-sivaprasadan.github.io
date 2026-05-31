@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 22px 18px; background: #060806;
+         background-image: radial-gradient(120% 90% at 0% -10%, rgba(120,210,150,0.045), transparent 55%);
+         font-family:var(--font-mono); }
+  .row { display:flex; gap:14px; align-items:flex-end; }
+  .item { display:flex; flex-direction:column; align-items:center; gap:12px; flex:1; }
+  .box { width:100%; height:82px; background:linear-gradient(160deg, #1c2126, #15181d);
+    border:1px solid rgba(155,214,159,0.16); border-top-color:rgba(155,214,159,0.4);
+    box-shadow:inset 0 1px 0 rgba(155,214,159,0.18), 0 0 14px rgba(155,214,159,0.05); }
+  .box.r8 { border-radius:8px; } .box.r10 { border-radius:10px; } .box.r16 { border-radius:16px; }
+  .box.r24 { border-radius:24px; } .box.rp { border-radius:999px; }
+  .lbl { text-align:center; line-height:1.4; }
+  .lbl b { display:block; font:500 0.82rem/1 var(--font-mono); color:#c6e6cb; }
+  .lbl span { font:400 0.65rem/1 var(--font-mono); color:rgba(155,214,159,0.45); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item"><div class="box r8"></div><div class="lbl"><b>8</b><span>button · chip</span></div></div>
+    <div class="item"><div class="box r10"></div><div class="lbl"><b>10</b><span>input · tag</span></div></div>
+    <div class="item"><div class="box r16"></div><div class="lbl"><b>16</b><span>card</span></div></div>
+    <div class="item"><div class="box r24"></div><div class="lbl"><b>24</b><span>feature</span></div></div>
+    <div class="item"><div class="box rp"></div><div class="lbl"><b>full</b><span>pill</span></div></div>
+  </div>
+</body>
+</html>

@@ -22,6 +22,7 @@
 
   <!-- Project case studies — Tier 1 (flagship) -->
   <url><loc>https://abhijith-sivaprasadan.github.io/projects/siemens-thesis.html</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/projects/structural-fea-reactor-internals.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://abhijith-sivaprasadan.github.io/projects/alleima-energy-efficiency.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://abhijith-sivaprasadan.github.io/projects/district-heating-optimisation.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://abhijith-sivaprasadan.github.io/projects/heating-demand-forecasting.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>

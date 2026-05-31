@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Residential heating techno-economic comparison heat pump vs gas boiler vs district heating">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220"></stop><stop offset="1" stop-color="#070c16"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"></rect>
+
+
+  <rect x="24" y="14" width="912" height="36" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="38" font-family="monospace" font-size="14" fill="#65d6c9" font-weight="bold">RESIDENTIAL HEATING · TECHNO-ECONOMIC COMPARISON · LCOH ANALYSIS</text>
+
+
+  <rect x="30" y="64" width="500" height="360" rx="4" fill="#0d1a2e"></rect>
+  <text x="280" y="88" font-family="monospace" font-size="12" fill="#c8d8ea" text-anchor="middle" font-weight="bold">LCOH [€/MWh_heat] — 20-year NPV</text>
+
+
+  <line x1="80" y1="100" x2="80" y2="400" stroke="#2a4060" stroke-width="1.2"></line>
+  <line x1="80" y1="400" x2="500" y2="400" stroke="#2a4060" stroke-width="1.2"></line>
+
+
+  <line x1="75" y1="360" x2="80" y2="360" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="75" y1="320" x2="80" y2="320" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="75" y1="280" x2="80" y2="280" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="75" y1="240" x2="80" y2="240" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="75" y1="200" x2="80" y2="200" stroke="#2a4060" stroke-width="1"></line>
+  <line x1="75" y1="160" x2="80" y2="160" stroke="#2a4060" stroke-width="1"></line>
+  <text x="70" y="363" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">20</text>
+  <text x="70" y="323" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">40</text>
+  <text x="70" y="283" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">60</text>
+  <text x="70" y="243" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">80</text>
+  <text x="70" y="203" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">100</text>
+  <text x="70" y="163" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="end">120</text>
+  <text x="56" y="280" font-family="monospace" font-size="9" fill="#2a4060" transform="rotate(-90,56,280)" text-anchor="middle">€/MWh</text>
+
+
+
+  <rect x="110" y="172" width="46" height="228" fill="none"></rect>
+
+  <rect x="110" y="328" width="46" height="72" rx="1" fill="#d0622c" opacity="0.7"></rect>
+
+  <rect x="110" y="172" width="46" height="156" rx="1" fill="#f6c85f" opacity="0.7"></rect>
+
+  <rect x="110" y="152" width="46" height="20" rx="1" fill="#38bdf8" opacity="0.8"></rect>
+
+  <rect x="110" y="136" width="46" height="16" rx="1" fill="#2563a8" opacity="0.7"></rect>
+  <text x="133" y="416" font-family="monospace" font-size="9" fill="#c8d8ea" text-anchor="middle">Gas</text>
+  <text x="133" y="428" font-family="monospace" font-size="9" fill="#c8d8ea" text-anchor="middle">boiler</text>
+
+  <text x="133" y="126" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle" font-weight="bold">126</text>
+
+
+
+  <rect x="200" y="200" width="46" height="200" fill="none"></rect>
+  <rect x="200" y="380" width="46" height="20" rx="1" fill="#d0622c" opacity="0.7"></rect>
+  <rect x="200" y="200" width="46" height="130" rx="1" fill="#8f7fff" opacity="0.7"></rect>
+
+  <rect x="200" y="160" width="46" height="40" rx="1" fill="#38bdf8" opacity="0.6"></rect>
+  <rect x="200" y="150" width="46" height="10" rx="1" fill="#2563a8" opacity="0.7"></rect>
+  <text x="223" y="416" font-family="monospace" font-size="9" fill="#c8d8ea" text-anchor="middle">District</text>
+  <text x="223" y="428" font-family="monospace" font-size="9" fill="#c8d8ea" text-anchor="middle">heating</text>
+  <text x="223" y="140" font-family="monospace" font-size="10" fill="#c8d8ea" text-anchor="middle" font-weight="bold">100</text>
+
+
+
+  <rect x="290" y="244" width="46" height="156" fill="none"></rect>
+  <rect x="290" y="388" width="46" height="12" rx="1" fill="#d0622c" opacity="0.7"></rect>
+  <rect x="290" y="244" width="46" height="92" rx="1" fill="#f6c85f" opacity="0.7"></rect>
+  <rect x="290" y="200" width="46" height="44" rx="1" fill="#38bdf8" opacity="0.8"></rect>
+  <rect x="290" y="188" width="46" height="12" rx="1" fill="#2563a8" opacity="0.7"></rect>
+  <text x="313" y="416" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">Air-source</text>
+  <text x="313" y="428" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">heat pump</text>
+  <text x="313" y="178" font-family="monospace" font-size="10" fill="#65d6c9" text-anchor="middle" font-weight="bold">78</text>
+
+
+
+  <rect x="380" y="242" width="46" height="158" fill="none"></rect>
+  <rect x="380" y="390" width="46" height="10" rx="1" fill="#d0622c" opacity="0.7"></rect>
+  <rect x="380" y="242" width="46" height="72" rx="1" fill="#f6c85f" opacity="0.7"></rect>
+  <rect x="380" y="172" width="46" height="70" rx="1" fill="#38bdf8" opacity="0.8"></rect>
+  <rect x="380" y="162" width="46" height="10" rx="1" fill="#2563a8" opacity="0.7"></rect>
+  <text x="403" y="416" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">Ground-src</text>
+  <text x="403" y="428" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">heat pump</text>
+  <text x="403" y="152" font-family="monospace" font-size="10" fill="#4ade80" text-anchor="middle" font-weight="bold">79</text>
+
+
+  <rect x="80" y="102" width="170" height="68" rx="3" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <rect x="88" y="112" width="10" height="8" rx="1" fill="#38bdf8" opacity="0.8"></rect>
+  <text x="104" y="120" font-family="monospace" font-size="9" fill="#38bdf8">CAPEX/connection</text>
+  <rect x="88" y="126" width="10" height="8" rx="1" fill="#f6c85f" opacity="0.7"></rect>
+  <text x="104" y="134" font-family="monospace" font-size="9" fill="#f6c85f">Fuel/electricity</text>
+  <rect x="88" y="140" width="10" height="8" rx="1" fill="#d0622c" opacity="0.7"></rect>
+  <text x="104" y="148" font-family="monospace" font-size="9" fill="#d0622c">CO₂ cost (ETS)</text>
+  <rect x="88" y="154" width="10" height="8" rx="1" fill="#8f7fff" opacity="0.7"></rect>
+  <text x="104" y="162" font-family="monospace" font-size="9" fill="#8f7fff">Network tariff</text>
+
+
+  <rect x="550" y="64" width="390" height="360" rx="4" fill="#0d1a2e"></rect>
+  <text x="745" y="88" font-family="monospace" font-size="12" fill="#c8d8ea" text-anchor="middle" font-weight="bold">NPV SENSITIVITY — 20 YEARS</text>
+
+
+  <line x1="600" y1="104" x2="600" y2="390" stroke="#2a4060" stroke-width="1.2"></line>
+  <line x1="560" y1="247" x2="920" y2="247" stroke="#2a4060" stroke-width="1" stroke-dasharray="3,3"></line>
+
+
+
+  <rect x="620" y="237" width="50" height="10" rx="1" fill="#2a4060" opacity="0.8"></rect>
+  <text x="645" y="410" font-family="monospace" font-size="8" fill="#c8d8ea" text-anchor="middle">Gas</text>
+
+
+  <rect x="690" y="200" width="50" height="47" rx="1" fill="#8f7fff" opacity="0.7"></rect>
+  <text x="715" y="410" font-family="monospace" font-size="8" fill="#8f7fff" text-anchor="middle">DH</text>
+  <text x="715" y="192" font-family="monospace" font-size="9" fill="#8f7fff" text-anchor="middle">+€4k</text>
+
+
+  <rect x="760" y="150" width="50" height="97" rx="1" fill="#65d6c9" opacity="0.7"></rect>
+  <text x="785" y="410" font-family="monospace" font-size="8" fill="#65d6c9" text-anchor="middle">Air HP</text>
+  <text x="785" y="142" font-family="monospace" font-size="9" fill="#65d6c9" text-anchor="middle">+€11k</text>
+
+
+  <rect x="830" y="158" width="50" height="89" rx="1" fill="#4ade80" opacity="0.7"></rect>
+  <text x="855" y="410" font-family="monospace" font-size="8" fill="#4ade80" text-anchor="middle">Gnd HP</text>
+  <text x="855" y="150" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">+€10k</text>
+
+
+  <text x="745" y="430" font-family="monospace" font-size="10" fill="#2a4060" text-anchor="middle">NPV vs gas boiler base (incl. CO₂ price €80/t)</text>
+
+
+  <rect x="560" y="114" width="170" height="98" rx="4" fill="#0d1a2e" stroke="#152540" stroke-width="1"></rect>
+  <text x="644" y="132" font-family="monospace" font-size="9" fill="#2a4060" text-anchor="middle" font-weight="bold">ASSUMPTIONS</text>
+  <text x="568" y="148" font-family="monospace" font-size="9" fill="#2a4060">Elec: 0.18 €/kWh</text>
+  <text x="568" y="162" font-family="monospace" font-size="9" fill="#2a4060">Gas: 0.08 €/kWh</text>
+  <text x="568" y="176" font-family="monospace" font-size="9" fill="#2a4060">CO₂: 80 €/tCO₂</text>
+  <text x="568" y="190" font-family="monospace" font-size="9" fill="#2a4060">Discount: 5%/yr</text>
+  <text x="568" y="204" font-family="monospace" font-size="9" fill="#2a4060">Period: 20 years</text>
+
+
+  <rect x="24" y="490" width="912" height="34" rx="5" fill="#0d1a2e"></rect>
+  <text x="44" y="512" font-family="monospace" font-size="11" fill="#2a4060">LCOH · NPV · Heat pump · Gas boiler · District heating · CO₂ cost · Techno-economic comparison</text>
+</svg>

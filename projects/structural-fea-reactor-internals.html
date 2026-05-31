@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ANSYS Mechanical pilot study for a stainless-steel reactor-internals-inspired support plate: mesh convergence, mechanical load cases, thermal expansion boundary-condition sensitivity and Python post-processing." />
+  <meta property="og:title" content="Structural FEA Reactor Internals Pilot Study" />
+  <meta property="og:description" content="ANSYS Mechanical structural screening of a simplified stainless-steel support plate, with LC1-LC4R load cases, mesh convergence and thermal expansion interpretation." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-structural-fea-reactor.svg" />
+  <title>Structural FEA Reactor Internals Pilot Study | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
+  <link rel="stylesheet" href="../styles.css?v=20260531-structural-fea" />
+  <link rel="stylesheet" href="../styles/motion.css?v=20260531-structural-fea" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260531-structural-fea" />
+  <script src="../scripts/public-config.js?v=20260531-structural-fea" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
+  <script type="module" src="../scripts/motion/index.js?v=20260531-structural-fea"></script>
+  <script src="../scripts/motion/sw-register.js?v=20260531-structural-fea" defer></script>
+  <script src="../scripts/site.js?v=20260531-structural-fea" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body data-page-key="case-study" data-motion-page-transition>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../research.html">Research</a>
+        <a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a>
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CVs</a>
+        <a href="../about.html">About</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../courses.html">Courses</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">ANSYS Mechanical &middot; Structural FEA &middot; Mesh convergence &middot; Python</p>
+        <h1>Structural FEA Reactor Internals Pilot Study</h1>
+        <p class="hero-text">Educational ANSYS Mechanical pilot study for a simplified reactor-internals-inspired stainless-steel support plate, covering structural integrity screening, mesh convergence, mechanical load cases and thermal-expansion boundary-condition sensitivity.</p>
+        <div class="button-row">
+          <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals" target="_blank" rel="noreferrer">GitHub repository</a>
+        </div>
+        <img class="case-visual" src="../assets/thumb-structural-fea-reactor.svg" alt="Structural FEA support plate mesh and stress visual" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Tools:</strong> ANSYS Mechanical Student, ANSYS SpaceClaim, Python, pandas, matplotlib</li>
+            <li><strong>Geometry:</strong> simplified 316 stainless-steel support plate with central guide opening, mounting holes, bosses and radial ribs</li>
+            <li><strong>Load cases:</strong> LC1 2 kN lateral, LC2 5 kN lateral, LC3 3 kN lateral + 2 kN vertical, LC4 constrained +100 C, LC4R relaxed +100 C</li>
+            <li><strong>Scope:</strong> preliminary linear-elastic screening and modelling judgment, not a certified pressure-boundary or nuclear component calculation</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>What this demonstrates</h2>
+          <p>
+            The project is useful portfolio evidence because it shows how I structure a simulation study beyond pressing "solve": freeze assumptions, define load cases, run mesh convergence, check reactions, compare boundary-condition realism and post-process results reproducibly in Python.
+          </p>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>245,658 elements</strong><small>Fine mesh selected for final reporting</small></span>
+            <span class="result-metric-card"><strong>20.65 MPa</strong><small>Peak von Mises in the 5 kN lateral case</small></span>
+            <span class="result-metric-card"><strong>0.0171 MPa</strong><small>Relaxed thermal-expansion stress in LC4R</small></span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Method</p>
+          <h2>Simulation workflow</h2>
+        </div>
+        <div class="case-panel">
+          <ol>
+            <li><strong>Geometry and material:</strong> built a non-proprietary stainless-steel support plate and used a linear-elastic annealed 316 stainless-steel material assumption.</li>
+            <li><strong>Boundary conditions:</strong> compared fixed mounting-hole supports for mechanical cases with a relaxed 3-2-1 locating/sliding support for realistic thermal expansion.</li>
+            <li><strong>Mesh convergence:</strong> ran LC1 across coarse, medium, fine and very-fine tetrahedral meshes; final fine mesh used 416,866 nodes and 245,658 elements.</li>
+            <li><strong>Verification:</strong> checked reaction forces against the applied loads, including LC3 resultant reaction: sqrt(3000^2 + 2000^2) = 3605.5 N versus 3605.6 N from ANSYS.</li>
+            <li><strong>Post-processing:</strong> exported result CSVs and generated summary tables, figures and reporting values with Python.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Results</p>
+          <h2>Final load-case interpretation</h2>
+        </div>
+        <div class="case-panel">
+          <div class="case-data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Case</th>
+                  <th>Max deformation</th>
+                  <th>Max von Mises</th>
+                  <th>Interpretation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>LC1 - 2 kN lateral</td>
+                  <td>0.000366 mm</td>
+                  <td>8.26 MPa</td>
+                  <td>Baseline mechanical load; reaction balanced at 2000 N.</td>
+                </tr>
+                <tr>
+                  <td>LC2 - 5 kN lateral</td>
+                  <td>0.000915 mm</td>
+                  <td>20.65 MPa</td>
+                  <td>Linear scaling case; preliminary factor of safety 9.93 against 205 MPa screening yield.</td>
+                </tr>
+                <tr>
+                  <td>LC3 - combined load</td>
+                  <td>0.001009 mm</td>
+                  <td>19.572 MPa</td>
+                  <td>Combined 3 kN lateral + 2 kN vertical; reaction resultant check passed.</td>
+                </tr>
+                <tr>
+                  <td>LC4 - constrained thermal</td>
+                  <td>0.15288 mm</td>
+                  <td>2705.7 MPa</td>
+                  <td>Over-constrained comparison only; peak stress is treated as a boundary-condition artifact.</td>
+                </tr>
+                <tr>
+                  <td>LC4R - relaxed thermal</td>
+                  <td>0.30092 mm</td>
+                  <td>0.0171 MPa</td>
+                  <td>Accepted thermal sanity check; expansion is not artificially restrained.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Engineering judgment</p>
+          <h2>Why LC4 and LC4R both matter</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            The most important modelling lesson is the thermal boundary-condition comparison. LC4 intentionally keeps the fixed-hole support during a +100 C thermal expansion case, producing extremely high local stress. That result is useful as a warning, not as a design stress. LC4R replaces the fixed-hole restraint with a locating/sliding support assumption, allowing free expansion while preventing rigid-body motion; the resulting stress is negligible.
+          </p>
+          <p>
+            The takeaway is exactly the kind of FEA discipline I want the portfolio to show: maximum stress contours are not self-interpreting. Boundary conditions, mesh refinement, reactions and physical support realism must be read together.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Limitations</p>
+          <h2>What this project does not claim</h2>
+        </div>
+        <div class="case-panel">
+          <ul>
+            <li>This is an educational portfolio project, not an ASME BPVC-compliant design calculation.</li>
+            <li>It does not include certified material allowables, stress categorisation, bolt preload, washer contact, nonlinear plasticity, fatigue, seismic loading, irradiation effects, weld details or manufacturing tolerances.</li>
+            <li>The 205 MPa yield value is used as a preliminary screening value and should be replaced with the exact certified material-card allowable for any real design workflow.</li>
+            <li>The geometry is non-proprietary and simplified; it is reactor-internals-inspired, not a certified nuclear component.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Relevance</p>
+          <h2>How it fits the portfolio</h2>
+        </div>
+        <div class="case-panel">
+          <p>
+            This adds structural simulation evidence beside the thermal-fluid and energy-system work: ANSYS Mechanical setup, mesh convergence, load-case interpretation, thermal expansion modelling and reproducible Python reporting. It is especially relevant for engineering analyst, simulation, mechanical integrity and industrial R&amp;D roles where the quality of modelling assumptions matters as much as the final contour plot.
+          </p>
+          <div class="project-links">
+            <a href="https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals" target="_blank" rel="noreferrer">Open GitHub repository</a>
+            <a href="../projects.html">Back to project library</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -39,6 +39,44 @@
       ]
     },
     {
+      "id": "structural-fea-reactor-internals",
+      "title": "Structural FEA Reactor Internals Pilot Study",
+      "category": "Mechanical & Structural Simulation",
+      "status": "published",
+      "featured": true,
+      "order": 2,
+      "period": "2026",
+      "associatedWith": "Portfolio project",
+      "summary": "ANSYS Mechanical pilot study for a simplified reactor-internals-inspired 316 stainless-steel support plate, covering structural screening, mesh convergence, mechanical load cases and thermal-expansion boundary-condition sensitivity.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Research",
+        "Industrial R&D"
+      ],
+      "tools": [
+        "ANSYS Mechanical",
+        "ANSYS SpaceClaim",
+        "Python",
+        "pandas",
+        "matplotlib"
+      ],
+      "skills": [
+        "Structural FEA",
+        "Mesh convergence",
+        "Boundary-condition sensitivity",
+        "Thermal expansion interpretation"
+      ],
+      "image": "assets/thumb-structural-fea-reactor.svg",
+      "caseStudyUrl": "projects/structural-fea-reactor-internals.html",
+      "repoUrl": "https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals",
+      "highlights": [
+        "Built a simplified, non-proprietary reactor-internals-inspired support plate in SpaceClaim and screened it in ANSYS Mechanical Student.",
+        "Reported the final fine mesh at 245,658 elements and 416,866 nodes after LC1 convergence checks.",
+        "Mechanical load cases LC1-LC3 remained below 20.65 MPa peak von Mises, with reaction-force checks matching the applied load resultants.",
+        "Compared constrained thermal expansion against a relaxed 3-2-1 support case to show why the LC4 peak stress is a boundary-condition artifact rather than a design stress."
+      ]
+    },
+    {
       "id": "pypsa-nl-grid-flexibility",
       "title": "Exploratory PyPSA-NL Grid Congestion and BESS Learning Project",
       "category": "Energy Systems",
