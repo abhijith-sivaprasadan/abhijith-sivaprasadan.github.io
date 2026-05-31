@@ -10,6 +10,8 @@
   if (!("serviceWorker" in navigator)) return;
   const params = new URL(location.href).searchParams;
   const isLocal = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(location.hostname);
+  const scriptUrl = document.currentScript?.src ? new URL(document.currentScript.src) : null;
+  const assetVersion = scriptUrl?.searchParams.get("v") || "20260601-ui-cache-fix";
   if (location.protocol !== "https:" && !isLocal) return;
 
   if (params.get("nosw") === "1" || (isLocal && params.get("sw") !== "1")) {
@@ -18,14 +20,15 @@
     );
     if (isLocal && "caches" in window) {
       caches.keys().then((keys) =>
-        Promise.all(keys.filter((key) => /^(shell|runtime)-v4-/.test(key)).map((key) => caches.delete(key)))
+        Promise.all(keys.filter((key) => /^(shell|runtime)-/.test(key)).map((key) => caches.delete(key)))
       );
     }
     return;
   }
 
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").then((reg) => {
+    navigator.serviceWorker.register(`/sw.js?v=${encodeURIComponent(assetVersion)}`, { updateViaCache: "none" }).then((reg) => {
+      reg.update().catch(() => {});
       reg.addEventListener("updatefound", () => {
         const sw = reg.installing;
         if (!sw) return;

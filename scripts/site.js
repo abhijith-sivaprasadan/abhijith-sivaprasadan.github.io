@@ -127,8 +127,8 @@ const pageKey = document.body.dataset.pageKey || inferredPageKey;
 document.body.dataset.pageKey = pageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260523-cleanup";
-const apiVersion = "20260523-cleanup";
+const assetVersion = "20260601-ui-cache-fix";
+const apiVersion = "20260601-ui-cache-fix";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
 // Empty by default → fall back to the committed api/*.json files (see
@@ -1547,6 +1547,26 @@ let usingStaticDomProjects = false;
 
 const initializeProjects = async () => {
   if (!dynamicProjects && !featuredProjects) return;
+
+  const preserveProjectBrowser = Boolean(dynamicProjects?.querySelector("[data-project-id]"));
+  const preserveFeaturedGrid = Boolean(featuredProjects?.querySelector(".project-card"));
+
+  if (preserveProjectBrowser) {
+    usingStaticDomProjects = true;
+    pageState.projects = readStaticProjectItems();
+    renderProjectFilters();
+    renderStaticProjectList();
+  }
+
+  if (preserveFeaturedGrid) {
+    decorateSkillLinks(featuredProjects);
+  }
+
+  // Hand-authored project markup is the source of truth on these pages. Without
+  // this guard, the JSON renderer replaces edited cards after load.
+  if (preserveProjectBrowser && (!featuredProjects || preserveFeaturedGrid)) return;
+  if (!dynamicProjects && preserveFeaturedGrid) return;
+
   try {
     const fallbackUrl = `${basePath}api/linkedin-projects.json`;
     const [apiResult, staticResult] = await Promise.allSettled([
@@ -1559,29 +1579,35 @@ const initializeProjects = async () => {
     const mergedProjects = visibleItems(mergeById(Array.isArray(staticData.projects) ? staticData.projects : [], Array.isArray(apiData.projects) ? apiData.projects : []));
 
     if (mergedProjects.length > 0) {
-      // API data available — use dynamic render path
-      usingStaticDomProjects = false;
-      pageState.projects = mergedProjects;
+      if (!preserveProjectBrowser) {
+        // API data available — use dynamic render path.
+        usingStaticDomProjects = false;
+        pageState.projects = mergedProjects;
+      }
 
-      if (featuredProjects) {
+      if (featuredProjects && !preserveFeaturedGrid) {
         const selected = mergedProjects.filter((project) => project.featured).slice(0, 6);
         featuredProjects.innerHTML = (selected.length ? selected : mergedProjects.slice(0, 6)).map(renderProjectCard).join("");
         decorateSkillLinks(featuredProjects);
       }
 
-      renderProjectFilters();
-      renderProjectList();
+      if (dynamicProjects && !preserveProjectBrowser) {
+        renderProjectFilters();
+        renderProjectList();
+      }
     } else {
       // No API data — fall back to DOM items (static HTML preserved, just show/hide)
-      usingStaticDomProjects = true;
-      pageState.projects = readStaticProjectItems();
+      if (dynamicProjects && !preserveProjectBrowser) {
+        usingStaticDomProjects = true;
+        pageState.projects = readStaticProjectItems();
 
-      renderProjectFilters();
-      renderStaticProjectList();
+        renderProjectFilters();
+        renderStaticProjectList();
+      }
     }
   } catch (error) {
     // Even if everything fails, try DOM items as last resort
-    if (dynamicProjects) {
+    if (dynamicProjects && !preserveProjectBrowser) {
       usingStaticDomProjects = true;
       pageState.projects = readStaticProjectItems();
       renderProjectFilters();

@@ -5,16 +5,18 @@
  *   - On install: precache the shell (index, css, key js, fonts list).
  *   - On fetch:
  *       HTML pages → network-first with cache fallback (so updates are seen)
- *       Same-origin assets → cache-first with background revalidate
+ *       Same-origin CSS/JS/JSON → network-first with cache fallback
+ *       Same-origin media/assets → cache-first with background revalidate
  *       Cross-origin (CDN: GSAP, KaTeX, fonts) → cache-first, never stale
  *   - Old caches are cleaned on activate.
  *
  * To disable for a session, the user can hit `?nosw=1` once.
  */
 
-const VERSION = "v4-w18-20260529-2";
+const VERSION = "v4-w19-20260601-ui-cache-fix";
 const SHELL_CACHE = `shell-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
+const NETWORK_FIRST_EXTENSIONS = /\.(?:css|js|json)$/i;
 
 const SHELL = [
   "/",
@@ -64,9 +66,13 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Same-origin: cache-first with revalidate
+  // Same-origin UI/data assets should not hide edits behind stale runtime cache.
   if (url.origin === self.location.origin) {
-    event.respondWith(cacheFirstRevalidate(req));
+    if (req.cache === "no-store" || url.pathname.startsWith("/api/") || NETWORK_FIRST_EXTENSIONS.test(url.pathname)) {
+      event.respondWith(networkFirst(req));
+    } else {
+      event.respondWith(cacheFirstRevalidate(req));
+    }
     return;
   }
 
