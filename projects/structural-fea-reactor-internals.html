@@ -134,6 +134,25 @@
             <figcaption><strong>06 / Thermal support realism</strong><span>LC4 is kept as an over-constrained warning; LC4R is the accepted thermal sanity check with locating/sliding support.</span></figcaption>
           </figure>
         </div>
+        <div class="structural-comparison" aria-label="Thermal expansion boundary-condition comparison">
+          <article class="structural-comparison-copy">
+            <p class="eyebrow">Boundary-condition judgment</p>
+            <h3>LC4 is a warning; LC4R is the sanity check</h3>
+            <p>The thermal comparison is intentionally shown as a pair. Keeping fixed mounting holes during +100 C expansion creates an over-constrained artifact, while the locating/sliding support in LC4R allows thermal growth without artificial restraint.</p>
+          </article>
+          <div class="structural-comparison-grid">
+            <figure class="structural-figure-card is-alert">
+              <div class="figure-kpi-row" aria-hidden="true"><span>LC4</span><span>Constrained +100 C</span><span>2705.7 MPa</span></div>
+              <img src="../assets/projects/structural-fea/lc4-overconstrained-stress.png" alt="ANSYS constrained thermal expansion equivalent stress result showing over-constrained artifact stress" loading="lazy" width="1600" height="900" />
+              <figcaption><strong>Over-constrained thermal case</strong><span>Retained as a boundary-condition artifact warning, not as a design stress. The contour is useful because it shows what wrong support realism can do.</span></figcaption>
+            </figure>
+            <figure class="structural-figure-card is-accepted">
+              <div class="figure-kpi-row" aria-hidden="true"><span>LC4R</span><span>Relaxed +100 C</span><span>0.0171 MPa</span></div>
+              <img src="../assets/projects/structural-fea/lc4r-relaxed-stress.png" alt="ANSYS relaxed thermal expansion equivalent stress result after changing the support condition" loading="lazy" width="1600" height="900" />
+              <figcaption><strong>Relaxed thermal case</strong><span>Locating/sliding support assumption allows expansion while preventing rigid-body motion; reported equivalent stress drops to 0.0171 MPa.</span></figcaption>
+            </figure>
+          </div>
+        </div>
       </div>
     </section>
 
