@@ -13,16 +13,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="../styles.css?v=20260531-structural-fea-figures" />
-  <link rel="stylesheet" href="../styles/motion.css?v=20260531-structural-fea-figures" />
-  <link rel="stylesheet" href="../styles/v4.css?v=20260531-structural-fea-figures" />
-  <script src="../scripts/public-config.js?v=20260531-structural-fea-figures" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=20260531-structural-fea-crops" />
+  <link rel="stylesheet" href="../styles/motion.css?v=20260531-structural-fea-crops" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260531-structural-fea-crops" />
+  <script src="../scripts/public-config.js?v=20260531-structural-fea-crops" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="../scripts/motion/index.js?v=20260531-structural-fea-figures"></script>
-  <script src="../scripts/motion/sw-register.js?v=20260531-structural-fea-figures" defer></script>
-  <script src="../scripts/site.js?v=20260531-structural-fea-figures" defer></script>
+  <script type="module" src="../scripts/motion/index.js?v=20260531-structural-fea-crops"></script>
+  <script src="../scripts/motion/sw-register.js?v=20260531-structural-fea-crops" defer></script>
+  <script src="../scripts/site.js?v=20260531-structural-fea-crops" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body class="signal-rebuild" data-page-key="case-study" data-motion-page-transition>
@@ -57,20 +57,10 @@
         <div class="button-row">
           <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals" target="_blank" rel="noreferrer">GitHub repository</a>
         </div>
-        <div class="structural-hero-board" aria-label="Structural FEA evidence figure board">
-          <figure class="structural-hero-shot is-primary">
-            <img src="../assets/projects/structural-fea/lc2-equivalent-stress.png" alt="ANSYS Mechanical LC2 von Mises stress field under 5 kN lateral loading" loading="lazy" width="1600" height="900" />
-            <figcaption><strong>LC2 stress screen</strong><span>20.65 MPa peak von Mises under 5 kN lateral load.</span></figcaption>
-          </figure>
-          <figure class="structural-hero-shot">
-            <img src="../assets/projects/structural-fea/final-fine-mesh.png" alt="ANSYS Mechanical fine tetrahedral mesh selected for final reporting" loading="lazy" width="960" height="760" />
-            <figcaption><strong>Fine mesh</strong><span>245,658 elements after LC1 convergence screening.</span></figcaption>
-          </figure>
-          <figure class="structural-hero-shot">
-            <img src="../assets/projects/structural-fea/lc1-normalized-convergence.png" alt="Python normalized convergence plot for LC1 deformation and stress outputs" loading="lazy" width="1112" height="640" />
-            <figcaption><strong>Convergence</strong><span>Python post-processing against the very-fine reference.</span></figcaption>
-          </figure>
-        </div>
+        <figure class="structural-hero-composite">
+          <img src="../assets/projects/structural-fea/web/structural-fea-hero-board-web.png" alt="Designed structural FEA evidence board showing LC2 stress, selected mesh and convergence plot" loading="lazy" width="1800" height="1080" />
+          <figcaption>Curated web figure assembled from ANSYS Mechanical and Python outputs; original exports remain preserved as source evidence.</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -107,40 +97,41 @@
           <h2>Real screenshots from the FEA workflow</h2>
         </div>
         <div class="structural-figure-deck">
-          <figure class="structural-figure-card is-wide">
-            <div class="figure-kpi-row" aria-hidden="true"><span>Geometry</span><span>316 stainless steel</span><span>Non-proprietary</span></div>
-            <img src="../assets/projects/structural-fea/geometry-isometric.png" alt="ANSYS SpaceClaim isometric geometry of the simplified reactor-internals support plate" loading="lazy" width="1600" height="900" />
-            <figcaption><strong>01 / Geometry model</strong><span>Non-proprietary support plate with central guide opening, four mounting bosses and radial ribs. The page is framed as reactor-internals-inspired screening, not a certified nuclear component calculation.</span></figcaption>
-          </figure>
-          <figure class="structural-figure-card is-mesh">
-            <div class="figure-kpi-row" aria-hidden="true"><span>Fine mesh</span><span>245,658 elements</span><span>416,866 nodes</span></div>
-            <img src="../assets/projects/structural-fea/final-fine-mesh.png" alt="ANSYS final fine tetrahedral mesh of the support plate" loading="lazy" width="960" height="760" />
-            <figcaption><strong>02 / Mesh selected for reporting</strong><span>Fine tetrahedral mesh used after LC1 convergence checks. The full screenshot is kept visible so the mesh density and topology remain inspectable.</span></figcaption>
-          </figure>
-          <figure class="structural-figure-card is-plot">
-            <div class="figure-kpi-row" aria-hidden="true"><span>LC1 sweep</span><span>Normalized outputs</span><span>Python</span></div>
-            <img src="../assets/projects/structural-fea/lc1-normalized-convergence.png" alt="Python convergence plot normalizing deformation, von Mises stress and principal stress against the very fine mesh" loading="lazy" width="1112" height="640" />
-            <figcaption><strong>03 / Convergence plot</strong><span>Python post-processing normalizes deformation, von Mises stress and principal stress against the very-fine mesh reference before choosing the reporting mesh.</span></figcaption>
+          <figure class="structural-figure-card is-wide is-composite">
+            <div class="figure-kpi-row" aria-hidden="true"><span>Geometry</span><span>Fine mesh</span><span>LC1 convergence</span></div>
+            <img src="../assets/projects/structural-fea/web/structural-fea-method-board-web.png" alt="Curated structural FEA method board showing geometry, selected mesh and LC1 convergence plot" loading="lazy" width="1800" height="820" />
+            <figcaption><strong>01 / Method evidence board</strong><span>Geometry, reporting mesh and convergence are grouped into one figure so the analysis setup reads as a workflow rather than unrelated screenshots.</span></figcaption>
           </figure>
           <figure class="structural-figure-card">
             <div class="figure-kpi-row" aria-hidden="true"><span>LC1</span><span>2 kN lateral</span><span>0.000366 mm</span></div>
-            <img src="../assets/projects/structural-fea/lc1-deformation-fine.png" alt="ANSYS LC1 total deformation field for the fine mesh" loading="lazy" width="1600" height="900" />
-            <figcaption><strong>04 / LC1 deformation response</strong><span>Baseline mechanical load case used for mesh sensitivity. The small deformation magnitude helps establish the stiffness scale before higher lateral loading.</span></figcaption>
+            <img src="../assets/projects/structural-fea/web/lc1-deformation-web.png" alt="Cropped ANSYS LC1 total deformation field for the fine mesh" loading="lazy" width="1145" height="718" />
+            <figcaption><strong>02 / LC1 deformation response</strong><span>Cropped to the plate response and scale bar; baseline mechanical case used for mesh sensitivity and stiffness scale.</span></figcaption>
           </figure>
           <figure class="structural-figure-card">
             <div class="figure-kpi-row" aria-hidden="true"><span>LC1 detail</span><span>Mounting hole</span><span>Hotspot check</span></div>
-            <img src="../assets/projects/structural-fea/lc1-hotspot-backside-mounting-hole.png" alt="ANSYS LC1 backside mounting-hole hotspot detail screenshot" loading="lazy" width="1600" height="900" />
-            <figcaption><strong>05 / Hotspot inspection</strong><span>Backside mounting-hole view records where local stress concentration appears, separating modelling interpretation from the headline contour maximum.</span></figcaption>
+            <img src="../assets/projects/structural-fea/web/lc1-hotspot-web.png" alt="Cropped ANSYS LC1 backside mounting-hole hotspot detail screenshot" loading="lazy" width="1738" height="657" />
+            <figcaption><strong>03 / Hotspot inspection</strong><span>Backside mounting-hole view isolates the local stress concentration instead of showing the full ANSYS workspace.</span></figcaption>
           </figure>
           <figure class="structural-figure-card">
             <div class="figure-kpi-row" aria-hidden="true"><span>LC2</span><span>5 kN lateral</span><span>20.65 MPa</span></div>
-            <img src="../assets/projects/structural-fea/lc2-equivalent-stress.png" alt="ANSYS LC2 equivalent von Mises stress result under 5 kN lateral load" loading="lazy" width="1600" height="900" />
-            <figcaption><strong>06 / LC2 stress field</strong><span>5 kN lateral screening case with 20.65 MPa peak von Mises stress and a preliminary factor of safety of 9.93 against the 205 MPa screening yield.</span></figcaption>
+            <img src="../assets/projects/structural-fea/web/lc2-equivalent-stress-web.png" alt="Cropped ANSYS LC2 equivalent von Mises stress result under 5 kN lateral load" loading="lazy" width="1165" height="738" />
+            <figcaption><strong>04 / LC2 stress field</strong><span>5 kN lateral screening case with 20.65 MPa peak von Mises stress and a preliminary factor of safety of 9.93 against the 205 MPa screening yield.</span></figcaption>
           </figure>
           <figure class="structural-figure-card">
             <div class="figure-kpi-row" aria-hidden="true"><span>LC3</span><span>Combined load</span><span>3605.6 N</span></div>
-            <img src="../assets/projects/structural-fea/lc3-reaction-force.png" alt="ANSYS LC3 reaction-force check for combined 3 kN lateral and 2 kN vertical loading" loading="lazy" width="1600" height="900" />
-            <figcaption><strong>07 / Reaction-force check</strong><span>LC3 resultant is 3605.6 N in ANSYS versus sqrt(3000^2 + 2000^2) = 3605.5 N, showing the model balances the applied vector load.</span></figcaption>
+            <img src="../assets/projects/structural-fea/web/lc3-reaction-force-web.png" alt="Cropped ANSYS LC3 reaction-force check for combined 3 kN lateral and 2 kN vertical loading" loading="lazy" width="1186" height="758" />
+            <figcaption><strong>05 / Reaction-force check</strong><span>LC3 resultant is 3605.6 N in ANSYS versus sqrt(3000^2 + 2000^2) = 3605.5 N, showing the model balances the applied vector load.</span></figcaption>
+          </figure>
+        </div>
+        <div class="structural-comparison" aria-label="Thermal expansion boundary-condition comparison">
+          <article class="structural-comparison-copy">
+            <p class="eyebrow">Boundary-condition judgment</p>
+            <h3>LC4 is a warning; LC4R is the sanity check</h3>
+            <p>The thermal comparison is intentionally shown as a pair. Keeping fixed mounting holes during +100 C expansion creates an over-constrained artifact, while the locating/sliding support in LC4R allows thermal growth without artificial restraint.</p>
+          </article>
+          <figure class="structural-comparison-board">
+            <img src="../assets/projects/structural-fea/web/structural-fea-thermal-comparison-web.png" alt="Curated comparison board showing constrained LC4 thermal stress beside relaxed LC4R thermal stress" loading="lazy" width="1800" height="860" />
+            <figcaption><strong>06 / Thermal support realism</strong><span>LC4 is kept as an over-constrained warning; LC4R is the accepted thermal sanity check with locating/sliding support.</span></figcaption>
           </figure>
         </div>
         <div class="structural-comparison" aria-label="Thermal expansion boundary-condition comparison">
