@@ -174,9 +174,15 @@ function addMiniIcons(topic) {
   });
 }
 
+function shouldInjectSignalArt() {
+  const body = document.body;
+  return Boolean(body?.matches("[data-signal-page-art]") || document.querySelector("[data-signal-page-art]"));
+}
+
 export async function init() {
   const body = document.body;
   if (!body) return null;
+  if (!shouldInjectSignalArt()) return null;
   body.classList.add("signal-rebuild");
   const topic = resolveTopic();
   body.dataset.signalLens = topic.lens;

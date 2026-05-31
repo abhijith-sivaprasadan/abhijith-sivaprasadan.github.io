@@ -1,7 +1,6 @@
 // ── Live Lens / Evidence Lens ───────────────────────────────────────
 // The hero physics panels are the intended homepage experience. They stay
-// enabled by default on pages with [data-motion-fluid-sim], while the static
-// Signal console is only the fallback/off state.
+// enabled by default on pages with [data-motion-fluid-sim].
 //   - URL param ?lens=1   turns on + sticks in localStorage
 //   - URL param ?lens=0   turns off + sticks in localStorage
 //   - the floating "Live Lens" toggle can switch either way
@@ -27,8 +26,18 @@ function setLensDev(on) {
       : "Live lens OFF — click to show experimental panels";
   }
 }
+
+function hasLensSurface() {
+  return Boolean(document.querySelector("[data-motion-fluid-sim], [data-hero-instrument], [data-live-lens]"));
+}
+
 (function initLensDevFlag() {
   try {
+    if (!hasLensSurface()) {
+      document.body.classList.remove("lens-dev");
+      return;
+    }
+
     const params = new URLSearchParams(window.location.search);
     if (params.has("lens")) {
       const v = params.get("lens");
@@ -48,6 +57,7 @@ function setLensDev(on) {
   } catch (e) { /* storage blocked → silently skip */ }
 })();
 function mountLensToggle() {
+  if (!hasLensSurface()) return;
   if (document.querySelector("[data-lens-toggle]")) return;
   const btn = document.createElement("button");
   btn.type = "button";
@@ -127,8 +137,8 @@ const pageKey = document.body.dataset.pageKey || inferredPageKey;
 document.body.dataset.pageKey = pageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260601-ui-cache-fix";
-const apiVersion = "20260601-ui-cache-fix";
+const assetVersion = "20260601-static-source-fix";
+const apiVersion = "20260601-static-source-fix";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
 // Empty by default → fall back to the committed api/*.json files (see
@@ -659,6 +669,22 @@ const injectNavLinks = () => {
 
   const currentFile = location.pathname.split("/").pop() || "index.html";
   const homeHref = (anchor) => (pageKey === "home" ? anchor : `${basePath}index.html${anchor}`);
+  const markCurrentLink = (link) => {
+    const targetFile = (link.getAttribute("href") || "").split("#")[0].split("/").pop();
+    const isProjectsDetail = location.pathname.includes("/projects/") && targetFile === "projects.html";
+    const isExperienceDetail = location.pathname.includes("/experience/") && targetFile === "experience.html";
+    if (currentFile === targetFile || isProjectsDetail || isExperienceDetail) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  };
+
+  if (shouldPreserveAuthoredContent(navLinks)) {
+    navLinks.querySelectorAll("a").forEach(markCurrentLink);
+    return;
+  }
+
   const links = [
     { label: "Research", href: `${basePath}research.html` },
     { label: "Energy Systems", href: `${basePath}energy-systems.html` },
@@ -678,12 +704,7 @@ const injectNavLinks = () => {
     const link = document.createElement("a");
     link.href = href;
     link.textContent = label;
-    const targetFile = href.split("#")[0].split("/").pop();
-    const isProjectsDetail = location.pathname.includes("/projects/") && targetFile === "projects.html";
-    const isExperienceDetail = location.pathname.includes("/experience/") && targetFile === "experience.html";
-    if (currentFile === targetFile || isProjectsDetail || isExperienceDetail) {
-      link.setAttribute("aria-current", "page");
-    }
+    markCurrentLink(link);
     navLinks.append(link);
   });
 };
@@ -783,6 +804,13 @@ const visibleItems = (items = []) =>
   items
     .filter((item) => item.status !== "draft")
     .sort((a, b) => (Number(a.order) || 999) - (Number(b.order) || 999));
+
+// If a dynamic/CMS region already has authored child markup, keep that HTML as
+// the source of truth. Add data-render-from-api="true" to opt back into replacement.
+const shouldPreserveAuthoredContent = (block) =>
+  Boolean(block?.dataset?.renderFromApi !== "true" && block?.children?.length);
+
+const dynamicRenderTargets = (blocks) => Array.from(blocks).filter((block) => !shouldPreserveAuthoredContent(block));
 
 const itemTags = (item) => [...(item.tools || []), ...(item.skills || [])];
 
@@ -1640,16 +1668,24 @@ const renderExperienceItem = (item) => {
 
 const initializeExperience = async () => {
   if (!dynamicExperienceBlocks.length) return;
+  const renderTargets = dynamicRenderTargets(dynamicExperienceBlocks);
+  if (renderTargets.length !== dynamicExperienceBlocks.length) {
+    dynamicExperienceBlocks.forEach((block) => {
+      if (shouldPreserveAuthoredContent(block)) decorateSkillLinks(block);
+    });
+  }
+  if (!renderTargets.length) return;
+
   try {
     const data = await fetchCollection("experience", `${basePath}api/linkedin-experience.json`);
     const items = visibleItems(Array.isArray(data.experience) ? data.experience : []);
-    dynamicExperienceBlocks.forEach((block) => {
+    renderTargets.forEach((block) => {
       const limit = Number(block.dataset.limit) || items.length;
       block.innerHTML = items.slice(0, limit).map(renderExperienceItem).join("");
       decorateSkillLinks(block);
     });
   } catch {
-    dynamicExperienceBlocks.forEach((block) => {
+    renderTargets.forEach((block) => {
       block.innerHTML = `<article class="timeline-item"><h2>Experience records</h2><p>The experience timeline is being refreshed.</p></article>`;
     });
   }
@@ -1880,6 +1916,10 @@ const initializeNavToggle = () => {
 const initializeFooter = () => {
   const footerContainer = document.querySelector(".footer .container");
   if (!footerContainer || footerContainer.dataset.enhanced === "true") return;
+  if (shouldPreserveAuthoredContent(footerContainer)) {
+    footerContainer.dataset.enhanced = "static";
+    return;
+  }
   footerContainer.dataset.enhanced = "true";
   footerContainer.innerHTML = `
     <div class="footer-grid">
@@ -1926,15 +1966,21 @@ const renderSkills = (items, compact = false) =>
 
 const initializeSkills = async () => {
   if (!dynamicSkillBlocks.length) return;
+  const renderTargets = dynamicRenderTargets(dynamicSkillBlocks);
+  dynamicSkillBlocks.forEach((block) => {
+    if (shouldPreserveAuthoredContent(block)) decorateSkillLinks(block);
+  });
+  if (!renderTargets.length) return;
+
   try {
     const data = await fetchCollection("skills", `${basePath}api/skills.json`);
     const items = visibleItems(Array.isArray(data.skillGroups) ? data.skillGroups : []);
-    dynamicSkillBlocks.forEach((block) => {
+    renderTargets.forEach((block) => {
       block.innerHTML = renderSkills(items, block.dataset.compact === "true");
       decorateSkillLinks(block);
     });
   } catch {
-    dynamicSkillBlocks.forEach((block) => {
+    renderTargets.forEach((block) => {
       block.innerHTML = `<article class="compact-item"><h3>Skills and tools</h3><p>The skills list is being refreshed.</p></article>`;
     });
   }
@@ -1942,10 +1988,13 @@ const initializeSkills = async () => {
 
 const initializeCourses = async () => {
   if (!dynamicCourseBlocks.length) return;
+  const renderTargets = dynamicRenderTargets(dynamicCourseBlocks);
+  if (!renderTargets.length) return;
+
   try {
     const data = await fetchCollection("courses", `${basePath}api/courses.json`);
     const items = visibleItems(Array.isArray(data.courses) ? data.courses : []);
-    dynamicCourseBlocks.forEach((block) => {
+    renderTargets.forEach((block) => {
       const limit = Number(block.dataset.limit) || items.length;
       block.innerHTML = items
         .slice(0, limit)
@@ -1956,7 +2005,7 @@ const initializeCourses = async () => {
         .join("");
     });
   } catch {
-    dynamicCourseBlocks.forEach((block) => {
+    renderTargets.forEach((block) => {
       block.innerHTML = `<article class="compact-item"><h3>Course records</h3><p>The course list is being refreshed.</p></article>`;
     });
   }
@@ -1975,17 +2024,23 @@ const renderIdeaItem = (idea) => {
 
 const initializeIdeas = async () => {
   if (!dynamicIdeaBlocks.length) return;
+  const renderTargets = dynamicRenderTargets(dynamicIdeaBlocks);
+  dynamicIdeaBlocks.forEach((block) => {
+    if (shouldPreserveAuthoredContent(block)) decorateSkillLinks(block);
+  });
+  if (!renderTargets.length) return;
+
   try {
     const data = await fetchCollection("ideas", `${basePath}api/ideas.json`);
     const items = visibleItems(Array.isArray(data.ideas) ? data.ideas : []);
-    dynamicIdeaBlocks.forEach((block) => {
+    renderTargets.forEach((block) => {
       block.innerHTML = items.length
         ? items.map(renderIdeaItem).join("")
         : `<article class="entry-card"><h3>No ideas yet</h3><p>New experiment ideas can be added here over time.</p></article>`;
       decorateSkillLinks(block);
     });
   } catch {
-    dynamicIdeaBlocks.forEach((block) => {
+    renderTargets.forEach((block) => {
       block.innerHTML = `<article class="entry-card"><h3>Project ideas</h3><p>The idea list is being refreshed.</p></article>`;
     });
   }
@@ -1993,6 +2048,7 @@ const initializeIdeas = async () => {
 
 const initializeCertifications = async () => {
   if (!certificationsList) return;
+  if (shouldPreserveAuthoredContent(certificationsList)) return;
 
   try {
     const data = await fetchCollection(

@@ -13,7 +13,7 @@
  * To disable for a session, the user can hit `?nosw=1` once.
  */
 
-const VERSION = "v4-w19-20260601-ui-cache-fix";
+const VERSION = "v4-w20-20260601-static-source-fix";
 const SHELL_CACHE = `shell-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
 const NETWORK_FIRST_EXTENSIONS = /\.(?:css|js|json)$/i;

@@ -110,8 +110,11 @@ function update(root, mode, ctx) {
 }
 
 export async function init(ctx) {
-  const host = document.querySelector("[data-dynamic-skills]");
-  if (!host || document.querySelector("[data-capability-radar]")) return null;
+  const anchor = document.querySelector("[data-skill-radar]");
+  const host = anchor?.matches("[data-dynamic-skills]")
+    ? anchor
+    : document.querySelector("[data-dynamic-skills]") || anchor;
+  if (!anchor || !host || document.querySelector("[data-capability-radar]")) return null;
   host.insertAdjacentHTML("beforebegin", template());
   const radar = document.querySelector("[data-capability-radar]");
   const inspect = (event) => {
