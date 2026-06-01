@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: center;
   gap: 14px;
+  min-width: 0;
   padding: 10px 56px 10px 18px;
   border-bottom: 1px solid var(--v4-line);
   background: linear-gradient(
@@ -20,11 +21,19 @@
 }
 
 .looking-for-banner .status-dot {
+  flex: 0 0 auto;
   width: 8px;
   height: 8px;
   border-radius: 999px;
   background: #22c55e;
   position: relative;
+}
+
+.looking-for-banner .status-text {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  line-height: 1.42;
 }
 
 .looking-for-banner .status-dot::after {
@@ -78,8 +87,11 @@ html.motion-reduced .looking-for-banner .status-dot::after {
 
 @media (max-width: 720px) {
   .looking-for-banner {
-    flex-direction: column;
-    gap: 6px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    justify-content: start;
+    gap: 8px;
     text-align: left;
     padding: 12px 48px 12px 16px;
   }

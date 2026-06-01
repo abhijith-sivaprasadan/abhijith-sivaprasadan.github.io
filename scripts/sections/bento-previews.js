@@ -191,7 +191,9 @@ function mount(card) {
 export async function init(ctx) {
   if (ctx?.reducedMotion) return null;
 
-  const cards = document.querySelectorAll("[data-project-id]");
+  const root = document.querySelector("[data-bento-previews]");
+  if (!root) return null;
+  const cards = root.matches("[data-project-id]") ? [root] : root.querySelectorAll("[data-project-id]");
   const instances = [];
   cards.forEach((card) => {
     const inst = mount(card);

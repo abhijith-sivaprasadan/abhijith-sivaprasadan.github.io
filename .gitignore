@@ -5,6 +5,7 @@ desktop.ini
 __pycache__/
 .pytest_cache/
 .cache/
+tmp/
 
 node_modules/
 npm-debug.log*

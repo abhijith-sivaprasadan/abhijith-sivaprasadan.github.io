@@ -80,7 +80,8 @@ function setActive(root, key) {
 }
 
 export async function init(ctx) {
-  const section = findResearchSection();
+  const source = document.querySelector("[data-research-mindmap-source]");
+  const section = source?.closest("section") || source || findResearchSection();
   if (!section || section.querySelector("[data-research-mindmap]")) return null;
   const heading = section.querySelector(".section-heading");
   heading.insertAdjacentHTML("afterend", template());

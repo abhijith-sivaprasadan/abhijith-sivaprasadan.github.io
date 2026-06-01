@@ -159,7 +159,7 @@ function boot() {
   const autoload = [
     // Eulerian Stable Fluids — preferred on capable devices. The homepage
     // enables Live Lens by default; when a visitor explicitly turns it off,
-    // keep the solver off and let the static Signal console serve as fallback.
+    // keep the solver off and leave the authored hero content in place.
     { name: "fluid-sim-eulerian", selector: "[data-motion-fluid-sim]", skip: () => !supportsWorkers || !document.body.classList.contains("lens-dev") },
     // Legacy canvas fallback remains only for browsers without Worker support.
     { name: "fluid-sim",     selector: "[data-motion-fluid-sim]", skip: () => reducedMotion || supportsWorkers || !document.body.classList.contains("lens-dev") },
@@ -170,13 +170,13 @@ function boot() {
     { name: "transitions",   selector: "[data-motion-page-transition], a[data-page-transition]" },
     { name: "entrance",      selector: "[data-motion-entrance]",      skip: () => reducedMotion },
     { name: "chips",         selector: ".tag-row span, .audience-chip-row span, .skill-pill, .chip, .pill" },
-    { name: "signal-page-art", selector: "body", path: `${BASE}../sections/signal-page-art.js` },
-    { name: "bento-projects", selector: "[data-featured-projects]", path: `${BASE}../sections/bento-projects.js` },
+    { name: "signal-page-art", selector: "[data-signal-page-art]", path: `${BASE}../sections/signal-page-art.js` },
+    { name: "bento-projects", selector: "[data-bento-projects]", path: `${BASE}../sections/bento-projects.js` },
     { name: "featured-project-filters", selector: "[data-featured-project-filters]", path: `${BASE}../sections/featured-project-filters.js` },
     { name: "evidence-graph", selector: ".evidence-lanes", path: `${BASE}../sections/evidence-graph.js` },
-    { name: "skill-radar", selector: "[data-dynamic-skills]", path: `${BASE}../sections/skill-radar.js` },
+    { name: "skill-radar", selector: "[data-skill-radar]", path: `${BASE}../sections/skill-radar.js` },
     { name: "cinematic-timeline", selector: "#experience .timeline", path: `${BASE}../sections/cinematic-timeline.js` },
-    { name: "research-mindmap", selector: ".scene-skills + .section, [data-research-mindmap-source]", path: `${BASE}../sections/research-mindmap.js` },
+    { name: "research-mindmap", selector: "[data-research-mindmap-source]", path: `${BASE}../sections/research-mindmap.js` },
     { name: "letter-viewer", selector: ".testimonial-card", path: `${BASE}../sections/letter-viewer.js` },
     { name: "step-form", selector: "[data-contact-form]", path: `${BASE}../sections/step-form.js` },
     { name: "theme-wipe",    selector: "[data-theme-toggle]",         skip: () => reducedMotion },
@@ -187,7 +187,7 @@ function boot() {
     { name: "biot-calculator",  selector: "[data-biot-calculator]", path: `${BASE}../sections/biot-calculator.js` },
     { name: "i18n",             selector: "[data-i18n-sv], [data-i18n]" },
     { name: "cms-hydrate",      selector: "body", path: `${BASE}../cms/hydrate.js` },
-    { name: "bento-previews",   selector: "[data-project-id]", path: `${BASE}../sections/bento-previews.js`, skip: () => reducedMotion },
+    { name: "bento-previews",   selector: "[data-bento-previews]", path: `${BASE}../sections/bento-previews.js`, skip: () => reducedMotion },
     { name: "reducer-3d-viewer", selector: "[data-reducer-3d-viewer]", path: `${BASE}../sections/reducer-3d-viewer.js`, skip: () => reducedMotion },
   ];
   function loadPresentSubsystems() {

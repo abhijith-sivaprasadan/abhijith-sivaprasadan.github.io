@@ -21,16 +21,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://abhijith-portfolio-api.onrender.com" />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260601-ui-cache-fix" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260601-ui-cache-fix" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260601-ui-cache-fix" />
-  <script src="scripts/public-config.js?v=20260601-ui-cache-fix" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260601-mobile-overflow-fix" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260601-mobile-overflow-fix" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260601-mobile-overflow-fix" />
+  <script src="scripts/public-config.js?v=20260601-mobile-overflow-fix" defer></script>
   <!-- v4 motion stack: GSAP + plugins (load before motion/index.js) -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="scripts/motion/index.js?v=20260601-ui-cache-fix"></script>
-  <script src="scripts/motion/sw-register.js?v=20260601-ui-cache-fix" defer></script>
+  <script type="module" src="scripts/motion/index.js?v=20260601-mobile-overflow-fix"></script>
+  <script src="scripts/motion/sw-register.js?v=20260601-mobile-overflow-fix" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,8 +62,8 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis", "k-omega SST turbulence model", "Compressible flow", "Mesh independence", "Biot number analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260601-ui-cache-fix" defer></script>
-  <script src="scripts/animations.js?v=20260601-ui-cache-fix" defer></script>
+  <script src="scripts/site.js?v=20260601-mobile-overflow-fix" defer></script>
+  <script src="scripts/animations.js?v=20260601-mobile-overflow-fix" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
@@ -155,84 +155,6 @@
               <a class="button secondary" href="#contact" data-i18n-sv="Kontakt">Contact</a>
             </div>
           </div>
-
-          <aside class="home-signal-console" aria-label="Active design-system evidence diagram">
-            <div class="home-signal-console-head">
-              <span data-home-mode-target="thermal">Thermal-fluid instrument panel</span>
-              <span data-home-mode-target="energy" hidden>Energy systems instrument panel</span>
-              <span data-home-mode-target="decarbonisation" hidden>Industrial R&amp;D instrument panel</span>
-              <span data-home-mode-target="research" hidden>Research instrument panel</span>
-              <strong>Signal</strong>
-            </div>
-            <div class="home-signal-stage" aria-hidden="true">
-              <svg data-home-mode-target="thermal" viewBox="0 0 420 300" fill="none">
-                <path class="console-grid-line" d="M32 235 H386" />
-                <path class="console-reducer-wall" d="M35 113 H147 V76 H190 V128 H252 V145 H382" />
-                <path class="console-reducer-wall" d="M35 187 H147 V224 H190 V172 H252 V155 H382" />
-                <path class="console-c2-wall" d="M35 105 C111 105 152 116 194 137 S287 151 382 151" />
-                <path class="console-c2-wall" d="M35 195 C111 195 152 184 194 163 S287 149 382 149" />
-                <path class="console-flow strong" d="M42 150 C130 150 209 150 374 150" />
-                <path class="console-flow" d="M48 130 C135 130 166 139 205 145 S300 152 374 153" />
-                <path class="console-flow" d="M48 170 C135 170 166 161 205 155 S300 148 374 147" />
-                <rect class="console-hot-band" x="40" y="242" width="286" height="10" rx="5" />
-                <text x="42" y="54">C2 REDUCER / CHT / k-omega SST</text>
-                <text x="42" y="270">673 K inlet · Bi 0.003-0.004 · Ma 0.990-1.006</text>
-              </svg>
-
-              <svg data-home-mode-target="energy" viewBox="0 0 420 300" fill="none" hidden>
-                <path class="console-grid-line" d="M44 236 H378" />
-                <path class="console-energy-curve" d="M42 224 C76 176 105 188 135 142 S206 70 256 102 S334 150 376 78" />
-                <path class="console-energy-curve secondary" d="M42 244 C96 232 138 222 186 199 S300 161 378 126" />
-                <circle class="console-node" cx="135" cy="142" r="8" />
-                <circle class="console-node" cx="256" cy="102" r="8" />
-                <circle class="console-node" cx="376" cy="78" r="8" />
-                <rect class="console-box" x="52" y="68" width="88" height="42" rx="4" />
-                <rect class="console-box amber" x="246" y="184" width="96" height="42" rx="4" />
-                <path class="console-flow" d="M140 89 C189 86 219 111 248 184" />
-                <text x="62" y="94">DEMAND</text>
-                <text x="260" y="210">DISPATCH</text>
-                <text x="42" y="54">24h demand · price-driven dispatch · TES screen</text>
-                <text x="42" y="270">IDA ICE · HOMER Pro · LEAP · PuLP / MILP</text>
-              </svg>
-
-              <svg data-home-mode-target="decarbonisation" viewBox="0 0 420 300" fill="none" hidden>
-                <rect class="console-box" x="44" y="72" width="95" height="52" rx="4" />
-                <rect class="console-box amber" x="172" y="123" width="96" height="56" rx="4" />
-                <rect class="console-box blue" x="304" y="76" width="78" height="48" rx="4" />
-                <rect class="console-box" x="304" y="196" width="78" height="42" rx="4" />
-                <path class="console-flow strong" d="M139 98 C159 98 162 151 172 151" />
-                <path class="console-flow" d="M268 151 C299 151 284 100 304 100" />
-                <path class="console-flow secondary" d="M268 151 C303 153 288 218 304 218" />
-                <path class="console-energy-curve recovery" d="M343 196 C343 166 320 149 268 151" />
-                <rect class="console-hot-band" x="44" y="256" width="242" height="9" rx="4" />
-                <rect class="console-cool-band" x="44" y="269" width="144" height="9" rx="4" />
-                <text x="58" y="102">UTILITY</text>
-                <text x="191" y="155">PROCESS</text>
-                <text x="318" y="105">OUTPUT</text>
-                <text x="42" y="54">ISO 50001 / EnPI / electrification signal</text>
-                <text x="42" y="290">metering readiness · recovery loops · emissions response</text>
-              </svg>
-
-              <svg data-home-mode-target="research" viewBox="0 0 420 300" fill="none" hidden>
-                <path class="console-cooling-loop" d="M60 70 C93 116 93 184 60 230" />
-                <path class="console-nozzle upper" d="M57 98 C110 124 144 127 187 117 C239 105 291 105 380 84" />
-                <path class="console-nozzle lower" d="M57 202 C110 176 144 173 187 183 C239 195 291 195 380 216" />
-                <path class="console-flow strong" d="M178 150 C220 134 263 133 380 111" />
-                <path class="console-flow secondary" d="M178 150 C220 166 263 167 380 189" />
-                <path class="console-plume" d="M210 150 C251 130 288 133 382 118" />
-                <path class="console-plume lower" d="M210 150 C251 170 288 167 382 182" />
-                <path class="console-hot-band" d="M83 205 C123 179 157 177 190 184" />
-                <text x="42" y="54">de Laval nozzle / regenerative cooling</text>
-                <text x="42" y="268">area-Mach · Bartz scaling · deposit thermal resistance</text>
-              </svg>
-            </div>
-            <div class="home-signal-console-foot">
-              <span data-home-mode-target="thermal">Completed Siemens evidence: geometry, mesh, flow, wall-temperature interpretation.</span>
-              <span data-home-mode-target="energy" hidden>System model lens: load, price, dispatch and storage signals.</span>
-              <span data-home-mode-target="decarbonisation" hidden>Industrial lens: utilities, EnPI baseline and electrification response.</span>
-              <span data-home-mode-target="research" hidden>Research lens: cooling-channel degradation and measurable thermal resistance.</span>
-            </div>
-          </aside>
 
           <figure class="hero-instrument" data-hero-instrument data-live-lens>
             <div class="hero-instrument-head">

@@ -16,6 +16,10 @@ function escapeHtml(s) {
   );
 }
 
+function shouldPreserveAuthoredContent(host) {
+  return Boolean(host?.dataset?.renderFromApi !== "true" && host?.children?.length);
+}
+
 // ───────────────────────────────────────────────────────────────────────
 // Looking-for banner
 // ───────────────────────────────────────────────────────────────────────
@@ -40,6 +44,7 @@ async function hydrateLookingFor() {
 async function hydrateIdeas() {
   const host = document.querySelector("[data-cms-ideas]");
   if (!host) return;
+  if (shouldPreserveAuthoredContent(host)) return;
   const ideas = await sanityFetch(
     `*[_type=="idea" && visibility=="public"] | order(date desc) {
       _id, title, slug, date, status, summary, category, tags
@@ -67,6 +72,7 @@ async function hydrateIdeas() {
 async function hydrateResearchStatus() {
   const host = document.querySelector("[data-cms-research-status]");
   if (!host) return;
+  if (shouldPreserveAuthoredContent(host)) return;
   const doc = await sanityFetch(`*[_id=="research-status-singleton"][0]`);
   if (!doc) return;
 
@@ -103,6 +109,7 @@ async function hydrateResearchStatus() {
 async function hydrateTestimonials() {
   const grid = document.querySelector(".testimonials-grid[data-cms-testimonials]");
   if (!grid) return;
+  if (shouldPreserveAuthoredContent(grid)) return;
   const docs = await sanityFetch(
     `*[_type=="testimonial" && visible == true] | order(order asc) {
       _id, author, role, date, letterheadOrg, excerpt, authorPhoto, linkedinUrl

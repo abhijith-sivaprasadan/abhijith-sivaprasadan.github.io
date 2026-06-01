@@ -28,12 +28,13 @@ function enhanceCard(card) {
 }
 
 function enhance(root = document) {
-  root.querySelectorAll?.("#projects .project-card").forEach(enhanceCard);
+  root.querySelectorAll?.(".project-card").forEach(enhanceCard);
 }
 
 export async function init() {
-  enhance();
-  const target = document.querySelector("[data-featured-projects]");
+  const target = document.querySelector("[data-bento-projects]");
+  if (!target) return null;
+  enhance(target);
   const observer = new MutationObserver(() => enhance(target || document));
   if (target) observer.observe(target, { childList: true, subtree: true });
   return { destroy() { observer.disconnect(); } };
