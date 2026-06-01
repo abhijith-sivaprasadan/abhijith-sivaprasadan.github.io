@@ -262,3 +262,253 @@ html.motion-reduced body.signal-rebuild .signal-page-art .reducer-c2,
 html.motion-reduced body.signal-rebuild .signal-page-art .cooling-loop {
   animation: none;
 }
+
+/* ============================================================
+   FIELD — field-welcome.css  (Phase 2, LIVE site)
+   Styles the ⌘K command palette + the gate-free welcome hero.
+   Uses the site's FIELD tokens (from phase1-tokens.css). Add after v4.css.
+   ============================================================ */
+
+/* ---------- command palette ---------- */
+.fcmd-backdrop { position: fixed; inset: 0; z-index: 90; display: none; justify-content: center; align-items: flex-start;
+  padding-top: 12vh; background: rgba(4,3,9,0.6); backdrop-filter: blur(6px); }
+.fcmd-backdrop.show { display: flex; }
+.fcmd { width: min(640px, 92vw); border-radius: var(--v4-radius, 13px); overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--line));
+  background: color-mix(in srgb, var(--panel) 96%, transparent); box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+  animation: fcmd-pop .2s cubic-bezier(.34,1.4,.5,1); }
+@keyframes fcmd-pop { from { opacity: 0; transform: translateY(-12px) scale(.98); } to { opacity: 1; transform: none; } }
+.fcmd-input { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.fcmd-input svg { width: 18px; height: 18px; color: var(--accent); flex: none; }
+.fcmd-input input { flex: 1; background: none; border: 0; outline: none; color: var(--text);
+  font-family: var(--font-sans); font-size: 1rem; }
+.fcmd-input input::placeholder { color: var(--muted); }
+.fcmd kbd { font-family: var(--font-mono); font-size: .7rem; padding: 3px 7px; border-radius: 5px;
+  border: 1px solid var(--line); background: var(--panel-strong); color: var(--muted); }
+.fcmd-results { max-height: 52vh; overflow-y: auto; padding: 8px; }
+.fcmd-empty { padding: 24px; text-align: center; color: var(--muted); font-size: .85rem; }
+.fcmd-group-label { padding: 8px 12px 4px; font: 500 .62rem/1 var(--font-mono); text-transform: uppercase;
+  letter-spacing: .14em; color: var(--muted); }
+.fcmd-item { width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px;
+  background: none; border: 0; color: var(--text); text-align: left; cursor: pointer; }
+.fcmd-item.on { background: color-mix(in srgb, var(--accent) 14%, var(--panel-strong)); }
+.fcmd-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; box-shadow: 0 0 8px var(--accent); }
+.fcmd-label { flex: 1; font-size: .92rem; }
+.fcmd-hint { color: var(--muted); font-family: var(--font-mono); font-size: .72rem; }
+.fcmd-foot { display: flex; gap: 18px; padding: 10px 16px; border-top: 1px solid var(--line); color: var(--muted); font: .68rem/1 var(--font-mono); }
+.fcmd-foot kbd { margin-right: 4px; }
+
+/* ---------- gate-free welcome hero (home) ---------- */
+/* Apply to the existing home hero container; these are additive helpers. */
+.field-welcome { max-width: var(--maxw, 1140px); margin: 0 auto; padding: clamp(48px,9vh,96px) clamp(18px,4vw,44px) 40px; }
+.fw-greet { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.fw-photo { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; border: 1px solid var(--line);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent); }
+.fw-eyebrow { font: 500 .7rem/1 var(--font-mono); text-transform: uppercase; letter-spacing: .18em; color: var(--accent); }
+.fw-hi { display: block; margin-top: 5px; font-size: 1.15rem; font-weight: 500; color: var(--text); }
+.fw-claim { font-size: clamp(1.9rem,4vw,3.3rem); max-width: 22ch; letter-spacing: -.025em; line-height: 1.08; color: var(--text); }
+.fw-rule { width: 120px; height: 2px; margin: 24px 0 20px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent); box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 50%, transparent); }
+.fw-signal { display: inline-block; color: var(--muted); font: .78rem/1 var(--font-mono); padding: 8px 14px; margin-bottom: 22px;
+  border-radius: 999px; border: 1px solid var(--line); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.fw-search { display: flex; align-items: center; gap: 12px; width: min(440px,100%); padding: 13px 16px; margin-bottom: 22px;
+  border-radius: var(--v4-radius,13px); border: 1px solid var(--line); background: color-mix(in srgb, var(--panel) 70%, transparent);
+  color: var(--muted); cursor: text; text-align: left; }
+.fw-search:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.fw-search svg { width: 17px; height: 17px; color: var(--accent); }
+.fw-search span { flex: 1; font-size: .92rem; }
+.fw-search kbd { font-family: var(--font-mono); font-size: .7rem; padding: 3px 7px; border-radius: 5px; border: 1px solid var(--line); background: var(--panel-strong); }
+/* Site integration for the existing signal hero shell. */
+body.signal-rebuild .signal-hero.field-welcome {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+body.signal-rebuild .field-welcome .signal-hero-inner {
+  width: min(var(--max-width, 1180px), calc(100% - 2rem));
+}
+
+body.signal-rebuild .field-welcome .fw-greet-copy {
+  display: grid;
+  gap: 0.2rem;
+}
+
+body.signal-rebuild .field-welcome .fw-support {
+  max-width: min(100%, 52rem);
+  margin: 0;
+  font-size: clamp(1.08rem, 1.6vw, 1.32rem);
+  line-height: 1.45;
+}
+
+body.signal-rebuild .field-welcome .hero-core,
+body.signal-rebuild .field-welcome .hero-copy,
+body.signal-rebuild .field-welcome .signal-identity,
+body.signal-rebuild .field-welcome .fw-greet-copy {
+  min-width: 0;
+  max-width: 100%;
+}
+
+body.signal-rebuild .field-welcome .hero-copy {
+  gap: clamp(0.9rem, 1.8vw, 1.25rem);
+}
+
+body.signal-rebuild .field-welcome .home-mode-toggle {
+  flex: 1 1 32rem;
+  min-width: min(100%, 20rem);
+  margin-top: 0;
+}
+
+body.signal-rebuild .field-welcome h1.fw-claim,
+body.lens-dev.signal-rebuild .field-welcome .hero-core h1.fw-claim {
+  max-width: min(28ch, 100%);
+  font-size: clamp(2.3rem, 3.2vw, 3.45rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+body.signal-rebuild .field-welcome .fw-signal {
+  display: block;
+  width: fit-content;
+  max-width: min(100%, 54rem);
+  white-space: normal;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+body.signal-rebuild .field-welcome .fw-search {
+  width: min(440px, 100%);
+  max-width: 100%;
+  cursor: pointer;
+}
+
+body.signal-rebuild .field-welcome .hero-instrument,
+body.signal-rebuild .field-welcome [data-live-lens],
+body.signal-rebuild .field-welcome .signal-rail,
+body.signal-rebuild .field-welcome .signal-routes {
+  display: none !important;
+}
+
+body[data-page-key="home"] .lens-dev-toggle {
+  display: none !important;
+}
+
+.fcmd-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 2.28rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 70%, transparent);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.fcmd-trigger:hover,
+.fcmd-trigger:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 56%, var(--line));
+  outline: 0;
+}
+
+.fcmd-trigger kbd {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 3px 7px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--panel-strong);
+  color: var(--muted);
+}
+
+@media (max-width: 1100px) {
+  .fcmd-trigger span { display: none; }
+}
+
+@media (max-width: 560px) {
+  body.signal-rebuild .signal-hero.field-welcome {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  body.signal-rebuild .field-welcome .signal-hero-inner,
+  body.signal-rebuild .field-welcome .signal-identity,
+  body.signal-rebuild .field-welcome .hero-core,
+  body.signal-rebuild .field-welcome .hero-copy {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  body.signal-rebuild .field-welcome .fw-greet {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  body.signal-rebuild .field-welcome .fw-greet picture {
+    flex: 0 0 auto;
+  }
+
+  body.signal-rebuild .field-welcome .fw-greet-copy {
+    flex: 1 1 calc(100% - 5.5rem);
+    min-width: 0;
+  }
+
+  body.signal-rebuild .field-welcome .hero-kicker {
+    width: min(16rem, 100%);
+    max-width: 16rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  body.signal-rebuild .field-welcome .home-mode-toggle,
+  body.signal-rebuild .field-welcome .home-mode-toggle.is-ready {
+    flex: 1 0 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(19rem, 100%);
+    max-width: 19rem;
+    overflow: hidden;
+    border-radius: 14px;
+  }
+
+  body.signal-rebuild .field-welcome .home-mode-button {
+    min-width: 0;
+    padding-inline: 0.55rem;
+    white-space: normal;
+  }
+
+  body.signal-rebuild .field-welcome .home-mode-button span {
+    min-width: 0;
+    line-height: 1.12;
+    overflow-wrap: anywhere;
+  }
+
+  body.signal-rebuild .field-welcome h1.fw-claim,
+  body.lens-dev.signal-rebuild .field-welcome .hero-core h1.fw-claim {
+    width: min(19rem, 100%);
+    max-width: 19rem;
+    font-size: clamp(1.95rem, 8.7vw, 2.45rem);
+    line-height: 1.09;
+  }
+
+  body.signal-rebuild .field-welcome .fw-signal,
+  body.signal-rebuild .field-welcome .fw-support,
+  body.signal-rebuild .field-welcome .fw-search {
+    width: min(19rem, 100%);
+    max-width: 19rem;
+  }
+
+  body.signal-rebuild .field-welcome .fw-search kbd {
+    display: none;
+  }
+}

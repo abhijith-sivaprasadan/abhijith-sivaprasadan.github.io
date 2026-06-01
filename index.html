@@ -21,16 +21,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://abhijith-portfolio-api.onrender.com" />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260601-field-phase1" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260601-field-phase1" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260601-field-phase1" />
-  <script src="scripts/public-config.js?v=20260601-field-phase1" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260601-field-phase2" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260601-field-phase2" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260601-field-phase2" />
+  <script src="scripts/public-config.js?v=20260601-field-phase2" defer></script>
   <!-- v4 motion stack: GSAP + plugins (load before motion/index.js) -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="scripts/motion/index.js?v=20260601-field-phase1"></script>
-  <script src="scripts/motion/sw-register.js?v=20260601-field-phase1" defer></script>
+  <script type="module" src="scripts/motion/index.js?v=20260601-field-phase2"></script>
+  <script src="scripts/motion/sw-register.js?v=20260601-field-phase2" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,8 +62,9 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis", "k-omega SST turbulence model", "Compressible flow", "Mesh independence", "Biot number analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260601-field-phase1" defer></script>
-  <script src="scripts/animations.js?v=20260601-field-phase1" defer></script>
+  <script src="scripts/site.js?v=20260601-field-phase2" defer></script>
+  <script src="scripts/animations.js?v=20260601-field-phase2" defer></script>
+  <script src="scripts/sections/command-palette.js?v=20260601-field-phase2" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
@@ -89,22 +90,25 @@
         <a href="#cv" data-i18n-sv="CV">CVs</a>
         <a href="#contact" data-i18n-sv="Kontakt">Contact</a>
       </div>
+      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
     </nav>
   </header>
 
   <main id="main" class="home-flow" tabindex="-1">
-    <section id="signal" class="hero signal-hero section scroll-scene scene-hero" data-scene="systems" data-motion-fluid-sim>
+    <section id="signal" class="hero signal-hero field-welcome section scroll-scene scene-hero" data-scene="systems">
       <div class="signal-grid-bg" aria-hidden="true"></div>
       <div class="container signal-hero-inner">
-        <div class="signal-identity">
+        <div class="signal-identity fw-greet">
           <picture>
             <source srcset="assets/headshot.webp" type="image/webp" />
-            <img class="avatar" src="assets/headshot.jpg" alt="Abhijith Sivaprasadan" width="124" height="124" />
+            <img class="avatar fw-photo" src="assets/headshot.jpg" alt="Abhijith Sivaprasadan" width="124" height="124" />
           </picture>
-          <div>
-            <p class="eyebrow" data-editable="hero-eyebrow"><span data-typed-cycle="Siemens Energy Finspång / CFD / CHT / Test validation||High-temperature flow / Conjugate heat transfer / Instrumentation||Energy process modelling / Python / MATLAB / Techno-economic analysis||Compressible flow / k-omega SST / Mesh independence / Biot analysis">Siemens Energy Finspång / CFD / CHT / Test validation</span></p>
+          <div class="fw-greet-copy">
+            <p class="eyebrow fw-eyebrow" data-editable="hero-eyebrow"><span>Hello &mdash; welcome</span></p>
+            <span class="fw-hi">I'm Abhijith.</span>
             <p class="hero-kicker" data-i18n-sv="Civilingenjör · Hållbar energiteknik · KTH 2026">M.Sc. Sustainable Energy Engineering &middot; KTH 2026</p>
-            <div class="home-mode-toggle" role="group" aria-label="Homepage audience lens">
+          </div>
+          <div class="home-mode-toggle" role="group" aria-label="Homepage audience lens">
               <span class="home-mode-indicator" aria-hidden="true"></span>
               <button type="button" class="home-mode-button is-active" data-home-mode-button="thermal" aria-pressed="true" data-i18n-sv="Termik och strömning">
                 <svg class="home-mode-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 7C3.5 2 10.5 2 13 7C10.5 12 3.5 12 1 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg>
@@ -123,24 +127,24 @@
                 <span>Research</span>
               </button>
             </div>
-          </div>
         </div>
 
         <div class="hero-core">
           <div class="hero-copy">
-            <h1 data-editable="hero-title">Abhijith Sivaprasadan</h1>
-            <p class="signal-claim">
-          <span data-home-mode-target="thermal" data-i18n-sv="Termik- och strömningsingenjör som omsätter problem inom högtemperaturvärmeöverföring och kompressibel strömning till CFD/CHT-belägg, instrumenteringskontext och fysiska konstruktionsbeslut.">Thermal-fluid engineer translating high-temperature heat-transfer and compressible-flow problems into CFD/CHT evidence, instrumentation context and physical design decisions.</span>
-          <span data-home-mode-target="energy" data-i18n-sv="Energisystemmodellerare som kopplar IDA ICE, HOMER Pro, LEAP, PuLP och prognosarbetsflöden till beslut inom värme- och kraftteknik." hidden>Energy systems modeller connecting IDA ICE, HOMER Pro, LEAP, PuLP and forecasting workflows to heat-and-power technology decisions.</span>
-          <span data-home-mode-target="decarbonisation" data-i18n-sv="Ingenjör inom industriell energi och avkarbonisering som utvecklar KPI/EnPI-metoder, mätlogik, regelverksramar och reproducerbara verktyg för processindustrins beslut." hidden>Industrial energy and decarbonisation engineer building KPI/EnPI methods, metering logic, regulatory framing and reproducible tools for process-industry decisions.</span>
-          <span data-home-mode-target="research" data-i18n-sv="Forskare i början av karriären som omsätter högtemperaturströmningsproblem till simulering, mätning och fysikaliskt grundad termisk tolkning." hidden>Early-stage researcher translating high-temperature flow problems into simulation, measurement and physically grounded thermal interpretation.</span>
+            <h1 class="fw-claim" data-editable="hero-title">I work on heat, flow and energy systems &mdash; turning high-temperature and energy problems into evidence you can build on.</h1>
+            <div class="fw-rule" aria-hidden="true"></div>
+            <p class="signal-claim fw-support">
+              I combine simulation, test context and energy-system modelling so technical questions can move from first-principles reasoning to decisions.
             </p>
-            <p class="hero-text" data-editable="hero-lead">
-          <span data-home-mode-target="thermal" data-i18n-sv="Den tekniska förankringen är examensarbetet vid Siemens Energy: kompressibel CFD/CHT, k-omega SST-modellering, nätoberoende på tre nivåer, termisk Biot-tolkning, NI-DAQ/LabVIEW-driftsättning och analys av högtemperaturriggen. Spåret riktar sig till läsare inom CFD, värmeöverföring, termik och prestandateknik.">The technical anchor is the Siemens Energy thesis: compressible CFD/CHT, k-omega SST modelling, three-level mesh independence, Biot-number thermal decomposition, NI-DAQ/LabVIEW commissioning and high-temperature test-rig interpretation. This track is built for CFD, heat-transfer, thermal engineering and performance-engineering readers.</span>
-          <span data-home-mode-target="energy" data-i18n-sv="Energisystemspåret bygger på praktiskt modelleringsarbete i IDA ICE, HOMER Pro, SAM, LEAP, Python/PuLP MILP-optimering, scikit-learn-prognoser och distributionsnätsstudier. PyPSA-NL redovisas öppet som ett utforskande lärprojekt, medan kärnbevisen kommer från kurser och fristående modelleringsflöden." hidden>The energy systems track is grounded in hands-on modelling work across IDA ICE, HOMER Pro, SAM, LEAP, Python/PuLP MILP optimisation, scikit-learn forecasting and distribution-grid studies. PyPSA-NL is framed transparently as an exploratory learning project, while the core evidence comes from coursework and self-contained modelling pipelines.</span>
-          <span data-home-mode-target="decarbonisation" data-i18n-sv="Spåret för industriell avkarbonisering presenterar Alleima, fjärrvärmeoptimering och Python-verktyg som metodutveckling: kvantifierad energikartläggning, lastdrivarregression, bedömning av mätluckor, avvikelsedetektering, teknoekonomiska resonemang och beslutsunderlag för elektrifieringsvägar." hidden>The industrial decarbonisation track reframes Alleima, district heating optimisation and Python tools as method-development evidence: quantified performance mapping, load-driver regression, metering-gap assessment, deviation detection, techno-economic reasoning and decision-support outputs for electrification pathways.</span>
-          <span data-home-mode-target="research" data-i18n-sv="Forskningslinjen utgår från examensarbetet vid Siemens Energy som en bro mellan simuleringsantaganden och fysiskt hårdvarubeteende. Mina intressen omfattar konjugerad värmeöverföring i termiskt belastade passager, beläggningsdrivet termiskt motstånd, yttillståndseffekter och experimentellt-numeriska metoder som kopplar mätbart riggbeteende till degraderingsmekanismer." hidden>The research thread centres on the Siemens Energy thesis as a bridge between simulation assumptions and physical hardware behaviour. My interests are conjugate heat transfer in thermally loaded passages, deposit-driven thermal resistance, surface-condition effects and experimental-numerical methods that connect measurable rig behaviour to degradation mechanisms.</span>
+            <p class="hero-text fw-signal" data-editable="hero-lead">
+              M.Sc. Sustainable Energy Engineering, KTH &middot; currently exploring PhD and industrial R&amp;D roles across Sweden and the EU.
             </p>
+
+            <button class="fw-search" type="button" data-fcmd-open aria-label="Search projects, methods, data and pages">
+              <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.4"/><path d="M12 12l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <span>Search projects, methods, data...</span>
+              <kbd>⌘K</kbd>
+            </button>
 
             <div class="button-row signal-actions">
               <a class="button primary" href="projects/siemens-thesis.html" data-home-mode-target="thermal" data-i18n-sv="Siemens examensarbete">Siemens Thesis Case Study</a>
