@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
 
 /* ============================================================
    CSS PROPERTY REGISTRATION — enables smooth scene transitions
@@ -8976,4 +8978,66 @@ body[data-page-key="home"] #projects .project-card:nth-child(1)::before {
   .scroll-top-btn,
   .theme-toggle-btn,
   .nav-overlay { display: none !important; }
+}
+
+/* ============================================================
+   FIELD - Phase 1 token re-skin for the LIVE site.
+
+   These values are copied from redesign/thermal.css. Palette + type only:
+   no layout, scripts, simulation/data, computed numbers, or diagrams touched.
+   ============================================================ */
+
+:root {
+  /* ---- ground (maps onto the site's existing names) ---- */
+  --bg:            #08060f;   /* was #101114 */
+  --bg-2:          #0b0817;
+  --panel:         #130f22;   /* card / surface */
+  --panel-strong:  #1a1430;   /* raised surface */
+  --surface:       #130f22;
+  --surface-2:     #1a1430;
+  --line:          #2a2342;
+  --text:          #f5efe6;   /* warm off-white */
+  --muted:         #b3aabb;
+
+  /* ---- primary accent + scientific thermal ramp ---- */
+  --accent:        #f0561d;   /* SIGNAL ORANGE - primary */
+  --v4-orange:     #f0561d;
+  --v4-amber:      #f6c85f;
+  --v4-teal:       #b3246b;   /* ramp repurposed cool to hot: magenta */
+  --v4-blue:       #5a1a7d;   /* ramp: violet */
+  --v4-panel:      color-mix(in srgb, #130f22 88%, transparent);
+  --v4-panel-strong: color-mix(in srgb, #1a1430 92%, transparent);
+  --v4-line:       color-mix(in srgb, #2a2342 92%, transparent);
+  --v4-shadow:     0 26px 80px rgba(0,0,0,0.42);
+  --v4-radius:     13px;
+  --v4-radius-sm:  7px;
+
+  /* ---- audience-lens tints (keep the 4; retuned to FIELD) ---- */
+  /* the site already drives --accent per lens - set each lens to: */
+  /*   thermal #65d6c9 · energy #9bd69f · industrial #f0561d · research #8fb7ff */
+
+  /* ---- Whiteprint reading mode (for case-study / research pages) ---- */
+  --paper:   #f3efe4;
+  --paper-2: #e9e3d4;
+  --ink-1:   #161a22;
+  --ink-2:   #454d5c;
+  --blue:    #1b3a8f;   /* draughting blue */
+  --rule:    #ccc4b0;
+
+  /* ---- type ---- */
+  --font-sans: "Space Grotesk", "Inter Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Spectral", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
+/* ---- light theme stays available; FIELD's reading mode IS the light surface,
+   so map the existing light theme onto the paper palette ---- */
+html[data-theme="light"] {
+  --bg: #f3efe4;
+  --panel: #ffffff;
+  --panel-strong: #ffffff;
+  --text: #161a22;
+  --muted: #454d5c;
+  --line: #ccc4b0;
+  --accent: #c2410c;   /* orange darkens for contrast on paper */
 }

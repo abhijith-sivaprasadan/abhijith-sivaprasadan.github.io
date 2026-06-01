@@ -1,107 +1,228 @@
 .capability-radar {
+  --radar-color: var(--accent, var(--v4-teal));
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(240px, 0.82fr) minmax(280px, 1fr) minmax(220px, 0.72fr);
-  gap: clamp(18px, 4vw, 42px);
-  align-items: center;
+  gap: 10px;
+  min-width: 0;
   margin: 0 0 28px;
-  padding: clamp(18px, 3vw, 28px);
-  border: 1px solid var(--v4-line);
-  border-radius: var(--v4-radius);
+  padding: clamp(13px, 2.1vw, 18px);
+  border: 1px solid color-mix(in srgb, var(--radar-color) 32%, var(--v4-line));
+  border-radius: var(--v4-radius-sm, 8px);
+  background-color: #1a1430;
+  background-image:
+    linear-gradient(145deg, color-mix(in srgb, var(--radar-color) 12%, transparent), transparent 56%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 7%, transparent),
+    0 22px 68px color-mix(in srgb, #000 23%, transparent);
+  overflow: hidden;
+}
+
+.capability-radar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(circle at 52% 40%, rgba(101, 214, 201, 0.10), transparent 36%),
-    var(--v4-panel);
-  box-shadow: var(--v4-shadow);
+    linear-gradient(to right, color-mix(in srgb, var(--v4-line) 42%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--v4-line) 42%, transparent) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.26;
+  pointer-events: none;
+}
+
+.capability-radar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.radar-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.radar-head span,
+.radar-note {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.radar-head strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--text);
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+  line-height: 1.12;
+}
+
+.radar-all-btn {
+  flex: 0 0 auto;
+  min-height: 28px;
+  padding: 0 0.62rem;
+  border: 1px solid color-mix(in srgb, var(--radar-color) 40%, var(--v4-line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--radar-color) 8%, transparent);
+  color: var(--muted);
+  font: 700 0.68rem/1 var(--font-mono, ui-monospace, monospace);
+  cursor: pointer;
+}
+
+.radar-all-btn:hover,
+.radar-all-btn.is-active {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--radar-color) 70%, var(--v4-line));
+  background: color-mix(in srgb, var(--radar-color) 18%, transparent);
+}
+
+.radar-frame {
+  display: grid;
+  place-items: center;
+  min-height: 232px;
+  margin: -2px 0 -8px;
 }
 
 .radar-frame svg {
-  width: 100%;
-  max-height: 320px;
+  width: min(100%, 360px);
+  height: auto;
   display: block;
+  overflow: visible;
 }
 
 .radar-grid polygon,
 .radar-grid line {
   fill: none;
-  stroke: var(--v4-line);
+  stroke: color-mix(in srgb, var(--line) 76%, transparent);
   stroke-width: 0.9;
 }
 
 .radar-signal {
-  fill: color-mix(in srgb, var(--v4-teal) 24%, transparent);
-  stroke: var(--v4-teal);
-  stroke-width: 2.3;
-  filter: drop-shadow(0 10px 24px rgba(101, 214, 201, 0.18));
+  fill: var(--radar-color);
+  fill-opacity: 0.18;
+  stroke: var(--radar-color);
+  stroke-width: 2.1;
+  filter: drop-shadow(0 0 13px color-mix(in srgb, var(--radar-color) 48%, transparent));
 }
 
-.radar-focus {
-  fill: var(--v4-amber);
-  stroke: var(--v4-panel-strong);
-  stroke-width: 2;
-  filter: drop-shadow(0 0 9px rgba(246, 200, 95, 0.58));
+.radar-sweep {
+  stroke: var(--radar-color);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  opacity: 0.42;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: radar-sweep 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
 }
 
-.radar-labels text {
+@keyframes radar-sweep {
+  from { transform: rotate(-80deg); opacity: 0; }
+  28% { opacity: 0.58; }
+  to { transform: rotate(280deg); opacity: 0; }
+}
+
+.radar-point {
+  fill: var(--radar-color);
+  stroke: color-mix(in srgb, var(--bg) 84%, #000);
+  stroke-width: 1.6;
+}
+
+.radar-axis {
   fill: var(--muted);
-  font-size: 8px;
-  font-family: var(--mono, monospace);
+  font: 800 7.3px/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0;
+}
+
+.radar-val {
+  fill: var(--text);
+  stroke: color-mix(in srgb, var(--bg) 86%, #000);
+  stroke-width: 3;
+  paint-order: stroke;
+  font: 800 8.5px/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0;
 }
 
 .radar-readout {
   display: grid;
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
 }
 
 .radar-readout button {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  width: 100%;
-  border: 1px solid var(--v4-line);
-  border-radius: 999px;
-  padding: 8px 11px;
+  gap: 8px;
+  min-width: 0;
+  min-height: 31px;
+  padding: 0.38rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--radar-color) 20%, var(--v4-line));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--v4-panel-strong) 78%, transparent);
   color: var(--muted);
-  background: color-mix(in srgb, var(--v4-panel-strong) 80%, transparent);
+  font: 700 0.64rem/1.2 var(--font-mono, ui-monospace, monospace);
+  text-align: left;
   cursor: pointer;
-  font: inherit;
+}
+
+.radar-readout button span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .radar-readout button:hover,
 .radar-readout button.is-selected {
-  border-color: color-mix(in srgb, var(--v4-teal) 55%, var(--v4-line));
   color: var(--text);
+  border-color: color-mix(in srgb, var(--radar-color) 56%, var(--v4-line));
+  background: color-mix(in srgb, var(--radar-color) 11%, var(--v4-panel-strong));
 }
 
 .radar-readout strong {
-  color: var(--text);
-  font-family: var(--mono, monospace);
+  flex: 0 0 auto;
+  color: var(--radar-color);
+  font: 800 0.75rem/1 var(--font-mono, ui-monospace, monospace);
 }
 
 .radar-evidence {
-  min-height: 88px;
-  margin-top: 12px;
-  padding: 11px 12px;
-  border-left: 2px solid var(--v4-teal);
-  background: color-mix(in srgb, var(--v4-panel-strong) 70%, transparent);
+  min-height: 76px;
+  padding: 10px 11px;
+  border-left: 2px solid var(--radar-color);
+  background: color-mix(in srgb, var(--radar-color) 7%, var(--v4-panel-strong));
 }
 
 .radar-evidence strong {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
   gap: 8px;
   color: var(--text);
-  font-size: 0.86rem;
+  font-size: 0.82rem;
+  line-height: 1.2;
 }
 
 .radar-evidence strong span {
-  color: var(--v4-teal);
-  font: 500 0.72rem/1.2 var(--mono, monospace);
+  flex: 0 0 auto;
+  color: var(--radar-color);
+  font: 800 0.7rem/1.2 var(--font-mono, ui-monospace, monospace);
 }
 
 .radar-evidence p {
-  margin: 8px 0 0;
+  margin: 7px 0 0;
   color: var(--muted);
-  font-size: 0.78rem;
-  line-height: 1.4;
+  font-size: 0.75rem;
+  line-height: 1.42;
+}
+
+.radar-note {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.66rem;
 }
 
 html[data-theme="light"] #skills .skill-pill:not([data-chip-type]) {
@@ -116,8 +237,14 @@ html[data-theme="light"] #skills .skill-block {
   border-color: rgba(22, 61, 76, 0.16);
 }
 
-@media (max-width: 900px) {
-  .capability-radar {
+@media (max-width: 760px) {
+  .radar-readout {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radar-sweep {
+    animation: none;
   }
 }
