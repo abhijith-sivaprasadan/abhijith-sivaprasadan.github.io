@@ -137,8 +137,8 @@ const pageKey = document.body.dataset.pageKey || inferredPageKey;
 document.body.dataset.pageKey = pageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260601-static-source-fix";
-const apiVersion = "20260601-static-source-fix";
+const assetVersion = "20260601-mobile-overflow-fix";
+const apiVersion = "20260601-mobile-overflow-fix";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
 // Empty by default → fall back to the committed api/*.json files (see
