@@ -12,8 +12,10 @@ to the GitHub Pages `main` branch. Preserved existing design work.
   selected state, project search found ThermoTwin after updating the search index
   and cache version, and the case-study page rendered its verification caveat.
 - No console errors observed during the homepage audience-lens smoke check.
-- `git diff --check` passed. GitHub showed no open issues or pull requests in
-  the portfolio or ThermoTwin repositories at review time.
+- `git diff --check` passed. GitHub search returned no open items, but the direct
+  PR listing subsequently found draft PR #75 targeting `main` and draft PR #74
+  targeting the older `feat/v4-research-grade-bold` branch. Use #75 to publish;
+  #74 remains for the owner to review/close if superseded.
 - Confirmed GitHub Pages publishes the root of `main`; no hosting migration.
 
 ## Corrections
@@ -32,6 +34,8 @@ to the GitHub Pages `main` branch. Preserved existing design work.
 - This was a smoke test, not exhaustive visual, accessibility, security, or
   cross-browser acceptance testing. Contact submission, admin writes, external
   CMS authentication, and production backend deployment were not exercised.
+- Case-study navigation succeeded but logged `AbortError: Transition was skipped`;
+  the cosmetic view-transition cancellation remains a UI follow-up.
 - Historical report and CV claims still need evidence-by-evidence human review;
   portfolio publication does not certify the underlying engineering models.
 - ThermoTwin's Linux CI passed for `026eb6e`; its own `docs/COMMIT_REVIEW.md`
