@@ -53,6 +53,7 @@ PARTS = [
     ("sections/research-mindmap.css", None),
     ("sections/testimonials.css", None),
     ("components/signal-surfaces.css", None),
+    ("components/project-readability.css", None),
     ("print.css", "print"),
 ]
 
