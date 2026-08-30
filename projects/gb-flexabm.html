@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GB-FLEXABM: an open-source electricity investment ABM and shared Pyomo/HiGHS planner. Reproducible synthetic market-design experiments, scientific tests and transparent limitations." />
+  <meta property="og:title" content="GB-FLEXABM — Electricity Investment and Market Design" />
+  <meta property="og:description" content="One physical model, two investment decision systems. Exploratory research software with a reproducible 20-seed experiment—not a calibrated GB forecast." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/gb-flexabm-comparison.png" />
+  <link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/gb-flexabm.html" />
+  <title>GB-FLEXABM — Electricity Investment &amp; Market Design | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css?v=20260830-open-source" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260830-paper-contrast" />
+  <link rel="stylesheet" href="../styles/gb-flexabm.css?v=20260830" />
+  <script src="../scripts/public-config.js?v=20260830-open-source"></script>
+  <script src="../scripts/sections/command-palette.js?v=20260830-gb-flexabm" defer></script>
+  <script src="../scripts/sections/whiteprint.js?v=20260830-gb-flexabm" defer></script>
+  <script src="../scripts/motion/sw-register.js?v=20260830-gb-flexabm" defer></script>
+</head>
+<body class="signal-rebuild" data-page-key="case-study" data-project-slug="gb-flexabm" data-paper>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links"><a href="../index.html#projects">Featured projects</a><a href="../projects.html">Project library</a><a href="../energy-systems.html">Energy systems</a><a href="../index.html#contact">Contact</a></div>
+    </nav>
+  </header>
+  <div class="paper-bar" aria-label="Case-study navigation">
+    <a class="paper-back" href="../index.html#projects">&larr; Featured projects</a>
+    <button class="paper-search" type="button" data-fcmd-open aria-label="Search projects, methods, and pages">Search projects <kbd>Ctrl K</kbd></button>
+  </div>
+  <div class="paper-progress" aria-hidden="true"></div>
+  <main id="main" class="paper-doc gb-study" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <p class="eyebrow">Independent research software · Energy markets · 2026</p>
+        <h1>GB-FLEXABM<br />Who builds the next megawatt?</h1>
+        <p class="hero-text">A transparent electricity investment experiment: heterogeneous investor agents versus a perfect-foresight central planner, connected by the same physical dispatch model.</p>
+        <p class="gb-status"><strong>v0.1 · Exploratory and synthetic.</strong> An executable modelling foundation, not an empirically calibrated GB forecast, official market model or university-affiliated project.</p>
+        <div class="button-row"><a class="button primary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm">Source &amp; reproduce</a><a class="button secondary" href="#results">Read the experiment</a><a class="button secondary" href="#verification">Inspect verification</a></div>
+        <nav class="gb-contents" aria-label="On this page"><a href="#question">Question</a><a href="#methods">Methods</a><a href="#results">Results</a><a href="#verification">Verification</a><a href="#limits">Limits &amp; next steps</a></nav>
+      </div>
+    </section>
+    <section class="section" id="question">
+      <div class="container">
+        <p class="eyebrow">01 / Research question</p>
+        <h2>Market decisions and system planning are not the same problem.</h2>
+        <p>How do adaptive price expectations, finance budgets, build delays and a stylised capacity payment change electricity investment relative to an ideal central planner? A meaningful comparison needs common physical constraints and consistent cost accounting before it needs more complex behaviour.</p>
+        <figure class="gb-figure"><img src="../assets/thumb-gb-flexabm.svg" alt="Common assumptions feed shared dispatch constraints used by a perfect-foresight planner and adaptive investor agents. Investment, prices, resource costs and transfers are compared." width="960" height="540" /><figcaption>One physical contract. The planning and agent models differ in how investment is chosen, not in their energy-balance equations.</figcaption></figure>
+      </div>
+    </section>
+    <section class="section" id="methods">
+      <div class="container">
+        <p class="eyebrow">02 / Modelling approach</p>
+        <h2>Optimisation, behaviour and an auditable annual loop.</h2>
+        <div class="gb-method-grid">
+          <article><h3>Shared dispatch</h3><p>Pyomo and HiGHS solve a single-node electricity LP with gas, peaker, wind, solar, fixed storage and explicit unserved demand. Marginal-price duals are divided by the correct time weights. Storage state uses physical duration, not repetition weight.</p></article>
+          <article><h3>Planning benchmark</h3><p>A continuous multi-year expansion LP includes asset vintages, construction lags, annual build limits, fixed O&amp;M and terminal asset value. Its resource objective is independently recomputed and checked as a lower bound on the feasible agent outcome.</p></article>
+          <article><h3>Investor agents</h3><p>Technology-specialist investors update expectations from completed market years, assess lifetime NPV, and submit budget-limited requests. Named random substreams preserve repeatability. Simultaneous requests are rationed pro rata when a build ceiling binds.</p></article>
+        </div>
+        <p class="gb-callout"><strong>Accounting distinction:</strong> the fixed capacity payment changes investor receipts and is recorded separately. It is a transfer, not an additional resource cost. This stylised treatment does not reproduce the official GB Capacity Market auction.</p>
+        <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/METHODS.md">Read equations, timing and behavioural assumptions</a></p>
+      </div>
+    </section>
+    <section class="section" id="results">
+      <div class="container">
+        <p class="eyebrow">03 / Reproduced experiment</p>
+        <h2>A zero-effect result is still a result.</h2>
+        <p>The reference experiment runs 2026–2031 with one repeated synthetic 168-hour block per year, 20 paired seeds and two designs: energy-only and a fixed, stylised capacity payment. The initial fleet intentionally creates scarcity.</p>
+        <div class="gb-table-wrap"><table><caption>Reference experiment, synthetic constant-price GBP</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Observed model result</th></tr></thead><tbody>
+          <tr><th scope="row">Planner resource NPV</th><td>£101.663 billion</td></tr>
+          <tr><th scope="row">Agent resource NPV, either design</th><td>£111.459 billion</td></tr>
+          <tr><th scope="row">Payment minus energy-only resource NPV</th><td>£0 in every paired seed</td></tr>
+          <tr><th scope="row">Payment receipts over six years</th><td>£11.467 billion, undiscounted; excluded from resource NPV</td></tr>
+        </tbody></table></div>
+        <p>Investment scores remain positive and annual finance budgets constrain requests in this fixture. Adding the payment therefore does not change accepted investment. Random expectation errors change scores without crossing investment thresholds, so the displayed physical outcomes have no seed spread. This does <strong>not</strong> establish that capacity payments are ineffective in real markets.</p>
+        <figure class="gb-figure"><a href="../assets/gb-flexabm-comparison.png" aria-label="Open full-resolution synthetic experiment figure"><img src="../assets/gb-flexabm-comparison.png" alt="The two market-design curves overlap. Both show scarcity declining as capacity is built; both cost more than the perfect-foresight planner in this synthetic fixture." width="1705" height="1162" loading="lazy" /></a><figcaption>Generated from the committed reference CSVs. The two designs overlap and empirical seed bands collapse. High prices and unserved energy are stress-fixture outputs, not observations or GB forecasts.</figcaption></figure>
+        <p>The approximately £9.795 billion planner–agent gap is conditional on foresight, investor budgets and decision rules. It is not a general estimate of market inefficiency or a policy benefit.</p>
+        <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/tree/main/docs/reference/experiment">Download the reference tables, assumptions and manifest</a></p>
+      </div>
+    </section>
+    <section class="section" id="verification">
+      <div class="container">
+        <p class="eyebrow">04 / Research-software practice</p>
+        <h2>Evidence you can inspect and rerun.</h2>
+        <ul>
+          <li><strong>Scientific tests:</strong> analytical dispatch costs and dual prices, weighted storage balance, build/retirement timing, capacity-payment units, budget limits, solver failure handling and metamorphic monotonicity checks.</li>
+          <li><strong>Reproduction:</strong> the 20-seed experiment was repeated, with numerical CSV agreement at rtol 1e-8 and atol 1e-5. Source commit, assumptions, seeds, solver settings and output hashes are recorded.</li>
+          <li><strong>Performance:</strong> single-year synthetic dispatch measured 0.48 s for 168 periods and 25.11 s for 8,760 periods on the recorded Windows machine. Peak Python allocations were about 4.2 MB and 179.6 MB; this excludes native solver memory and is not peak RSS.</li>
+          <li><strong>Observed-data foundation:</strong> the separate NESO adapter successfully read 17,568 half-hour 2024 demand records (8,784 hours), with UTC/DST and checksum checks. These observations do not drive the synthetic results above.</li>
+        </ul>
+        <pre><code>git clone https://github.com/abhijith-sivaprasadan/gb-flexabm.git
+cd gb-flexabm
+uv sync --locked --extra dev
+uv run --locked pytest -q
+uv run --locked python scripts/reproduce.py --output runs/reference</code></pre>
+        <p>Requires Python 3.12/3.13 and uv. Install dependencies once; the experiment then runs offline. Output directories must be fresh. Hash verification establishes file integrity—not empirical validity.</p>
+        <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/VERIFICATION.md">Verification record</a> · <a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/actions/workflows/ci.yml">Live scientific CI</a> · <a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/CONTRIBUTING.md">Contribute or challenge an assumption</a></p>
+      </div>
+    </section>
+    <section class="section" id="limits">
+      <div class="container">
+        <p class="eyebrow">05 / Interpretation and next research gates</p>
+        <h2>A foundation for energy-system research, with explicit boundaries.</h2>
+        <p>This project demonstrates Python optimisation, agent-based modelling, experiment design, public-data handling and reproducible technical reporting. Those methods are relevant to energy-system modelling and market-design research; the project is independent and does not imply employment, funding or institutional affiliation.</p>
+        <p><strong>Not implemented or established:</strong> empirical calibration and holdout validation, transmission and unit commitment, forced-outage adequacy, probabilistic LOLE, official Capacity Market/CfD mechanisms, endogenous storage investment, or integrated heat and hydrogen behaviour.</p>
+        <p>The short repeated block and the full synthetic year produce different scarcity outcomes; the former is not an established annual approximation. Next steps require multi-weather-year data, behavioural identification, sensitivity and seed-convergence studies, external model comparison and separately verified cross-vector energy balances.</p>
+        <div class="button-row"><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/MODEL_CARD.md">Model card</a><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/ROADMAP.md">Research roadmap</a><a class="button secondary" href="../index.html#projects">Back to featured projects</a></div>
+        <p class="gb-source-note">Source context: <a href="https://www.neso.energy/data-portal/historic-demand-data">NESO Historic Demand Data</a> and <a href="https://pyomo.readthedocs.io/en/stable/howto/solver_recipes.html">Pyomo solver documentation</a>. Original code and synthetic fixtures: MIT. Publisher data retain their own terms.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container"><p>Abhijith Sivaprasadan · Independent research software</p><a href="../projects.html">Explore all projects</a></div></footer>
+  <script src="../scripts/site.js?v=20260830-gb-flexabm"></script>
+</body>
+</html>

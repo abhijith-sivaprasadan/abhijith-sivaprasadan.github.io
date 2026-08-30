@@ -1,6 +1,24 @@
 {
   "projects": [
     {
+      "id": "gb-flexabm",
+      "title": "GB-FLEXABM · Electricity investment",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": true,
+      "order": 0.5,
+      "period": "2026",
+      "associatedWith": "Independent exploratory research software",
+      "summary": "Electricity investment agents versus a perfect-foresight planner using shared Pyomo/HiGHS dispatch. Paired market-design experiments, scientific regression tests and provenance records. Synthetic and uncalibrated, not a GB forecast.",
+      "audienceTags": ["Energy Systems", "Research"],
+      "tools": ["Python", "Pyomo", "HiGHS", "NumPy", "pytest"],
+      "skills": ["Optimisation", "Agent-based modelling", "Market design", "Reproducibility", "Data integrity"],
+      "image": "assets/thumb-gb-flexabm.svg",
+      "caseStudyUrl": "projects/gb-flexabm.html",
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/gb-flexabm",
+      "highlights": ["One physical model for dispatch and planning; 20 paired seeds with numerical replay.", "NESO demand adapter is separate from the synthetic experiment; heat/hydrogen coupling remains future work."]
+    },
+    {
       "id": "thermotwin-f",
       "title": "ThermoTwin-F · Educational gas turbine",
       "category": "Thermal Systems",
@@ -1014,7 +1032,7 @@
       "title": "Non-gray radiation modelling",
       "category": "Research",
       "status": "published",
-      "featured": true,
+      "featured": false,
       "order": 6,
       "period": "2026",
       "associatedWith": "Independent scientific-computing work",

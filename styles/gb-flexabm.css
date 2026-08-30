@@ -1,0 +1,23 @@
+/* Scoped to this case study. Preserve the site's shared paper-mode contrast. */
+body[data-project-slug="gb-flexabm"] .gb-study { color: #18232d; }
+.gb-study .case-hero h1 { max-width: 20ch; }
+.gb-study .section { scroll-margin-top: 5rem; }
+.gb-study .gb-status, .gb-study .gb-callout { padding: 1rem 1.2rem; border-left: 4px solid #1b3a8f; background: #eef1f8; color: #18232d; }
+.gb-study .gb-contents { display: flex; flex-wrap: wrap; gap: .7rem 1.4rem; margin-top: 1.4rem; font-weight: 650; }
+.gb-study .gb-method-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.gb-study .gb-method-grid article { border-top: 2px solid #81929a; padding-top: .7rem; min-width: 0; }
+.gb-study .gb-figure { margin: 1.5rem 0; padding: 0; border: 1px solid #b2aa98; }
+.gb-study .gb-figure img { display: block; width: 100%; height: auto; }
+.gb-study .gb-figure figcaption { padding: 1rem; font-size: .9rem; line-height: 1.6; }
+.gb-study .gb-table-wrap { max-width: 100%; overflow-x: auto; margin: 1.5rem 0; }
+.gb-study table { border-collapse: collapse; width: 100%; background: #fff; color: #18232d; }
+.gb-study caption { text-align: left; padding: .8rem 0; font-weight: 700; color: #18232d; }
+.gb-study th, .gb-study td { text-align: left; padding: .8rem 1rem; border-bottom: 1px solid #b2aa98; vertical-align: top; }
+.gb-study thead { background: #eef1f8; }
+.gb-study pre { padding: 1.2rem; max-width: 100%; overflow: auto; border: 1px solid #b2aa98; line-height: 1.7; }
+.gb-study .gb-source-note { margin-top: 2rem; font-size: .9rem; }
+@media (max-width: 720px) {
+  .gb-study .gb-method-grid { grid-template-columns: minmax(0, 1fr); gap: .7rem; }
+  .gb-study th, .gb-study td { padding: .65rem .55rem; overflow-wrap: anywhere; }
+  .gb-study .gb-contents { gap: .6rem 1rem; }
+}
