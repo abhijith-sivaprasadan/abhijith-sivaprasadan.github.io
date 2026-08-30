@@ -1,0 +1,95 @@
+/* Paper pages must not inherit the landing page's light-on-dark tokens.
+   Scope this to the reading surface: search dialogs and embedded diagrams retain
+   their own dark surfaces. Keep both themes usable without recolouring images. */
+body:is([data-paper], [data-mode="paper"]) .paper-doc,
+html[data-theme="light"] body[data-page-key="case-study"] main {
+  --text: #161a22;
+  --fg: #161a22;
+  --muted: #454d5c;
+  --accent: #1b3a8f;
+  --accent-2: #85400c;
+  --bg: #f3efe4;
+  --bg-soft: #e9e3d4;
+  --bg-2: #e9e3d4;
+  --panel: #ffffff;
+  --panel-strong: #f3efe4;
+  --line: #b2aa98;
+  --v4-panel: #ffffff;
+  --v4-panel-strong: #f3efe4;
+  --v4-line: #b2aa98;
+  --v4-teal: #145b56;
+  --v4-blue: #1b3a8f;
+  --v4-orange: #85400c;
+  --v4-amber: #724900;
+  color: var(--text);
+}
+
+body:is([data-paper], [data-mode="paper"]) .paper-doc :is(.related-project-card, .evidence-badge, .biot-tag),
+html[data-theme="light"] body[data-page-key="case-study"] main :is(.related-project-card, .evidence-badge, .biot-tag) {
+  color: #1b3a8f;
+  background: #eef1f8;
+  border-color: #8c9bbe;
+}
+
+body:is([data-paper], [data-mode="paper"]) .paper-doc :is(th, td, figcaption, summary, pre, code),
+html[data-theme="light"] body[data-page-key="case-study"] main :is(th, td, figcaption, summary, pre, code) {
+  color: var(--text);
+  text-shadow: none;
+}
+
+body:is([data-paper], [data-mode="paper"]) .paper-doc :is(figcaption, .chart-note, .battery-plot-caption) :is(strong, span, small),
+html[data-theme="light"] body[data-page-key="case-study"] main :is(figcaption, .chart-note, .battery-plot-caption) :is(strong, span, small) {
+  color: inherit;
+}
+
+body:is([data-paper], [data-mode="paper"]) .paper-doc :is(figure, pre, .chart-note, .battery-plot-card),
+html[data-theme="light"] body[data-page-key="case-study"] main :is(figure, pre, .chart-note, .battery-plot-card) {
+  background: #ffffff;
+  border-color: var(--line);
+}
+
+body:is([data-paper], [data-mode="paper"]) .paper-doc :is(a, button, summary):focus-visible {
+  outline: 3px solid #1b3a8f;
+  outline-offset: 4px;
+}
+
+body:is([data-paper], [data-mode="paper"]) .paper-doc a,
+html[data-theme="light"] body[data-page-key="case-study"] main a {
+  color: #1b3a8f;
+  text-decoration-color: currentColor;
+}
+
+body:is([data-paper], [data-mode="paper"]) .paper-doc a.button.primary,
+html[data-theme="light"] body[data-page-key="case-study"] main a.button.primary {
+  color: #ffffff;
+  background: #1b3a8f;
+}
+
+/* This shortcut is deliberately outside audience-filtered/live-only panels. */
+body:is([data-paper], [data-mode="paper"]) .paper-doc .evidence-tab-button:not(.is-active),
+html[data-theme="light"] body[data-page-key="case-study"] main .evidence-tab-button:not(.is-active) {
+  background: #ffffff;
+  color: #454d5c;
+  border-color: #8c9bbe;
+}
+
+body[data-page-key="home"] .thermotwin-shortcut {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #65d6c9;
+  border-radius: 8px;
+  background: #163c3a;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+body[data-page-key="home"] .thermotwin-shortcut:is(:hover, :focus-visible) {
+  background: #245552;
+  color: #ffffff;
+  outline: 3px solid #65d6c9;
+  outline-offset: 3px;
+}

@@ -40,5 +40,11 @@ for (const project of projectData.projects) {
   }
 }
 if (!projectData.projects.some(project => project.id === 'thermotwin-f')) errors.push('ThermoTwin must be discoverable in the project search index.');
+const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const shortcuts = [...home.matchAll(/<a\b[^>]*class="thermotwin-shortcut"[^>]*>/g)];
+if (shortcuts.length !== 1 || /\b(?:hidden|data-home-mode-target)\b/.test(shortcuts[0]?.[0] || '') || !shortcuts[0]?.[0].includes('href="projects/thermotwin-f.html"')) {
+  errors.push('Homepage must have one unfiltered, direct ThermoTwin shortcut.');
+}
+if ((home.match(/data-project-id="thermotwin-f"/g) || []).length !== 1) errors.push('Homepage must have exactly one ThermoTwin featured card.');
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log(`Passed: ${pages} HTML pages (local links), ${scripts} JavaScript files (syntax), ${json} JSON files.`);

@@ -23,7 +23,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
   <link rel="stylesheet" href="styles.css?v=20260830-open-source" />
   <link rel="stylesheet" href="styles/motion.css?v=20260830-open-source" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260830-open-source" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260830-paper-contrast" />
   <script src="scripts/public-config.js?v=20260830-open-source"></script>
   <!-- v4 motion stack: GSAP + plugins load async; motion/index.js degrades gracefully until they arrive. -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" async></script>
@@ -171,6 +171,7 @@
             </button>
 
             <div class="button-row signal-actions">
+              <a class="thermotwin-shortcut" href="projects/thermotwin-f.html">Explore ThermoTwin-F &rarr;</a>
               <a class="button primary" href="#projects" data-home-mode-target="everything">Browse Field Index</a>
               <a class="button secondary" href="projects.html" data-home-mode-target="everything">Full Project Library</a>
               <a class="button primary" href="projects/siemens-thesis.html" data-home-mode-target="thermal" data-i18n-sv="Siemens examensarbete" hidden>Siemens Thesis Case Study</a>
@@ -919,10 +920,20 @@
           <button type="button" class="signal-chip" data-featured-filter="Energy Systems" aria-pressed="false">Energy Systems</button>
           <button type="button" class="signal-chip" data-featured-filter="Industrial R&D" aria-pressed="false">Industrial R&amp;D</button>
           <button type="button" class="signal-chip" data-featured-filter="Research" aria-pressed="false">Research</button>
-          <span class="signal-filter-count" data-featured-filter-count aria-live="polite">6 / 6</span>
+          <span class="signal-filter-count" data-featured-filter-count aria-live="polite">12 / 12</span>
         </div>
 
         <div class="project-grid" data-featured-projects data-api-resource="projects" data-stagger>
+          <article class="project-card featured" data-project-id="thermotwin-f" data-project-category="CFD &amp; Testing" data-project-tags="thermal gas turbine energy systems research industrial R&amp;D" data-stagger-item>
+            <img class="project-thumb" src="assets/thumb-thermotwin-f.svg" alt="ThermoTwin gas turbine and combined-cycle simulator schematic" loading="lazy" width="960" height="540" />
+            <div class="tag-row"><span>Modern Fortran</span><span>Thermodynamics</span><span>Open source</span></div>
+            <h3><a class="title-link" href="projects/thermotwin-f.html">ThermoTwin-F — Gas Turbine &amp; CCGT Simulator</a></h3>
+            <p>Explore the educational gas-turbine simulator, its native operating console, second-law analysis, automated tests and documented limitations.</p>
+            <div class="project-links">
+              <a href="projects/thermotwin-f.html">Read the ThermoTwin case study &rarr;</a>
+              <a href="https://github.com/abhijith-sivaprasadan/thermotwin">View source on GitHub</a>
+            </div>
+          </article>
           <article class="project-card featured primary-differentiator" data-stagger-item>
             <div class="project-thumb siemens-cfd-thumb" role="img" aria-label="Duct cross-section with blue-to-orange thermo-fluid gradient">
               <span class="featured-badge">Featured &mdash; Thermal / CFD / Test &amp; Validation</span>

@@ -5,7 +5,7 @@
       "title": "ThermoTwin-F - Gas Turbine and CCGT Educational Simulator",
       "category": "Thermal Systems",
       "status": "published",
-      "featured": false,
+      "featured": true,
       "order": 4,
       "period": "2026",
       "associatedWith": "Self-initiated portfolio project",
