@@ -28,7 +28,7 @@
 
   function loadJSON() {
     // projects
-    fetch(BASE + "/api/projects.json").then(function (r) { return r.json(); }).then(function (d) {
+    fetch(BASE + "/api/projects.json?v=20260830-open-source", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
       (d.projects || d || []).forEach(function (p) {
         if (!p || !p.id) return;
         add("Project", p.title || p.id, (p.category || "") + (p.year ? " · " + p.year : ""), BASE + "/projects/" + p.id + ".html");

@@ -11,7 +11,7 @@
   const params = new URL(location.href).searchParams;
   const isLocal = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(location.hostname);
   const scriptUrl = document.currentScript?.src ? new URL(document.currentScript.src) : null;
-  const assetVersion = scriptUrl?.searchParams.get("v") || "20260601-field-radar";
+  const assetVersion = scriptUrl?.searchParams.get("v") || "20260603-field-rail-bg";
   if (location.protocol !== "https:" && !isLocal) return;
 
   if (params.get("nosw") === "1" || (isLocal && params.get("sw") !== "1")) {

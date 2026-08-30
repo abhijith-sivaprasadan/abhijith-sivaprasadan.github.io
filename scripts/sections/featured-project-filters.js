@@ -2,6 +2,22 @@ const STATE = {
   active: "All",
 };
 
+const MODE_FILTERS = {
+  everything: "All",
+  thermal: "CFD & Testing",
+  energy: "Energy Systems",
+  decarbonisation: "Industrial R&D",
+  research: "Research",
+};
+
+const FILTER_KEYWORDS = {
+  "CFD & Testing": ["cfd", "cht", "thermal", "fluent", "gas turbine", "test & validation", "ni-daq", "labview", "pulsatorn"],
+  "Mechanical & Structural Simulation": ["structural fea", "ansys mechanical", "spaceclaim", "reaction checks", "mesh convergence", "mechanical design", "solidworks"],
+  "Energy Systems": ["energy systems", "district heating", "distribution grid", "heating demand", "pynexus", "hydrogen", "dispatch", "power flow", "renewable", "storage"],
+  "Industrial R&D": ["industrial", "decarbon", "enpi", "iso 50001", "eu ets", "energy kpi", "alleima", "audit", "emissions", "electrification"],
+  Research: ["research", "thesis", "numerical", "validation", "kth", "forecasting", "mini-lab"],
+};
+
 function normalise(value = "") {
   return value.toString().trim().toLowerCase();
 }
@@ -23,6 +39,8 @@ function matches(card, filter) {
   if (filter === "All") return true;
   const haystack = cardTags(card);
   const needle = normalise(filter);
+  const keywordMatch = (FILTER_KEYWORDS[filter] || []).some((keyword) => haystack.includes(normalise(keyword)));
+  if (keywordMatch) return true;
   if (needle === "industrial r&d") {
     return haystack.includes("industrial r&d") || haystack.includes("industrial decarbon");
   }
@@ -68,15 +86,28 @@ export async function init() {
     apply(toolbar, grid);
   };
 
+  const onHomeMode = (event) => {
+    const mode = event.detail?.mode || document.body.dataset.homeMode || "everything";
+    STATE.active = MODE_FILTERS[mode] || "All";
+    apply(toolbar, grid);
+  };
+
   toolbar.addEventListener("click", onClick);
+  document.addEventListener("home-mode-change", onHomeMode);
+  const offBus = window.Motion?.bus?.on?.("motion:mode-change", ({ mode }) => {
+    STATE.active = MODE_FILTERS[mode] || "All";
+    apply(toolbar, grid);
+  });
 
   const observer = new MutationObserver(() => apply(toolbar, grid));
   observer.observe(grid, { childList: true, subtree: false });
-  apply(toolbar, grid);
+  onHomeMode({ detail: { mode: document.body.dataset.homeMode || "everything" } });
 
   return {
     destroy() {
       toolbar.removeEventListener("click", onClick);
+      document.removeEventListener("home-mode-change", onHomeMode);
+      offBus?.();
       observer.disconnect();
     },
   };

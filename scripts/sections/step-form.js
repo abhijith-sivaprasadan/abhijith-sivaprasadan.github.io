@@ -1,24 +1,6 @@
-const SUBJECT_OPTIONS = [
-  "PhD inquiry",
-  "Industrial R&D collaboration",
-  "Energy systems role",
-  "Thermal / CFD role",
-  "Other",
-];
-
-function makeSubjectSelect(form) {
-  const input = form.querySelector('input[name="subject"]');
-  if (!input || form.querySelector('select[name="subject"]')) return;
-  const select = document.createElement("select");
-  select.name = "subject";
-  select.required = true;
-  select.innerHTML = SUBJECT_OPTIONS.map((option) => `<option value="${option}">${option}</option>`).join("");
-  input.replaceWith(select);
-}
-
 function assignSteps(form) {
   const row = form.querySelector(".contact-form-row");
-  const subjectLabel = form.querySelector('select[name="subject"]')?.closest("label");
+  const subjectLabel = form.querySelector('select[name="reason"]')?.closest("label");
   const messageLabel = form.querySelector('textarea[name="message"]')?.closest("label");
   if (subjectLabel) subjectLabel.dataset.stepPanel = "1";
   if (row) row.dataset.stepPanel = "2";
@@ -28,7 +10,7 @@ function assignSteps(form) {
 function controls() {
   return `
     <div class="step-form-progress" aria-label="Contact form steps">
-      <span data-step-dot="1">Subject</span>
+      <span data-step-dot="1">Reason</span>
       <span data-step-dot="2">Details</span>
       <span data-step-dot="3">Message</span>
     </div>
@@ -57,7 +39,6 @@ function validateStep(form) {
 export async function init(ctx) {
   const form = document.querySelector("[data-contact-form]");
   if (!form || form.classList.contains("step-contact-form")) return null;
-  makeSubjectSelect(form);
   assignSteps(form);
   form.classList.add("step-contact-form");
   form.insertAdjacentHTML("afterbegin", controls());

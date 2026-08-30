@@ -13,7 +13,7 @@
  * To disable for a session, the user can hit `?nosw=1` once.
  */
 
-const VERSION = "v4-w22-20260601-field-radar";
+const VERSION = "v4-w23-20260830-open-source";
 const SHELL_CACHE = `shell-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
 const NETWORK_FIRST_EXTENSIONS = /\.(?:css|js|json)$/i;

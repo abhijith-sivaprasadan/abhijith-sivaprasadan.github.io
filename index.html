@@ -21,16 +21,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://abhijith-portfolio-api.onrender.com" />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260601-field-radar" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260601-field-radar" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260601-field-radar" />
-  <script src="scripts/public-config.js?v=20260601-field-radar" defer></script>
-  <!-- v4 motion stack: GSAP + plugins (load before motion/index.js) -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="scripts/motion/index.js?v=20260601-field-radar"></script>
-  <script src="scripts/motion/sw-register.js?v=20260601-field-radar" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260830-open-source" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260830-open-source" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260830-open-source" />
+  <script src="scripts/public-config.js?v=20260830-open-source"></script>
+  <!-- v4 motion stack: GSAP + plugins load async; motion/index.js degrades gracefully until they arrive. -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" async></script>
+  <script type="module" src="scripts/motion/index.js?v=20260830-open-source"></script>
+  <script src="scripts/motion/sw-register.js?v=20260830-open-source" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,13 +62,12 @@
     "knowsAbout": ["Conjugate heat transfer", "Experimental validation", "Industrial decarbonization", "Energy systems modelling", "Python analytics", "District heating", "Techno-economic analysis", "k-omega SST turbulence model", "Compressible flow", "Mesh independence", "Biot number analysis"]
   }
   </script>
-  <script src="scripts/site.js?v=20260601-field-radar" defer></script>
-  <script src="scripts/animations.js?v=20260601-field-radar" defer></script>
-  <script src="scripts/sections/command-palette.js?v=20260601-field-radar" defer></script>
+  <script src="scripts/animations.js?v=20260830-open-source" defer></script>
+  <script src="scripts/sections/command-palette.js?v=20260830-open-source" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 
-<body data-page-key="home" class="future-v3 signal-rebuild page-launched" data-home-mode="thermal" data-motion-page-transition data-motion-entrance data-motion-scroll-rail>
+<body data-page-key="home" class="future-v3 signal-rebuild page-launched" data-home-mode="everything" data-motion-page-transition data-motion-entrance>
   <div class="looking-for-banner" role="status" data-looking-for-static>
     <span class="status-dot" aria-hidden="true"></span>
     <span class="status-text">Currently targeting <a href="research.html">PhD positions</a> and <a href="industrial-rd.html">industrial R&amp;D roles</a> in Sweden and the EU.</span>
@@ -79,6 +78,7 @@
   <header class="site-header">
     <nav class="nav container">
       <a href="#main" class="logo">Abhijith Sivaprasadan</a>
+      <span class="field-nav-lens" data-home-mode-label aria-live="polite">Everything</span>
       <div class="nav-links">
         <a href="#signal" data-i18n-sv="Signal">Signal</a>
         <a href="research.html" data-i18n-sv="Forskning">Research</a>
@@ -93,6 +93,35 @@
       <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
     </nav>
   </header>
+
+  <div class="field-focus-rail" data-field-focus-rail aria-label="Persistent portfolio focus">
+    <div class="field-focus-rail-inner container">
+      <span class="field-focus-rail-label">Focus</span>
+      <div class="home-mode-toggle rail-mode-toggle" role="group" aria-label="Homepage audience lens">
+        <span class="home-mode-indicator" aria-hidden="true"></span>
+        <button type="button" class="home-mode-button is-active" data-home-mode-button="everything" aria-pressed="true">
+          <svg class="home-mode-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 7H12M7 2V12" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.1" opacity="0.72"/></svg>
+          <span>Everything</span>
+        </button>
+        <button type="button" class="home-mode-button" data-home-mode-button="thermal" aria-pressed="false" data-i18n-sv="Termik och strömning">
+          <svg class="home-mode-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 7C3.5 2 10.5 2 13 7C10.5 12 3.5 12 1 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg>
+          <span>Thermal &amp; Fluid</span>
+        </button>
+        <button type="button" class="home-mode-button" data-home-mode-button="energy" aria-pressed="false" data-i18n-sv="Energisystem">
+          <svg class="home-mode-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline points="1,11 4,6 7,8 10,3 13,5" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Energy Systems</span>
+        </button>
+        <button type="button" class="home-mode-button" data-home-mode-button="decarbonisation" aria-pressed="false" data-i18n-sv="Industriell FoU">
+          <svg class="home-mode-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="2" y="5" width="3" height="7" fill="currentColor" opacity="0.55"/><rect x="5.5" y="3" width="3" height="9" fill="currentColor" opacity="0.78"/><rect x="9" y="1" width="3" height="11" fill="currentColor"/></svg>
+          <span>Industrial R&amp;D</span>
+        </button>
+        <button type="button" class="home-mode-button" data-home-mode-button="research" aria-pressed="false" data-i18n-sv="Forskning">
+          <svg class="home-mode-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="6" cy="6" r="3.5" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M8.5 8.5L12 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span>Research</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <main id="main" class="home-flow" tabindex="-1">
     <section id="signal" class="hero signal-hero field-welcome section scroll-scene scene-hero" data-scene="systems">
@@ -112,13 +141,27 @@
 
         <div class="hero-core">
           <div class="hero-copy">
-            <h1 class="fw-claim" data-editable="hero-title">I work on heat, flow and energy systems &mdash; turning high-temperature and energy problems into evidence you can build on.</h1>
+            <h1 class="fw-claim" data-editable="hero-title">
+              <span data-home-mode-target="everything">I work on heat, flow and energy systems &mdash; turning high-temperature and energy problems into evidence you can build on.</span>
+              <span data-home-mode-target="thermal" hidden>I build thermal-fluid evidence across CFD, CHT and test context for hardware decisions.</span>
+              <span data-home-mode-target="energy" hidden>I model energy systems from demand profiles to dispatch, costs and resilient operating choices.</span>
+              <span data-home-mode-target="decarbonisation" hidden>I turn industrial energy use into measurable decarbonisation paths with KPI logic and practical metering.</span>
+              <span data-home-mode-target="research" hidden>I connect first-principles modelling, experiments and paper-ready evidence for research questions.</span>
+            </h1>
             <div class="fw-rule" aria-hidden="true"></div>
             <p class="signal-claim fw-support">
-              I combine simulation, test context and energy-system modelling so technical questions can move from first-principles reasoning to decisions.
+              <span data-home-mode-target="everything">I combine simulation, test context and energy-system modelling so technical questions can move from first-principles reasoning to decisions.</span>
+              <span data-home-mode-target="thermal" hidden>CHT, turbulence modelling, pressure-loss reasoning and instrumentation context sit together so the thermal story is defensible.</span>
+              <span data-home-mode-target="energy" hidden>Building demand, district heating dispatch, techno-economics and code workflows connect the system model to operating choices.</span>
+              <span data-home-mode-target="decarbonisation" hidden>Energy-performance mapping, EnPI logic and audit-ready evidence turn broad decarbonisation intent into an engineering method.</span>
+              <span data-home-mode-target="research" hidden>Thesis work, numerical methods and validation framing are presented as traceable research evidence, not loose portfolio claims.</span>
             </p>
             <p class="hero-text fw-signal" data-editable="hero-lead">
-              M.Sc. Sustainable Energy Engineering, KTH &middot; currently exploring PhD and industrial R&amp;D roles across Sweden and the EU.
+              <span data-home-mode-target="everything">M.Sc. Sustainable Energy Engineering, KTH &middot; currently exploring PhD and industrial R&amp;D roles across Sweden and the EU.</span>
+              <span data-home-mode-target="thermal" hidden>Thermal-fluid lens: CFD/CHT, mesh judgement, near-wall treatment, pressure loss and lab measurement context.</span>
+              <span data-home-mode-target="energy" hidden>Energy lens: demand forecasting, dispatch optimisation, scenario modelling and techno-economic comparison.</span>
+              <span data-home-mode-target="decarbonisation" hidden>Industrial R&amp;D lens: KPI/EnPI design, metering readiness, regulatory comparison and utility-system improvement logic.</span>
+              <span data-home-mode-target="research" hidden>Research lens: thesis-grounded modelling, equation-informed interpretation, validation limits and paper-style communication.</span>
             </p>
 
             <button class="fw-search" type="button" data-fcmd-open aria-label="Search projects, methods, data and pages">
@@ -128,11 +171,13 @@
             </button>
 
             <div class="button-row signal-actions">
-              <a class="button primary" href="projects/siemens-thesis.html" data-home-mode-target="thermal" data-i18n-sv="Siemens examensarbete">Siemens Thesis Case Study</a>
+              <a class="button primary" href="#projects" data-home-mode-target="everything">Browse Field Index</a>
+              <a class="button secondary" href="projects.html" data-home-mode-target="everything">Full Project Library</a>
+              <a class="button primary" href="projects/siemens-thesis.html" data-home-mode-target="thermal" data-i18n-sv="Siemens examensarbete" hidden>Siemens Thesis Case Study</a>
               <a class="button primary" href="energy-systems.html" data-home-mode-target="energy" data-i18n-sv="Energisystemspår" hidden>Energy Systems Track</a>
               <a class="button primary" href="industrial-rd.html" data-home-mode-target="decarbonisation" data-i18n-sv="Industriell FoU-profil" hidden>Industrial R&amp;D Fit</a>
               <a class="button primary" href="research.html" data-home-mode-target="research" data-i18n-sv="Forskningsinriktning" hidden>Research Statement</a>
-              <a class="button secondary" href="#profile" data-home-mode-target="thermal" data-i18n-sv="Termiska belägg">Thermal Evidence</a>
+              <a class="button secondary" href="#profile" data-home-mode-target="thermal" data-i18n-sv="Termiska belägg" hidden>Thermal Evidence</a>
               <a class="button secondary" href="projects/district-heating-optimisation.html" data-home-mode-target="energy" data-i18n-sv="Fjärrvärme-MILP" hidden>District Heating MILP</a>
               <a class="button secondary" href="projects/alleima-energy-efficiency.html" data-home-mode-target="decarbonisation" data-i18n-sv="Alleima-metodik" hidden>Alleima Methodology</a>
               <a class="button secondary" href="downloads/Abhijith_CV_PhD_Academic.pdf" download data-home-mode-target="research" data-cv-link data-i18n-sv="Ladda ner forsknings-CV" hidden>Download Research CV</a>
@@ -142,44 +187,143 @@
           </div>
 
           <div class="field-focus-cluster" aria-label="Focus and capability view">
-            <div class="home-mode-toggle" role="group" aria-label="Homepage audience lens">
-              <span class="home-mode-indicator" aria-hidden="true"></span>
-              <button type="button" class="home-mode-button is-active" data-home-mode-button="thermal" aria-pressed="true" data-i18n-sv="Termik och strömning">
-                <svg class="home-mode-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 7C3.5 2 10.5 2 13 7C10.5 12 3.5 12 1 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/></svg>
-                <span>Thermal &amp; Fluid</span>
-              </button>
-              <button type="button" class="home-mode-button" data-home-mode-button="energy" aria-pressed="false" data-i18n-sv="Energisystem">
-                <svg class="home-mode-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polyline points="1,11 4,6 7,8 10,3 13,5" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Energy Systems</span>
-              </button>
-              <button type="button" class="home-mode-button" data-home-mode-button="decarbonisation" aria-pressed="false" data-i18n-sv="Industriell FoU">
-                <svg class="home-mode-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="2" y="5" width="3" height="7" fill="currentColor" opacity="0.55"/><rect x="5.5" y="3" width="3" height="9" fill="currentColor" opacity="0.78"/><rect x="9" y="1" width="3" height="11" fill="currentColor"/></svg>
-                <span>Industrial R&amp;D</span>
-              </button>
-              <button type="button" class="home-mode-button" data-home-mode-button="research" aria-pressed="false" data-i18n-sv="Forskning">
-                <svg class="home-mode-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="6" cy="6" r="3.5" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M8.5 8.5L12 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-                <span>Research</span>
-              </button>
-            </div>
+            <figure class="hero-instrument" data-hero-instrument data-live-lens data-motion-fluid-sim>
+              <div class="hero-instrument-head">
+                <span data-home-mode-target="everything">FIELD LIVE LENS</span>
+                <span data-home-mode-target="thermal" data-i18n-sv="EXPORTERADE CFD-RESULTAT">EXPORTED CFD RESULTS</span>
+                <span data-home-mode-target="energy" data-i18n-sv="PRO2 INDATAUPPSPELNING" hidden>PRO2 INPUT PLAYBACK</span>
+                <span data-home-mode-target="decarbonisation" data-i18n-sv="SCENARIOBASERAD ENERGIBALANS" hidden>SCENARIO ENERGY BALANCE</span>
+                <span data-home-mode-target="research" data-i18n-sv="EKVATIONSINFORMERAD FORSKNINGSSCEN" hidden>EQUATION-INFORMED RESEARCH SCENE</span>
+                <strong data-i18n-sv="AKTIV LINS">LIVE LENS</strong>
+              </div>
+              <div class="hero-instrument-surface" data-hero-scene-stage aria-hidden="true">
+                <!-- ── Everything-track CCGT animation ─────────────────────────── -->
+                <svg class="tt-ev-scene" viewBox="0 0 285 240" preserveAspectRatio="xMidYMid meet"
+                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <defs>
+                    <style>
+                      .ev-flow      { stroke-dasharray: 10 5; animation: ev-dash 2.4s linear infinite; }
+                      .ev-flow-b    { stroke-dasharray: 10 5; animation: ev-dash 2.4s linear infinite 0.8s; }
+                      .ev-flow-c    { stroke-dasharray: 10 5; animation: ev-dash 3.0s linear infinite 0.3s; }
+                      .ev-flow-slow { stroke-dasharray: 8 5;  animation: ev-dash 4.2s linear infinite 1.0s; }
+                      .ev-pulse     { animation: ev-pulse 2.4s ease-in-out infinite; }
+                      .ev-pulse-b   { animation: ev-pulse 2.4s ease-in-out infinite 1.2s; }
+                      .ev-kpi       { animation: ev-glow  2.8s ease-in-out infinite; }
+                      .ev-kpi-b     { animation: ev-glow  2.8s ease-in-out infinite 1.4s; }
+                      .ev-scan      { animation: ev-scan  4.2s linear infinite; }
+                      @keyframes ev-dash  { to { stroke-dashoffset: -30; } }
+                      @keyframes ev-pulse { 0%,100%{opacity:.85} 50%{opacity:.32} }
+                      @keyframes ev-glow  { 0%,100%{opacity:.9} 50%{opacity:1;filter:drop-shadow(0 0 4px currentColor)} }
+                      @keyframes ev-scan  { 0%{transform:translateX(-3px)} 100%{transform:translateX(290px)} }
+                    </style>
+                    <marker id="ev-at" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0.5 L5,2.5 L0,4.5" stroke="#65d6c9" stroke-width="1" fill="none"/></marker>
+                    <marker id="ev-aa" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0.5 L5,2.5 L0,4.5" stroke="#f6c85f" stroke-width="1" fill="none"/></marker>
+                    <marker id="ev-ar" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0.5 L5,2.5 L0,4.5" stroke="#ef4444" stroke-width="1" fill="none"/></marker>
+                    <marker id="ev-ao" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0.5 L5,2.5 L0,4.5" stroke="#f97316" stroke-width="1" fill="none"/></marker>
+                    <marker id="ev-as" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0.5 L5,2.5 L0,4.5" stroke="#6b7fa8" stroke-width="1" fill="none"/></marker>
+                  </defs>
+
+                  <!-- Scan sweep -->
+                  <rect class="ev-scan" y="0" width="2" height="240" fill="rgba(101,214,201,0.08)" rx="1"/>
+
+                  <!-- ── Header ────────────────────────────────────────────────── -->
+                  <text x="5" y="12" font-family="ui-monospace,monospace" font-size="9" fill="#2a4a60" letter-spacing="0.6">THERMOTWIN-F &middot; CCGT DESIGN POINT &middot; FORTRAN 2008</text>
+                  <line x1="0" y1="16" x2="285" y2="16" stroke="#1a2f40" stroke-width="0.8"/>
+
+                  <!-- ── Gas turbine row  (y-centre 58) ───────────────────────── -->
+                  <!-- temp labels -->
+                  <text x="8"   y="33" font-family="ui-monospace,monospace" font-size="9" fill="#38bdf8">288 K</text>
+                  <text x="54"  y="33" font-family="ui-monospace,monospace" font-size="9" fill="#f6c85f">679 K</text>
+                  <text x="100" y="33" font-family="ui-monospace,monospace" font-size="9" fill="#ef4444" font-weight="600">1400 K</text>
+                  <text x="144" y="33" font-family="ui-monospace,monospace" font-size="8.5" fill="#4ade80">45.5 MW</text>
+
+                  <!-- COMP -->
+                  <rect x="8"   y="38" width="40" height="26" rx="3" fill="rgba(28,56,88,0.45)" stroke="#204060" stroke-width="1.1"/>
+                  <text x="28"  y="55" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#38bdf8" font-weight="600">COMP</text>
+                  <!-- COMB -->
+                  <rect x="58"  y="38" width="40" height="26" rx="3" fill="rgba(96,50,0,0.40)"  stroke="#7a3800" stroke-width="1.1" class="ev-pulse"/>
+                  <text x="78"  y="55" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#f6c85f" font-weight="600">COMB</text>
+                  <!-- TURB -->
+                  <rect x="108" y="38" width="40" height="26" rx="3" fill="rgba(112,50,0,0.40)" stroke="#9a4400" stroke-width="1.1" class="ev-pulse-b"/>
+                  <text x="128" y="55" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#f97316" font-weight="600">TURB</text>
+                  <!-- G1 generator -->
+                  <circle cx="168" cy="51" r="15" fill="rgba(34,74,34,0.40)" stroke="#286028" stroke-width="1.1"/>
+                  <text x="168" y="56" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" fill="#4ade80" font-weight="700">G1</text>
+
+                  <!-- GT flow arrows -->
+                  <line x1="3"   y1="51" x2="7"   y2="51" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#ev-at)" class="ev-flow-c"/>
+                  <line x1="48"  y1="51" x2="57"  y2="51" stroke="#f6c85f" stroke-width="1.8" marker-end="url(#ev-aa)" class="ev-flow"/>
+                  <line x1="98"  y1="51" x2="107" y2="51" stroke="#ef4444" stroke-width="1.8" marker-end="url(#ev-ar)" class="ev-flow-b"/>
+                  <line x1="148" y1="51" x2="152" y2="51" stroke="#f97316" stroke-width="1.8" marker-end="url(#ev-ao)" class="ev-flow"/>
+
+                  <!-- FUEL arrow into COMB from above -->
+                  <line x1="78" y1="20" x2="78" y2="37" stroke="#f6c85f" stroke-width="1.4" marker-end="url(#ev-aa)" class="ev-pulse-b"/>
+                  <text x="72" y="17" font-family="ui-monospace,monospace" font-size="9" fill="#f6c85f">FUEL</text>
+
+                  <!-- ── Exhaust bend  TURB → HRSG ─────────────────────────────── -->
+                  <path d="M 128,64 L 128,82 L 98,82 L 98,100" stroke="#f97316" stroke-width="1.5" fill="none" marker-end="url(#ev-ao)" class="ev-flow-slow"/>
+                  <text x="132" y="80" font-family="ui-monospace,monospace" font-size="9" fill="#f97316">797 K</text>
+
+                  <!-- Stack arrow up from HRSG left -->
+                  <line x1="76" y1="100" x2="76" y2="84" stroke="#6b7fa8" stroke-width="1.3" marker-end="url(#ev-as)" class="ev-pulse"/>
+                  <text x="80" y="97" font-family="ui-monospace,monospace" font-size="8.5" fill="#6b7fa8" class="ev-pulse">STACK</text>
+
+                  <!-- ── Steam cycle row  (y-centre 113) ──────────────────────── -->
+                  <!-- output label above G2 -->
+                  <text x="158" y="97" font-family="ui-monospace,monospace" font-size="8.5" fill="#4ade80">15.2 MW</text>
+
+                  <!-- HRSG -->
+                  <rect x="72"  y="100" width="50" height="26" rx="3" fill="rgba(22,54,84,0.40)" stroke="#1a3c5a" stroke-width="1.1"/>
+                  <text x="97"  y="117" text-anchor="middle" font-family="ui-monospace,monospace" font-size="11" fill="#65d6c9" font-weight="600">HRSG</text>
+                  <!-- S.TURB -->
+                  <rect x="132" y="100" width="42" height="26" rx="3" fill="rgba(22,54,84,0.40)" stroke="#1a3c5a" stroke-width="1.1"/>
+                  <text x="153" y="117" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#65d6c9" font-weight="600">S.TURB</text>
+                  <!-- G2 generator -->
+                  <circle cx="192" cy="113" r="15" fill="rgba(34,74,34,0.40)" stroke="#286028" stroke-width="1.1"/>
+                  <text x="192" y="118" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" fill="#4ade80" font-weight="700">G2</text>
+
+                  <!-- Steam flow arrows -->
+                  <line x1="122" y1="113" x2="131" y2="113" stroke="#65d6c9" stroke-width="1.8" marker-end="url(#ev-at)" class="ev-flow"/>
+                  <line x1="174" y1="113" x2="176" y2="113" stroke="#65d6c9" stroke-width="1.8" marker-end="url(#ev-at)" class="ev-flow-b"/>
+
+                  <!-- 379 K label + feedwater return -->
+                  <text x="72" y="138" font-family="ui-monospace,monospace" font-size="9" fill="#6b7fa8">379 K  stack exit</text>
+                  <path d="M 192,128 L 192,144 L 76,144 L 76,128" stroke="#38bdf8" stroke-width="1" fill="none" stroke-dasharray="4 3.5" opacity="0.38"/>
+
+                  <!-- ── Divider ─────────────────────────────────────────────── -->
+                  <line x1="220" y1="18" x2="220" y2="195" stroke="#1e3040" stroke-width="0.9"/>
+
+                  <!-- ── KPI panel ──────────────────────────────────────────── -->
+                  <text x="226" y="36" font-family="ui-monospace,monospace" font-size="9" fill="#2a4a62" letter-spacing="0.5">NET OUTPUT</text>
+                  <text x="226" y="80" font-family="ui-monospace,monospace" font-size="42" fill="#65d6c9" font-weight="700" class="ev-kpi">60.7</text>
+                  <text x="226" y="96" font-family="ui-monospace,monospace" font-size="14" fill="#65d6c9">MW</text>
+
+                  <line x1="220" y1="105" x2="285" y2="105" stroke="#1a3040" stroke-width="0.7"/>
+
+                  <text x="226" y="120" font-family="ui-monospace,monospace" font-size="9" fill="#2a4a62" letter-spacing="0.5">THERMAL EFF.</text>
+                  <text x="226" y="160" font-family="ui-monospace,monospace" font-size="38" fill="#4ade80" font-weight="700" class="ev-kpi-b">52.8</text>
+                  <text x="226" y="175" font-family="ui-monospace,monospace" font-size="14" fill="#4ade80">%  LHV</text>
+
+                  <!-- detail rows -->
+                  <line x1="220" y1="183" x2="285" y2="183" stroke="#1a3040" stroke-width="0.7"/>
+                  <text x="226" y="194" font-family="ui-monospace,monospace" font-size="9.5" fill="#4a6a7a">&eta;&#8322; 0.50 &plusmn; 0.03  &middot;  28/28 &#10003;</text>
+
+                  <!-- bottom bar -->
+                  <line x1="0" y1="228" x2="285" y2="228" stroke="#141e2c" stroke-width="0.7"/>
+                  <text x="5" y="237" font-family="ui-monospace,monospace" font-size="8" fill="#1e3040">CCGT design point &middot; verified vs hand-calc &middot; not ASME PTC22</text>
+                </svg>
+              </div>
+              <figcaption>
+                <span data-home-mode-target="everything">A track-aware live model surface. Pick a focus to swap the instrument, its captions and the supporting evidence.</span>
+                <span data-home-mode-target="thermal" data-i18n-sv="Termiskt motståndsnät baserat på uppsatsens Biot-tolkning; animeringen är analytisk förklaring, inte en ny CFD-lösning.">Thermal resistance network based on the thesis Biot interpretation; animated analytical explanation, not new CFD output.</span>
+                <span data-home-mode-target="energy" data-i18n-sv="Efterfrågan och elpris från PRO2-indata; driftfördelningen är en tydligt märkt screeningregel.">Demand and electricity price from PRO2 inputs; dispatch split is a labelled screening rule.</span>
+                <span data-home-mode-target="decarbonisation" data-i18n-sv="Representativ energibalans; omkopplare driver EnPI- och utsläppsintensitetsrespons.">Representative energy balance; switches drive EnPI and emissions-intensity response.</span>
+                <span data-home-mode-target="research" data-i18n-sv="De Laval-flöde och regenerativ kylning baserade på area-Mach- och Bartz-skalning; illustrativt, inte uppmätt.">de Laval flow and regenerative cooling based on area-Mach and Bartz scaling; illustrative, not measured.</span>
+              </figcaption>
+            </figure>
             <div class="field-radar-anchor" data-skill-radar aria-label="Self-assessed capability radar"></div>
           </div>
 
-          <figure class="hero-instrument" data-hero-instrument data-live-lens>
-            <div class="hero-instrument-head">
-              <span data-home-mode-target="thermal" data-i18n-sv="EXPORTERADE CFD-RESULTAT">EXPORTED CFD RESULTS</span>
-              <span data-home-mode-target="energy" data-i18n-sv="PRO2 INDATAUPPSPELNING" hidden>PRO2 INPUT PLAYBACK</span>
-              <span data-home-mode-target="decarbonisation" data-i18n-sv="SCENARIOBASERAD ENERGIBALANS" hidden>SCENARIO ENERGY BALANCE</span>
-              <span data-home-mode-target="research" data-i18n-sv="EKVATIONSINFORMERAD FORSKNINGSSCEN" hidden>EQUATION-INFORMED RESEARCH SCENE</span>
-              <strong data-i18n-sv="AKTIV LINS">LIVE LENS</strong>
-            </div>
-            <div class="hero-instrument-surface" data-hero-scene-stage aria-hidden="true"></div>
-            <figcaption>
-              <span data-home-mode-target="thermal" data-i18n-sv="Termiskt motståndsnät baserat på uppsatsens Biot-tolkning; animeringen är analytisk förklaring, inte en ny CFD-lösning.">Thermal resistance network based on the thesis Biot interpretation; animated analytical explanation, not new CFD output.</span>
-              <span data-home-mode-target="energy" data-i18n-sv="Efterfrågan och elpris från PRO2-indata; driftfördelningen är en tydligt märkt screeningregel.">Demand and electricity price from PRO2 inputs; dispatch split is a labelled screening rule.</span>
-              <span data-home-mode-target="decarbonisation" data-i18n-sv="Representativ energibalans; omkopplare driver EnPI- och utsläppsintensitetsrespons.">Representative energy balance; switches drive EnPI and emissions-intensity response.</span>
-              <span data-home-mode-target="research" data-i18n-sv="De Laval-flöde och regenerativ kylning baserade på area-Mach- och Bartz-skalning; illustrativt, inte uppmätt.">de Laval flow and regenerative cooling based on area-Mach and Bartz scaling; illustrative, not measured.</span>
-            </figcaption>
-          </figure>
         </div>
 
         <div class="recruiter-mode-bar">
@@ -501,6 +645,88 @@
             </ul>
           </details>
         </aside>
+
+        <!-- ── Live Lens B: ThermoTwin-F CCGT plant console ────────────────── -->
+        <aside class="research-telemetry tt-plant-console" data-home-mode-target="everything" data-live-lens aria-label="ThermoTwin-F CCGT plant console — active when Live Lens is on">
+          <header class="research-telemetry-head">
+            <div>
+              <p class="eyebrow">ThermoTwin-F &mdash; CCGT plant console<span class="tt-live-pip" aria-hidden="true"></span></p>
+              <h2>60.7 MW illustrative combined-cycle design point</h2>
+              <p>Historical simulator example; not live plant data. Numerical report reproduction and external validation remain pending.</p>
+            </div>
+            <a class="model-badge" href="projects/thermotwin-f.html" style="text-decoration:none">Case study &rarr;</a>
+          </header>
+          <div class="research-live-rail" aria-live="polite">
+            <article title="Net combined-cycle output at design point: GT 45.5 MW + ST 15.2 MW"><span class="cell-sym">P_net</span><strong class="tt-kpi-teal">60.7 MW</strong><span>Net plant output</span></article>
+            <article title="Thermal efficiency (LHV basis) at calibrated combined-cycle design point"><span class="cell-sym">&eta;_th</span><strong class="tt-kpi-green">52.8 %</strong><span>Thermal efficiency (LHV)</span></article>
+            <article title="Second-law efficiency with 95 % CI from Monte-Carlo UQ (Box–Muller, N = 10 000)"><span class="cell-sym">&eta;_II</span><strong>0.502 &plusmn; 0.027</strong><span>Exergy efficiency &plusmn; 1&sigma;</span></article>
+            <article title="95 % confidence interval from Monte-Carlo UQ: lower 0.450, upper 0.554"><span class="cell-sym">CI 95 %</span><strong>[0.450 &ndash; 0.554]</strong><span>&eta;_II confidence interval</span></article>
+            <article title="Gas turbine net output from calibrated Brayton cycle solver"><span class="cell-sym">P_GT</span><strong>45.5 MW</strong><span>Gas turbine net</span></article>
+            <article title="Steam turbine net output from IAPWS-IF97 bottoming cycle"><span class="cell-sym">P_ST</span><strong>15.2 MW</strong><span>Steam turbine net</span></article>
+            <article title="Turbine inlet temperature — fire temperature at combustor exit"><span class="cell-sym">TIT</span><strong>1400 K</strong><span>Turbine inlet T</span></article>
+            <article title="Compressor pressure ratio; inlet 288 K → delivery 679 K"><span class="cell-sym">PR</span><strong>15</strong><span>Compressor PR</span></article>
+            <article title="HRSG pinch-point temperature approach between exhaust gas and steam drum"><span class="cell-sym">&Delta;T_pinch</span><strong>15 K</strong><span>HRSG pinch</span></article>
+            <article title="Stack temperature — residual heat after HRSG recovery"><span class="cell-sym">T_stack</span><strong>379 K</strong><span>Stack temperature</span></article>
+            <article title="Exergy balance closure residual — machine zero confirms conservation is satisfied"><span class="cell-sym">&delta;_bal</span><strong class="tt-kpi-green">&minus;0.0000</strong><span>Balance closure residual</span></article>
+            <article title="Sobol total-effect index for fuel mass-flow — S_T ≈ 1.1, all other drivers ≈ 0"><span class="cell-sym">S_T(&#7745;_f)</span><strong>&asymp; 1.1</strong><span>Sobol driver (fuel flow)</span></article>
+            <article title="Unit test suite — 28 programs, all passing at machine precision"><span class="cell-sym">tests</span><strong class="tt-kpi-green">28 / 28 &#10003;</strong><span>Unit tests &mdash; all green</span></article>
+            <article title="Modern Fortran 2008 engine modules sharing one GridState shared contract"><span class="cell-sym">modules</span><strong>54</strong><span>Fortran engine modules</span></article>
+          </div>
+          <p class="model-footnote">Calibrated design-point; verified against independent hand-calculation. Not ASME PTC 22 / ISO 2314 validated. Numbers from THERMOTWIN-F_TECHNICAL_REPORT.md §8.</p>
+        </aside>
+
+        <!-- ── Live Lens C: signal board evidence ticker ─────────────────────── -->
+        <aside class="research-telemetry tt-signal-board" data-home-mode-target="everything" data-live-lens aria-label="Cross-project evidence ticker — active when Live Lens is on">
+          <header class="research-telemetry-head">
+            <div>
+              <p class="eyebrow">Signal board &mdash; all case studies</p>
+              <h2>Validated evidence from every project. Hover to pause.</h2>
+            </div>
+            <span class="model-badge">Confirmed signals only</span>
+          </header>
+          <div class="tt-ticker-rail" aria-label="Scrolling project evidence signals">
+            <div class="tt-ticker-inner" aria-hidden="true">
+              <!-- First pass -->
+              <div class="tt-sig"><span class="tt-sig-proj">Siemens CFD/CHT</span><span class="tt-sig-val">Ma 0.990</span><span class="tt-sig-desc">Throat Mach — quintic C&sup2; smooth geometry (TRITA-ITM-EX 2026:14)</span><a class="tt-sig-lnk" href="projects/siemens-thesis.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Siemens CFD/CHT</span><span class="tt-sig-val">Ma 1.006</span><span class="tt-sig-desc">Throat Mach — legacy 2-step geometry (TRITA-ITM-EX 2026:14)</span><a class="tt-sig-lnk" href="projects/siemens-thesis.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Siemens CFD/CHT</span><span class="tt-sig-val">Bi 0.003&ndash;0.004</span><span class="tt-sig-desc">Biot number band — thesis thermal interpretation</span><a class="tt-sig-lnk" href="projects/siemens-thesis.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Siemens CFD/CHT</span><span class="tt-sig-val">673 K</span><span class="tt-sig-desc">Inlet stagnation temperature — Siemens Energy test condition</span><a class="tt-sig-lnk" href="projects/siemens-thesis.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Siemens CFD/CHT</span><span class="tt-sig-val">8 / 8 &#10003;</span><span class="tt-sig-desc">Validation checks passed — thesis evidence suite</span><a class="tt-sig-lnk" href="projects/siemens-thesis.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">60.7 MW</span><span class="tt-sig-desc">Net combined-cycle output — calibrated CCGT design point</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">52.8 %</span><span class="tt-sig-desc">Plant thermal efficiency — LHV basis</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">&eta;_II = 0.502 &plusmn; 0.027</span><span class="tt-sig-desc">Second-law efficiency, 95&thinsp;% CI [0.450, 0.554]</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">&minus;0.0000</span><span class="tt-sig-desc">Exergy balance closure residual — machine zero</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">S_T &asymp; 1.1</span><span class="tt-sig-desc">Sobol total-effect index — fuel mass-flow dominates &eta;_II</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">28 / 28 &#10003;</span><span class="tt-sig-desc">Unit tests — all green; combustor dominance + &chi;&sup2; reconciliation</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">379 K stack</span><span class="tt-sig-desc">Stack temperature after HRSG — 15 K pinch, 45.5 MW GT output</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Distribution grid</span><span class="tt-sig-val">110.6 %</span><span class="tt-sig-desc">Line loading — N-1 contingency under EV stress (CIGRE MV network)</span><a class="tt-sig-lnk" href="projects/distribution-grid-study.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Distribution grid</span><span class="tt-sig-val">104.4 %</span><span class="tt-sig-desc">Transformer loading — N-1 under EV stress</span><a class="tt-sig-lnk" href="projects/distribution-grid-study.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Distribution grid</span><span class="tt-sig-val">348 profiles</span><span class="tt-sig-desc">EV charging profiles integrated — 24-hour time-series</span><a class="tt-sig-lnk" href="projects/distribution-grid-study.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">DH MILP (PRO2)</span><span class="tt-sig-val">COP 3.20</span><span class="tt-sig-desc">Heat-pump coefficient of performance (PRO2 input)</span><a class="tt-sig-lnk" href="projects/district-heating-optimisation.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">DH MILP (PRO2)</span><span class="tt-sig-val">14 MWh TES</span><span class="tt-sig-desc">Thermal energy storage capacity (PRO2 input)</span><a class="tt-sig-lnk" href="projects/district-heating-optimisation.html" tabindex="-1">&rarr;</a></div>
+              <!-- Second pass — duplicate for seamless infinite scroll -->
+              <div class="tt-sig"><span class="tt-sig-proj">Siemens CFD/CHT</span><span class="tt-sig-val">Ma 0.990</span><span class="tt-sig-desc">Throat Mach — quintic C&sup2; smooth geometry (TRITA-ITM-EX 2026:14)</span><a class="tt-sig-lnk" href="projects/siemens-thesis.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Siemens CFD/CHT</span><span class="tt-sig-val">Ma 1.006</span><span class="tt-sig-desc">Throat Mach — legacy 2-step geometry (TRITA-ITM-EX 2026:14)</span><a class="tt-sig-lnk" href="projects/siemens-thesis.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Siemens CFD/CHT</span><span class="tt-sig-val">Bi 0.003&ndash;0.004</span><span class="tt-sig-desc">Biot number band — thesis thermal interpretation</span><a class="tt-sig-lnk" href="projects/siemens-thesis.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Siemens CFD/CHT</span><span class="tt-sig-val">673 K</span><span class="tt-sig-desc">Inlet stagnation temperature — Siemens Energy test condition</span><a class="tt-sig-lnk" href="projects/siemens-thesis.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Siemens CFD/CHT</span><span class="tt-sig-val">8 / 8 &#10003;</span><span class="tt-sig-desc">Validation checks passed — thesis evidence suite</span><a class="tt-sig-lnk" href="projects/siemens-thesis.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">60.7 MW</span><span class="tt-sig-desc">Net combined-cycle output — calibrated CCGT design point</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">52.8 %</span><span class="tt-sig-desc">Plant thermal efficiency — LHV basis</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">&eta;_II = 0.502 &plusmn; 0.027</span><span class="tt-sig-desc">Second-law efficiency, 95&thinsp;% CI [0.450, 0.554]</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">&minus;0.0000</span><span class="tt-sig-desc">Exergy balance closure residual — machine zero</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">S_T &asymp; 1.1</span><span class="tt-sig-desc">Sobol total-effect index — fuel mass-flow dominates &eta;_II</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">28 / 28 &#10003;</span><span class="tt-sig-desc">Unit tests — all green; combustor dominance + &chi;&sup2; reconciliation</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">ThermoTwin-F</span><span class="tt-sig-val">379 K stack</span><span class="tt-sig-desc">Stack temperature after HRSG — 15 K pinch, 45.5 MW GT output</span><a class="tt-sig-lnk" href="projects/thermotwin-f.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Distribution grid</span><span class="tt-sig-val">110.6 %</span><span class="tt-sig-desc">Line loading — N-1 contingency under EV stress (CIGRE MV network)</span><a class="tt-sig-lnk" href="projects/distribution-grid-study.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Distribution grid</span><span class="tt-sig-val">104.4 %</span><span class="tt-sig-desc">Transformer loading — N-1 under EV stress</span><a class="tt-sig-lnk" href="projects/distribution-grid-study.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">Distribution grid</span><span class="tt-sig-val">348 profiles</span><span class="tt-sig-desc">EV charging profiles integrated — 24-hour time-series</span><a class="tt-sig-lnk" href="projects/distribution-grid-study.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">DH MILP (PRO2)</span><span class="tt-sig-val">COP 3.20</span><span class="tt-sig-desc">Heat-pump coefficient of performance (PRO2 input)</span><a class="tt-sig-lnk" href="projects/district-heating-optimisation.html" tabindex="-1">&rarr;</a></div>
+              <div class="tt-sig"><span class="tt-sig-proj">DH MILP (PRO2)</span><span class="tt-sig-val">14 MWh TES</span><span class="tt-sig-desc">Thermal energy storage capacity (PRO2 input)</span><a class="tt-sig-lnk" href="projects/district-heating-optimisation.html" tabindex="-1">&rarr;</a></div>
+            </div>
+          </div>
+          <p class="model-footnote">All entries are from verified case-study outputs. Hover the ticker to pause. Click &rarr; to open the case study.</p>
+        </aside>
+
       </div>
     </section>
 
@@ -929,497 +1155,304 @@
       </div>
     </section>
 
-    <section class="section subtle">
+    <section id="profile" class="section subtle scroll-scene scene-profile lens-fit-section" data-scene="thermal">
       <div class="container">
-        <details class="track-disclosure">
-          <summary>
-            <span class="eyebrow">Navigation matrix</span>
-            <span class="track-disclosure-title">Show full case-study list per track</span>
-            <span class="track-disclosure-hint">Expanded pathway view — strongest supporting case studies grouped per portfolio track.</span>
-          </summary>
-          <div class="cards three" style="margin-top:1.25rem;">
-            <article class="card">
-              <h3><a class="title-link" href="projects/siemens-thesis.html">Pathway 01 // Thermal and Fluid Engineering</a></h3>
-              <ul class="clean-list path-links">
-                <li><a href="projects/siemens-thesis.html">Siemens Energy CFD/CHT Thesis (primary anchor)</a></li>
-                <li><a href="projects/structural-fea-reactor-internals.html">Structural FEA Reactor Internals Pilot Study</a></li>
-                <li><a href="projects/numerical-heat-transfer.html">Numerical Heat Transfer project</a></li>
-                <li><a href="experience/siemens-energy.html">Siemens Energy lab experience</a></li>
-                <li><a href="projects/rotating-machinery-vibration-minilab.html">Rotating Machinery Vibration Mini-Lab</a></li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3><a class="title-link" href="energy-systems.html">Pathway 02 // Energy Systems Modelling</a></h3>
-              <ul class="clean-list path-links">
-                <li><a href="projects/district-heating-optimisation.html">District heating dispatch MILP</a></li>
-                <li><a href="projects/built-environment-ida-ice-simulation.html">IDA ICE building energy simulation</a></li>
-                <li><a href="projects/hylkysaari-sustainable-tourism.html">Hylkysaari Smart Energy Island</a></li>
-                <li><a href="projects/heating-demand-forecasting.html">Heating demand forecasting</a></li>
-                <li><a href="projects/distribution-grid-study.html">Distribution grid study</a></li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3><a class="title-link" href="industrial-rd.html">Pathway 03 // Industrial Energy and Decarbonisation</a></h3>
-              <ul class="clean-list path-links">
-                <li><a href="industrial-rd.html">Industrial R&amp;D fit statement</a></li>
-                <li><a href="projects/alleima-energy-efficiency.html">Alleima energy performance mapping methodology</a></li>
-                <li><a href="projects/industrial-energy-kpi-toolkit.html">Industrial Energy KPI Toolkit</a></li>
-                <li><a href="projects/eu-ets-exposure-calculator.html">EU ETS Exposure Calculator</a></li>
-                <li><a href="projects/district-heating-optimisation.html">District heating dispatch MILP</a></li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3><a class="title-link" href="research.html">Pathway 04 // Research</a></h3>
-              <ul class="clean-list path-links">
-                <li><a href="research.html">Research statement and interests</a></li>
-                <li><a href="projects/siemens-thesis.html">Siemens Energy CFD/CHT Thesis (primary anchor)</a></li>
-                <li><a href="projects/numerical-heat-transfer.html">Numerical Heat Transfer project</a></li>
-                <li><a href="courses.html">MJ2515, MJ2510 and KTH coursework evidence</a></li>
-              </ul>
-            </article>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section id="assignment-data" class="section assignment-data-section scroll-scene scene-assignments" data-scene="projects">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow" data-i18n-sv="Kursbelägg">Coursework evidence</p>
-          <h2><a class="heading-link" href="courses.html">Selected assignments with engineering outputs.</a></h2>
-          <p>
-            Selected KTH assignments are presented as portfolio evidence: the models, lab campaigns, reports and engineering methods behind the larger case studies.
-          </p>
+        <div class="section-heading compact-heading">
+          <p class="eyebrow" data-editable="profile-eyebrow">Lens fit</p>
+          <h2>
+            <span data-home-mode-target="everything">A short map of how the work splits by audience.</span>
+            <span data-home-mode-target="thermal" hidden>Thermal-fluid work, from model assumptions to test context.</span>
+            <span data-home-mode-target="energy" hidden>Energy-system work, from demand data to dispatch choices.</span>
+            <span data-home-mode-target="decarbonisation" hidden>Industrial decarbonisation work, from metering to action logic.</span>
+            <span data-home-mode-target="research" hidden>Research work, from thesis evidence to sharper questions.</span>
+          </h2>
         </div>
-        <div class="assignment-grid">
-          <a class="assignment-card" href="projects/numerical-heat-transfer.html">
-            <img src="assets/card-numerical-heat-transfer.svg" alt="Numerical heat transfer MJ2515 Grade A finite difference methods" loading="lazy" width="480" height="270" />
-            <span>MJ2515 / Grade A</span>
-            <strong>Numerical Heat Transfer</strong>
-            <small>Finite difference grids, Euler vs RK4, Lax-Friedrichs vs Lax-Wendroff and error behaviour.</small>
-          </a>
-          <a class="assignment-card" href="projects/battery-cell-discharge-lab.html">
-            <img src="assets/card-battery-discharge.svg" alt="Battery cell discharge lab MJ2386 chemistry comparison" loading="lazy" width="480" height="270" />
-            <span>MJ2386 / Lab data</span>
-            <strong>Battery Cell Discharge Testing</strong>
-            <small>Ni-MH, Li-Po and lead-acid discharge curves, C-rate behaviour and Peukert-style interpretation.</small>
-          </a>
-          <a class="assignment-card" href="projects/district-heating-optimisation.html">
-            <img src="assets/card-district-heating.svg" alt="District heating dispatch optimisation five scenario MILP model" loading="lazy" width="480" height="270" />
-            <span>Optimisation / PuLP</span>
-            <strong>District Heating Dispatch</strong>
-            <small>Five scenario model covering base dispatch, storage, outages, cost and emissions objectives.</small>
-          </a>
-          <a class="assignment-card" href="projects/built-environment-ida-ice-simulation.html">
-            <img src="assets/card-built-environment.svg" alt="Built environment IDA ICE energy simulation building load comparison" loading="lazy" width="480" height="270" />
-            <span>IDA ICE / Buildings</span>
-            <strong>Built Environment Energy Simulation</strong>
-            <small>Supply-system comparison, building load behaviour and energy-performance interpretation.</small>
-          </a>
+
+        <div class="lens-fit-panel" data-home-mode-target="everything">
+          <a href="projects/siemens-thesis.html"><span>Thermal</span><strong>CFD/CHT + lab context</strong></a>
+          <a href="energy-systems.html"><span>Energy</span><strong>Dispatch + system models</strong></a>
+          <a href="industrial-rd.html"><span>Industrial</span><strong>EnPI + process energy</strong></a>
+          <a href="research.html"><span>Research</span><strong>Methods + validation</strong></a>
+        </div>
+        <div class="lens-fit-panel focus-panel" data-home-mode-target="thermal" hidden>
+          <article><span>Primary anchor</span><strong>Siemens CFD/CHT thesis</strong><small>Fluent, k-omega SST, Biot interpretation, pressure-loss reasoning.</small></article>
+          <article><span>Test context</span><strong>NI-DAQ / LabVIEW</strong><small>Measurement-chain commissioning and validation planning in a high-temperature lab.</small></article>
+          <article><span>Readable proof</span><strong>Case study first</strong><small>The supporting projects stay behind the main thermal evidence instead of competing with it.</small></article>
+        </div>
+        <div class="lens-fit-panel focus-panel" data-home-mode-target="energy" hidden>
+          <article><span>Primary anchor</span><strong>District heating MILP</strong><small>Demand, price and source dispatch made legible for operating decisions.</small></article>
+          <article><span>System models</span><strong>IDA ICE / HOMER / SAM</strong><small>Buildings, storage, island energy and residential techno-economics.</small></article>
+          <article><span>Decision layer</span><strong>Cost, emissions, resilience</strong><small>Outputs stay tied to scenario assumptions and engineering use.</small></article>
+        </div>
+        <div class="lens-fit-panel focus-panel" data-home-mode-target="decarbonisation" hidden>
+          <article><span>Primary anchor</span><strong>Alleima energy methods</strong><small>ISO 50001/EED mapping, load drivers, metering readiness and EnPI design.</small></article>
+          <article><span>R&amp;D behaviour</span><strong>Model the transition</strong><small>Electrification, heat recovery and KPI logic without exposing private process data.</small></article>
+          <article><span>Tooling</span><strong>Reproducible dashboards</strong><small>Python/Streamlit-style workflows for repeatable technical decisions.</small></article>
+        </div>
+        <div class="lens-fit-panel focus-panel" data-home-mode-target="research" hidden>
+          <article><span>Primary anchor</span><strong>TRITA-ITM-EX 2026:14</strong><small>Thesis-grounded CHT and thermal-resistance interpretation.</small></article>
+          <article><span>Research habit</span><strong>State the limits</strong><small>Equations, assumptions and validation boundaries stay visible.</small></article>
+          <article><span>Next questions</span><strong>Surface condition + degradation</strong><small>Where simulation, measurement and high-temperature hardware meet.</small></article>
         </div>
       </div>
     </section>
 
-    <section id="profile" class="section subtle scroll-scene scene-profile" data-scene="thermal">
+    <section id="skills" class="section subtle scroll-scene scene-skills capability-section" data-scene="skills" data-reveal>
       <div class="container">
-        <details class="track-disclosure">
-          <summary>
-            <span class="eyebrow" data-editable="profile-eyebrow">Technical range</span>
-            <span class="track-disclosure-title">Show methods and tools per track</span>
-            <span class="track-disclosure-hint">Detailed methods and tools used in each portfolio track.</span>
-          </summary>
-          <div class="cards three" style="margin-top:1.25rem;">
-            <article class="card">
-              <h3><a class="title-link" href="projects/siemens-thesis.html">Thermal-fluid engineering &amp; test validation</a></h3>
-              <p>
-                Siemens Energy Fluid Dynamic Lab: steady-state compressible CFD and conjugate heat transfer in ANSYS Fluent (k-omega SST),
-                three-level mesh independence, Biot number analysis, NI-DAQ/LabVIEW measurement-chain commissioning,
-                K-type thermocouples, static and dynamic pressure sensors, validation planning and heater RCA.
-              </p>
-            </article>
-            <article class="card">
-              <h3><a class="title-link" href="projects/district-heating-optimisation.html">Energy systems modelling</a></h3>
-              <p>
-                IDA ICE building simulation, HOMER Pro island energy modelling, SAM residential heating techno-economics,
-                LEAP 3E scenario analysis, Python/PuLP district heating dispatch optimisation, scikit-learn heating demand
-                forecasting and distribution-grid N-1 / EV / PV / storage studies.
-              </p>
-            </article>
-            <article class="card">
-              <h3><a class="title-link" href="industrial-rd.html">Industrial energy &amp; decarbonisation</a></h3>
-              <p>
-                Alleima ISO 50001/EED energy performance mapping, load-driver regression, metering-readiness assessment,
-                KPI/EnPI logic, electrical utilities and compressed-air systems, EU ETS exposure modelling and reproducible
-                engineering tools for decision-support contexts.
-              </p>
-            </article>
-            <article class="card">
-              <h3><a class="title-link" href="research.html">Research formation</a></h3>
-              <p>
-                Research statement, TRITA-ITM-EX 2026:14 thesis evidence, MJ2515 numerical heat transfer, MJ2510 research
-                methods and a focused interest in high-temperature conjugate heat transfer, thermal resistance, surface
-                condition and experimental-numerical validation.
-              </p>
-            </article>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section id="skills" class="section subtle scroll-scene scene-skills" data-scene="skills" data-reveal>
-      <div class="container">
-        <div class="section-heading">
+        <div class="section-heading compact-heading">
           <p class="eyebrow" data-editable="skills-eyebrow" data-i18n-sv="Kompetenser">Capabilities</p>
-          <h2 data-editable="skills-title">Tools and methods behind the work</h2>
+          <h2 data-editable="skills-title">A compact cockpit for the selected track.</h2>
+          <p>Pick a focus above and this section narrows to the evidence, methods and tools that matter for that audience.</p>
         </div>
 
-        <div class="skill-grid" data-dynamic-skills data-api-resource="skills">
-          <div class="skill-block">
-            <h3>Thermal &amp; testing</h3>
-            <div class="skill-pills">
-              <span class="skill-pill hot">ANSYS Fluent</span><span class="skill-pill">Compressible CFD</span><span class="skill-pill">Conjugate heat transfer</span><span class="skill-pill">k-omega SST</span><span class="skill-pill">Mesh independence</span><span class="skill-pill">Biot analysis</span><span class="skill-pill">Thermal boundary conditions</span><span class="skill-pill">ANSYS Meshing</span><span class="skill-pill hot">NI-DAQ</span><span class="skill-pill hot">LabVIEW</span><span class="skill-pill">Thermocouples</span><span class="skill-pill">Root cause analysis</span><span class="skill-pill">Battery discharge characterisation</span><span class="skill-pill">Peukert analysis</span><span class="skill-pill">C-rate testing</span><span class="skill-pill">Solar thermal collector sizing</span><span class="skill-pill">PCM / TES systems</span>
-            </div>
-          </div>
-          <div class="skill-block">
-            <h3>CAD and PLM</h3>
-            <div class="skill-pills">
-              <span class="skill-pill hot">Siemens NX</span><span class="skill-pill hot">Teamcenter PLM2020</span><span class="skill-pill">SolidWorks</span><span class="skill-pill">ANSYS Mechanical</span><span class="skill-pill">ANSYS SpaceClaim</span>
-            </div>
-          </div>
-          <div class="skill-block">
-            <h3>Energy &amp; power systems</h3>
-            <div class="skill-pills">
-              <span class="skill-pill">IDA ICE</span><span class="skill-pill">HOMER Pro</span><span class="skill-pill">SAM</span><span class="skill-pill">LEAP</span><span class="skill-pill">PuLP</span><span class="skill-pill">MILP dispatch</span><span class="skill-pill">Power-flow studies</span><span class="skill-pill">N-1 screening</span><span class="skill-pill">District heating dispatch</span><span class="skill-pill">Building energy simulation</span><span class="skill-pill">Polygeneration</span><span class="skill-pill">3E scenario analysis</span><span class="skill-pill">Techno-economic assessment</span><span class="skill-pill">Solar fraction analysis</span>
-            </div>
-          </div>
-          <div class="skill-block">
-            <h3>Optimisation &amp; data</h3>
-            <div class="skill-pills">
-              <span class="skill-pill">Python</span><span class="skill-pill">pandas</span><span class="skill-pill">NumPy</span><span class="skill-pill">SciPy</span><span class="skill-pill">scikit-learn</span><span class="skill-pill">MATLAB</span><span class="skill-pill">Time-series analysis</span><span class="skill-pill">Scenario modelling</span><span class="skill-pill">KPI reporting</span><span class="skill-pill">Streamlit</span><span class="skill-pill">Plotly</span><span class="skill-pill">Model evaluation</span><span class="skill-pill">Day-ahead forecasting</span><span class="skill-pill">Feature engineering</span>
-            </div>
-          </div>
-          <div class="skill-block">
-            <h3>Machine learning</h3>
-            <div class="skill-pills">
-              <span class="skill-pill">Neural networks (SNN / DNN)</span><span class="skill-pill">Logistic regression</span><span class="skill-pill">Mahalanobis outlier detection</span><span class="skill-pill">Hyperparameter search</span><span class="skill-pill">Backpropagation / gradient descent</span><span class="skill-pill">Model comparison &amp; validation</span><span class="skill-pill">TensorFlow</span><span class="skill-pill">PyTorch</span>
-            </div>
-          </div>
-          <div class="skill-block">
-            <h3>Energy modelling tools</h3>
-            <div class="skill-pills">
-              <span class="skill-pill">IDA ICE</span><span class="skill-pill">HOMER Pro</span><span class="skill-pill">SAM</span><span class="skill-pill">MILP optimisation</span>
-            </div>
-          </div>
-          <div class="skill-block">
-            <h3>Selected tools</h3>
-            <div class="tool-icon-grid" aria-label="Selected software tools">
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#a7b0bd">ANSYS</span><span>ANSYS Fluent</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#65d6c9">DAQ</span><span>NI-DAQ</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#ffd166">Lab</span><span>LabVIEW</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#c2c7cf">Py</span><span>Python</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#8b7fff">NX</span><span>Siemens NX</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#4ade80">IDA</span><span>IDA ICE</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#c7f36f">HP</span><span>HOMER Pro</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#38b2ac">LEAP</span><span>LEAP</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#f97316">ML</span><span>MATLAB</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#6366f1">PuLP</span><span>PuLP / LP</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#ff8a5b">Git</span><span>Git</span></span>
-              <span class="tool-icon-card"><span class="tool-mark" style="--mark-color:#2563eb">Docker</span><span>Docker</span></span>
-            </div>
-          </div>
-          <div class="skill-block">
-            <h3>Software workflow</h3>
-            <div class="skill-pills">
-              <span class="skill-pill">Git</span><span class="skill-pill">Docker</span><span class="skill-pill">REST APIs</span><span class="skill-pill">Postman</span><span class="skill-pill">Endpoint tests</span><span class="skill-pill">Structured debugging</span><span class="skill-pill">Documentation</span><span class="skill-pill">Dashboards</span>
-            </div>
-          </div>
-          <div class="skill-block">
-            <h3>Certifications</h3>
-            <div class="skill-pills">
-              <span class="skill-pill">Applied CFD (Siemens)</span><span class="skill-pill">SSG Entre Safety</span><span class="skill-pill">IBM Python DS</span><span class="skill-pill">Digital Manufacturing</span><span class="skill-pill">Schneider Electric</span><span class="skill-pill">Digital Signal Processing</span>
-            </div>
-          </div>
+        <div class="capability-cockpit" data-home-mode-target="everything">
+          <article class="capability-tile">
+            <span class="capability-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M2 12C6 4 18 4 22 12C18 20 6 20 2 12Z" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="2.6" fill="currentColor"/></svg></span>
+            <h3>Thermal-fluid</h3>
+            <p>CFD/CHT, pressure loss, mesh judgement and test-context validation.</p>
+            <div class="skill-pills"><span>Fluent</span><span>CHT</span><span>NI-DAQ</span></div>
+          </article>
+          <article class="capability-tile">
+            <span class="capability-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><polyline points="2,19 7,11 12,14 17,5 22,9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Energy systems</h3>
+            <p>Demand, dispatch, storage and techno-economic scenario thinking.</p>
+            <div class="skill-pills"><span>PuLP</span><span>IDA ICE</span><span>HOMER</span></div>
+          </article>
+          <article class="capability-tile">
+            <span class="capability-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="9" width="4" height="11" fill="currentColor" opacity="0.55"/><rect x="10" y="5" width="4" height="15" fill="currentColor" opacity="0.78"/><rect x="17" y="2" width="4" height="18" fill="currentColor"/></svg></span>
+            <h3>Industrial R&amp;D</h3>
+            <p>Metering readiness, KPI/EnPI methods and electrification logic.</p>
+            <div class="skill-pills"><span>ISO 50001</span><span>EnPI</span><span>Python</span></div>
+          </article>
+          <article class="capability-tile">
+            <span class="capability-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M14.5 14.5L21 21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+            <h3>Research</h3>
+            <p>Numerical methods, validation framing and paper-style evidence.</p>
+            <div class="skill-pills"><span>MJ2515</span><span>Methods</span><span>Validation</span></div>
+          </article>
+        </div>
+
+        <div class="capability-cockpit track-cockpit" data-home-mode-target="thermal" hidden>
+          <article class="capability-tile hero-tile"><h3>Model the heat path</h3><p>Compressible CFD, CHT, k-omega SST, thermal boundary conditions, Biot reasoning and pressure-loss interpretation.</p><div class="skill-pills"><span>ANSYS Fluent</span><span>CHT</span><span>k-omega SST</span><span>Bi analysis</span></div></article>
+          <article class="capability-tile"><h3>Validate the chain</h3><p>NI-DAQ/LabVIEW commissioning, thermocouple chains, static/dynamic pressure sensors and RCA documentation.</p><div class="skill-pills"><span>NI-DAQ</span><span>LabVIEW</span><span>RCA</span></div></article>
+          <article class="capability-tile"><h3>Make it buildable</h3><p>CAD/PLM context and engineering communication that keeps assumptions inspectable.</p><div class="skill-pills"><span>NX</span><span>Teamcenter</span><span>SpaceClaim</span></div></article>
+        </div>
+        <div class="capability-cockpit track-cockpit" data-home-mode-target="energy" hidden>
+          <article class="capability-tile hero-tile"><h3>Shape demand into decisions</h3><p>Heating demand profiles, day-ahead price context, dispatch rules and MILP-style optimisation.</p><div class="skill-pills"><span>PuLP</span><span>pandas</span><span>Forecasting</span><span>TES</span></div></article>
+          <article class="capability-tile"><h3>Simulate systems</h3><p>Building and island energy models across IDA ICE, HOMER Pro, SAM and LEAP-style scenarios.</p><div class="skill-pills"><span>IDA ICE</span><span>HOMER Pro</span><span>SAM</span></div></article>
+          <article class="capability-tile"><h3>Compare tradeoffs</h3><p>Cost, emissions, resilience and distribution-grid constraints kept in the same frame.</p><div class="skill-pills"><span>TEA</span><span>N-1</span><span>Scenario logic</span></div></article>
+        </div>
+        <div class="capability-cockpit track-cockpit" data-home-mode-target="decarbonisation" hidden>
+          <article class="capability-tile hero-tile"><h3>Turn energy use into signals</h3><p>KPI/EnPI design, load-driver logic, metering readiness and measurement planning.</p><div class="skill-pills"><span>ISO 50001</span><span>EED</span><span>EnPI</span><span>M&amp;V</span></div></article>
+          <article class="capability-tile"><h3>Model interventions</h3><p>Heat recovery, electrification, compressed-air and utility systems framed as engineering choices.</p><div class="skill-pills"><span>Heat pumps</span><span>Utilities</span><span>MAC</span></div></article>
+          <article class="capability-tile"><h3>Package the method</h3><p>Reproducible Python workflows, dashboards and documented assumptions for R&amp;D teams.</p><div class="skill-pills"><span>Python</span><span>Streamlit</span><span>Plotly</span></div></article>
+        </div>
+        <div class="capability-cockpit track-cockpit" data-home-mode-target="research" hidden>
+          <article class="capability-tile hero-tile"><h3>Ask sharper thermal questions</h3><p>High-temperature CHT, thermal resistance, surface condition and degradation as measurable phenomena.</p><div class="skill-pills"><span>CHT</span><span>Thermal resistance</span><span>Surface condition</span></div></article>
+          <article class="capability-tile"><h3>Keep equations visible</h3><p>Numerical heat transfer, gas dynamics, Bartz-style scaling and validation limits stated plainly.</p><div class="skill-pills"><span>MJ2515</span><span>Discretisation</span><span>Scaling</span></div></article>
+          <article class="capability-tile"><h3>Communicate like a paper</h3><p>Traceable sources, reproducible calculations and cautious claims instead of portfolio gloss.</p><div class="skill-pills"><span>Methods</span><span>References</span><span>Academic CV</span></div></article>
         </div>
       </div>
     </section>
 
-    <section class="section subtle" data-reveal>
+    <section id="track-interests" class="section subtle track-interest-section" data-reveal>
       <div class="container">
-        <div class="section-heading">
+        <div class="section-heading compact-heading" data-home-mode-target="everything">
+          <p class="eyebrow">Current threads</p>
+          <h2>Everything view keeps the map broad; each track narrows it.</h2>
+        </div>
+        <div class="section-heading compact-heading" data-home-mode-target="thermal" hidden>
+          <p class="eyebrow">Thermal interests</p>
+          <h2>Questions around high-temperature flow, wall heat transfer and validation.</h2>
+        </div>
+        <div class="section-heading compact-heading" data-home-mode-target="energy" hidden>
+          <p class="eyebrow">Energy interests</p>
+          <h2>Questions around operating choices, demand, storage and system tradeoffs.</h2>
+        </div>
+        <div class="section-heading compact-heading" data-home-mode-target="decarbonisation" hidden>
+          <p class="eyebrow">Industrial interests</p>
+          <h2>Questions around turning energy performance into usable industrial signals.</h2>
+        </div>
+        <div class="section-heading compact-heading" data-home-mode-target="research" hidden>
           <p class="eyebrow" data-i18n-sv="Forskningsintressen">Research interests</p>
           <h2>Thermal-fluid problems where experiment, simulation and measurement converge.</h2>
-          <p>
-            The Siemens Energy thesis established a working method: build a defensible numerical model, validate the assumptions that can be tested, and state the implications for engineering decisions. The natural research extensions from that foundation are below.
-          </p>
         </div>
-        <div class="cards two" style="max-width:960px;" data-stagger>
-          <article class="card" data-stagger-item>
-            <h3>Conjugate heat transfer in high-temperature cooling passages</h3>
-            <p>Steady-state CHT in the thesis demonstrated how geometry, insulation and external heat loss interact in a confined high-temperature flow problem. The next research layer is transient operation, pulsating flow and near-choked flow stability &mdash; all relevant to calibration rigs and propulsion hardware where boundary conditions are dynamic.</p>
-            <div class="tag-row" style="margin-top:10px;">
-              <span>ANSYS Fluent CHT</span><span>k-omega SST</span><span>Bi decomposition</span><span>Transient CHT</span>
-            </div>
-          </article>
-          <article class="card" data-stagger-item>
-            <h3>Deposit and surface-condition effects on heat transfer</h3>
-            <p>The thesis treated wall surfaces as clean and fixed. Real high-temperature passages develop altered surface conditions over time, which changes thermal resistance and heat transfer predictions. Connecting deposit-formation mechanisms to measurable thermal indicators is a research direction the thesis methodology is well positioned to support.</p>
-            <div class="tag-row" style="margin-top:10px;">
-              <span>Thermal resistance</span><span>Surface condition</span><span>Health monitoring</span><span>Experimental validation</span>
-            </div>
-          </article>
-          <article class="card" data-stagger-item>
-            <h3>Industrial electrification and energy process modelling</h3>
-            <p>Process system engineering for low-carbon industrial transitions &mdash; combining energy modelling (Python, MATLAB), techno-economic analysis, dispatch optimisation and measurement-based performance indicators. Work covers electrochemical processes, thermal systems and energy conversion pathways.</p>
-            <div class="tag-row" style="margin-top:10px;">
-              <span>Python / MATLAB</span><span>Pyomo MILP</span><span>TEA</span><span>EnPI methodology</span>
-            </div>
-          </article>
-          <article class="card" data-stagger-item>
-            <h3>Measurement-chain design and experimental-numerical validation</h3>
-            <p>Seven months commissioning NI-DAQ/LabVIEW measurement chains at up to 700&deg;C, including independent test campaigns and formal root cause analysis of a heater failure. The interest is in closing the loop between simulation predictions and instrument-grade measurements for validation of thermal models.</p>
-            <div class="tag-row" style="margin-top:10px;">
-              <span>NI-DAQ / LabVIEW</span><span>Thermocouple chains</span><span>RCA methodology</span><span>Validation planning</span>
-            </div>
-          </article>
+
+        <div class="interest-grid" data-home-mode-target="everything">
+          <article><span>Thermal</span><strong>CHT + validation</strong><p>Reducer heat transfer, pressure loss and measurable wall-response logic.</p></article>
+          <article><span>Energy</span><strong>Dispatch + storage</strong><p>District heating operation, demand profiles and techno-economic scenarios.</p></article>
+          <article><span>Industrial</span><strong>EnPI + electrification</strong><p>Metering, heat recovery and process-energy decision support.</p></article>
+          <article><span>Research</span><strong>Surface condition</strong><p>How deposits and altered surfaces change thermal resistance over time.</p></article>
         </div>
-        <div class="project-links" style="margin-top:20px;">
-          <a href="research.html">Research page</a>
-          <a href="projects/siemens-thesis.html">Siemens thesis evidence</a>
-          <a href="downloads/Abhijith_CV_PhD_Academic.pdf" download>Academic CV</a>
+        <div class="interest-grid" data-home-mode-target="thermal" hidden>
+          <article><span>01</span><strong>Conjugate heat transfer</strong><p>Geometry, insulation and external heat loss in confined high-temperature flow.</p></article>
+          <article><span>02</span><strong>Measurement-chain closure</strong><p>Making thermocouple, pressure and DAQ signals useful for model validation.</p></article>
+          <article><span>03</span><strong>Pressure-loss interpretation</strong><p>Comparing smooth and legacy geometries without burying the assumptions.</p></article>
+        </div>
+        <div class="interest-grid" data-home-mode-target="energy" hidden>
+          <article><span>01</span><strong>District heating dispatch</strong><p>Heat pumps, CHP, geothermal and storage under price and demand uncertainty.</p></article>
+          <article><span>02</span><strong>Built-environment loads</strong><p>How building demand shapes supply-system choices and heating costs.</p></article>
+          <article><span>03</span><strong>Grid flexibility</strong><p>N-1, EV/PV/storage screening and practical resilience signals.</p></article>
+        </div>
+        <div class="interest-grid" data-home-mode-target="decarbonisation" hidden>
+          <article><span>01</span><strong>Industrial energy performance</strong><p>Finding load drivers, baselines and metering gaps that block action.</p></article>
+          <article><span>02</span><strong>Electrification pathways</strong><p>Heat pumps, electric trim heat and recovery loops as constrained choices.</p></article>
+          <article><span>03</span><strong>Carbon-aware tooling</strong><p>EU ETS, emissions intensity and MAC framing for engineering teams.</p></article>
+        </div>
+        <div class="interest-grid" data-home-mode-target="research" hidden>
+          <article><span>01</span><strong>Deposit and surface-condition effects</strong><p>Connecting altered surfaces to measurable thermal resistance and model drift.</p></article>
+          <article><span>02</span><strong>Transient high-temperature CHT</strong><p>Moving beyond steady-state assumptions toward dynamic boundary conditions.</p></article>
+          <article><span>03</span><strong>Experimental-numerical validation</strong><p>Closing the loop between simulation predictions and instrument-grade measurements.</p></article>
         </div>
       </div>
     </section>
 
-    <section id="education" class="section scroll-scene scene-education" data-scene="education" data-reveal>
+    <section id="education" class="section scroll-scene scene-education education-compact-section" data-scene="education" data-reveal>
       <div class="container">
-        <div class="section-heading">
+        <div class="section-heading compact-heading">
           <p class="eyebrow" data-editable="education-eyebrow">Education</p>
-          <h2 data-editable="education-title"><a class="heading-link" href="about.html#kth-coursework">Academic foundation</a></h2>
-          <p data-editable="education-lead">
-            Formal training across sustainable energy systems, heat and power technology, optimisation, built-environment energy, storage and mechanical engineering.
-          </p>
+          <h2 data-editable="education-title"><a class="heading-link" href="about.html#kth-coursework">Academic foundation, compressed.</a></h2>
+          <p data-editable="education-lead">Open a card when the coursework matters to the track you are reading.</p>
         </div>
 
-        <div class="timeline">
-          <article class="timeline-item">
-            <div>
-              <h3><a class="title-link" href="about.html#kth-coursework">M.Sc. Sustainable Energy Engineering - KTH Royal Institute of Technology</a></h3>
-              <p class="meta">Stockholm, Sweden &middot; 2023 - 2026</p>
+        <div class="education-accordion">
+          <details class="education-card" open>
+            <summary><span>M.Sc.</span><strong>Sustainable Energy Engineering - KTH Royal Institute of Technology</strong><small>Stockholm, 2023 - 2026</small></summary>
+            <div class="education-detail">
+              <p>Heat and power technology, energy systems modelling, optimisation, storage, forecasting and techno-economic analysis.</p>
+              <div class="skill-pills"><span>MJ2515 Numerical Heat Transfer - A</span><span>MJ2507 AI Applications - A</span><span>MJ2386 Energy Storage</span><span>MJ232X Degree Project</span></div>
             </div>
-            <p>
-              Focus areas include thermodynamics, heat and mass transfer, thermal systems, energy systems modelling, practical optimisation, data-driven forecasting, power systems fundamentals and techno-economic analysis.
-            </p>
-            <ul class="clean-list course-highlight-list">
-              <li>Numerical Heat Transfer in Energy Technology (MJ2515) - grade A</li>
-              <li>AI Applications in Sustainable Energy Engineering (MJ2507) - grade A</li>
-              <li>Energy Storage Technology (MJ2386) - grade B</li>
-              <li>Renewable Energy Technology (MJ2411) - grade B</li>
-              <li>Energy Management (MJ2511) - ISO 50001, KPIs, measurement and verification</li>
-              <li>Degree Project in Heat and Power Technology (MJ232X) - 30 credits</li>
-            </ul>
-          </article>
-
-          <article class="timeline-item">
-            <div>
-              <h3><a class="title-link" href="about.html#kth-coursework">Circular Economy for Energy Storage - Aalto University / Unite! Virtual Exchange</a></h3>
-              <p class="meta">Finland &middot; Oct 2024 - Dec 2024</p>
+          </details>
+          <details class="education-card">
+            <summary><span>Exchange</span><strong>Circular Economy for Energy Storage - Aalto / Unite!</strong><small>Finland, 2024</small></summary>
+            <div class="education-detail">
+              <p>Battery lifecycle, circularity and sustainability concepts supporting storage-system evaluation.</p>
             </div>
-            <p>
-              Coursework on circular economy concepts for energy storage systems, supporting battery, lifecycle and sustainability analysis work.
-            </p>
-          </article>
-
-          <article class="timeline-item">
-            <div>
-              <h3><a class="title-link" href="about.html#kth-coursework">B.Tech Mechanical Engineering - APJ Abdul Kalam Technological University</a></h3>
-              <p class="meta">Kerala, India &middot; 2017 - 2021</p>
+          </details>
+          <details class="education-card">
+            <summary><span>B.Tech</span><strong>Mechanical Engineering - APJ Abdul Kalam Technological University</strong><small>Kerala, 2017 - 2021</small></summary>
+            <div class="education-detail">
+              <p>Thermodynamics, fluid mechanics, heat transfer, CAD/CAE, manufacturing and machine design, with SAE Collegiate Club and NSS activities.</p>
             </div>
-            <p>
-              Mechanical engineering foundation in thermodynamics, fluid mechanics, heat transfer, CAD/CAE, manufacturing and machine design, with SAE Collegiate Club and NSS activities.
-            </p>
-          </article>
+          </details>
         </div>
       </div>
     </section>
 
-    <section id="experience" class="section scroll-scene scene-experience" data-scene="experience" data-reveal>
+    <section id="experience" class="section scroll-scene scene-experience background-section" data-scene="experience" data-reveal>
       <div class="container">
-        <div class="section-heading">
+        <div class="section-heading compact-heading">
           <p class="eyebrow" data-editable="experience-eyebrow" data-i18n-sv="Bakgrund">Background</p>
-          <h2 data-editable="experience-title"><a class="heading-link" href="experience.html">Experience</a></h2>
-          <p>
-            Four workplaces behind the portfolio evidence. Select a location or role for the detailed record.
-          </p>
+          <h2 data-editable="experience-title"><a class="heading-link" href="experience.html">Four work settings, one signal at a time.</a></h2>
+          <p>Each card stays short until you ask what happened there.</p>
         </div>
 
-        <div class="timeline">
-          <article class="timeline-item timeline-feature">
-            <div>
-              <h3><a class="title-link" href="experience/siemens-energy.html">Test Engineer / Master's Thesis Student - Siemens Energy AB</a></h3>
-              <p class="meta">Finsp&aring;ng, Sweden &middot; Apr 2025 - Nov 2025</p>
-            </div>
-            <p>
-              Embedded thesis work in the Fluid Dynamic Lab: compressible CFD/CHT of a high-temperature reducer, three-level mesh independence, Biot interpretation, and NI-DAQ/LabVIEW measurement-chain commissioning.
-            </p>
-            <div class="tag-row proof-tag-row" aria-label="Siemens Energy proof points">
-              <span class="tag-hot">TRITA-ITM-EX 2026:14</span>
-              <span>Bi = 0.003-0.004</span>
-              <span>Ma 0.990 vs 1.006</span>
-              <span>RCA scope revision</span>
-            </div>
-            <div class="project-links">
-              <a href="experience/siemens-energy.html" aria-label="Siemens Energy experience details">Experience details</a>
-            </div>
+        <div class="background-grid">
+          <article class="background-card">
+            <span class="background-date">Apr - Nov 2025</span>
+            <h3><a class="title-link" href="experience/siemens-energy.html">Siemens Energy AB</a></h3>
+            <p class="meta">Test Engineer / Master's Thesis Student - Finsp&aring;ng</p>
+            <div class="tag-row proof-tag-row"><span class="tag-hot">CFD/CHT</span><span>NI-DAQ</span><span>LabVIEW</span></div>
+            <details class="background-popover"><summary>What I did</summary><p>Built thesis evidence around a high-temperature reducer: steady compressible CFD/CHT, mesh-independence checks, Biot interpretation, measurement-chain commissioning and a heater RCA scope revision.</p></details>
           </article>
-
-          <article class="timeline-item">
-            <div>
-              <h3><a class="title-link" href="experience/alleima.html">Energy Efficiency Intern - Alleima AB</a></h3>
-              <p class="meta">Remote (Sweden) &middot; Dec 2024 - Jun 2025</p>
-            </div>
-            <p>
-              Developed ISO 50001/EED-aligned energy performance mapping methods: KPI/EnPI design, load-driver logic, metering readiness and measurement planning.
-            </p>
-            <div class="project-links">
-              <a href="experience/alleima.html" aria-label="Alleima experience details">Experience details</a>
-            </div>
+          <article class="background-card">
+            <span class="background-date">Dec 2024 - Jun 2025</span>
+            <h3><a class="title-link" href="experience/alleima.html">Alleima AB</a></h3>
+            <p class="meta">Energy Efficiency Intern - Remote Sweden</p>
+            <div class="tag-row proof-tag-row"><span>ISO 50001</span><span>EnPI</span><span>Metering</span></div>
+            <details class="background-popover"><summary>What I did</summary><p>Developed energy-performance mapping methods around load drivers, metering readiness, measurement planning and KPI logic for industrial energy improvement.</p></details>
           </article>
-
-          <article class="timeline-item">
-            <div>
-              <h3><a class="title-link" href="experience/qburst.html">Backend Engineer - QBurst</a></h3>
-              <p class="meta">Thiruvananthapuram, India &middot; Sep 2021 - Jun 2023</p>
-            </div>
-            <p>
-              Delivered TypeScript/NestJS API endpoints, reliability fixes and automated endpoint testing in production-oriented teams.
-            </p>
-            <div class="project-links">
-              <a href="experience/qburst.html" aria-label="QBurst experience details">Experience details</a>
-            </div>
+          <article class="background-card">
+            <span class="background-date">Sep 2021 - Jun 2023</span>
+            <h3><a class="title-link" href="experience/qburst.html">QBurst</a></h3>
+            <p class="meta">Backend Engineer - Thiruvananthapuram</p>
+            <div class="tag-row proof-tag-row"><span>NestJS</span><span>APIs</span><span>Tests</span></div>
+            <details class="background-popover"><summary>What I did</summary><p>Delivered TypeScript/NestJS API endpoints, reliability fixes and endpoint tests in production-oriented teams, which now supports the portfolio's reproducible tooling angle.</p></details>
           </article>
-
-          <article class="timeline-item">
-            <div>
-              <h3><a class="title-link" href="experience.html">Student Intern (Pyrolysis) - KTH Royal Institute of Technology</a></h3>
-              <p class="meta">Stockholm, Sweden &middot; Feb 2024 - Jun 2024</p>
-            </div>
-            <p>
-              Reviewed reactor concepts and cost drivers for polymer-waste pyrolysis, supporting early-stage technical and economic feasibility work.
-            </p>
+          <article class="background-card">
+            <span class="background-date">Feb - Jun 2024</span>
+            <h3><a class="title-link" href="experience.html">KTH Royal Institute of Technology</a></h3>
+            <p class="meta">Student Intern - Pyrolysis feasibility</p>
+            <div class="tag-row proof-tag-row"><span>Review</span><span>Cost drivers</span><span>Feasibility</span></div>
+            <details class="background-popover"><summary>What I did</summary><p>Reviewed reactor concepts and cost drivers for polymer-waste pyrolysis, supporting early-stage technical and economic feasibility work.</p></details>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="testimonials" class="section scroll-scene" data-scene="about">
+    <section id="cv" class="section subtle scroll-scene scene-cv cv-section" data-scene="cv">
       <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow" data-i18n-sv="Rekommendationer">Recommendations</p>
-          <h2 data-i18n-sv="Sammanfattningar av akademiska rekommendationer">Academic recommendation summaries</h2>
-        </div>
-        <div class="testimonials-grid" data-cms-testimonials>
-          <article class="testimonial-card recommendation-card">
-            <p class="testimonial-body">Principal's recommendation: undergraduate performance paired with responsibility beyond coursework, including technical-event organising, SAEINDIA participation and NSS flood/Covid relief initiatives.</p>
-            <div class="testimonial-author">
-              <strong>Dr. Bindu S. J</strong>
-              <span>Principal, College of Engineering Perumon &middot; Recommendation letter, 20 Dec 2022</span>
-            </div>
-          </article>
-          <article class="testimonial-card recommendation-card">
-            <p class="testimonial-body">Department recommendation: mechanical-engineering project ownership and collaboration, highlighting SAEINDIA work, collegiate responsibilities and the final-year robotic control-system and subsystem-integration project.</p>
-            <div class="testimonial-author">
-              <strong>Dr. Dileeplal J</strong>
-              <span>Head of Department, Mechanical Engineering &middot; College of Engineering Perumon</span>
-            </div>
-          </article>
-          <article class="testimonial-card recommendation-card">
-            <p class="testimonial-body">Faculty recommendation: hands-on engineering initiative across national SAEINDIA competitions, workshops and industrial visits, including the automated sanitiser machine built for local relief camps.</p>
-            <div class="testimonial-author">
-              <strong>Shamnad M</strong>
-              <span>Assistant Professor, Mechanical Engineering &middot; College of Engineering Perumon</span>
-            </div>
-          </article>
-        </div>
-        <p style="font-size:0.78rem;color:var(--muted);margin-top:16px">Paraphrased summaries of signed academic recommendation letters; full letters available on request.</p>
-      </div>
-    </section>
-
-    <section id="cv" class="section subtle scroll-scene scene-cv" data-scene="cv">
-      <div class="container">
-        <div class="section-heading">
+        <div class="section-heading compact-heading">
           <p class="eyebrow" data-editable="cv-eyebrow">CV</p>
-          <h2 data-editable="cv-title" data-i18n-sv="Utvalda CV per rekryteringsspår">Selected CVs by hiring track</h2>
-          <p data-editable="cv-lead">
-            The CVs are split by role so the first page foregrounds the evidence most relevant to each hiring context.
-          </p>
+          <h2 data-editable="cv-title">Download the CV that matches the active lens.</h2>
         </div>
-        <div class="cards three">
-          <article class="card">
-            <h3>Energy Systems / R&amp;D CV</h3>
-            <p>For energy systems, industrial decarbonisation and R&amp;D analyst roles. Covers energy performance mapping, dispatch optimisation, techno-economic analysis and reproducible Python tooling.</p>
-            <div class="project-links">
-              <a href="downloads/Abhijith_CV_EnergyCoordinator.pdf" download data-cv-link>Download Energy Systems / R&amp;D CV</a>
-            </div>
-          </article>
-          <article class="card">
-            <h3>PhD Application / Research CV</h3>
-            <p>Academic format for doctoral applications: research interests, education and grades, Siemens thesis research experience, KTH pyrolysis internship, methods coursework, technical skills and references.</p>
-            <div class="project-links">
-              <a href="downloads/Abhijith_CV_PhD_Academic.pdf" download data-cv-link>Download PhD / Research CV</a>
-            </div>
-          </article>
-          <article class="card">
-            <h3>Thermal / CFD / Test Engineering CV</h3>
-            <p>For thermal-fluid modelling, CFD, instrumentation and validation campaigns. Anchored by the Siemens Energy Finsp&aring;ng thesis: ANSYS Fluent CHT, k-omega SST, NI-DAQ/LabVIEW, heater-failure RCA and measurement-chain validation at up to 700&deg;C.</p>
-            <div class="project-links">
-              <a href="downloads/Abhijith_CV_TestEngineer.pdf" download data-cv-link>Download Thermal / CFD / Test Engineering CV</a>
-            </div>
-          </article>
+        <div class="cv-lens-grid" data-home-mode-target="everything">
+          <a class="cv-lens-card" href="downloads/Abhijith_CV_TestEngineer.pdf" download data-cv-link><span>Thermal</span><strong>Test / CFD CV</strong><small>Siemens thesis, Fluent CHT, lab validation.</small></a>
+          <a class="cv-lens-card" href="downloads/Abhijith_CV_EnergyCoordinator.pdf" download data-cv-link><span>Energy</span><strong>Energy / R&amp;D CV</strong><small>Systems modelling, EnPI, optimisation.</small></a>
+          <a class="cv-lens-card" href="downloads/Abhijith_CV_PhD_Academic.pdf" download data-cv-link><span>Research</span><strong>Academic CV</strong><small>Research interests, education and references.</small></a>
+        </div>
+        <div class="cv-lens-grid single" data-home-mode-target="thermal" hidden>
+          <a class="cv-lens-card" href="downloads/Abhijith_CV_TestEngineer.pdf" download data-cv-link><span>Selected for thermal lens</span><strong>Thermal / CFD / Test Engineering CV</strong><small>ANSYS Fluent CHT, k-omega SST, NI-DAQ/LabVIEW, RCA and measurement-chain validation.</small></a>
+        </div>
+        <div class="cv-lens-grid single" data-home-mode-target="energy" hidden>
+          <a class="cv-lens-card" href="downloads/Abhijith_CV_EnergyCoordinator.pdf" download data-cv-link><span>Selected for energy lens</span><strong>Energy Systems / R&amp;D CV</strong><small>Dispatch optimisation, techno-economics, energy performance and reproducible Python tooling.</small></a>
+        </div>
+        <div class="cv-lens-grid single" data-home-mode-target="decarbonisation" hidden>
+          <a class="cv-lens-card" href="downloads/Abhijith_CV_EnergyCoordinator.pdf" download data-cv-link><span>Selected for industrial lens</span><strong>Industrial Energy / R&amp;D CV</strong><small>EnPI, metering readiness, process-energy logic and decarbonisation tooling.</small></a>
+        </div>
+        <div class="cv-lens-grid single" data-home-mode-target="research" hidden>
+          <a class="cv-lens-card" href="downloads/Abhijith_CV_PhD_Academic.pdf" download data-cv-link><span>Selected for research lens</span><strong>PhD Application / Academic CV</strong><small>Research interests, Siemens thesis evidence, coursework, methods and references.</small></a>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="section scroll-scene scene-contact" data-scene="contact">
-      <div class="container contact-card">
-        <div class="contact-intro">
+    <section id="contact" class="section scroll-scene scene-contact contact-hud-section" data-scene="contact">
+      <div class="container contact-hud">
+        <div class="contact-hud-intro">
+          <div class="contact-spectrum" aria-hidden="true"></div>
           <p class="eyebrow" data-editable="contact-eyebrow" data-i18n-sv="Kontakt">Contact</p>
-          <h2 data-editable="contact-title" data-i18n="contact.target">Currently targeting doctoral research in high-temperature thermal-fluid systems and industrial R&amp;D roles in decarbonization and electrification in Sweden.</h2>
-          <div class="contact-links">
-            <a href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a>
-            <a href="tel:+46769692014">Sweden: +46 76 969 2014</a>
-            <a href="tel:+918129750386">India: +91 8129750386</a>
-            <a href="https://www.linkedin.com/in/abhijith-sivaprasadan/" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noreferrer">GitHub</a>
-          </div>
-          <div class="contact-cal" data-cal-slot>
-            <p class="eyebrow">Book a 20-min call</p>
-            <p class="contact-cal-help">Prefer a quick conversation? Pick a slot. Calendar link will appear once configured.</p>
-            <a class="button secondary" href="https://cal.com/abhijith-sivaprasadan" target="_blank" rel="noopener" data-cal-link>Open booking page</a>
+          <h2 data-editable="contact-title" data-i18n="contact.target">Start with the track you care about. I will meet you there.</h2>
+          <p>Doctoral supervisors, R&amp;D teams, energy-system groups and collaborators can use the form or the direct links. The submit button opens a ready email draft when no backend is configured.</p>
+          <div class="contact-links contact-action-grid">
+            <a href="mailto:abhijithsivaprasadan@gmail.com"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.4"/></svg>Email</a>
+            <a href="https://www.linkedin.com/in/abhijith-sivaprasadan/" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 10v9M6 6v.01M11 19v-5a4 4 0 018 0v5M11 10v9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>LinkedIn</a>
+            <a href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 5v-3.8c0-1 .1-1.4-.5-2 2-.2 4.1-1 4.1-4.5 0-1-.4-1.8-1-2.5.1-.3.4-1.3-.1-2.5 0 0-.8-.3-2.6 1a9 9 0 00-4.8 0c-1.8-1.3-2.6-1-2.6-1-.5 1.2-.2 2.2-.1 2.5-.6.7-1 1.5-1 2.5 0 3.5 2.1 4.3 4.1 4.5-.3.3-.5.7-.5 1.4V21" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>GitHub</a>
           </div>
         </div>
-        <form class="contact-form" data-contact-form novalidate>
+        <form class="contact-form contact-console" data-contact-form novalidate>
+          <div class="contact-console-head"><span>Component</span><strong>Contact Form</strong><span>09</span></div>
           <div class="contact-form-row">
-            <label>
+            <label class="contact-field">
               <span>Name</span>
+              <i aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="4.5" r="2.4" stroke="currentColor" stroke-width="1.2"/><path d="M2.5 12c0-2.3 2-3.6 4.5-3.6S11.5 9.7 11.5 12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></i>
               <input type="text" name="name" placeholder="Your name" required />
             </label>
-            <label>
+            <label class="contact-field">
               <span>Email</span>
+              <i aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><rect x="1.5" y="3" width="11" height="8" rx="1.4" stroke="currentColor" stroke-width="1.2"/><path d="M2 4l5 3.5L12 4" stroke="currentColor" stroke-width="1.2"/></svg></i>
               <input type="email" name="email" placeholder="your@email.com" required />
             </label>
           </div>
-          <label>
-            <span>Subject</span>
-            <input type="text" name="subject" placeholder="Research position / collaboration / …" />
+          <label class="contact-field contact-select">
+            <span>Reason for reaching out</span>
+            <select name="reason">
+              <option>Just saying hello</option>
+              <option>Doctoral / research conversation</option>
+              <option>Thermal / CFD or test role</option>
+              <option>Industrial R&amp;D role</option>
+              <option>Energy systems collaboration</option>
+              <option>Question about a project</option>
+            </select>
           </label>
-          <label>
+          <label class="contact-field contact-area">
             <span>Message</span>
-            <textarea name="message" rows="5" placeholder="Introduce yourself and describe your interest…" required></textarea>
+            <textarea name="message" rows="4" placeholder="What should we explore together?" required></textarea>
           </label>
+          <input type="text" name="subject" value="Portfolio contact" hidden />
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
           <div class="contact-form-footer">
+            <span class="contact-status" data-contact-status>Usually replies within a few days.</span>
             <button type="submit" class="button primary">Send message</button>
-            <span class="contact-status" data-contact-status></span>
           </div>
         </form>
       </div>
@@ -1437,5 +1470,11 @@
       </p>
     </div>
   </footer>
+  <script>
+    import("./scripts/sections/skill-radar.js?v=20260830-open-source")
+      .then(({ init }) => init())
+      .catch(() => {});
+  </script>
+  <script src="scripts/site.js?v=20260830-open-source"></script>
 </body>
 </html>

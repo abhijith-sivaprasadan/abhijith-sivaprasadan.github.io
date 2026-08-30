@@ -1,4 +1,4 @@
-/* ─── Typography rhythm — Inter Variable + JetBrains Mono ─────────────────
+/* ─── Typography rhythm — Space Grotesk + Spectral + JetBrains Mono ───────
    Apply the variable-weight axis: headings start at 540 and lift to 640
    on hover/focus, transitioning smoothly. Tighter modular scale (1.250
    perfect fourth) for clearer hierarchy.
@@ -17,7 +17,8 @@
 }
 
 :root {
-  --font-sans:  "Inter", "Inter Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans:  "Space Grotesk", "Inter Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Spectral", Georgia, "Times New Roman", serif;
   --font-mono:  "JetBrains Mono", ui-monospace, "SFMono-Regular", "Roboto Mono", monospace;
 
   /* Modular scale 1.250 (perfect fourth) anchored at 1rem */

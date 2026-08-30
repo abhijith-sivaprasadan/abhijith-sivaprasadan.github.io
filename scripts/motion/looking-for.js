@@ -33,9 +33,9 @@ function resolveContent(locale = document.documentElement.dataset.locale || "en"
   const meta = document.querySelector('meta[name="looking-for"]');
   if (meta?.content?.trim()) return meta.content.trim();
   if (locale === "sv") {
-    return `Söker <a href="research.html">doktorandtjänster</a> och <a href="industrial-rd.html">industriella FoU-roller</a> i Sverige och EU.`;
+    return `Söker <a href="${new URL('../../research.html', import.meta.url).pathname}">doktorandtjänster</a> och <a href="${new URL('../../industrial-rd.html', import.meta.url).pathname}">industriella FoU-roller</a> i Sverige och EU.`;
   }
-  return `Currently targeting <a href="research.html">PhD positions</a> and <a href="industrial-rd.html">industrial R&amp;D roles</a> in Sweden and the EU.`;
+  return `Currently targeting <a href="${new URL('../../research.html', import.meta.url).pathname}">PhD positions</a> and <a href="${new URL('../../industrial-rd.html', import.meta.url).pathname}">industrial R&amp;D roles</a> in Sweden and the EU.`;
 }
 
 function build(htmlText) {
