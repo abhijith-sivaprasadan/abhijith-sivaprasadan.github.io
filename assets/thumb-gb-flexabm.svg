@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">GB-FLEXABM: one physical model, two decision systems</title>
+  <desc id="desc">Explicit synthetic assumptions feed a shared electricity dispatch model. A perfect-foresight planner and bounded investor agents use the same constraints, with auditable results compared afterward.</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#275567" stroke-width="1.5"/></marker></defs>
+  <rect width="960" height="540" fill="#f5f2e9"/>
+  <path d="M40 92H920M40 477H920" stroke="#b8c1bf"/>
+  <g font-family="Arial,sans-serif" fill="#182f38">
+    <text x="40" y="52" font-size="31" font-weight="700">GB-FLEXABM</text>
+    <text x="40" y="78" font-size="17">Electricity investment · optimisation · agent-based modelling</text>
+    <g stroke="#275567" stroke-width="2" fill="#fff">
+      <rect x="40" y="199" width="215" height="134" rx="8"/>
+      <rect x="328" y="199" width="252" height="134" rx="8"/>
+      <rect x="660" y="131" width="260" height="114" rx="8"/>
+      <rect x="660" y="295" width="260" height="114" rx="8"/>
+    </g>
+    <g font-size="23" font-weight="700">
+      <text x="60" y="233">Common inputs</text><text x="348" y="233">Shared dispatch LP</text>
+      <text x="680" y="166">Central planner</text><text x="680" y="330">Investor agents</text>
+    </g>
+    <g font-size="18">
+      <text x="60" y="267">Demand · availability</text><text x="60" y="296">Costs · asset vintages</text>
+      <text x="348" y="267">Energy &amp; storage balance</text><text x="348" y="296">Capacity · unserved load</text>
+      <text x="680" y="196">Perfect foresight</text><text x="680" y="222">Continuous investment</text>
+      <text x="680" y="360">Adaptive expectations</text><text x="680" y="386">Budgets · build delays</text>
+    </g>
+    <text x="40" y="443" font-size="18" font-weight="700">Compare: investment, prices, resource cost &amp; transfer accounting</text>
+    <text x="40" y="511" font-size="19" fill="#7b3f22">EXPLORATORY / SYNTHETIC — not a calibrated GB forecast</text>
+  </g>
+  <g fill="none" stroke="#275567" stroke-width="2.5" marker-end="url(#arrow)"><path d="M255 266H321"/><path d="M580 247H616V189H651"/><path d="M580 285H616V352H651"/></g>
+</svg>
