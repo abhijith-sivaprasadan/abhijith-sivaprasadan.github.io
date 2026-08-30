@@ -2,24 +2,35 @@
   "projects": [
     {
       "id": "thermotwin-f",
-      "title": "ThermoTwin-F - Gas Turbine and CCGT Educational Simulator",
+      "title": "ThermoTwin-F · Educational gas turbine",
       "category": "Thermal Systems",
       "status": "published",
       "featured": true,
-      "order": 4,
+      "order": 5,
       "period": "2026",
       "associatedWith": "Self-initiated portfolio project",
-      "summary": "Open-source Modern Fortran gas-turbine and combined-cycle simulator with a native Windows HMI, second-law analysis, and automated tests. Not validated against a commercial engine.",
-      "audienceTags": ["Thermal & Fluid", "Energy Systems", "Research"],
-      "tools": ["Fortran 2008", "Python", "Win32/GDI+"],
-      "skills": ["Thermodynamics", "Exergy", "Uncertainty analysis", "Software verification"],
+      "summary": "How do degradation and thermal transients affect a gas turbine? A Make-built educational simulator checked against hand calculations, an analytical transient and repeatable sensor-noise tests. Not commercial-engine validation.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Energy Systems",
+        "Research"
+      ],
+      "tools": [
+        "Fortran 2008",
+        "Python",
+        "Win32/GDI+"
+      ],
+      "skills": [
+        "Thermodynamics",
+        "Exergy",
+        "Uncertainty analysis",
+        "Software verification"
+      ],
       "image": "assets/thumb-thermotwin-f.svg",
       "caseStudyUrl": "projects/thermotwin-f.html",
       "githubUrl": "https://github.com/abhijith-sivaprasadan/thermotwin",
       "highlights": [
-        "28 native test programs plus a physics selftest and 15 scenario runs passed in the 30 August 2026 review.",
-        "Fresh Windows CLI and GUI builds passed; Linux CI passed on commit 026eb6e.",
-        "Historical numerical report reproduction, interactive GUI acceptance and external validation remain pending."
+        "How do degradation and thermal transients affect a gas turbine? A Make-built educational simulator checked against hand calculations, an analytical transient and repeatable sensor-noise tests. Not commercial-engine validation."
       ]
     },
     {
@@ -27,7 +38,7 @@
       "title": "Siemens Energy Thesis - High-Temperature Reducer CFD/CHT and Test-Rig Validation",
       "category": "CFD & Testing",
       "status": "published",
-      "featured": true,
+      "featured": false,
       "order": 1,
       "period": "Apr 2025 - Nov 2025",
       "associatedWith": "Siemens Energy",
@@ -62,14 +73,14 @@
     },
     {
       "id": "pypsa-nl-grid-flexibility",
-      "title": "Exploratory PyPSA-NL Grid Congestion and BESS Learning Project",
+      "title": "PyPSA-NL · Grid flexibility",
       "category": "Energy Systems",
       "status": "published",
-      "featured": false,
-      "order": 19,
+      "featured": true,
+      "order": 1,
       "period": "2026",
       "associatedWith": "Portfolio project",
-      "summary": "Exploratory Netherlands-inspired constrained-grid learning project comparing renewable growth, bottlenecks, connection-capacity limits, BESS siting, flexible connection contracts and targeted reinforcement.",
+      "summary": "How do corridor limits and flexibility change dispatch? A Netherlands-inspired screening model with hand-checkable congestion and storage tests. Synthetic topology; not a validated Dutch grid.",
       "audienceTags": [
         "Industrial R&D",
         "Energy Systems"
@@ -91,17 +102,16 @@
       "caseStudyUrl": "projects/pypsa-nl-grid-flexibility.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/pypsa-nl-grid-flexibility",
       "highlights": [
-        "Built as an exploratory learning project to understand PyPSA/Linopy/HiGHS, grid congestion and flexible connection concepts; retained as supporting evidence, not as a primary project track.",
-        "Executive report identified High Wind Offshore Growth as the top-ranked scenario with grid-value score 60.8, adding 201,561 MWh renewable dispatch and reducing backup generation by the same amount versus base.",
-        "Best BESS sweep option was Groningen 400 MW / 4 h, with 8/8 validation checks passed and a dashboard/reporting layer for decision support."
-      ]
+        "How do corridor limits and flexibility change dispatch? A Netherlands-inspired screening model with hand-checkable congestion and storage tests. Synthetic topology; not a validated Dutch grid."
+      ],
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/pypsa-nl-grid-flexibility"
     },
     {
       "id": "alleima-energy-efficiency",
       "title": "Alleima Industrial Energy Performance Mapping",
       "category": "Sustainability",
       "status": "published",
-      "featured": true,
+      "featured": false,
       "order": 2,
       "period": "Dec 2024 - Jun 2025",
       "associatedWith": "Alleima",
@@ -135,7 +145,7 @@
       "title": "Hylkysaari Smart Energy Island Modelling",
       "category": "Energy Systems",
       "status": "published",
-      "featured": true,
+      "featured": false,
       "order": 3,
       "associatedWith": "KTH Royal Institute of Technology",
       "summary": "IDA ICE, HOMER Pro and Excel modelling for Valo Finland's Hylkysaari smart sustainable tourism concept, comparing energy demand reduction, renewable supply and waste-heat recovery pathways.",
@@ -168,7 +178,7 @@
       "title": "Residential Heating Systems Techno-Economic Comparison",
       "category": "Energy Systems",
       "status": "published",
-      "featured": true,
+      "featured": false,
       "order": 6,
       "associatedWith": "KTH Royal Institute of Technology",
       "summary": "Comparative assessment of district heating, solar PV with heat pump, solar PV with electric boiler, and solar thermal with thermal storage for residential heat supply.",
@@ -202,7 +212,7 @@
       "title": "Thermal Energy Storage for District Cooling Peak Shaving",
       "category": "Thermal Systems",
       "status": "published",
-      "featured": true,
+      "featured": false,
       "order": 8,
       "associatedWith": "Portfolio project",
       "summary": "Thermal energy storage concept work for peak shaving and district cooling, comparing phase-change and ice-storage options with control and pricing logic.",
@@ -235,7 +245,7 @@
       "title": "Germany Energy-Environment-Economy Transition Analysis",
       "category": "Energy Systems",
       "status": "published",
-      "featured": true,
+      "featured": false,
       "order": 7,
       "associatedWith": "KTH Royal Institute of Technology",
       "summary": "Structured analysis of Germany's energy transition pathways using LEAP modelling tool, evaluating electricity cost and carbon implications across technology scenarios.",
@@ -267,7 +277,7 @@
       "title": "District Heating Dispatch Optimisation",
       "category": "Energy Systems",
       "status": "published",
-      "featured": true,
+      "featured": false,
       "order": 4,
       "associatedWith": "Portfolio project",
       "summary": "Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass/geothermal assets, outages, CO2 and electricity-price coupling.",
@@ -330,7 +340,7 @@
       "title": "Heating Demand Forecasting",
       "category": "Data & AI",
       "status": "published",
-      "featured": true,
+      "featured": false,
       "order": 5,
       "associatedWith": "Portfolio project",
       "summary": "Day-ahead building heating-demand forecasting using weather and temporal features, baseline models and neural networks.",
@@ -358,13 +368,13 @@
     },
     {
       "id": "pynexus-green-hydrogen",
-      "title": "PyNEXUS Green Hydrogen Network Model",
+      "title": "PyNEXUS · Wind-to-hydrogen dispatch",
       "category": "Energy Systems",
       "status": "published",
-      "featured": false,
-      "order": 11,
+      "featured": true,
+      "order": 2,
       "associatedWith": "Portfolio project",
-      "summary": "Coupled offshore wind, PEM electrolyzer and hydrogen-pipeline model with MILP dispatch optimisation.",
+      "summary": "How do cost and emissions objectives change hydrogen dispatch? An hourly wind–electrolyser model with known-optimum tests and an explicit synthetic 168-hour reference. No annual-run claim.",
       "audienceTags": [
         "Industrial R&D",
         "Energy Systems"
@@ -384,20 +394,19 @@
       "caseStudyUrl": "projects/pynexus-green-hydrogen.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/PyNEXUS",
       "highlights": [
-        "Connects portfolio hydrogen-network modelling with KTH Power-to-X coursework on electrolysis, hydrogen derivatives and renewable surplus conversion.",
-        "Models wind-to-hydrogen conversion, pipeline delivery and curtailment KPIs.",
-        "Compares cost and emissions objectives with HiGHS/Pyomo optimisation."
-      ]
+        "How do cost and emissions objectives change hydrogen dispatch? An hourly wind–electrolyser model with known-optimum tests and an explicit synthetic 168-hour reference. No annual-run claim."
+      ],
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/PyNEXUS"
     },
     {
       "id": "eu-ets-exposure-calculator",
       "title": "EU ETS Exposure Calculator",
       "category": "Sustainability",
       "status": "published",
-      "featured": false,
-      "order": 12,
+      "featured": true,
+      "order": 4,
       "associatedWith": "Portfolio project",
-      "summary": "Excel and Streamlit toolkit for estimating Scope 1 emissions, EUA cost exposure and carbon-intensity trends.",
+      "summary": "How do fuel activity and allowance-price assumptions affect exposure? Tested Scope 1 calculations with contextual Scope 2 reporting and transparent demonstration factors. Not compliance advice.",
       "audienceTags": [
         "Industrial R&D",
         "Energy Systems"
@@ -417,19 +426,19 @@
       "caseStudyUrl": "projects/eu-ets-exposure-calculator.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/EU-ETS-Exposure-Calculator-Package",
       "highlights": [
-        "Calculates ETS scenario summaries and EUA price sensitivity.",
-        "Includes workbook parsing, CLI runner, PDF export and regression tests."
-      ]
+        "How do fuel activity and allowance-price assumptions affect exposure? Tested Scope 1 calculations with contextual Scope 2 reporting and transparent demonstration factors. Not compliance advice."
+      ],
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/EU-ETS-Exposure-Calculator-Package"
     },
     {
       "id": "industrial-energy-kpi-toolkit",
-      "title": "Industrial Energy KPI Toolkit",
+      "title": "Energy KPI Toolkit",
       "category": "Sustainability",
       "status": "published",
-      "featured": false,
-      "order": 13,
+      "featured": true,
+      "order": 3,
       "associatedWith": "Portfolio project",
-      "summary": "Python, Excel and Streamlit toolkit for industrial EnPIs, baseline normalisation, anomaly flags and management reporting.",
+      "summary": "How does energy use change with production? Baseline normalisation and residual diagnostics checked against known-linear data, with explicit missing-meter handling. Alerts are not root-cause diagnoses.",
       "audienceTags": [
         "Industrial R&D",
         "Energy Systems"
@@ -449,10 +458,9 @@
       "caseStudyUrl": "projects/industrial-energy-kpi-toolkit.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/Energy-KPI-Toolkit",
       "highlights": [
-        "Built reproducible engineering decision-support tooling with CLI interfaces, automated tests, plots and PDF reports.",
-        "Generates KPI results, action logs, baseline-normalised EnPIs and anomaly flags for ISO 50001-style management review.",
-        "Designed for engineering decision support rather than one-off data exploration."
-      ]
+        "How does energy use change with production? Baseline normalisation and residual diagnostics checked against known-linear data, with explicit missing-meter handling. Alerts are not root-cause diagnoses."
+      ],
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/Energy-KPI-Toolkit"
     },
     {
       "id": "rotating-machinery-vibration-minilab",
@@ -999,6 +1007,37 @@
       "highlights": [
         "B.Tech final-year project represented by the IRJET control-system/subsystem-integration manuscript and the IRJET frame/locomotion publication.",
         "Connected Raspberry Pi/cloud/voice control, surveillance, SOC indication and steering integration with mechanical drivetrain and frame design evidence."
+      ]
+    },
+    {
+      "id": "non-gray-radiation-modeling",
+      "title": "Non-gray radiation modelling",
+      "category": "Research",
+      "status": "published",
+      "featured": true,
+      "order": 6,
+      "period": "2026",
+      "associatedWith": "Independent scientific-computing work",
+      "summary": "How do radiation approximations affect calculated heat transfer? Published-data fixtures, a discrete-ordinates solver and scientific regression tests. Original work and third-party source retain distinct provenance.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Research"
+      ],
+      "tools": [
+        "Python",
+        "NumPy",
+        "SciPy"
+      ],
+      "skills": [
+        "Radiative transfer",
+        "Numerical verification",
+        "Data provenance"
+      ],
+      "image": "assets/thumb-numerical-heat-transfer.svg",
+      "caseStudyUrl": "https://github.com/abhijith-sivaprasadan/non-gray-radiation-modeling",
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/non-gray-radiation-modeling",
+      "highlights": [
+        "How do radiation approximations affect calculated heat transfer? Published-data fixtures, a discrete-ordinates solver and scientific regression tests. Original work and third-party source retain distinct provenance."
       ]
     }
   ]
