@@ -2,9 +2,9 @@ name: CI
 
 on:
   pull_request:
-    branches: [main, beta, dev]
+    branches: [main, beta, dev, field-redesign]
   push:
-    branches: [main, beta, dev]
+    branches: [main, beta, dev, field-redesign]
 
 jobs:
   validate:
@@ -22,10 +22,13 @@ jobs:
       - name: Install backend dependencies
         run: npm install --prefix backend
 
+      - name: Validate all static pages and scripts
+        run: node scripts/validate-static.cjs
+
       - name: Check JavaScript syntax
         run: |
           node --check scripts/site.js
-          node --check scripts/admin.js
+          node --input-type=module --check < scripts/admin.js
           node --check scripts/public-config.js
           node --check scripts/config.example.js
           node --check backend/src/auth.js

@@ -13,16 +13,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260601-mobile-overflow-fix" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260601-mobile-overflow-fix" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260601-mobile-overflow-fix" />
-  <script src="scripts/public-config.js?v=20260601-mobile-overflow-fix" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="scripts/motion/index.js?v=20260601-mobile-overflow-fix"></script>
-  <script src="scripts/motion/sw-register.js?v=20260601-mobile-overflow-fix" defer></script>
-  <script src="scripts/site.js?v=20260601-mobile-overflow-fix" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260603-field-rail-bg" />
+  <link rel="stylesheet" href="styles/motion.css?v=20260603-field-rail-bg" />
+  <link rel="stylesheet" href="styles/v4.css?v=20260603-field-rail-bg" />
+  <script src="scripts/public-config.js?v=20260603-field-rail-bg"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" async></script>
+  <script type="module" src="scripts/motion/index.js?v=20260603-field-rail-bg"></script>
+  <script src="scripts/motion/sw-register.js?v=20260603-field-rail-bg" defer></script>
+  <script src="scripts/sections/command-palette.js?v=20260603-field-rail-bg" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
 <body class="signal-rebuild" data-motion-page-transition data-page-key="projects">
@@ -44,6 +44,7 @@
         <a href="courses.html">Courses</a>
         <a href="index.html#contact">Contact</a>
       </div>
+      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
     </nav>
   </header>
 
@@ -713,6 +714,39 @@
             </div>
           </details>
 
+          <details class="project-browser-item tone-thermal" data-project-id="thermotwin-f" data-audience-tags="Thermal &amp; Fluid,Research" data-order="4">
+            <summary class="project-browser-summary">
+              <div class="project-browser-summary-text">
+                <span class="project-browser-kicker">Digital twin &middot; gas turbine / CCGT &middot; Modern Fortran</span>
+                <h3><a class="title-link" href="projects/thermotwin-f.html">ThermoTwin-F &ndash; Gas Turbine and CCGT Digital Twin</a></h3>
+                <p>Self-initiated Modern Fortran digital twin: ~21,700 lines across 54 modules, native Win32 HMI, exergy/second-law analysis suite, Monte-Carlo UQ, Sobol sensitivity and 28 passing unit tests at a calibrated 52.8&thinsp;% combined-cycle design point.</p>
+              </div>
+              <div class="project-browser-meta">
+                <span>Fortran 2008 &middot; CCGT &middot; Exergy &middot; Self-initiated</span>
+              </div>
+            </summary>
+            <div class="project-browser-body">
+              <img class="project-thumb" src="assets/thumb-thermotwin-f.svg" alt="ThermoTwin-F gas turbine digital twin visual" loading="lazy" width="960" height="540" />
+              <div class="project-browser-copy">
+                <div class="tag-row"><span>Fortran 2008</span><span>CCGT</span><span>Exergy</span><span>Monte Carlo UQ</span><span>Sobol sensitivity</span><span>HMI</span></div>
+                <div class="result-metric-row">
+                  <span class="result-metric-card"><strong>60.7 MW &middot; 52.8 %</strong><small>Calibrated CCGT design point</small></span>
+                  <span class="result-metric-card"><strong>&eta;<sub>II</sub> = 0.50 &plusmn; 0.03</strong><small>Rational second-law efficiency, 95&thinsp;% CI</small></span>
+                  <span class="result-metric-card"><strong>28 tests &mdash; all green</strong><small>Combustor dominance, Sobol isolation, &chi;&sup2; reconciliation</small></span>
+                </div>
+                <ul class="evidence-list">
+                  <li>~21,700 lines Modern Fortran across 54 engine modules and a ~11,000-line native Win32/GDI+ HMI, all sharing one <code>GridState</code> contract.</li>
+                  <li>Second-law suite: exergy accounting, Monte-Carlo UQ, Saltelli/Jansen Sobol sensitivity, WLS data reconciliation with &chi;&sup2; gross-error detection, and Carnot/Curzon&ndash;Ahlborn theoretical-limit benchmarking.</li>
+                  <li>Exergy balance closes to machine zero; combustor dominates irreversibility; fuel flow is the sole Sobol driver of &eta;<sub>II</sub> (S<sub>T</sub>&thinsp;&asymp;&thinsp;1.1).</li>
+                </ul>
+                <div class="project-links">
+                  <a href="projects/thermotwin-f.html" aria-label="ThermoTwin-F — case study">Case study</a>
+                  <a href="https://github.com/abhijith-sivaprasadan/thermotwin">Source code</a>
+                </div>
+              </div>
+            </div>
+          </details>
+
           <details class="project-browser-item tone-analytics" data-project-id="gridflex-energy-optimizer" data-audience-tags="Energy Systems" data-order="110">
             <summary class="project-browser-summary">
               <div class="project-browser-summary-text">
@@ -787,5 +821,6 @@
       <p>&copy; 2026 Abhijith Sivaprasadan. Built with GitHub Pages.</p>
     </div>
   </footer>
+  <script src="scripts/site.js?v=20260603-field-rail-bg"></script>
 </body>
 </html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ThermoTwin-F: a self-initiated Modern Fortran digital twin of a gas turbine and CCGT with exergy/second-law analysis, Monte-Carlo UQ, Sobol sensitivity, WLS data reconciliation and a native Win32 HMI — 21,700 lines, 54 modules, 28 passing unit tests." />
+  <meta property="og:title" content="ThermoTwin-F — Gas Turbine and CCGT Digital Twin" />
+  <meta property="og:description" content="Open-source educational gas-turbine and CCGT simulator in Modern Fortran, with a native HMI, 28 native tests and a physics selftest. Not validated against a commercial engine." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png" />
+  <title>ThermoTwin-F — Gas Turbine and CCGT Digital Twin | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
+  <link rel="stylesheet" href="../styles.css?v=20260603-field-rail-bg" />
+  <link rel="stylesheet" href="../styles/motion.css?v=20260603-field-rail-bg" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260603-field-rail-bg" />
+  <script src="../scripts/public-config.js?v=20260603-field-rail-bg"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" async></script>
+  <script type="module" src="../scripts/motion/index.js?v=20260603-field-rail-bg"></script>
+  <script src="../scripts/motion/sw-register.js?v=20260603-field-rail-bg" defer></script>
+  <script src="../scripts/sections/command-palette.js?v=20260603-field-rail-bg" defer></script>
+  <script src="../scripts/sections/whiteprint.js?v=20260603-field-rail-bg" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+</head>
+<body class="signal-rebuild" data-page-key="case-study" data-project-slug="thermotwin-f" data-paper data-motion-page-transition>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../research.html">Research</a>
+        <a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a>
+        <a href="../index.html#projects">Featured</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../index.html#cv">CVs</a>
+        <a href="../about.html">About</a>
+        <a href="../interests.html">Interests</a>
+        <a href="../courses.html">Courses</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
+    </nav>
+  </header>
+  <div class="paper-bar" aria-label="Whiteprint reading mode">
+    <a class="paper-back" href="../projects.html">&larr; back to field</a>
+    <button class="paper-search" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
+  </div>
+  <div class="paper-progress" aria-hidden="true"></div>
+
+  <main id="main" class="paper-doc paper-develop" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Modern Fortran &middot; Gas turbine / CCGT &middot; Second-law analysis &middot; Self-initiated portfolio project</p>
+        <h1>ThermoTwin-F &mdash; Gas Turbine and Combined-Cycle Digital Twin</h1>
+        <p class="hero-text">Self-initiated educational simulator of a single-shaft gas turbine and combined-cycle (CCGT) extension, implemented in Modern Fortran 2008, with a native Win32/GDI+ operating console, a second-law analysis suite, and 28 passing native tests plus a physics selftest.</p>
+        <p class="standards-note">Reviewed 30 August 2026: fresh Windows CLI and GUI builds, 28 native tests plus the physics selftest, and 15 scenarios passed. Charts and numerical tables below are historical illustrations pending reproduction against the current source. They are not measured plant data or certification. Revamp 7 is an implementation milestone, not a tagged release. See the <a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/docs/COMMIT_REVIEW.md">verification record and remaining work</a>.</p>
+        <img class="case-visual" src="../assets/thumb-thermotwin-f.svg" alt="ThermoTwin-F CCGT station schematic: compressor, combustor, turbine, HRSG and steam turbine with design-point temperatures and KPIs" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Languages:</strong> Modern Fortran 2008 (~21,664 lines) &middot; C++17/GDI+ &middot; C99 (OPC UA) &middot; Python 3</li>
+            <li><strong>Engine modules:</strong> 54 in <code>src/</code></li>
+            <li><strong>HMI:</strong> <code>gui_win32.f90</code> &mdash; ~11,005 lines, 16 analysis screens, 7 live themes</li>
+            <li><strong>Unit tests:</strong> 28 programs + analytic selftest &mdash; passed in the 30 August 2026 review</li>
+            <li><strong>Build:</strong> Fortran Package Manager (<code>fpm</code>) + hand-written <code>Makefile</code></li>
+            <li><strong>Calibrated CCGT design point:</strong> 60.7 MW net, 52.8 % plant efficiency, 15 K HRSG pinch, 379 K stack</li>
+            <li><strong>Rational (second-law) efficiency:</strong> &eta;<sub>II</sub> = 0.502 &plusmn; 0.027 (95&thinsp;% CI 0.450&ndash;0.554)</li>
+            <li><strong>Role lens:</strong> thermal-fluid engineering, R&amp;D software, second-law / exergy analysis</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>What this demonstrates</h2>
+          <p>
+            ThermoTwin-F is intended to evidence, in one artifact, the competencies a thermal-systems engineer or doctoral researcher should hold: thermodynamic rigour (closed mass/energy/exergy balances, named reference formulations, theoretical-limit benchmarking); numerical and software-engineering maturity (a clean modular architecture, an explicit dependency graph, a real test suite, deterministic reproducibility); uncertainty literacy (error bars and variance attribution rather than point estimates); and the ability to make complex systems legible through a designed, accessible operating console.
+          </p>
+          <div class="result-metric-row">
+            <span class="result-metric-card"><strong>60.7 MW &middot; 52.8 %</strong><small>Calibrated combined-cycle design point</small></span>
+            <span class="result-metric-card"><strong>&eta;<sub>II</sub> = 0.50 &plusmn; 0.03</strong><small>Rational second-law efficiency, 95&thinsp;% CI</small></span>
+            <span class="result-metric-card"><strong>28 unit tests &mdash; all green</strong><small>Combustor dominance, Sobol isolation, &chi;&sup2; reconciliation</small></span>
+            <span class="result-metric-card"><strong>54 modules &middot; one contract</strong><small>Single <code>GridState</code> shared by every tier</small></span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section project-evidence-dashboard">
+      <div class="container">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Evidence dashboard</p>
+          <h2>A twin that is understood, not just simulated.</h2>
+        </div>
+        <div class="evidence-tabs" data-evidence-tabs>
+          <div class="evidence-tab-row" role="tablist" aria-label="ThermoTwin-F evidence">
+            <button class="evidence-tab-button is-active" type="button" data-evidence-tab="question" aria-pressed="true">Question</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="architecture" aria-pressed="false">Architecture</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="physics" aria-pressed="false">Physics</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="secondlaw" aria-pressed="false">Second-law</button>
+            <button class="evidence-tab-button" type="button" data-evidence-tab="verification" aria-pressed="false">Verification</button>
+          </div>
+          <article class="evidence-panel" data-evidence-panel="question">
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Design question</h3>
+                <p>How do you build a gas-turbine digital twin that is <em>understood</em>, not just simulated &mdash; with closed mass/energy/exergy balances, quantified uncertainty on every headline number, and an operating console that makes the physics legible?</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>54</strong><small>engine modules</small></span>
+                <span><strong>28</strong><small>unit tests</small></span>
+                <span><strong>16</strong><small>HMI screens</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="architecture" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Four-tier architecture</h3>
+                <p>HMI tier (Win32/GDI+ console, 16 screens) &rarr; Orchestration tier (<code>engine_core</code>, <code>scenario_runner</code>) &rarr; Analysis &amp; subsystem tier (exergy, dispatch, ML, decarbonisation) &rarr; Physics core (cycle solver, thermophysics, degradation, diagnostics). Every tier reads from and writes to one <code>GridState</code> derived type, so modules cannot silently disagree about the plant&rsquo;s condition.</p>
+              </div>
+              <div class="method-flow">
+                <span>HMI / GDI+</span>
+                <span>GridState contract</span>
+                <span>Analysis tier</span>
+                <span>Physics core</span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="physics" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Physics implementation (Revamp 7)</h3>
+                <p>Station-by-station Brayton cycle solver with fuel-mass-conserving combustor energy balance. Thermophysical fidelity: NASA-9 polynomial gas properties, IAPWS-IF97-style water/steam helpers, &epsilon;-NTU multi-pressure HRSG enforcing pinch as a heat-transfer limit. Combustion: adiabatic flame-temperature shift, Zeldovich thermal-NO<sub>x</sub>, CO slip, H<sub>2</sub> co-firing (LHV/Wobbe/flashback margin). Machine: turbine cooling-air demand, tip-clearance loss, polytropic-loss breakdown.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>NASA-9</strong><small>gas properties</small></span>
+                <span><strong>IAPWS-IF97</strong><small>steam side</small></span>
+                <span><strong>&epsilon;-NTU</strong><small>HRSG</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="secondlaw" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Second-law analysis suite</h3>
+                <p>Six modules shipping with the Revamp 7 implementation, each closing its own balance and including a unit test tied to a textbook expectation: <strong>exergy accounting</strong> (physical + chemical specific exergy, per-component destruction, governing balance, &eta;<sub>II</sub>); <strong>Monte-Carlo UQ</strong> (Box&ndash;Muller sampling, deterministic seed, 95&thinsp;% CI on &eta;<sub>II</sub> and destructions); <strong>Saltelli/Jansen Sobol</strong> sensitivity (first-order S<sub>1</sub> and total-effect S<sub>T</sub> for five inputs); <strong>WLS data reconciliation</strong> + &chi;&sup2; gross-error detection (99.9&thinsp;% level); <strong>Carnot/Curzon&ndash;Ahlborn/Brayton theoretical limits</strong>; and an <strong>aggregated scientific report</strong> auto-generated into every CSV export.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>Sobol S<sub>T</sub></strong><small>fuel flow &asymp; 1.1</small></span>
+                <span><strong>&chi;&sup2;(1)</strong><small>99.9&thinsp;% gross-error</small></span>
+                <span><strong>Carnot envelope</strong><small>overlaid on T&ndash;s</small></span>
+              </div>
+            </div>
+          </article>
+          <article class="evidence-panel" data-evidence-panel="verification" hidden>
+            <div class="evidence-panel-grid">
+              <div>
+                <h3>Verification regime</h3>
+                <p>28 unit-test programs plus an analytic selftest oracle (<code>thermotwin selftest</code>) reproducing an independent hand calculation of the design point &mdash; all green at the Revamp 7 implementation. Tests check physics, not syntax: energy-balance closure, degradation monotonicity, transient steady-state limit against an analytic solution, inverse-solver recovery of a known degradation state, exergy-balance closure with combustor dominance, UQ interval bracketing, Sobol driver isolation, reconciliation gross-error detection, and theoretical-limit ordering. Every stochastic study seeds its RNG explicitly for bit-for-bit repeatability.</p>
+              </div>
+              <div class="evidence-kpi-strip">
+                <span><strong>28 + 1</strong><small>tests all green</small></span>
+                <span><strong>&minus;0.0000</strong><small>balance closure residual</small></span>
+                <span><strong>Combustor</strong><small>dominant irreversibility</small></span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Design-point performance</p>
+          <h2>Calibrated operating points</h2>
+        </div>
+        <div class="case-panel">
+          <div class="case-data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Quantity</th>
+                  <th>Simple cycle</th>
+                  <th>Combined cycle (calibrated)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Gas-turbine net power</td>
+                  <td>&asymp;30 MW</td>
+                  <td>45.5 MW</td>
+                </tr>
+                <tr>
+                  <td>Steam-turbine power</td>
+                  <td>&mdash;</td>
+                  <td>15.2 MW</td>
+                </tr>
+                <tr>
+                  <td>Plant net power</td>
+                  <td>&asymp;30 MW</td>
+                  <td>&asymp;60.7 MW</td>
+                </tr>
+                <tr>
+                  <td>Thermal / plant efficiency</td>
+                  <td>&asymp;31 %</td>
+                  <td>52.8 %</td>
+                </tr>
+                <tr>
+                  <td>Heat rate</td>
+                  <td>&asymp;11,800 kJ/kWh</td>
+                  <td>&mdash;</td>
+                </tr>
+                <tr>
+                  <td>Exhaust / stack temperature</td>
+                  <td>&asymp;797 K exhaust</td>
+                  <td>379 K stack</td>
+                </tr>
+                <tr>
+                  <td>HRSG pinch</td>
+                  <td>&mdash;</td>
+                  <td>15 K</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:1rem;">These values sit squarely within expected bands for an industrial single-shaft simple-cycle GT and a modern CCGT. The simple-cycle point is verified against an independent hand calculation (<code>thermotwin selftest</code>); the combined-cycle point is calibrated.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Second-law analysis</p>
+          <h2>Historical exergy examples (Revamp 7)</h2>
+        </div>
+        <div class="case-panel">
+          <p>Exported from the running console (<code>shift_data_t27.csv</code>, <code>[SCIENTIFIC_ANALYSIS]</code> block). All figures carry a balance-closure residual or a confidence interval; none are asserted without a stated method.</p>
+          <div class="case-data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Rational efficiency &eta;<sub>II</sub></td>
+                  <td>0.500</td>
+                </tr>
+                <tr>
+                  <td>&eta;<sub>II</sub> with Monte-Carlo UQ</td>
+                  <td>0.502 &plusmn; 0.027 &nbsp;(95&thinsp;% CI 0.450&ndash;0.554)</td>
+                </tr>
+                <tr>
+                  <td>Dominant irreversibility</td>
+                  <td>Combustor &mdash; largest exergy destruction component</td>
+                </tr>
+                <tr>
+                  <td>Exergy-balance closure residual</td>
+                  <td>&minus;0.0000 (machine zero)</td>
+                </tr>
+                <tr>
+                  <td>Dominant Sobol driver of &eta;<sub>II</sub></td>
+                  <td>Fuel flow &nbsp;(S<sub>T</sub>&thinsp;&asymp;&thinsp;1.1, all others &asymp; 0)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:1rem;">The closed balance, combustor dominance, and clean single-driver Sobol decomposition are exactly what second-law theory predicts for this plant class &mdash; the analysis reproduces known physics rather than asserting numbers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Analysis plots</p>
+          <h2>Six simulation studies — design point to uncertainty.</h2>
+        </div>
+        <div class="structural-figure-deck">
+          <figure class="structural-figure-card is-wide">
+            <div class="figure-kpi-row" aria-hidden="true"><span>288 K inlet</span><span>1400 K TIT</span><span>797 K exhaust</span><span>29.9 MW net GT</span></div>
+            <img src="../assets/projects/thermotwin-f/design_point.png" alt="ThermoTwin-F design-point: station temperatures bar chart and fuel-energy disposition donut" loading="lazy" width="1540" height="580" />
+            <figcaption><strong>01 / Design-point thermodynamic state</strong><span>Station temperature breakdown from compressor inlet (288 K) through TIT (1400 K) to HRSG exhaust, paired with fuel-energy disposition: net electrical 29.9 MW, exhaust sensible 59.6 MW, losses 8.1 MW — the donut is the input for combined-cycle HRSG sizing.</span></figcaption>
+          </figure>
+          <figure class="structural-figure-card">
+            <div class="figure-kpi-row" aria-hidden="true"><span>Clean</span><span>Mild</span><span>Severe</span><span>Washed</span></div>
+            <img src="../assets/projects/thermotwin-f/degradation.png" alt="ThermoTwin-F degradation study: net power and heat rate vs degradation state" loading="lazy" width="1540" height="620" />
+            <figcaption><strong>02 / Degradation and compressor washing</strong><span>Net power drops from 29.9 MW (clean) to 26.9 MW (severe fouling); washing recovers to 28.2 MW. Heat rate and exhaust temperature rise monotonically with fouling — washing recovers compressor isentropic efficiency, not turbine erosion.</span></figcaption>
+          </figure>
+          <figure class="structural-figure-card">
+            <div class="figure-kpi-row" aria-hidden="true"><span>Ambient T</span><span>Pressure ratio</span><span>TIT sweep</span><span>Turbine η</span></div>
+            <img src="../assets/projects/thermotwin-f/sensitivity.png" alt="ThermoTwin-F parametric sensitivity: four one-at-a-time sweeps" loading="lazy" width="1540" height="720" />
+            <figcaption><strong>03 / Parametric sensitivity (simple cycle)</strong><span>Four one-at-a-time sweeps: net power vs ambient temperature (250–320 K); thermal efficiency vs pressure ratio (5–30); heat rate vs TIT (1200–1600 K); exhaust temperature vs turbine isentropic efficiency (0.80–0.92). Outputs span the full site-condition and design-parameter envelope.</span></figcaption>
+          </figure>
+          <figure class="structural-figure-card is-wide">
+            <div class="figure-kpi-row" aria-hidden="true"><span>Cold start</span><span>Load ramp</span><span>Shutdown</span></div>
+            <img src="../assets/projects/thermotwin-f/transient.png" alt="ThermoTwin-F transient hot-section thermal response: cold start, load ramp and shutdown" loading="lazy" width="1540" height="520" />
+            <figcaption><strong>04 / Transient hot-section thermal response</strong><span>Lumped-node metal temperature vs gas-path drive signal for three transients. Steepest metal rise occurs in the first 10 min of cold start. Load ramp shows the gas leading the metal by several minutes. Shutdown gas path cools instantly; metal lags by ~20 min.</span></figcaption>
+          </figure>
+          <figure class="structural-figure-card">
+            <div class="figure-kpi-row" aria-hidden="true"><span>Monte Carlo</span><span>σ net power = 0.519 %</span><span>Bias tornado</span></div>
+            <img src="../assets/projects/thermotwin-f/uncertainty.png" alt="ThermoTwin-F measurement uncertainty propagation: Monte Carlo KPI intervals and bias-sensitivity tornado" loading="lazy" width="1540" height="620" />
+            <figcaption><strong>05 / Measurement uncertainty propagation</strong><span>Left: Monte-Carlo KPI uncertainty — net power σ = 0.519 %, efficiency σ = 0.00115, heat rate σ = 44.2 kJ/kWh, all symmetric about nominal. Right: Bias-sensitivity tornado — mdot_air (+0.60 MW) and T_turbine_inlet (+0.50 MW) dominate; pressure ratio biases net power by only &minus;0.04 MW.</span></figcaption>
+          </figure>
+          <figure class="structural-figure-card">
+            <div class="figure-kpi-row" aria-hidden="true"><span>Compressor fouling</span><span>Turbine erosion</span><span>Parity plot</span></div>
+            <img src="../assets/projects/thermotwin-f/diagnostics.png" alt="ThermoTwin-F inverse diagnostics: recovered degradation parameters vs true values and parity plot" loading="lazy" width="1540" height="620" />
+            <figcaption><strong>06 / Inverse diagnostics recovery</strong><span>The inverse solver recovers four injected degradation parameters (compressor fouling Δη, mass-flow loss Δṁ/ṁ, turbine erosion Δη, combustor ΔP rise) from simulated sensor observations. The parity plot confirms near-perfect alignment with the true values on all four parameters.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading compact-heading">
+          <p class="eyebrow">Operating console</p>
+          <h2>Native Win32/GDI+ HMI &mdash; 16 analysis screens.</h2>
+        </div>
+        <div class="structural-figure-deck">
+          <figure class="structural-figure-card is-wide">
+            <div class="figure-kpi-row" aria-hidden="true"><span>F1 Overview</span><span>50.000 Hz</span><span>Power balance</span><span>ROI economics</span></div>
+            <img src="../assets/projects/thermotwin-f/hmi_f1_overview.png" alt="ThermoTwin-F HMI F1 Plant Control Console — overview screen with frequency gauge, power-balance bar and dispatch controls" loading="lazy" width="1400" height="900" />
+            <figcaption><strong>F1 / Plant Control Console</strong><span>Flagship overview screen: real-time frequency gauge (50.000 Hz), plant-MW dial (29.0 MW), live power-balance bar (demand / supply / reserve), and ROI economics strip showing revenue $3080/h, fuel+carbon $3087/h, value stack $3.4/MWh. The left console exposes load demand, renewable dispatch, battery command, TIT set point and scene-control buttons.</span></figcaption>
+          </figure>
+          <figure class="structural-figure-card">
+            <div class="figure-kpi-row" aria-hidden="true"><span>F5 Market</span><span>$88.0/MWh</span><span>Cost curve</span></div>
+            <img src="../assets/projects/thermotwin-f/hmi_f5_market.png" alt="ThermoTwin-F HMI F5 Market screen — price feeds, renewable availability and dispatch merit chart" loading="lazy" width="1400" height="900" />
+            <figcaption><strong>F5 / Market screen</strong><span>Real-time price feeds (power $88.0/MWh, gas hub $11.50/GJ, carbon $72/t), weather-derived renewable availability mix (Wind 6.0 MW available, PV 0 W/m²), and a live cost-curve and dispatch-merit chart with LMP overlay. Location Stockholm SE3.</span></figcaption>
+          </figure>
+          <figure class="structural-figure-card">
+            <div class="figure-kpi-row" aria-hidden="true"><span>F8 Diagnostics</span><span>Performance gap</span><span>Predictive maintenance</span></div>
+            <img src="../assets/projects/thermotwin-f/hmi_f8_diagnostics.png" alt="ThermoTwin-F HMI F8 Diagnostics screen — live vs design performance gap and predictive maintenance intervals" loading="lazy" width="1400" height="900" />
+            <figcaption><strong>F8 / Diagnostics screen</strong><span>L3 Diagnostics: live-vs-design performance-gap bars for heat rate (+36.6%), GT efficiency (&minus;26.5%), surge margin (&minus;11.2%), pressure ratio (&minus;15.7%) and TIT (+0.0%). Below: predictive maintenance interval progress for compressor wash (2000 h), borescope inspection (8000 h) and hot-section overhaul (24 000 h), with an operator maintenance-watch advisory panel.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Development history</p>
+          <h2>Seven releases, iterative and shippable at every commit</h2>
+        </div>
+        <div class="case-panel">
+          <div class="case-data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Release</th>
+                  <th>Theme</th>
+                  <th>What it added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1.x &ndash; 4.x</strong></td>
+                  <td>Capability</td>
+                  <td>Cycle solver; degradation, transient, sensor/uncertainty, inverse diagnostics; combined-cycle + fleet dispatch; day-ahead MINLP; DNN surrogate; anomaly/fault ML; P2X/CCS/GFM/tie-line/MPC; H<sub>2</sub> co-firing; scenario engine + regression suite &mdash; 15 screens, functionally complete.</td>
+                </tr>
+                <tr>
+                  <td><strong>5.0</strong></td>
+                  <td>Product polish</td>
+                  <td>Header/shell redesign; design-token + component layer; flagship executive landing screen with health ring and click-through faceplates; density rebalance; model-validation harness; economic-MPC horizon view; physics-fidelity overlays; scenario comparison; branded PDF/CSV reporting.</td>
+                </tr>
+                <tr>
+                  <td><strong>6.0</strong></td>
+                  <td>Blueprint Technical UI</td>
+                  <td>Seven-theme engine; monospace numerics; line-art icon set; full P&amp;ID schematic engine; motion (self-drawing boot, alarm pulse); product shell (nav rail + <kbd>Ctrl-K</kbd> palette); shared chart crosshair/tooltip + sparklines; accessibility (density, UI-scale, colour-blind-safe, focus rings); demo/auto-tour + one-key PNG export.</td>
+                </tr>
+                <tr>
+                  <td><strong>7.0</strong></td>
+                  <td>Pure physics &amp; scientific analysis</td>
+                  <td>Exergy/second-law engine + live Grassmann screen; thermophysical fidelity (NASA-9 gas, IAPWS-IF97 steam, &epsilon;-NTU HRSG); combustion chemistry (Zeldovich NO<sub>x</sub>, CO, H<sub>2</sub>/Wobbe/flashback, cooling-air, tip-clearance); Monte-Carlo UQ; Saltelli/Jansen Sobol + tornado; WLS data reconciliation + &chi;&sup2; gross-error; Carnot/Curzon&ndash;Ahlborn/Brayton limits + T&ndash;s envelope; aggregated scientific report embedded in every export.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Codebase footprint</p>
+          <h2>Scale and component breakdown</h2>
+        </div>
+        <div class="case-panel">
+          <div class="case-data-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Files</th>
+                  <th>Lines</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fortran &mdash; engine (<code>src/</code>)</td>
+                  <td>54</td>
+                  <td>8,263</td>
+                </tr>
+                <tr>
+                  <td>Fortran &mdash; native GUI (<code>gui/gui_win32.f90</code>)</td>
+                  <td>1</td>
+                  <td>11,005</td>
+                </tr>
+                <tr>
+                  <td>Fortran &mdash; CLI driver (<code>app/main.f90</code>)</td>
+                  <td>1</td>
+                  <td>462</td>
+                </tr>
+                <tr>
+                  <td>Fortran &mdash; unit tests (<code>test/</code>)</td>
+                  <td>28</td>
+                  <td>&asymp;1,934</td>
+                </tr>
+                <tr>
+                  <td><strong>Fortran &mdash; total</strong></td>
+                  <td><strong>84</strong></td>
+                  <td><strong>&asymp;21,664</strong></td>
+                </tr>
+                <tr>
+                  <td>C++ &mdash; GDI+ render backend</td>
+                  <td>1</td>
+                  <td>362</td>
+                </tr>
+                <tr>
+                  <td>C &mdash; OPC UA wrapper</td>
+                  <td>1</td>
+                  <td>&asymp;250</td>
+                </tr>
+                <tr>
+                  <td>Python &mdash; post-processing / report / DNN</td>
+                  <td>12</td>
+                  <td>1,760</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Limitations</p>
+          <h2>What this project does and does not claim</h2>
+        </div>
+        <div class="case-panel">
+          <p>Consistent with the project&rsquo;s standing honesty note:</p>
+          <ul>
+            <li>This is a <strong>non-proprietary, educational</strong> simulator built on textbook thermodynamics with representative property values. It is <strong>verified</strong> against an independent hand calculation but <strong>not validated</strong> against any specific commercial engine, and it is <strong>not</strong> ASME PTC 22 / ISO 2314 compliant &mdash; the numbers are physically plausible illustrations, not predictions for a particular machine.</li>
+            <li>Bottoming-cycle exergy in the P1 accounting is lumped rather than station-resolved.</li>
+            <li>Data reconciliation uses a single constraint rather than a full multi-constraint network.</li>
+            <li>Zeldovich NO<sub>x</sub> and CO correlations are simplified.</li>
+            <li>The DNN surrogate is trained against a dispatch-label formula, not measured field data.</li>
+          </ul>
+          <p>Each of these is documented at its point of use in the codebase and the technical report. Because property values are representative, absolute KPIs should be read comparatively (clean vs degraded, scenario A vs B, actual vs limit) rather than as machine-specific truth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Relevance</p>
+          <h2>How it fits the portfolio</h2>
+        </div>
+        <div class="case-role-grid">
+          <article class="case-role-card">
+            <h3>Thermodynamic rigour</h3>
+            <p>Every model closes its governing mass/energy/exergy balance to a stated tolerance. Reference formulations are named and citable: IAPWS-IF97, NASA-9 polynomials, &epsilon;-NTU, Sobol&rsquo;, Jansen, Curzon&ndash;Ahlborn.</p>
+          </article>
+          <article class="case-role-card">
+            <h3>Software-engineering maturity</h3>
+            <p>A clean modular Fortran architecture with an explicit dependency graph, dual build paths (fpm + Makefile), a disciplined test suite, and deterministic RNG seeding for reproducible stochastic studies.</p>
+          </article>
+          <article class="case-role-card">
+            <h3>Uncertainty literacy</h3>
+            <p>Headline numbers carry confidence intervals with explicit provenance &mdash; Monte-Carlo propagation and variance-based Sobol attribution rather than asserted point estimates.</p>
+          </article>
+          <article class="case-role-card">
+            <h3>Systems legibility</h3>
+            <p>A native, dependency-light Win32/GDI+ HMI with 16 analysis screens, a P&amp;ID schematic engine, seven live themes, and one-key scientific report export makes the physics accessible without a proprietary framework.</p>
+          </article>
+        </div>
+        <div class="standards-note">
+          <h3>Verification vs validation &mdash; stated plainly</h3>
+          <p>ThermoTwin-F is verified against an independent hand calculation and a 28-test suite. It is not validated against a specific instrumented asset; validation against field data would require a named engine and measured performance maps. This boundary is documented in the technical report (THERMOTWIN-F_TECHNICAL_REPORT.md, §10.2) and at the project README honesty note.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Project access</p>
+          <h2>Source and report</h2>
+        </div>
+        <div class="case-panel">
+          <p>ThermoTwin-F is an open-source educational simulator. Source code, build instructions, tests and the technical report are available on GitHub. The report and numerical illustrations on this page are historical examples, not newly reproduced results or external asset validation. Revamp 7 describes an implementation phase, not a tagged release. The commit review records the checks actually performed and remaining release work.</p>
+          <div class="project-links">
+            <a href="https://github.com/abhijith-sivaprasadan/thermotwin">Source code</a>
+            <a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/docs/THERMOTWIN-F_TECHNICAL_REPORT.md">Technical report (historical draft)</a>
+            <a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/docs/COMMIT_REVIEW.md">Verification and remaining work</a>
+            <a href="../projects.html">Back to project library</a>
+            <a href="../research.html">Research statement</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan.</p>
+    </div>
+  </footer>
+  <script src="../scripts/site.js?v=20260603-field-rail-bg"></script>
+</body>
+</html>

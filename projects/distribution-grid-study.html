@@ -14,19 +14,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
 
-  <link rel="stylesheet" href="../styles.css?v=20260601-mobile-overflow-fix" />
-  <link rel="stylesheet" href="../styles/motion.css?v=20260601-mobile-overflow-fix" />
-  <link rel="stylesheet" href="../styles/v4.css?v=20260601-mobile-overflow-fix" />
-  <script src="../scripts/public-config.js?v=20260601-mobile-overflow-fix" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" defer></script>
-  <script type="module" src="../scripts/motion/index.js?v=20260601-mobile-overflow-fix"></script>
-  <script src="../scripts/motion/sw-register.js?v=20260601-mobile-overflow-fix" defer></script>
-  <script src="../scripts/site.js?v=20260601-mobile-overflow-fix" defer></script>
+  <link rel="stylesheet" href="../styles.css?v=20260603-field-rail-bg" />
+  <link rel="stylesheet" href="../styles/motion.css?v=20260603-field-rail-bg" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260603-field-rail-bg" />
+  <script src="../scripts/public-config.js?v=20260603-field-rail-bg"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" async></script>
+  <script type="module" src="../scripts/motion/index.js?v=20260603-field-rail-bg"></script>
+  <script src="../scripts/motion/sw-register.js?v=20260603-field-rail-bg" defer></script>
+  <script src="../scripts/sections/command-palette.js?v=20260603-field-rail-bg" defer></script>
+  <script src="../scripts/sections/whiteprint.js?v=20260603-field-rail-bg" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
 </head>
-<body class="signal-rebuild" data-page-key="case-study" data-motion-page-transition>
+<body class="signal-rebuild" data-page-key="case-study" data-paper data-motion-page-transition>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -45,14 +46,21 @@
         <a href="../courses.html">Courses</a>
         <a href="../index.html#contact">Contact</a>
       </div>
+      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
     </nav>
   </header>
 
-  <main id="main" tabindex="-1">
+  <div class="paper-bar" aria-label="Whiteprint reading mode">
+    <a class="paper-back" href="../projects.html">&larr; back to field</a>
+    <button class="paper-search" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
+  </div>
+  <div class="paper-progress" aria-hidden="true"></div>
+
+  <main id="main" class="paper-doc paper-develop" tabindex="-1">
     <section class="case-hero">
       <div class="container">
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
-        <p class="eyebrow">KTH project &middot; Power flow &middot; Grid planning</p>
+        <p class="eyebrow">KTH MJ2505 &middot; Power flow &middot; Grid planning &middot; pandapower</p>
         <h1>Distribution Grid Study with EV, PV and Storage Impacts</h1>
         <p class="hero-text">Distribution-grid simulation study using a CIGRE MV network, 24-hour load profiles, EV charging profiles, transformer-level connection assumptions and N-1 contingency analysis.</p>
         <div class="button-row"><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/PRO1_network" target="_blank" rel="noreferrer">GitHub repository</a></div>
@@ -155,6 +163,32 @@
       </div>
     </section>
 
+    <section class="section subtle">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Course:</strong> KTH MJ2505 Optimisation of Energy Networks</li>
+            <li><strong>Model:</strong> pandapower CIGRE medium-voltage network</li>
+            <li><strong>Input data:</strong> 24-hour load profiles, 348 EV charging profiles, PV generation profiles</li>
+            <li><strong>Tools:</strong> pandapower, Python, time-series power flow</li>
+            <li><strong>Outputs:</strong> bus-voltage, line-loading and transformer-loading spreadsheets</li>
+            <li><strong>Skills:</strong> grid analysis, time-series simulation, N-1 contingency, operational optimisation</li>
+          </ul>
+        </aside>
+        <article class="case-panel">
+          <h2>Five-step methodology</h2>
+          <ul>
+            <li><strong>Step 1 &ndash; Initial network state:</strong> base power flow analysis and N-1 contingency analysis on the CIGRE MV network to establish voltage and loading baselines; exports confirmed 16 bus rows with voltage and thermal margins.</li>
+            <li><strong>Step 2 &ndash; Time-series simulation:</strong> 24-hour load-shape profiles added; time-series power flow run to analyse daily demand variation and its impact on line and transformer loading across all network buses.</li>
+            <li><strong>Step 3 &ndash; EV integration:</strong> estimated number of EV charging stations based on penetration scenarios; new low-voltage buses and transformer connections added; load flow and N-1 contingency repeated to locate voltage and thermal bottlenecks introduced by EV charging. Results: line loading reached 110.6%, transformer loading reached 104.4% in the stressed case.</li>
+            <li><strong>Step 4 &ndash; Load management and optimisation:</strong> load profiles optimised to minimise operational costs; PV systems and storage added to both base and EV-stressed configurations; optimised dispatch evaluated against the unmanaged baseline to quantify the benefit of flexibility.</li>
+            <li><strong>Step 5 &ndash; Network losses minimisation:</strong> operational optimisation to minimise network losses through strategic EV charging scheduling; evaluated potential loss reductions across the full 24-hour horizon using the optimised profiles.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="section-heading">
@@ -165,9 +199,10 @@
           <p>This project supports Energy Systems Modelling because it connects decarbonisation technologies to the physical network constraints they create. EV charging, PV and storage are not just scenario labels; they change line currents, transformer loading and operational margins in a real distribution-grid calculation workflow.</p>
           <div class="result-metric-row">
             <span class="result-metric-card"><strong>Base case</strong><small>16-row voltage and line-loading exports</small></span>
-            <span class="result-metric-card"><strong>Time series</strong><small>24 hourly columns for voltage and loading</small></span>
-            <span class="result-metric-card"><strong>N-1 stress</strong><small>line and transformer overload indicators</small></span>
+            <span class="result-metric-card"><strong>110.6%</strong><small>line loading under EV stress (N-1 case)</small></span>
+            <span class="result-metric-card"><strong>104.4%</strong><small>transformer loading under EV stress</small></span>
           </div>
+          <p style="margin-top:1rem;">The structured five-step approach isolates each intervention — adding EVs, then adding storage and PV, then switching from cost to loss minimisation — so the effect of each design choice is traceable rather than mixed into a single scenario comparison.</p>
         </div>
       </div>
     </section>
@@ -178,6 +213,6 @@
       <p>&copy; 2026 Abhijith Sivaprasadan.</p>
     </div>
   </footer>
+  <script src="../scripts/site.js?v=20260603-field-rail-bg"></script>
 </body>
 </html>
-

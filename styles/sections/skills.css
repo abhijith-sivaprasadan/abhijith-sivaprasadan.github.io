@@ -1,109 +1,321 @@
+/* ── Capability radar — game-style KDA display ──────────────────────────── */
+
+/* Safety CSS: hide legacy vertex dots and floating value labels if old JS loads */
+.radar-point { display: none !important; }
+.radar-val   { display: none !important; }
+
 .capability-radar {
+  --radar-color: var(--accent, var(--v4-teal));
+  position: relative;
+  isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(240px, 0.82fr) minmax(280px, 1fr) minmax(220px, 0.72fr);
-  gap: clamp(18px, 4vw, 42px);
-  align-items: center;
+  gap: 10px;
+  min-width: 0;
   margin: 0 0 28px;
-  padding: clamp(18px, 3vw, 28px);
-  border: 1px solid var(--v4-line);
-  border-radius: var(--v4-radius);
+  padding: clamp(13px, 2.1vw, 18px);
+  border: 1px solid color-mix(in srgb, var(--radar-color) 32%, var(--v4-line));
+  border-radius: var(--v4-radius-sm, 8px);
+  background-color: #080610;
+  background-image:
+    radial-gradient(ellipse at 50% 42%, color-mix(in srgb, var(--radar-color) 22%, transparent), transparent 55%),
+    radial-gradient(ellipse at 85% 10%, color-mix(in srgb, var(--v4-amber, #f6c85f) 5%, transparent), transparent 30%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 6%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--radar-color) 8%, transparent),
+    0 0 64px -8px color-mix(in srgb, var(--radar-color) 24%, transparent),
+    0 24px 72px -12px rgba(0,0,0,0.55);
+  overflow: hidden;
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Fine dot-grid texture — very faint for depth without clutter */
+.capability-radar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(circle at 52% 40%, rgba(101, 214, 201, 0.10), transparent 36%),
-    var(--v4-panel);
-  box-shadow: var(--v4-shadow);
+    radial-gradient(circle, color-mix(in srgb, var(--v4-line) 40%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* Bottom ambient glow bloom */
+.capability-radar::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -40% 20%;
+  height: 48%;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--radar-color) 20%, transparent);
+  filter: blur(48px);
+  opacity: 0.55;
+  pointer-events: none;
+  transition: background 0.5s ease;
+}
+
+.capability-radar > * { position: relative; z-index: 2; }
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.radar-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.radar-head span,
+.radar-note {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.radar-head strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--text);
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+  line-height: 1.12;
+  transition: color 0.4s ease;
+}
+
+.radar-all-btn {
+  flex: 0 0 auto;
+  min-height: 28px;
+  padding: 0 0.62rem;
+  border: 1px solid color-mix(in srgb, var(--radar-color) 35%, var(--v4-line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--radar-color) 7%, transparent);
+  color: var(--muted);
+  font: 700 0.68rem/1 var(--font-mono, ui-monospace, monospace);
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.radar-all-btn:hover,
+.radar-all-btn.is-active {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--radar-color) 65%, var(--v4-line));
+  background: color-mix(in srgb, var(--radar-color) 15%, transparent);
+  box-shadow: 0 0 14px -3px color-mix(in srgb, var(--radar-color) 32%, transparent);
+}
+
+/* ── SVG frame ───────────────────────────────────────────────────────────── */
+.radar-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 232px;
+  margin: -2px 0 -8px;
 }
 
 .radar-frame svg {
-  width: 100%;
-  max-height: 320px;
+  position: relative;
+  z-index: 1;
+  width: min(100%, 360px);
+  height: auto;
   display: block;
+  overflow: visible;
 }
 
+/* ── Halo ring ───────────────────────────────────────────────────────────── */
+.radar-halo {
+  fill: color-mix(in srgb, var(--radar-color) 5%, transparent);
+  stroke: color-mix(in srgb, var(--radar-color) 16%, transparent);
+  stroke-width: 1.2;
+  animation: radar-halo-pulse 3.6s ease-in-out infinite;
+}
+
+@keyframes radar-halo-pulse {
+  0%, 100% { stroke-opacity: 0.5; }
+  50%       { stroke-opacity: 1;   }
+}
+
+/* ── Grid rings ──────────────────────────────────────────────────────────── */
 .radar-grid polygon,
 .radar-grid line {
   fill: none;
-  stroke: var(--v4-line);
-  stroke-width: 0.9;
+  stroke: color-mix(in srgb, var(--line) 18%, transparent);
+  stroke-width: 0.45;
+  vector-effect: non-scaling-stroke;
 }
 
+/* Outer ring — faint color accent as boundary marker */
+.radar-grid polygon.ring-3 {
+  stroke: color-mix(in srgb, var(--radar-color) 22%, transparent);
+  stroke-width: 0.7;
+}
+
+/* Spokes barely visible */
+.radar-grid line {
+  stroke: color-mix(in srgb, var(--line) 12%, transparent);
+  stroke-width: 0.38;
+}
+
+/* ── Signal polygon ──────────────────────────────────────────────────────── */
 .radar-signal {
-  fill: color-mix(in srgb, var(--v4-teal) 24%, transparent);
-  stroke: var(--v4-teal);
-  stroke-width: 2.3;
-  filter: drop-shadow(0 10px 24px rgba(101, 214, 201, 0.18));
-}
-
-.radar-focus {
-  fill: var(--v4-amber);
-  stroke: var(--v4-panel-strong);
+  fill: url("#radarFill");
+  stroke: var(--radar-color);
   stroke-width: 2;
-  filter: drop-shadow(0 0 9px rgba(246, 200, 95, 0.58));
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 0.5s ease;
+  animation: radar-signal-breathe 3.2s ease-in-out infinite;
 }
 
-.radar-labels text {
-  fill: var(--muted);
-  font-size: 8px;
-  font-family: var(--mono, monospace);
+@keyframes radar-signal-breathe {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 8px color-mix(in srgb, var(--radar-color) 55%, transparent))
+      drop-shadow(0 0 24px color-mix(in srgb, var(--radar-color) 28%, transparent));
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 16px color-mix(in srgb, var(--radar-color) 82%, transparent))
+      drop-shadow(0 0 44px color-mix(in srgb, var(--radar-color) 44%, transparent));
+  }
 }
 
+/* ── Continuous sweep ────────────────────────────────────────────────────── */
+.radar-sweep-g {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: radar-sweep-loop 5s linear infinite;
+}
+
+.radar-sweep {
+  stroke: var(--radar-color);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 3px var(--radar-color));
+  transition: stroke 0.5s ease;
+}
+
+/* Sweep trails — fills are set by SVG gradient refs; CSS just manages transition */
+.radar-sweep-trail {
+  transition: opacity 0.5s ease;
+}
+
+@keyframes radar-sweep-loop {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Centre core ─────────────────────────────────────────────────────────── */
+.radar-core {
+  fill: var(--radar-color);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: fill 0.5s ease;
+  animation: radar-core-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes radar-core-pulse {
+  0%, 100% { transform: scale(1);   opacity: 0.85; filter: drop-shadow(0 0 4px  color-mix(in srgb, var(--radar-color) 60%, transparent)); }
+  50%       { transform: scale(1.6); opacity: 1;    filter: drop-shadow(0 0 10px color-mix(in srgb, var(--radar-color) 90%, transparent)); }
+}
+
+/* ── Axis labels ─────────────────────────────────────────────────────────── */
+.radar-axis {
+  fill: color-mix(in srgb, var(--muted) 88%, var(--radar-color));
+  font: 800 7.3px/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ── Readout buttons ─────────────────────────────────────────────────────── */
 .radar-readout {
   display: grid;
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
 }
 
 .radar-readout button {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  width: 100%;
-  border: 1px solid var(--v4-line);
-  border-radius: 999px;
-  padding: 8px 11px;
-  color: var(--muted);
+  gap: 8px;
+  min-width: 0;
+  min-height: 31px;
+  padding: 0.38rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--radar-color) 16%, var(--v4-line));
+  border-radius: 7px;
   background: color-mix(in srgb, var(--v4-panel-strong) 80%, transparent);
+  color: var(--muted);
+  font: 700 0.64rem/1.2 var(--font-mono, ui-monospace, monospace);
+  text-align: left;
   cursor: pointer;
-  font: inherit;
+  transition: border-color 0.22s ease, background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.radar-readout button span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .radar-readout button:hover,
 .radar-readout button.is-selected {
-  border-color: color-mix(in srgb, var(--v4-teal) 55%, var(--v4-line));
   color: var(--text);
+  border-color: color-mix(in srgb, var(--radar-color) 52%, var(--v4-line));
+  background: color-mix(in srgb, var(--radar-color) 10%, var(--v4-panel-strong));
+  box-shadow: 0 0 10px -3px color-mix(in srgb, var(--radar-color) 24%, transparent);
 }
 
 .radar-readout strong {
-  color: var(--text);
-  font-family: var(--mono, monospace);
+  flex: 0 0 auto;
+  color: var(--radar-color);
+  font: 800 0.75rem/1 var(--font-mono, ui-monospace, monospace);
+  transition: color 0.4s ease;
 }
 
+/* ── Evidence panel ──────────────────────────────────────────────────────── */
 .radar-evidence {
-  min-height: 88px;
-  margin-top: 12px;
-  padding: 11px 12px;
-  border-left: 2px solid var(--v4-teal);
-  background: color-mix(in srgb, var(--v4-panel-strong) 70%, transparent);
+  min-height: 76px;
+  padding: 10px 11px;
+  border-left: 2px solid var(--radar-color);
+  background: color-mix(in srgb, var(--radar-color) 6%, var(--v4-panel-strong));
+  transition: border-color 0.4s ease, background 0.4s ease;
 }
 
 .radar-evidence strong {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
   gap: 8px;
   color: var(--text);
-  font-size: 0.86rem;
+  font-size: 0.82rem;
+  line-height: 1.2;
 }
 
 .radar-evidence strong span {
-  color: var(--v4-teal);
-  font: 500 0.72rem/1.2 var(--mono, monospace);
+  flex: 0 0 auto;
+  color: var(--radar-color);
+  font: 800 0.7rem/1.2 var(--font-mono, ui-monospace, monospace);
 }
 
 .radar-evidence p {
-  margin: 8px 0 0;
+  margin: 7px 0 0;
   color: var(--muted);
-  font-size: 0.78rem;
-  line-height: 1.4;
+  font-size: 0.75rem;
+  line-height: 1.42;
 }
 
+.radar-note {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.66rem;
+}
+
+/* ── Light theme ─────────────────────────────────────────────────────────── */
 html[data-theme="light"] #skills .skill-pill:not([data-chip-type]) {
   color: #243542 !important;
   border-color: rgba(22, 61, 76, 0.18) !important;
@@ -116,8 +328,17 @@ html[data-theme="light"] #skills .skill-block {
   border-color: rgba(22, 61, 76, 0.16);
 }
 
-@media (max-width: 900px) {
-  .capability-radar {
-    grid-template-columns: 1fr;
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .radar-readout { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radar-sweep-g,
+  .radar-halo,
+  .radar-signal,
+  .radar-core {
+    animation: none;
   }
+  .radar-sweep-trail { display: none; }
 }

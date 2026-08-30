@@ -1,16 +1,20 @@
 // ── Live Lens / Evidence Lens ───────────────────────────────────────
 // The hero physics panels are the intended homepage experience. They stay
-// enabled by default on pages with [data-motion-fluid-sim].
+// enabled by default on pages with [data-hero-instrument] / [data-motion-fluid-sim].
 //   - URL param ?lens=1   turns on + sticks in localStorage
-//   - URL param ?lens=0   turns off + sticks in localStorage
+//   - URL param ?lens=0   turns off for the current session
 //   - the floating "Live Lens" toggle can switch either way
+const liveLensStorageKey = "fieldLiveLens";
+
 function setLensDev(on) {
   try {
     if (on) {
-      window.localStorage.setItem("lensDev", "1");
+      window.localStorage.setItem(liveLensStorageKey, "1");
+      window.localStorage.removeItem("lensDev");
       document.body.classList.add("lens-dev");
     } else {
-      window.localStorage.setItem("lensDev", "0");
+      window.localStorage.setItem(liveLensStorageKey, "0");
+      window.localStorage.removeItem("lensDev");
       document.body.classList.remove("lens-dev");
     }
   } catch (e) { /* storage blocked → just toggle class for this session */
@@ -46,12 +50,9 @@ function hasLensSurface() {
       return;
     }
 
-    const stored = window.localStorage.getItem("lensDev");
-    if (stored === "0") {
-      document.body.classList.remove("lens-dev");
-      return;
-    }
-    if (stored === "1" || document.querySelector("[data-motion-fluid-sim]")) {
+    const stored = window.localStorage.getItem(liveLensStorageKey);
+    const legacyStored = window.localStorage.getItem("lensDev");
+    if (stored === "1" || legacyStored === "1") {
       setLensDev(true);
     }
   } catch (e) { /* storage blocked → silently skip */ }
@@ -137,8 +138,8 @@ const pageKey = document.body.dataset.pageKey || inferredPageKey;
 document.body.dataset.pageKey = pageKey;
 const localEditorEnabled = document.body.dataset.enableLocalEditor === "true";
 const storeKey = "abhijith-portfolio-edit-v1";
-const assetVersion = "20260601-mobile-overflow-fix";
-const apiVersion = "20260601-mobile-overflow-fix";
+const assetVersion = "20260603-field-rail-bg";
+const apiVersion = "20260603-field-rail-bg";
 let authConfig = window.PORTFOLIO_AUTH_CONFIG || {};
 let newsletterAction = window.PORTFOLIO_NEWSLETTER_ACTION || "";
 // Empty by default → fall back to the committed api/*.json files (see
@@ -164,6 +165,34 @@ const pageState = {
 };
 
 const projectRoleFilters = ["Thermal & Fluid", "Energy Systems", "Industrial R&D", "Research"];
+const projectFilterAliases = {
+  all: "All",
+  selected: "Selected",
+  thermal: "Thermal & Fluid",
+  fluid: "Thermal & Fluid",
+  cfd: "Thermal & Fluid",
+  energy: "Energy Systems",
+  systems: "Energy Systems",
+  industrial: "Industrial R&D",
+  industry: "Industrial R&D",
+  rd: "Industrial R&D",
+  "r&d": "Industrial R&D",
+  decarb: "Industrial R&D",
+  decarbonisation: "Industrial R&D",
+  decarbonization: "Industrial R&D",
+  research: "Research",
+};
+
+const normalizeProjectFilter = (value) => {
+  const cleaned = (value || "").toString().trim().toLowerCase().replace(/\+/g, " ");
+  return projectFilterAliases[cleaned] || "";
+};
+
+const initialProjectFilter = (() => {
+  const params = new URLSearchParams(window.location.search);
+  return normalizeProjectFilter(params.get("lens") || params.get("filter"));
+})();
+if (initialProjectFilter) pageState.activeProjectFilter = initialProjectFilter;
 
 const hashEmail = async (email) => {
   const data = new TextEncoder().encode(email.toLowerCase());
@@ -707,6 +736,93 @@ const injectNavLinks = () => {
     markCurrentLink(link);
     navLinks.append(link);
   });
+};
+
+const initializeFieldRouteRail = () => {
+  if (pageKey === "home" || pageKey === "admin" || pageKey === "not-found") return;
+  if (document.body.hasAttribute("data-paper") || document.querySelector("[data-field-route-rail]")) return;
+
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const lensFromUrl = normalizeProjectFilter(params.get("lens") || params.get("filter"));
+  const path = window.location.pathname.toLowerCase();
+  const activeRoute = (() => {
+    if (lensFromUrl === "Thermal & Fluid") return "thermal";
+    if (lensFromUrl === "Energy Systems") return "energy";
+    if (lensFromUrl === "Industrial R&D") return "industrial";
+    if (lensFromUrl === "Research") return "research";
+    if (pageKey === "research" || path.includes("numerical-heat-transfer")) return "research";
+    if (pageKey === "energy-systems" || /district|heating|grid|pypsa|hylkysaari|tes-|waste-to-energy|germany-energy|residential/.test(path)) return "energy";
+    if (pageKey === "industrial-rd" || /alleima|eu-ets|industrial-energy/.test(path)) return "industrial";
+    if (/siemens|mtes|peltier|battery|structural-fea/.test(path)) return "thermal";
+    return "everything";
+  })();
+
+  const routes = [
+    {
+      key: "everything",
+      label: "Everything",
+      href: `${basePath}index.html`,
+      icon: '<path d="M2 7H12M7 2V12" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.1" opacity=".72"/>',
+    },
+    {
+      key: "thermal",
+      label: "Thermal",
+      href: `${basePath}projects.html?lens=thermal`,
+      icon: '<path d="M1 7C3.5 2 10.5 2 13 7C10.5 12 3.5 12 1 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/>',
+    },
+    {
+      key: "energy",
+      label: "Energy",
+      href: `${basePath}energy-systems.html`,
+      icon: '<polyline points="1,11 4,6 7,8 10,3 13,5" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+    },
+    {
+      key: "industrial",
+      label: "Industrial",
+      href: `${basePath}industrial-rd.html`,
+      icon: '<rect x="2" y="5" width="3" height="7" fill="currentColor" opacity=".55"/><rect x="5.5" y="3" width="3" height="9" fill="currentColor" opacity=".78"/><rect x="9" y="1" width="3" height="11" fill="currentColor"/>',
+    },
+    {
+      key: "research",
+      label: "Research",
+      href: `${basePath}research.html`,
+      icon: '<circle cx="6" cy="6" r="3.5" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M8.5 8.5L12 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>',
+    },
+  ];
+
+  const rail = document.createElement("nav");
+  rail.className = "field-route-rail";
+  rail.dataset.fieldRouteRail = "";
+  rail.setAttribute("aria-label", "Portfolio evidence tracks");
+  rail.innerHTML = `
+    <div class="container field-route-rail-inner">
+      <span class="field-route-label">Field Lens</span>
+      <div class="field-route-links">
+        ${routes.map((route) => `
+          <a href="${route.href}" class="${route.key === activeRoute ? "is-active" : ""}" ${route.key === activeRoute ? 'aria-current="page"' : ""}>
+            <svg class="field-route-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">${route.icon}</svg>
+            <span>${route.label}</span>
+          </a>
+        `).join("")}
+      </div>
+    </div>`;
+  header.insertAdjacentElement("afterend", rail);
+};
+
+const syncProjectFilterUrl = () => {
+  if (!projectFilters || !window.history?.replaceState) return;
+  const filter = pageState.activeProjectFilter;
+  const slug = Object.entries(projectFilterAliases).find(([, label]) => label === filter)?.[0] || "";
+  const url = new URL(window.location.href);
+  if (!slug || filter === "Selected") {
+    url.searchParams.delete("lens");
+  } else {
+    url.searchParams.set("lens", slug);
+  }
+  window.history.replaceState(null, "", url);
 };
 
 const initializeNewsletter = () => {
@@ -2180,13 +2296,38 @@ const initializeHomeModeToggle = () => {
   const targets = Array.from(document.querySelectorAll("[data-home-mode-target]"));
   if (!buttons.length || !targets.length) return;
 
-  const toggleEl = buttons[0].closest(".home-mode-toggle");
+  const toggleEls = Array.from(new Set(buttons.map((button) => button.closest(".home-mode-toggle")).filter(Boolean)));
+  const modeLabel = document.querySelector("[data-home-mode-label]");
+  const modeLabels = {
+    everything: "Everything",
+    thermal: "Thermal & Fluid",
+    energy: "Energy Systems",
+    decarbonisation: "Industrial R&D",
+    research: "Research",
+  };
+  const modeAliases = {
+    all: "everything",
+    field: "everything",
+    industrial: "decarbonisation",
+    decarbonization: "decarbonisation",
+    decarb: "decarbonisation",
+  };
   const modes = new Set(buttons.map((button) => button.getAttribute("data-home-mode-button")).filter(Boolean));
-  const storageKey = "homeAudienceMode";
+  const storageKey = "fieldHomeAudienceMode";
+  const normalizeMode = (mode) => {
+    const cleaned = (mode || "").toString().trim().toLowerCase();
+    return modeAliases[cleaned] || cleaned;
+  };
 
   const applyMode = (mode) => {
-    const nextMode = modes.has(mode) ? mode : buttons[0].getAttribute("data-home-mode-button");
+    const normalizedMode = normalizeMode(mode);
+    const nextMode = modes.has(normalizedMode) ? normalizedMode : buttons[0].getAttribute("data-home-mode-button");
     document.body.dataset.homeMode = nextMode;
+    if (nextMode === "everything") delete document.body.dataset.lens;
+    else document.body.dataset.lens = nextMode;
+    ["thermal", "energy", "decarbonisation", "research"].forEach((lens) => {
+      document.body.classList.toggle(`lens-${lens}`, nextMode === lens);
+    });
 
     buttons.forEach((button) => {
       const active = button.getAttribute("data-home-mode-button") === nextMode;
@@ -2194,7 +2335,11 @@ const initializeHomeModeToggle = () => {
       button.setAttribute("aria-pressed", active ? "true" : "false");
     });
 
-    if (toggleEl) toggleEl.classList.add("is-ready");
+    toggleEls.forEach((toggleEl) => toggleEl.classList.add("is-ready"));
+    if (modeLabel) {
+      modeLabel.textContent = modeLabels[nextMode] || nextMode;
+      modeLabel.dataset.mode = nextMode;
+    }
 
     targets.forEach((target) => {
       const value = target.getAttribute("data-home-mode-target") || "";
@@ -2207,6 +2352,9 @@ const initializeHomeModeToggle = () => {
     } catch (error) {
       // Ignore storage failures in restricted contexts.
     }
+
+    document.dispatchEvent(new CustomEvent("home-mode-change", { detail: { mode: nextMode } }));
+    window.Motion?.bus?.emit?.("motion:mode-change", { mode: nextMode });
   };
 
   buttons.forEach((button) => {
@@ -2215,9 +2363,10 @@ const initializeHomeModeToggle = () => {
     });
   });
 
-  let initialMode = document.body.dataset.homeMode || "research";
+  const params = new URLSearchParams(window.location.search);
+  let initialMode = normalizeMode(params.get("focus")) || document.body.dataset.homeMode || "everything";
   try {
-    initialMode = window.localStorage.getItem(storageKey) || initialMode;
+    initialMode = normalizeMode(params.get("focus") || window.localStorage.getItem(storageKey)) || initialMode;
   } catch (error) {
     // Ignore storage failures in restricted contexts.
   }
@@ -2427,6 +2576,7 @@ initializeEvidenceTabs();
 initializeEvidenceCharts();
 initializePageLaunch();
 injectNavLinks();
+initializeFieldRouteRail();
 initializeNavToggle();
 initializeFooter();
 initializeSkillExplorer();
@@ -2460,6 +2610,7 @@ projectFilters?.addEventListener("click", (event) => {
   renderProjectFilters();
   if (usingStaticDomProjects) renderStaticProjectList();
   else renderProjectList();
+  syncProjectFilterUrl();
 });
 
 projectSearch?.addEventListener("input", () => {
@@ -2483,11 +2634,40 @@ const initializeContactForm = () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (!action) {
-      if (statusEl) statusEl.textContent = "Contact form not configured. Please email directly.";
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      if (statusEl) {
+        statusEl.textContent = "Please add your name, email and message.";
+        statusEl.dataset.state = "error";
+      }
       return;
     }
+
     const data = new FormData(form);
+    if ((data.get("_gotcha") || "").toString().trim()) return;
+
+    if (!action) {
+      const name = (data.get("name") || "").toString().trim();
+      const email = (data.get("email") || "").toString().trim();
+      const reason = (data.get("reason") || "").toString().trim();
+      const subjectBase = (data.get("subject") || "Portfolio contact").toString().trim();
+      const subject = [subjectBase, reason].filter(Boolean).join(" - ");
+      const message = (data.get("message") || "").toString().trim();
+      const body = [
+        name ? `Name: ${name}` : "",
+        email ? `Email: ${email}` : "",
+        reason ? `Reason: ${reason}` : "",
+        "",
+        message,
+      ].filter((line, index) => line || index === 3).join("\n");
+
+      window.location.href = `mailto:abhijithsivaprasadan@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      if (statusEl) {
+        statusEl.textContent = "Opening an email draft with your note.";
+        statusEl.dataset.state = "success";
+      }
+      return;
+    }
     if (statusEl) {
       statusEl.textContent = "Sending…";
       statusEl.dataset.state = "sending";

@@ -1,8 +1,9 @@
 /**
  * Motion bootstrap module (ES module).
  *
- * Load via: <script type="module" src="scripts/motion/index.js" defer></script>
- * GSAP must be loaded BEFORE this module via CDN <script> tags.
+ * Load via: <script type="module" src="scripts/motion/index.js"></script>
+ * GSAP may arrive asynchronously; this module falls back to CSS motion when
+ * GSAP or plugins are unavailable.
  *
  * This file:
  *   - Detects prefers-reduced-motion, touch-only, low-power.
@@ -170,6 +171,7 @@ function boot() {
     { name: "transitions",   selector: "[data-motion-page-transition], a[data-page-transition]" },
     { name: "entrance",      selector: "[data-motion-entrance]",      skip: () => reducedMotion },
     { name: "chips",         selector: ".tag-row span, .audience-chip-row span, .skill-pill, .chip, .pill" },
+    { name: "field-bg",      selector: "body.signal-rebuild",         skip: () => reducedMotion },
     { name: "signal-page-art", selector: "[data-signal-page-art]", path: `${BASE}../sections/signal-page-art.js` },
     { name: "bento-projects", selector: "[data-bento-projects]", path: `${BASE}../sections/bento-projects.js` },
     { name: "featured-project-filters", selector: "[data-featured-project-filters]", path: `${BASE}../sections/featured-project-filters.js` },

@@ -1,14 +1,14 @@
 :root {
-  --v4-blue: #2563a8;
-  --v4-teal: #65d6c9;
-  --v4-orange: #d0622c;
+  --v4-blue: #5a1a7d;
+  --v4-teal: #b3246b;
+  --v4-orange: #f0561d;
   --v4-amber: #f6c85f;
-  --v4-panel: color-mix(in srgb, var(--panel, #111827) 88%, transparent);
-  --v4-panel-strong: color-mix(in srgb, var(--panel-strong, #172033) 92%, transparent);
-  --v4-line: color-mix(in srgb, var(--line, rgba(255,255,255,0.14)) 92%, transparent);
-  --v4-shadow: 0 26px 80px rgba(0, 0, 0, 0.28);
-  --v4-radius: 14px;
-  --v4-radius-sm: 8px;
+  --v4-panel: color-mix(in srgb, var(--panel, #130f22) 88%, transparent);
+  --v4-panel-strong: color-mix(in srgb, var(--panel-strong, #1a1430) 92%, transparent);
+  --v4-line: color-mix(in srgb, var(--line, #2a2342) 92%, transparent);
+  --v4-shadow: 0 26px 80px rgba(0, 0, 0, 0.42);
+  --v4-radius: 13px;
+  --v4-radius-sm: 7px;
   --v4-grid: linear-gradient(color-mix(in srgb, var(--line, #223) 55%, transparent) 1px, transparent 1px),
              linear-gradient(90deg, color-mix(in srgb, var(--line, #223) 55%, transparent) 1px, transparent 1px);
 }

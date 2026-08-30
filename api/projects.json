@@ -1,6 +1,28 @@
 {
   "projects": [
     {
+      "id": "thermotwin-f",
+      "title": "ThermoTwin-F - Gas Turbine and CCGT Educational Simulator",
+      "category": "Thermal Systems",
+      "status": "published",
+      "featured": false,
+      "order": 4,
+      "period": "2026",
+      "associatedWith": "Self-initiated portfolio project",
+      "summary": "Open-source Modern Fortran gas-turbine and combined-cycle simulator with a native Windows HMI, second-law analysis, and automated tests. Not validated against a commercial engine.",
+      "audienceTags": ["Thermal & Fluid", "Energy Systems", "Research"],
+      "tools": ["Fortran 2008", "Python", "Win32/GDI+"],
+      "skills": ["Thermodynamics", "Exergy", "Uncertainty analysis", "Software verification"],
+      "image": "assets/thumb-thermotwin-f.svg",
+      "caseStudyUrl": "projects/thermotwin-f.html",
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/thermotwin",
+      "highlights": [
+        "28 native test programs plus a physics selftest and 15 scenario runs passed in the 30 August 2026 review.",
+        "Fresh Windows CLI and GUI builds passed; Linux CI passed on commit 026eb6e.",
+        "Historical numerical report reproduction, interactive GUI acceptance and external validation remain pending."
+      ]
+    },
+    {
       "id": "siemens-thesis",
       "title": "Siemens Energy Thesis - High-Temperature Reducer CFD/CHT and Test-Rig Validation",
       "category": "CFD & Testing",
