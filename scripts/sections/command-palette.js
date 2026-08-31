@@ -28,7 +28,7 @@
 
   function loadJSON() {
     // projects
-    fetch(BASE + "/api/projects.json?v=20260830-gb-flexabm", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
+    fetch(BASE + "/api/projects.json?v=20260831-gb-workbench", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
       (d.projects || d || []).forEach(function (p) {
         if (!p || !p.id) return;
         var destination = p.caseStudyUrl || ("projects/" + p.id + ".html");

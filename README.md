@@ -2,6 +2,12 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
+## Latest project delivery — GB-FLEXABM v0.2
+
+The [GB-FLEXABM case study](projects/gb-flexabm.html) now documents the local Streamlit experiment GUI, complete-calendar-year NESO demand gate, verified exports and S0–S6 delivery plan. S0's exploratory model and S1's workbench are implemented; S2's historical bundle and split protocol are next. Calibration, locked validation and multi-energy extensions remain pending. The original v0.1 reference results are preserved and labelled.
+
+The GUI runs locally (`uv run --locked --extra gui gbflex gui` in the model repository); GitHub Pages does not execute Python. Each future project milestone must update its model README, this portfolio README, the case study and relevant discovery summaries, then pass checks and be pushed with CI/Pages publication verified. See `AGENTS.md`.
+
 ## Design system tokens (UI lock)
 
 Use these defaults when adding or editing UI so pages stay visually consistent:
