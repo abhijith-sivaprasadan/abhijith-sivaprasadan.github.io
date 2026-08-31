@@ -1,5 +1,6 @@
 /* Scoped to this case study. Preserve the site's shared paper-mode contrast. */
 body[data-project-slug="gb-flexabm"] .gb-study { color: #18232d; }
+body[data-project-slug="gb-flexabm"] .footer a { color: #194185; }
 .gb-study .case-hero h1 { max-width: 20ch; }
 .gb-study .section { scroll-margin-top: 5rem; }
 .gb-study .gb-status, .gb-study .gb-callout { padding: 1rem 1.2rem; border-left: 4px solid #1b3a8f; background: #eef1f8; color: #18232d; }
