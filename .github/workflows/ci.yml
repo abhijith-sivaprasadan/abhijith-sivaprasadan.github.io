@@ -25,6 +25,11 @@ jobs:
       - name: Validate all static pages and scripts
         run: node scripts/validate-static.cjs
 
+      - name: Validate academic homepage and skill evidence
+        run: |
+          node scripts/build-academic.cjs --check
+          node scripts/validate-academic.cjs
+
       - name: Check JavaScript syntax
         run: |
           node --check scripts/site.js
