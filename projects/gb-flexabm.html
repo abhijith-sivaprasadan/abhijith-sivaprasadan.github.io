@@ -113,8 +113,8 @@ uv run --locked --extra gui gbflex gui</code></pre>
         </ul>
         <pre><code>git clone https://github.com/abhijith-sivaprasadan/gb-flexabm.git
 cd gb-flexabm
-uv sync --locked --extra dev
-uv run --locked pytest -q
+uv sync --locked --extra dev --extra gui --extra research
+uv run --locked --extra gui --extra research pytest -q
 uv run --locked python scripts/reproduce.py --output runs/reference</code></pre>
         <p>Requires Python 3.12/3.13 and uv. Install dependencies once; the experiment then runs offline. Output directories must be fresh. Hash verification establishes file integrity—not empirical validity.</p>
         <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/VERIFICATION.md">Verification record</a> · <a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/actions/workflows/ci.yml">Live scientific CI</a> · <a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/CONTRIBUTING.md">Contribute or challenge an assumption</a></p>
