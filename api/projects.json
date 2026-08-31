@@ -9,14 +9,14 @@
       "order": 0.5,
       "period": "2026",
       "associatedWith": "Independent exploratory research software",
-      "summary": "Local electricity-investment GUI and shared Pyomo/HiGHS planner, with bounded ERA5 downloads and audited Elexon market-data coverage. Synthetic and uncalibrated; missing historical inputs still gate fitting and evaluation.",
+      "summary": "Local electricity-investment GUI and shared Pyomo/HiGHS planner, with audited market coverage and 175 extracted public input references. Synthetic and uncalibrated; normalization, price-target decisions and weather conversion still gate historical fitting.",
       "audienceTags": ["Energy Systems", "Research"],
       "tools": ["Python", "Pyomo", "HiGHS", "Streamlit", "NumPy", "pytest"],
       "skills": ["Optimisation", "Agent-based modelling", "Market design", "Reproducibility", "Data integrity"],
       "image": "assets/thumb-gb-flexabm.svg",
       "caseStudyUrl": "projects/gb-flexabm.html",
       "githubUrl": "https://github.com/abhijith-sivaprasadan/gb-flexabm",
-      "highlights": ["Local GUI and CLI share one engine, with numerical replay and verified exports.", "804 pinned Elexon responses expose failed training-coverage gates; ERA5 acquisition, full historical inputs and calibration remain unfinished."]
+      "highlights": ["Local GUI and CLI share one engine, with numerical replay and verified exports.", "175 public references acquired/extracted; 804 Elexon responses preserve failed coverage gates. No raw-data publication, silent target substitution or empirical calibration claim."]
     },
     {
       "id": "thermotwin-f",
