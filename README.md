@@ -2,6 +2,34 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
+## Academic homepage, application tracks and skill evidence — August 2026
+
+The landing page now leads with research interests, the published KTH/Siemens thesis, six selected research-software projects, experience, education, and direct GitHub/LinkedIn/CV links. Eight [skill dossiers](skills/index.html) group related public projects, roles, coursework, certifications and supporting resources. Duplicate imported project records are consolidated by case-study URL. No self-assessed scores are shown.
+
+The separate [Choose a track](tracks/index.html) layer offers five stable application endpoints. Each has a distinct introduction, curated project selection, ordered professional experience, relevant skill dossiers, education and public supporting resources. The homepage remains the full overview. Share a track's URL directly; the recipient does not need to select a filter or have a saved preference.
+
+| Track | Shareable endpoint | Focus |
+| --- | --- | --- |
+| General | [/tracks/general.html](https://abhijith-sivaprasadan.github.io/tracks/general.html) | Cross-disciplinary engineering overview |
+| Thermal Engineering | [/tracks/thermal.html](https://abhijith-sivaprasadan.github.io/tracks/thermal.html) | CFD/CHT, instrumentation and thermal methods |
+| Energy Modelling | [/tracks/energy-modelling.html](https://abhijith-sivaprasadan.github.io/tracks/energy-modelling.html) | Power, heat, flexibility, optimisation and industrial energy |
+| Software | [/tracks/software.html](https://abhijith-sivaprasadan.github.io/tracks/software.html) | QBurst backend experience and public engineering software |
+| Research / PhD | [/tracks/research.html](https://abhijith-sivaprasadan.github.io/tracks/research.html) | Research interests, thesis, publications and methods |
+
+Live Lens, Evidence Lens, radar, the old stateful track-filter runtime, canvas simulations, CMS/API hydration and the legacy `site.js`/motion stack are **intentionally not loaded on the homepage, track pages or skill pages**. This is documented in the generated HTML. Legacy modules remain for existing pages and recovery through version history. Track selection uses ordinary page links, not the old lens/filter system. Core content and navigation are static and work without JavaScript. A small script handles theme preference and one-shot native entrance animations, observed only until each element enters the viewport. Reduced-motion preferences bypass/cancel these animations; there are no continuous animation loops or scroll handlers. No external fonts or frameworks are requested by these pages.
+
+These pages use a modern, research-focused light/dark theme in `styles/academic.css`: strong sans-serif typography, soft cards, a translucent header, smooth anchor navigation and restrained hover/reveal transitions. This is independent of the legacy design tokens below. Existing detailed case studies remain intact. The project capabilities and scientific claims are unchanged; coursework, internships, exploratory tools and validated results must remain distinguishable.
+
+### Editing and validation
+
+- Edit homepage/page templates in `scripts/build-academic.cjs`, not generated HTML.
+- Edit skill relationships in `scripts/data/skill-evidence.cjs`. Project, course, experience and certification text comes from the corresponding public `api/*.json` indexes. The structural-FEA case study has a documented supplemental record until included in that project index.
+- Edit track introductions, public-record selections and supporting links in `scripts/data/portfolio-tracks.cjs`. Keep URLs stable for applications. Do not add employer-specific or private documents as generic track resources; the software track deliberately links to professional evidence and public code rather than an unrelated CV.
+- Rebuild with `node scripts/build-academic.cjs` whenever those source records change.
+- Run `node scripts/build-academic.cjs --check`, `node scripts/validate-academic.cjs`, and `node scripts/validate-static.cjs`. CI runs all three.
+- Check the homepage, track directory, track pages and a skill page at desktop and mobile widths, in light and dark modes. Verify keyboard navigation, selected-track state, section links and case-study links. The regression script checks all five track selections, distinct metadata, navigation, fragments and scientific-limitations copy.
+- Publish via a focused branch and pull request, wait for CI, merge, and verify the GitHub Pages deployment. Do not stage scratch/private files such as `profile_snapshot.md`.
+
 ## Latest project delivery — GB-FLEXABM v0.3
 
 The [GB-FLEXABM case study](projects/gb-flexabm.html) now documents bounded/resumable ERA5 acquisition, the 73-request training plan, split guards and research diagnostics alongside the local GUI. S2 is in progress; the full historical bundle, weather conversion, institutions, fitting and independent evaluation are still pending. S3–S5 utilities are not presented as completed empirical stages. The original v0.1 reference results remain unchanged. See the [complete data checklist](https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/HISTORICAL_DATA.md).
@@ -43,7 +71,8 @@ Use these defaults when adding or editing UI so pages stay visually consistent:
 
 Open this folder in VS Code and edit:
 
-- `index.html` for the homepage
+- `scripts/build-academic.cjs` for the generated academic homepage and skill pages
+- `styles/academic.css` for the homepage and skill-page theme
 - `styles.css` for styling
 - `projects/*.html` for individual project case studies
 - `experience/*.html` for individual experience pages
