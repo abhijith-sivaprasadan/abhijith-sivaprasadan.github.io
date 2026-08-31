@@ -44,7 +44,7 @@
       reveal(entry.target, Math.min(index * 55, 165));
     });
   }, { threshold: 0.08 });
-  document.querySelectorAll('.research-grid article, .work-row, .skill-directory li, .timeline article, .education-list article, .evidence-item')
+  document.querySelectorAll('.research-grid article, .work-row, .skill-directory li, .track-directory li, .timeline article, .education-list article, .evidence-item')
     .forEach(element => observer.observe(element));
   const stopMotion = () => {
     observer.disconnect();

@@ -13,7 +13,7 @@
  * To disable for a session, the user can hit `?nosw=1` once.
  */
 
-const VERSION = "v4-w24-20260831-research-modern";
+const VERSION = "v4-w24-20260831-application-tracks";
 const SHELL_CACHE = `shell-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
 const NETWORK_FIRST_EXTENSIONS = /\.(?:css|js|json)$/i;
@@ -22,6 +22,7 @@ const SHELL = [
   "/",
   "/index.html",
   "/skills/index.html",
+  "/tracks/index.html",
   "/styles/academic.css",
   "/scripts/academic.js",
   "/assets/headshot.webp",
