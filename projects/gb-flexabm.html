@@ -13,7 +13,7 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../styles.css?v=20260830-open-source" />
   <link rel="stylesheet" href="../styles/v4.css?v=20260830-paper-contrast" />
-  <link rel="stylesheet" href="../styles/gb-flexabm.css?v=20260830" />
+  <link rel="stylesheet" href="../styles/gb-flexabm.css?v=20260831-workbench" />
   <script src="../scripts/public-config.js?v=20260830-open-source"></script>
   <script src="../scripts/sections/command-palette.js?v=20260830-gb-flexabm" defer></script>
   <script src="../scripts/sections/whiteprint.js?v=20260830-gb-flexabm" defer></script>
@@ -38,9 +38,9 @@
         <p class="eyebrow">Independent research software · Energy markets · 2026</p>
         <h1>GB-FLEXABM<br />Who builds the next megawatt?</h1>
         <p class="hero-text">A transparent electricity investment experiment: heterogeneous investor agents versus a perfect-foresight central planner, connected by the same physical dispatch model.</p>
-        <p class="gb-status"><strong>v0.1 · Exploratory and synthetic.</strong> An executable modelling foundation, not an empirically calibrated GB forecast, official market model or university-affiliated project.</p>
-        <div class="button-row"><a class="button primary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm">Source &amp; reproduce</a><a class="button secondary" href="#results">Read the experiment</a><a class="button secondary" href="#verification">Inspect verification</a></div>
-        <nav class="gb-contents" aria-label="On this page"><a href="#question">Question</a><a href="#methods">Methods</a><a href="#results">Results</a><a href="#verification">Verification</a><a href="#limits">Limits &amp; next steps</a></nav>
+        <p class="gb-status"><strong>Software v0.2 · Exploratory and synthetic.</strong> Now with a local experiment GUI and complete-year data checks. Not an empirically calibrated GB forecast, official market model or university-affiliated project.</p>
+        <div class="button-row"><a class="button primary" href="#workbench">Launch the local GUI</a><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm">Source &amp; reproduce</a><a class="button secondary" href="#results">Read the experiment</a></div>
+        <nav class="gb-contents" aria-label="On this page"><a href="#question">Question</a><a href="#methods">Methods</a><a href="#workbench">GUI</a><a href="#results">Results</a><a href="#verification">Verification</a><a href="#delivery">Delivery status</a><a href="#limits">Limits</a></nav>
       </div>
     </section>
     <section class="section" id="question">
@@ -64,11 +64,30 @@
         <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/METHODS.md">Read equations, timing and behavioural assumptions</a></p>
       </div>
     </section>
+    <section class="section" id="workbench">
+      <div class="container">
+        <p class="eyebrow">Local experiment workbench / New in v0.2</p>
+        <h2>Configure. Run. Inspect the evidence.</h2>
+        <p>A Streamlit GUI calls the same Pyomo/HiGHS experiment engine as the command line. Set demand, growth, horizon, period count, payment rate and paired seeds; run both market designs; then inspect the chart, audit tables, saved assumptions and source manifest.</p>
+        <div class="gb-method-grid">
+          <article><h3>Bounded experiments</h3><p>24, 48 or 168 synthetic periods; 2–6 years; 1–10 paired seeds. Runs start only on submission. Larger studies remain explicit CLI workflows.</p></article>
+          <article><h3>Verified downloads</h3><p>Reopen local runs or export a verified ZIP and YAML scenario. Each run gets a fresh folder. Failed or tampered results do not retain a success badge or download controls.</p></article>
+          <article><h3>Data readiness</h3><p>Check a local NESO demand manifest against an entire declared calendar year, including leap days and DST. Historical observations still do not feed the synthetic experiment.</p></article>
+        </div>
+        <pre><code>git clone https://github.com/abhijith-sivaprasadan/gb-flexabm.git
+cd gb-flexabm
+uv sync --locked --extra dev --extra gui
+uv run --locked --extra gui gbflex gui</code></pre>
+        <p>Open <code>http://127.0.0.1:8501</code> on the same computer. Requires Python 3.12/3.13 and uv. The launcher uses dark text on light surfaces, binds locally and disables usage telemetry. Use <code>--port 8502</code> if needed.</p>
+        <p class="gb-callout"><strong>Local software, not a hosted dashboard:</strong> GitHub Pages serves this case study. The Python solver runs on your computer. GUI results remain exploratory and uncalibrated; successful checks establish internal properties, not real-market predictive accuracy.</p>
+        <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/WORKBENCH.md">Workbench guide, safety boundaries and CLI replay</a></p>
+      </div>
+    </section>
     <section class="section" id="results">
       <div class="container">
         <p class="eyebrow">03 / Reproduced experiment</p>
         <h2>A zero-effect result is still a result.</h2>
-        <p>The reference experiment runs 2026–2031 with one repeated synthetic 168-hour block per year, 20 paired seeds and two designs: energy-only and a fixed, stylised capacity payment. The initial fleet intentionally creates scarcity.</p>
+        <p>The preserved v0.1 reference experiment runs 2026–2031 with one repeated synthetic 168-hour block per year, 20 paired seeds and two designs: energy-only and a fixed, stylised capacity payment. The initial fleet intentionally creates scarcity. These are the original reference results, not an assertion that every GUI scenario produces the same outcome.</p>
         <div class="gb-table-wrap"><table><caption>Reference experiment, synthetic constant-price GBP</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Observed model result</th></tr></thead><tbody>
           <tr><th scope="row">Planner resource NPV</th><td>£101.663 billion</td></tr>
           <tr><th scope="row">Agent resource NPV, either design</th><td>£111.459 billion</td></tr>
@@ -90,6 +109,7 @@
           <li><strong>Reproduction:</strong> the 20-seed experiment was repeated, with numerical CSV agreement at rtol 1e-8 and atol 1e-5. Source commit, assumptions, seeds, solver settings and output hashes are recorded.</li>
           <li><strong>Performance:</strong> single-year synthetic dispatch measured 0.48 s for 168 periods and 25.11 s for 8,760 periods on the recorded Windows machine. Peak Python allocations were about 4.2 MB and 179.6 MB; this excludes native solver memory and is not peak RSS.</li>
           <li><strong>Observed-data foundation:</strong> the separate NESO adapter successfully read 17,568 half-hour 2024 demand records (8,784 hours), with UTC/DST and checksum checks. These observations do not drive the synthetic results above.</li>
+          <li><strong>Workbench regression checks:</strong> real GUI execution numerically matches the CLI; saved assumptions, failed reruns, tamper rejection and verified-only exports are tested. The new calendar gate rejects missing leading/trailing intervals and confirms complete coverage of the previously acquired 2024 file.</li>
         </ul>
         <pre><code>git clone https://github.com/abhijith-sivaprasadan/gb-flexabm.git
 cd gb-flexabm
@@ -98,6 +118,22 @@ uv run --locked pytest -q
 uv run --locked python scripts/reproduce.py --output runs/reference</code></pre>
         <p>Requires Python 3.12/3.13 and uv. Install dependencies once; the experiment then runs offline. Output directories must be fresh. Hash verification establishes file integrity—not empirical validity.</p>
         <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/VERIFICATION.md">Verification record</a> · <a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/actions/workflows/ci.yml">Live scientific CI</a> · <a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/CONTRIBUTING.md">Contribute or challenge an assumption</a></p>
+      </div>
+    </section>
+    <section class="section" id="delivery">
+      <div class="container">
+        <p class="eyebrow">Delivery status / Updated 31 August 2026</p>
+        <h2>The next research stage is planned, not hidden.</h2>
+        <div class="gb-table-wrap"><table><caption>Software milestones and scientific gates</caption><thead><tr><th scope="col">Stage</th><th scope="col">Scope</th><th scope="col">Status</th></tr></thead><tbody>
+          <tr><th scope="row">S0</th><td>Shared electricity model, investors, audit trails and reference experiment</td><td>Done · v0.1</td></tr>
+          <tr><th scope="row">S1</th><td>Local GUI, whole-year demand validation and delivery contract</td><td>Implemented · v0.2</td></tr>
+          <tr><th scope="row">S2</th><td>Historical input/target bundle, provenance and protected train/validation split</td><td>Next · not implemented</td></tr>
+          <tr><th scope="row">S3–S5</th><td>Empirical dispatch, time-reduction tests, calibration and locked evaluation</td><td>Pending</td></tr>
+          <tr><th scope="row">S6</th><td>Zonal systems, flexibility, heat and hydrogen</td><td>Deferred</td></tr>
+        </tbody></table></div>
+        <p>Every milestone requires tested code, updated README and portfolio evidence, commits pushed to both remotes, and verified CI/Pages publication. Software delivery does not itself satisfy a scientific validation gate.</p>
+        <p><strong>Prior data exposure:</strong> 2024 demand has already been inspected for ingestion and annual totals. The proposed historical evaluation windows are not frozen, preregistered or claimed untouched. No behavioural calibration or holdout-access guard exists yet.</p>
+        <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/ROADMAP.md">Full stage-by-stage plan and acceptance criteria</a></p>
       </div>
     </section>
     <section class="section" id="limits">
