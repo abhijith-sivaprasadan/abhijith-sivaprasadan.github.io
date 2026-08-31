@@ -1,8 +1,9 @@
-// Generate the academic homepage and skill dossiers from public portfolio data.
+// Generate the homepage, application tracks and skill dossiers from public data.
 // Run with --check in CI to reject stale generated pages.
 const fs = require('node:fs');
 const path = require('node:path');
 const data = require('./data/skill-evidence.cjs');
+const tracks = require('./data/portfolio-tracks.cjs');
 const root = path.resolve(__dirname, '..');
 const read = name => JSON.parse(fs.readFileSync(path.join(root, 'api', name), 'utf8'));
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -23,7 +24,7 @@ const featured = ['gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydr
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
-const version = '20260831-research-modern';
+const version = '20260831-application-tracks';
 const arrow = '<span aria-hidden="true">↗</span>';
 function link(href, label, prefix = '', cls = '') {
   return `<a${cls ? ` class="${cls}"` : ''} href="${escape(external(href) || href.startsWith('mailto:') || href.startsWith('#') ? href : prefix + href)}">${escape(label)}</a>`;
@@ -52,7 +53,7 @@ function page(file, title, description, content, isHome = false) {
   <link rel="stylesheet" href="${prefix}styles/academic.css?v=${version}" />
   <script src="${prefix}scripts/academic.js?v=${version}" defer></script>
 </head>
-<body class="academic-site" data-page-key="${isHome ? 'home' : 'skill-evidence'}">
+<body class="academic-site" data-page-key="${isHome ? 'home' : file.startsWith('tracks/') ? 'application-track' : 'skill-evidence'}">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="academic-header">
     <div class="wrap header-inner">
@@ -61,6 +62,7 @@ function page(file, title, description, content, isHome = false) {
         <a href="${prefix}index.html#research">Research</a>
         <a href="${prefix}index.html#projects">Work</a>
         <a href="${prefix}index.html#skills">Expertise</a>
+        <a href="${prefix}tracks/index.html"${file === 'tracks/index.html' ? ' aria-current="page"' : ''}>Tracks</a>
         <a href="${prefix}index.html#contact">Contact</a>
       </nav>
       <button class="theme-switch" type="button" data-academic-theme aria-label="Switch to dark mode" aria-pressed="false" hidden>Dark mode</button>
@@ -69,13 +71,13 @@ function page(file, title, description, content, isHome = false) {
   <main id="main" class="wrap" tabindex="-1">
 ${content.trimEnd()}
   </main>
-  <footer class="academic-footer"><div class="wrap footer-inner"><p>© 2026 Abhijith Sivaprasadan</p><div>${link(github, 'GitHub')}${link(linkedin, 'LinkedIn')}${link('mailto:abhijithsivaprasadan@gmail.com', 'Email')}<a href="${prefix}skills/index.html">Skill index</a></div><p>Methods, evidence, and their limits.</p></div></footer>
+  <footer class="academic-footer"><div class="wrap footer-inner"><p>© 2026 Abhijith Sivaprasadan</p><div>${link(github, 'GitHub')}${link(linkedin, 'LinkedIn')}${link('mailto:abhijithsivaprasadan@gmail.com', 'Email')}<a href="${prefix}tracks/index.html">All tracks</a><a href="${prefix}skills/index.html">Skill index</a></div><p>Methods, evidence, and their limits.</p></div></footer>
 </body>
 </html>
 `;
 }
-function skillLinks(prefix = '') {
-  return `<ul class="skill-directory">${data.skills.map(skill => `
+function skillLinks(prefix = '', selection = data.skills) {
+  return `<ul class="skill-directory">${selection.map(skill => `
     <li><a href="${prefix}skills/${skill.id}.html"><span><strong>${escape(skill.short)}</strong><small>${escape(skill.detail)}</small></span>${arrow}</a></li>`).join('')}
   </ul>`;
 }
@@ -97,6 +99,45 @@ function projectKind(p) {
   if (/KTH|University|coursework|assignment/.test(p.associatedWith || '')) return 'Academic project';
   if (/SAE/.test(p.associatedWith || '')) return 'Student design competition';
   return 'Independent project';
+}
+function trackCards(prefix = '', compact = false) {
+  return `<ul class="track-directory${compact ? ' track-directory-compact' : ''}">${tracks.map((track, index) => `
+    <li><a href="${prefix}tracks/${track.id}.html"><span class="track-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><strong>${escape(track.label)}</strong><span class="track-detail">${escape(track.detail)}</span><span class="track-open">Explore track <span aria-hidden="true">→</span></span></a></li>`).join('')}
+  </ul>`;
+}
+function trackNavigation(current) {
+  return `<nav class="track-navigation" aria-label="Portfolio tracks"><span>Choose a track</span><ul>${tracks.map(track => `<li><a href="${track.id}.html"${current === track.id ? ' aria-current="page"' : ''}>${escape(track.label)}</a></li>`).join('')}</ul></nav>`;
+}
+function trackPage(track) {
+  const selectedProjects = track.projects.map(key => projects.find(p => projectKey(p) === key));
+  const selectedRoles = track.experiences.map(id => experiences.find(e => e.id === id));
+  const selectedSkills = track.skills.map(id => data.skills.find(s => s.id === id));
+  const trackUrl = `${origin}/tracks/${track.id}.html`;
+  return page(`tracks/${track.id}.html`, `${track.label} Portfolio`, track.description, `
+    <!-- Track content is intentionally static. The URL is the selection: no
+         saved mode, filtering runtime, Live Lens or Evidence Lens is required. -->
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="index.html">Tracks</a><span aria-hidden="true">/</span><span aria-current="page">${escape(track.label)}</span></nav>
+    ${trackNavigation(track.id)}
+    <section class="academic-hero track-hero" data-track="${track.id}">
+      <div class="hero-intro">
+        <div class="hero-identity"><img src="../assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. candidate at KTH · Stockholm, Sweden</span></p></div>
+        <p class="overline">${escape(track.label)} / Portfolio</p>
+        <h1>${escape(track.title)}</h1>
+        <p class="lead">${escape(track.intro)}</p>
+        <div class="hero-links">${link(track.primary.url, track.primary.label, '../', 'primary-link')}${track.primary.url !== github ? link(github, 'GitHub ↗') : ''}${link(linkedin, 'LinkedIn ↗')}${link('#contact', 'Contact')}</div>
+      </div>
+      <aside class="thesis-feature track-focus" aria-labelledby="focus-heading"><p class="overline">Areas of focus</p><h2 id="focus-heading">${escape(track.label)}</h2><dl>${track.focus.map(([title, summary]) => `<div><dt>${escape(title)}</dt><dd>${escape(summary)}</dd></div>`).join('')}</dl><p class="scope-caption">${escape(track.audience)}</p></aside>
+    </section>
+    <nav class="section-index" aria-label="Track sections"><a href="#projects">Selected work</a><a href="#experience">Relevant experience</a><a href="#skills">Skills &amp; evidence</a><a href="#education">Education</a><a href="#resources">${track.id === 'research' ? 'Publications &amp; documents' : 'Supporting resources'}</a></nav>
+    <section id="projects" class="page-section"><div class="section-heading"><div><p class="overline">01 / Selected work</p><h2>${track.id === 'research' ? 'Research &amp; written work.' : 'Work behind this track.'}</h2></div>${link('projects.html', 'Complete project library →', '../')}</div><p class="section-intro">A focused selection. Open a case study for methods, results and limitations, or follow the skill dossiers below for the complete related record.</p>
+      <div class="selected-work">${selectedProjects.map(p => `<article class="work-row" data-project-id="${escape(projectKey(p))}"><div><p class="item-meta">${escape(projectKind(p))}${p.period ? ` · ${escape(p.period)}` : ''}</p><h3>${link(p.caseStudyUrl, p.title, '../')}</h3><p>${escape(p.summary)}</p>${p.tools?.length ? `<p class="tools-line">${p.tools.map(escape).join(' · ')}</p>` : ''}</div><div class="work-links">${link(p.caseStudyUrl, external(p.caseStudyUrl) ? 'Repository →' : 'Case study →', '../')}${p.githubUrl && p.githubUrl !== p.caseStudyUrl ? link(p.githubUrl, 'GitHub ↗') : ''}</div></article>`).join('\n')}</div>
+    </section>
+    <section id="experience" class="page-section"><div class="section-heading"><div><p class="overline">02 / Experience</p><h2>Relevant professional practice.</h2></div>${link('experience.html', 'Full experience record →', '../')}</div><div class="track-experience">${selectedRoles.map(e => evidenceCard({ ...e, detailUrl: e.detailUrl || data.experienceUrls[e.id] || 'experience.html' }, e.type)).join('\n')}</div></section>
+    <section id="skills" class="page-section"><div class="section-heading"><div><p class="overline">03 / Skills &amp; evidence</p><h2>Go deeper into each area.</h2></div></div><p class="section-intro">Each skill opens its own page with all related public projects, roles, coursework, training and supporting material.</p>${skillLinks('../', selectedSkills)}</section>
+    <section id="education" class="page-section"><div class="section-heading"><div><p class="overline">04 / Education</p><h2>Academic foundation.</h2></div>${link('courses.html', 'Coursework &amp; descriptions →', '../')}</div><div class="track-education">${track.education.map(id => { const e = data.education[id]; return evidenceCard(e, id === 'aalto' ? 'Exchange elective' : 'Academic foundation'); }).join('\n')}</div></section>
+    <section id="resources" class="page-section"><div class="section-heading"><div><p class="overline">05 / Supporting material</p><h2>${track.id === 'research' ? 'Publications &amp; documents.' : 'Profiles &amp; further reading.'}</h2></div></div><ul class="resource-links">${track.resources.map(r => `<li>${link(r.url, r.label, '../')}</li>`).join('')}<li>${link(github, 'GitHub — repositories ↗')}</li><li>${link(linkedin, 'LinkedIn — professional profile ↗')}</li></ul></section>
+    <section id="scope" class="scope-note"><h2>Scope &amp; scientific limitations</h2><p>${escape(track.scope)}</p><p>Source case studies remain authoritative. Private inputs and restricted project details are not published.</p></section>
+    <section id="contact" class="contact-section"><div><p class="overline">Let’s connect</p><h2>Continue the conversation.</h2><p>For ${escape(track.audience.charAt(0).toLowerCase() + track.audience.slice(1))}.</p><a class="contact-email" href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a></div><div class="contact-resources"><h3>Share this track</h3><p class="share-note">Use this direct link for an application or introduction. It always opens the ${escape(track.label)} view.</p><a class="share-url" href="${trackUrl}">${escape(trackUrl)}</a><a href="index.html">← Choose another track</a><a href="../index.html">Explore the complete portfolio →</a></div></section>`);
 }
 function matching(skill) {
   const order = data.projectOrder[skill.id] || [];
@@ -162,7 +203,8 @@ function home() {
         <p class="scope-caption">Numerical investigation; heater failure limited sustained experimental comparison.</p>
       </aside>
     </section>
-    <nav class="section-index" aria-label="Page sections"><a href="#research">Research interests</a><a href="#projects">Selected work</a><a href="#skills">Expertise</a><a href="#experience">Experience</a><a href="#education">Education</a></nav>
+    <nav class="section-index" aria-label="Page sections"><a href="#tracks">Choose a track</a><a href="#research">Research interests</a><a href="#projects">Selected work</a><a href="#skills">Expertise</a><a href="#experience">Experience</a><a href="#education">Education</a></nav>
+    <section id="tracks" class="track-layer"><div class="section-heading"><div><p class="overline">One portfolio / Five perspectives</p><h2>Choose a track.</h2></div>${link('tracks/index.html', 'Explore all tracks →')}</div><p class="section-intro">A focused starting point for each kind of opportunity. Every track has its own shareable page with relevant work, experience, skills and education.</p>${trackCards('', true)}</section>
     <section id="research" class="page-section">
       <div class="section-heading"><div><p class="overline">01 / Research interests</p><h2>Questions that connect the work.</h2></div>${link('research.html', 'Full research statement →')}</div>
       <div class="research-grid">
@@ -191,6 +233,12 @@ function home() {
 }
 
 const outputs = new Map([['index.html', home()]]);
+for (const track of tracks) outputs.set(`tracks/${track.id}.html`, trackPage(track));
+outputs.set('tracks/index.html', page('tracks/index.html', 'Choose a Portfolio Track', 'Five focused, shareable portfolios: general engineering, thermal engineering, energy modelling, software, and research or PhD applications.', `
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Tracks</span></nav>
+  <header class="dossier-hero"><p class="overline">One portfolio / Five perspectives</p><h1>Choose a track.</h1><p class="lead">Explore the work most relevant to your interests. Each track brings together a focused introduction, projects, experience, skills, education and supporting resources.</p><p class="section-intro">Each page has a direct link you can share. No filters to set, no sign-in required.</p></header>
+  ${trackCards('../')}
+  <section class="scope-note index-scope"><h2>The same work, with a different focus.</h2><p>Tracks are curated entry points, not separate claims or qualifications. They link to the same public case studies and skill dossiers, with the same scientific limitations. For an unfiltered overview, ${link('index.html', 'visit the full portfolio', '../')}.</p></section>`));
 for (const skill of data.skills) outputs.set(`skills/${skill.id}.html`, skillPage(skill));
 outputs.set('skills/index.html', page('skills/index.html', 'Expertise & Evidence', 'Browse eight evidence dossiers connecting engineering skills to projects, experience, education and supporting work.', `
   <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Expertise</span></nav>

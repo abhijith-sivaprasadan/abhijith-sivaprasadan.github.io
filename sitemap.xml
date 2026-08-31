@@ -14,6 +14,14 @@
   <url><loc>https://abhijith-sivaprasadan.github.io/hobbies.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://abhijith-sivaprasadan.github.io/ideas.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 
+  <!-- Shareable application tracks -->
+  <url><loc>https://abhijith-sivaprasadan.github.io/tracks/index.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/tracks/general.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/tracks/thermal.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/tracks/energy-modelling.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/tracks/software.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://abhijith-sivaprasadan.github.io/tracks/research.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
   <!-- Skill evidence dossiers -->
   <url><loc>https://abhijith-sivaprasadan.github.io/skills/index.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://abhijith-sivaprasadan.github.io/skills/cfd-heat-transfer.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>

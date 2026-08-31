@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const data = require('./data/skill-evidence.cjs');
+const tracks = require('./data/portfolio-tracks.cjs');
 const root = path.resolve(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const home = read('index.html');
@@ -30,7 +31,51 @@ for (const file of fs.readdirSync(path.join(root, 'projects')).filter(f => f.end
 for (const key of Object.keys(data.experienceSkills)) assert.ok(experiences.some(e => e.id === key), `Unknown experience: ${key}`);
 for (const title of Object.keys(data.certificationSkills)) assert.ok(certifications.some(c => c.title === title), `Unknown certification: ${title}`);
 const requiredSections = ['projects', 'experience', 'education', 'learning', 'resources', 'scope'];
-const files = ['index.html', 'skills/index.html', ...data.skills.map(s => `skills/${s.id}.html`)];
+const files = ['index.html', 'skills/index.html', ...data.skills.map(s => `skills/${s.id}.html`), 'tracks/index.html', ...tracks.map(t => `tracks/${t.id}.html`)];
+const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+assert.deepEqual(tracks.map(t => t.id), ['general', 'thermal', 'energy-modelling', 'software', 'research']);
+assert.equal(new Set(tracks.map(t => t.title)).size, 5, 'Track introductions must be distinct.');
+assert.equal(new Set(tracks.map(t => t.projects.join(','))).size, 5, 'Tracks must not repeat the same project selection.');
+for (const track of tracks) {
+  const file = `tracks/${track.id}.html`;
+  const html = read(file);
+  assert.ok(home.includes(`href="${file}"`), `Homepage missing track ${track.id}`);
+  assert.ok(read('tracks/index.html').includes(`href="../${file}"`), `Track directory missing ${track.id}`);
+  assert.ok(read('sitemap.xml').includes(`/${file}</loc>`), `Sitemap missing ${file}`);
+  assert.ok(html.includes(`<h1>${escape(track.title)}</h1>`));
+  assert.ok(html.includes(escape(track.intro)) && html.includes(escape(track.scope)), `Missing track-specific introduction or limitations: ${track.id}`);
+  for (const meta of ['name="description"', 'property="og:description"', 'name="twitter:description"']) {
+    assert.ok(html.includes(`<meta ${meta} content="${escape(track.description)}"`), `${file}: metadata does not match track`);
+  }
+  assert.ok(!html.includes('og:image') && !html.includes('twitter:image'), `${file}: no inherited generic social image`);
+  for (const section of ['projects', 'experience', 'skills', 'education', 'resources', 'scope', 'contact']) {
+    assert.ok(html.includes(`id="${section}"`), `${file}: missing ${section}`);
+  }
+  const nav = html.split('aria-label="Portfolio tracks"')[1].split('</nav>')[0];
+  assert.equal((nav.match(/aria-current="page"/g) || []).length, 1, `${file}: exactly one selected track`);
+  assert.ok(nav.includes(`href="${track.id}.html" aria-current="page"`));
+  for (const other of tracks) assert.ok(nav.includes(`href="${other.id}.html"`), `${file}: missing sibling navigation`);
+  const renderedProjects = [...html.matchAll(/data-project-id="([^"]+)"/g)].map(m => m[1]);
+  assert.deepEqual(renderedProjects, track.projects, `${file}: project selection/order mismatch`);
+  for (const property of ['projects', 'experiences', 'skills', 'education']) {
+    assert.equal(track[property].length, new Set(track[property]).size, `${file}: duplicate ${property}`);
+  }
+  for (const key of track.projects) {
+    assert.ok(projectKeys.has(key), `${file}: unknown project ${key}`);
+    assert.ok(data.projectSkills[key].some(id => track.skills.includes(id)), `${file}: project unrelated to track skills: ${key}`);
+  }
+  const roleSection = html.split('<section id="experience"')[1].split('<section id="skills"')[0];
+  const roleHeadings = [...roleSection.matchAll(/<h3><a[^>]*>(.*?)<\/a><\/h3>/g)].map(m => m[1]);
+  assert.deepEqual(roleHeadings, track.experiences.map(id => {
+    const e = experiences.find(e => e.id === id && e.status === 'published');
+    assert.ok(e, `${file}: unknown/unpublished experience ${id}`);
+    return escape(`${e.role} · ${e.company}`);
+  }));
+  for (const id of track.skills) assert.ok(skills.has(id) && html.includes(`href="../skills/${id}.html"`), `${file}: missing skill ${id}`);
+  for (const id of track.education) assert.ok(data.education[id] && html.includes(escape(data.education[id].title)), `${file}: missing education ${id}`);
+  assert.ok(html.includes(`class="share-url" href="https://abhijith-sivaprasadan.github.io/${file}"`));
+  assert.ok(!/data-track-filter|data-mode|localStorage|<form\b/.test(html), `${file}: direct navigation must not need saved state`);
+}
 for (const skill of data.skills) {
   for (const code of skill.courses) assert.ok(courses.some(c => c.code === code), `Unknown course: ${code}`);
   for (const id of skill.education) assert.ok(data.education[id], `Unknown education: ${id}`);
@@ -103,4 +148,4 @@ for (const reduce of [false, true]) {
 assert.ok(Buffer.byteLength(read('scripts/academic.js')) < 5000, 'Keep the homepage script small.');
 assert.ok(!/requestAnimationFrame|addEventListener\(['"]scroll/.test(read('scripts/academic.js')), 'No continuous animation or scroll loop.');
 assert.ok(read('styles/academic.css').includes('@media (prefers-reduced-motion: reduce)'), 'Respect reduced motion in CSS.');
-console.log(`Passed: ${files.length} academic pages, ${skills.size} skill dossiers, ${projectKeys.size} distinct projects, local fragments, static navigation, metadata and theme behavior.`);
+console.log(`Passed: ${files.length} academic pages, ${tracks.length} shareable tracks, ${skills.size} skill dossiers, ${projectKeys.size} distinct projects, local fragments, static navigation, metadata and theme behavior.`);
