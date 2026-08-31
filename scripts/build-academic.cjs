@@ -199,7 +199,8 @@ outputs.set('skills/index.html', page('skills/index.html', 'Expertise & Evidence
   <section class="scope-note index-scope"><h2>How to read these dossiers</h2><p>Each dossier is a curated view of the public portfolio—not a proficiency score. Projects can support more than one skill. Repeated imported records are consolidated, while coursework, professional roles and independent projects remain distinct.</p><p>Limitations are stated on each page. Reports, source code and further evidence remain linked through the original case studies; private documents are not published.</p></section>`));
 
 let stale = false;
-for (const [file, content] of outputs) {
+for (const [file, rawContent] of outputs) {
+  const content = rawContent.replace(/[ \t]+\n/g, '\n');
   const target = path.join(root, file);
   if (process.argv.includes('--check')) {
     if (!fs.existsSync(target) || fs.readFileSync(target, 'utf8').replace(/\r\n/g, '\n') !== content) { console.error(`Stale generated page: ${file}`); stale = true; }

@@ -43,6 +43,7 @@ for (const skill of data.skills) {
 }
 for (const file of files) {
   const html = read(file);
+  assert.ok(!/[ \t]+\r?$/m.test(html), `${file}: trailing whitespace`);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
   assert.equal(ids.length, new Set(ids).size, `${file}: duplicate IDs`);
   assert.equal((html.match(/<h1\b/g) || []).length, 1, `${file}: expected one h1`);
