@@ -9,14 +9,14 @@
       "order": 0.5,
       "period": "2026",
       "associatedWith": "Independent exploratory research software",
-      "summary": "Local experiment GUI for electricity investors versus a shared Pyomo/HiGHS planner. Configure paired runs, inspect audit tables and export verified evidence. Synthetic and uncalibrated, not a GB forecast.",
+      "summary": "Local electricity-investment GUI and shared Pyomo/HiGHS planner, with guarded historical-data tooling and resumable monthly ERA5 acquisition. Synthetic and uncalibrated; empirical stages remain pending.",
       "audienceTags": ["Energy Systems", "Research"],
       "tools": ["Python", "Pyomo", "HiGHS", "Streamlit", "NumPy", "pytest"],
       "skills": ["Optimisation", "Agent-based modelling", "Market design", "Reproducibility", "Data integrity"],
       "image": "assets/thumb-gb-flexabm.svg",
       "caseStudyUrl": "projects/gb-flexabm.html",
       "githubUrl": "https://github.com/abhijith-sivaprasadan/gb-flexabm",
-      "highlights": ["Local GUI and CLI share one engine, with numerical replay and verified exports.", "Whole-year NESO demand checks; historical bundle and split protocol are the next published milestone."]
+      "highlights": ["Local GUI and CLI share one engine, with numerical replay and verified exports.", "Training-demand audit, split guards and a 73-request ERA5 plan; full historical bundle and calibration remain pending."]
     },
     {
       "id": "thermotwin-f",

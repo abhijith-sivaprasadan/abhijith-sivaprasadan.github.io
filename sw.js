@@ -13,7 +13,7 @@
  * To disable for a session, the user can hit `?nosw=1` once.
  */
 
-const VERSION = "v4-w24-20260831-application-tracks";
+const VERSION = "v4-w25-20260831-gb-data";
 const SHELL_CACHE = `shell-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
 const NETWORK_FIRST_EXTENSIONS = /\.(?:css|js|json)$/i;

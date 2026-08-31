@@ -13,7 +13,7 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="../styles.css?v=20260830-open-source" />
   <link rel="stylesheet" href="../styles/v4.css?v=20260830-paper-contrast" />
-  <link rel="stylesheet" href="../styles/gb-flexabm.css?v=20260831-workbench" />
+  <link rel="stylesheet" href="../styles/gb-flexabm.css?v=20260831-data" />
   <script src="../scripts/public-config.js?v=20260830-open-source"></script>
   <script src="../scripts/sections/command-palette.js?v=20260830-gb-flexabm" defer></script>
   <script src="../scripts/sections/whiteprint.js?v=20260830-gb-flexabm" defer></script>
@@ -38,7 +38,7 @@
         <p class="eyebrow">Independent research software · Energy markets · 2026</p>
         <h1>GB-FLEXABM<br />Who builds the next megawatt?</h1>
         <p class="hero-text">A transparent electricity investment experiment: heterogeneous investor agents versus a perfect-foresight central planner, connected by the same physical dispatch model.</p>
-        <p class="gb-status"><strong>Software v0.2 · Exploratory and synthetic.</strong> Now with a local experiment GUI and complete-year data checks. Not an empirically calibrated GB forecast, official market model or university-affiliated project.</p>
+        <p class="gb-status"><strong>Software v0.3 · Exploratory and synthetic.</strong> Local experiment GUI, training-data guards and bounded ERA5 acquisition. Not an empirically calibrated GB forecast, official market model or university-affiliated project.</p>
         <div class="button-row"><a class="button primary" href="#workbench">Launch the local GUI</a><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm">Source &amp; reproduce</a><a class="button secondary" href="#results">Read the experiment</a></div>
         <nav class="gb-contents" aria-label="On this page"><a href="#question">Question</a><a href="#methods">Methods</a><a href="#workbench">GUI</a><a href="#results">Results</a><a href="#verification">Verification</a><a href="#delivery">Delivery status</a><a href="#limits">Limits</a></nav>
       </div>
@@ -113,8 +113,8 @@ uv run --locked --extra gui gbflex gui</code></pre>
         </ul>
         <pre><code>git clone https://github.com/abhijith-sivaprasadan/gb-flexabm.git
 cd gb-flexabm
-uv sync --locked --extra dev
-uv run --locked pytest -q
+uv sync --locked --extra dev --extra gui --extra research
+uv run --locked --extra gui --extra research pytest -q
 uv run --locked python scripts/reproduce.py --output runs/reference</code></pre>
         <p>Requires Python 3.12/3.13 and uv. Install dependencies once; the experiment then runs offline. Output directories must be fresh. Hash verification establishes file integrity—not empirical validity.</p>
         <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/VERIFICATION.md">Verification record</a> · <a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/actions/workflows/ci.yml">Live scientific CI</a> · <a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/CONTRIBUTING.md">Contribute or challenge an assumption</a></p>
@@ -123,16 +123,18 @@ uv run --locked python scripts/reproduce.py --output runs/reference</code></pre>
     <section class="section" id="delivery">
       <div class="container">
         <p class="eyebrow">Delivery status / Updated 31 August 2026</p>
-        <h2>The next research stage is planned, not hidden.</h2>
+        <h2>Historical data work, with explicit unfinished gates.</h2>
         <div class="gb-table-wrap"><table><caption>Software milestones and scientific gates</caption><thead><tr><th scope="col">Stage</th><th scope="col">Scope</th><th scope="col">Status</th></tr></thead><tbody>
           <tr><th scope="row">S0</th><td>Shared electricity model, investors, audit trails and reference experiment</td><td>Done · v0.1</td></tr>
           <tr><th scope="row">S1</th><td>Local GUI, whole-year demand validation and delivery contract</td><td>Implemented · v0.2</td></tr>
-          <tr><th scope="row">S2</th><td>Historical input/target bundle, provenance and protected train/validation split</td><td>Next · not implemented</td></tr>
-          <tr><th scope="row">S3–S5</th><td>Empirical dispatch, time-reduction tests, calibration and locked evaluation</td><td>Pending</td></tr>
+          <tr><th scope="row">S2</th><td>Training-demand audit, split guards and resumable monthly ERA5 acquisition</td><td>In progress · full historical bundle pending</td></tr>
+          <tr><th scope="row">S3–S5</th><td>Medoid/dispatch diagnostics, trial/sensitivity records and evaluation metrics</td><td>Utilities tested · empirical calibration/evaluation pending</td></tr>
           <tr><th scope="row">S6</th><td>Zonal systems, flexibility, heat and hydrogen</td><td>Deferred</td></tr>
         </tbody></table></div>
         <p>Every milestone requires tested code, updated README and portfolio evidence, commits pushed to both remotes, and verified CI/Pages publication. Software delivery does not itself satisfy a scientific validation gate.</p>
-        <p><strong>Prior data exposure:</strong> 2024 demand has already been inspected for ingestion and annual totals. The proposed historical evaluation windows are not frozen, preregistered or claimed untouched. No behavioural calibration or holdout-access guard exists yet.</p>
+        <p><strong>Data acquisition:</strong> the plan requests 12 hourly wind, solar and temperature fields over a GB/offshore bounding box, in 72 monthly training batches (2013–2018), plus one static terrain/mask download. Jobs are resumable; raw data and credentials are not published. Raw weather still needs fleet-weighted availability conversion. Fleet, cost, price and policy integration remain unfinished.</p>
+        <p><strong>Prior data exposure:</strong> 2024 demand has already been inspected for ingestion and annual totals. The proposed historical windows remain draft, not preregistered or claimed untouched. New split guards check access before opening observations; no historical behaviour has been fitted and no independent scientific review is claimed.</p>
+        <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/HISTORICAL_DATA.md">Exact weather selection, monthly download commands and complete data checklist</a></p>
         <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/ROADMAP.md">Full stage-by-stage plan and acceptance criteria</a></p>
       </div>
     </section>

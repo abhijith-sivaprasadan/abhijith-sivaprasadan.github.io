@@ -30,9 +30,9 @@ These pages use a modern, research-focused light/dark theme in `styles/academic.
 - Check the homepage, track directory, track pages and a skill page at desktop and mobile widths, in light and dark modes. Verify keyboard navigation, selected-track state, section links and case-study links. The regression script checks all five track selections, distinct metadata, navigation, fragments and scientific-limitations copy.
 - Publish via a focused branch and pull request, wait for CI, merge, and verify the GitHub Pages deployment. Do not stage scratch/private files such as `profile_snapshot.md`.
 
-## Latest project delivery — GB-FLEXABM v0.2
+## Latest project delivery — GB-FLEXABM v0.3
 
-The [GB-FLEXABM case study](projects/gb-flexabm.html) now documents the local Streamlit experiment GUI, complete-calendar-year NESO demand gate, verified exports and S0–S6 delivery plan. S0's exploratory model and S1's workbench are implemented; S2's historical bundle and split protocol are next. Calibration, locked validation and multi-energy extensions remain pending. The original v0.1 reference results are preserved and labelled.
+The [GB-FLEXABM case study](projects/gb-flexabm.html) now documents bounded/resumable ERA5 acquisition, the 73-request training plan, split guards and research diagnostics alongside the local GUI. S2 is in progress; the full historical bundle, weather conversion, institutions, fitting and independent evaluation are still pending. S3–S5 utilities are not presented as completed empirical stages. The original v0.1 reference results remain unchanged. See the [complete data checklist](https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/HISTORICAL_DATA.md).
 
 The GUI runs locally (`uv run --locked --extra gui gbflex gui` in the model repository); GitHub Pages does not execute Python. Each future project milestone must update its model README, this portfolio README, the case study and relevant discovery summaries, then pass checks and be pushed with CI/Pages publication verified. See `AGENTS.md`.
 
