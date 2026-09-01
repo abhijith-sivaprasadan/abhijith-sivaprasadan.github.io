@@ -364,20 +364,20 @@
             <summary class="project-browser-summary">
               <div class="project-browser-summary-text">
                 <span class="project-browser-kicker">Energy systems</span>
-                <h3><a class="title-link" href="projects/pynexus-green-hydrogen.html">PyNEXUS Green Hydrogen Network Model</a></h3>
-                <p>Coupled offshore wind, PEM electrolyser and hydrogen-pipeline model with MILP dispatch optimisation and scenario comparison.</p>
+                <h3><a class="title-link" href="projects/pynexus-green-hydrogen.html">PyNEXUS Multi-Vector Dispatch Model</a></h3>
+                <p>Electricity, hydrogen and heat dispatch (Pyomo/HiGHS) coupling offshore wind, electrolysis, storage, grid exchange and waste-heat recovery, run on a real fetched year of ERA5 wind.</p>
               </div>
               <div class="project-browser-meta">
-                <span>Pyomo / HiGHS / MILP</span>
+                <span>Pyomo / HiGHS / MILP / Streamlit</span>
               </div>
             </summary>
             <div class="project-browser-body">
-              <img class="project-thumb" src="assets/thumb-pynexus.svg" alt="Green hydrogen wind electrolyzer and pipeline model visual" loading="lazy" width="960" height="540" />
+              <img class="project-thumb" src="assets/thumb-pynexus.png" alt="PyNEXUS Streamlit GUI showing a solved dispatch run with independent verification" loading="lazy" width="1280" height="900" />
               <div class="project-browser-copy">
-                <div class="tag-row"><span>Hydrogen</span><span>Pyomo</span><span>MILP</span><span>Dispatch</span><span>Electrolyser</span></div>
+                <div class="tag-row"><span>Hydrogen</span><span>Heat</span><span>Pyomo</span><span>MILP</span><span>Streamlit</span></div>
                 <ul class="evidence-list">
-                  <li>Models wind-to-hydrogen conversion, pipeline delivery and curtailment KPIs across 8760-hour horizon.</li>
-                  <li>Compares cost and emissions objectives with HiGHS/Pyomo MILP optimisation and multi-scenario analysis.</li>
+                  <li>A real fetched year of ERA5 wind (2023, no gaps) run through the model: the wind-only annual case is genuinely infeasible against demand &mdash; a real finding, not hidden.</li>
+                  <li>Data reconciliation (WLS + chi-square gross-error test) and a Streamlit GUI wrapping the same optimizer/verification code as the CLI.</li>
                 </ul>
                 <div class="project-links">
                   <a href="projects/pynexus-green-hydrogen.html" aria-label="Pynexus green hydrogen — case study">Case study</a>
