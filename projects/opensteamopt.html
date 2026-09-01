@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="OpenSteamOpt: an independent open-source steam-and-power digital twin, carbon-aware Pyomo/HiGHS scheduler, OpenModelica FMU and local Streamlit advisory GUI." />
+  <meta property="og:title" content="OpenSteamOpt — Steam &amp; Power Digital Twin and RTO" />
+  <meta property="og:description" content="Two boilers, HP/MP headers, turbine, PRV and grid exchange connected to a tested open-source optimiser and FMI 2.0 shadow twin. Synthetic educational software, not live control." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-opensteamopt.svg" />
+  <meta property="og:url" content="https://abhijith-sivaprasadan.github.io/projects/opensteamopt.html" />
+  <link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/opensteamopt.html" />
+  <title>OpenSteamOpt — Steam &amp; Power Digital Twin and RTO | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css?v=20260901-opensteamopt" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260901-opensteamopt" />
+  <link rel="stylesheet" href="../styles/opensteamopt.css?v=20260901" />
+  <script src="../scripts/public-config.js?v=20260901-opensteamopt"></script>
+  <script src="../scripts/sections/command-palette.js?v=20260901-opensteamopt" defer></script>
+</head>
+<body class="signal-rebuild" data-page-key="case-study" data-project-slug="opensteamopt" data-paper>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links"><a href="../index.html#projects">Featured projects</a><a href="../projects.html">Project library</a><a href="../energy-systems.html">Energy systems</a><a href="../index.html#contact">Contact</a></div>
+    </nav>
+  </header>
+  <div class="paper-bar" aria-label="Case-study navigation">
+    <a class="paper-back" href="../index.html#projects">&larr; Featured projects</a>
+    <button class="paper-search" type="button" data-fcmd-open aria-label="Search projects, methods, and pages">Search projects <kbd>Ctrl K</kbd></button>
+  </div>
+  <main id="main" class="paper-doc os-study" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <p class="eyebrow">Independent educational software · Industrial energy · 2026</p>
+        <h1>OpenSteamOpt<br />When should steam make power?</h1>
+        <p class="hero-text">An inspectable steam-and-power demonstrator that connects boiler commitment, HP/MP steam transfers, turbine generation, grid exchange and carbon cost through one open-source optimisation and simulation contract.</p>
+        <p class="os-status"><strong>v0.1 · Synthetic and advisory-only.</strong> This is not an ABB product, OPTIMAX clone, commissioned plant twin or operational control system. No plant data, credentials, DCS connection or actuator writes are present.</p>
+        <div class="button-row"><a class="button primary" href="https://github.com/abhijith-sivaprasadan/opensteamopt">Source &amp; reproduce</a><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/opensteamopt/blob/main/docs/VERIFICATION.md">Verification record</a><a class="button secondary" href="#gui">See the local GUI</a></div>
+        <nav class="os-contents" aria-label="Case-study sections"><a href="#architecture">Architecture</a><a href="#evidence">Evidence</a><a href="#gui">GUI &amp; FMU</a><a href="#limits">Limits &amp; roadmap</a></nav>
+        <figure class="os-figure"><img src="../assets/thumb-opensteamopt.svg" alt="Two boilers feed an HP header; turbine and PRV feed an MP header, with an RTO and local FMU shadow twin" width="960" height="540" /><figcaption>One declared synthetic plant contract connects the optimiser, Python shadow twin, Modelica FMU and advisory interface.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section subtle" id="architecture">
+      <div class="container">
+        <p class="eyebrow">01 / Architecture</p>
+        <h2>Economic scheduling above a transparent dynamic twin.</h2>
+        <div class="os-grid">
+          <article><h3>Plant</h3><p>Two non-identical boilers feed an HP header. A back-pressure turbine and PRV supply the MP header; turbine generation and grid import/export meet site power demand.</p></article>
+          <article><h3>RTO</h3><p>A 24-hour Pyomo MILP chooses commitment, startup, boiler load, turbine/PRV flow and grid exchange with HiGHS. Fuel, carbon, electricity and operating costs remain separately inspectable.</p></article>
+          <article><h3>Shadow twin</h3><p>Accepted setpoints run only against local first-order pressure/flow dynamics in Python or an OpenModelica FMI 2.0 Co-Simulation FMU. A proportional pressure trim is not claimed as MPC.</p></article>
+        </div>
+        <pre aria-label="OpenSteamOpt system flow">Synthetic loads &amp; prices → Pyomo MILP → HiGHS → verified hourly schedule
+                                  ├→ local Streamlit advisory GUI
+                                  ├→ Python grey-box shadow twin
+                                  └→ OpenModelica FMU / FMPy simulation</pre>
+      </div>
+    </section>
+
+    <section class="section" id="evidence">
+      <div class="container">
+        <p class="eyebrow">02 / Reproducible evidence</p>
+        <h2>The acceptance record is committed with the model.</h2>
+        <div class="os-metrics"><span><strong>29</strong><small>passing tests</small></span><span><strong>12 / 12</strong><small>reference files replay byte-identically</small></span><span><strong>1,441</strong><small>finite FMU samples over 24 h</small></span><span><strong>7.11×10⁻¹⁵</strong><small>maximum reconstructed balance residual</small></span></div>
+        <div class="os-table-wrap"><table><caption>Synthetic regression scenarios—not measured plant savings</caption><thead><tr><th scope="col">Scenario</th><th scope="col">Declared rule baseline</th><th scope="col">Optimised</th><th scope="col">Difference</th><th scope="col">Direct CO₂</th></tr></thead><tbody>
+          <tr><th scope="row">Base</th><td>€81,472.30</td><td>€78,749.13</td><td>3.34% lower</td><td>250.27 t</td></tr>
+          <tr><th scope="row">Power-price spike</th><td>€83,880.69</td><td>€80,287.06</td><td>4.28% lower</td><td>250.27 t</td></tr>
+          <tr><th scope="row">High carbon price</th><td>€102,928.01</td><td>€93,719.71</td><td>8.95% lower</td><td>102.85 t</td></tr>
+        </tbody></table></div>
+        <p class="os-callout"><strong>What the numbers mean:</strong> they show that the implementation reacts in the expected direction to synthetic electricity and carbon prices while satisfying declared balances. The comparator was authored for this repository. The percentages are not backtested savings, operator performance or a commercial-product comparison.</p>
+      </div>
+    </section>
+
+    <section class="section subtle" id="gui">
+      <div class="container">
+        <p class="eyebrow">03 / Local workbench and model exchange</p>
+        <h2>Readable, downloadable and deliberately disconnected from control.</h2>
+        <div class="os-grid">
+          <article><h3>Plant tab</h3><p>Shows topology, declared asset differences and the steady-state-versus-dynamic boundary.</p></article>
+          <article><h3>RTO + shadow tabs</h3><p>Expose schedule, cost/emissions, balance residuals, pressure response and verified CSV/JSON downloads.</p></article>
+          <article><h3>Scope tab</h3><p>Reports solver acceptance, OpenModelica detection and the exact implemented/pending feature split.</p></article>
+        </div>
+        <p>The light-theme interface was checked in a live browser for contrast, tab navigation, results, downloads and console errors. It runs locally because GitHub Pages cannot execute Python:</p>
+        <pre>uv sync --all-extras --frozen
+uv run streamlit run app_streamlit.py</pre>
+        <p>The FMU receipt records a successful OpenModelica 1.27.0 export and FMPy run from 0 to 86,400 seconds. The generated binary is intentionally excluded from Git; source and build hashes are retained in the receipt.</p>
+      </div>
+    </section>
+
+    <section class="section" id="limits">
+      <div class="container">
+        <p class="eyebrow">04 / Interpretation and planned work</p>
+        <h2>A verified software foundation, not a commissioned digital twin.</h2>
+        <p><strong>Implemented:</strong> two boilers, HP/MP balances, turbine, PRV, grid exchange, commitment/startup/ramping, piecewise boiler fuel, carbon cost, Modelica pressure states, FMI/FMPy integration, advisory/shadow modes, GUI and reproducible artifacts.</p>
+        <p><strong>Not implemented:</strong> multivariable MPC, PID-vs-MPC comparison, measurement reconciliation, forecast learning, historian or OPC UA integration, LP/condensate networks, startup thermodynamics, steam-property packages, safety interlocks or live DCS connection.</p>
+        <p>Next model-fidelity work is intentionally separate from GB-FLEXABM: richer steam physics first, then a matched control study, then read-only data/deployment research with new safety and cybersecurity gates.</p>
+        <div class="button-row"><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/opensteamopt/blob/main/docs/MODEL_CARD.md">Model card</a><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/opensteamopt/blob/main/ROADMAP.md">Roadmap</a><a class="button secondary" href="../projects.html">All projects</a></div>
+        <p class="os-source-note">Context: ABB publicly describes industrial steam-and-power optimisation in terms of variable demand, boiler/turbine/valve actuators, constraints and market economics. OpenSteamOpt uses that public problem framing only and includes no ABB code, data, parameters or interfaces. Sources: <a href="https://new.abb.com/industrial-software/sustainability/advanced-process-control-for-industrial-steam-automation">ABB steam and power optimisation</a>, <a href="https://www.abb.com/global/en/areas/automation/energy-management/optimax">ABB Ability OPTIMAX</a>, <a href="https://openmodelica.org/">OpenModelica</a> and <a href="https://highs.dev/">HiGHS</a>.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container"><p>Abhijith Sivaprasadan · Independent educational research software</p><a href="../projects.html">Explore all projects</a></div></footer>
+  <script src="../scripts/site.js?v=20260901-opensteamopt"></script>
+</body>
+</html>

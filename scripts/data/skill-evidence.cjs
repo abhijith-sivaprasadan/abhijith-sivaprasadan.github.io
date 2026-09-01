@@ -23,7 +23,7 @@ const skills = [
     id: 'energy-systems', short: 'Energy systems',
     detail: 'Buildings, heat, power & storage',
     summary: 'Energy-system modelling across buildings, district heat, electricity networks, storage and hydrogen, connecting demand and technology assumptions to cost, emissions and operational trade-offs.',
-    scope: 'Course studies and independent screening tools are identified separately. GB-FLEXABM is synthetic and uncalibrated; PyPSA-NL uses a synthetic topology. Neither is a validated national-system forecast. Local applications run outside GitHub Pages.',
+    scope: 'Course studies and independent screening tools are identified separately. OpenSteamOpt and GB-FLEXABM are synthetic and uncalibrated; PyPSA-NL uses a synthetic topology. None is a validated operational or national-system model. Local applications run outside GitHub Pages.',
     tools: ['IDA ICE', 'HOMER Pro', 'LEAP', 'SAM', 'PyPSA', 'Pyomo'],
     courses: ['MJ2438', 'MJ2509', 'MJ2508', 'MJ2503', 'MJ2405', 'MJ2411', 'MJ2426', 'MJ2386', 'MJ2505', 'MJ2507', 'MJ2511', 'AAE-E3121', 'ME403', 'ME405', 'ME205', 'BE103', 'CE482'],
     education: ['kth', 'aalto', 'btech'],
@@ -81,6 +81,7 @@ const O = 'optimisation', D = 'data-software', I = 'industrial-energy', M = 'cad
 // Keys are canonical case-study basenames (or the external project ID).
 // Duplicate imported project records therefore resolve to one evidence item.
 const projectSkills = {
+  'opensteamopt': [E, O, D, I, R],
   'siemens-thesis': [C, T, M, R],
   'thermotwin-f': [C, E, D, R],
   'non-gray-radiation-modeling': [C, D, R],
@@ -187,12 +188,12 @@ const resources = [
 const projectOrder = {
   [C]: ['siemens-thesis', 'non-gray-radiation-modeling', 'numerical-heat-transfer', 'thermotwin-f'],
   [T]: ['siemens-thesis', 'mtes-pcm-thermal-lab', 'battery-cell-discharge-lab', 'rotating-machinery-vibration-minilab'],
-  [E]: ['gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen', 'district-heating-optimisation'],
-  [O]: ['district-heating-optimisation', 'gb-flexabm', 'pynexus-green-hydrogen', 'pypsa-nl-grid-flexibility'],
-  [D]: ['gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting', 'thermotwin-f'],
-  [I]: ['alleima-energy-efficiency', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator'],
+  [E]: ['opensteamopt', 'gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen'],
+  [O]: ['opensteamopt', 'district-heating-optimisation', 'gb-flexabm', 'pynexus-green-hydrogen'],
+  [D]: ['opensteamopt', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
+  [I]: ['opensteamopt', 'alleima-energy-efficiency', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator'],
   [M]: ['structural-fea-reactor-internals', 'siemens-thesis', 'robotic-frame-locomotion', 'bicycle-design-competition'],
-  [R]: ['siemens-thesis', 'gb-flexabm', 'non-gray-radiation-modeling', 'robotic-frame-locomotion'],
+  [R]: ['siemens-thesis', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
 };
 
 // This public case study predates its inclusion in the JSON project index.

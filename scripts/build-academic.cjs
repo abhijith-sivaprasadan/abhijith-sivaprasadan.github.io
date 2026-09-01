@@ -20,7 +20,7 @@ const projects = [...canonicalProjects.values()];
 const experiences = read('linkedin-experience.json').experience.filter(e => e.status === 'published');
 const courses = read('courses.json').courses.filter(c => c.status === 'published');
 const certifications = read('certifications.json').certifications;
-const featured = ['gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator', 'thermotwin-f'];
+const featured = ['opensteamopt', 'gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen', 'industrial-energy-kpi-toolkit', 'thermotwin-f'];
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';

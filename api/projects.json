@@ -1,6 +1,27 @@
 {
   "projects": [
     {
+      "id": "opensteamopt",
+      "title": "OpenSteamOpt · Steam & power RTO",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": true,
+      "order": 0.25,
+      "period": "2026",
+      "associatedWith": "Independent educational research software",
+      "summary": "An open-source two-boiler steam-and-power twin with a carbon-aware Pyomo/HiGHS scheduler, OpenModelica FMI 2.0 simulation and a local Streamlit advisory GUI. Synthetic and uncalibrated; not an ABB product or live control system.",
+      "audienceTags": ["Energy Systems", "Research", "Sustainability"],
+      "tools": ["Python", "Modelica", "Pyomo", "HiGHS", "FMI/FMPy", "Streamlit", "pytest"],
+      "skills": ["Optimisation", "Digital twins", "Industrial energy", "Model exchange", "Reproducibility"],
+      "image": "assets/thumb-opensteamopt.svg",
+      "caseStudyUrl": "projects/opensteamopt.html",
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/opensteamopt",
+      "highlights": [
+        "Two non-identical boilers, HP/MP headers, turbine, PRV and grid exchange share one tested plant contract.",
+        "29 tests, independent objective/balance reconstruction, byte-reproducible reference artifacts and a real 1,441-sample FMU integration check. Synthetic results are not plant-savings claims."
+      ]
+    },
+    {
       "id": "gb-flexabm",
       "title": "GB-FLEXABM · Electricity investment",
       "category": "Energy Systems",
@@ -422,7 +443,7 @@
       "title": "EU ETS Exposure Calculator",
       "category": "Sustainability",
       "status": "published",
-      "featured": true,
+      "featured": false,
       "order": 4,
       "associatedWith": "Portfolio project",
       "summary": "How do fuel activity and allowance-price assumptions affect exposure? Tested Scope 1 calculations with contextual Scope 2 reporting and transparent demonstration factors. Not compliance advice.",
