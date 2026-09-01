@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">OpenSteamOpt steam and power optimisation architecture</title>
+  <desc id="desc">Two boilers feed a high-pressure steam header. A turbine and pressure-reducing valve feed the medium-pressure header while an open-source optimiser sends advisory setpoints to a local shadow twin.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#205b68" stroke-width="1.6"/></marker>
+  </defs>
+  <rect width="960" height="540" fill="#f5f2e9"/>
+  <g font-family="Arial,sans-serif" fill="#172f38">
+    <text x="44" y="58" font-size="32" font-weight="700">OpenSteamOpt</text>
+    <text x="44" y="85" font-size="17">Steam &amp; power twin · carbon-aware RTO · FMI 2.0</text>
+    <g fill="#ffffff" stroke="#205b68" stroke-width="2">
+      <rect x="44" y="150" width="172" height="62" rx="7"/>
+      <rect x="44" y="238" width="172" height="62" rx="7"/>
+      <rect x="292" y="190" width="168" height="72" rx="7"/>
+      <rect x="544" y="142" width="170" height="62" rx="7"/>
+      <rect x="544" y="246" width="170" height="62" rx="7"/>
+      <rect x="776" y="190" width="140" height="72" rx="7"/>
+      <rect x="292" y="382" width="422" height="76" rx="7" fill="#eaf3f4"/>
+    </g>
+    <g font-size="19" font-weight="700">
+      <text x="65" y="186">Gas boiler</text><text x="65" y="274">Biofuel boiler</text>
+      <text x="328" y="231">HP header</text><text x="573" y="180">Turbine</text>
+      <text x="596" y="283">PRV</text><text x="806" y="231">MP header</text>
+      <text x="321" y="416">Pyomo / HiGHS RTO → Modelica / FMU shadow twin</text>
+    </g>
+    <text x="321" y="442" font-size="16">advisory setpoints · independent balance checks · local GUI</text>
+    <text x="44" y="505" font-size="18" font-weight="700" fill="#7a3d1d">SYNTHETIC EDUCATIONAL MODEL — no live control or plant validation</text>
+  </g>
+  <g fill="none" stroke="#205b68" stroke-width="2.5" marker-end="url(#arrow)">
+    <path d="M216 181H258V218H283"/><path d="M216 269H258V234H283"/>
+    <path d="M460 210H500V173H535"/><path d="M460 242H500V277H535"/>
+    <path d="M714 173H748V218H767"/><path d="M714 277H748V234H767"/>
+  </g>
+  <path d="M503 382V334H630V318" fill="none" stroke="#9a5a20" stroke-width="2.4" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+</svg>

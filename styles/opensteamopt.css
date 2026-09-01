@@ -1,0 +1,30 @@
+/* OpenSteamOpt case study. Light-paper contrast is intentional and independently scoped. */
+body[data-project-slug="opensteamopt"] .os-study { color: #17232d; }
+body[data-project-slug="opensteamopt"] .footer,
+body[data-project-slug="opensteamopt"] .footer p { color: #3d4a53; }
+body[data-project-slug="opensteamopt"] .footer a { color: #173f82; }
+body[data-project-slug="opensteamopt"] .skip-link { background: #173f82; color: #fff; }
+.os-study .case-hero h1 { max-width: 18ch; }
+.os-study .section { scroll-margin-top: 5rem; }
+.os-study .os-status,
+.os-study .os-callout { padding: 1rem 1.2rem; border-left: 4px solid #1b5f6d; background: #e9f1f3; color: #17232d; }
+.os-study .os-contents { display: flex; flex-wrap: wrap; gap: .7rem 1.4rem; margin-top: 1.3rem; font-weight: 700; }
+.os-study .os-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
+.os-study .os-grid article { border-top: 2px solid #68818a; padding-top: .8rem; min-width: 0; }
+.os-study .os-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; margin: 1.4rem 0; }
+.os-study .os-metrics span { display: block; padding: 1rem; border: 1px solid #a9b7b9; background: #fff; color: #17232d; }
+.os-study .os-metrics strong { display: block; font-size: 1.35rem; color: #173f82; }
+.os-study .os-metrics small { color: #44545f; }
+.os-study .os-figure { margin: 1.5rem 0; border: 1px solid #b2aa98; background: #fff; }
+.os-study .os-figure img { display: block; width: 100%; height: auto; }
+.os-study .os-figure figcaption { padding: .9rem 1rem; color: #3d4a53; }
+.os-study .os-table-wrap { max-width: 100%; overflow-x: auto; margin: 1.4rem 0; }
+.os-study table { width: 100%; border-collapse: collapse; background: #fff; color: #17232d; }
+.os-study th, .os-study td { padding: .8rem 1rem; border-bottom: 1px solid #b2aa98; text-align: left; vertical-align: top; }
+.os-study thead { background: #e9f1f3; }
+.os-study pre { max-width: 100%; overflow: auto; padding: 1.1rem; border: 1px solid #b2aa98; background: #fff; color: #17232d; line-height: 1.6; }
+.os-study .os-source-note { margin-top: 1.8rem; font-size: .92rem; color: #3d4a53; }
+@media (max-width: 820px) {
+  .os-study .os-grid, .os-study .os-metrics { grid-template-columns: minmax(0, 1fr); }
+  .os-study th, .os-study td { padding: .65rem .55rem; overflow-wrap: anywhere; }
+}

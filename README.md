@@ -30,7 +30,13 @@ These pages use a modern, research-focused light/dark theme in `styles/academic.
 - Check the homepage, track directory, track pages and a skill page at desktop and mobile widths, in light and dark modes. Verify keyboard navigation, selected-track state, section links and case-study links. The regression script checks all five track selections, distinct metadata, navigation, fragments and scientific-limitations copy.
 - Publish via a focused branch and pull request, wait for CI, merge, and verify the GitHub Pages deployment. Do not stage scratch/private files such as `profile_snapshot.md`.
 
-## Latest project delivery — GB-FLEXABM v0.3
+## Latest project delivery — OpenSteamOpt v0.1
+
+The [OpenSteamOpt case study](projects/opensteamopt.html) is now directly visible from the landing page and project library. The separate MIT-licensed repository combines a two-boiler HP/MP steam-and-power plant, carbon-aware Pyomo/HiGHS scheduling, an OpenModelica FMI 2.0 Co-Simulation path, a transparent Python shadow twin and a local Streamlit advisory GUI. Its locked acceptance record is 29 passing tests, clean Ruff/mypy checks, byte-identical replay of all 12 reference files and a real 1,441-sample FMU integration run. The synthetic scenario differences are software regression evidence—not plant-savings claims. It is independent, not an ABB product or OPTIMAX clone, and has no DCS/OPC UA or live actuator connection. See the [source, evidence and reproduction instructions](https://github.com/abhijith-sivaprasadan/opensteamopt#readme).
+
+The GUI runs locally (`uv sync --all-extras --frozen`, then `uv run streamlit run app_streamlit.py`); GitHub Pages hosts the static case study, not the Python application.
+
+## GB-FLEXABM v0.3 data-acquisition delivery
 
 The [GB-FLEXABM case study](projects/gb-flexabm.html) now documents 175 additional public source files acquired, mechanically extracted and rehashed (443.50 MiB), alongside 804 pinned Elexon responses, bounded ERA5 acquisition and the local GUI. The collection includes 114 carbon-auction reports, fuel/CPI/FX, costs, fleet and policy references. No APXMIDP training year is complete; IMRP starts in June 2016 and has not replaced that target or changed the study split. Raw inputs remain local, and later-period extraction/current revisions are disclosed as prior exposure. Semantic normalization, historical fleet/support reconciliation, weather conversion and the price-target decision remain S2 work; S3–S5 empirical stages are not complete. Original v0.1 results remain unchanged. See the [public-input inventory and limitations](https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/PUBLIC_INPUTS.md), [market-source findings](https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/MARKET_DATA.md) and [data checklist](https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/HISTORICAL_DATA.md).
 
