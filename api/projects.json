@@ -386,13 +386,13 @@
     },
     {
       "id": "pynexus-green-hydrogen",
-      "title": "PyNEXUS · Wind-to-hydrogen dispatch",
+      "title": "PyNEXUS · Multi-vector dispatch",
       "category": "Energy Systems",
       "status": "published",
       "featured": true,
       "order": 2,
       "associatedWith": "Portfolio project",
-      "summary": "How do cost and emissions objectives change hydrogen dispatch? An hourly wind–electrolyser model with known-optimum tests and an explicit synthetic 168-hour reference. No annual-run claim.",
+      "summary": "Electricity, hydrogen and heat dispatch (Pyomo/HiGHS) on a real fetched year of ERA5 wind, with independent verification on every run and an interactive Streamlit GUI.",
       "audienceTags": [
         "Industrial R&D",
         "Energy Systems"
@@ -401,6 +401,7 @@
         "Pyomo",
         "HiGHS",
         "Python",
+        "Streamlit",
         "Hydrogen"
       ],
       "skills": [
@@ -408,11 +409,11 @@
         "MILP dispatch",
         "Curtailment KPIs"
       ],
-      "image": "assets/thumb-pynexus.svg",
+      "image": "assets/thumb-pynexus.png",
       "caseStudyUrl": "projects/pynexus-green-hydrogen.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/PyNEXUS",
       "highlights": [
-        "How do cost and emissions objectives change hydrogen dispatch? An hourly wind–electrolyser model with known-optimum tests and an explicit synthetic 168-hour reference. No annual-run claim."
+        "Electricity, hydrogen and heat dispatch (Pyomo/HiGHS) on a real fetched year of ERA5 wind, with independent verification on every run and an interactive Streamlit GUI."
       ],
       "githubUrl": "https://github.com/abhijith-sivaprasadan/PyNEXUS"
     },
