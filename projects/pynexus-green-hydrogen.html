@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Case study for PyNEXUS, a green hydrogen network model coupling offshore wind, PEM electrolysis, pipeline delivery and dispatch optimisation." />
-  <meta property="og:title" content="PyNEXUS Green Hydrogen Network Model" />
-  <meta property="og:description" content="Green hydrogen modelling case study with wind, electrolyzer, pipeline and MILP dispatch optimisation." />
+  <meta name="description" content="Case study for PyNEXUS, a Pyomo/HiGHS dispatch model coupling offshore wind, hydrogen, and heat, with real ERA5 wind, a data-reconciliation module, and a Streamlit GUI." />
+  <meta property="og:title" content="PyNEXUS Multi-Vector Dispatch Model" />
+  <meta property="og:description" content="Electricity, hydrogen and heat dispatch optimisation on real ERA5 wind, with an interactive Streamlit GUI." />
   <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png" />
-  <title>PyNEXUS Green Hydrogen Network Model | Abhijith Sivaprasadan</title>
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-pynexus.png" />
+  <title>PyNEXUS Multi-Vector Dispatch Model | Abhijith Sivaprasadan</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,11 +53,11 @@
     <section class="case-hero">
       <div class="container">
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
-        <p class="eyebrow">Hydrogen &middot; Offshore wind &middot; Pyomo dispatch</p>
-        <h1>PyNEXUS Green Hydrogen Network Model</h1>
-        <p class="hero-text">A coupled green-hydrogen asset model linking offshore wind generation, PEM electrolysis, hydrogen pipeline delivery and dispatch optimisation.</p>
+        <p class="eyebrow">Hydrogen &middot; Heat &middot; Offshore wind &middot; Pyomo dispatch</p>
+        <h1>PyNEXUS Multi-Vector Dispatch Model</h1>
+        <p class="hero-text">A Pyomo/HiGHS model coupling electricity, hydrogen and heat &mdash; offshore wind, PEM electrolysis, hydrogen storage/pipeline, grid exchange and electrolyser waste-heat recovery &mdash; run on a real fetched year of ERA5 wind, with an interactive Streamlit GUI.</p>
         <div class="button-row"><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/PyNEXUS" target="_blank" rel="noreferrer">GitHub repository</a></div>
-        <img class="case-visual" src="../assets/thumb-pynexus.svg" alt="Green hydrogen wind electrolyzer and pipeline model visual" loading="lazy" width="960" height="540" />
+        <img class="case-visual" src="../assets/thumb-pynexus.png" alt="PyNEXUS Streamlit GUI showing a solved dispatch run with independent verification" loading="lazy" width="1280" height="900" />
       </div>
     </section>
 
@@ -66,19 +66,20 @@
         <aside class="case-panel">
           <h2>Project snapshot</h2>
           <ul>
-            <li>Tools: Python, pandas, Pyomo, HiGHS, NumPy, matplotlib</li>
-            <li>System: North Sea / Netherlands-inspired offshore wind to hydrogen asset</li>
-            <li>Components: wind farm, PEM electrolyzer, hydrogen pipeline, demand node</li>
-            <li>Focus: cost/emissions dispatch, curtailment, delivery feasibility and KPIs</li>
+            <li>Tools: Python, Pyomo, HiGHS, pandas, NumPy, Streamlit, xarray</li>
+            <li>System: North Sea / Netherlands offshore wind &rarr; PEM electrolyser &rarr; hydrogen storage/pipeline &rarr; demand, with grid exchange and electrolyser waste-heat recovery</li>
+            <li>Data: a full real year (8,760h, no gaps) of ERA5 wind actually fetched and run for the configured site</li>
+            <li>Focus: cost/emissions dispatch across all three vectors, with independent verification on every run</li>
           </ul>
         </aside>
         <article class="case-panel">
           <h2>What I built</h2>
           <ul>
-            <li>Implemented component models for offshore wind production, electrolyzer behaviour and hydrogen pipeline pressure/flow constraints.</li>
-            <li>Connected the components into a green-hydrogen asset workflow with hourly simulation and KPI reporting.</li>
-            <li>Built MILP dispatch optimisation to compare cost-minimising and emissions-aware operating strategies.</li>
-            <li>Centralised physical and economic assumptions in a configuration file for transparent scenario changes.</li>
+            <li>Offshore wind, PEM electrolyser, hydrogen pipeline, hydrogen storage, grid import/export, and electrolyser waste-heat recovery (with heat storage and backup boiler) &mdash; storage/grid/heat are opt-in and off by default, regression-tested against a locked reference objective.</li>
+            <li>A real ERA5 ingestion path (Copernicus CDS API): monthly-chunked fetch, provenance records, fail-loud gap checking. Used it to fetch a genuine year of 2023 wind for the site and validate the model's capacity factor (39.7%) against a peer-reviewed source.</li>
+            <li>Weighted-least-squares data reconciliation with a chi-square gross-error test on the hydrogen mass balance &mdash; the same method used in my ThermoTwin repo, applied here to a different balance.</li>
+            <li>A Streamlit GUI wrapping the exact same optimizer/verification code the CLI uses: run a dispatch live, browse committed runs, inspect the real capacity factor, and an interactive reconciliation demo.</li>
+            <li>An independent verification pass on every run (mass/energy balances, storage recursion, cost/objective reconstruction) &mdash; a solver reporting "optimal" is not treated as sufficient on its own.</li>
           </ul>
         </article>
       </div>
@@ -88,15 +89,15 @@
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow">Method</p>
-          <h2>Multi-vector network model</h2>
+          <h2>Multi-vector dispatch model</h2>
         </div>
         <div class="case-panel">
           <ol>
-            <li><strong>Nodes:</strong> renewable generators (wind/solar with hourly capacity factors), electrolysers (PEM, η_LHV ≈ 0.62), storage (battery + hydrogen pressure vessel), and demand sinks (industrial offtake).</li>
-            <li><strong>Edges:</strong> electricity transmission (with stated capacity), hydrogen pipelines (with Weymouth-type pressure-drop constraints), road truck routes (cost per kg-km).</li>
-            <li><strong>Optimisation:</strong> mixed-integer linear program in PuLP — minimise total annualised cost subject to demand balance at every node every hour, asset capacities, ramp limits and storage state-of-charge constraints.</li>
-            <li><strong>Scenarios:</strong> three demand growth trajectories (low/central/high) × two policy backdrops (with/without H₂ price support) = 6 scenarios per network configuration.</li>
-            <li><strong>Outputs:</strong> dispatch time-series per asset, marginal cost shadow prices, build-out plan (when a new asset becomes economic), and a multi-network comparison dashboard.</li>
+            <li><strong>Core MILP:</strong> electrolyser power <code>p[t]</code> (binary online status), minimising cost or emissions subject to wind availability, min/max load, ramp limits, pipeline capacity, and hourly or cumulative hydrogen demand. Solved with Pyomo + HiGHS.</li>
+            <li><strong>Phase A (opt-in):</strong> hydrogen storage with a terminal condition (so the optimiser can't drain it for free on the last hour) and grid import/export against a single energy balance &mdash; both off by default and regression-tested to leave the base model's locked reference objective unchanged.</li>
+            <li><strong>Phase B (opt-in):</strong> electrolyser waste heat (same linearised efficiency the hydrogen output already assumes, so the energy balance stays internally consistent), heat storage, and a backup boiler. A real swept finding: at the current demand-shortfall penalty, heat value has <em>zero</em> measurable effect on electrolyser dispatch &mdash; the penalty dominates it by orders of magnitude, confirmed by deliberately weakening the penalty and watching the coupling switch on.</li>
+            <li><strong>Phase C (real data):</strong> ERA5 wind fetched via the Copernicus CDS API, hub-height shear-corrected, and run through the model for the full 2023 year. The wind-only and grid-only-cumulative annual variants are genuinely <strong>infeasible</strong> against real demand &mdash; not a bug, a real capacity-planning finding, reported rather than hidden. The recorded successful run (grid + storage, soft hourly demand) still leaves ~16% of demand unmet.</li>
+            <li><strong>Verification:</strong> every run is independently re-checked from the exported CSV &mdash; wind/energy balances, storage recursion, cost identity, objective reconstruction &mdash; separate code from the optimizer itself, so a correct-looking solve can't silently hide an inconsistency.</li>
           </ol>
         </div>
       </div>
@@ -110,11 +111,11 @@
         </div>
         <div class="case-panel">
           <ul>
-            <li><strong>dispatch_hourly.csv</strong> — per-asset, per-hour generation/storage state and flows</li>
-            <li><strong>marginal_prices.csv</strong> — shadow price at each node × hour (€/MWh_el and €/kg_H₂)</li>
-            <li><strong>capacity_buildout.csv</strong> — when a new electrolyser/storage unit becomes part of the optimum</li>
-            <li><strong>network_map.html</strong> — interactive Plotly map of nodes + flow widths</li>
-            <li><strong>scenario_compare.pdf</strong> — total system cost, CO₂ avoided, and curtailment across the 6 scenarios</li>
+            <li><strong>run_manifest.json</strong> — config/input/dispatch hashes, environment, solver status and gap, model size, objective value</li>
+            <li><strong>dispatch.csv</strong> — per-hour power, hydrogen, storage, grid and heat flows for the solved run</li>
+            <li><strong>verification.json</strong> — the independent check results (mass balance, cost identity, objective reconstruction, pass/fail)</li>
+            <li><strong>ERA5 provenance records</strong> — one per monthly fetch plus an annual summary: source, grid cell, checksum, calendar-completeness check</li>
+            <li>A Streamlit GUI (screenshot above) for running, verifying, and browsing all of the above without writing Python</li>
           </ul>
         </div>
       </div>
@@ -128,11 +129,10 @@
         </div>
         <div class="case-panel">
           <ul>
-            <li>The electrolyser efficiency is constant at the LHV operating point — no part-load curve; real PEM efficiency drops noticeably below 30 % load.</li>
-            <li>Pipeline constraints use the Weymouth steady-state form. Transient gas dynamics (line-pack effects) are not modelled.</li>
-            <li>Truck logistics use a fixed €/kg-km — no time-dependent congestion or driver-availability modelling.</li>
-            <li>The scenario set is for illustration; investment decisions for a real network need a full Monte-Carlo over demand, price and CAPEX uncertainty.</li>
-            <li>Hydrogen end-use (e.g. steel-mill DRI reduction) is treated as a fixed offtake; cross-sectoral coupling would extend the model significantly.</li>
+            <li>The MILP's hydrogen output uses a single linearised electrolyser efficiency (fixed at the 80%-load point), not the full nonlinear load-dependent curve &mdash; a deliberate tractability choice, stated explicitly rather than left implicit.</li>
+            <li>ENTSO-E day-ahead prices are implemented and unit-tested (same fetch/provenance discipline as ERA5) but not yet run live &mdash; needs a separate API credential I haven't requested yet. Dispatch runs pair real wind with a synthetic price series until then.</li>
+            <li>The data reconciliation module deliberately does <em>not</em> try to name which sensor is at fault when it flags an inconsistency: with one balance equation across four sensors, that ranking is mathematically determined by the configured variances alone, independent of which sensor is actually biased &mdash; proved and tested, not assumed.</li>
+            <li>It's a screening model: the turbine power curve is a cubic approximation, loss factors are literature-sourced rather than site-measured, and the demand/capacity figures are illustrative, not a project-specific engineering design.</li>
           </ul>
         </div>
       </div>
@@ -145,7 +145,7 @@
           <h2>Why this matters</h2>
         </div>
         <div class="case-panel">
-          <p>This project extends the energy-systems portfolio beyond electricity-only modelling into multi-vector infrastructure: renewable power, hydrogen production, pipeline constraints and optimisation-based operations. It transfers the MILP-dispatch logic from the district-heating case into a more complex multi-energy carrier setting — the same modelling discipline applied to a different boundary.</p>
+          <p>This project extends the energy-systems portfolio into genuinely multi-vector infrastructure &mdash; electricity, hydrogen and heat coupled in one optimisation, not three separate models bolted together. It carries the same discipline as the rest of the portfolio into a harder setting: real fetched data (not just synthetic examples), independent verification on every run, and honest reporting of infeasible/incomplete results (the wind-only annual case, the 16% unmet demand) rather than only showing the runs that came out clean.</p>
         </div>
       </div>
     </section>
