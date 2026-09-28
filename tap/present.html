@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#05070c" />
+  <title>Tap to connect — Abhijith Sivaprasadan</title>
+  <style>
+    :root{--bg:#05070c;--text:#f7f9fc;--muted:#93a0b3;--cyan:#6ee7ff;--violet:#9b8cff;--green:#7cf7c2}
+    *{box-sizing:border-box}html,body{height:100%}body{margin:0;background:radial-gradient(circle at 50% 28%,rgba(110,231,255,.14),transparent 30%),radial-gradient(circle at 72% 75%,rgba(155,140,255,.13),transparent 34%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
+    body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:30px 30px;mask-image:radial-gradient(circle at center,black,transparent 78%);pointer-events:none}
+    .screen{height:100svh;padding:max(24px,env(safe-area-inset-top)) 22px max(26px,env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;text-align:center}
+    .status{width:100%;display:flex;align-items:center;justify-content:space-between;font:700 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:#9caabd}.live{display:inline-flex;align-items:center;gap:8px;color:var(--green)}.live i{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 14px currentColor}
+    .center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0}.pulse{position:relative;width:min(62vw,260px);aspect-ratio:1;display:grid;place-items:center;margin-bottom:26px}.ring{position:absolute;inset:50%;width:34%;height:34%;transform:translate(-50%,-50%);border:1px solid rgba(110,231,255,.55);border-radius:50%;animation:pulse 2.8s infinite ease-out;box-shadow:0 0 30px rgba(110,231,255,.06)}.ring:nth-child(2){animation-delay:.75s}.ring:nth-child(3){animation-delay:1.5s}.ring:nth-child(4){animation-delay:2.25s}@keyframes pulse{0%{width:34%;height:34%;opacity:.9}85%,100%{width:100%;height:100%;opacity:0}}
+    .nfc{position:relative;width:88px;height:88px;border-radius:26px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.025));display:grid;place-items:center;box-shadow:0 16px 50px rgba(0,0,0,.4),inset 0 1px rgba(255,255,255,.08)}.nfc svg{width:48px;height:48px;fill:none;stroke:var(--cyan);stroke-width:1.7;stroke-linecap:round}
+    .overline{margin:0 0 9px;color:var(--cyan);font:700 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase}h1{margin:0;font-size:clamp(40px,13vw,66px);line-height:.9;letter-spacing:-.065em;font-weight:780}.name{margin:15px 0 0;color:#dbe4ef;font-size:15px;font-weight:650}.hint{margin:8px auto 0;max-width:320px;color:var(--muted);font-size:12.5px;line-height:1.45}
+    .fallback{width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:14px;padding-top:16px;border-top:1px solid rgba(255,255,255,.09)}.qrwrap{text-align:left}.qrlabel{display:block;margin-bottom:6px;font:700 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#8594a8}.qr{width:80px;height:80px;background:white;border-radius:11px;padding:6px}.mini{text-align:right}.mini strong{display:block;font-size:13px}.mini span{display:block;margin-top:5px;color:#8190a4;font:600 10px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace}.wake{margin-top:9px;border:0;background:none;color:#98a9bd;font:650 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;padding:8px;cursor:pointer}
+    @media(prefers-reduced-motion:reduce){.ring{animation:none}.ring:nth-child(n+2){display:none}.ring{width:84%;height:84%;opacity:.45}}
+  </style>
+</head>
+<body>
+  <main class="screen">
+    <div class="status"><span>CET 2026 // CONNECT MODE</span><span class="live"><i></i>NFC READY*</span></div>
+    <section class="center">
+      <div class="pulse" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><div class="nfc"><svg viewBox="0 0 64 64"><path d="M21 18c7-7 17-7 24 0M25 23c5-5 11-5 16 0M29 28c2-2 4-2 6 0M32 31v15"/><path d="M17 14c-10 10-10 26 0 36" opacity=".52"/></svg></div></div>
+      <p class="overline">Touch phones</p><h1>TAP TO<br />CONNECT</h1><p class="name">Abhijith Sivaprasadan</p>
+      <p class="hint">Hold the back/top of the other phone against the rear of this phone. If NFC handoff does not trigger, scan the code below.</p>
+      <button class="wake" id="wake">Keep display awake</button>
+    </section>
+    <div class="fallback"><div class="qrwrap"><span class="qrlabel">Fallback // scan</span><img class="qr" src="card-qr.svg" alt="QR code opening Abhijith Sivaprasadan's digital card" /></div><div class="mini"><strong>Thermal &amp; Energy Systems</strong><span>LINKEDIN · CONTACT · GITHUB<br />abhijith-sivaprasadan.github.io/tap</span></div></div>
+  </main>
+  <script>let lock;const b=document.getElementById('wake');b.addEventListener('click',async()=>{try{if('wakeLock' in navigator){lock=await navigator.wakeLock.request('screen');b.textContent='Display will stay awake';}}catch(e){b.textContent='Wake lock unavailable';}});</script>
+</body>
+</html>
