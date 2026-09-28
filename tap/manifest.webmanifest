@@ -1,0 +1,10 @@
+{
+  "name": "Abhijith Sivaprasadan — Digital Card",
+  "short_name": "Abhijith Card",
+  "start_url": "/tap/?event=cet2026",
+  "scope": "/tap/",
+  "display": "standalone",
+  "background_color": "#070a12",
+  "theme_color": "#070a12",
+  "description": "NFC-ready digital business card for Abhijith Sivaprasadan"
+}

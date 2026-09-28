@@ -1,0 +1,15 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Sivaprasadan;Abhijith;;;
+FN:Abhijith Sivaprasadan
+TITLE:Thermal & Energy Systems Engineer
+EMAIL;TYPE=INTERNET:abhijithsivaprasadan@gmail.com
+URL:https://abhijith-sivaprasadan.github.io/
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/abhijith-sivaprasadan/
+X-SOCIALPROFILE;TYPE=github:https://github.com/abhijith-sivaprasadan
+X-SOCIALPROFILE;TYPE=orcid:https://orcid.org/0009-0009-8429-1266
+PHOTO;VALUE=URI:https://abhijith-sivaprasadan.github.io/assets/headshot.webp
+NOTE:Thermal engineering · energy systems · R&D. Sustainable Energy Engineering · KTH.
+CATEGORIES:Engineering,Energy,Thermal,R&D
+REV:20260928T090000Z
+END:VCARD
