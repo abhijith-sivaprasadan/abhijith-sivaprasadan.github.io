@@ -3,167 +3,365 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <meta name="description" content="Kerala2040 by Abhijith Sivaprasadan: a diagnosis-first open research project on Kerala power-system stress using audited electricity data, ERA5-sensitive demand, hydro and transfer sensitivities, public-network screening, PyPSA, OSeMOSYS and GIS." />
-  <meta property="og:title" content="Kerala2040 · Power System Under Stress | Abhijith Sivaprasadan" />
-  <meta property="og:description" content="Demand, hydropower timing, import dependence, internal transmission constraints and evidence provenance in an open Kerala power-system resilience study." />
+  <meta name="description" content="Kerala2040 by Abhijith Sivaprasadan: an academic case study of Kerala power-system stress using audited electricity data, ERA5-sensitive demand, hydro and transfer sensitivities, public-network screening, PyPSA, OSeMOSYS and GIS." />
+  <meta property="og:title" content="Kerala2040 · Academic Research Case Study | Abhijith Sivaprasadan" />
+  <meta property="og:description" content="A diagnosis-first research case study of demand chronology, hydropower timing, import dependence, network constraints and evidence provenance in Kerala's electricity system." />
   <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-pypsa-grid.svg" />
+  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png" />
   <meta property="og:url" content="https://abhijith-sivaprasadan.github.io/projects/kerala2040.html" />
   <link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/kerala2040.html" />
-  <title>Kerala2040 · Power System Under Stress | Abhijith Sivaprasadan</title>
+
+  <title>Kerala2040 · Academic Research Case Study | Abhijith Sivaprasadan</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../styles.css?v=20260930-kerala2040" />
-  <link rel="stylesheet" href="../styles/v4.css?v=20260930-kerala2040" />
-  <style>@media(max-width:540px){.button-row .button{min-height:44px;display:inline-flex;align-items:center}}</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
+
+  <link rel="stylesheet" href="../styles.css?v=20260930-kerala-paper" />
+  <link rel="stylesheet" href="../styles/motion.css?v=20260930-kerala-paper" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260930-kerala-paper" />
+
+  <script src="../scripts/public-config.js?v=20260930-kerala-paper"></script>
+  <script src="../scripts/motion/sw-register.js?v=20260930-kerala-paper" defer></script>
+  <script src="../scripts/animations.js?v=20260930-kerala-paper" defer></script>
+  <script src="../scripts/sections/command-palette.js?v=20260930-kerala-paper" defer></script>
+  <script src="../scripts/sections/whiteprint.js?v=20260930-kerala-paper" defer></script>
+  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ResearchProject",
+    "name": "Kerala2040",
+    "url": "https://abhijith-sivaprasadan.github.io/projects/kerala2040.html",
+    "sameAs": [
+      "https://kerala2040.github.io/",
+      "https://github.com/abhijith-sivaprasadan/kerala2040"
+    ],
+    "description": "Diagnosis-first open research on Kerala power-system stress using audited electricity records, weather-sensitive chronology, hydropower and transfer sensitivities, public-network screening, PyPSA, OSeMOSYS and GIS.",
+    "researcher": {
+      "@type": "Person",
+      "@id": "https://abhijith-sivaprasadan.github.io/#person",
+      "name": "Abhijith Sivaprasadan"
+    },
+    "keywords": "Kerala power system, electricity demand, hydropower, PyPSA, OSeMOSYS, ERA5, transmission screening, power-system resilience",
+    "dateCreated": "2026",
+    "dateModified": "2026-09-30"
+  }
+  </script>
+
+  <style>
+    .kerala-evidence-table{width:100%;border-collapse:collapse;margin-top:18px;font-size:.93rem}
+    .kerala-evidence-table th,.kerala-evidence-table td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line,rgba(22,34,42,.14))}
+    .kerala-evidence-table th{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+    .kerala-evidence-table td:first-child{font-weight:650;white-space:nowrap}
+    .kerala-method-list{display:grid;gap:14px;margin-top:18px}
+    .kerala-method-list article{padding-top:14px;border-top:1px solid var(--line,rgba(22,34,42,.14))}
+    .kerala-method-list h3{margin:0 0 6px;font-size:1rem}
+    .kerala-method-list p{margin:0}
+    .kerala-link-list{display:grid;gap:10px;margin:18px 0 0;padding:0;list-style:none}
+    .kerala-link-list a{text-decoration:none}
+    .kerala-link-list a:hover{text-decoration:underline}
+    @media(max-width:760px){
+      .kerala-evidence-table{display:block;overflow-x:auto}
+      .kerala-evidence-table td:first-child{white-space:normal}
+    }
+  </style>
 </head>
-<body class="signal-rebuild" data-page-key="kerala2040">
+
+<body class="signal-rebuild" data-page-key="case-study" data-paper>
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
   <header class="site-header">
     <nav class="nav container">
       <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
       <div class="nav-links">
         <a href="../research.html">Research</a>
         <a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a>
         <a href="../projects.html">Projects</a>
-        <a href="../skills/index.html">Expertise</a>
+        <a href="../experience.html">Experience</a>
+        <a href="../courses.html">Courses</a>
         <a href="../cet2026/">CET 2026</a>
         <a href="../index.html#contact">Contact</a>
       </div>
+      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
     </nav>
   </header>
 
-  <main id="main" tabindex="-1">
-    <section class="page-shell research-shell">
-      <div class="container page-shell-grid">
-        <div>
-          <div class="hero-slab">
-            <p class="eyebrow">Independent open-source research · Power-system resilience · 2026</p>
-            <h1>Kerala2040</h1>
-            <p class="hero-text">A diagnosis-first investigation of why Kerala's electricity system becomes stressed: separating annual energy, difficult hours, hydropower timing, external transfer availability and internal transmission constraints before prescribing future infrastructure.</p>
-            <div class="button-row">
-              <a class="button primary" href="https://kerala2040.github.io/">Open public research site</a>
-              <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/kerala2040">Source &amp; evidence</a>
-              <a class="button secondary" href="../energy-systems.html">Energy-systems profile</a>
-            </div>
-          </div>
+  <div class="paper-bar" aria-label="Whiteprint reading mode">
+    <a class="paper-back" href="../projects.html">&larr; back to field</a>
+    <button class="paper-search" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
+  </div>
+  <div class="paper-progress" aria-hidden="true"></div>
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Research question</p>
-              <h2>What actually makes the system vulnerable during stressed periods?</h2>
-            </div>
-            <div class="page-panel">
-              <p>Kerala2040 began as a broad future-energy-pathways project, but the accumulated evidence pointed to a more useful first question: whether Kerala's vulnerability comes from annual energy scarcity, the timing and shape of peak demand, hydropower availability, interstate transfers, internal transmission, siting constraints, or an interaction among them. The project therefore diagnoses the present system before testing 2040 responses.</p>
-              <p>The study does <strong>not</strong> claim to reconstruct the exact cause of a particular 2026 load-shedding event. Public data are not sufficient for that event-level operational post-mortem.</p>
-            </div>
-          </section>
-
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Evidence architecture</p>
-              <h2>Observation, derivation and modelling stay separate.</h2>
-            </div>
-            <div class="cards two">
-              <article class="card"><h3>1 · Observed / source reported</h3><p>Official electricity statistics, SLDC daily records, published transfer values, source-backed network records and other public evidence are retained with provenance rather than silently filled.</p></article>
-              <article class="card"><h3>2 · Derived from observations</h3><p>Matched-date growth measures, weather-sensitive chronology, network crosswalks and other derived quantities remain traceable to their underlying records.</p></article>
-              <article class="card"><h3>3 · Screening models</h3><p>PyPSA, OSeMOSYS, hydro-timing and network sensitivities test mechanisms and robustness. Solver agreement or sensitivity does not become a claim of physical validation.</p></article>
-              <article class="card"><h3>4 · Candidate responses</h3><p>Storage, flexibility, renewable and infrastructure ideas are treated as hypotheses to test after the vulnerability is identified, not as predetermined answers.</p></article>
-            </div>
-          </section>
-
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Selected findings</p>
-              <h2>The emerging story is about timing, transfers and internal constraints.</h2>
-            </div>
-            <div class="page-panel">
-              <ul class="clean-list">
-                <li><strong>Demand growth:</strong> official broad electricity consumption rises from 22,540.32 MU in FY2020–21 to 29,311.76 MU in FY2024–25. The separately audited SLDC archive shows a 24.1% increase in daily consumption across 356 matched calendar dates between FY2020–21 and FY2025–26.</li>
-                <li><strong>Weather-sensitive chronology:</strong> the 8,760-hour reconstruction preserves all 354 observed FY2024–25 daily SLDC energy totals exactly; 11 missing days remain explicitly model-only. On held-out January–March 2025 extrema, MAE improves from 367.9 MW for the old fixed shape to 124.9 MW, while correlation rises from 0.659 to 0.968. This is improved chronology, not continuous measured-hour validation.</li>
-                <li><strong>Hydro timing:</strong> in the reference-demand / 4,455 MW transfer-capability screening case, shifting the same daily hydro MWh within the day reduces modelled unserved energy from about 375.03 GWh to 11.75 GWh, a 96.87% reduction. This is a timing sensitivity, not a reservoir operating rule.</li>
-                <li><strong>External transfer:</strong> reducing the assumed interstate transfer ceiling from the dated 4,455 MW ATC benchmark produces much larger stress in the adequacy screens. Renewable additions and hydro flexibility help, but severe transfer constraints can still dominate.</li>
-                <li><strong>Internal network:</strong> a public-data screen tests 233 source-backed primary lines under eight radically different residual-import allocations. Twenty-one lines remain overloaded in all eight cases, forming 12 robust corridor groups; Shornur 220/110 kV remains the strongest multi-voltage hotspot in this screening framework.</li>
-              </ul>
-            </div>
-          </section>
-
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Working synthesis</p>
-              <h2>Not one simple statewide annual-energy deficit.</h2>
-            </div>
-            <div class="page-panel">
-              <p><strong>The current evidence supports a working explanation:</strong> Kerala's susceptibility to power-system stress appears to come from the interaction of weather-sensitive peak demand, dependence on external electricity, hydropower timing and availability, and internal transmission constraints.</p>
-              <p>Ecology, terrain, water systems, settlements and hazards enter as constraints on future responses. A model can identify a system need; it does not automatically establish that a new line, generator or storage project is legally, environmentally or physically feasible.</p>
-            </div>
-          </section>
-
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Methods &amp; reproducibility</p>
-              <h2>One research stack, multiple independent checks.</h2>
-            </div>
-            <div class="cards two">
-              <article class="card"><h3>Historical electricity</h3><p>SLDC and other official/public records are audited before use, with missing dates and accounting-boundary differences kept visible.</p></article>
-              <article class="card"><h3>Weather &amp; chronology</h3><p>ERA5 variables support a weather-sensitive hourly demand reconstruction while preserving observed daily energy totals where those observations exist.</p></article>
-              <article class="card"><h3>Power-system screening</h3><p>PyPSA adequacy, transfer and flexibility experiments are cross-checked against an OSeMOSYS implementation where applicable, using open solvers and explicit assumptions.</p></article>
-              <article class="card"><h3>Network, hydro &amp; GIS</h3><p>Public network reconstruction, Idukki/hydro studies, official boundaries, terrain and ecological/hazard layers provide spatial and physical context around the system models.</p></article>
-            </div>
-            <div class="tag-row" style="margin-top:18px;"><span>Python</span><span>PyPSA</span><span>OSeMOSYS</span><span>HiGHS</span><span>ERA5</span><span>GIS</span><span>pandas</span><span>pytest</span><span>CI</span><span>Evidence provenance</span></div>
-          </section>
-
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Limitations</p>
-              <h2>Screening evidence is not an operational planning study.</h2>
-            </div>
-            <div class="page-panel">
-              <ul class="clean-list">
-                <li>The reconstructed 8,760-hour demand series is not measured hourly telemetry.</li>
-                <li>Hydro-flexibility results are sensitivities, not validated reservoir rule curves; the current Idukki water-balance residual is not observed catchment inflow.</li>
-                <li>Public-network overloads are robustness screens, not calibrated AC load-flow, N-1 security results, upgrade MW or investment prescriptions.</li>
-                <li>Solar/wind profiles are resource proxies rather than a fully calibrated statewide future fleet.</li>
-                <li>Statutory siting constraints are not yet legally complete, and a full least-cost/reliability investment optimisation remains future work.</li>
-                <li>PyPSA ↔ OSeMOSYS numerical agreement checks implementation consistency; it does not prove physical truth.</li>
-              </ul>
-            </div>
-          </section>
-
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Go deeper</p>
-              <h2>The portfolio page is the map; the project repository is the evidence room.</h2>
-            </div>
-            <div class="button-row">
-              <a class="button primary" href="https://kerala2040.github.io/">Explore the public research site</a>
-              <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/kerala2040/blob/main/docs/POWER_SYSTEM_STRESS_SYNTHESIS_2026_09_28.md">Research synthesis</a>
-              <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/kerala2040/blob/main/docs/evidence_register.md">Evidence register</a>
-              <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/kerala2040">GitHub repository</a>
-            </div>
-          </section>
+  <main id="main" class="paper-doc paper-develop" tabindex="-1">
+    <section class="case-hero thesis-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Independent research · Kerala power-system resilience · 2026</p>
+        <h1>Kerala2040: diagnosing power-system stress before prescribing infrastructure.</h1>
+        <p class="hero-text">
+          An open, diagnosis-first investigation of whether Kerala's electricity-system stress is primarily driven by annual energy, difficult hours, hydropower timing, dependence on external transfers, internal transmission constraints, or the interaction among them.
+        </p>
+        <div class="button-row">
+          <a class="button primary" href="https://kerala2040.github.io/" target="_blank" rel="noopener">Open public research site</a>
+          <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/kerala2040" target="_blank" rel="noopener">Source &amp; evidence</a>
+          <a class="button secondary" href="#numerical-evidence">View numerical evidence</a>
         </div>
 
-        <aside class="content-rail">
-          <div class="page-panel">
-            <p class="eyebrow">Quick links</p>
-            <ul class="clean-list">
-              <li><a href="https://kerala2040.github.io/">Kerala2040 public site</a></li>
-              <li><a href="https://github.com/abhijith-sivaprasadan/kerala2040">Source &amp; evidence</a></li>
-              <li><a href="../tracks/energy-modelling.html">Energy-modelling track</a></li>
-              <li><a href="../tracks/research.html">Research / PhD track</a></li>
-              <li><a href="../skills/energy-systems.html">Energy-systems evidence</a></li>
-              <li><a href="../cet2026/">CET 2026 quick profile</a></li>
-              <li><a href="../projects.html">All projects</a></li>
+        <div class="result-metric-row thesis-kpis">
+          <span class="result-metric-card"><strong>8,760 h</strong><small>weather-sensitive chronology</small></span>
+          <span class="result-metric-card"><strong>96.87%</strong><small>hydro-timing sensitivity reduction</small></span>
+          <span class="result-metric-card"><strong>233</strong><small>source-backed primary lines screened</small></span>
+          <span class="result-metric-card"><strong>2 frameworks</strong><small>PyPSA ↔ OSeMOSYS cross-check</small></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section subtle">
+      <div class="container research-case-layout">
+        <aside class="case-panel thesis-sidebar">
+          <h2>Project snapshot</h2>
+          <ul>
+            <li><strong>Research type:</strong> independent open-source power-system study</li>
+            <li><strong>Geography:</strong> Kerala, India</li>
+            <li><strong>Primary question:</strong> what mechanisms produce system stress during difficult periods?</li>
+            <li><strong>Observed data:</strong> SLDC and other official/public electricity records</li>
+            <li><strong>Weather data:</strong> ERA5</li>
+            <li><strong>System models:</strong> PyPSA and OSeMOSYS</li>
+            <li><strong>Spatial work:</strong> public network reconstruction, GIS, hydro and environmental context</li>
+            <li><strong>Tools:</strong> Python, pandas, HiGHS, pytest, CI</li>
+          </ul>
+
+          <div class="published-thesis-card">
+            <p class="eyebrow">Evidence boundary</p>
+            <h3>Screening study, not an operational planning model.</h3>
+            <p>
+              Public data support mechanism testing and robustness screening. They do not support a claim of calibrated AC load-flow accuracy, event-level dispatch reconstruction, validated reservoir operation, or an investment prescription.
+            </p>
+          </div>
+
+          <div class="published-thesis-card">
+            <p class="eyebrow">Research record</p>
+            <ul class="kerala-link-list">
+              <li><a href="https://kerala2040.github.io/" target="_blank" rel="noopener">Public research site</a></li>
+              <li><a href="https://github.com/abhijith-sivaprasadan/kerala2040" target="_blank" rel="noopener">GitHub repository</a></li>
+              <li><a href="https://github.com/abhijith-sivaprasadan/kerala2040/blob/main/docs/POWER_SYSTEM_STRESS_SYNTHESIS_2026_09_28.md" target="_blank" rel="noopener">Power-system stress synthesis</a></li>
+              <li><a href="https://github.com/abhijith-sivaprasadan/kerala2040/blob/main/docs/evidence_register.md" target="_blank" rel="noopener">Evidence register</a></li>
             </ul>
           </div>
-          <div class="page-panel">
-            <p class="eyebrow">Evidence boundary</p>
-            <p>Independent research project by Abhijith Sivaprasadan. CET 2026 / KTH describes presentation and educational context; it does not imply institutional endorsement of the findings.</p>
-          </div>
         </aside>
+
+        <article class="case-panel thesis-case">
+          <section>
+            <p class="eyebrow">Problem statement</p>
+            <h2>Why a diagnosis-first study is necessary.</h2>
+            <p>
+              Kerala2040 began as a broad future-energy-pathways project. As the evidence base expanded, a more basic problem became clear: a future infrastructure prescription is difficult to defend until the present vulnerability is separated into its constituent mechanisms.
+            </p>
+            <p>
+              Annual electricity balance alone cannot distinguish a system that lacks energy from one that becomes constrained during particular hours, seasons, hydro conditions, transfer states or network configurations. The project therefore treats demand chronology, hydropower, external transfers and the internal network as separate but interacting hypotheses.
+            </p>
+          </section>
+
+          <section>
+            <p class="eyebrow">Research question</p>
+            <h2>The question tested by the current project.</h2>
+            <p class="research-question">
+              Is Kerala's present power-system vulnerability better explained by annual energy scarcity, the timing and shape of demand, hydropower availability, interstate transfer dependence, internal transmission constraints, or an interaction among these mechanisms?
+            </p>
+            <p>
+              The project does not claim to reconstruct the exact cause of a particular 2026 load-shedding event. The available public data are insufficient for an event-level operational post-mortem.
+            </p>
+          </section>
+
+          <section>
+            <p class="eyebrow">Evidence architecture</p>
+            <h2>Observation, derivation and modelling are kept separate.</h2>
+            <div class="cards two method-cards">
+              <article class="card">
+                <h3>Observed / source reported</h3>
+                <p>Official electricity statistics, SLDC daily records, published transfer values and source-backed network records are retained with provenance and missingness visible.</p>
+              </article>
+              <article class="card">
+                <h3>Derived from observations</h3>
+                <p>Matched-date growth, reconstructed chronology, crosswalks and other transformations remain traceable to the records from which they are derived.</p>
+              </article>
+              <article class="card">
+                <h3>Screening models</h3>
+                <p>PyPSA, OSeMOSYS, hydropower timing and network sensitivities are used to test mechanisms. Numerical agreement is treated as an implementation check, not physical validation.</p>
+              </article>
+              <article class="card">
+                <h3>Candidate responses</h3>
+                <p>Storage, renewable, flexibility and infrastructure options enter only after a vulnerability mechanism has been identified; they are not assumed to be the answer in advance.</p>
+              </article>
+            </div>
+          </section>
+
+          <section id="numerical-evidence">
+            <p class="eyebrow">Numerical evidence</p>
+            <h2>The strongest quantitative signals in the current study.</h2>
+
+            <table class="kerala-evidence-table">
+              <thead>
+                <tr>
+                  <th>Question</th>
+                  <th>Current evidence</th>
+                  <th>Interpretation boundary</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Demand growth</td>
+                  <td>Official broad electricity consumption rises from 22,540.32 MU in FY2020–21 to 29,311.76 MU in FY2024–25. The audited SLDC archive shows 24.1% growth across 356 matched calendar dates between FY2020–21 and FY2025–26.</td>
+                  <td>Accounting boundaries differ between official series; the matched-date result is kept separate from annual totals.</td>
+                </tr>
+                <tr>
+                  <td>Hourly chronology</td>
+                  <td>The 8,760-hour reconstruction preserves all 354 observed FY2024–25 daily energy totals exactly; 11 missing days remain model-only. On held-out Jan–Mar 2025 extrema, MAE improves from 367.9 MW to 124.9 MW and correlation from 0.659 to 0.968.</td>
+                  <td>This is improved chronology reconstruction, not continuous measured-hour validation.</td>
+                </tr>
+                <tr>
+                  <td>Hydro timing</td>
+                  <td>In the reference-demand / 4,455 MW transfer-capability screening case, shifting the same daily hydro MWh within the day reduces modelled unserved energy from about 375.03 GWh to 11.75 GWh.</td>
+                  <td>A 96.87% timing sensitivity, not a validated reservoir operating rule.</td>
+                </tr>
+                <tr>
+                  <td>External transfer</td>
+                  <td>Stress rises sharply when the assumed interstate-transfer ceiling is reduced below the dated 4,455 MW ATC benchmark.</td>
+                  <td>Transfer values are scenario assumptions tied to dated public benchmarks, not a real-time capability forecast.</td>
+                </tr>
+                <tr>
+                  <td>Internal network</td>
+                  <td>Across eight radically different residual-import allocations, 21 of 233 source-backed primary lines remain overloaded in every case, forming 12 robust corridor groups.</td>
+                  <td>A robustness screen, not calibrated AC load-flow or N-1 security analysis.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section>
+            <p class="eyebrow">Network result</p>
+            <h2>Robustness matters more than a single assumed import allocation.</h2>
+            <p>
+              A public-data network screen cannot reproduce system-operator state estimation. To reduce dependence on one arbitrary spatial allocation, the study instead tests eight deliberately different residual-import distributions. Lines that overload only under one allocation are weak evidence. Lines that overload across all eight allocations are more useful as candidates for further investigation.
+            </p>
+            <p>
+              Twenty-one lines remain overloaded in all eight cases, forming 12 robust corridor groups. Shornur 220/110 kV is the strongest multi-voltage hotspot in this screening framework. The result identifies where better data and engineering study would be most valuable; it does not establish an upgrade prescription.
+            </p>
+          </section>
+
+          <section>
+            <p class="eyebrow">Methodology</p>
+            <h2>One research stack, several independent checks.</h2>
+            <div class="kerala-method-list">
+              <article>
+                <h3>Historical electricity audit</h3>
+                <p>SLDC and other official/public records are checked before modelling. Missing dates, duplicated records and accounting-boundary differences are preserved rather than silently repaired.</p>
+              </article>
+              <article>
+                <h3>Weather-sensitive chronology</h3>
+                <p>ERA5 variables support an hourly demand reconstruction while observed daily SLDC energy totals are preserved where they exist. Model-only days remain explicitly marked.</p>
+              </article>
+              <article>
+                <h3>Adequacy and flexibility screening</h3>
+                <p>PyPSA tests demand, transfer, renewable and hydro-flexibility mechanisms. Where applicable, an independently implemented OSeMOSYS formulation provides a numerical consistency check.</p>
+              </article>
+              <article>
+                <h3>Network robustness</h3>
+                <p>Public network records are reconstructed and stressed under multiple residual-import allocations to identify corridors that remain problematic despite allocation uncertainty.</p>
+              </article>
+              <article>
+                <h3>Hydro and spatial context</h3>
+                <p>Hydro, terrain, official boundaries, ecological layers and hazard information are used to constrain interpretation of future responses rather than being treated as decorative GIS layers.</p>
+              </article>
+            </div>
+            <div class="tag-row" style="margin-top:18px;">
+              <span>Python</span><span>PyPSA</span><span>OSeMOSYS</span><span>HiGHS</span><span>ERA5</span><span>GIS</span><span>pandas</span><span>pytest</span><span>CI</span><span>Evidence provenance</span>
+            </div>
+          </section>
+
+          <section>
+            <p class="eyebrow">Working synthesis</p>
+            <h2>The evidence does not support one simple statewide annual-energy explanation.</h2>
+            <p>
+              The current evidence supports a more conditional interpretation: Kerala's susceptibility to power-system stress appears to emerge from the interaction of weather-sensitive peak demand, dependence on external electricity, hydropower timing and availability, and internal transmission constraints.
+            </p>
+            <p>
+              That distinction matters because different mechanisms imply different responses. More annual renewable energy does not automatically solve a transfer bottleneck, a difficult evening peak, a constrained corridor or a hydropower-timing problem.
+            </p>
+          </section>
+
+          <section>
+            <p class="eyebrow">Interpretation</p>
+            <h2>What this study can and cannot support.</h2>
+            <div class="thesis-comparison-grid">
+              <article>
+                <span class="comparison-label">Supported</span>
+                <strong>Mechanism screening and robustness testing.</strong>
+                <p>Public data are sufficient to test whether chronology, transfer assumptions, hydro timing and network allocation materially change system stress.</p>
+              </article>
+              <article>
+                <span class="comparison-label">Not supported</span>
+                <strong>Operational reconstruction or definitive investment prescriptions.</strong>
+                <p>The current evidence base cannot reproduce dispatch-room state estimation, validated reservoir operation, N-1 security or legally complete siting analysis.</p>
+              </article>
+            </div>
+          </section>
+
+          <section>
+            <p class="eyebrow">Limitations and future work</p>
+            <h2>Where stronger data or modelling would change the confidence level.</h2>
+            <div class="cards two">
+              <article class="card">
+                <h3>Demand telemetry</h3>
+                <p>The 8,760-hour series is reconstructed from daily observations and weather-sensitive shape information; it is not measured statewide hourly telemetry.</p>
+              </article>
+              <article class="card">
+                <h3>Hydro operation</h3>
+                <p>Hydro-flexibility results are sensitivities rather than validated reservoir rule curves. The present Idukki water-balance residual is not observed catchment inflow.</p>
+              </article>
+              <article class="card">
+                <h3>Transmission model</h3>
+                <p>Public-network overloads are screening results, not calibrated AC power flow, contingency analysis, upgrade sizing or investment evidence.</p>
+              </article>
+              <article class="card">
+                <h3>Future system design</h3>
+                <p>Renewable profiles remain resource proxies, statutory siting constraints are incomplete, and a full least-cost reliability expansion model remains future work.</p>
+              </article>
+            </div>
+          </section>
+
+          <section>
+            <p class="eyebrow">Research conclusion</p>
+            <h2>The useful result is a narrower question for the next model.</h2>
+            <p>
+              Kerala2040 does not currently conclude that one technology or one infrastructure project is the answer. Its main contribution is to reduce the space of plausible explanations and show where the next layer of evidence should be collected.
+            </p>
+            <p>
+              The next research step is therefore not a larger scenario catalogue for its own sake. It is a better-constrained model of difficult hours, transfer dependence, hydro flexibility and robust internal corridors, followed by candidate responses tested against those identified mechanisms.
+            </p>
+
+            <div class="button-row" style="margin-top:22px;">
+              <a class="button primary" href="https://kerala2040.github.io/" target="_blank" rel="noopener">Open full research site</a>
+              <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/kerala2040/blob/main/docs/evidence_register.md" target="_blank" rel="noopener">Evidence register</a>
+              <a class="button secondary" href="../tracks/energy-modelling.html">Energy-systems track</a>
+            </div>
+          </section>
+        </article>
       </div>
     </section>
   </main>
-  <footer class="footer"><div class="container"><p>&copy; 2026 Abhijith Sivaprasadan. <a href="../index.html">Full portfolio</a>.</p></div></footer>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Abhijith Sivaprasadan. Independent research project. <a href="../index.html">Full portfolio</a>.</p>
+    </div>
+  </footer>
+
+  <script src="../scripts/site.js?v=20260930-kerala-paper"></script>
 </body>
 </html>
