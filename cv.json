@@ -9,10 +9,14 @@
   "url": "https://abhijith-sivaprasadan.github.io/",
   "email": "mailto:abhijithsivaprasadan@gmail.com",
   "jobTitle": "Thermal-Fluid and Energy Systems Engineer",
-  "description": "M.Sc. Sustainable Energy Engineering candidate at KTH Royal Institute of Technology with research-grade experience in compressible CFD, conjugate heat transfer, energy systems modelling and industrial decarbonisation methodology.",
+  "description": "M.Sc. Sustainable Energy Engineering graduate from KTH Royal Institute of Technology with research and industrial experience in compressible CFD, conjugate heat transfer, energy systems modelling, experimental methods and industrial decarbonisation.",
   "homeLocation": {
     "@type": "Place",
-    "address": { "@type": "PostalAddress", "addressLocality": "Stockholm", "addressCountry": "SE" }
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Stockholm",
+      "addressCountry": "SE"
+    }
   },
   "alumniOf": [
     {
@@ -20,19 +24,41 @@
       "name": "KTH Royal Institute of Technology",
       "department": "Department of Energy Technology",
       "url": "https://www.kth.se/",
-      "memberOf": { "@type": "EducationalOccupationalProgram", "name": "M.Sc. Sustainable Energy Engineering" }
+      "memberOf": {
+        "@type": "EducationalOccupationalProgram",
+        "name": "M.Sc. Sustainable Energy Engineering"
+      }
     },
     {
       "@type": "CollegeOrUniversity",
       "name": "College of Engineering Perumon",
-      "memberOf": { "@type": "EducationalOccupationalProgram", "name": "B.Tech Mechanical Engineering" }
+      "memberOf": {
+        "@type": "EducationalOccupationalProgram",
+        "name": "B.Tech Mechanical Engineering"
+      }
     }
   ],
   "knowsLanguage": [
-    { "@type": "Language", "name": "English", "alternateName": "en" },
-    { "@type": "Language", "name": "Swedish", "alternateName": "sv" },
-    { "@type": "Language", "name": "Malayalam", "alternateName": "ml" },
-    { "@type": "Language", "name": "Hindi", "alternateName": "hi" }
+    {
+      "@type": "Language",
+      "name": "English",
+      "alternateName": "en"
+    },
+    {
+      "@type": "Language",
+      "name": "Swedish",
+      "alternateName": "sv"
+    },
+    {
+      "@type": "Language",
+      "name": "Malayalam",
+      "alternateName": "ml"
+    },
+    {
+      "@type": "Language",
+      "name": "Hindi",
+      "alternateName": "hi"
+    }
   ],
   "knowsAbout": [
     "Conjugate heat transfer",
@@ -58,7 +84,11 @@
     {
       "@type": "Role",
       "roleName": "M.Sc. Thesis — CFD/CHT engineer",
-      "memberOf": { "@type": "Organization", "name": "Siemens Energy AB", "address": "Finspång, Sweden" },
+      "memberOf": {
+        "@type": "Organization",
+        "name": "Siemens Energy AB",
+        "address": "Finspång, Sweden"
+      },
       "startDate": "2025-04",
       "endDate": "2025-11",
       "description": "Compressible CFD with conjugate heat transfer for a high-temperature pressure-sensor calibration rig. TRITA-ITM-EX 2026:14."
@@ -66,18 +96,29 @@
     {
       "@type": "Role",
       "roleName": "Energy efficiency methodology engineer",
-      "memberOf": { "@type": "Organization", "name": "Alleima AB", "address": "Sweden" },
+      "memberOf": {
+        "@type": "Organization",
+        "name": "Alleima AB",
+        "address": "Sweden"
+      },
       "description": "ISO 50001 / EU EED-aligned industrial energy performance mapping, load-driver regression and metering-readiness assessment."
     },
     {
       "@type": "Role",
       "roleName": "Backend engineer",
-      "memberOf": { "@type": "Organization", "name": "QBurst Technologies", "address": "Kerala, India" }
+      "memberOf": {
+        "@type": "Organization",
+        "name": "QBurst Technologies",
+        "address": "Kerala, India"
+      }
     },
     {
       "@type": "Role",
       "roleName": "Pyrolysis research intern",
-      "memberOf": { "@type": "Organization", "name": "KTH Royal Institute of Technology" }
+      "memberOf": {
+        "@type": "Organization",
+        "name": "KTH Royal Institute of Technology"
+      }
     }
   ],
   "identifier": {
@@ -103,7 +144,7 @@
   },
   "_meta": {
     "schema": "https://schema.org/Person",
-    "generatedAt": "2026-05-25",
+    "generatedAt": "2026-09-30",
     "versions": {
       "research_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_CV_PhD_Academic.pdf",
       "energy_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_CV_EnergyCoordinator.pdf",
