@@ -69,8 +69,9 @@
           </div>
         </div>
 
-        <div class="system-map" aria-label="Diagram connecting thermal engineering, energy systems and nuclear engineering">
-          <svg viewBox="0 0 520 520" role="img" aria-label="Technical map linking thermal, systems and nuclear research">
+        <div class="system-map" data-active="thermal" aria-label="Interactive map connecting thermal engineering, energy systems and nuclear engineering">
+          <p class="map-prompt">Select a domain</p>
+          <svg viewBox="0 0 520 520" role="group" aria-label="Choose Thermal, Systems or Nuclear to surface the relevant work">
             <defs>
               <linearGradient id="heat" x1="0" x2="1">
                 <stop offset="0" stop-color="#d96b45"/>
@@ -83,20 +84,51 @@
             <path class="flow-path p1" d="M58,288 C150,170 238,175 330,248 S448,364 484,222"/>
             <path class="flow-path p2" d="M74,356 C150,300 204,315 252,388 S378,414 448,338"/>
             <path class="flow-path hot" d="M92,174 C168,228 210,219 264,140 S402,92 448,154"/>
-            <circle class="node thermal" cx="116" cy="196" r="9"/>
-            <circle class="node systems" cx="262" cy="390" r="9"/>
-            <circle class="node nuclear" cx="418" cy="166" r="9"/>
+
+            <line class="topic-link link-thermal" x1="260" y1="260" x2="116" y2="196"/>
+            <line class="topic-link link-systems" x1="260" y1="260" x2="262" y2="390"/>
+            <line class="topic-link link-nuclear" x1="260" y1="260" x2="418" y2="166"/>
+
+            <g class="map-target is-active" data-map-topic="thermal" role="button" tabindex="0" aria-pressed="true" aria-label="Show thermal and experimental overlap">
+              <circle class="map-hit" cx="116" cy="196" r="34"/>
+              <circle class="node thermal" cx="116" cy="196" r="10"/>
+              <text x="72" y="164">THERMAL</text>
+            </g>
+
+            <g class="map-target" data-map-topic="systems" role="button" tabindex="0" aria-pressed="false" aria-label="Show energy systems overlap">
+              <circle class="map-hit" cx="262" cy="390" r="34"/>
+              <circle class="node systems" cx="262" cy="390" r="10"/>
+              <text x="205" y="438">SYSTEMS</text>
+            </g>
+
+            <g class="map-target" data-map-topic="nuclear" role="button" tabindex="0" aria-pressed="false" aria-label="Show nuclear overlap">
+              <circle class="map-hit" cx="418" cy="166" r="34"/>
+              <circle class="node nuclear" cx="418" cy="166" r="10"/>
+              <text x="382" y="132">NUCLEAR</text>
+            </g>
+
             <circle class="core" cx="260" cy="260" r="16"/>
             <line class="tick" x1="260" y1="42" x2="260" y2="66"/>
             <line class="tick" x1="260" y1="454" x2="260" y2="478"/>
             <line class="tick" x1="42" y1="260" x2="66" y2="260"/>
             <line class="tick" x1="454" y1="260" x2="478" y2="260"/>
-            <text x="74" y="178">THERMAL</text>
-            <text x="206" y="432">SYSTEMS</text>
-            <text x="384" y="146">NUCLEAR</text>
             <text class="core-label" x="260" y="264" text-anchor="middle">R&amp;D</text>
-            <text class="micro-label" x="28" y="505">physical systems / models / evidence</text>
+            <text class="micro-label" x="28" y="505">tap a domain → surface relevant evidence</text>
           </svg>
+
+          <div class="map-readout" aria-live="polite">
+            <div>
+              <p class="map-readout-label">Thermal &amp; experiments</p>
+              <strong class="map-readout-title">High-temperature hardware + thermal-fluid modelling</strong>
+              <span class="map-readout-copy">Siemens Energy rig work, CFD/CHT, instrumentation and experiment–model comparison.</span>
+            </div>
+            <div class="map-readout-proof">
+              <small>Evidence</small>
+              <strong>Siemens Energy thesis</strong>
+              <span>CFD/CHT · NI-DAQ · LabVIEW</span>
+            </div>
+            <a class="map-readout-link" href="#overlap">See thermal overlap ↓</a>
+          </div>
         </div>
       </aside>
     </div>
@@ -322,19 +354,77 @@
     (() => {
       const tabs = [...document.querySelectorAll('.topic-tab')];
       const panels = [...document.querySelectorAll('.topic-panel')];
-      const activate = (topic, focus = false) => {
+      const mapTargets = [...document.querySelectorAll('.map-target')];
+      const map = document.querySelector('.system-map');
+      const readoutLabel = document.querySelector('.map-readout-label');
+      const readoutTitle = document.querySelector('.map-readout-title');
+      const readoutCopy = document.querySelector('.map-readout-copy');
+      const readoutProof = document.querySelector('.map-readout-proof strong');
+      const readoutMethods = document.querySelector('.map-readout-proof span');
+      const readoutLink = document.querySelector('.map-readout-link');
+
+      const topicData = {
+        thermal: {
+          label: 'Thermal & experiments',
+          title: 'High-temperature hardware + thermal-fluid modelling',
+          copy: 'Siemens Energy rig work, CFD/CHT, instrumentation and experiment–model comparison.',
+          proof: 'Siemens Energy thesis',
+          methods: 'CFD/CHT · NI-DAQ · LabVIEW',
+          link: 'See thermal overlap ↓'
+        },
+        systems: {
+          label: 'Energy systems',
+          title: 'Power-system stress + flexibility + optimisation',
+          copy: 'Chronology, hydropower timing, transfer constraints, storage and network screening.',
+          proof: 'Kerala2040',
+          methods: 'PyPSA · OSeMOSYS · ERA5 · GIS',
+          link: 'See systems overlap ↓'
+        },
+        nuclear: {
+          label: 'Nuclear',
+          title: 'Thermal-hydraulics + cross-disciplinary nuclear R&D',
+          copy: 'Transferring heat-transfer, experimental and modelling depth into reactor systems while building the nuclear-specific layer.',
+          proof: 'Thermal / modelling base',
+          methods: 'Heat transfer · CFD · research software',
+          link: 'See nuclear overlap ↓'
+        }
+      };
+
+      const activate = (topic, options = {}) => {
+        const data = topicData[topic];
+        if (!data) return;
+
         tabs.forEach(tab => {
           const active = tab.dataset.topic === topic;
           tab.classList.toggle('is-active', active);
           tab.setAttribute('aria-selected', active ? 'true' : 'false');
-          if (active && focus) tab.focus();
+          if (active && options.focusTab) tab.focus();
         });
+
         panels.forEach(panel => {
           const active = panel.id === 'topic-' + topic;
           panel.classList.toggle('is-active', active);
           panel.hidden = !active;
         });
+
+        mapTargets.forEach(target => {
+          const active = target.dataset.mapTopic === topic;
+          target.classList.toggle('is-active', active);
+          target.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+
+        if (map) map.dataset.active = topic;
+        if (readoutLabel) readoutLabel.textContent = data.label;
+        if (readoutTitle) readoutTitle.textContent = data.title;
+        if (readoutCopy) readoutCopy.textContent = data.copy;
+        if (readoutProof) readoutProof.textContent = data.proof;
+        if (readoutMethods) readoutMethods.textContent = data.methods;
+        if (readoutLink) {
+          readoutLink.textContent = data.link;
+          readoutLink.href = '#overlap';
+        }
       };
+
       tabs.forEach((tab, index) => {
         tab.addEventListener('click', () => activate(tab.dataset.topic));
         tab.addEventListener('keydown', event => {
@@ -345,9 +435,21 @@
           if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
           if (event.key === 'Home') next = 0;
           if (event.key === 'End') next = tabs.length - 1;
-          activate(tabs[next].dataset.topic, true);
+          activate(tabs[next].dataset.topic, { focusTab: true });
         });
       });
+
+      mapTargets.forEach(target => {
+        const choose = () => activate(target.dataset.mapTopic);
+        target.addEventListener('click', choose);
+        target.addEventListener('keydown', event => {
+          if (event.key !== 'Enter' && event.key !== ' ') return;
+          event.preventDefault();
+          choose();
+        });
+      });
+
+      activate('thermal');
     })();
   </script>
 </body>
