@@ -32,7 +32,7 @@
         "Evidence provenance"
       ],
       "image": "assets/thumb-pypsa-grid.svg",
-      "caseStudyUrl": "https://kerala2040.github.io/",
+      "caseStudyUrl": "projects/kerala2040.html",
       "githubUrl": "https://github.com/abhijith-sivaprasadan/kerala2040",
       "highlights": [
         "Audited historical electricity evidence is combined with weather-sensitive chronology, hydro timing and interstate-transfer sensitivity studies.",
