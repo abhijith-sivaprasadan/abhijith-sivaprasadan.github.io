@@ -146,7 +146,14 @@
 
       <header class="overlap-head">
         <h2>What are you working on?</h2>
-        <p>Choose an angle. The page will show the most relevant part of my background first.</p>
+        <div class="overlap-tools">
+          <p>Choose an angle. The page will adapt the evidence and project routes around it.</p>
+          <button class="share-focus" type="button" data-share-focus>
+            <span>Focused view:</span>
+            <strong data-share-focus-name>Thermal &amp; experiments</strong>
+            <b>Share ↗</b>
+          </button>
+        </div>
       </header>
 
       <div class="topic-switcher" role="tablist" aria-label="Technical topics">
@@ -338,12 +345,12 @@
       </div>
 
       <div class="index-grid">
-        <a href="../tracks/thermal.html"><b>01</b><span>Thermal / CFD</span><small>Heat transfer · experiments · numerical methods</small><i>↗</i></a>
-        <a href="../tracks/energy-modelling.html"><b>02</b><span>Energy systems</span><small>Power · heat · storage · optimisation</small><i>↗</i></a>
-        <a href="../tracks/research.html"><b>03</b><span>Research / PhD</span><small>Questions · methods · publications</small><i>↗</i></a>
-        <a href="../tracks/software.html"><b>04</b><span>Research software</span><small>Python · modelling tools · backend engineering</small><i>↗</i></a>
-        <a href="../skills/index.html"><b>05</b><span>Skills &amp; evidence</span><small>Capabilities mapped to actual work</small><i>↗</i></a>
-        <a href="../courses.html"><b>06</b><span>Academic record</span><small>KTH MSc · coursework · Aalto elective</small><i>↗</i></a>
+        <a href="../tracks/thermal.html" data-topics="thermal nuclear"><b>01</b><span>Thermal / CFD</span><small>Heat transfer · experiments · numerical methods</small><i>↗</i></a>
+        <a href="../tracks/energy-modelling.html" data-topics="systems"><b>02</b><span>Energy systems</span><small>Power · heat · storage · optimisation</small><i>↗</i></a>
+        <a href="../tracks/research.html" data-topics="thermal systems nuclear"><b>03</b><span>Research / PhD</span><small>Questions · methods · publications</small><i>↗</i></a>
+        <a href="../tracks/software.html" data-topics="thermal systems"><b>04</b><span>Research software</span><small>Python · modelling tools · backend engineering</small><i>↗</i></a>
+        <a href="../skills/index.html" data-topics="thermal systems nuclear"><b>05</b><span>Skills &amp; evidence</span><small>Capabilities mapped to actual work</small><i>↗</i></a>
+        <a href="../courses.html" data-topics="nuclear"><b>06</b><span>Academic record</span><small>KTH MSc · coursework · Aalto elective</small><i>↗</i></a>
       </div>
     </section>
   </main>
@@ -352,15 +359,14 @@
     <div class="contact-inner">
       <div>
         <p class="contact-kicker">CET 2026 · Oskarshamn</p>
-        <h2>If there is an overlap, let’s talk.</h2>
+        <h2 data-contact-heading>Working on thermal systems or experiments?</h2>
+        <p class="contact-context" data-contact-context>If experiment–model closure, test rigs or high-temperature thermal systems overlap with your work, I’d be interested in comparing approaches.</p>
       </div>
-      <div class="interest-list" aria-label="Topics of interest">
-        <span>Thermal-hydraulics</span>
-        <span>Experimental systems</span>
-        <span>Energy-system research</span>
-        <span>Research software</span>
-        <span>Nuclear workforce</span>
-        <span>PhD / research roles</span>
+      <div class="interest-list" aria-label="Selected collaboration topics" data-contact-interests>
+        <span>Experiment ↔ model closure</span>
+        <span>Thermal-hydraulic test rigs</span>
+        <span>High-temperature instrumentation</span>
+        <span>CFD / CHT</span>
       </div>
       <div class="contact-links">
         <a href="https://www.linkedin.com/in/abhijith-sivaprasadan/">LinkedIn ↗</a>
@@ -394,6 +400,11 @@
       const focusName = document.querySelector('[data-focus-name]');
       const focusPrimary = document.querySelector('[data-focus-primary]');
       const focusSecondary = document.querySelector('[data-focus-secondary]');
+      const shareFocus = document.querySelector('[data-share-focus]');
+      const shareFocusName = document.querySelector('[data-share-focus-name]');
+      const contactHeading = document.querySelector('[data-contact-heading]');
+      const contactContext = document.querySelector('[data-contact-context]');
+      const contactInterests = document.querySelector('[data-contact-interests]');
 
       const topicData = {
         thermal: {
@@ -406,7 +417,10 @@
           primaryText: 'Open Siemens case study →',
           primaryHref: '../projects/siemens-thesis.html',
           bestPrimary: ['High-temperature calibration rig', '../projects/siemens-thesis.html'],
-          bestSecondary: ['TES Discharge Screen', '../projects/tes-discharge-screen.html']
+          bestSecondary: ['TES Discharge Screen', '../projects/tes-discharge-screen.html'],
+          contactHeading: 'Working on thermal systems or experiments?',
+          contactContext: 'If experiment–model closure, test rigs or high-temperature thermal systems overlap with your work, I’d be interested in comparing approaches.',
+          interests: ['Experiment ↔ model closure','Thermal-hydraulic test rigs','High-temperature instrumentation','CFD / CHT']
         },
         systems: {
           shortLabel: 'Systems',
@@ -418,7 +432,10 @@
           primaryText: 'Open Kerala2040 →',
           primaryHref: '../projects/kerala2040.html',
           bestPrimary: ['Kerala2040', '../projects/kerala2040.html'],
-          bestSecondary: ['OpenSteamOpt', '../projects/opensteamopt.html']
+          bestSecondary: ['OpenSteamOpt', '../projects/opensteamopt.html'],
+          contactHeading: 'Working on flexibility, storage or power-system stress?',
+          contactContext: 'If your work deals with difficult hours, hydro or storage flexibility, transfer constraints or transparent system models, there is likely useful overlap.',
+          interests: ['Storage & flexibility','Hydro timing','Transfer constraints','Open energy models','Evidence provenance']
         },
         nuclear: {
           shortLabel: 'Nuclear',
@@ -430,7 +447,10 @@
           primaryText: 'Open nuclear direction →',
           primaryHref: '../research.html#nuclear-transition',
           bestPrimary: ['High-temperature calibration rig', '../projects/siemens-thesis.html'],
-          bestSecondary: ['Reactor-internals FEA', '../projects/structural-fea-reactor-internals.html']
+          bestSecondary: ['Reactor-internals FEA', '../projects/structural-fea-reactor-internals.html'],
+          contactHeading: 'Working on thermal-hydraulics or cross-disciplinary nuclear R&D?',
+          contactContext: 'My strongest contribution today is the transferable thermal, experimental and modelling layer. I’m interested in where that can plug into real nuclear research problems.',
+          interests: ['Thermal-hydraulics','Experimental reactor systems','Research software','Nuclear workforce pathways','PhD / research roles']
         }
       };
 
@@ -488,6 +508,16 @@
         if (focusName) focusName.textContent = data.label;
         updateFocusMatch(focusPrimary, data.bestPrimary);
         updateFocusMatch(focusSecondary, data.bestSecondary);
+        if (shareFocusName) shareFocusName.textContent = data.label;
+        if (contactHeading) contactHeading.textContent = data.contactHeading;
+        if (contactContext) contactContext.textContent = data.contactContext;
+        if (contactInterests) {
+          contactInterests.replaceChildren(...data.interests.map(label => {
+            const span = document.createElement('span');
+            span.textContent = label;
+            return span;
+          }));
+        }
 
         if (options.updateUrl !== false && window.history && window.URL) {
           const url = new URL(window.location.href);
@@ -519,6 +549,33 @@
           choose();
         });
       });
+
+      if (shareFocus) {
+        shareFocus.addEventListener('click', async () => {
+          const topic = validTopics.includes(document.body.dataset.focus) ? document.body.dataset.focus : 'thermal';
+          const data = topicData[topic];
+          const url = new URL(window.location.href);
+          url.searchParams.set('focus', topic);
+          const shareUrl = url.toString();
+          try {
+            if (navigator.share) {
+              await navigator.share({
+                title: 'Abhijith Sivaprasadan · CET 2026 · ' + data.label,
+                text: data.title,
+                url: shareUrl
+              });
+            } else if (navigator.clipboard) {
+              await navigator.clipboard.writeText(shareUrl);
+              const label = shareFocus.querySelector('b');
+              if (label) {
+                const original = label.textContent;
+                label.textContent = 'Copied ✓';
+                window.setTimeout(() => { label.textContent = original; }, 1500);
+              }
+            }
+          } catch (_) {}
+        });
+      }
 
       const initial = new URLSearchParams(window.location.search).get('focus');
       activate(validTopics.includes(initial) ? initial : 'thermal', { updateUrl: false });
