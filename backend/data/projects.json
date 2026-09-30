@@ -1,6 +1,46 @@
 {
   "projects": [
     {
+      "id": "kerala2040",
+      "title": "Kerala2040 · Power-system resilience research",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": true,
+      "order": 0.1,
+      "period": "2026",
+      "associatedWith": "Independent open-source research project",
+      "summary": "Diagnosis-first study of Kerala's electricity-system stress combining audited SLDC history, ERA5-sensitive demand reconstruction, hydro-timing sensitivities, transfer constraints, public-network screening, PyPSA/OSeMOSYS checks and ecological feasibility work. Screening evidence is kept separate from observed data and validated planning claims.",
+      "audienceTags": [
+        "Energy Systems",
+        "Research",
+        "Sustainability"
+      ],
+      "tools": [
+        "Python",
+        "PyPSA",
+        "OSeMOSYS",
+        "ERA5",
+        "HiGHS",
+        "GIS",
+        "pytest"
+      ],
+      "skills": [
+        "Power-system resilience",
+        "Hydropower flexibility",
+        "Grid constraints",
+        "Energy-system modelling",
+        "Evidence provenance"
+      ],
+      "image": "assets/thumb-pypsa-grid.svg",
+      "caseStudyUrl": "https://kerala2040.github.io/",
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/kerala2040",
+      "highlights": [
+        "Audited historical electricity evidence is combined with weather-sensitive chronology, hydro timing and interstate-transfer sensitivity studies.",
+        "Public network screening identifies robust bottleneck candidates while explicitly avoiding calibrated AC/N-1 or investment-prescription claims.",
+        "The project uses explicit evidence levels, release gates and reproducibility checks to separate observation, derivation, screening models and hypotheses."
+      ]
+    },
+    {
       "id": "siemens-thesis",
       "title": "Siemens Energy Thesis - High-Temperature Reducer CFD/CHT and Test-Rig Validation",
       "category": "CFD & Testing",
