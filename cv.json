@@ -9,7 +9,7 @@
   "url": "https://abhijith-sivaprasadan.github.io/",
   "email": "mailto:abhijithsivaprasadan@gmail.com",
   "jobTitle": "Thermal-Fluid and Energy Systems Engineer",
-  "description": "M.Sc. Sustainable Energy Engineering graduate from KTH Royal Institute of Technology with research and industrial experience in compressible CFD, conjugate heat transfer, energy systems modelling, experimental methods and industrial decarbonisation.",
+  "description": "M.Sc. Sustainable Energy Engineering graduate from KTH Royal Institute of Technology with research and industrial experience spanning compressible CFD/CHT, experimental methods, energy-system resilience, thermal-storage modelling, optimisation and reproducible scientific software.",
   "homeLocation": {
     "@type": "Place",
     "address": {
@@ -78,7 +78,19 @@
     "MATLAB",
     "Industrial decarbonisation",
     "ISO 50001 / EU EED",
-    "Techno-economic analysis"
+    "Techno-economic analysis",
+    "PyPSA",
+    "OSeMOSYS",
+    "Modelica and FMI",
+    "HiGHS optimisation",
+    "Thermal energy storage",
+    "Dynamic thermal modelling",
+    "Power-system resilience",
+    "Hydropower flexibility",
+    "ERA5 weather data",
+    "Scientific model verification",
+    "Evidence provenance",
+    "Nuclear thermal-hydraulics research interest"
   ],
   "hasOccupation": [
     {
