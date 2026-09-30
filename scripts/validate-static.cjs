@@ -42,7 +42,7 @@ for (const project of projectData.projects) {
 if (!projectData.projects.some(project => project.id === 'thermotwin-f')) errors.push('ThermoTwin must be discoverable in the project search index.');
 if (!projectData.projects.some(project => project.id === 'opensteamopt')) errors.push('OpenSteamOpt must be discoverable in the project search index.');
 const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-const featuredIds = ['opensteamopt', 'gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen', 'industrial-energy-kpi-toolkit', 'thermotwin-f'];
+const featuredIds = ["kerala2040","tes-discharge-screen","opensteamopt","gb-flexabm","thermotwin-f","pypsa-nl-grid-flexibility"];
 const cards = [...home.matchAll(/<article\b[^>]*data-project-id="([^"]+)"/g)].map(match => match[1]);
 const indexedFeatured = projectData.projects.filter(project => project.featured).map(project => project.id);
 if (JSON.stringify(cards) !== JSON.stringify(featuredIds)) errors.push('Homepage must show the six curated research projects in the agreed order.');
@@ -55,6 +55,8 @@ if ((home.match(/data-project-id="thermotwin-f"/g) || []).length !== 1) errors.p
 const library = fs.readFileSync(path.join(root, 'projects.html'), 'utf8');
 if (!library.includes('data-project-id="gb-flexabm"')) errors.push('GB-FLEXABM must appear in the static project library.');
 if (!library.includes('data-project-id="opensteamopt"')) errors.push('OpenSteamOpt must appear in the static project library.');
+if (!library.includes('data-project-id="kerala2040"')) errors.push('Kerala2040 must appear in the static project library.');
+if (!library.includes('data-project-id="tes-discharge-screen"')) errors.push('TES Discharge Screen must appear in the static project library.');
 const gb = projectData.projects.find(project => project.id === 'gb-flexabm');
 if (gb?.caseStudyUrl !== 'projects/gb-flexabm.html') errors.push('GB-FLEXABM search must open its portfolio case study.');
 const opensteamopt = projectData.projects.find(project => project.id === 'opensteamopt');

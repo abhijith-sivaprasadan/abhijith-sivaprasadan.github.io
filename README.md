@@ -2,9 +2,9 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
-## Academic homepage, application tracks and skill evidence — August 2026
+## Academic homepage, application tracks and skill evidence — September 2026
 
-The landing page now leads with research interests, the published KTH/Siemens thesis, six selected research-software projects, experience, education, and direct GitHub/LinkedIn/CV links. Eight [skill dossiers](skills/index.html) group related public projects, roles, coursework, certifications and supporting resources. Duplicate imported project records are consolidated by case-study URL. No self-assessed scores are shown.
+The landing page now reflects completion of the KTH M.Sc. Sustainable Energy Engineering programme and the latest evidence base: the published KTH/Siemens thesis, Kerala2040 power-system resilience research, TES Discharge Screen, OpenSteamOpt and other research-software projects. Nuclear energy is presented as an emerging research direction rather than an established specialisation. A dedicated CET 2026 conference landing page provides a fast QR-friendly overview and routes visitors into the detailed portfolio. Eight [skill dossiers](skills/index.html) group related public projects, roles, coursework, certifications and supporting resources. Duplicate imported project records are consolidated by case-study URL. No self-assessed scores are shown.
 
 The separate [Choose a track](tracks/index.html) layer offers five stable application endpoints. Each has a distinct introduction, curated project selection, ordered professional experience, relevant skill dossiers, education and public supporting resources. The homepage remains the full overview. Share a track's URL directly; the recipient does not need to select a filter or have a saved preference.
 
@@ -264,3 +264,8 @@ globalThis.PORTFOLIO_API_BASE_URL = "https://abhijith-portfolio-api.onrender.com
 7. Open `admin.html`, use the backend URL and the generated `ADMIN_API_TOKEN` from Render environment variables.
 
 The current backend stores edits in JSON files. That is good for localhost and simple demos. For production editing that must survive restarts/redeploys, add persistent storage later with a Render disk, Supabase, Neon Postgres or another database.
+
+
+### CET 2026 conference landing page
+
+`/cet2026/` is a mobile-first TL;DR profile for QR/NFC sharing at CET 2026. It summarizes the work and routes visitors to the main portfolio, skill dossiers, application tracks, research statement, detailed project case studies, GitHub and LinkedIn rather than duplicating the full evidence base.

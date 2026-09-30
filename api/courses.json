@@ -63,7 +63,9 @@
       "institution": "KTH Royal Institute of Technology",
       "status": "published",
       "featured": false,
-      "order": 7
+      "order": 7,
+      "credits": "9 credits",
+      "grade": "E"
     },
     {
       "id": "entrepreneurship-for-engineers",

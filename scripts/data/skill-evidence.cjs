@@ -6,7 +6,7 @@ const skills = [
     detail: 'Flow, thermal modelling & numerical methods',
     summary: 'From geometry and boundary conditions to numerical checks and physical interpretation: compressible flow, conjugate heat transfer and thermal systems.',
     scope: 'The Siemens thesis is a numerical investigation with measurement-chain commissioning. Heater failure limited sustained high-temperature comparison; the work does not establish full experimental validation. Independent thermal models retain their own verification limits.',
-    tools: ['ANSYS Fluent', 'SpaceClaim', 'k-omega SST', 'Python', 'Fortran'],
+    tools: ['ANSYS Fluent', 'SpaceClaim', 'k-omega SST', 'Python', 'Fortran', 'Modelica / FMI'],
     courses: ['MJ2515', 'MJ232X', 'MJ2426', 'MJ2405', 'ME409', 'ME203', 'ME206', 'ME302', 'ME204', 'ME205', 'ME405', 'MA102', 'MA202'],
     education: ['kth', 'btech'],
   },
@@ -22,9 +22,9 @@ const skills = [
   {
     id: 'energy-systems', short: 'Energy systems',
     detail: 'Buildings, heat, power & storage',
-    summary: 'Energy-system modelling across buildings, district heat, electricity networks, storage and hydrogen, connecting demand and technology assumptions to cost, emissions and operational trade-offs.',
+    summary: 'Energy-system modelling across buildings, district heat, electricity networks, storage, hydropower and hydrogen, connecting demand, weather, network and technology assumptions to operational and investment trade-offs.',
     scope: 'Course studies and independent screening tools are identified separately. OpenSteamOpt and GB-FLEXABM are synthetic and uncalibrated; PyPSA-NL uses a synthetic topology. None is a validated operational or national-system model. Local applications run outside GitHub Pages.',
-    tools: ['IDA ICE', 'HOMER Pro', 'LEAP', 'SAM', 'PyPSA', 'Pyomo'],
+    tools: ['IDA ICE', 'HOMER Pro', 'LEAP', 'SAM', 'PyPSA', 'OSeMOSYS', 'Pyomo', 'HiGHS'],
     courses: ['MJ2438', 'MJ2509', 'MJ2508', 'MJ2503', 'MJ2405', 'MJ2411', 'MJ2426', 'MJ2386', 'MJ2505', 'MJ2507', 'MJ2511', 'AAE-E3121', 'ME403', 'ME405', 'ME205', 'BE103', 'CE482'],
     education: ['kth', 'aalto', 'btech'],
   },
@@ -33,7 +33,7 @@ const skills = [
     detail: 'Dispatch, scenarios & techno-economics',
     summary: 'Turning engineering choices into objectives, constraints and comparable scenarios: heat dispatch, grid flexibility, hydrogen production, investment modelling and techno-economic assessment.',
     scope: 'Mathematical optimisation, scenario comparison and business concepts are different kinds of evidence. Results depend on the documented inputs and constraints; they are not operational guarantees or investment advice.',
-    tools: ['PuLP', 'Pyomo', 'HiGHS', 'Linopy', 'Python', 'Excel'],
+    tools: ['PuLP', 'Pyomo', 'HiGHS', 'Linopy', 'SALib', 'Python', 'Excel'],
     courses: ['MJ2505', 'MJ2438', 'MJ2507', 'MJ2508', 'MJ2511', 'MJ2503', 'ME2072', 'MA201', 'MA202', 'ME404'],
     education: ['kth', 'btech'],
   },
@@ -42,7 +42,7 @@ const skills = [
     detail: 'Analysis, forecasting & reproducible tools',
     summary: 'Production-oriented backend experience alongside scientific and engineering software: data preparation, forecasting, numerical methods, automated checks and inspectable reporting workflows.',
     scope: 'QBurst is professional software experience; the engineering tools are separately documented portfolio or course work. Streamlit and native desktop interfaces are local applications unless a case study explicitly provides a hosted demo.',
-    tools: ['Python', 'pandas / NumPy', 'scikit-learn', 'Streamlit / Plotly', 'TypeScript / NestJS', 'PostgreSQL', 'Git'],
+    tools: ['Python', 'pandas / NumPy', 'scikit-learn', 'Streamlit / Plotly', 'Modelica / FMI', 'TypeScript / NestJS', 'PostgreSQL', 'Git / CI'],
     courses: ['MJ2507', 'MJ2515', 'MJ2505', 'MA101', 'MA102', 'MA201', 'MA202', 'ME407', 'EE311'],
     education: ['kth', 'btech'],
   },
@@ -69,7 +69,7 @@ const skills = [
     detail: 'Methods, publications & critical interpretation',
     summary: 'Research framing, literature synthesis, published student work and reproducible scientific software, with assumptions, verification and open questions documented alongside the results.',
     scope: 'A thesis, student publication, course assignment and independent research tool carry different levels of review. Research interests are directions for future work, not claims of completed experiments or institutional endorsement.',
-    tools: ['Literature synthesis', 'Numerical verification', 'Reproducibility', 'Technical reporting'],
+    tools: ['Literature synthesis', 'Numerical verification', 'Sensitivity analysis', 'Evidence provenance', 'Reproducibility', 'Technical reporting'],
     courses: ['MJ2510', 'MJ232X', 'MJ2515', 'MJ2507', 'MJ2508', 'MJ2438', 'ME2072', 'MA202'],
     education: ['kth', 'btech'],
   },
@@ -81,6 +81,8 @@ const O = 'optimisation', D = 'data-software', I = 'industrial-energy', M = 'cad
 // Keys are canonical case-study basenames (or the external project ID).
 // Duplicate imported project records therefore resolve to one evidence item.
 const projectSkills = {
+  'kerala2040': [E, O, D, R],
+  'tes-discharge-screen': [C, E, O, D, I, R],
   'opensteamopt': [E, O, D, I, R],
   'siemens-thesis': [C, T, M, R],
   'thermotwin-f': [C, E, D, R],
@@ -133,7 +135,7 @@ const experienceUrls = {
 };
 
 const education = {
-  kth: { title: 'M.Sc. Sustainable Energy Engineering', institution: 'KTH Royal Institute of Technology', period: '2023–2026', summary: 'Master’s programme in heat and power, energy systems and numerical methods. Thesis completed; 115 hp recorded in the May 2026 transcript.', url: 'about.html#kth-coursework' },
+  kth: { title: 'M.Sc. Sustainable Energy Engineering', institution: 'KTH Royal Institute of Technology', period: '2023–2026', summary: 'Master’s programme in heat and power, energy systems and numerical methods. All requirements for the 120 hp programme were completed in September 2026; the record also includes a 3 hp Aalto/Unite! elective.', url: 'about.html#kth-coursework' },
   btech: { title: 'B.Tech Mechanical Engineering', institution: 'College of Engineering Perumon / APJ Abdul Kalam Technological University', period: '2017–2021', summary: 'Mechanical engineering foundation with coursework, design competitions and the final-year interactive robot project.', url: 'courses.html' },
   aalto: { title: 'Circular Economy for Energy Storage', institution: 'Aalto University / Unite! Virtual Exchange', period: '2024', summary: 'Credited exchange elective covering lifecycle and circular-economy perspectives on energy storage; not a separate degree.', url: 'about.html#kth-coursework' },
 };
@@ -186,14 +188,14 @@ const resources = [
 
 // Lead with the most directly relevant work, then retain the complete record.
 const projectOrder = {
-  [C]: ['siemens-thesis', 'non-gray-radiation-modeling', 'numerical-heat-transfer', 'thermotwin-f'],
+  [C]: ['siemens-thesis', 'tes-discharge-screen', 'non-gray-radiation-modeling', 'thermotwin-f', 'numerical-heat-transfer'],
   [T]: ['siemens-thesis', 'mtes-pcm-thermal-lab', 'battery-cell-discharge-lab', 'rotating-machinery-vibration-minilab'],
-  [E]: ['opensteamopt', 'gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen'],
-  [O]: ['opensteamopt', 'district-heating-optimisation', 'gb-flexabm', 'pynexus-green-hydrogen'],
-  [D]: ['opensteamopt', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
-  [I]: ['opensteamopt', 'alleima-energy-efficiency', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator'],
+  [E]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen'],
+  [O]: ['tes-discharge-screen', 'kerala2040', 'opensteamopt', 'district-heating-optimisation', 'gb-flexabm', 'pynexus-green-hydrogen'],
+  [D]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
+  [I]: ['tes-discharge-screen', 'opensteamopt', 'alleima-energy-efficiency', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator'],
   [M]: ['structural-fea-reactor-internals', 'siemens-thesis', 'robotic-frame-locomotion', 'bicycle-design-competition'],
-  [R]: ['siemens-thesis', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
+  [R]: ['siemens-thesis', 'kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
 };
 
 // This public case study predates its inclusion in the JSON project index.
