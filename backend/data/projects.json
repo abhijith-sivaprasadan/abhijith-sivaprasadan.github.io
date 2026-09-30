@@ -1,6 +1,46 @@
 {
   "projects": [
     {
+      "id": "tes-discharge-screen",
+      "title": "TES Discharge Screen · Dynamic thermal-storage screening",
+      "category": "Thermal Systems",
+      "status": "published",
+      "featured": true,
+      "order": 0.15,
+      "period": "2026",
+      "associatedWith": "Independent open-source research software",
+      "summary": "Techno-economic screening of industrial thermal energy storage with state-of-charge-dependent discharge constraints derived from dynamic models. Packed-bed, molten-salt and PCM cases are compared with explicit verification, sensitivity and validation boundaries.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Energy Systems",
+        "Research",
+        "Industrial R&D"
+      ],
+      "tools": [
+        "Python",
+        "Pyomo",
+        "HiGHS",
+        "Modelica",
+        "FMI/FMPy",
+        "SALib"
+      ],
+      "skills": [
+        "Thermal energy storage",
+        "Dynamic thermal modelling",
+        "Optimisation",
+        "Sensitivity analysis",
+        "Model verification"
+      ],
+      "image": "assets/thumb-tes-peak-shaving.svg",
+      "caseStudyUrl": "projects/tes-discharge-screen.html",
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/tes-discharge-screen",
+      "highlights": [
+        "A packed-bed shadow twin and Modelica/FMUs are checked against analytic limits and against each other; the documented FMU comparison reports 0.23% maximum temperature deviation and 0.0029% relative energy deviation.",
+        "Matched-duration annual experiments isolate the state-of-charge-dependent discharge-shape effect instead of confounding it with sizing or temperature-reference changes.",
+        "The repository explicitly separates verification from validation: there is no measured-storage validation, and synthetic load/price cases remain screening evidence rather than plant predictions."
+      ]
+    },
+    {
       "id": "kerala2040",
       "title": "Kerala2040 · Power-system resilience research",
       "category": "Energy Systems",

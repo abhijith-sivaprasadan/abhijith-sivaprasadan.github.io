@@ -20,11 +20,11 @@ const projects = [...canonicalProjects.values()];
 const experiences = read('linkedin-experience.json').experience.filter(e => e.status === 'published');
 const courses = read('courses.json').courses.filter(c => c.status === 'published');
 const certifications = read('certifications.json').certifications;
-const featured = ['kerala2040', 'opensteamopt', 'gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen', 'thermotwin-f'];
+const featured = ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'thermotwin-f', 'pypsa-nl-grid-flexibility'];
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
-const version = '20260831-application-tracks';
+const version = '20260930-cet-refresh';
 const arrow = '<span aria-hidden="true">↗</span>';
 function link(href, label, prefix = '', cls = '') {
   return `<a${cls ? ` class="${cls}"` : ''} href="${escape(external(href) || href.startsWith('mailto:') || href.startsWith('#') ? href : prefix + href)}">${escape(label)}</a>`;
@@ -180,7 +180,7 @@ function skillPage(skill) {
 function home() {
   const featuredProjects = featured.map(id => projects.find(p => p.id === id));
   const roles = ['test-engineer-master-thesis-student', 'energy-efficiency-intern', 'student-intern-pyrolysis', 'engineer-backend-developer-typescript-nestjs'].map(id => experiences.find(e => e.id === id));
-  return page('index.html', 'Thermal Engineering & Energy Systems Research', 'Academic portfolio of Abhijith Sivaprasadan: thermal engineering, energy systems modelling, research interests, published thesis, open-source projects and skill evidence.', `
+  return page('index.html', 'Thermal Engineering & Energy Systems Research', 'Academic portfolio of Abhijith Sivaprasadan: thermal-fluid engineering, energy-system resilience, thermal storage, research software, published thesis and emerging nuclear-energy interests.', `
     <!-- Live Lens, Evidence Lens, the capability radar, and the legacy motion/CMS
          stack are intentionally not mounted or loaded on this research homepage.
          Their implementation remains in version history / legacy modules for
@@ -189,7 +189,7 @@ function home() {
     <section id="signal" class="academic-hero">
       <div id="person" class="hero-intro">
         <div class="hero-identity"><img src="assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. Sustainable Energy Engineering · KTH · Stockholm, Sweden</span></p></div>
-        <h1>Thermal engineering.<br />Energy systems.<br /><em>Reproducible research.</em></h1>
+        <h1>Thermal engineering.<br />Energy systems.<br /><em>Evidence-first research.</em></h1>
         <p class="lead">I’m Abhijith Sivaprasadan, a KTH M.Sc. Sustainable Energy Engineering graduate. My work connects thermal-fluid simulation, experimental methods and energy-system modelling.</p>
         <p class="hero-interest">Interested in research-engineer and PhD opportunities in thermal-fluid engineering, energy systems and nuclear-energy applications.</p>
         <div class="hero-links">${link('research.html', 'Research statement', '', 'primary-link')}${link('downloads/Abhijith_CV_PhD_Academic.pdf', 'Academic CV (PDF)')}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}</div>
