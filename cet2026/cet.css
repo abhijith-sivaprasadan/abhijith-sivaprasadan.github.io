@@ -36,7 +36,7 @@ a{color:inherit}
 .topbar nav{display:flex;gap:20px}.topbar nav a{font-size:.84rem;text-decoration:none;color:var(--muted)}.topbar nav a:hover{color:var(--ink)}
 .share-button{
   min-height:40px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--soft);
-  font:650 .78rem inherit;cursor:pointer
+  font-family:inherit;font-size:.78rem;font-weight:650;cursor:pointer
 }
 main{max-width:var(--max);margin:0 auto;padding:0 24px 82px}
 .hero{
@@ -85,14 +85,18 @@ h1 em{font-style:normal;color:var(--cyan)}
 .conversation-grid p{color:var(--muted);margin:0 0 22px}.conversation-grid a{margin-top:auto;color:var(--cyan);text-decoration:none;font-weight:720;font-size:.86rem}
 .work-heading>p{max-width:560px}
 .work-grid{display:grid;grid-template-columns:1.13fr .87fr;gap:14px}
-.project-card{position:relative;min-height:340px;border:1px solid var(--line);border-radius:var(--radius);padding:25px;overflow:hidden;background:rgba(255,255,255,.026);display:grid;grid-template-columns:46px 1fr;gap:10px}
+.project-card{position:relative;min-height:340px;border:1px solid var(--line);border-radius:var(--radius);padding:25px;overflow:hidden;background:rgba(255,255,255,.026);display:grid;grid-template-columns:46px 1fr;gap:10px;transition:transform .2s ease,border-color .2s ease,background .2s ease}
+.project-card:hover{transform:translateY(-3px);border-color:rgba(84,232,255,.25);background:rgba(255,255,255,.035)}
 .project-card:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 92% 5%,rgba(84,232,255,.11),transparent 30%)}
 .project-kerala{grid-row:span 2;background:linear-gradient(145deg,rgba(84,232,255,.075),rgba(255,255,255,.02))}
 .project-number{position:relative;z-index:1;font:700 .72rem ui-monospace,monospace;color:#5e7a8e;padding-top:5px}
 .project-body{position:relative;z-index:1;display:flex;flex-direction:column}
 .project-meta{display:flex;justify-content:space-between;gap:15px;color:var(--muted);font:650 .68rem ui-monospace,monospace;text-transform:uppercase;letter-spacing:.08em}
 .project-card h3{font-size:1.85rem;letter-spacing:-.043em;margin:34px 0 9px;line-height:1}
-.project-thesis{font-size:.97rem;color:var(--muted);max-width:660px;margin:0 0 24px}
+.project-thesis{font-size:.97rem;color:var(--muted);max-width:660px;margin:0 0 18px}
+.project-visual{margin:0 0 22px;border-radius:18px;overflow:hidden;border:1px solid var(--line2);background:#0b1622;aspect-ratio:16/9}
+.project-visual img{display:block;width:100%;height:100%;object-fit:cover}
+.project-visual.compact{max-height:150px}
 .metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:7px 0 24px}
 .metric-row span{padding:13px;border:1px solid var(--line2);border-radius:14px;background:rgba(255,255,255,.025)}
 .metric-row strong,.metric-row small{display:block}.metric-row strong{font-size:.92rem;color:var(--ink)}.metric-row small{font-size:.67rem;color:var(--muted);margin-top:3px}
@@ -137,7 +141,7 @@ footer strong,footer span{display:block}footer strong{color:var(--ink)}footer p{
   .hook-copy h2,.section-heading h2,.contact-copy h2{font-size:2.2rem;line-height:1.01}.hook-copy>p:last-child{font-size:.94rem;margin-top:18px}
   .section-heading{display:block;margin-bottom:24px}.section-heading>p{margin-top:14px}
   .conversation-grid article{padding:20px;min-height:0}.conversation-grid h3{font-size:1.3rem;margin:24px 0 11px}
-  .project-card{grid-template-columns:32px 1fr;padding:20px;min-height:0}.project-card h3{font-size:1.55rem;margin-top:26px}.project-meta{display:block}.project-meta span{display:block;margin-bottom:4px}
+  .project-card{grid-template-columns:32px 1fr;padding:20px;min-height:0}.project-card:hover{transform:none}.project-card h3{font-size:1.55rem;margin-top:26px}.project-meta{display:block}.project-meta span{display:block;margin-bottom:4px}
   .metric-row{grid-template-columns:1fr}.metric-row span{padding:10px 12px}
   .project-links{gap:12px}.project-links a{min-height:44px}
   .work-more{gap:8px 14px;padding:13px 15px}
