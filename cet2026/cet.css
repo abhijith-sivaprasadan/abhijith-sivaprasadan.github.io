@@ -98,8 +98,8 @@ main{max-width:var(--max);margin:0 auto;padding:0 24px 76px}
   padding:24px 0;border-bottom:1px solid var(--rule);align-items:start
 }
 .project-id{font-size:.68rem;color:var(--muted);padding-top:3px}
-.project-row figure{margin:0;background:var(--paper-deep);border:1px solid #d8d3c8}
-.project-row figure img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;mix-blend-mode:multiply}
+.project-row figure{margin:0;background:var(--paper-deep);border:1px solid #d8d3c8;aspect-ratio:16/9;overflow:hidden}
+.project-row figure img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
 .project-copy{padding-right:12px}
 .project-meta{margin:0 0 8px;font-size:.67rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .project-copy h3{margin:0;font-family:var(--serif);font-size:1.55rem;font-weight:400;letter-spacing:-.02em}
