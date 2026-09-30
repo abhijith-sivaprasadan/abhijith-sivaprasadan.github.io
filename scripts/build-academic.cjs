@@ -20,7 +20,7 @@ const projects = [...canonicalProjects.values()];
 const experiences = read('linkedin-experience.json').experience.filter(e => e.status === 'published');
 const courses = read('courses.json').courses.filter(c => c.status === 'published');
 const certifications = read('certifications.json').certifications;
-const featured = ['opensteamopt', 'gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen', 'industrial-energy-kpi-toolkit', 'thermotwin-f'];
+const featured = ['kerala2040', 'opensteamopt', 'gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen', 'thermotwin-f'];
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
@@ -120,7 +120,7 @@ function trackPage(track) {
     ${trackNavigation(track.id)}
     <section class="academic-hero track-hero" data-track="${track.id}">
       <div class="hero-intro">
-        <div class="hero-identity"><img src="../assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. candidate at KTH · Stockholm, Sweden</span></p></div>
+        <div class="hero-identity"><img src="../assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. Sustainable Energy Engineering · KTH · Stockholm, Sweden</span></p></div>
         <p class="overline">${escape(track.label)} / Portfolio</p>
         <h1>${escape(track.title)}</h1>
         <p class="lead">${escape(track.intro)}</p>
@@ -188,10 +188,10 @@ function home() {
          transitions are enabled; no background simulations or scroll loops run here. -->
     <section id="signal" class="academic-hero">
       <div id="person" class="hero-intro">
-        <div class="hero-identity"><img src="assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. candidate at KTH · Stockholm, Sweden</span></p></div>
+        <div class="hero-identity"><img src="assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. Sustainable Energy Engineering · KTH · Stockholm, Sweden</span></p></div>
         <h1>Thermal engineering.<br />Energy systems.<br /><em>Reproducible research.</em></h1>
-        <p class="lead">I’m Abhijith Sivaprasadan, an M.Sc. Sustainable Energy Engineering candidate at KTH. My work connects thermal-fluid simulation, experimental methods and energy-system modelling.</p>
-        <p class="hero-interest">Interested in PhD and research opportunities in high-temperature heat transfer, experimental–numerical methods and energy systems.</p>
+        <p class="lead">I’m Abhijith Sivaprasadan, a KTH M.Sc. Sustainable Energy Engineering graduate. My work connects thermal-fluid simulation, experimental methods and energy-system modelling.</p>
+        <p class="hero-interest">Interested in research-engineer and PhD opportunities in thermal-fluid engineering, energy systems and nuclear-energy applications.</p>
         <div class="hero-links">${link('research.html', 'Research statement', '', 'primary-link')}${link('downloads/Abhijith_CV_PhD_Academic.pdf', 'Academic CV (PDF)')}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}</div>
       </div>
       <aside class="thesis-feature" aria-labelledby="thesis-heading">
@@ -211,6 +211,7 @@ function home() {
         <article><span class="discipline-number">I</span><h3>Thermal engineering</h3><p>How do geometry, surface condition and thermal resistance affect high-temperature heat transfer? I’m interested in transient CHT and carefully bounded experimental–numerical comparison.</p>${link('skills/cfd-heat-transfer.html', 'Thermal methods & evidence →')}</article>
         <article><span class="discipline-number">II</span><h3>Energy systems modelling</h3><p>How do demand, network limits and storage change system decisions? My work explores heat and power dispatch, grid flexibility, hydrogen and electricity investment.</p>${link('energy-systems.html', 'Energy systems work →')}</article>
         <article><span class="discipline-number">III</span><h3>Industrial decarbonisation</h3><p>How can operational data support defensible energy decisions? My focus includes energy-performance indicators, load drivers, metering gaps and transparent emissions calculations.</p>${link('industrial-rd.html', 'Industrial methodology →')}</article>
+        <article><span class="discipline-number">IV</span><h3>Nuclear-energy applications</h3><p>How can existing thermal-fluid, systems and computational engineering skills transfer into nuclear R&amp;D? I’m exploring nuclear thermal-hydraulics and reactor systems while building the nuclear-specific foundation needed for credible work.</p>${link('research.html', 'Research direction →')}</article>
       </div>
     </section>
     <section id="projects" class="page-section">
@@ -228,7 +229,7 @@ function home() {
       <div id="experience"><div class="section-heading"><div><p class="overline">04 / Experience</p><h2>Research &amp; engineering practice.</h2></div></div><div class="timeline">${roles.map(e => `<article><p class="item-meta">${escape(e.period)} · ${escape(e.type)}</p><h3>${escape(e.company)}</h3><p class="role-title">${escape(e.role)}</p><p>${escape(e.id === 'test-engineer-master-thesis-student' ? 'CFD/CHT modelling, measurement-chain commissioning and structured failure analysis in the Fluid Dynamic Lab.' : e.id === 'energy-efficiency-intern' ? 'Desk-based industrial energy-performance methodology, EnPI design and metering-readiness assessment; no plant-savings claim.' : e.id === 'student-intern-pyrolysis' ? 'Reactor-concept literature review and cost-analysis drivers for polymer-waste pyrolysis.' : 'TypeScript/NestJS backend APIs, endpoint tests, reliability fixes and Postman automation.')}</p>${link(e.detailUrl || data.experienceUrls[e.id], 'Role details →')}</article>`).join('')}</div><p>${link('experience.html', 'Full experience record →')}</p></div>
       <div id="education"><div class="section-heading"><div><p class="overline">05 / Education</p><h2>Academic foundation.</h2></div></div><div class="education-list">${['kth', 'aalto', 'btech'].map(id => { const e = data.education[id]; return `<article><p class="item-meta">${escape(e.period)}</p><h3>${escape(e.title)}</h3><p class="role-title">${escape(e.institution)}</p><p>${escape(e.summary)}</p>${link(e.url, 'Education & coursework →')}</article>`; }).join('')}</div><div class="publication-note"><p class="overline">Publications &amp; written work</p><h3>From thesis to technical record.</h3><p>${link('https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965', 'Published KTH thesis')} and ${link('projects/robotic-frame-locomotion.html', 'undergraduate robot publications')}, alongside reproducible reports and source-linked case studies.</p>${link('skills/research.html', 'Research & communication dossier →')}</div></div>
     </section>
-    <section id="contact" class="contact-section"><div><p class="overline">06 / Contact</p><h2>Let’s discuss the research.</h2><p>I welcome conversations about doctoral research, thermal engineering and energy-system modelling in Sweden and the EU.</p><a class="contact-email" href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a></div><div id="cv" class="contact-resources"><h3>Profiles &amp; documents</h3>${link(github, 'GitHub — code & repositories ↗')}${link(linkedin, 'LinkedIn — professional profile ↗')}${link('downloads/Abhijith_CV_PhD_Academic.pdf', 'Academic CV (PDF)')}${link('downloads/Abhijith_CV_GasTurbine_HeatTransfer.pdf', 'Thermal / CFD CV (PDF)')}${link('downloads/Abhijith_CV_EnergyCoordinator.pdf', 'Energy / R&D CV (PDF)')}${link('https://orcid.org/0009-0009-8429-1266', 'ORCID ↗')}</div></section>
+    <section id="contact" class="contact-section"><div><p class="overline">06 / Contact</p><h2>Let’s discuss the research.</h2><p>I welcome conversations about research-engineer and doctoral opportunities in thermal engineering, energy-system modelling and nuclear-energy applications in Sweden and the EU.</p><a class="contact-email" href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a></div><div id="cv" class="contact-resources"><h3>Profiles &amp; documents</h3>${link(github, 'GitHub — code & repositories ↗')}${link(linkedin, 'LinkedIn — professional profile ↗')}${link('downloads/Abhijith_CV_PhD_Academic.pdf', 'Academic CV (PDF)')}${link('downloads/Abhijith_CV_GasTurbine_HeatTransfer.pdf', 'Thermal / CFD CV (PDF)')}${link('downloads/Abhijith_CV_EnergyCoordinator.pdf', 'Energy / R&D CV (PDF)')}${link('https://orcid.org/0009-0009-8429-1266', 'ORCID ↗')}</div></section>
   `, true);
 }
 
