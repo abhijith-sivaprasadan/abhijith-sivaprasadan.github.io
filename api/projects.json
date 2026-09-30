@@ -1,6 +1,46 @@
 {
   "projects": [
     {
+      "id": "kerala2040",
+      "title": "Kerala2040 · Power-system resilience research",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": true,
+      "order": 0.1,
+      "period": "2026",
+      "associatedWith": "Independent open-source research project",
+      "summary": "Diagnosis-first study of Kerala's electricity-system stress combining audited SLDC history, ERA5-sensitive demand reconstruction, hydro-timing sensitivities, transfer constraints, public-network screening, PyPSA/OSeMOSYS checks and ecological feasibility work. Screening evidence is kept separate from observed data and validated planning claims.",
+      "audienceTags": [
+        "Energy Systems",
+        "Research",
+        "Sustainability"
+      ],
+      "tools": [
+        "Python",
+        "PyPSA",
+        "OSeMOSYS",
+        "ERA5",
+        "HiGHS",
+        "GIS",
+        "pytest"
+      ],
+      "skills": [
+        "Power-system resilience",
+        "Hydropower flexibility",
+        "Grid constraints",
+        "Energy-system modelling",
+        "Evidence provenance"
+      ],
+      "image": "assets/thumb-pypsa-grid.svg",
+      "caseStudyUrl": "https://kerala2040.github.io/",
+      "githubUrl": "https://github.com/abhijith-sivaprasadan/kerala2040",
+      "highlights": [
+        "Audited historical electricity evidence is combined with weather-sensitive chronology, hydro timing and interstate-transfer sensitivity studies.",
+        "Public network screening identifies robust bottleneck candidates while explicitly avoiding calibrated AC/N-1 or investment-prescription claims.",
+        "The project uses explicit evidence levels, release gates and reproducibility checks to separate observation, derivation, screening models and hypotheses."
+      ]
+    },
+    {
       "id": "opensteamopt",
       "title": "OpenSteamOpt · Steam & power RTO",
       "category": "Energy Systems",
@@ -10,9 +50,27 @@
       "period": "2026",
       "associatedWith": "Independent educational research software",
       "summary": "An open-source two-boiler steam-and-power twin with a carbon-aware Pyomo/HiGHS scheduler, OpenModelica FMI 2.0 simulation and a local Streamlit advisory GUI. Synthetic and uncalibrated; not an ABB product or live control system.",
-      "audienceTags": ["Energy Systems", "Research", "Sustainability"],
-      "tools": ["Python", "Modelica", "Pyomo", "HiGHS", "FMI/FMPy", "Streamlit", "pytest"],
-      "skills": ["Optimisation", "Digital twins", "Industrial energy", "Model exchange", "Reproducibility"],
+      "audienceTags": [
+        "Energy Systems",
+        "Research",
+        "Sustainability"
+      ],
+      "tools": [
+        "Python",
+        "Modelica",
+        "Pyomo",
+        "HiGHS",
+        "FMI/FMPy",
+        "Streamlit",
+        "pytest"
+      ],
+      "skills": [
+        "Optimisation",
+        "Digital twins",
+        "Industrial energy",
+        "Model exchange",
+        "Reproducibility"
+      ],
       "image": "assets/thumb-opensteamopt.svg",
       "caseStudyUrl": "projects/opensteamopt.html",
       "githubUrl": "https://github.com/abhijith-sivaprasadan/opensteamopt",
@@ -31,13 +89,32 @@
       "period": "2026",
       "associatedWith": "Independent exploratory research software",
       "summary": "Local electricity-investment GUI and shared Pyomo/HiGHS planner, with audited market coverage and 175 extracted public input references. Synthetic and uncalibrated; normalization, price-target decisions and weather conversion still gate historical fitting.",
-      "audienceTags": ["Energy Systems", "Research"],
-      "tools": ["Python", "Pyomo", "HiGHS", "Streamlit", "NumPy", "pytest"],
-      "skills": ["Optimisation", "Agent-based modelling", "Market design", "Reproducibility", "Data integrity"],
+      "audienceTags": [
+        "Energy Systems",
+        "Research"
+      ],
+      "tools": [
+        "Python",
+        "Pyomo",
+        "HiGHS",
+        "Streamlit",
+        "NumPy",
+        "pytest"
+      ],
+      "skills": [
+        "Optimisation",
+        "Agent-based modelling",
+        "Market design",
+        "Reproducibility",
+        "Data integrity"
+      ],
       "image": "assets/thumb-gb-flexabm.svg",
       "caseStudyUrl": "projects/gb-flexabm.html",
       "githubUrl": "https://github.com/abhijith-sivaprasadan/gb-flexabm",
-      "highlights": ["Local GUI and CLI share one engine, with numerical replay and verified exports.", "175 public references acquired/extracted; 804 Elexon responses preserve failed coverage gates. No raw-data publication, silent target substitution or empirical calibration claim."]
+      "highlights": [
+        "Local GUI and CLI share one engine, with numerical replay and verified exports.",
+        "175 public references acquired/extracted; 804 Elexon responses preserve failed coverage gates. No raw-data publication, silent target substitution or empirical calibration claim."
+      ]
     },
     {
       "id": "thermotwin-f",
