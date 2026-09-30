@@ -2,9 +2,9 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
-## Academic homepage, application tracks and skill evidence — August 2026
+## Academic homepage, application tracks and skill evidence — September 2026
 
-The landing page now leads with research interests, the published KTH/Siemens thesis, six selected research-software projects, experience, education, and direct GitHub/LinkedIn/CV links. Eight [skill dossiers](skills/index.html) group related public projects, roles, coursework, certifications and supporting resources. Duplicate imported project records are consolidated by case-study URL. No self-assessed scores are shown.
+The landing page now reflects completion of the KTH M.Sc. Sustainable Energy Engineering programme, leads with research interests and the published KTH/Siemens thesis, and includes Kerala2040 among six selected research-software and engineering projects. Nuclear energy is presented as an emerging research direction rather than an established specialisation. Experience, education, and direct GitHub/LinkedIn/CV links remain visible. Eight [skill dossiers](skills/index.html) group related public projects, roles, coursework, certifications and supporting resources. Duplicate imported project records are consolidated by case-study URL. No self-assessed scores are shown.
 
 The separate [Choose a track](tracks/index.html) layer offers five stable application endpoints. Each has a distinct introduction, curated project selection, ordered professional experience, relevant skill dossiers, education and public supporting resources. The homepage remains the full overview. Share a track's URL directly; the recipient does not need to select a filter or have a saved preference.
 
