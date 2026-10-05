@@ -15,8 +15,8 @@ assert.equal(legacyPages.length, 50, 'Review the unified-shell inventory when pu
 for (const file of legacyPages) {
   const html = read(file);
   if (file === '404.html') {
-    assert.ok(html.includes('styles/unified.css?v=20261005-visual-evidence'));
-    assert.ok(html.includes('scripts/unified-shell.js?v=20261005-visual-evidence'));
+    assert.ok(html.includes('styles/unified.css?v=20261005-paper-themes'));
+    assert.ok(html.includes('scripts/unified-shell.js?v=20261005-paper-themes'));
   } else {
     assert.ok(html.includes('scripts/public-config.js'), `${file}: missing shared shell loader`);
   }
@@ -38,6 +38,15 @@ assert.ok(/\.site-header\s*\{[\s\S]{0,160}?display:\s*block\s*!important/.test(s
 assert.ok(stylesheet.includes('@media (max-width: 760px)'));
 assert.ok(stylesheet.includes('@media (prefers-reduced-motion: reduce)'));
 assert.ok(stylesheet.includes("html[data-theme='dark']"));
+for (const token of ['--paper-page', '--paper-sheet', '--paper-panel-strong', '--paper-ink', '--paper-muted', '--paper-rule', '--paper-accent']) {
+  assert.ok(stylesheet.includes(token), `Dual-theme research papers missing ${token}`);
+}
+const paperPages = legacyPages.filter(file => read(file).includes('data-paper'));
+assert.equal(paperPages.length, 11, 'Review the paper-theme inventory when research pages change.');
+for (const file of paperPages) {
+  assert.ok(read(file).includes('class="paper-doc'), `${file}: missing shared paper document surface`);
+}
+assert.ok(stylesheet.includes("html[data-theme='dark'] body.signal-rebuild:is([data-paper], [data-mode='paper'])"), 'Research papers need an explicit dark-paper palette.');
 assert.ok(!/requestAnimationFrame|addEventListener\(['"]scroll/.test(shell), 'Unified shell must not add continuous scroll work.');
 assert.ok(!/\.innerHTML\s*=/.test(shell), 'Shared shell must construct static UI without innerHTML.');
 assert.ok(Buffer.byteLength(shell) < 8000, 'Keep the shared shell small.');
