@@ -20,6 +20,14 @@ Live Lens, Evidence Lens, radar, the old stateful track-filter runtime, canvas s
 
 These pages use a modern, research-focused light/dark theme in `styles/academic.css`: strong sans-serif typography, soft cards, a translucent header, smooth anchor navigation and restrained hover/reveal transitions. This is independent of the legacy design tokens below. Existing detailed case studies remain intact. The project capabilities and scientific claims are unchanged; coursework, internships, exploratory tools and validated results must remain distinguishable.
 
+## Unified public endpoints — October 2026
+
+All 50 older public endpoints now inherit the homepage visual language through `styles/unified.css` and `scripts/unified-shell.js`. The shared layer provides the same five-item navigation, translucent header, light-first theme with dark mode, typography, spacing, cards, controls, footer and responsive behavior while preserving the authored content and specialist charts on each page. `scripts/public-config.js` loads the layer for root, project and experience pages; `404.html` loads it directly. The 16 generated homepage, track and skill pages continue to use `styles/academic.css` directly.
+
+The legacy Live Lens, Evidence Lens, skill radar, ambient canvas, audio and CMS hydration subsystems remain intentionally excluded from the public motion autoloader. Useful bounded interactions—page transitions, reading progress, mathematics, the Biot calculator, language controls and the reducer viewer—remain available. The unified shell adds only cancellable, one-shot entrance motion and respects reduced-motion preferences.
+
+The Siemens experience chronology was also corrected without rewriting surrounding content: the measurement chain was commissioned for a planned campaign up to 700°C, but heater failure occurred before high-temperature testing began. The same clause is maintained in `api/linkedin-experience.json` and `backend/data/experience.json`, so generated skill and application-track pages cannot restore the obsolete campaign claim.
+
 ### Editing and validation
 
 - Edit homepage/page templates in `scripts/build-academic.cjs`, not generated HTML.
@@ -27,6 +35,7 @@ These pages use a modern, research-focused light/dark theme in `styles/academic.
 - Edit track introductions, public-record selections and supporting links in `scripts/data/portfolio-tracks.cjs`. Keep URLs stable for applications. Do not add employer-specific or private documents as generic track resources; the software track deliberately links to professional evidence and public code rather than an unrelated CV.
 - Rebuild with `node scripts/build-academic.cjs` whenever those source records change.
 - Run `node scripts/build-academic.cjs --check`, `node scripts/validate-academic.cjs`, and `node scripts/validate-static.cjs`. CI runs all three.
+- Run `node scripts/validate-unified-ui.cjs` after changing the shared legacy shell, public endpoint inventory, motion autoload list or Siemens experience wording.
 - Check the homepage, track directory, track pages and a skill page at desktop and mobile widths, in light and dark modes. Verify keyboard navigation, selected-track state, section links and case-study links. The regression script checks all five track selections, distinct metadata, navigation, fragments and scientific-limitations copy.
 - Publish via a focused branch and pull request, wait for CI, merge, and verify the GitHub Pages deployment. Do not stage scratch/private files such as `profile_snapshot.md`.
 

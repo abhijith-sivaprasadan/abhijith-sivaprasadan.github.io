@@ -738,79 +738,8 @@ const injectNavLinks = () => {
   });
 };
 
-const initializeFieldRouteRail = () => {
-  if (pageKey === "home" || pageKey === "admin" || pageKey === "not-found") return;
-  if (document.body.hasAttribute("data-paper") || document.querySelector("[data-field-route-rail]")) return;
-
-  const header = document.querySelector(".site-header");
-  if (!header) return;
-
-  const params = new URLSearchParams(window.location.search);
-  const lensFromUrl = normalizeProjectFilter(params.get("lens") || params.get("filter"));
-  const path = window.location.pathname.toLowerCase();
-  const activeRoute = (() => {
-    if (lensFromUrl === "Thermal & Fluid") return "thermal";
-    if (lensFromUrl === "Energy Systems") return "energy";
-    if (lensFromUrl === "Industrial R&D") return "industrial";
-    if (lensFromUrl === "Research") return "research";
-    if (pageKey === "research" || path.includes("numerical-heat-transfer")) return "research";
-    if (pageKey === "energy-systems" || /district|heating|grid|pypsa|hylkysaari|tes-|waste-to-energy|germany-energy|residential/.test(path)) return "energy";
-    if (pageKey === "industrial-rd" || /alleima|eu-ets|industrial-energy/.test(path)) return "industrial";
-    if (/siemens|mtes|peltier|battery|structural-fea/.test(path)) return "thermal";
-    return "everything";
-  })();
-
-  const routes = [
-    {
-      key: "everything",
-      label: "Everything",
-      href: `${basePath}index.html`,
-      icon: '<path d="M2 7H12M7 2V12" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.1" opacity=".72"/>',
-    },
-    {
-      key: "thermal",
-      label: "Thermal",
-      href: `${basePath}projects.html?lens=thermal`,
-      icon: '<path d="M1 7C3.5 2 10.5 2 13 7C10.5 12 3.5 12 1 7Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="7" r="1.5" fill="currentColor"/>',
-    },
-    {
-      key: "energy",
-      label: "Energy",
-      href: `${basePath}energy-systems.html`,
-      icon: '<polyline points="1,11 4,6 7,8 10,3 13,5" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
-    },
-    {
-      key: "industrial",
-      label: "Industrial",
-      href: `${basePath}industrial-rd.html`,
-      icon: '<rect x="2" y="5" width="3" height="7" fill="currentColor" opacity=".55"/><rect x="5.5" y="3" width="3" height="9" fill="currentColor" opacity=".78"/><rect x="9" y="1" width="3" height="11" fill="currentColor"/>',
-    },
-    {
-      key: "research",
-      label: "Research",
-      href: `${basePath}research.html`,
-      icon: '<circle cx="6" cy="6" r="3.5" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M8.5 8.5L12 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>',
-    },
-  ];
-
-  const rail = document.createElement("nav");
-  rail.className = "field-route-rail";
-  rail.dataset.fieldRouteRail = "";
-  rail.setAttribute("aria-label", "Portfolio evidence tracks");
-  rail.innerHTML = `
-    <div class="container field-route-rail-inner">
-      <span class="field-route-label">Field Lens</span>
-      <div class="field-route-links">
-        ${routes.map((route) => `
-          <a href="${route.href}" class="${route.key === activeRoute ? "is-active" : ""}" ${route.key === activeRoute ? 'aria-current="page"' : ""}>
-            <svg class="field-route-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">${route.icon}</svg>
-            <span>${route.label}</span>
-          </a>
-        `).join("")}
-      </div>
-    </div>`;
-  header.insertAdjacentElement("afterend", rail);
-};
+// Intentionally retired: the former Field/Evidence Lens duplicated the stable
+// application-track pages and made navigation inconsistent with the homepage.
 
 const syncProjectFilterUrl = () => {
   if (!projectFilters || !window.history?.replaceState) return;
@@ -2576,7 +2505,6 @@ initializeEvidenceTabs();
 initializeEvidenceCharts();
 initializePageLaunch();
 injectNavLinks();
-initializeFieldRouteRail();
 initializeNavToggle();
 initializeFooter();
 initializeSkillExplorer();

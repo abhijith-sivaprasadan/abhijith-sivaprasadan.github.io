@@ -49,7 +49,6 @@ const bus = (() => {
 function ensureGSAP() {
   const gsap = window.gsap;
   if (!gsap) {
-    console.warn("[motion] GSAP not loaded — animations will degrade to CSS.");
     return null;
   }
   const { ScrollTrigger, Flip } = window;
@@ -156,40 +155,19 @@ function boot() {
 
   bridgeExistingSystems();
 
-  // Auto-load subsystems present on the page
+  // Auto-load only bounded, page-specific interactions. The legacy Live Lens,
+  // Evidence Lens, radar, ambient canvas, audio and CMS hydration stack are
+  // intentionally not mounted on the unified public endpoints. They remain in
+  // version history and their source modules remain available for reference.
   const autoload = [
-    // Eulerian Stable Fluids — preferred on capable devices. The homepage
-    // enables Live Lens by default; when a visitor explicitly turns it off,
-    // keep the solver off and leave the authored hero content in place.
-    { name: "fluid-sim-eulerian", selector: "[data-motion-fluid-sim]", skip: () => !supportsWorkers || !document.body.classList.contains("lens-dev") },
-    // Legacy canvas fallback remains only for browsers without Worker support.
-    { name: "fluid-sim",     selector: "[data-motion-fluid-sim]", skip: () => reducedMotion || supportsWorkers || !document.body.classList.contains("lens-dev") },
-    { name: "cursor",        selector: "[data-motion-cursor]",        skip: () => touchOnly || reducedMotion },
-    { name: "springs",       selector: "[data-motion-spring], .button.primary, [data-home-mode-button], .signal-routes a", skip: () => reducedMotion || touchOnly },
-    { name: "scrollytelling",selector: "[data-motion-scrollyt]" },
-    { name: "scroll-rail",   selector: "[data-motion-scroll-rail]" },
     { name: "transitions",   selector: "[data-motion-page-transition], a[data-page-transition]" },
     { name: "entrance",      selector: "[data-motion-entrance]",      skip: () => reducedMotion },
     { name: "chips",         selector: ".tag-row span, .audience-chip-row span, .skill-pill, .chip, .pill" },
-    { name: "field-bg",      selector: "body.signal-rebuild",         skip: () => reducedMotion },
-    { name: "signal-page-art", selector: "[data-signal-page-art]", path: `${BASE}../sections/signal-page-art.js` },
-    { name: "bento-projects", selector: "[data-bento-projects]", path: `${BASE}../sections/bento-projects.js` },
-    { name: "featured-project-filters", selector: "[data-featured-project-filters]", path: `${BASE}../sections/featured-project-filters.js` },
-    { name: "evidence-graph", selector: ".evidence-lanes", path: `${BASE}../sections/evidence-graph.js` },
-    { name: "skill-radar", selector: "[data-skill-radar]", path: `${BASE}../sections/skill-radar.js` },
-    { name: "cinematic-timeline", selector: "#experience .timeline", path: `${BASE}../sections/cinematic-timeline.js` },
-    { name: "research-mindmap", selector: "[data-research-mindmap-source]", path: `${BASE}../sections/research-mindmap.js` },
-    { name: "letter-viewer", selector: ".testimonial-card", path: `${BASE}../sections/letter-viewer.js` },
     { name: "step-form", selector: "[data-contact-form]", path: `${BASE}../sections/step-form.js` },
-    { name: "theme-wipe",    selector: "[data-theme-toggle]",         skip: () => reducedMotion },
-    { name: "audio",         selector: "body",  skip: () => !supportsWebAudio },
     { name: "reading-progress", selector: '.case-hero, .case-panel, [data-page-key="case-study"]' },
-    { name: "looking-for",      selector: "body" },
     { name: "katex",            selector: ".math, [data-math]" },
     { name: "biot-calculator",  selector: "[data-biot-calculator]", path: `${BASE}../sections/biot-calculator.js` },
     { name: "i18n",             selector: "[data-i18n-sv], [data-i18n]" },
-    { name: "cms-hydrate",      selector: "body", path: `${BASE}../cms/hydrate.js` },
-    { name: "bento-previews",   selector: "[data-bento-previews]", path: `${BASE}../sections/bento-previews.js`, skip: () => reducedMotion },
     { name: "reducer-3d-viewer", selector: "[data-reducer-3d-viewer]", path: `${BASE}../sections/reducer-3d-viewer.js`, skip: () => reducedMotion },
   ];
   function loadPresentSubsystems() {

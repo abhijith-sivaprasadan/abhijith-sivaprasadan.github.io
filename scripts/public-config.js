@@ -5,6 +5,36 @@
 //   globalThis.PORTFOLIO_API_BASE_URL = "https://abhijith-portfolio-api.onrender.com";
 globalThis.PORTFOLIO_API_BASE_URL = "";
 
+// Apply the modern homepage shell to legacy public endpoints from one shared
+// location. Detail pages can retain their specialist content and scripts while
+// navigation, theme, typography and layout remain consistent across the site.
+(() => {
+  if (typeof document === "undefined" || !document.currentScript) return;
+  const scriptBase = new URL(".", document.currentScript.src);
+  const siteRoot = new URL("../", scriptBase);
+  if (!document.querySelector('link[data-unified-style]')) {
+    const stylesheet = document.createElement("link");
+    stylesheet.rel = "stylesheet";
+    stylesheet.href = new URL("styles/unified.css?v=20261005", siteRoot).href;
+    stylesheet.dataset.unifiedStyle = "";
+    document.head.appendChild(stylesheet);
+  }
+  if (!document.querySelector('script[data-unified-shell]')) {
+    const shell = document.createElement("script");
+    shell.src = new URL("scripts/unified-shell.js?v=20261005", siteRoot).href;
+    shell.async = false;
+    shell.dataset.unifiedShell = "";
+    document.head.appendChild(shell);
+  }
+  try {
+    const saved = localStorage.getItem("portfolioTheme");
+    document.documentElement.dataset.theme = saved || "light";
+    if (!saved) localStorage.setItem("portfolioTheme", "light");
+  } catch {
+    document.documentElement.dataset.theme = "light";
+  }
+})();
+
 globalThis.PORTFOLIO_AUTH_CONFIG = {
   apiKey: "AIzaSyBLveudYPaz16Bq1mYdhC11a2uNG1BaX5s",
   authDomain: "abhijith-sivaprasadan.firebaseapp.com",
