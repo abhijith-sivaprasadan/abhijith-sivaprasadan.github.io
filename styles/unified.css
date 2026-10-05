@@ -1,0 +1,311 @@
+/*
+ * Shared presentation layer for the legacy public endpoints.
+ * It deliberately mirrors styles/academic.css without changing case-study copy.
+ */
+:root {
+  --unified-page: #f5f5f7;
+  --unified-surface: #ffffff;
+  --unified-ink: #1d1d1f;
+  --unified-muted: #616169;
+  --unified-rule: #d5d5da;
+  --unified-accent: #0066cc;
+  --unified-hover: #eef4fc;
+  --unified-glass: rgba(245, 245, 247, .86);
+  --unified-shadow: 0 14px 44px -20px rgba(29, 36, 55, .18);
+  --unified-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+}
+html[data-theme='dark'] {
+  --unified-page: #101012;
+  --unified-surface: #1d1d20;
+  --unified-ink: #f5f5f7;
+  --unified-muted: #b3b3bc;
+  --unified-rule: #3e3e45;
+  --unified-accent: #80b9ff;
+  --unified-hover: #242d3c;
+  --unified-glass: rgba(16, 16, 18, .86);
+  --unified-shadow: 0 14px 44px -20px rgba(0, 0, 0, .5);
+}
+html { scroll-padding-top: 7rem; }
+body.signal-rebuild {
+  --bg: var(--unified-page);
+  --bg-soft: var(--unified-page);
+  --bg-2: var(--unified-page);
+  --panel: var(--unified-surface);
+  --panel-strong: var(--unified-surface);
+  --text: var(--unified-ink);
+  --fg: var(--unified-ink);
+  --muted: var(--unified-muted);
+  --line: var(--unified-rule);
+  --accent: var(--unified-accent);
+  --accent-2: var(--unified-accent);
+  --m3-surface: var(--unified-surface);
+  --m3-surface-2: var(--unified-surface);
+  --m3-surface-3: var(--unified-hover);
+  --m3-on-surface: var(--unified-ink);
+  --m3-on-surface-variant: var(--unified-muted);
+  --m3-outline: var(--unified-rule);
+  --m3-outline-variant: var(--unified-rule);
+  min-height: 100vh;
+  margin: 0;
+  color: var(--unified-ink);
+  background: var(--unified-page);
+  font: 400 16px/1.65 var(--unified-sans);
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+}
+body.signal-rebuild::before,
+body.signal-rebuild::after { display: none !important; }
+body.signal-rebuild :is(h1, h2, h3, h4) {
+  color: var(--unified-ink);
+  font-family: var(--unified-sans);
+  font-variation-settings: normal;
+  letter-spacing: -.035em;
+}
+body.signal-rebuild h1 { font-size: clamp(2.55rem, 4.5vw, 4rem); line-height: 1.08; font-weight: 650; }
+body.signal-rebuild h2 { font-size: clamp(1.8rem, 2.8vw, 2.4rem); line-height: 1.12; font-weight: 650; }
+body.signal-rebuild h3 { font-size: 1.16rem; line-height: 1.4; font-weight: 600; letter-spacing: -.015em; }
+body.signal-rebuild :is(p, li, dd, figcaption) { color: var(--unified-muted); }
+body.signal-rebuild a { color: var(--unified-accent); text-underline-offset: .24em; }
+body.signal-rebuild .skip-link { background: var(--unified-ink); color: var(--unified-page) !important; }
+body.signal-rebuild :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--unified-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+body.signal-rebuild .container { width: min(1120px, calc(100% - 96px)); max-width: none; margin-inline: auto; }
+
+/* One consistent header, populated by scripts/unified-shell.js. */
+body.signal-rebuild .site-header {
+  display: block !important;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: 0;
+  border: 0;
+  border-bottom: 1px solid var(--unified-rule);
+  background: var(--unified-glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: none;
+}
+.unified-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  min-height: 86px;
+  width: min(1120px, calc(100% - 96px));
+  margin-inline: auto;
+}
+.unified-wordmark { margin-right: auto; color: var(--unified-ink) !important; font-size: 1.05rem; font-weight: 600; letter-spacing: -.025em; text-decoration: none; }
+.unified-wordmark span { display: block; margin-top: 2px; color: var(--unified-muted); font-size: .76rem; font-weight: 400; letter-spacing: 0; }
+.unified-nav { display: flex; flex-wrap: wrap; gap: 24px; }
+.unified-nav a { padding-block: 10px; color: var(--unified-ink) !important; font-size: .875rem; text-decoration: none; }
+.unified-nav a:hover,
+.unified-nav a[aria-current='page'] { color: var(--unified-accent) !important; text-decoration: underline; }
+.unified-theme-switch {
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 1px solid var(--unified-rule);
+  border-radius: 24px;
+  background: var(--unified-surface);
+  color: var(--unified-muted);
+  font: 400 .75rem/1 var(--unified-sans);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.unified-theme-switch:hover { background: var(--unified-hover); }
+
+/* Page framing and hierarchy. */
+body.signal-rebuild :is(.page-hero, .case-hero, .hero) {
+  position: relative;
+  padding: 62px 0 54px;
+  border-bottom: 1px solid var(--unified-rule);
+  background: transparent;
+  box-shadow: none;
+}
+body.signal-rebuild :is(.page-hero, .case-hero, .hero)::before,
+body.signal-rebuild :is(.page-hero, .case-hero, .hero)::after { display: none; }
+body.signal-rebuild .page-hero h1 { max-width: 26ch; margin-bottom: 22px; font-size: clamp(2.45rem, 4vw, 3.6rem); }
+body.signal-rebuild .case-hero h1 { max-width: 34ch; margin-bottom: 22px; font-size: clamp(2.35rem, 3.8vw, 3.35rem); }
+body.signal-rebuild :is(.page-hero, .case-hero) .hero-text { max-width: 72ch; color: var(--unified-muted); font-size: 1.08rem; line-height: 1.75; }
+body.signal-rebuild .eyebrow {
+  margin-bottom: 16px;
+  color: var(--unified-accent);
+  font: 600 .72rem/1.5 var(--unified-sans);
+  letter-spacing: .105em;
+  text-transform: uppercase;
+}
+body.signal-rebuild .back-link { display: inline-block; margin-bottom: 24px; font-size: .82rem; }
+body.signal-rebuild .section { padding-block: 68px; border-bottom: 1px solid var(--unified-rule); background: transparent; }
+body.signal-rebuild .section.subtle { background: transparent; }
+body.signal-rebuild .section-heading { gap: 20px 32px; margin-bottom: 28px; }
+body.signal-rebuild .section-heading p:last-child { color: var(--unified-muted); }
+
+/* Cards, disclosure panels and document surfaces. */
+body.signal-rebuild :is(.card, .project-card, .case-panel, .page-panel, .skill-block, .timeline-item, .contact-card, .entry-card, .result-card, .newsletter-panel, .admin-preview-card, .project-browser-item, .collection-head, .timeline-chart, .paper-bar, .gb-callout, .gb-method-grid article, .gb-result-card, .gb-limit, details) {
+  border: 1px solid var(--unified-rule);
+  border-radius: 22px;
+  background: var(--unified-surface);
+  color: var(--unified-ink);
+  box-shadow: var(--unified-shadow);
+}
+body.signal-rebuild :is(.card, .project-card, .case-panel, .page-panel, .skill-block, .timeline-item, .contact-card, .entry-card, .result-card, .project-browser-item) { padding: clamp(22px, 3vw, 30px); }
+body.signal-rebuild :is(.card, .project-card, .timeline-item, .skill-block, .project-browser-item) {
+  transition: transform 280ms cubic-bezier(.22, 1, .36, 1), border-color 180ms ease, box-shadow 280ms ease;
+}
+body.signal-rebuild :is(.card, .project-card, .timeline-item, .skill-block, .project-browser-item):hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--unified-accent) 42%, var(--unified-rule));
+  box-shadow: 0 22px 44px -20px rgba(40, 65, 100, .25);
+}
+body.signal-rebuild .case-grid { align-items: start; gap: 28px; }
+body.signal-rebuild .case-panel { position: relative; }
+body.signal-rebuild .case-panel :is(p, li) { font-size: .94rem; line-height: 1.72; }
+body.signal-rebuild .case-panel h2:not(:first-child) { margin-top: 36px; padding-top: 30px; border-top: 1px solid var(--unified-rule); }
+body.signal-rebuild :is(.project-thumb, .case-visual, figure img) {
+  border: 1px solid var(--unified-rule);
+  border-radius: 20px;
+  background: var(--unified-surface);
+  box-shadow: none;
+  filter: none;
+}
+body.signal-rebuild figure { border-color: var(--unified-rule); background: var(--unified-surface); }
+body.signal-rebuild figcaption { font-size: .8rem; }
+body.signal-rebuild :is(pre, code) { color: var(--unified-ink); background: var(--unified-hover); border-color: var(--unified-rule); }
+body.signal-rebuild pre { border: 1px solid var(--unified-rule); border-radius: 14px; }
+body.signal-rebuild :is(table, th, td) { border-color: var(--unified-rule); }
+body.signal-rebuild th { color: var(--unified-ink); background: var(--unified-hover); }
+body.signal-rebuild td { color: var(--unified-muted); }
+body.signal-rebuild details { padding: 18px 20px; }
+body.signal-rebuild summary { color: var(--unified-ink); cursor: pointer; }
+
+/* Controls use the same rounded, restrained interaction language as the homepage. */
+body.signal-rebuild :is(.button, button:not(.unified-theme-switch), [role='button']) {
+  min-height: 44px;
+  border-radius: 24px;
+  font-family: var(--unified-sans);
+  font-weight: 500;
+}
+body.signal-rebuild .button.primary {
+  border-color: #0066cc;
+  background: #0066cc;
+  color: #fff;
+  box-shadow: none;
+}
+body.signal-rebuild .button.primary:hover { border-color: #0066cc; background: #0066cc; color: #fff; opacity: .9; }
+body.signal-rebuild .button.secondary,
+body.signal-rebuild button:not(.unified-theme-switch) {
+  border-color: var(--unified-rule);
+  background: var(--unified-surface);
+  color: var(--unified-ink);
+  box-shadow: none;
+}
+body.signal-rebuild :is(.button.secondary, button:not(.unified-theme-switch)):hover { background: var(--unified-hover); color: var(--unified-ink); }
+body.signal-rebuild :is(.tag-row span, .skill-pill, .chip, .pill, .evidence-badge, .audience-chip-row span) {
+  border: 1px solid var(--unified-rule) !important;
+  border-radius: 999px;
+  background: var(--unified-hover) !important;
+  color: var(--unified-muted) !important;
+  box-shadow: none !important;
+}
+body.signal-rebuild :is(input, textarea, select) {
+  border: 1px solid var(--unified-rule);
+  border-radius: 12px;
+  background: var(--unified-surface);
+  color: var(--unified-ink);
+}
+
+/* Keep useful charts and page-specific interactions; retire the old lens layer. */
+body.signal-rebuild :is(.lens-dev-toggle, [data-live-lens], [data-skill-radar], .evidence-lanes, .field-route-rail, .signal-routes, .motion-ambient-canvas, .motion-audio-toggle, .motion-cursor) { display: none !important; }
+body.signal-rebuild .scroll-progress,
+body.signal-rebuild .paper-progress { background: var(--unified-accent); }
+body.signal-rebuild .paper-bar {
+  position: sticky;
+  top: 86px;
+  z-index: 20;
+  width: min(1120px, calc(100% - 96px));
+  margin: 16px auto 0;
+  padding: 10px 16px;
+}
+body.signal-rebuild .paper-doc { color: var(--unified-ink); background: transparent; }
+body.signal-rebuild :is(.paper-doc, .gb-study) :is(h1, h2, h3, h4) {
+  color: var(--unified-ink) !important;
+  font-family: var(--unified-sans) !important;
+  font-style: normal;
+  letter-spacing: -.035em;
+}
+body.signal-rebuild :is(.paper-doc, .gb-study) :is(p, li, dd, dt, figcaption, caption) {
+  font-family: var(--unified-sans) !important;
+}
+
+/* Shared footer supplied by the shell. */
+body.signal-rebuild .footer {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-top: 1px solid var(--unified-rule);
+  background: transparent;
+  color: var(--unified-muted);
+}
+.unified-footer-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px 28px;
+  width: min(1120px, calc(100% - 96px));
+  margin-inline: auto;
+  padding-block: 24px;
+  font-size: .72rem;
+}
+.unified-footer-inner p { margin: 0; color: var(--unified-muted) !important; }
+.unified-footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 18px; }
+.unified-footer-links a { color: var(--unified-muted) !important; }
+
+@media (max-width: 1000px) {
+  body.signal-rebuild .container,
+  .unified-header-inner,
+  .unified-footer-inner,
+  body.signal-rebuild .paper-bar { width: calc(100% - 64px); }
+  .unified-header-inner { gap: 20px; }
+  .unified-nav { gap: 16px; }
+}
+@media (max-width: 760px) {
+  html { scroll-padding-top: 10rem; }
+  body.signal-rebuild .container,
+  .unified-header-inner,
+  .unified-footer-inner,
+  body.signal-rebuild .paper-bar { width: calc(100% - 40px); }
+  .unified-header-inner { flex-wrap: wrap; min-height: 0; padding-block: 20px 12px; gap: 10px 18px; }
+  .unified-wordmark { flex: 1 1 210px; }
+  .unified-nav { order: 3; width: 100%; gap: 12px 22px; }
+  body.signal-rebuild :is(.page-hero, .case-hero, .hero) { padding-block: 42px 38px; }
+  body.signal-rebuild .page-hero h1 { font-size: clamp(2.35rem, 9vw, 3.2rem); overflow-wrap: anywhere; }
+  body.signal-rebuild .case-hero h1 { font-size: clamp(2rem, 8vw, 2.55rem); line-height: 1.05; overflow-wrap: anywhere; }
+  body.signal-rebuild .section { padding-block: 44px; }
+  body.signal-rebuild .paper-bar { top: 143px; }
+  .unified-footer-inner { grid-template-columns: 1fr; }
+  .unified-footer-links { justify-content: flex-start; }
+}
+@media (max-width: 380px) {
+  .unified-nav { gap: 8px 12px; }
+  .unified-nav a { font-size: .8rem; }
+  .unified-wordmark { flex-basis: 175px; font-size: .95rem; }
+  .unified-wordmark span { font-size: .69rem; }
+  .unified-theme-switch { padding-inline: 9px; font-size: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body.signal-rebuild *, body.signal-rebuild *::before, body.signal-rebuild *::after { animation: none !important; transition: none !important; }
+}
+@media print {
+  :root, html[data-theme='dark'] { --unified-page: #fff; --unified-surface: #fff; --unified-ink: #111; --unified-muted: #333; --unified-rule: #aaa; --unified-accent: #163e3a; }
+  body.signal-rebuild .site-header,
+  body.signal-rebuild .paper-bar,
+  body.signal-rebuild .scroll-progress,
+  body.signal-rebuild .paper-progress,
+  body.signal-rebuild .scroll-top-btn { display: none !important; }
+  body.signal-rebuild .container,
+  .unified-footer-inner { width: 100%; }
+  body.signal-rebuild :is(.section, .page-hero, .case-hero) { padding-block: 24px; }
+  body.signal-rebuild :is(.card, .project-card, .case-panel, .timeline-item, figure) { break-inside: avoid; box-shadow: none; }
+}

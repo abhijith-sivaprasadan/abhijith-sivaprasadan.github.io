@@ -29,6 +29,7 @@ jobs:
         run: |
           node scripts/build-academic.cjs --check
           node scripts/validate-academic.cjs
+          node scripts/validate-unified-ui.cjs
 
       - name: Check JavaScript syntax
         run: |

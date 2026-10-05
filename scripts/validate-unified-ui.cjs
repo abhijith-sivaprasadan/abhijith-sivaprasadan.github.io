@@ -1,0 +1,64 @@
+// Regression checks for the shared UI shell on legacy public endpoints.
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname, '..');
+const read = file => fs.readFileSync(path.join(root, file), 'utf8');
+const htmlIn = dir => fs.readdirSync(path.join(root, dir)).filter(name => name.endsWith('.html')).map(name => path.join(dir, name));
+const legacyPages = [
+  ...fs.readdirSync(root).filter(name => name.endsWith('.html') && name !== 'index.html'),
+  ...htmlIn('projects'),
+  ...htmlIn('experience'),
+];
+
+assert.equal(legacyPages.length, 50, 'Review the unified-shell inventory when public endpoints change.');
+for (const file of legacyPages) {
+  const html = read(file);
+  if (file === '404.html') {
+    assert.ok(html.includes('styles/unified.css?v=20261005'));
+    assert.ok(html.includes('scripts/unified-shell.js?v=20261005'));
+  } else {
+    assert.ok(html.includes('scripts/public-config.js'), `${file}: missing shared shell loader`);
+  }
+  assert.ok(html.includes('class="signal-rebuild"') || /<body[^>]*class="[^"]*signal-rebuild/.test(html), `${file}: missing unified body hook`);
+}
+
+const shell = read('scripts/unified-shell.js');
+const stylesheet = read('styles/unified.css');
+for (const destination of ['index.html#research', 'projects.html', 'skills/index.html', 'tracks/index.html', 'index.html#contact']) {
+  assert.ok(shell.includes(destination), `Shared navigation missing ${destination}`);
+}
+for (const selector of ['.unified-header-inner', '.unified-nav', '.page-hero', '.case-hero', '.case-panel', '.unified-footer-inner']) {
+  assert.ok(stylesheet.includes(selector), `Shared CSS missing ${selector}`);
+}
+assert.ok(/\.site-header\s*\{[\s\S]{0,160}?display:\s*block\s*!important/.test(stylesheet), 'Shared header must override paper-page hiding rules.');
+assert.ok(stylesheet.includes('@media (max-width: 760px)'));
+assert.ok(stylesheet.includes('@media (prefers-reduced-motion: reduce)'));
+assert.ok(stylesheet.includes("html[data-theme='dark']"));
+assert.ok(!/requestAnimationFrame|addEventListener\(['"]scroll/.test(shell), 'Unified shell must not add continuous scroll work.');
+assert.ok(!/\.innerHTML\s*=/.test(shell), 'Shared shell must construct static UI without innerHTML.');
+assert.ok(Buffer.byteLength(shell) < 8000, 'Keep the shared shell small.');
+
+const motion = read('scripts/motion/index.js');
+const autoload = motion.split('const autoload = [')[1].split('];')[0];
+for (const retired of ['fluid-sim', 'field-bg', 'skill-radar', 'evidence-graph', 'audio', 'cms-hydrate']) {
+  assert.ok(!autoload.includes(`name: "${retired}"`), `Retired runtime was re-enabled: ${retired}`);
+}
+const site = read('scripts/site.js');
+assert.ok(site.includes('Intentionally retired: the former Field/Evidence Lens'), 'Field Lens retirement must stay documented.');
+assert.ok(!site.includes('initializeFieldRouteRail'), 'Retired Field Lens implementation must not return as dead code.');
+
+const overviewCorrection = 'commissioned the measurement chain for a planned validation campaign at up to 700&deg;C';
+const detailCorrection = 'During preparation for high-temperature testing, a heater failure occurred before the campaign could begin;';
+assert.ok(read('experience.html').includes(overviewCorrection));
+assert.ok(read('experience/siemens-energy.html').includes(detailCorrection));
+for (const file of ['experience.html', 'experience/siemens-energy.html', 'api/linkedin-experience.json', 'backend/data/experience.json', ...htmlIn('skills'), ...htmlIn('tracks')]) {
+  const content = read(file);
+  assert.ok(!content.includes('ran independent test campaigns at up to 700'), `${file}: obsolete campaign claim`);
+  assert.ok(!content.includes('During high-temperature preparation, a heater failure interrupted sustained testing'), `${file}: obsolete heater chronology`);
+}
+for (const file of ['api/linkedin-experience.json', 'backend/data/experience.json']) {
+  assert.ok(read(file).includes('commissioned the measurement chain for a planned validation campaign at up to 700 C'));
+}
+
+console.log(`Passed: ${legacyPages.length} legacy endpoints share the modern shell; retired lens runtime stays disabled; Siemens chronology is source-aligned.`);
