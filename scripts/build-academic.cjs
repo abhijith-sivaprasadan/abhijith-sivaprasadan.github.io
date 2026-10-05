@@ -24,7 +24,7 @@ const featured = ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flex
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
-const version = '20260930-cet-refresh';
+const version = '20261005-research-spectrum';
 const arrow = '<span aria-hidden="true">↗</span>';
 function link(href, label, prefix = '', cls = '') {
   return `<a${cls ? ` class="${cls}"` : ''} href="${escape(external(href) || href.startsWith('mailto:') || href.startsWith('#') ? href : prefix + href)}">${escape(label)}</a>`;
