@@ -67,8 +67,13 @@
       header.replaceChildren(inner);
       themeSwitch.addEventListener('click', () => {
         const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        setTheme(next);
-        try { localStorage.setItem('portfolioTheme', next); } catch { /* Keep the page usable. */ }
+        const applyTheme = () => {
+          setTheme(next);
+          try { localStorage.setItem('portfolioTheme', next); } catch { /* Keep the page usable. */ }
+        };
+        const reduce = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reduce && typeof document.startViewTransition === 'function') document.startViewTransition(applyTheme);
+        else applyTheme();
       });
     }
     setTheme(saved);
@@ -104,8 +109,8 @@
     const reveal = element => {
       if (preference.matches || typeof element.animate !== 'function') return;
       const animation = element.animate(
-        [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'translateY(0)' }],
-        { duration: 620, easing: 'cubic-bezier(.22, 1, .36, 1)' }
+        [{ opacity: 0, transform: 'translateY(20px) scale(.992)', filter: 'blur(5px)' }, { opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0)' }],
+        { duration: 700, easing: 'cubic-bezier(.22, 1, .36, 1)' }
       );
       animations.add(animation);
       animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));

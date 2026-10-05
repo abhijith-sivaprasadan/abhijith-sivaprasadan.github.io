@@ -148,4 +148,6 @@ for (const reduce of [false, true]) {
 assert.ok(Buffer.byteLength(read('scripts/academic.js')) < 5000, 'Keep the homepage script small.');
 assert.ok(!/requestAnimationFrame|addEventListener\(['"]scroll/.test(read('scripts/academic.js')), 'No continuous animation or scroll loop.');
 assert.ok(read('styles/academic.css').includes('@media (prefers-reduced-motion: reduce)'), 'Respect reduced motion in CSS.');
+assert.ok(read('styles/academic.css').includes('@view-transition'), 'Retain progressive cross-page transitions.');
+assert.ok(read('styles/academic.css').includes('--accent-2'), 'Retain the research-spectrum depth system.');
 console.log(`Passed: ${files.length} academic pages, ${tracks.length} shareable tracks, ${skills.size} skill dossiers, ${projectKeys.size} distinct projects, local fragments, static navigation, metadata and theme behavior.`);

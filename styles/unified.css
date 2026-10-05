@@ -9,6 +9,9 @@
   --unified-muted: #616169;
   --unified-rule: #d5d5da;
   --unified-accent: #0066cc;
+  --unified-accent-2: #00a3a3;
+  --unified-accent-3: #7257d9;
+  --unified-accent-soft: rgba(0, 102, 204, .11);
   --unified-hover: #eef4fc;
   --unified-glass: rgba(245, 245, 247, .86);
   --unified-shadow: 0 14px 44px -20px rgba(29, 36, 55, .18);
@@ -21,6 +24,9 @@ html[data-theme='dark'] {
   --unified-muted: #b3b3bc;
   --unified-rule: #3e3e45;
   --unified-accent: #80b9ff;
+  --unified-accent-2: #63d8d1;
+  --unified-accent-3: #b2a2ff;
+  --unified-accent-soft: rgba(128, 185, 255, .14);
   --unified-hover: #242d3c;
   --unified-glass: rgba(16, 16, 18, .86);
   --unified-shadow: 0 14px 44px -20px rgba(0, 0, 0, .5);
@@ -47,8 +53,9 @@ body.signal-rebuild {
   --m3-outline-variant: var(--unified-rule);
   min-height: 100vh;
   margin: 0;
+  overflow-x: clip;
   color: var(--unified-ink);
-  background: var(--unified-page);
+  background: radial-gradient(circle at 8% 0%, var(--unified-accent-soft), transparent 31rem), radial-gradient(circle at 96% 18%, color-mix(in srgb, var(--unified-accent-2) 8%, transparent), transparent 26rem), var(--unified-page);
   font: 400 16px/1.65 var(--unified-sans);
   letter-spacing: 0;
   -webkit-font-smoothing: antialiased;
@@ -82,11 +89,11 @@ body.signal-rebuild .site-header {
   z-index: 100;
   min-height: 0;
   border: 0;
-  border-bottom: 1px solid var(--unified-rule);
+  border-bottom: 1px solid color-mix(in srgb, var(--unified-accent) 18%, var(--unified-rule));
   background: var(--unified-glass);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  box-shadow: none;
+  box-shadow: 0 8px 30px -26px color-mix(in srgb, var(--unified-accent) 55%, transparent);
 }
 .unified-header-inner {
   display: flex;
@@ -143,9 +150,9 @@ body.signal-rebuild .section-heading p:last-child { color: var(--unified-muted);
 
 /* Cards, disclosure panels and document surfaces. */
 body.signal-rebuild :is(.card, .project-card, .case-panel, .page-panel, .skill-block, .timeline-item, .contact-card, .entry-card, .result-card, .newsletter-panel, .admin-preview-card, .project-browser-item, .collection-head, .timeline-chart, .paper-bar, .gb-callout, .gb-method-grid article, .gb-result-card, .gb-limit, details) {
-  border: 1px solid var(--unified-rule);
+  border: 1px solid color-mix(in srgb, var(--unified-accent) 18%, var(--unified-rule));
   border-radius: 22px;
-  background: var(--unified-surface);
+  background: linear-gradient(150deg, color-mix(in srgb, var(--unified-accent) 4%, var(--unified-surface)), var(--unified-surface) 42%);
   color: var(--unified-ink);
   box-shadow: var(--unified-shadow);
 }
@@ -166,7 +173,7 @@ body.signal-rebuild :is(.project-thumb, .case-visual, figure img) {
   border: 1px solid var(--unified-rule);
   border-radius: 20px;
   background: var(--unified-surface);
-  box-shadow: none;
+  box-shadow: 0 26px 56px -38px color-mix(in srgb, var(--unified-accent) 42%, transparent);
   filter: none;
 }
 body.signal-rebuild figure { border-color: var(--unified-rule); background: var(--unified-surface); }
@@ -208,6 +215,46 @@ body.signal-rebuild :is(.tag-row span, .skill-pill, .chip, .pill, .evidence-badg
   color: var(--unified-muted) !important;
   box-shadow: none !important;
 }
+
+/* Restrained depth shared by case studies and legacy endpoints. */
+body.signal-rebuild :is(.page-hero, .case-hero, .hero) { isolation: isolate; overflow: hidden; }
+body.signal-rebuild :is(.page-hero, .case-hero, .hero)::before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -1;
+  inset: 10px 0 0;
+  background-image: linear-gradient(color-mix(in srgb, var(--unified-accent) 7%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--unified-accent) 7%, transparent) 1px, transparent 1px), radial-gradient(circle at 80% 18%, color-mix(in srgb, var(--unified-accent-2) 12%, transparent), transparent 34rem);
+  background-size: 42px 42px, 42px 42px, auto;
+  mask-image: linear-gradient(to bottom, #000, transparent 94%);
+  pointer-events: none;
+}
+body.signal-rebuild :is(.page-hero, .case-hero) h1 {
+  text-wrap: balance;
+  background: linear-gradient(105deg, var(--unified-ink) 20%, color-mix(in srgb, var(--unified-accent) 72%, var(--unified-ink)) 72%, var(--unified-accent-2));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body.signal-rebuild .case-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 22px 0 0 22px;
+  background: linear-gradient(var(--unified-accent), var(--unified-accent-2), transparent 82%);
+  opacity: .62;
+}
+body.signal-rebuild :is(.button.primary, .unified-theme-switch) { transition: transform 260ms cubic-bezier(.22, 1, .36, 1), background-color 180ms ease, box-shadow 260ms ease; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  body.signal-rebuild .button.primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -18px var(--unified-accent); }
+  body.signal-rebuild .unified-theme-switch:hover { transform: translateY(-1px); }
+}
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: 180ms ease both unified-page-out; }
+::view-transition-new(root) { animation: 420ms cubic-bezier(.22, 1, .36, 1) both unified-page-in; }
+@keyframes unified-page-out { to { opacity: 0; transform: scale(.992); filter: blur(3px); } }
+@keyframes unified-page-in { from { opacity: 0; transform: translateY(8px); filter: blur(5px); } }
 body.signal-rebuild :is(input, textarea, select) {
   border: 1px solid var(--unified-rule);
   border-radius: 12px;
@@ -296,6 +343,7 @@ body.signal-rebuild .footer {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   body.signal-rebuild *, body.signal-rebuild *::before, body.signal-rebuild *::after { animation: none !important; transition: none !important; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
 }
 @media print {
   :root, html[data-theme='dark'] { --unified-page: #fff; --unified-surface: #fff; --unified-ink: #111; --unified-muted: #333; --unified-rule: #aaa; --unified-accent: #163e3a; }
