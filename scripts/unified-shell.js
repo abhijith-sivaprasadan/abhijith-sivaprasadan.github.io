@@ -104,6 +104,15 @@
     document.querySelectorAll('.lens-dev-toggle, [data-field-route-rail], .motion-audio-toggle, .motion-cursor, .motion-ambient-canvas').forEach(element => element.remove());
 
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    if (!preference.matches && matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('.card, .project-card, .case-panel, .page-panel, .skill-block, .timeline-item, .entry-card, .project-browser-item').forEach(card => {
+        card.addEventListener('pointermove', event => {
+          const box = card.getBoundingClientRect();
+          card.style.setProperty('--unified-card-x', `${((event.clientX - box.left) / box.width) * 100}%`);
+          card.style.setProperty('--unified-card-y', `${((event.clientY - box.top) / box.height) * 100}%`);
+        });
+      });
+    }
     if (preference.matches || typeof IntersectionObserver !== 'function') return;
     const animations = new Set();
     const reveal = element => {
@@ -122,7 +131,7 @@
         reveal(entry.target);
       });
     }, { threshold: .08 });
-    document.querySelectorAll('.section > .container, .project-card, .timeline-item, .case-panel').forEach(element => observer.observe(element));
+    document.querySelectorAll('.section > .container, .project-card, .timeline-item, .case-panel, .page-panel, .skill-block, .entry-card, details').forEach(element => observer.observe(element));
     const stop = () => {
       observer.disconnect();
       animations.forEach(animation => animation.cancel());

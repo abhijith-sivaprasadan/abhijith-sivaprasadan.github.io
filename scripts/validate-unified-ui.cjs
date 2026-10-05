@@ -15,10 +15,10 @@ assert.equal(legacyPages.length, 50, 'Review the unified-shell inventory when pu
 for (const file of legacyPages) {
   const html = read(file);
   if (file === '404.html') {
-    assert.ok(html.includes('styles/unified.css?v=20261005-paper-themes'));
-    assert.ok(html.includes('scripts/unified-shell.js?v=20261005-paper-themes'));
+    assert.ok(html.includes('styles/unified.css?v=20261005-living-atlas'));
+    assert.ok(html.includes('scripts/unified-shell.js?v=20261005-living-atlas'));
   } else {
-    assert.ok(html.includes('scripts/public-config.js'), `${file}: missing shared shell loader`);
+    assert.ok(html.includes('scripts/public-config.js?v=20261005-living-atlas'), `${file}: stale shared shell loader`);
   }
   assert.ok(html.includes('class="signal-rebuild"') || /<body[^>]*class="[^"]*signal-rebuild/.test(html), `${file}: missing unified body hook`);
 }
@@ -33,6 +33,9 @@ for (const selector of ['.unified-header-inner', '.unified-nav', '.page-hero', '
 }
 assert.ok(stylesheet.includes('@view-transition'), 'Shared pages must retain progressive cross-page transitions.');
 assert.ok(stylesheet.includes('--unified-accent-2'), 'Shared pages must retain the research-spectrum depth system.');
+assert.ok(stylesheet.includes('--unified-shadow-strong'), 'Shared pages must retain the elevated depth system.');
+assert.ok(stylesheet.includes('@keyframes unified-ambient-shift'), 'Shared pages must retain bounded ambient motion.');
+assert.ok(stylesheet.includes('scroll-snap-type'), 'Shared navigation must remain touch friendly.');
 assert.ok(stylesheet.includes('animation-timeline: scroll(root block)'), 'Shared long-form pages must retain progressive reading position.');
 assert.ok(/\.site-header\s*\{[\s\S]{0,160}?display:\s*block\s*!important/.test(stylesheet), 'Shared header must override paper-page hiding rules.');
 assert.ok(stylesheet.includes('@media (max-width: 760px)'));
@@ -46,7 +49,7 @@ assert.equal(paperPages.length, 11, 'Review the paper-theme inventory when resea
 for (const file of paperPages) {
   const html = read(file);
   assert.ok(html.includes('class="paper-doc'), `${file}: missing shared paper document surface`);
-  assert.ok(html.includes('scripts/public-config.js?v=20261005-paper-themes'), `${file}: stale shared loader cache key`);
+  assert.ok(html.includes('scripts/public-config.js?v=20261005-living-atlas'), `${file}: stale shared loader cache key`);
 }
 assert.ok(stylesheet.includes("html[data-theme='dark'] body.signal-rebuild:is([data-paper], [data-mode='paper'])"), 'Research papers need an explicit dark-paper palette.');
 for (const surface of ['.method-flow span', '.gb-callout', '.os-callout', '.os-metrics span']) {
