@@ -158,9 +158,9 @@
     "schema": "https://schema.org/Person",
     "generatedAt": "2026-09-30",
     "versions": {
-      "research_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_CV_PhD_Academic.pdf",
-      "energy_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_CV_EnergyCoordinator.pdf",
-      "thermal_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_CV_TestEngineer.pdf"
+      "research_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_Sivaprasadan_CV_Generic_Research.pdf",
+      "energy_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf",
+      "thermal_cv_pdf": "https://abhijith-sivaprasadan.github.io/downloads/Abhijith_Sivaprasadan_CV_Generic_Thermal_Process.pdf"
     }
   }
 }
