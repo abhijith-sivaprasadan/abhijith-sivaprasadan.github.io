@@ -15,13 +15,13 @@ globalThis.PORTFOLIO_API_BASE_URL = "";
   if (!document.querySelector('link[data-unified-style]')) {
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = new URL("styles/unified.css?v=20261005-paper-themes", siteRoot).href;
+    stylesheet.href = new URL("styles/unified.css?v=20261005-living-atlas", siteRoot).href;
     stylesheet.dataset.unifiedStyle = "";
     document.head.appendChild(stylesheet);
   }
   if (!document.querySelector('script[data-unified-shell]')) {
     const shell = document.createElement("script");
-    shell.src = new URL("scripts/unified-shell.js?v=20261005-paper-themes", siteRoot).href;
+    shell.src = new URL("scripts/unified-shell.js?v=20261005-living-atlas", siteRoot).href;
     shell.async = false;
     shell.dataset.unifiedShell = "";
     document.head.appendChild(shell);

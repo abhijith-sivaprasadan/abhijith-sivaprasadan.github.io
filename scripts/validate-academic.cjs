@@ -117,7 +117,7 @@ for (const file of files) {
 // The optional theme remains usable even when storage is blocked.
 for (const blocked of [false, true]) {
   const button = { hidden: true, textContent: '', setAttribute(name, value) { this[name] = value; }, addEventListener(name, callback) { this[name] = callback; } };
-  const document = { documentElement: { dataset: {} }, querySelector: () => button };
+  const document = { documentElement: { dataset: {} }, querySelector: () => button, querySelectorAll: () => [] };
   const localStorage = { getItem() { if (blocked) throw Error('blocked'); return 'dark'; }, setItem() { if (blocked) throw Error('blocked'); } };
   vm.runInNewContext(read('scripts/academic.js'), { document, localStorage });
   assert.equal(button.hidden, false);
@@ -131,7 +131,11 @@ for (const reduce of [false, true]) {
   let observerCallback, preferenceCallback, animationCount = 0, cancelled = 0, observed = 0, unobserved = 0;
   const element = { animate() { animationCount++; return { finished: new Promise(() => {}), cancel() { cancelled++; } }; } };
   const button = { setAttribute() {}, addEventListener() {} };
-  const document = { documentElement: { dataset: {} }, querySelector: () => button, querySelectorAll: () => [element] };
+  const document = {
+    documentElement: { dataset: {} },
+    querySelector: selector => selector === '[data-academic-theme]' ? button : null,
+    querySelectorAll: selector => selector.includes('.hero-identity') || selector.includes('.research-grid article') ? [element] : [],
+  };
   const preference = { matches: reduce, addEventListener(_, callback) { preferenceCallback = callback; } };
   class IntersectionObserver {
     constructor(callback) { observerCallback = callback; }
@@ -151,12 +155,16 @@ for (const reduce of [false, true]) {
     assert.equal(cancelled, 2);
   }
 }
-assert.ok(Buffer.byteLength(read('scripts/academic.js')) < 5000, 'Keep the homepage script small.');
+assert.ok(Buffer.byteLength(read('scripts/academic.js')) < 10000, 'Keep the homepage script small.');
 assert.ok(!/requestAnimationFrame|addEventListener\(['"]scroll/.test(read('scripts/academic.js')), 'No continuous animation or scroll loop.');
 assert.ok(read('styles/academic.css').includes('@media (prefers-reduced-motion: reduce)'), 'Respect reduced motion in CSS.');
 assert.ok(read('styles/academic.css').includes('@view-transition'), 'Retain progressive cross-page transitions.');
 assert.ok(read('styles/academic.css').includes('--accent-2'), 'Retain the research-spectrum depth system.');
 assert.ok(read('styles/academic.css').includes('animation-timeline: scroll(root block)'), 'Retain progressive reading position.');
+assert.ok(read('styles/academic.css').includes('@keyframes atlas-flow'), 'Retain the animated research-atlas signal paths.');
+assert.ok(read('styles/academic.css').includes('scroll-snap-type'), 'Retain touch-friendly track browsing.');
+for (const surface of ['hero-lab', 'research-atlas', 'signal-band']) assert.ok(home.includes(`class="${surface}`), `Homepage missing ${surface}.`);
+assert.equal((home.match(/class="track-visual"/g) || []).length, 5, 'Every application track needs a technical visual.');
 assert.equal((home.match(/class="work-media"/g) || []).length, 6, 'Every featured homepage project needs a visual preview.');
 for (const track of tracks) assert.ok(read(`tracks/${track.id}.html`).includes('class="work-media"'), `Track ${track.id} needs visual project evidence.`);
 console.log(`Passed: ${files.length} academic pages, ${tracks.length} shareable tracks, ${skills.size} skill dossiers, ${projectKeys.size} distinct projects, local fragments, static navigation, metadata and theme behavior.`);

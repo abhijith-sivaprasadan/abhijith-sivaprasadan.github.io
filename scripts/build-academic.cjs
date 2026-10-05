@@ -24,7 +24,7 @@ const featured = ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flex
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
-const version = '20261005-visual-evidence';
+const version = '20261005-living-atlas';
 const arrow = '<span aria-hidden="true">↗</span>';
 function link(href, label, prefix = '', cls = '') {
   return `<a${cls ? ` class="${cls}"` : ''} href="${escape(external(href) || href.startsWith('mailto:') || href.startsWith('#') ? href : prefix + href)}">${escape(label)}</a>`;
@@ -110,7 +110,7 @@ function projectKind(p) {
 }
 function trackCards(prefix = '', compact = false) {
   return `<ul class="track-directory${compact ? ' track-directory-compact' : ''}">${tracks.map((track, index) => `
-    <li><a href="${prefix}tracks/${track.id}.html"><span class="track-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><strong>${escape(track.label)}</strong><span class="track-detail">${escape(track.detail)}</span><span class="track-open">Explore track <span aria-hidden="true">→</span></span></a></li>`).join('')}
+    <li data-track-card="${track.id}"><a href="${prefix}tracks/${track.id}.html"><span class="track-visual" aria-hidden="true"><i></i><i></i><i></i><b></b></span><span class="track-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><strong>${escape(track.label)}</strong><span class="track-detail">${escape(track.detail)}</span><span class="track-open">Explore track <span aria-hidden="true">→</span></span></a></li>`).join('')}
   </ul>`;
 }
 function trackNavigation(current) {
@@ -189,28 +189,55 @@ function home() {
   const featuredProjects = featured.map(id => projects.find(p => p.id === id));
   const roles = ['test-engineer-master-thesis-student', 'energy-efficiency-intern', 'student-intern-pyrolysis', 'engineer-backend-developer-typescript-nestjs'].map(id => experiences.find(e => e.id === id));
   return page('index.html', 'Thermal Engineering & Energy Systems Research', 'Academic portfolio of Abhijith Sivaprasadan: thermal-fluid engineering, energy-system resilience, thermal storage, research software, published thesis and emerging nuclear-energy interests.', `
-    <!-- Live Lens, Evidence Lens, the capability radar, and the legacy motion/CMS
-         stack are intentionally not mounted or loaded on this research homepage.
-         Their implementation remains in version history / legacy modules for
-         recovery and existing case-study pages. Only lightweight, one-shot entrance
-         transitions are enabled; no background simulations or scroll loops run here. -->
+    <!-- The former Live/Evidence Lens and capability radar remain intentionally
+         retired. This homepage uses a bounded SVG research atlas, CSS motion and
+         one-shot observers: no canvas simulation, CMS hydration or scroll loop. -->
     <section id="signal" class="academic-hero">
       <div id="person" class="hero-intro">
         <div class="hero-identity"><img src="assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. Sustainable Energy Engineering · KTH · Stockholm, Sweden</span></p></div>
+        <p class="overline hero-kicker"><span aria-hidden="true"></span>Research engineer · Thermal-fluid &amp; energy systems</p>
         <h1>Thermal engineering.<br />Energy systems.<br /><em>Evidence-first research.</em></h1>
         <p class="lead">I’m Abhijith Sivaprasadan, a KTH M.Sc. Sustainable Energy Engineering graduate. My work connects thermal-fluid simulation, experimental methods and energy-system modelling.</p>
         <p class="hero-interest">Interested in research-engineer and PhD opportunities in thermal-fluid engineering, energy systems and nuclear-energy applications.</p>
         <div class="hero-links">${link('research.html', 'Research statement', '', 'primary-link')}${link('downloads/Abhijith_CV_PhD_Academic.pdf', 'Academic CV (PDF)')}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}</div>
+        <dl class="hero-proof" aria-label="Portfolio summary"><div><dt>${projects.length}</dt><dd>Documented projects</dd></div><div><dt>${data.skills.length}</dt><dd>Evidence dossiers</dd></div><div><dt>1</dt><dd>Published KTH thesis</dd></div></dl>
       </div>
-      <aside class="thesis-feature" aria-labelledby="thesis-heading">
-        <p class="overline">Featured thesis / KTH · Siemens Energy</p>
-        <h2 id="thesis-heading">Heat transfer in a high-temperature pressure-sensor calibration rig.</h2>
-        <p>Compressible CFD and conjugate heat transfer, supported by mesh-independence checks, thermal-resistance analysis and measurement-chain commissioning.</p>
-        <dl class="thesis-facts"><div><dt>Methods</dt><dd>CFD / CHT · k-omega SST</dd></div><div><dt>Tools</dt><dd>ANSYS Fluent · NI-DAQ · LabVIEW</dd></div><div><dt>Publication</dt><dd>TRITA-ITM-EX 2026:14</dd></div></dl>
-        <div class="text-links">${link('projects/siemens-thesis.html', 'Read the case study →')}${link('https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965', 'Published thesis ↗')}</div>
-        <p class="scope-caption">Numerical investigation; the measurement chain was commissioned, but heater failure occurred before high-temperature testing began.</p>
+      <aside class="hero-lab" aria-label="Research field map">
+        <div class="lab-toolbar"><span><i aria-hidden="true"></i>Research field</span><span>System online</span></div>
+        <div class="lab-viewport">
+          <svg class="research-atlas" viewBox="0 0 620 500" aria-hidden="true">
+            <defs>
+              <linearGradient id="atlas-spectrum" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset=".52" stop-color="var(--accent-2)"/><stop offset="1" stop-color="var(--accent-3)"/></linearGradient>
+              <radialGradient id="atlas-core"><stop offset="0" stop-color="var(--accent-2)" stop-opacity=".42"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></radialGradient>
+              <filter id="atlas-glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g class="atlas-grid"><path d="M0 100H620M0 200H620M0 300H620M0 400H620"/><path d="M100 0V500M200 0V500M300 0V500M400 0V500M500 0V500"/></g>
+            <circle class="atlas-halo" cx="310" cy="250" r="182"/>
+            <circle class="atlas-orbit orbit-a" cx="310" cy="250" r="148"/>
+            <circle class="atlas-orbit orbit-b" cx="310" cy="250" r="105"/>
+            <path class="atlas-connection" d="M310 250C258 208 213 145 152 112M310 250C374 214 436 175 487 123M310 250C356 300 402 350 474 391M310 250C247 301 210 356 148 395"/>
+            <path class="atlas-flow flow-a" d="M152 112C213 145 258 208 310 250C374 214 436 175 487 123"/>
+            <path class="atlas-flow flow-b" d="M148 395C210 356 247 301 310 250C356 300 402 350 474 391"/>
+            <g class="atlas-core"><circle cx="310" cy="250" r="74" fill="url(#atlas-core)"/><circle cx="310" cy="250" r="38"/><circle cx="310" cy="250" r="7"/><text x="310" y="242">RESEARCH</text><text x="310" y="264">ENGINEERING</text></g>
+            <g class="atlas-node node-thermal" transform="translate(152 112)"><circle r="28"/><circle r="7"/><text x="0" y="48">THERMAL</text></g>
+            <g class="atlas-node node-energy" transform="translate(487 123)"><circle r="28"/><circle r="7"/><text x="0" y="48">ENERGY</text></g>
+            <g class="atlas-node node-software" transform="translate(474 391)"><circle r="28"/><circle r="7"/><text x="0" y="48">SOFTWARE</text></g>
+            <g class="atlas-node node-experiment" transform="translate(148 395)"><circle r="28"/><circle r="7"/><text x="0" y="48">EXPERIMENTS</text></g>
+            <circle class="atlas-pulse pulse-a" r="5"><animateMotion dur="6s" repeatCount="indefinite" path="M152 112C213 145 258 208 310 250C374 214 436 175 487 123"/></circle>
+            <circle class="atlas-pulse pulse-b" r="5"><animateMotion dur="7.5s" repeatCount="indefinite" path="M148 395C210 356 247 301 310 250C356 300 402 350 474 391"/></circle>
+          </svg>
+          <div class="lab-readout"><span>Current focus</span><strong data-lab-focus>Thermal-fluid systems</strong><small data-lab-detail>High-temperature flow, heat transfer and model credibility.</small></div>
+        </div>
+        <nav class="lab-domain-links" aria-label="Research domains">
+          <a class="is-active" href="skills/cfd-heat-transfer.html" data-lab-domain data-title="Thermal-fluid systems" data-detail="High-temperature flow, heat transfer and model credibility."><span>01</span>Thermal</a>
+          <a href="energy-systems.html" data-lab-domain data-title="Energy-system decisions" data-detail="Dispatch, networks, storage, resilience and transparent optimisation."><span>02</span>Energy</a>
+          <a href="skills/data-software.html" data-lab-domain data-title="Research software" data-detail="Reproducible engineering tools, APIs, testing and scientific interfaces."><span>03</span>Software</a>
+          <a href="skills/test-instrumentation.html" data-lab-domain data-title="Experimental methods" data-detail="Measurement chains, instrumentation, diagnostics and explicit limits."><span>04</span>Experiments</a>
+        </nav>
+        <div class="hero-thesis-strip"><div><span>Featured thesis · TRITA-ITM-EX 2026:14</span><strong>CFD/CHT for a high-temperature calibration rig</strong></div>${link('projects/siemens-thesis.html', 'Open case study →')}</div>
       </aside>
     </section>
+    <div class="signal-band" aria-label="Methods and research themes"><div class="signal-track"><span>Compressible CFD</span><i></i><span>Conjugate heat transfer</span><i></i><span>Energy optimisation</span><i></i><span>Thermal storage</span><i></i><span>Research software</span><i></i><span>Instrumentation</span><i></i><span aria-hidden="true">Compressible CFD</span><i aria-hidden="true"></i><span aria-hidden="true">Conjugate heat transfer</span><i aria-hidden="true"></i><span aria-hidden="true">Energy optimisation</span><i aria-hidden="true"></i><span aria-hidden="true">Thermal storage</span><i aria-hidden="true"></i><span aria-hidden="true">Research software</span><i aria-hidden="true"></i><span aria-hidden="true">Instrumentation</span></div></div>
     <nav class="section-index" aria-label="Page sections"><a href="#tracks">Choose a track</a><a href="#research">Research interests</a><a href="#projects">Selected work</a><a href="#skills">Expertise</a><a href="#experience">Experience</a><a href="#education">Education</a></nav>
     <section id="tracks" class="track-layer"><div class="section-heading"><div><p class="overline">One portfolio / Five perspectives</p><h2>Choose a track.</h2></div>${link('tracks/index.html', 'Explore all tracks →')}</div><p class="section-intro">A focused starting point for each kind of opportunity. Every track has its own shareable page with relevant work, experience, skills and education.</p>${trackCards('', true)}</section>
     <section id="research" class="page-section">
@@ -234,7 +261,7 @@ function home() {
       ${skillLinks()}
     </section>
     <section id="profile" class="page-section background-grid">
-      <div id="experience"><div class="section-heading"><div><p class="overline">04 / Experience</p><h2>Research &amp; engineering practice.</h2></div></div><div class="timeline">${roles.map(e => `<article><p class="item-meta">${escape(e.period)} · ${escape(e.type)}</p><h3>${escape(e.company)}</h3><p class="role-title">${escape(e.role)}</p><p>${escape(e.id === 'test-engineer-master-thesis-student' ? 'CFD/CHT modelling, measurement-chain commissioning and structured failure analysis in the Fluid Dynamic Lab.' : e.id === 'energy-efficiency-intern' ? 'Desk-based industrial energy-performance methodology, EnPI design and metering-readiness assessment; no plant-savings claim.' : e.id === 'student-intern-pyrolysis' ? 'Reactor-concept literature review and cost-analysis drivers for polymer-waste pyrolysis.' : 'TypeScript/NestJS backend APIs, endpoint tests, reliability fixes and Postman automation.')}</p>${link(e.detailUrl || data.experienceUrls[e.id], 'Role details →')}</article>`).join('')}</div><p>${link('experience.html', 'Full experience record →')}</p></div>
+      <div id="experience"><div class="section-heading"><div><p class="overline">04 / Experience</p><h2>Research &amp; engineering practice.</h2></div></div><div class="timeline">${roles.map(e => `<article><p class="item-meta">${escape(e.period)} · ${escape(e.type)}</p><h3>${escape(e.company)}</h3><p class="role-title">${escape(e.role)}</p><p>${escape(e.id === 'test-engineer-master-thesis-student' ? 'CFD/CHT modelling and measurement-chain commissioning in the Fluid Dynamic Lab; heater failure occurred before high-temperature testing began.' : e.id === 'energy-efficiency-intern' ? 'Desk-based industrial energy-performance methodology, EnPI design and metering-readiness assessment; no plant-savings claim.' : e.id === 'student-intern-pyrolysis' ? 'Reactor-concept literature review and cost-analysis drivers for polymer-waste pyrolysis.' : 'TypeScript/NestJS backend APIs, endpoint tests, reliability fixes and Postman automation.')}</p>${link(e.detailUrl || data.experienceUrls[e.id], 'Role details →')}</article>`).join('')}</div><p>${link('experience.html', 'Full experience record →')}</p></div>
       <div id="education"><div class="section-heading"><div><p class="overline">05 / Education</p><h2>Academic foundation.</h2></div></div><div class="education-list">${['kth', 'aalto', 'btech'].map(id => { const e = data.education[id]; return `<article><p class="item-meta">${escape(e.period)}</p><h3>${escape(e.title)}</h3><p class="role-title">${escape(e.institution)}</p><p>${escape(e.summary)}</p>${link(e.url, 'Education & coursework →')}</article>`; }).join('')}</div><div class="publication-note"><p class="overline">Publications &amp; written work</p><h3>From thesis to technical record.</h3><p>${link('https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965', 'Published KTH thesis')} and ${link('projects/robotic-frame-locomotion.html', 'undergraduate robot publications')}, alongside reproducible reports and source-linked case studies.</p>${link('skills/research.html', 'Research & communication dossier →')}</div></div>
     </section>
     <section id="contact" class="contact-section"><div><p class="overline">06 / Contact</p><h2>Let’s discuss the research.</h2><p>I welcome conversations about research-engineer and doctoral opportunities in thermal engineering, energy-system modelling and nuclear-energy applications in Sweden and the EU.</p><a class="contact-email" href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a></div><div id="cv" class="contact-resources"><h3>Profiles &amp; documents</h3>${link(github, 'GitHub — code & repositories ↗')}${link(linkedin, 'LinkedIn — professional profile ↗')}${link('downloads/Abhijith_CV_PhD_Academic.pdf', 'Academic CV (PDF)')}${link('downloads/Abhijith_CV_GasTurbine_HeatTransfer.pdf', 'Thermal / CFD CV (PDF)')}${link('downloads/Abhijith_CV_EnergyCoordinator.pdf', 'Energy / R&D CV (PDF)')}${link('https://orcid.org/0009-0009-8429-1266', 'ORCID ↗')}</div></section>
