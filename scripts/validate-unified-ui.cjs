@@ -61,4 +61,58 @@ for (const file of ['api/linkedin-experience.json', 'backend/data/experience.jso
   assert.ok(read(file).includes('commissioned the measurement chain for a planned validation campaign at up to 700 C'));
 }
 
+const chronologyFiles = [
+  'index.html',
+  'about.html',
+  'cet2026/index.html',
+  'experience.html',
+  'experience/siemens-energy.html',
+  'projects.html',
+  'projects/automatic-sanitizer-dispenser.html',
+  'projects/siemens-thesis.html',
+  'api/projects.json',
+  'api/linkedin-projects.json',
+  'backend/data/projects.json',
+  'assets/portfolio-preview.svg',
+  'scripts/build-academic.cjs',
+  'scripts/data/portfolio-tracks.cjs',
+  'scripts/data/skill-evidence.cjs',
+  'scripts/site.js',
+  ...htmlIn('skills'),
+  ...htmlIn('tracks'),
+];
+const misleadingChronology = [
+  'limited sustained experimental comparison',
+  'limited sustained high-temperature comparison',
+  'The Siemens campaign was limited by a heater failure',
+  'during high-temperature validation work',
+  'NI-DAQ instrumentation and high-temperature validation',
+  'high-temperature test campaigns',
+  'preparation for independent test campaigns',
+  'Designed and commissioned a 700°C-class high-temperature calibration rig',
+  'Test-Rig Validation',
+  'dynamic pressure sensor validation',
+  'experimental-numerical validation',
+  'validation experience visual',
+  'test validation workflow visual',
+  'NI-DAQ/LabVIEW validation',
+  'instrumentation-chain validation',
+  'test-rig validation visual',
+  'Test-rig validation',
+];
+for (const file of chronologyFiles) {
+  const content = read(file);
+  for (const phrase of misleadingChronology) {
+    assert.ok(!content.includes(phrase), `${file}: ambiguous Siemens chronology: ${phrase}`);
+  }
+}
+assert.ok(read('index.html').includes('heater failure occurred before high-temperature testing began'));
+assert.ok(read('cet2026/index.html').includes('heater failure occurred before high-temperature testing began'));
+assert.ok(read('projects/siemens-thesis.html').includes('before high-temperature testing could begin'));
+assert.ok(read('tracks/thermal.html').includes('no experimental validation campaign was completed'));
+assert.ok(read('skills/cfd-heat-transfer.html').toLowerCase().includes('heater failure occurred before high-temperature testing could begin'));
+for (const file of ['api/projects.json', 'api/linkedin-projects.json', 'backend/data/projects.json']) {
+  assert.ok(read(file).includes('High-Temperature Reducer CFD/CHT and Measurement-Chain Commissioning'));
+}
+
 console.log(`Passed: ${legacyPages.length} legacy endpoints share the modern shell; retired lens runtime stays disabled; Siemens chronology is source-aligned.`);

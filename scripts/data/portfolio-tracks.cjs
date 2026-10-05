@@ -47,7 +47,7 @@ module.exports = [
     education: ['kth', 'btech'],
     resources: [thermalCV, { url: 'downloads/Abhijith_CV_TestEngineer.pdf', label: 'Test engineering CV (PDF)' }, thesis],
     primary: thermalCV,
-    scope: 'The Siemens thesis is a numerical investigation with measurement-chain commissioning; heater failure limited sustained experimental comparison. Independent thermal models retain their verification limits. The structural-FEA pilot is preliminary screening, not a certified nuclear or pressure-boundary calculation.',
+    scope: 'The Siemens thesis is a numerical investigation with measurement-chain commissioning; heater failure occurred before high-temperature testing could begin, so no experimental validation campaign was completed. Independent thermal models retain their verification limits. The structural-FEA pilot is preliminary screening, not a certified nuclear or pressure-boundary calculation.',
   },
   {
     id: 'energy-modelling', label: 'Energy Modelling', title: 'Modelling energy. Informing decisions.',
@@ -105,6 +105,6 @@ module.exports = [
     education: ['kth', 'btech', 'aalto'],
     resources: [academicCV, thesis, { url: 'research.html', label: 'Full research statement' }, { url: 'projects/robotic-frame-locomotion.html', label: 'Undergraduate publications' }, { url: 'https://orcid.org/0009-0009-8429-1266', label: 'ORCID ↗' }],
     primary: { url: 'research.html', label: 'Read the research statement' },
-    scope: 'Research interests describe future directions, not completed experiments or institutional endorsement. Nuclear energy is an emerging direction; it is not presented as an existing qualification. The thesis is a numerical investigation with limited sustained experimental comparison. Kerala2040 and TES Discharge Screen publish explicit screening, verification and validation boundaries; independent models are not operational forecasts.',
+    scope: 'Research interests describe future directions, not completed experiments or institutional endorsement. Nuclear energy is an emerging direction; it is not presented as an existing qualification. The thesis is a numerical investigation with measurement-chain commissioning; heater failure occurred before high-temperature testing could begin, so it does not establish experimental validation. Kerala2040 and TES Discharge Screen publish explicit screening, verification and validation boundaries; independent models are not operational forecasts.',
   },
 ];

@@ -996,7 +996,7 @@ const skillProfiles = {
         items: [
           "Modified an existing LabVIEW VI to synchronize and log the measurement channels used on the rig.",
           "Connected software-side data capture with hardware constraints during thermal test planning.",
-          "Used the VI workflow alongside NI-DAQ hardware during high-temperature validation work.",
+          "Used the VI workflow alongside NI-DAQ hardware while commissioning the measurement chain for planned high-temperature validation.",
         ],
       },
       {
