@@ -6,9 +6,9 @@
   function getColors() {
     var light = isLightTheme();
     return {
-      blue:   "#2563a8",
+      blue:   light ? "#2563a8" : "#72b7ff",
       teal:   light ? "#0d9488" : "#65d6c9",
-      orange: "#d0622c",
+      orange: light ? "#b84b19" : "#ff9a66",
       amber:  light ? "#92400e" : "#f6c85f",
       gray:   light ? "#6b7280" : "#888780",
       text:   light ? "#101821" : "#f4f1ea",

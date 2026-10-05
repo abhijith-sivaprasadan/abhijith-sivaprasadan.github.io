@@ -44,9 +44,18 @@ for (const token of ['--paper-page', '--paper-sheet', '--paper-panel-strong', '-
 const paperPages = legacyPages.filter(file => read(file).includes('data-paper'));
 assert.equal(paperPages.length, 11, 'Review the paper-theme inventory when research pages change.');
 for (const file of paperPages) {
-  assert.ok(read(file).includes('class="paper-doc'), `${file}: missing shared paper document surface`);
+  const html = read(file);
+  assert.ok(html.includes('class="paper-doc'), `${file}: missing shared paper document surface`);
+  assert.ok(html.includes('scripts/public-config.js?v=20261005-paper-themes'), `${file}: stale shared loader cache key`);
 }
 assert.ok(stylesheet.includes("html[data-theme='dark'] body.signal-rebuild:is([data-paper], [data-mode='paper'])"), 'Research papers need an explicit dark-paper palette.');
+for (const surface of ['.method-flow span', '.gb-callout', '.os-callout', '.os-metrics span']) {
+  assert.ok(stylesheet.includes(surface), `Paper theme missing custom surface ${surface}`);
+}
+assert.ok(stylesheet.includes("@media print") && stylesheet.includes("--paper-sheet: #fff"), 'Dark papers must print with a light high-contrast palette.');
+assert.ok(read('projects/siemens-thesis.html').includes('scripts/thesis-charts.js?v=20261005-paper-themes'), 'Thesis chart cache key is stale.');
+assert.ok(read('scripts/thesis-charts.js').includes('light ? "#2563a8" : "#72b7ff"'), 'Thesis charts need a high-contrast dark blue series.');
+assert.ok(read('scripts/thesis-charts.js').includes('light ? "#b84b19" : "#ff9a66"'), 'Thesis charts need a high-contrast dark orange series.');
 assert.ok(!/requestAnimationFrame|addEventListener\(['"]scroll/.test(shell), 'Unified shell must not add continuous scroll work.');
 assert.ok(!/\.innerHTML\s*=/.test(shell), 'Shared shell must construct static UI without innerHTML.');
 assert.ok(Buffer.byteLength(shell) < 8000, 'Keep the shared shell small.');
