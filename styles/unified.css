@@ -255,6 +255,10 @@ body.signal-rebuild :is(.button.primary, .unified-theme-switch) { transition: tr
 ::view-transition-new(root) { animation: 420ms cubic-bezier(.22, 1, .36, 1) both unified-page-in; }
 @keyframes unified-page-out { to { opacity: 0; transform: scale(.992); filter: blur(3px); } }
 @keyframes unified-page-in { from { opacity: 0; transform: translateY(8px); filter: blur(5px); } }
+@supports (animation-timeline: scroll()) {
+  body.signal-rebuild .site-header::after { content: ''; position: absolute; inset: auto 0 -1px; height: 2px; background: linear-gradient(90deg, var(--unified-accent), var(--unified-accent-2), var(--unified-accent-3)); box-shadow: 0 0 12px color-mix(in srgb, var(--unified-accent-2) 55%, transparent); transform: scaleX(0); transform-origin: left; animation: unified-reading-progress linear both; animation-timeline: scroll(root block); }
+}
+@keyframes unified-reading-progress { to { transform: scaleX(1); } }
 body.signal-rebuild :is(input, textarea, select) {
   border: 1px solid var(--unified-rule);
   border-radius: 12px;

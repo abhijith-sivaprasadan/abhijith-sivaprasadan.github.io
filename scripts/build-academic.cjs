@@ -24,10 +24,17 @@ const featured = ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flex
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
-const version = '20261005-research-spectrum';
+const version = '20261005-visual-evidence';
 const arrow = '<span aria-hidden="true">↗</span>';
 function link(href, label, prefix = '', cls = '') {
   return `<a${cls ? ` class="${cls}"` : ''} href="${escape(external(href) || href.startsWith('mailto:') || href.startsWith('#') ? href : prefix + href)}">${escape(label)}</a>`;
+}
+function projectMedia(project, prefix = '', compact = false) {
+  if (!project.image || !project.caseStudyUrl) return '';
+  const href = external(project.caseStudyUrl) ? project.caseStudyUrl : prefix + project.caseStudyUrl;
+  const src = external(project.image) ? project.image : prefix + project.image;
+  const action = external(project.caseStudyUrl) ? 'Open source ↗' : 'View case study →';
+  return `<a class="${compact ? 'evidence-media' : 'work-media'}" href="${escape(href)}" aria-label="View ${escape(project.title || project.role || 'project')} details"><img src="${escape(src)}" alt="" width="960" height="540" loading="lazy" decoding="async" /><span aria-hidden="true">${action}</span></a>`;
 }
 function page(file, title, description, content, isHome = false) {
   const prefix = isHome ? '' : '../';
@@ -86,6 +93,7 @@ function evidenceCard(item, kind, prefix = '../') {
   const title = item.title || `${item.role} · ${item.company}`;
   const meta = [kind, item.period, item.associatedWith || item.context || item.institution].filter(Boolean).join(' · ');
   return `<article class="evidence-item">
+    ${projectMedia(item, prefix, true)}
     <p class="item-meta">${escape(meta)}</p>
     <h3>${link(href, title, prefix)}</h3>
     ${item.summary ? `<p>${escape(item.summary)}</p>` : ''}
@@ -130,7 +138,7 @@ function trackPage(track) {
     </section>
     <nav class="section-index" aria-label="Track sections"><a href="#projects">Selected work</a><a href="#experience">Relevant experience</a><a href="#skills">Skills &amp; evidence</a><a href="#education">Education</a><a href="#resources">${track.id === 'research' ? 'Publications &amp; documents' : 'Supporting resources'}</a></nav>
     <section id="projects" class="page-section"><div class="section-heading"><div><p class="overline">01 / Selected work</p><h2>${track.id === 'research' ? 'Research &amp; written work.' : 'Work behind this track.'}</h2></div>${link('projects.html', 'Complete project library →', '../')}</div><p class="section-intro">A focused selection. Open a case study for methods, results and limitations, or follow the skill dossiers below for the complete related record.</p>
-      <div class="selected-work">${selectedProjects.map(p => `<article class="work-row" data-project-id="${escape(projectKey(p))}"><div><p class="item-meta">${escape(projectKind(p))}${p.period ? ` · ${escape(p.period)}` : ''}</p><h3>${link(p.caseStudyUrl, p.title, '../')}</h3><p>${escape(p.summary)}</p>${p.tools?.length ? `<p class="tools-line">${p.tools.map(escape).join(' · ')}</p>` : ''}</div><div class="work-links">${link(p.caseStudyUrl, external(p.caseStudyUrl) ? 'Repository →' : 'Case study →', '../')}${p.githubUrl && p.githubUrl !== p.caseStudyUrl ? link(p.githubUrl, 'GitHub ↗') : ''}</div></article>`).join('\n')}</div>
+      <div class="selected-work">${selectedProjects.map(p => `<article class="work-row" data-project-id="${escape(projectKey(p))}">${projectMedia(p, '../')}<div><p class="item-meta">${escape(projectKind(p))}${p.period ? ` · ${escape(p.period)}` : ''}</p><h3>${link(p.caseStudyUrl, p.title, '../')}</h3><p>${escape(p.summary)}</p>${p.tools?.length ? `<p class="tools-line">${p.tools.map(escape).join(' · ')}</p>` : ''}</div><div class="work-links">${link(p.caseStudyUrl, external(p.caseStudyUrl) ? 'Repository →' : 'Case study →', '../')}${p.githubUrl && p.githubUrl !== p.caseStudyUrl ? link(p.githubUrl, 'GitHub ↗') : ''}</div></article>`).join('\n')}</div>
     </section>
     <section id="experience" class="page-section"><div class="section-heading"><div><p class="overline">02 / Experience</p><h2>Relevant professional practice.</h2></div>${link('experience.html', 'Full experience record →', '../')}</div><div class="track-experience">${selectedRoles.map(e => evidenceCard({ ...e, detailUrl: e.detailUrl || data.experienceUrls[e.id] || 'experience.html' }, e.type)).join('\n')}</div></section>
     <section id="skills" class="page-section"><div class="section-heading"><div><p class="overline">03 / Skills &amp; evidence</p><h2>Go deeper into each area.</h2></div></div><p class="section-intro">Each skill opens its own page with all related public projects, roles, coursework, training and supporting material.</p>${skillLinks('../', selectedSkills)}</section>
@@ -217,7 +225,7 @@ function home() {
     <section id="projects" class="page-section">
       <div class="section-heading"><div><p class="overline">02 / Selected work</p><h2>Research software &amp; engineering studies.</h2></div>${link('projects.html', 'Complete project library →')}</div>
       <p class="section-intro">Open methods, inspectable code, and explicit limits. The case studies distinguish numerical verification, coursework and exploratory modelling from real-system validation.</p>
-      <div class="selected-work">${featuredProjects.map((p, index) => `<article class="work-row" data-project-id="${p.id}"><span class="work-number">${String(index + 1).padStart(2, '0')}</span><div><p class="item-meta">${escape(p.category)} · ${escape(p.period || 'Independent project')}</p><h3>${link(p.caseStudyUrl, p.title)}</h3><p>${escape(p.summary)}</p><p class="tools-line">${p.tools.map(escape).join(' · ')}</p></div><div class="work-links">${link(p.caseStudyUrl, 'Case study →')}${p.githubUrl ? link(p.githubUrl, 'GitHub ↗') : ''}</div></article>`).join('\n')}</div>
+      <div class="selected-work">${featuredProjects.map((p, index) => `<article class="work-row" data-project-id="${p.id}">${projectMedia(p)}<span class="work-number">${String(index + 1).padStart(2, '0')}</span><div><p class="item-meta">${escape(p.category)} · ${escape(p.period || 'Independent project')}</p><h3>${link(p.caseStudyUrl, p.title)}</h3><p>${escape(p.summary)}</p><p class="tools-line">${p.tools.map(escape).join(' · ')}</p></div><div class="work-links">${link(p.caseStudyUrl, 'Case study →')}${p.githubUrl ? link(p.githubUrl, 'GitHub ↗') : ''}</div></article>`).join('\n')}</div>
       <p class="project-footnote">Also: ${link('projects/siemens-thesis.html', 'Siemens thesis')} · ${link('projects/structural-fea-reactor-internals.html', 'Structural FEA')} · ${link('https://github.com/abhijith-sivaprasadan/non-gray-radiation-modeling', 'Non-gray radiation modelling')} · ${link('projects/thermotwin-f.html', 'Explore ThermoTwin-F →', '', 'thermotwin-shortcut')}</p>
     </section>
     <section id="skills" class="page-section">

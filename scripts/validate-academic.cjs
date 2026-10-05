@@ -104,6 +104,12 @@ for (const file of files) {
     assert.ok(fs.existsSync(target), `${file}: missing ${href}`);
     if (fragment) assert.ok(fs.readFileSync(target, 'utf8').includes(`id="${fragment}"`), `${file}: missing fragment ${href}`);
   }
+  for (const [, src] of html.matchAll(/\bsrc="([^"]+)"/g)) {
+    if (/^[a-z]+:/i.test(src)) continue;
+    const pathname = src.split('?')[0];
+    const target = path.resolve(path.dirname(path.join(root, file)), pathname);
+    assert.ok(fs.existsSync(target), `${file}: missing image/script ${src}`);
+  }
   const expectedUrl = `https://abhijith-sivaprasadan.github.io/${file === 'index.html' ? '' : file}`;
   assert.ok(html.includes(`<link rel="canonical" href="${expectedUrl}"`));
   assert.ok(html.includes(`<meta property="og:url" content="${expectedUrl}"`));
@@ -150,4 +156,7 @@ assert.ok(!/requestAnimationFrame|addEventListener\(['"]scroll/.test(read('scrip
 assert.ok(read('styles/academic.css').includes('@media (prefers-reduced-motion: reduce)'), 'Respect reduced motion in CSS.');
 assert.ok(read('styles/academic.css').includes('@view-transition'), 'Retain progressive cross-page transitions.');
 assert.ok(read('styles/academic.css').includes('--accent-2'), 'Retain the research-spectrum depth system.');
+assert.ok(read('styles/academic.css').includes('animation-timeline: scroll(root block)'), 'Retain progressive reading position.');
+assert.equal((home.match(/class="work-media"/g) || []).length, 6, 'Every featured homepage project needs a visual preview.');
+for (const track of tracks) assert.ok(read(`tracks/${track.id}.html`).includes('class="work-media"'), `Track ${track.id} needs visual project evidence.`);
 console.log(`Passed: ${files.length} academic pages, ${tracks.length} shareable tracks, ${skills.size} skill dossiers, ${projectKeys.size} distinct projects, local fragments, static navigation, metadata and theme behavior.`);

@@ -15,8 +15,8 @@ assert.equal(legacyPages.length, 50, 'Review the unified-shell inventory when pu
 for (const file of legacyPages) {
   const html = read(file);
   if (file === '404.html') {
-    assert.ok(html.includes('styles/unified.css?v=20261005-research-spectrum'));
-    assert.ok(html.includes('scripts/unified-shell.js?v=20261005-research-spectrum'));
+    assert.ok(html.includes('styles/unified.css?v=20261005-visual-evidence'));
+    assert.ok(html.includes('scripts/unified-shell.js?v=20261005-visual-evidence'));
   } else {
     assert.ok(html.includes('scripts/public-config.js'), `${file}: missing shared shell loader`);
   }
@@ -33,6 +33,7 @@ for (const selector of ['.unified-header-inner', '.unified-nav', '.page-hero', '
 }
 assert.ok(stylesheet.includes('@view-transition'), 'Shared pages must retain progressive cross-page transitions.');
 assert.ok(stylesheet.includes('--unified-accent-2'), 'Shared pages must retain the research-spectrum depth system.');
+assert.ok(stylesheet.includes('animation-timeline: scroll(root block)'), 'Shared long-form pages must retain progressive reading position.');
 assert.ok(/\.site-header\s*\{[\s\S]{0,160}?display:\s*block\s*!important/.test(stylesheet), 'Shared header must override paper-page hiding rules.');
 assert.ok(stylesheet.includes('@media (max-width: 760px)'));
 assert.ok(stylesheet.includes('@media (prefers-reduced-motion: reduce)'));
