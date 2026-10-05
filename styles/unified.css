@@ -278,15 +278,185 @@ body.signal-rebuild .paper-bar {
   margin: 16px auto 0;
   padding: 10px 16px;
 }
-body.signal-rebuild .paper-doc { color: var(--unified-ink); background: transparent; }
+/*
+ * Long-form research papers use a deliberate reading surface in both themes.
+ * Keep these aliases in one place because the older whiteprint component still
+ * consumes --paper/--ink/--rule while the unified shell consumes its own tokens.
+ */
+body.signal-rebuild:is([data-paper], [data-mode='paper']) {
+  --paper-page: #e8e5de;
+  --paper-sheet: #fbfaf6;
+  --paper-panel: #f1eee6;
+  --paper-panel-strong: #ffffff;
+  --paper-ink: #18212a;
+  --paper-muted: #58626d;
+  --paper-rule: #cbc7bd;
+  --paper-accent: #175a88;
+  --paper-accent-soft: #e3edf4;
+  --paper: var(--paper-sheet);
+  --paper-2: var(--paper-panel);
+  --ink-1: var(--paper-ink);
+  --ink-2: var(--paper-muted);
+  --rule: var(--paper-rule);
+  --blue: var(--paper-accent);
+  color: var(--paper-ink);
+  background: radial-gradient(circle at 12% 0%, rgba(23, 90, 136, .09), transparent 30rem), var(--paper-page);
+}
+html[data-theme='dark'] body.signal-rebuild:is([data-paper], [data-mode='paper']) {
+  --paper-page: #0b1117;
+  --paper-sheet: #121a22;
+  --paper-panel: #18232d;
+  --paper-panel-strong: #1d2934;
+  --paper-ink: #edf3f7;
+  --paper-muted: #b7c2cb;
+  --paper-rule: #3c4c5a;
+  --paper-accent: #83c8ff;
+  --paper-accent-soft: #1a3346;
+  background: radial-gradient(circle at 12% 0%, rgba(72, 147, 204, .16), transparent 32rem), var(--paper-page);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc {
+  --text: var(--paper-ink);
+  --fg: var(--paper-ink);
+  --muted: var(--paper-muted);
+  --accent: var(--paper-accent);
+  --accent-2: var(--paper-accent);
+  --bg: var(--paper-sheet);
+  --bg-soft: var(--paper-panel);
+  --bg-2: var(--paper-panel);
+  --panel: var(--paper-panel-strong);
+  --panel-strong: var(--paper-panel);
+  --line: var(--paper-rule);
+  --v4-panel: var(--paper-panel-strong);
+  --v4-panel-strong: var(--paper-panel);
+  --v4-line: var(--paper-rule);
+  --v4-teal: var(--paper-accent);
+  --v4-blue: var(--paper-accent);
+  color: var(--paper-ink);
+  background: var(--paper-sheet);
+  border-inline: 1px solid color-mix(in srgb, var(--paper-rule) 72%, transparent);
+  box-shadow: 0 24px 90px -48px rgba(10, 18, 28, .42);
+}
+html[data-theme='dark'] body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc {
+  box-shadow: 0 28px 110px -44px #000;
+}
 body.signal-rebuild :is(.paper-doc, .gb-study) :is(h1, h2, h3, h4) {
-  color: var(--unified-ink) !important;
+  color: var(--paper-ink, var(--unified-ink)) !important;
   font-family: var(--unified-sans) !important;
   font-style: normal;
   letter-spacing: -.035em;
 }
 body.signal-rebuild :is(.paper-doc, .gb-study) :is(p, li, dd, dt, figcaption, caption) {
   font-family: var(--unified-sans) !important;
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(p, li, dd, dt, blockquote, figcaption, caption, .hero-text, .signal-claim, .chart-note) {
+  color: var(--paper-muted);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(strong, b, summary, .result-metric-card strong, .evidence-kpi-strip strong, .chart-kpi-grid strong) {
+  color: var(--paper-ink);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(a, .eyebrow, .comparison-label, .cite-label, .paper-fig strong) {
+  color: var(--paper-accent);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(a, button, summary):focus-visible {
+  outline-color: var(--paper-accent);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(.reading-time-pill, .related-project-card, .evidence-badge, .biot-tag) {
+  border-color: var(--paper-rule);
+  background: var(--paper-accent-soft);
+  color: var(--paper-accent);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-bar {
+  border: 1px solid color-mix(in srgb, var(--paper-rule) 78%, transparent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--paper-sheet) 90%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) :is(.paper-back, .paper-search),
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(.button, .back-link, .project-links a, .evidence-tab-button, .filter-chip) {
+  border-color: var(--paper-rule);
+  background: var(--paper-panel);
+  color: var(--paper-accent);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc .button.primary {
+  border-color: var(--paper-accent);
+  background: var(--paper-accent);
+  color: var(--paper-sheet);
+}
+html[data-theme='dark'] body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc .button.primary {
+  color: #071018;
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(
+  .case-panel,
+  .card,
+  .page-panel,
+  .published-thesis-card,
+  .thesis-chart-card,
+  .evidence-panel,
+  .structural-figure-card,
+  .structural-comparison,
+  .structural-comparison-board,
+  .case-role-card,
+  .standards-note,
+  .paper-note,
+  .result-metric-card,
+  .evidence-kpi-strip span,
+  .chart-kpi-grid span,
+  .method-flow span,
+  .gb-status,
+  .gb-callout,
+  .gb-method-grid article,
+  .os-status,
+  .os-callout,
+  .os-grid article,
+  .os-metrics span,
+  details
+) {
+  border-color: var(--paper-rule);
+  background: var(--paper-panel);
+  color: var(--paper-ink);
+  box-shadow: none;
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(
+  .paper-fig,
+  .eqp,
+  .cite,
+  .case-visual,
+  figure,
+  .chart-shell,
+  .evidence-chart-shell,
+  .gb-figure,
+  .os-figure,
+  table,
+  pre,
+  code
+) {
+  border-color: var(--paper-rule);
+  background: var(--paper-panel-strong);
+  color: var(--paper-ink);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(th, td) {
+  border-color: var(--paper-rule);
+  color: var(--paper-ink);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(thead th, .cite-head) {
+  background: var(--paper-panel);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(.cite-apa, .cite-bibtex, .paper-note span, .result-metric-card small, .evidence-kpi-strip small, .chart-kpi-grid small) {
+  color: var(--paper-muted);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(.eqp, .paper-note) {
+  border-left-color: var(--paper-accent);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc :is(.evidence-tab-button.is-active, .filter-chip.is-active) {
+  border-color: var(--paper-accent);
+  background: var(--paper-accent-soft);
+  color: var(--paper-accent);
+}
+body.signal-rebuild:is([data-paper], [data-mode='paper']) .footer {
+  border-top-color: var(--paper-rule);
+  background: var(--paper-page);
+  color: var(--paper-muted);
 }
 
 /* Shared footer supplied by the shell. */
@@ -351,6 +521,24 @@ body.signal-rebuild .footer {
 }
 @media print {
   :root, html[data-theme='dark'] { --unified-page: #fff; --unified-surface: #fff; --unified-ink: #111; --unified-muted: #333; --unified-rule: #aaa; --unified-accent: #163e3a; }
+  body.signal-rebuild:is([data-paper], [data-mode='paper']) {
+    --paper-page: #fff;
+    --paper-sheet: #fff;
+    --paper-panel: #f5f5f2;
+    --paper-panel-strong: #fff;
+    --paper-ink: #111;
+    --paper-muted: #333;
+    --paper-rule: #aaa;
+    --paper-accent: #174e70;
+    --paper-accent-soft: #edf3f6;
+    color: #111;
+    background: #fff;
+  }
+  body.signal-rebuild:is([data-paper], [data-mode='paper']) .paper-doc {
+    color: #111;
+    background: #fff;
+    border: 0;
+  }
   body.signal-rebuild .site-header,
   body.signal-rebuild .paper-bar,
   body.signal-rebuild .scroll-progress,
