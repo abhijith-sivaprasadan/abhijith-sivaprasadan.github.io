@@ -26,7 +26,7 @@ All 50 older public endpoints now inherit the homepage visual language through `
 
 The legacy Live Lens, Evidence Lens, skill radar, ambient canvas, audio and CMS hydration subsystems remain intentionally excluded from the public motion autoloader. Useful bounded interactions—page transitions, reading progress, mathematics, the Biot calculator, language controls and the reducer viewer—remain available. The unified shell adds only cancellable, one-shot entrance motion and respects reduced-motion preferences.
 
-The Siemens experience chronology was also corrected without rewriting surrounding content: the measurement chain was commissioned for a planned campaign up to 700°C, but heater failure occurred before high-temperature testing began. The same clause is maintained in `api/linkedin-experience.json` and `backend/data/experience.json`, so generated skill and application-track pages cannot restore the obsolete campaign claim.
+The Siemens experience chronology is maintained across the homepage, experience detail, case study, CET profile, skill dossiers and application tracks: the measurement chain was commissioned for a planned campaign up to 700°C, but heater failure occurred before high-temperature testing began. The same clause is maintained in `api/linkedin-experience.json` and `backend/data/experience.json`. `scripts/validate-unified-ui.cjs` rejects wording that implies a completed or interrupted campaign, so generated pages cannot restore the obsolete claim.
 
 ### Editing and validation
 

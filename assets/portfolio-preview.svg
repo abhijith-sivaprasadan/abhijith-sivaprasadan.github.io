@@ -20,7 +20,7 @@
   <rect x='794' y='162' width='314' height='360' rx='16' fill='#0f1722' stroke='#364253'/>
   <text x='826' y='216' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='22' font-weight='700'>FOCUS</text>
   <text x='826' y='252' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='18'>Gas-turbine CFD/CHT</text>
-  <text x='826' y='284' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='18'>Test-rig validation</text>
+  <text x='826' y='284' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='18'>Chain commissioning</text>
   <text x='826' y='316' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='18'>NI-DAQ / LabVIEW</text>
   <text x='826' y='348' fill='#d7dfe8' font-family='ui-monospace,monospace' font-size='18'>Python post-processing</text>
 
