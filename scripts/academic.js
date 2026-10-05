@@ -27,45 +27,47 @@
     else applyTheme();
   });
 
-  const lab = document.querySelector('.hero-lab');
-  const labDomains = [...document.querySelectorAll('[data-lab-domain]')];
-  const labFocus = document.querySelector('[data-lab-focus]');
-  const labDetail = document.querySelector('[data-lab-detail]');
-  let labIndex = 0;
-  let labTimer = 0;
-  const activateDomain = domain => {
-    if (!domain) return;
-    labIndex = Math.max(0, labDomains.indexOf(domain));
-    labDomains.forEach(item => item.classList.toggle('is-active', item === domain));
-    if (labFocus) labFocus.textContent = domain.dataset.title || '';
-    if (labDetail) labDetail.textContent = domain.dataset.detail || '';
+  const matrixTabs = [...document.querySelectorAll('[data-matrix-tab]')];
+  const matrixPanels = [...document.querySelectorAll('.matrix-panel')];
+  const matrixAnimations = new Set();
+  const trackAnimation = animation => {
+    if (!animation) return;
+    matrixAnimations.add(animation);
+    animation.finished.then(() => matrixAnimations.delete(animation), () => matrixAnimations.delete(animation));
   };
-  const stopLabCycle = () => {
-    if (labTimer) window.clearInterval(labTimer);
-    labTimer = 0;
+  const activateMatrix = (tab, moveFocus = false) => {
+    if (!tab) return;
+    matrixTabs.forEach(item => {
+      const active = item === tab;
+      item.setAttribute('aria-selected', String(active));
+      item.tabIndex = active ? 0 : -1;
+    });
+    matrixPanels.forEach(panel => { panel.hidden = panel.id !== tab.getAttribute('aria-controls'); });
+    const panel = document.getElementById(tab.getAttribute('aria-controls'));
+    if (moveFocus) tab.focus();
+    if (!panel || reducedMotion.matches || typeof panel.animate !== 'function') return;
+    matrixAnimations.forEach(animation => animation.cancel());
+    matrixAnimations.clear();
+    trackAnimation(panel.animate(
+      [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'translateY(0)' }],
+      { duration: 340, easing: 'cubic-bezier(.22, 1, .36, 1)' }
+    ));
+    panel.querySelectorAll('.matrix-skills li').forEach((row, index) => trackAnimation(row.animate(
+      [{ opacity: 0, transform: 'translateX(-8px)' }, { opacity: 1, transform: 'translateX(0)' }],
+      { duration: 300, delay: 35 + index * 34, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }
+    )));
   };
-  const startLabCycle = () => {
-    stopLabCycle();
-    if (reducedMotion.matches || labDomains.length < 2) return;
-    labTimer = window.setInterval(() => activateDomain(labDomains[(labIndex + 1) % labDomains.length]), 4200);
-  };
-  labDomains.forEach(domain => {
-    domain.addEventListener('pointerenter', () => { stopLabCycle(); activateDomain(domain); });
-    domain.addEventListener('focus', () => { stopLabCycle(); activateDomain(domain); });
-    domain.addEventListener('blur', startLabCycle);
+  matrixTabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activateMatrix(tab));
+    tab.addEventListener('keydown', event => {
+      let next = null;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = matrixTabs[(index + 1) % matrixTabs.length];
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = matrixTabs[(index - 1 + matrixTabs.length) % matrixTabs.length];
+      if (event.key === 'Home') next = matrixTabs[0];
+      if (event.key === 'End') next = matrixTabs[matrixTabs.length - 1];
+      if (next) { event.preventDefault(); activateMatrix(next, true); }
+    });
   });
-  if (lab) {
-    lab.addEventListener('pointerleave', startLabCycle);
-    const finePointer = typeof matchMedia === 'function' && matchMedia('(pointer: fine)').matches;
-    if (finePointer && !reducedMotion.matches) {
-      lab.addEventListener('pointermove', event => {
-        const box = lab.getBoundingClientRect();
-        lab.style.setProperty('--lab-x', `${((event.clientX - box.left) / box.width) * 100}%`);
-        lab.style.setProperty('--lab-y', `${((event.clientY - box.top) / box.height) * 100}%`);
-      });
-    }
-    startLabCycle();
-  }
 
   const sectionLinks = [...document.querySelectorAll('.section-index a[href^="#"]')];
   if (typeof IntersectionObserver === 'function' && sectionLinks.length) {
@@ -94,7 +96,7 @@
     animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));
   };
   // Content is visible in source/CSS. A failed or blocked script cannot hide it.
-  document.querySelectorAll('.hero-identity, .hero-kicker, .hero-intro h1, .hero-intro .lead, .hero-links, .hero-proof, .hero-lab, .thesis-feature, .dossier-hero, .signal-band')
+  document.querySelectorAll('.hero-identity, .hero-kicker, .hero-intro h1, .hero-intro .lead, .hero-links, .hero-proof, .skill-matrix, .thesis-feature, .dossier-hero, .signal-band')
     .forEach((element, index) => reveal(element, Math.min(index * 60, 180)));
   const observer = new IntersectionObserver(entries => {
     entries.filter(entry => entry.isIntersecting).forEach((entry, index) => {
@@ -114,8 +116,9 @@
     });
   }
   const stopMotion = () => {
-    stopLabCycle();
     observer.disconnect();
+    matrixAnimations.forEach(animation => animation.cancel());
+    matrixAnimations.clear();
     animations.forEach(animation => animation.cancel());
     animations.clear();
   };

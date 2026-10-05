@@ -75,6 +75,7 @@ for (const track of tracks) {
   for (const id of track.education) assert.ok(data.education[id] && html.includes(escape(data.education[id].title)), `${file}: missing education ${id}`);
   assert.ok(html.includes(`class="share-url" href="https://abhijith-sivaprasadan.github.io/${file}"`));
   assert.ok(!/data-track-filter|data-mode|localStorage|<form\b/.test(html), `${file}: direct navigation must not need saved state`);
+  assert.equal(track.matrix.length, 5, `${file}: skill matrix must contain exactly five evidence categories`);
 }
 for (const skill of data.skills) {
   for (const code of skill.courses) assert.ok(courses.some(c => c.code === code), `Unknown course: ${code}`);
@@ -161,9 +162,20 @@ assert.ok(read('styles/academic.css').includes('@media (prefers-reduced-motion: 
 assert.ok(read('styles/academic.css').includes('@view-transition'), 'Retain progressive cross-page transitions.');
 assert.ok(read('styles/academic.css').includes('--accent-2'), 'Retain the research-spectrum depth system.');
 assert.ok(read('styles/academic.css').includes('animation-timeline: scroll(root block)'), 'Retain progressive reading position.');
-assert.ok(read('styles/academic.css').includes('@keyframes atlas-flow'), 'Retain the animated research-atlas signal paths.');
 assert.ok(read('styles/academic.css').includes('scroll-snap-type'), 'Retain touch-friendly track browsing.');
-for (const surface of ['hero-lab', 'research-atlas', 'signal-band']) assert.ok(home.includes(`class="${surface}`), `Homepage missing ${surface}.`);
+for (const surface of ['skill-matrix', 'matrix-tabs', 'matrix-panels', 'signal-band']) assert.ok(home.includes(`class="${surface}`), `Homepage missing ${surface}.`);
+assert.equal((home.match(/data-matrix-tab/g) || []).length, 5, 'Homepage needs one selector for every track matrix.');
+assert.equal((home.match(/class="matrix-panel"/g) || []).length, 5, 'Homepage needs one skill matrix for every track.');
+assert.equal((home.match(/class="matrix-skills"/g) || []).length, 5, 'Every track matrix needs a skill list.');
+assert.ok(!/<svg\b|research-atlas|hero-lab/.test(home), 'Decorative research atlas must remain retired.');
+assert.ok(read('scripts/academic.js').includes('activateMatrix') && read('scripts/academic.js').includes("event.key === 'ArrowRight'"), 'Track matrix must support animated and keyboard selection.');
+const cvFiles = [
+  'downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf',
+  'downloads/Abhijith_Sivaprasadan_CV_Generic_Thermal_Process.pdf',
+  'downloads/Abhijith_Sivaprasadan_CV_Generic_Research.pdf',
+];
+for (const file of cvFiles) assert.ok(fs.existsSync(path.join(root, file)), `Missing replacement CV: ${file}`);
+for (const file of files) assert.ok(!/Abhijith_CV_(?:PhD_Academic|GasTurbine_HeatTransfer|EnergyCoordinator|TestEngineer)\.pdf/.test(read(file)), `${file}: retired CV link`);
 assert.equal((home.match(/class="track-visual"/g) || []).length, 5, 'Every application track needs a technical visual.');
 assert.equal((home.match(/class="work-media"/g) || []).length, 6, 'Every featured homepage project needs a visual preview.');
 for (const track of tracks) assert.ok(read(`tracks/${track.id}.html`).includes('class="work-media"'), `Track ${track.id} needs visual project evidence.`);

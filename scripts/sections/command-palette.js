@@ -24,7 +24,7 @@
     add("Section", "Home", "the index", BASE + "/index.html");
     add("Section", "Expertise & evidence", "skills, projects, experience and education", BASE + "/skills/index.html");
     add("Section", "Choose a track", "general, thermal, energy modelling, software, research / PhD", BASE + "/tracks/index.html");
-    add("Action", "Download CV", "PDF", BASE + "/downloads/Abhijith_CV_PhD_Academic.pdf");
+    add("Action", "Download modelling CV", "PDF", BASE + "/downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf");
     add("Action", "Contact", "get in touch", BASE + "/index.html#contact");
   }
 
