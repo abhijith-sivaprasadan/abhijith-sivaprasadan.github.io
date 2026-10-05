@@ -52,9 +52,14 @@
       [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'translateY(0)' }],
       { duration: 340, easing: 'cubic-bezier(.22, 1, .36, 1)' }
     ));
-    panel.querySelectorAll('.matrix-skills li').forEach((row, index) => trackAnimation(row.animate(
-      [{ opacity: 0, transform: 'translateX(-8px)' }, { opacity: 1, transform: 'translateX(0)' }],
-      { duration: 300, delay: 35 + index * 34, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }
+    const shape = panel.querySelector('.radar-shape');
+    if (shape) trackAnimation(shape.animate(
+      [{ opacity: .1, transform: 'scale(.45)' }, { opacity: 1, transform: 'scale(1)' }],
+      { duration: 560, easing: 'cubic-bezier(.22, 1, .36, 1)' }
+    ));
+    panel.querySelectorAll('.radar-dot, .radar-label').forEach((element, index) => trackAnimation(element.animate(
+      [{ opacity: 0 }, { opacity: 1 }],
+      { duration: 280, delay: 90 + index * 24, easing: 'ease-out', fill: 'backwards' }
     )));
   };
   matrixTabs.forEach((tab, index) => {
