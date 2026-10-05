@@ -46,12 +46,68 @@ function skillCV(skill) {
   if (skill.id === 'research') return cvs.research;
   return cvs.modelling;
 }
+const radar = { cx: 210, cy: 166, radius: 102, labelRadius: 137 };
+function radarPoint(index, radius) {
+  const angle = -Math.PI / 2 + index * (Math.PI * 2 / 5);
+  return [radar.cx + Math.cos(angle) * radius, radar.cy + Math.sin(angle) * radius];
+}
+function radarPoints(values) {
+  return values.map((value, index) => radarPoint(index, radar.radius * value / 5).map(number => number.toFixed(1)).join(',')).join(' ');
+}
+function radarLabelLines(label) {
+  if (label.length <= 17) return [label];
+  const words = label.split(' ');
+  let best = 1;
+  let difference = Infinity;
+  for (let index = 1; index < words.length; index += 1) {
+    const left = words.slice(0, index).join(' ');
+    const right = words.slice(index).join(' ');
+    if (Math.abs(left.length - right.length) < difference) {
+      best = index;
+      difference = Math.abs(left.length - right.length);
+    }
+  }
+  return [words.slice(0, best).join(' '), words.slice(best).join(' ')];
+}
+function radarChart(track) {
+  const values = track.matrix.map(([, , value]) => value);
+  const grid = [1, 2, 3, 4, 5].map(level => `<polygon points="${radarPoints(Array(5).fill(level))}" />`).join('');
+  const axes = track.matrix.map((_, index) => {
+    const [x, y] = radarPoint(index, radar.radius);
+    return `<line x1="${radar.cx}" y1="${radar.cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" />`;
+  }).join('');
+  const labels = track.matrix.map(([title], index) => {
+    const [x, rawY] = radarPoint(index, radar.labelRadius);
+    const lines = radarLabelLines(title);
+    const anchor = x > radar.cx + 24 ? 'start' : x < radar.cx - 24 ? 'end' : 'middle';
+    const y = rawY - (lines.length - 1) * 6;
+    return `<text class="radar-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}">${lines.map((line, lineIndex) => `<tspan x="${x.toFixed(1)}" dy="${lineIndex ? 12 : 0}">${escape(line)}</tspan>`).join('')}</text>`;
+  }).join('');
+  const dots = track.matrix.map(([title, evidence, value], index) => {
+    const [x, y] = radarPoint(index, radar.radius * value / 5);
+    return `<circle class="radar-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" data-radar-value="${value}"><title>${escape(title)}: evidence coverage ${value} of 5. ${escape(evidence)}</title></circle>`;
+  }).join('');
+  const summary = track.matrix.map(([title, , value]) => `${title}: ${value} of 5`).join('; ');
+  return `<figure class="radar-figure">
+    <svg class="skill-radar" viewBox="0 0 420 320" role="img" aria-labelledby="radar-title-${track.id} radar-desc-${track.id}">
+      <title id="radar-title-${track.id}">${escape(track.label)} evidence radar</title>
+      <desc id="radar-desc-${track.id}">${escape(summary)}. The scale describes documented portfolio coverage, not self-rated proficiency.</desc>
+      <g class="radar-grid">${grid}</g>
+      <g class="radar-axes">${axes}</g>
+      <g class="radar-scale" aria-hidden="true"><text x="216" y="140">1</text><text x="216" y="99">3</text><text x="216" y="58">5</text></g>
+      <polygon class="radar-shape" points="${radarPoints(values)}" />
+      <g class="radar-dots">${dots}</g>
+      <g class="radar-labels">${labels}</g>
+    </svg>
+    <figcaption><span>Documented evidence coverage</span><small>1 limited · 3 applied · 5 extensive. Not a proficiency rating.</small></figcaption>
+  </figure>`;
+}
 function matrixPanel(track, index) {
   const cv = track.resources.find(resource => /CV \(PDF\)$/.test(resource.label));
   return `<section class="matrix-panel" id="matrix-panel-${track.id}" role="tabpanel" aria-labelledby="matrix-tab-${track.id}"${index ? ' hidden' : ''}>
     <div class="matrix-heading"><div><span>${escape(String(index + 1).padStart(2, '0'))} / 05 · ${escape(track.audience)}</span><h2>${escape(track.label)}</h2></div>${link(`tracks/${track.id}.html`, 'Open track →')}</div>
-    <ul class="matrix-skills">${track.matrix.map(([title, evidence], skillIndex) => `<li><span>${String(skillIndex + 1).padStart(2, '0')}</span><div><strong>${escape(title)}</strong><small>${escape(evidence)}</small></div></li>`).join('')}</ul>
-    <footer><p>Evidence categories—not proficiency scores.</p>${cv ? link(cv.url, cv.label) : ''}</footer>
+    ${radarChart(track)}
+    <footer><p>Open the track for projects and source evidence.</p>${cv ? link(cv.url, cv.label) : ''}</footer>
   </section>`;
 }
 function page(file, title, description, content, isHome = false) {
