@@ -77,8 +77,7 @@ for (const track of tracks) {
   assert.ok(!/data-track-filter|data-mode|localStorage|<form\b/.test(html), `${file}: direct navigation must not need saved state`);
   assert.equal(track.matrix.length, 5, `${file}: skill matrix must contain exactly five evidence categories`);
   for (const entry of track.matrix) {
-    assert.equal(entry.length, 3, `${file}: every radar entry needs a label, evidence note and coverage value`);
-    assert.ok(Number.isInteger(entry[2]) && entry[2] >= 1 && entry[2] <= 5, `${file}: radar coverage must be an integer from 1 to 5`);
+    assert.equal(entry.length, 2, `${file}: skills must contain a label and evidence description, without invented ratings`);
   }
 }
 for (const skill of data.skills) {
@@ -93,6 +92,7 @@ for (const skill of data.skills) {
 }
 for (const file of files) {
   const html = read(file);
+  assert.ok(html.includes('styles/portfolio.css?v=20261006-portfolio'), `${file}: missing shared portfolio art direction`);
   assert.ok(!/[ \t]+\r?$/m.test(html), `${file}: trailing whitespace`);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
   assert.equal(ids.length, new Set(ids).size, `${file}: duplicate IDs`);
@@ -167,12 +167,10 @@ assert.ok(read('styles/academic.css').includes('@view-transition'), 'Retain prog
 assert.ok(read('styles/academic.css').includes('--accent-2'), 'Retain the research-spectrum depth system.');
 assert.ok(read('styles/academic.css').includes('animation-timeline: scroll(root block)'), 'Retain progressive reading position.');
 assert.ok(read('styles/academic.css').includes('scroll-snap-type'), 'Retain touch-friendly track browsing.');
-for (const surface of ['skill-matrix', 'matrix-tabs', 'matrix-panels', 'signal-band']) assert.ok(home.includes(`class="${surface}`), `Homepage missing ${surface}.`);
+for (const surface of ['skill-matrix', 'matrix-tabs', 'matrix-panels', 'project-showcase']) assert.ok(home.includes(`class="${surface}`), `Homepage missing ${surface}.`);
 assert.equal((home.match(/data-matrix-tab/g) || []).length, 5, 'Homepage needs one selector for every track matrix.');
 assert.equal((home.match(/class="matrix-panel"/g) || []).length, 5, 'Homepage needs one skill matrix for every track.');
-assert.equal((home.match(/class="skill-radar"/g) || []).length, 5, 'Every track matrix needs an evidence radar.');
-assert.equal((home.match(/class="radar-shape"/g) || []).length, 5, 'Every evidence radar needs one data polygon.');
-assert.equal((home.match(/data-radar-value/g) || []).length, 25, 'Every evidence category needs a plotted radar value.');
+assert.ok(!/data-radar-value|radar-shape|evidence coverage [1-5]/.test(home), 'Unsupported numerical skill ratings must not return.');
 assert.ok(!/research-atlas|hero-lab/.test(home), 'Decorative research atlas must remain retired.');
 assert.ok(read('scripts/academic.js').includes('activateMatrix') && read('scripts/academic.js').includes("event.key === 'ArrowRight'"), 'Track matrix must support animated and keyboard selection.');
 const cvFiles = [
@@ -182,7 +180,6 @@ const cvFiles = [
 ];
 for (const file of cvFiles) assert.ok(fs.existsSync(path.join(root, file)), `Missing replacement CV: ${file}`);
 for (const file of files) assert.ok(!/Abhijith_CV_(?:PhD_Academic|GasTurbine_HeatTransfer|EnergyCoordinator|TestEngineer)\.pdf/.test(read(file)), `${file}: retired CV link`);
-assert.equal((home.match(/class="track-visual"/g) || []).length, 5, 'Every application track needs a technical visual.');
 assert.equal((home.match(/class="work-media"/g) || []).length, 6, 'Every featured homepage project needs a visual preview.');
 for (const track of tracks) assert.ok(read(`tracks/${track.id}.html`).includes('class="work-media"'), `Track ${track.id} needs visual project evidence.`);
 console.log(`Passed: ${files.length} academic pages, ${tracks.length} shareable tracks, ${skills.size} skill dossiers, ${projectKeys.size} distinct projects, local fragments, static navigation, metadata and theme behavior.`);

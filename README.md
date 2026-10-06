@@ -2,7 +2,7 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
-## Academic homepage, application tracks and skill evidence — September 2026
+## Work-first portfolio, application tracks and skill evidence — October 2026
 
 The landing page now reflects completion of the KTH M.Sc. Sustainable Energy Engineering programme and the latest evidence base: the published KTH/Siemens thesis, Kerala2040 power-system resilience research, TES Discharge Screen, OpenSteamOpt and other research-software projects. Nuclear energy is presented as an emerging research direction rather than an established specialisation. A dedicated CET 2026 conference landing page provides a fast QR-friendly overview and routes visitors into the detailed portfolio. Eight [skill dossiers](skills/index.html) group related public projects, roles, coursework, certifications and supporting resources. Duplicate imported project records are consolidated by case-study URL. No self-assessed scores are shown.
 
@@ -16,15 +16,15 @@ The separate [Choose a track](tracks/index.html) layer offers five stable applic
 | Software | [/tracks/software.html](https://abhijith-sivaprasadan.github.io/tracks/software.html) | QBurst backend experience and public engineering software |
 | Research / PhD | [/tracks/research.html](https://abhijith-sivaprasadan.github.io/tracks/research.html) | Research interests, thesis, publications and methods |
 
-Live Lens, Evidence Lens, the old capability-scoring radar, the decorative field atlas, the old stateful track-filter runtime, canvas simulations, CMS/API hydration and the legacy `site.js`/motion stack are **intentionally not loaded on the homepage, track pages or skill pages**. This is documented in the generated HTML. Legacy modules remain for existing pages and recovery through version history. Track selection uses ordinary page links, not the old lens/filter system. Core content and navigation are static and work without JavaScript. A small script handles theme preference, one-shot native entrance motion, the active section marker and the user-controlled track evidence radar. The radar supports pointer and keyboard track selection with short cancellable transitions. There is no timer, canvas, animation-frame loop or scroll listener. Reduced-motion preferences remove nonessential motion. No external fonts or frameworks are requested by these pages.
+Live Lens, Evidence Lens, the unsupported numerical skill radar, the decorative field atlas, the old stateful track-filter runtime, canvas simulations, CMS/API hydration and the legacy `site.js`/motion stack are **intentionally not loaded on the homepage, track pages or skill pages**. This is documented in the generated HTML. The previous 1–5 coverage scores were editorial assignments, not measured ratings, and have been removed from the data and presentation. Skills now link to actual projects, experience and education. Core content and navigation are static and work without JavaScript. A small script handles theme preference, one-shot native entrance motion, the active section marker, project showcase tabs and application-track tabs. There is no autoplay timer, canvas, animation-frame loop or scroll listener on these pages. Reduced-motion preferences remove nonessential motion. No external fonts or frameworks are requested by these pages.
 
-These pages use a mobile-first evidence interface in `styles/academic.css`. The homepage pairs the main statement with a five-track radar matrix for General, Thermal, Energy Modelling, Software and Research/PhD applications. Each view plots five evidence categories on a transparent 1–5 documented-coverage scale, routes directly to its shareable track and matching CV, and explicitly distinguishes coverage from self-rated proficiency. Track changes animate the radar polygon and labels without timers or animation-frame loops. An animated method band and compact technical visuals keep the rest of the portfolio active without competing with the content. On small screens, navigation, matrix tabs and track cards become touch-friendly horizontal scroll regions with snap points. Progressive cross-document and theme transitions use native browser APIs; a native CSS scroll timeline provides reading position where supported. Existing case studies and scientific claims remain unchanged; coursework, internships, exploratory tools and validated results remain distinguishable.
+The homepage opens with a personal engineering statement and an interactive project showcase using the Siemens lab photograph and project illustrations. Selected work comes next, followed by five application tracks, research interests, clickable skill dossiers, experience, education and direct contact. Each track displays five skill areas with source-based descriptions, relevant projects, its shareable endpoint and matching CV. Keyboard-operable tabs use short, cancellable fades; image hover, entrance and native page/theme transitions provide motion without autoplay. Small screens stack the showcase and project cards, wrap track controls and retain touch-friendly navigation. `styles/portfolio.css` supplies a shared warm cream, forest and terracotta palette, serif display typography and restrained surfaces over the structural layouts in `styles/academic.css`. Existing scientific claims remain unchanged; coursework, internships, exploratory tools and validated results remain distinguishable.
 
 CV routing is explicit: General, Energy Modelling and Software use the modelling CV; Thermal Engineering uses the thermal/process CV; Research/PhD uses the research CV. The public CV metadata and legacy research/energy entry points use the same three files.
 
 ## Unified public endpoints — October 2026
 
-All 50 older public endpoints now inherit the homepage visual language through `styles/unified.css` and `scripts/unified-shell.js`. The shared layer provides the same five-item navigation, floating glass header, light-first theme with dark mode, research-spectrum depth, ambient technical-grid motion, orbital hero detail, pointer-aware card depth, native page/theme transitions, controls, footer and responsive behavior while preserving the authored content and specialist charts on each page. Mobile navigation is horizontally scrollable rather than compressed. The 11 long-form research case studies retain a focused dual-theme reading system: a warm white-paper surface in light mode and a high-contrast dark-paper surface in dark mode, including coordinated panels, tables, figures, equations and citations. `scripts/public-config.js` loads the layer for root, project and experience pages; `404.html` loads it directly. The 16 generated homepage, track and skill pages continue to use `styles/academic.css` directly.
+All 50 older public endpoints and 16 generated homepage, track and skill pages load the same `styles/portfolio.css` art direction. The legacy endpoints retain structural compatibility through `styles/unified.css` and `scripts/unified-shell.js`. Navigation consistently exposes Work, Research, Experience, Expertise, Tracks and Contact. Flat editorial headers, consistent spacing, light/dark themes, native transitions and responsive controls replace the competing hero grids and decorative orbital elements. Authored content and specialist charts are preserved. Mobile navigation is horizontally scrollable rather than compressed. The 11 long-form research case studies retain a focused dual-theme reading system: a warm white-paper surface in light mode and a high-contrast dark-paper surface in dark mode, including coordinated panels, tables, figures, equations and citations. `scripts/public-config.js` loads the legacy layer before the portfolio stylesheet; `404.html` loads it directly. The conference microsite and standalone scientific chart assets retain their specialist layouts.
 
 The legacy Live Lens, Evidence Lens, skill radar, ambient canvas, audio and CMS hydration subsystems remain intentionally excluded from the public motion autoloader. Useful bounded interactions—page transitions, reading progress, mathematics, the Biot calculator, language controls and the reducer viewer—remain available. The unified shell adds cancellable one-shot entrance motion and fine-pointer card lighting; both respect reduced-motion preferences and add no continuous scroll work.
 
@@ -34,7 +34,7 @@ The Siemens experience chronology is maintained across the homepage, experience 
 
 - Edit homepage/page templates in `scripts/build-academic.cjs`, not generated HTML.
 - Edit skill relationships in `scripts/data/skill-evidence.cjs`. Project, course, experience and certification text comes from the corresponding public `api/*.json` indexes. The structural-FEA case study has a documented supplemental record until included in that project index.
-- Edit track introductions, public-record selections and supporting links in `scripts/data/portfolio-tracks.cjs`. Keep URLs stable for applications. Do not add employer-specific or private documents as generic track resources; the software track deliberately links to professional evidence and public code rather than an unrelated CV.
+- Edit track introductions, public-record selections and supporting links in `scripts/data/portfolio-tracks.cjs`. Keep URLs stable for applications. Do not add employer-specific or private documents as generic track resources. The software track uses the public modelling CV alongside professional evidence and public code.
 - Rebuild with `node scripts/build-academic.cjs` whenever those source records change.
 - Run `node scripts/build-academic.cjs --check`, `node scripts/validate-academic.cjs`, and `node scripts/validate-static.cjs`. CI runs all three.
 - Run `node scripts/validate-unified-ui.cjs` after changing the shared legacy shell, public endpoint inventory, motion autoload list or Siemens experience wording.
@@ -53,18 +53,18 @@ The [GB-FLEXABM case study](projects/gb-flexabm.html) now documents 175 addition
 
 The GUI runs locally (`uv run --locked --extra gui gbflex gui` in the model repository); GitHub Pages does not execute Python. Each future project milestone must update its model README, this portfolio README, the case study and relevant discovery summaries, then pass checks and be pushed with CI/Pages publication verified. See `AGENTS.md`.
 
-## Design system tokens (UI lock)
+## Shared portfolio design tokens
 
 Use these defaults when adding or editing UI so pages stay visually consistent:
 
 - Color system:
-  - Primary accent: `#1f4f73`
-  - Secondary accent: `#2f6b83`
-  - Surface dark: `#121820`
-  - Border dark: `rgba(255,255,255,0.09)`
+  - Light page / surface / ink: `#f6f3ec` / `#fffcf6` / `#202a29`
+  - Light accent / supporting tint: `#9c421f` / `#e9ece2`
+  - Dark page / surface / ink: `#151d1e` / `#202b2c` / `#f5efe2`
+  - Dark accent / border: `#ffb68a` / `#3d4b48`
 - Radius and container:
-  - Global radius: `16px`
-  - Max content width: `1120px`
+  - Card radius: `8–12px`; flat header and section dividers
+  - Max content width: `1240px`; mobile gutters: `20px`
 - Spacing rhythm:
   - `--space-1: 8px`
   - `--space-2: 12px`
@@ -74,14 +74,14 @@ Use these defaults when adding or editing UI so pages stay visually consistent:
   - `--space-6: 40px`
   - `--space-7: 56px`
 - Typography:
-  - `h1`: `clamp(2.05rem, 3.6vw, 3.1rem)`
-  - `h2`: `clamp(1.55rem, 2.5vw, 2.2rem)`
-  - `h3`: `clamp(1.08rem, 1.6vw, 1.22rem)`
+  - Display: Georgia / Times New Roman serif; body: system sans
+  - Homepage headline: `clamp(3.8rem, 6.7vw, 6.5rem)`; mobile override in `portfolio.css`
+  - Section headings: `clamp(2.1rem, 3.8vw, 3.4rem)`
   - Body text: `1rem` with line-height around `1.58–1.62`
 - Thumbnail spec:
   - Aspect ratio: `16:9`
   - Use `object-fit: cover`
-  - Keep a single frame style: dark panel + subtle border + monospace labels
+  - Use actual project imagery with descriptive alt text and a subtle border
   - Avoid rainbow accents; use primary/secondary with one support highlight only
 
 ## Local editing
@@ -89,7 +89,7 @@ Use these defaults when adding or editing UI so pages stay visually consistent:
 Open this folder in VS Code and edit:
 
 - `scripts/build-academic.cjs` for the generated academic homepage and skill pages
-- `styles/academic.css` for the homepage and skill-page theme
+- `styles/portfolio.css` for the shared portfolio theme; `styles/academic.css` for generated-page layout primitives
 - `styles.css` for styling
 - `projects/*.html` for individual project case studies
 - `experience/*.html` for individual experience pages
