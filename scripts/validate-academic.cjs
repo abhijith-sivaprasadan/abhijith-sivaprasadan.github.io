@@ -92,7 +92,7 @@ for (const skill of data.skills) {
 }
 for (const file of files) {
   const html = read(file);
-  assert.ok(html.includes('styles/portfolio.css?v=20261006-notebook-2'), `${file}: missing shared portfolio art direction`);
+  assert.ok(html.includes('styles/portfolio.css?v=20261007-engineering-index'), `${file}: missing shared portfolio art direction`);
   assert.ok(!/[ \t]+\r?$/m.test(html), `${file}: trailing whitespace`);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
   assert.equal(ids.length, new Set(ids).size, `${file}: duplicate IDs`);

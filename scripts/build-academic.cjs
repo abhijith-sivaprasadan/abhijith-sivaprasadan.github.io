@@ -27,7 +27,7 @@ const featured = ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flex
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
-const version = '20261006-notebook-2';
+const version = '20261007-engineering-index';
 const arrow = '<span aria-hidden="true">↗</span>';
 const cvs = {
   modelling: ['downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf', 'Modelling CV (PDF)'],
@@ -107,7 +107,7 @@ return `<a href="skills/${trackSkillLinks[track.id][i]}.html" aria-label="Explor
 }
 function radar() {
   const labels = [['Overview', 'All disciplines'], ['Thermal', 'CFD & heat transfer'], ['Energy', 'Systems & optimisation'], ['Software', 'Backend & scientific tools'], ['Research', 'Thesis & PhD interests']];
-  return `<aside class="portfolio-radar skill-matrix" data-skill-matrix aria-label="Interactive skill and project radar"><header><p class="overline">Skills &amp; experience</p><h2>Explore my strengths.</h2></header><div class="matrix-tabs" role="tablist" aria-label="Portfolio application tracks">${tracks.map((track, index) => `<button type="button" role="tab" id="matrix-tab-${track.id}" aria-label="${escape(track.label)}" aria-controls="matrix-panel-${track.id}" aria-selected="${index === 0}" tabindex="${index ? '-1' : '0'}" data-matrix-tab><strong>${labels[index][0]}</strong><small>${escape(labels[index][1])}</small></button>`).join('')}</div><div class="matrix-panels">${tracks.map(matrixPanel).join('')}</div></aside>`;
+  return `<aside id="practice" class="portfolio-radar skill-matrix" data-skill-matrix aria-label="Interactive skill and project radar"><header><p class="overline">01 / Skills &amp; experience</p><h2>Choose your<br />perspective.</h2><p class="radar-guide">Five routes through my work. Select a track, then a skill to explore the evidence behind it.</p></header><div class="matrix-tabs" role="tablist" aria-label="Portfolio application tracks">${tracks.map((track, index) => `<button type="button" role="tab" id="matrix-tab-${track.id}" aria-label="${escape(track.label)}" aria-controls="matrix-panel-${track.id}" aria-selected="${index === 0}" tabindex="${index ? '-1' : '0'}" data-matrix-tab><strong>${labels[index][0]}</strong><small>${escape(labels[index][1])}</small></button>`).join('')}</div><div class="matrix-panels">${tracks.map(matrixPanel).join('')}</div></aside>`;
 }
 function page(file, title, description, content, isHome = false) {
   const prefix = isHome ? '' : '../';
@@ -271,13 +271,21 @@ function home() {
       <div id="person" class="hero-intro">
         <div class="hero-identity"><img src="assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. Sustainable Energy Engineering · KTH · Stockholm, Sweden</span></p></div>
         <p class="overline hero-kicker">Abhijith Sivaprasadan / Engineering portfolio</p>
-        <h1>Thermal science.<br />Energy systems.<br /><em>Working code.</em></h1>
+        <h1>Heat. Power.<br /><em>Code.</em></h1>
+      </div>
+      <div class="hero-summary">
+        <p class="hero-specialism">Thermal engineering<br />&amp; energy systems modelling</p>
         <p class="lead">I connect thermal-fluid engineering, energy-system modelling and professional software delivery. I have completed the M.Sc. in Sustainable Energy Engineering at KTH, including my 30 ECTS thesis; my degree certificate is in process.</p>
         <p class="hero-interest">Interested in research-engineer and PhD opportunities in thermal-fluid engineering, energy systems and nuclear-energy applications.</p>
-        <div class="hero-links">${link('#projects', 'Explore my work ↓', '', 'primary-link')}${link(...cvs.research)}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}</div>
+        <div class="hero-links">${link('#projects', 'Selected work ↓', '', 'primary-link')}${link('#practice', 'Skills & tracks ↓')}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}${link(...cvs.research)}</div>
       </div>
-      ${radar()}
     </section>
+    <nav class="work-entrypoints" aria-label="Start exploring my work">
+      <a href="projects/siemens-thesis.html"><span>01 / Published thesis</span><strong>Inside a thermal rig <span aria-hidden="true">↗</span></strong><small>CFD / CHT · Siemens Energy</small></a>
+      <a href="projects/kerala2040.html"><span>02 / Independent research</span><strong>Power-system resilience <span aria-hidden="true">↗</span></strong><small>Energy modelling · Kerala2040</small></a>
+      <a href="experience/qburst.html"><span>03 / Professional experience</span><strong>Backend engineering <span aria-hidden="true">↗</span></strong><small>APIs &amp; automated testing · QBurst</small></a>
+    </nav>
+    ${radar()}
     <div class="portfolio-credentials"><span>M.Sc. Sustainable Energy Engineering <strong>KTH</strong></span><span>Thesis <strong>Siemens Energy</strong></span><span>Industrial energy <strong>Alleima</strong></span><span>Software engineering <strong>QBurst</strong></span></div>
     <nav class="section-index" aria-label="Page sections"><a href="#tracks">Choose a track</a><a href="#research">Research interests</a><a href="#projects">Selected work</a><a href="#skills">Expertise</a><a href="#experience">Experience</a><a href="#education">Education</a></nav>
     <section id="projects" class="page-section">
