@@ -216,7 +216,7 @@ body.unified-site :is(a, button, input, select, summary):focus-visible { outline
 }
 @media (max-width: 760px) {
   /* Keep the whole chart available on short screens; navigation remains at the page top. */
-  .academic-header, body.signal-rebuild .site-header { position: static; }
+  .academic-header, body.signal-rebuild .site-header { position: static !important; }
   body.academic-site .wrap, body.signal-rebuild .container, .header-inner, .unified-header-inner, .unified-footer-inner { width: calc(100% - 40px); }
   .header-inner, .unified-header-inner { border-radius: 0; padding: 12px 0 4px; gap: 4px 14px; }
   .wordmark span, .unified-wordmark span { display: none; }
