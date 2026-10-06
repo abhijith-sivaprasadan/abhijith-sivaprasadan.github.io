@@ -27,7 +27,7 @@ const featured = ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flex
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
-const version = '20261006-radar-art';
+const version = '20261006-design-freeze';
 const arrow = '<span aria-hidden="true">↗</span>';
 const cvs = {
   modelling: ['downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf', 'Modelling CV (PDF)'],
@@ -83,8 +83,8 @@ function matrixPanel(track, index) {
   const label = (title, i) => {
     const [x, y] = point(i, 165);
     const words = title.split(' '), split = Math.ceil(words.length / 2);
-    const lines = title.length > 18 ? [words.slice(0, split).join(' '), words.slice(split).join(' ')] : [title];
-    return `<a href="skills/${trackSkillLinks[track.id][i]}.html" aria-label="Explore ${escape(title)}"><rect x="${x - 85}" y="${y - 27}" width="170" height="76" fill="transparent" pointer-events="all" /><text x="${x}" y="${y}" text-anchor="middle">${lines.map((line, row) => `<tspan x="${x}" dy="${row ? 21 : 0}">${escape(line)}</tspan>`).join('')}</text></a>`;
+    const lines = title.length > 14 ? [words.slice(0, split).join(' '), words.slice(split).join(' ')] : [title];
+return `<a href="skills/${trackSkillLinks[track.id][i]}.html" aria-label="Explore ${escape(title)}"><rect x="${x - 85}" y="${y - 27}" width="170" height="76" fill="transparent" pointer-events="all" /><text x="${x}" y="${y}" text-anchor="middle">${lines.map((line, row) => `<tspan x="${x}" dy="${row ? '1.3em' : 0}">${escape(line)}</tspan>`).join('')}</text></a>`;
   };
   return `<section class="matrix-panel" id="matrix-panel-${track.id}" role="tabpanel" aria-labelledby="matrix-tab-${track.id}"${index ? ' hidden' : ''}>
     <p class="radar-track-detail">${escape(track.detail)}</p>
@@ -96,15 +96,16 @@ function matrixPanel(track, index) {
       ${levels.map((level, i) => `<circle class="radar-node" cx="${point(i, 122 * level / maximum)[0]}" cy="${point(i, 122 * level / maximum)[1]}" r="5"><title>${escape(track.matrix[i][0])}: ${radarDevelopment.stages[level - 1]}</title></circle>`).join('')}
       <g class="radar-labels">${track.matrix.map(([title], i) => label(title, i)).join('')}</g>
     </svg>
-    <p class="radar-explanation"><strong>Strengths built through practice.</strong> Inner → outer: Exposure · Applied · Established practice · Focused strength · Expert. Qualitative portfolio assessments, not measured skill ratings. Expert is intentionally unclaimed.</p>
-    <p class="radar-explanation">Established practice = repeated application; Focused strength = sustained depth in a bounded area. Career seniority and real-system validation are separate. Expand an area for the assessment and evidence.</p>
-    ${['software', 'general'].includes(track.id) ? '<p class="radar-track-detail"><strong>Professional backend foundation:</strong> approximately 21 months at QBurst · Go → JavaScript/TypeScript &amp; NestJS · production APIs, automated tests, Git &amp; Docker.</p>' : ''}
-<div class="radar-evidence">${track.matrix.map(([title, description], i) => `<details><summary><span>${escape(title)}</span><span>${radarDevelopment.stages[levels[i] - 1]} <span aria-hidden="true">+</span></span></summary><div><p>${escape(radarDevelopment.rationale[track.id][i])}</p><p>${escape(description)}. ${axes[i].length} linked work records; not a proficiency score.</p>${axes[i].map(project => link(project.caseStudyUrl, project.title + ' ↗')).join('')}${link(`skills/${trackSkillLinks[track.id][i]}.html`, 'All related work & education ↗', '', 'radar-skill-link')}</div></details>`).join('')}</div>
-    <div class="radar-actions">${link(`tracks/${track.id}.html`, 'Explore this track ↗', '', 'primary-link')}${cv ? link(cv.url, cv.label) : ''}</div>
+    <p class="radar-explanation">Explore a skill below for the experience and projects behind it.</p>
+    ${['software', 'general'].includes(track.id) ? '<p class="radar-context"><strong>QBurst · 21 months in backend engineering</strong><span>Go · JavaScript/TypeScript · NestJS · API testing · Git &amp; Docker</span></p>' : ''}
+<div class="radar-evidence">${track.matrix.map(([title, description], i) => `<details><summary><span>${escape(title)}</span><span>${radarDevelopment.stages[levels[i] - 1]} <span aria-hidden="true">+</span></span></summary><div><p>${escape(radarDevelopment.rationale[track.id][i])}</p><p>${escape(description)}. Related work:</p>${axes[i].map(project => link(project.caseStudyUrl, project.title + ' ↗')).join('')}${link(`skills/${trackSkillLinks[track.id][i]}.html`, 'All related work & education ↗', '', 'radar-skill-link')}</div></details>`).join('')}</div>
+    <details class="radar-method"><summary>How to read this radar</summary><p class="radar-explanation">Inner → outer: Exposure · Applied · Established practice · Focused strength · Expert. Qualitative portfolio assessments, not measured skill ratings. Expert is intentionally unclaimed.</p><p class="radar-explanation">Established practice means repeated application; Focused strength means sustained depth in a bounded area. Each skill includes its assessment and supporting work.</p></details>
+    <div class="radar-actions">${link(`tracks/${track.id}.html`, 'View focused portfolio ↗', '', 'primary-link')}${cv ? link(cv.url, cv.label) : ''}</div>
   </section>`;
 }
 function radar() {
-  return `<aside class="portfolio-radar skill-matrix" data-skill-matrix aria-label="Interactive skill and project radar"><header><p class="overline">Explore my expertise</p><h2>One portfolio. Five perspectives.</h2></header><div class="matrix-tabs" role="tablist" aria-label="Portfolio application tracks">${tracks.map((track, index) => `<button type="button" role="tab" id="matrix-tab-${track.id}" aria-controls="matrix-panel-${track.id}" aria-selected="${index === 0}" tabindex="${index ? '-1' : '0'}" data-matrix-tab>${escape(track.label)}</button>`).join('')}</div><div class="matrix-panels">${tracks.map(matrixPanel).join('')}</div></aside>`;
+  const labels = [['Overview', 'All disciplines'], ['Thermal', 'CFD & heat transfer'], ['Energy', 'Systems & optimisation'], ['Software', 'Backend & scientific tools'], ['Research', 'Thesis & PhD interests']];
+  return `<aside class="portfolio-radar skill-matrix" data-skill-matrix aria-label="Interactive skill and project radar"><header><p class="overline">Skills &amp; experience</p><h2>Explore my strengths.</h2></header><div class="matrix-tabs" role="tablist" aria-label="Portfolio application tracks">${tracks.map((track, index) => `<button type="button" role="tab" id="matrix-tab-${track.id}" aria-label="${escape(track.label)}" aria-controls="matrix-panel-${track.id}" aria-selected="${index === 0}" tabindex="${index ? '-1' : '0'}" data-matrix-tab><strong>${labels[index][0]}</strong><small>${escape(labels[index][1])}</small></button>`).join('')}</div><div class="matrix-panels">${tracks.map(matrixPanel).join('')}</div></aside>`;
 }
 function page(file, title, description, content, isHome = false) {
   const prefix = isHome ? '' : '../';
@@ -140,8 +141,8 @@ function page(file, title, description, content, isHome = false) {
         <a href="${prefix}projects.html">Work</a>
         <a href="${prefix}index.html#research">Research</a>
         <a href="${prefix}experience.html">Experience</a>
-        <a href="${prefix}skills/index.html">Expertise</a>
-        <a href="${prefix}tracks/index.html"${file === 'tracks/index.html' ? ' aria-current="page"' : ''}>Tracks</a>
+        <a href="${prefix}skills/index.html"${file.startsWith('skills/') ? ' aria-current="page"' : ''}>Skills</a>
+        <a href="${prefix}tracks/index.html"${file.startsWith('tracks/') ? ' aria-current="page"' : ''}>Tracks</a>
         <a href="${prefix}index.html#contact">Contact</a>
       </nav>
       <button class="theme-switch" type="button" data-academic-theme aria-label="Switch to dark mode" aria-pressed="false" hidden>Dark mode</button>

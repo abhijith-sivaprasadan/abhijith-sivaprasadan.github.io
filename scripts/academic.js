@@ -93,8 +93,8 @@
   const reveal = (element, delay = 0) => {
     if (typeof element.animate !== 'function' || reducedMotion.matches) return;
     const animation = element.animate(
-      [{ opacity: 0, transform: 'translateY(22px) scale(.99)', filter: 'blur(5px)' }, { opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0)' }],
-      { duration: 720, delay, easing: 'cubic-bezier(.22, 1, .36, 1)' }
+      [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'translateY(0)' }],
+      { duration: 440, delay, easing: 'cubic-bezier(.22, 1, .36, 1)' }
     );
     animations.add(animation);
     animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));
