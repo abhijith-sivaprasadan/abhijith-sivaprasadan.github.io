@@ -1,8 +1,8 @@
 /* Shared portfolio art direction. Loaded after the content-specific layouts. */
 :root {
-  --folio-page: #f1f2f6; --folio-surface: #ffffff; --folio-ink: #242332;
-  --folio-muted: #5d5d70; --folio-rule: #d8d9e4; --folio-accent: #6342b5;
-  --folio-tint: #e9e6f3; --folio-display: 'Segoe UI', system-ui, sans-serif;
+  --folio-page: #f2f3f5; --folio-surface: #ffffff; --folio-ink: #252a31;
+  --folio-muted: #5b636f; --folio-rule: #d6dae0; --folio-accent: #6342b5;
+  --folio-tint: #e9ecf1; --folio-display: 'Segoe UI', system-ui, sans-serif;
   --folio-mono: 'Cascadia Code', Consolas, monospace;
   --page: var(--folio-page); --surface: var(--folio-surface); --ink: var(--folio-ink);
   --muted: var(--folio-muted); --rule: var(--folio-rule); --accent: var(--folio-accent);
@@ -13,8 +13,8 @@
   --unified-accent-2: #4c607e; --unified-accent-3: #76558b; --unified-hover: var(--folio-tint);
 }
 html[data-theme='dark'] {
-  --folio-page: #171721; --folio-surface: #22222f; --folio-ink: #f2f0fa;
-  --folio-muted: #bdbbce; --folio-rule: #414153; --folio-accent: #bda6ff; --folio-tint: #302a45;
+  --folio-page: #17191d; --folio-surface: #23262b; --folio-ink: #f2f3f5;
+  --folio-muted: #b8bdc5; --folio-rule: #414751; --folio-accent: #bda6ff; --folio-tint: #2d3138;
   --page: var(--folio-page); --surface: var(--folio-surface); --ink: var(--folio-ink);
   --muted: var(--folio-muted); --rule: var(--folio-rule); --accent: var(--folio-accent);
   --accent-2: #a9bfdc; --accent-3: #cbb2dd; --accent-soft: var(--folio-tint);

@@ -6,6 +6,8 @@ The user explicitly reopened the earlier freeze and selected **Research notebook
 
 ## Notebook revision
 
+Follow-up, 7 October: neutral grey/charcoal backgrounds replace the violet-tinted surfaces at the user's request. Violet is restricted to small accents and diagram marks, not page or card backgrounds.
+
 - The radar's five choices occupy one desktop row and two mobile rows, with 44px targets. The chart remains clickable; no skill assessments or evidence records changed.
 - Supporting evidence, professional context and methodology sit inside a closed-by-default disclosure. There are no internal scrolling panels. Track and matching CV links remain outside the disclosure.
 - At 1440 × 768 the collapsed radar is approximately 606px tall and ends at y=728, within the initial viewport. At 320px its core is approximately 530px tall; the mobile header scrolls away to avoid covering it. Expanded evidence intentionally grows the page.

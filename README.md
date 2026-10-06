@@ -4,6 +4,8 @@ Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT
 
 ## Research notebook baseline — 6 October 2026
 
+7 October refinement: page and card surfaces are neutral grey/charcoal, not purple. Violet remains an accent for links, selection indicators and diagram marks.
+
 The user-selected research-notebook direction supersedes the earlier cream/forest/rust freeze: cool grey pages, violet accents, sans-serif headings, monospaced annotations and a dotted diagram surface distinguish this personal portfolio from the Kerala2040 research site. Shared navigation retains current-page states and all six mobile destinations. The compact radar keeps five track choices, clickable skill labels and track/CV links visible; supporting evidence, QBurst context and methodology are expandable. On phones the header scrolls away so it cannot obscure the chart. Skill assessments and scientific claims are unchanged. Entrance motion remains short and unblurred, with reduced-motion support.
 
 See [design-freeze verification and maintenance rules](docs/DESIGN_FREEZE.md). Future routine updates should change content, evidence and project status within these components. Reopening the visual direction requires an explicit design request; bug fixes and accessibility improvements remain appropriate. Cache version `20261006-notebook-2` is shared across the 66 primary portfolio pages.
