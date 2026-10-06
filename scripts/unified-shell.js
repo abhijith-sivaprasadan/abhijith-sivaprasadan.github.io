@@ -9,7 +9,7 @@
   const isResearch = /\/research\.html$/.test(localPath);
   const isExpertise = /\/skills(?:\/|\.html)/.test(localPath);
   const isTracks = /\/tracks(?:\/|\.html)/.test(localPath);
-  const current = label => ({ Research: isResearch, Work: isWork, Experience: /\/experience(?:\/|\.html)/.test(localPath), Expertise: isExpertise, Tracks: isTracks })[label];
+  const current = label => ({ Research: isResearch, Work: isWork, Experience: /\/experience(?:\/|\.html)/.test(localPath), Skills: isExpertise, Tracks: isTracks })[label];
   const makeLink = (href, label, className = '') => {
     const link = document.createElement('a');
     link.href = href;
@@ -53,7 +53,7 @@
         navLink('projects.html', 'Work'),
         navLink('index.html#research', 'Research'),
         navLink('experience.html', 'Experience'),
-        navLink('skills/index.html', 'Expertise'),
+        navLink('skills/index.html', 'Skills'),
         navLink('tracks/index.html', 'Tracks'),
         makeLink(`${prefix}index.html#contact`, 'Contact')
       );
@@ -119,8 +119,8 @@
     const reveal = element => {
       if (preference.matches || typeof element.animate !== 'function') return;
       const animation = element.animate(
-        [{ opacity: 0, transform: 'translateY(20px) scale(.992)', filter: 'blur(5px)' }, { opacity: 1, transform: 'translateY(0) scale(1)', filter: 'blur(0)' }],
-        { duration: 700, easing: 'cubic-bezier(.22, 1, .36, 1)' }
+        [{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'translateY(0)' }],
+        { duration: 440, easing: 'cubic-bezier(.22, 1, .36, 1)' }
       );
       animations.add(animation);
       animation.finished.then(() => animations.delete(animation), () => animations.delete(animation));

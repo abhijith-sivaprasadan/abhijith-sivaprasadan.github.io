@@ -2,6 +2,12 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
+## Design freeze — 6 October 2026
+
+The cream/forest/rust portfolio design is the maintained baseline. Shared navigation has consistent groups and current-page states; mobile exposes all six destinations. The radar uses an overview plus four focused tracks, readable responsive labels, independent context spacing and expandable methodology. Navigation and evidence rows retain keyboard support and 44px interaction targets. Entrance motion is short and unblurred, with reduced-motion support. The old paper-mode toolbar is retired in favour of the shared header.
+
+See [design-freeze verification and maintenance rules](docs/DESIGN_FREEZE.md). Future routine updates should change content, evidence and project status within these components. Reopening the visual direction requires an explicit design request; bug fixes and accessibility improvements remain appropriate. Cache version `20261006-design-freeze` is shared across the 66 primary portfolio pages.
+
 Public-profile reconciliation (6 October 2026): the supplied maximal profile informs public copy without publishing the source attachment, compensation, immigration details or private projects. QBurst is approximately 21 months of professional backend experience (Go, then JavaScript/TypeScript/NestJS; production APIs, automated negative-path tests, Git and Docker). Employer/client code is not public portfolio code. Detailed implementation claims absent from the profile were removed. KTH programme requirements are complete; the degree certificate is in process. MJ2509 is 5 ECTS. The radar remains a linked-record coverage view, with professional duration stated separately rather than invented proficiency scores. Existing track CV PDFs remain unchanged.
 
 ## Work-first portfolio, application tracks and skill evidence — October 2026
