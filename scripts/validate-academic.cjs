@@ -172,7 +172,15 @@ assert.equal((home.match(/data-matrix-tab/g) || []).length, 5, 'Homepage needs o
 assert.equal((home.match(/class="matrix-panel"/g) || []).length, 5, 'Homepage needs one skill matrix for every track.');
 assert.ok(!/data-radar-value|radar-shape|evidence coverage [1-5]/.test(home), 'Unsupported numerical skill ratings must not return.');
 assert.equal((home.match(/class="radar-coverage"/g) || []).length, 5, 'Each track needs its own evidence radar.');
-assert.ok(home.includes('not skill ratings.') && home.includes('radar-evidence'), 'Radar values need an explanation and inspectable examples.');
+assert.ok(home.includes('not measured skill ratings.') && home.includes('radar-evidence'), 'Radar assessments need an explanation and inspectable examples.');
+const radarDevelopment = require('./data/radar-development.cjs');
+assert.equal(radarDevelopment.stages.length, 5, 'Radar needs five clearly defined development stages.');
+for (const track of tracks) {
+  const levels = radarDevelopment.tracks[track.id];
+  assert.equal(levels.length, 5, `${track.id}: five radar assessments required.`);
+  assert.ok(levels.every(level => Number.isInteger(level) && level >= 1 && level <= 3), `${track.id}: no advanced/expert claims for the early-career profile.`);
+}
+assert.ok(home.includes('Advanced and Expert are intentionally unclaimed.'), 'Radar must explain its conservative ceiling.');
 assert.ok(!/research-atlas|hero-lab/.test(home), 'Decorative research atlas must remain retired.');
 assert.ok(read('scripts/academic.js').includes('activateMatrix') && read('scripts/academic.js').includes("event.key === 'ArrowRight'"), 'Track matrix must support animated and keyboard selection.');
 const cvFiles = [

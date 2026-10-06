@@ -5,6 +5,7 @@ const path = require('node:path');
 const data = require('./data/skill-evidence.cjs');
 const tracks = require('./data/portfolio-tracks.cjs');
 const radarExamples = require('./data/track-radar.cjs');
+const radarDevelopment = require('./data/radar-development.cjs');
 const art = require('./data/portfolio-art.cjs');
 const root = path.resolve(__dirname, '..');
 const read = name => JSON.parse(fs.readFileSync(path.join(root, 'api', name), 'utf8'));
@@ -69,7 +70,11 @@ function matrixPanel(track, index) {
     if (!project) throw new Error(`Unknown radar project: ${id}`);
     return project;
   }));
-  const maximum = Math.max(...Object.values(radarExamples).flat().map(ids => ids.length));
+  const levels = radarDevelopment.tracks[track.id];
+  if (levels?.length !== 5 || levels.some(level => !Number.isInteger(level) || level < 1 || level > 3)) {
+    throw new Error(`Radar must retain conservative early-career assessments: ${track.id}`);
+  }
+  const maximum = radarDevelopment.stages.length;
   const point = (axis, radius) => {
     const angle = -Math.PI / 2 + axis * 2 * Math.PI / 5;
     return [260 + Math.cos(angle) * radius, 212 + Math.sin(angle) * radius].map(n => Number(n.toFixed(2)));
@@ -83,15 +88,18 @@ function matrixPanel(track, index) {
   };
   return `<section class="matrix-panel" id="matrix-panel-${track.id}" role="tabpanel" aria-labelledby="matrix-tab-${track.id}"${index ? ' hidden' : ''}>
     <p class="radar-track-detail">${escape(track.detail)}</p>
-    <svg class="portfolio-radar-chart" viewBox="0 0 520 400" role="group" aria-label="${escape(track.label)} project coverage radar">
-      <g class="radar-grid">${[.25, .5, .75, 1].map(level => `<polygon points="${polygon(122 * level)}" />`).join('')}${axes.map((_, i) => `<line x1="260" y1="212" x2="${point(i, 122)[0]}" y2="${point(i, 122)[1]}" />`).join('')}</g>
-      <polygon class="radar-coverage" points="${axes.map((examples, i) => point(i, 122 * examples.length / maximum).join(',')).join(' ')}" />
-      ${axes.map((examples, i) => `<circle class="radar-node" cx="${point(i, 122 * examples.length / maximum)[0]}" cy="${point(i, 122 * examples.length / maximum)[1]}" r="5" />`).join('')}
+    <svg class="portfolio-radar-chart" viewBox="0 0 520 400" role="group" aria-label="${escape(track.label)} early-career development radar">
+      <title>${escape(track.label)} — qualitative portfolio assessment</title>
+      <desc>${track.matrix.map(([title], i) => escape(`${title}: ${radarDevelopment.stages[levels[i] - 1]}`)).join('; ')}. Advanced and Expert are not claimed.</desc>
+      <g class="radar-grid">${radarDevelopment.stages.map((stage, i) => `<polygon points="${polygon(122 * (i + 1) / maximum)}"><title>${stage}</title></polygon>`).join('')}${axes.map((_, i) => `<line x1="260" y1="212" x2="${point(i, 122)[0]}" y2="${point(i, 122)[1]}" />`).join('')}</g>
+      <polygon class="radar-coverage" points="${levels.map((level, i) => point(i, 122 * level / maximum).join(',')).join(' ')}" />
+      ${levels.map((level, i) => `<circle class="radar-node" cx="${point(i, 122 * level / maximum)[0]}" cy="${point(i, 122 * level / maximum)[1]}" r="5"><title>${escape(track.matrix[i][0])}: ${radarDevelopment.stages[level - 1]}</title></circle>`).join('')}
       <g class="radar-labels">${track.matrix.map(([title], i) => label(title, i)).join('')}</g>
     </svg>
-    <p class="radar-explanation">Shape = selected work examples, <strong>not skill ratings.</strong> Outer ring = ${maximum} examples. One professional role counts as one record, not one unit of experience. Tap a label to explore the skill.</p>
+    <p class="radar-explanation"><strong>Early-career profile.</strong> Inner → outer: Foundational · Applied · Practised · Advanced · Expert. Qualitative portfolio assessments, not measured skill ratings. Advanced and Expert are intentionally unclaimed.</p>
+    <p class="radar-explanation">Foundational = initial exposure; Applied = bounded project practice; Practised = sustained professional or focused thesis practice. Links below show the evidence, not a score.</p>
     ${['software', 'general'].includes(track.id) ? '<p class="radar-track-detail"><strong>Professional backend foundation:</strong> approximately 21 months at QBurst · Go → JavaScript/TypeScript &amp; NestJS · production APIs, automated tests, Git &amp; Docker.</p>' : ''}
-    <div class="radar-evidence">${track.matrix.map(([title], i) => `<details><summary><span>${escape(title)}</span><span>${axes[i].length} ${axes[i].length === 1 ? 'example' : 'examples'} <span aria-hidden="true">+</span></span></summary><div>${axes[i].map(project => link(project.caseStudyUrl, project.title + ' ↗')).join('')}${link(`skills/${trackSkillLinks[track.id][i]}.html`, 'All related work & education ↗', '', 'radar-skill-link')}</div></details>`).join('')}</div>
+    <div class="radar-evidence">${track.matrix.map(([title, description], i) => `<details><summary><span>${escape(title)}</span><span>${radarDevelopment.stages[levels[i] - 1]} <span aria-hidden="true">+</span></span></summary><div><p>${escape(description)}. ${axes[i].length} linked work records; not a proficiency score.</p>${axes[i].map(project => link(project.caseStudyUrl, project.title + ' ↗')).join('')}${link(`skills/${trackSkillLinks[track.id][i]}.html`, 'All related work & education ↗', '', 'radar-skill-link')}</div></details>`).join('')}</div>
     <div class="radar-actions">${link(`tracks/${track.id}.html`, 'Explore this track ↗', '', 'primary-link')}${cv ? link(cv.url, cv.label) : ''}</div>
   </section>`;
 }
