@@ -27,7 +27,7 @@ const featured = ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flex
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
-const version = '20261006-design-freeze';
+const version = '20261006-notebook';
 const arrow = '<span aria-hidden="true">↗</span>';
 const cvs = {
   modelling: ['downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf', 'Modelling CV (PDF)'],
@@ -96,11 +96,13 @@ return `<a href="skills/${trackSkillLinks[track.id][i]}.html" aria-label="Explor
       ${levels.map((level, i) => `<circle class="radar-node" cx="${point(i, 122 * level / maximum)[0]}" cy="${point(i, 122 * level / maximum)[1]}" r="5"><title>${escape(track.matrix[i][0])}: ${radarDevelopment.stages[level - 1]}</title></circle>`).join('')}
       <g class="radar-labels">${track.matrix.map(([title], i) => label(title, i)).join('')}</g>
     </svg>
-    <p class="radar-explanation">Explore a skill below for the experience and projects behind it.</p>
+    <details class="radar-notes"><summary>Evidence &amp; assessment <span>5 skills</span></summary><div class="radar-notes-body">
+    <p class="radar-explanation">Select a chart label for its skill dossier, or expand a skill below for the assessment and supporting work.</p>
     ${['software', 'general'].includes(track.id) ? '<p class="radar-context"><strong>QBurst · 21 months in backend engineering</strong><span>Go · JavaScript/TypeScript · NestJS · API testing · Git &amp; Docker</span></p>' : ''}
 <div class="radar-evidence">${track.matrix.map(([title, description], i) => `<details><summary><span>${escape(title)}</span><span>${radarDevelopment.stages[levels[i] - 1]} <span aria-hidden="true">+</span></span></summary><div><p>${escape(radarDevelopment.rationale[track.id][i])}</p><p>${escape(description)}. Related work:</p>${axes[i].map(project => link(project.caseStudyUrl, project.title + ' ↗')).join('')}${link(`skills/${trackSkillLinks[track.id][i]}.html`, 'All related work & education ↗', '', 'radar-skill-link')}</div></details>`).join('')}</div>
     <details class="radar-method"><summary>How to read this radar</summary><p class="radar-explanation">Inner → outer: Exposure · Applied · Established practice · Focused strength · Expert. Qualitative portfolio assessments, not measured skill ratings. Expert is intentionally unclaimed.</p><p class="radar-explanation">Established practice means repeated application; Focused strength means sustained depth in a bounded area. Each skill includes its assessment and supporting work.</p></details>
-    <div class="radar-actions">${link(`tracks/${track.id}.html`, 'View focused portfolio ↗', '', 'primary-link')}${cv ? link(cv.url, cv.label) : ''}</div>
+    </div></details>
+    <div class="radar-actions">${link(`tracks/${track.id}.html`, 'Explore this track ↗', '', 'primary-link')}${cv ? `<a href="${escape(cv.url)}" aria-label="${escape(cv.label)}">CV (PDF)</a>` : ''}</div>
   </section>`;
 }
 function radar() {
@@ -269,7 +271,7 @@ function home() {
       <div id="person" class="hero-intro">
         <div class="hero-identity"><img src="assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. Sustainable Energy Engineering · KTH · Stockholm, Sweden</span></p></div>
         <p class="overline hero-kicker">Abhijith Sivaprasadan / Engineering portfolio</p>
-        <h1>Engineering<br />a better<br /><em>energy future.</em></h1>
+        <h1>Thermal science.<br />Energy systems.<br /><em>Working code.</em></h1>
         <p class="lead">I connect thermal-fluid engineering, energy-system modelling and professional software delivery. I have completed the M.Sc. in Sustainable Energy Engineering at KTH, including my 30 ECTS thesis; my degree certificate is in process.</p>
         <p class="hero-interest">Interested in research-engineer and PhD opportunities in thermal-fluid engineering, energy systems and nuclear-energy applications.</p>
         <div class="hero-links">${link('#projects', 'Explore my work ↓', '', 'primary-link')}${link(...cvs.research)}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}</div>

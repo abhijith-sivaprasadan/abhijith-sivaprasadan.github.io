@@ -1,10 +1,20 @@
-# Portfolio design freeze — 6 October 2026
+# Portfolio design baseline — 6 October 2026
 
 ## Maintained direction
 
-Cream backgrounds, forest surfaces, rust accents, serif display headings and readable sans-serif body text. The shared header, navigation, track selector, project cards, skill dossiers and paper palettes form the baseline. Preserve the existing research/engineering narrative and evidence boundaries.
+The user explicitly reopened the earlier freeze and selected **Research notebook**: cool grey, violet accents and annotated diagrams. This supersedes the cream/forest/rust direction. Sans-serif display headings, monospaced notes, section rules and a dotted chart surface distinguish the personal portfolio from the separate Kerala2040 research site. Preserve the research/engineering narrative and evidence boundaries.
 
-## Release changes
+## Notebook revision
+
+- The radar's five choices occupy one desktop row and two mobile rows, with 44px targets. The chart remains clickable; no skill assessments or evidence records changed.
+- Supporting evidence, professional context and methodology sit inside a closed-by-default disclosure. There are no internal scrolling panels. Track and matching CV links remain outside the disclosure.
+- At 1440 × 768 the collapsed radar is approximately 606px tall and ends at y=728, within the initial viewport. At 320px its core is approximately 530px tall; the mobile header scrolls away to avoid covering it. Expanded evidence intentionally grows the page.
+- The headline now states the portfolio's three connected areas: thermal science, energy systems and working code. Shared palette/typography apply across primary endpoints; scientific paper themes remain preserved.
+- Cache key: `20261006-notebook`.
+
+Browser checks: all five tracks at 320px, no clipped chart labels or page overflow, 44px selector heights, Home-key navigation, expandable backend evidence and chart-to-dossier navigation. Representative mobile checks include the project and experience indexes, QBurst role, TES paper and Software track. The 1440 × 768 desktop radar fits without scrolling. Both homepage themes were visually reviewed. These are targeted checks, not an accessibility certification.
+
+## Earlier freeze changes retained
 
 - Fixed General/Software radar overlap: removed negative text margins and separated track subtitles from the longer professional-experience note. Panels use normal flow and explicit gaps.
 - Replaced uneven track buttons with one overview row and four equal track choices, each with a purpose label.
@@ -17,7 +27,7 @@ Cream backgrounds, forest surfaces, rust accents, serif display headings and rea
 - Made the experience timeline keyboard-focusable for horizontal scrolling. Removed the empty image source from the thesis media dialog; its image is supplied when opened.
 - Refreshed shared asset URLs and service-worker version for deployment.
 
-## Verification
+## Earlier freeze verification
 
 Local browser review covered 320px and 390px phones, 768px tablet, and 1440px desktop. At 320px all five radar panels were checked for overlapping child blocks, clipped chart labels, page overflow and tab target size. Software evidence expansion and the End-key tab shortcut worked. The Backend systems chart link opened the software skill dossier with Skills selected in the header.
 

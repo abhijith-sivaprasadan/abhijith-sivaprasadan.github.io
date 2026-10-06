@@ -92,7 +92,7 @@ for (const skill of data.skills) {
 }
 for (const file of files) {
   const html = read(file);
-  assert.ok(html.includes('styles/portfolio.css?v=20261006-design-freeze'), `${file}: missing shared portfolio art direction`);
+  assert.ok(html.includes('styles/portfolio.css?v=20261006-notebook'), `${file}: missing shared portfolio art direction`);
   assert.ok(!/[ \t]+\r?$/m.test(html), `${file}: trailing whitespace`);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
   assert.equal(ids.length, new Set(ids).size, `${file}: duplicate IDs`);
@@ -170,6 +170,8 @@ assert.ok(read('styles/academic.css').includes('scroll-snap-type'), 'Retain touc
 for (const surface of ['portfolio-radar', 'matrix-tabs', 'matrix-panels', 'portfolio-radar-chart']) assert.ok(home.includes(`class="${surface}`), `Homepage missing ${surface}.`);
 assert.equal((home.match(/data-matrix-tab/g) || []).length, 5, 'Homepage needs one selector for every track matrix.');
 assert.equal((home.match(/class="matrix-panel"/g) || []).length, 5, 'Homepage needs one skill matrix for every track.');
+assert.equal((home.match(/<details class="radar-notes">/g) || []).length, 5, 'All radar evidence must start collapsed to keep the overview compact.');
+assert.equal((home.match(/<\/div><\/details>\s*<div class="radar-actions">/g) || []).length, 5, 'Track and CV actions must remain outside collapsed evidence.');
 assert.ok(!/data-radar-value|radar-shape|evidence coverage [1-5]/.test(home), 'Unsupported numerical skill ratings must not return.');
 assert.equal((home.match(/class="radar-coverage"/g) || []).length, 5, 'Each track needs its own evidence radar.');
 assert.ok(home.includes('not measured skill ratings.') && home.includes('radar-evidence'), 'Radar assessments need an explanation and inspectable examples.');
