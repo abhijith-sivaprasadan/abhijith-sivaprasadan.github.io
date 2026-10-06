@@ -13,7 +13,7 @@
  * To disable for a session, the user can hit `?nosw=1` once.
  */
 
-const VERSION = "v4-w27-20261005-unified-endpoints";
+const VERSION = "v5-20261006-work-first-portfolio";
 const SHELL_CACHE = `shell-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
 const NETWORK_FIRST_EXTENSIONS = /\.(?:css|js|json)$/i;
@@ -24,6 +24,7 @@ const SHELL = [
   "/skills/index.html",
   "/tracks/index.html",
   "/styles/academic.css",
+  "/styles/portfolio.css",
   "/styles/unified.css",
   "/scripts/academic.js",
   "/scripts/unified-shell.js",

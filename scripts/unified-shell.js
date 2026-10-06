@@ -9,7 +9,7 @@
   const isResearch = /\/research\.html$/.test(localPath);
   const isExpertise = /\/skills(?:\/|\.html)/.test(localPath);
   const isTracks = /\/tracks(?:\/|\.html)/.test(localPath);
-  const current = label => ({ Research: isResearch, Work: isWork, Expertise: isExpertise, Tracks: isTracks })[label];
+  const current = label => ({ Research: isResearch, Work: isWork, Experience: /\/experience(?:\/|\.html)/.test(localPath), Expertise: isExpertise, Tracks: isTracks })[label];
   const makeLink = (href, label, className = '') => {
     const link = document.createElement('a');
     link.href = href;
@@ -50,8 +50,9 @@
       nav.className = 'unified-nav';
       nav.setAttribute('aria-label', 'Main navigation');
       nav.append(
-        navLink('index.html#research', 'Research'),
         navLink('projects.html', 'Work'),
+        navLink('index.html#research', 'Research'),
+        navLink('experience.html', 'Experience'),
         navLink('skills/index.html', 'Expertise'),
         navLink('tracks/index.html', 'Tracks'),
         makeLink(`${prefix}index.html#contact`, 'Contact')

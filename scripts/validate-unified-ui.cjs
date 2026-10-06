@@ -14,11 +14,12 @@ const legacyPages = [
 assert.equal(legacyPages.length, 50, 'Review the unified-shell inventory when public endpoints change.');
 for (const file of legacyPages) {
   const html = read(file);
+  assert.ok(html.includes('styles/portfolio.css?v=20261006-portfolio'), `${file}: missing shared portfolio art direction`);
   if (file === '404.html') {
-    assert.ok(html.includes('styles/unified.css?v=20261005-living-atlas'));
-    assert.ok(html.includes('scripts/unified-shell.js?v=20261005-living-atlas'));
+    assert.ok(html.includes('styles/unified.css?v=20261006-portfolio'));
+    assert.ok(html.includes('scripts/unified-shell.js?v=20261006-portfolio'));
   } else {
-    assert.ok(html.includes('scripts/public-config.js?v=20261005-living-atlas'), `${file}: stale shared shell loader`);
+    assert.ok(html.includes('scripts/public-config.js?v=20261006-portfolio'), `${file}: stale shared shell loader`);
   }
   assert.ok(html.includes('class="signal-rebuild"') || /<body[^>]*class="[^"]*signal-rebuild/.test(html), `${file}: missing unified body hook`);
 }
@@ -49,7 +50,7 @@ assert.equal(paperPages.length, 11, 'Review the paper-theme inventory when resea
 for (const file of paperPages) {
   const html = read(file);
   assert.ok(html.includes('class="paper-doc'), `${file}: missing shared paper document surface`);
-  assert.ok(html.includes('scripts/public-config.js?v=20261005-living-atlas'), `${file}: stale shared loader cache key`);
+  assert.ok(html.includes('scripts/public-config.js?v=20261006-portfolio'), `${file}: stale shared loader cache key`);
 }
 assert.ok(stylesheet.includes("html[data-theme='dark'] body.signal-rebuild:is([data-paper], [data-mode='paper'])"), 'Research papers need an explicit dark-paper palette.');
 for (const surface of ['.method-flow span', '.gb-callout', '.os-callout', '.os-metrics span']) {

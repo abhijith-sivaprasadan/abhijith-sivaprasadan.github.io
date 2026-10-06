@@ -24,7 +24,7 @@ const featured = ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flex
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
-const version = '20261005-track-matrix';
+const version = '20261006-portfolio';
 const arrow = '<span aria-hidden="true">↗</span>';
 const cvs = {
   modelling: ['downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf', 'Modelling CV (PDF)'],
@@ -46,69 +46,31 @@ function skillCV(skill) {
   if (skill.id === 'research') return cvs.research;
   return cvs.modelling;
 }
-const radar = { cx: 210, cy: 166, radius: 102, labelRadius: 137 };
-function radarPoint(index, radius) {
-  const angle = -Math.PI / 2 + index * (Math.PI * 2 / 5);
-  return [radar.cx + Math.cos(angle) * radius, radar.cy + Math.sin(angle) * radius];
-}
-function radarPoints(values) {
-  return values.map((value, index) => radarPoint(index, radar.radius * value / 5).map(number => number.toFixed(1)).join(',')).join(' ');
-}
-function radarLabelLines(label) {
-  if (label.length <= 17) return [label];
-  const words = label.split(' ');
-  let best = 1;
-  let difference = Infinity;
-  for (let index = 1; index < words.length; index += 1) {
-    const left = words.slice(0, index).join(' ');
-    const right = words.slice(index).join(' ');
-    if (Math.abs(left.length - right.length) < difference) {
-      best = index;
-      difference = Math.abs(left.length - right.length);
-    }
-  }
-  return [words.slice(0, best).join(' '), words.slice(best).join(' ')];
-}
-function radarChart(track) {
-  const values = track.matrix.map(([, , value]) => value);
-  const grid = [1, 2, 3, 4, 5].map(level => `<polygon points="${radarPoints(Array(5).fill(level))}" />`).join('');
-  const axes = track.matrix.map((_, index) => {
-    const [x, y] = radarPoint(index, radar.radius);
-    return `<line x1="${radar.cx}" y1="${radar.cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" />`;
-  }).join('');
-  const labels = track.matrix.map(([title], index) => {
-    const [x, rawY] = radarPoint(index, radar.labelRadius);
-    const lines = radarLabelLines(title);
-    const anchor = x > radar.cx + 24 ? 'start' : x < radar.cx - 24 ? 'end' : 'middle';
-    const y = rawY - (lines.length - 1) * 6;
-    return `<text class="radar-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}">${lines.map((line, lineIndex) => `<tspan x="${x.toFixed(1)}" dy="${lineIndex ? 12 : 0}">${escape(line)}</tspan>`).join('')}</text>`;
-  }).join('');
-  const dots = track.matrix.map(([title, evidence, value], index) => {
-    const [x, y] = radarPoint(index, radar.radius * value / 5);
-    return `<circle class="radar-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" data-radar-value="${value}"><title>${escape(title)}: evidence coverage ${value} of 5. ${escape(evidence)}</title></circle>`;
-  }).join('');
-  const summary = track.matrix.map(([title, , value]) => `${title}: ${value} of 5`).join('; ');
-  return `<figure class="radar-figure">
-    <svg class="skill-radar" viewBox="0 0 420 320" role="img" aria-labelledby="radar-title-${track.id} radar-desc-${track.id}">
-      <title id="radar-title-${track.id}">${escape(track.label)} evidence radar</title>
-      <desc id="radar-desc-${track.id}">${escape(summary)}. The scale describes documented portfolio coverage, not self-rated proficiency.</desc>
-      <g class="radar-grid">${grid}</g>
-      <g class="radar-axes">${axes}</g>
-      <g class="radar-scale" aria-hidden="true"><text x="216" y="140">1</text><text x="216" y="99">3</text><text x="216" y="58">5</text></g>
-      <polygon class="radar-shape" points="${radarPoints(values)}" />
-      <g class="radar-dots">${dots}</g>
-      <g class="radar-labels">${labels}</g>
-    </svg>
-    <figcaption><span>Documented evidence coverage</span><small>1 limited · 3 applied · 5 extensive. Not a proficiency rating.</small></figcaption>
-  </figure>`;
-}
+const trackSkillLinks = {
+  general: ['cfd-heat-transfer', 'energy-systems', 'data-software', 'test-instrumentation', 'cad-fea'],
+  thermal: ['cfd-heat-transfer', 'cfd-heat-transfer', 'energy-systems', 'test-instrumentation', 'cfd-heat-transfer'],
+  'energy-modelling': ['optimisation', 'energy-systems', 'energy-systems', 'optimisation', 'data-software'],
+  software: ['data-software', 'data-software', 'data-software', 'data-software', 'data-software'],
+  research: ['research', 'cfd-heat-transfer', 'research', 'test-instrumentation', 'research'],
+};
 function matrixPanel(track, index) {
   const cv = track.resources.find(resource => /CV \(PDF\)$/.test(resource.label));
+  const picks = track.projects.slice(0, 3).map(id => projects.find(p => p.id === id || projectKey(p) === id)).filter(Boolean);
   return `<section class="matrix-panel" id="matrix-panel-${track.id}" role="tabpanel" aria-labelledby="matrix-tab-${track.id}"${index ? ' hidden' : ''}>
-    <div class="matrix-heading"><div><span>${escape(String(index + 1).padStart(2, '0'))} / 05 · ${escape(track.audience)}</span><h2>${escape(track.label)}</h2></div>${link(`tracks/${track.id}.html`, 'Open track →')}</div>
-    ${radarChart(track)}
-    <footer><p>Open the track for projects and source evidence.</p>${cv ? link(cv.url, cv.label) : ''}</footer>
+    <div class="track-overview"><p class="overline">${escape(track.audience)}</p><h3>${escape(track.title)}</h3><p>${escape(track.intro)}</p><div class="hero-links">${link(`tracks/${track.id}.html`, 'Explore this track ↗', '', 'primary-link')}${cv ? link(cv.url, cv.label) : ''}</div></div>
+    <div class="track-evidence"><h4>Explore the skills</h4><ul class="track-skill-links">${track.matrix.map(([title, evidence], skillIndex) => `<li>${link(`skills/${trackSkillLinks[track.id][skillIndex]}.html`, title + ' ↗')}<small>${escape(evidence)}</small></li>`).join('')}</ul><h4>Start with this work</h4><div class="track-project-links">${picks.map(p => link(p.caseStudyUrl, p.title + ' ↗')).join('')}</div></div>
   </section>`;
+}
+function showcase() {
+  const entries = [
+    ['projects/siemens-thesis.html', 'assets/thesis/lab-rig-pulsatorn.webp', 'Thermal engineering', 'Inside a high-temperature calibration rig.', 'My KTH thesis at Siemens Energy: CFD, conjugate heat transfer and measurement-chain commissioning.', 'Thesis'],
+    ['projects/kerala2040.html', 'assets/thumb-pypsa-grid.svg', 'Energy systems', 'Understanding a power system under pressure.', 'Kerala2040 connects public electricity data, hydropower, network constraints and resilience research.', 'Energy'],
+    ['projects/tes-discharge-screen.html', 'assets/thumb-tes-peak-shaving.svg', 'Research software', 'How storage behaves changes the decision.', 'Dynamic thermal-storage models connected to industrial process-heat screening.', 'Storage'],
+  ];
+  return `<aside class="project-showcase" aria-label="Featured project showcase"><div class="showcase-topline"><span>In the portfolio</span><span>Selected studies ↙</span></div>
+    ${entries.map(([url, img, category, title, summary], index) => `<section class="showcase-panel" id="showcase-${index}" role="tabpanel" aria-labelledby="showcase-tab-${index}"${index ? ' hidden' : ''}><a class="showcase-image" href="${url}" aria-label="View ${escape(category)} case study"><img src="${img}" alt="" width="960" height="540" ${index ? 'loading="lazy"' : 'fetchpriority="high"'} /></a><div class="showcase-copy"><p class="overline">${category}</p><h2>${title}</h2><p>${summary}</p>${link(url, 'Explore the case study ↗')}</div></section>`).join('')}
+    <div class="showcase-controls" role="tablist" aria-label="Featured studies">${entries.map((entry, index) => `<button type="button" role="tab" id="showcase-tab-${index}" aria-controls="showcase-${index}" aria-selected="${index === 0}" tabindex="${index ? '-1' : '0'}" data-showcase-tab>${entry[5]}</button>`).join('')}</div>
+  </aside>`;
 }
 function page(file, title, description, content, isHome = false) {
   const prefix = isHome ? '' : '../';
@@ -132,6 +94,7 @@ function page(file, title, description, content, isHome = false) {
   <meta name="twitter:image" content="${origin}/assets/portfolio-preview.png" />` : ''}
   <link rel="icon" href="${prefix}assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="${prefix}styles/academic.css?v=${version}" />
+  <link rel="stylesheet" href="${prefix}styles/portfolio.css?v=${version}" />
   <script src="${prefix}scripts/academic.js?v=${version}" defer></script>
 </head>
 <body class="academic-site" data-page-key="${isHome ? 'home' : file.startsWith('tracks/') ? 'application-track' : 'skill-evidence'}">
@@ -140,9 +103,10 @@ function page(file, title, description, content, isHome = false) {
     <div class="wrap header-inner">
       <a class="wordmark" href="${prefix}index.html">Abhijith Sivaprasadan<span>Thermal engineering &amp; energy systems</span></a>
       <nav class="main-nav" aria-label="Main navigation">
+        <a href="${prefix}projects.html">Work</a>
         <a href="${prefix}index.html#research">Research</a>
-        <a href="${prefix}index.html#projects">Work</a>
-        <a href="${prefix}index.html#skills">Expertise</a>
+        <a href="${prefix}experience.html">Experience</a>
+        <a href="${prefix}skills/index.html">Expertise</a>
         <a href="${prefix}tracks/index.html"${file === 'tracks/index.html' ? ' aria-current="page"' : ''}>Tracks</a>
         <a href="${prefix}index.html#contact">Contact</a>
       </nav>
@@ -269,24 +233,30 @@ function home() {
     <section id="signal" class="academic-hero">
       <div id="person" class="hero-intro">
         <div class="hero-identity"><img src="assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. Sustainable Energy Engineering · KTH · Stockholm, Sweden</span></p></div>
-        <p class="overline hero-kicker"><span aria-hidden="true"></span>Research engineer · Thermal-fluid &amp; energy systems</p>
-        <h1>Thermal engineering.<br />Energy systems.<br /><em>Evidence-first research.</em></h1>
+        <p class="overline hero-kicker">Abhijith Sivaprasadan / Engineering portfolio</p>
+        <h1>Engineering<br />a better<br /><em>energy future.</em></h1>
         <p class="lead">I’m Abhijith Sivaprasadan, a KTH M.Sc. Sustainable Energy Engineering graduate. My work connects thermal-fluid simulation, experimental methods and energy-system modelling.</p>
         <p class="hero-interest">Interested in research-engineer and PhD opportunities in thermal-fluid engineering, energy systems and nuclear-energy applications.</p>
-        <div class="hero-links">${link('research.html', 'Research statement', '', 'primary-link')}${link(...cvs.research)}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}</div>
-        <dl class="hero-proof" aria-label="Portfolio summary"><div><dt>${projects.length}</dt><dd>Documented projects</dd></div><div><dt>${data.skills.length}</dt><dd>Evidence dossiers</dd></div><div><dt>1</dt><dd>Published KTH thesis</dd></div></dl>
+        <div class="hero-links">${link('#projects', 'Explore my work ↓', '', 'primary-link')}${link(...cvs.research)}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}</div>
       </div>
-      <aside class="skill-matrix" data-skill-matrix aria-label="Track skill matrix">
-        <header><div><p>Track skill matrix</p><span>Choose an application view</span></div><span>05 tracks</span></header>
-        <div class="matrix-tabs" role="tablist" aria-label="Portfolio track skill matrices">${tracks.map((track, index) => `<button type="button" role="tab" id="matrix-tab-${track.id}" aria-controls="matrix-panel-${track.id}" aria-selected="${index === 0}" tabindex="${index === 0 ? '0' : '-1'}" data-matrix-tab>${escape(track.label)}</button>`).join('')}</div>
-        <div class="matrix-panels">${tracks.map(matrixPanel).join('')}</div>
-      </aside>
+      ${showcase()}
     </section>
-    <div class="signal-band" aria-label="Methods and research themes"><div class="signal-track"><span>Compressible CFD</span><i></i><span>Conjugate heat transfer</span><i></i><span>Energy optimisation</span><i></i><span>Thermal storage</span><i></i><span>Research software</span><i></i><span>Instrumentation</span><i></i><span aria-hidden="true">Compressible CFD</span><i aria-hidden="true"></i><span aria-hidden="true">Conjugate heat transfer</span><i aria-hidden="true"></i><span aria-hidden="true">Energy optimisation</span><i aria-hidden="true"></i><span aria-hidden="true">Thermal storage</span><i aria-hidden="true"></i><span aria-hidden="true">Research software</span><i aria-hidden="true"></i><span aria-hidden="true">Instrumentation</span></div></div>
+    <div class="portfolio-credentials"><span>M.Sc. Sustainable Energy Engineering <strong>KTH</strong></span><span>Thesis <strong>Siemens Energy</strong></span><span>Industrial energy <strong>Alleima</strong></span><span>Software engineering <strong>QBurst</strong></span></div>
     <nav class="section-index" aria-label="Page sections"><a href="#tracks">Choose a track</a><a href="#research">Research interests</a><a href="#projects">Selected work</a><a href="#skills">Expertise</a><a href="#experience">Experience</a><a href="#education">Education</a></nav>
-    <section id="tracks" class="track-layer"><div class="section-heading"><div><p class="overline">One portfolio / Five perspectives</p><h2>Choose a track.</h2></div>${link('tracks/index.html', 'Explore all tracks →')}</div><p class="section-intro">A focused starting point for each kind of opportunity. Every track has its own shareable page with relevant work, experience, skills and education.</p>${trackCards('', true)}</section>
+    <section id="projects" class="page-section">
+      <div class="section-heading"><div><p class="overline">Selected work</p><h2>Ideas, built and investigated.</h2></div>${link('projects.html', 'Complete project library →')}</div>
+      <p class="section-intro">Open methods, inspectable code, and explicit limits. The case studies distinguish numerical verification, coursework and exploratory modelling from real-system validation.</p>
+      <div class="selected-work">${featuredProjects.map((p, index) => `<article class="work-row" data-project-id="${p.id}">${projectMedia(p)}<span class="work-number">${String(index + 1).padStart(2, '0')}</span><div><p class="item-meta">${escape(p.category)} · ${escape(p.period || 'Independent project')}</p><h3>${link(p.caseStudyUrl, p.title)}</h3><p>${escape(p.summary)}</p><p class="tools-line">${p.tools.map(escape).join(' · ')}</p></div><div class="work-links">${link(p.caseStudyUrl, 'Case study →')}${p.githubUrl ? link(p.githubUrl, 'GitHub ↗') : ''}</div></article>`).join('\n')}</div>
+      <p class="project-footnote">Also: ${link('projects/siemens-thesis.html', 'Siemens thesis')} · ${link('projects/structural-fea-reactor-internals.html', 'Structural FEA')} · ${link('https://github.com/abhijith-sivaprasadan/non-gray-radiation-modeling', 'Non-gray radiation modelling')} · ${link('projects/thermotwin-f.html', 'Explore ThermoTwin-F →', '', 'thermotwin-shortcut')}</p>
+    </section>
+    <section id="tracks" class="track-layer"><div class="section-heading"><div><p class="overline">Your interests. A focused view.</p><h2>Find the work that matters to you.</h2></div>${link('tracks/index.html', 'All application tracks ↗')}</div><p class="section-intro">Choose a perspective to explore relevant projects, experience and skills. Each track has a dedicated page to share.</p>
+      <div class="skill-matrix" data-skill-matrix>
+        <div class="matrix-tabs" role="tablist" aria-label="Portfolio application tracks">${tracks.map((track, index) => `<button type="button" role="tab" id="matrix-tab-${track.id}" aria-controls="matrix-panel-${track.id}" aria-selected="${index === 0}" tabindex="${index === 0 ? '0' : '-1'}" data-matrix-tab>${escape(track.label)}</button>`).join('')}</div>
+        <div class="matrix-panels">${tracks.map(matrixPanel).join('')}</div>
+      </div>
+    </section>
     <section id="research" class="page-section">
-      <div class="section-heading"><div><p class="overline">01 / Research interests</p><h2>Questions that connect the work.</h2></div>${link('research.html', 'Full research statement →')}</div>
+      <div class="section-heading"><div><p class="overline">Research direction</p><h2>Questions that connect the work.</h2></div>${link('research.html', 'Full research statement →')}</div>
       <div class="research-grid">
         <article><span class="discipline-number">I</span><h3>Thermal engineering</h3><p>How do geometry, surface condition and thermal resistance affect high-temperature heat transfer? I’m interested in transient CHT and carefully bounded experimental–numerical comparison.</p>${link('skills/cfd-heat-transfer.html', 'Thermal methods & evidence →')}</article>
         <article><span class="discipline-number">II</span><h3>Energy systems modelling</h3><p>How do demand, network limits and storage change system decisions? My work explores heat and power dispatch, grid flexibility, hydrogen and electricity investment.</p>${link('energy-systems.html', 'Energy systems work →')}</article>
@@ -294,15 +264,9 @@ function home() {
         <article><span class="discipline-number">IV</span><h3>Nuclear-energy applications</h3><p>How can existing thermal-fluid, systems and computational engineering skills transfer into nuclear R&amp;D? I’m exploring nuclear thermal-hydraulics and reactor systems while building the nuclear-specific foundation needed for credible work.</p>${link('research.html', 'Research direction →')}</article>
       </div>
     </section>
-    <section id="projects" class="page-section">
-      <div class="section-heading"><div><p class="overline">02 / Selected work</p><h2>Research software &amp; engineering studies.</h2></div>${link('projects.html', 'Complete project library →')}</div>
-      <p class="section-intro">Open methods, inspectable code, and explicit limits. The case studies distinguish numerical verification, coursework and exploratory modelling from real-system validation.</p>
-      <div class="selected-work">${featuredProjects.map((p, index) => `<article class="work-row" data-project-id="${p.id}">${projectMedia(p)}<span class="work-number">${String(index + 1).padStart(2, '0')}</span><div><p class="item-meta">${escape(p.category)} · ${escape(p.period || 'Independent project')}</p><h3>${link(p.caseStudyUrl, p.title)}</h3><p>${escape(p.summary)}</p><p class="tools-line">${p.tools.map(escape).join(' · ')}</p></div><div class="work-links">${link(p.caseStudyUrl, 'Case study →')}${p.githubUrl ? link(p.githubUrl, 'GitHub ↗') : ''}</div></article>`).join('\n')}</div>
-      <p class="project-footnote">Also: ${link('projects/siemens-thesis.html', 'Siemens thesis')} · ${link('projects/structural-fea-reactor-internals.html', 'Structural FEA')} · ${link('https://github.com/abhijith-sivaprasadan/non-gray-radiation-modeling', 'Non-gray radiation modelling')} · ${link('projects/thermotwin-f.html', 'Explore ThermoTwin-F →', '', 'thermotwin-shortcut')}</p>
-    </section>
     <section id="skills" class="page-section">
       <div class="section-heading"><div><p class="overline">03 / Expertise &amp; evidence</p><h2>Explore the work behind each skill.</h2></div>${link('skills/index.html', 'All skill areas →')}</div>
-      <p class="section-intro">Each area brings together related projects, professional experience, education, coursework and supporting material. No self-ratings—just the documented work.</p>
+      <p class="section-intro">Each area brings together related projects, professional experience, education, coursework and supporting material. Select an area to see the work behind it.</p>
       ${skillLinks()}
     </section>
     <section id="profile" class="page-section background-grid">

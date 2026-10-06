@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="styles.css?v=20260603-field-rail-bg" />
   <link rel="stylesheet" href="styles/motion.css?v=20260603-field-rail-bg" />
   <link rel="stylesheet" href="styles/v4.css?v=20260603-field-rail-bg" />
-  <script src="scripts/public-config.js?v=20261005-living-atlas"></script>
+  <script src="scripts/public-config.js?v=20261006-portfolio"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" async></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" async></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" async></script>
@@ -24,6 +24,7 @@
   <script src="scripts/motion/sw-register.js?v=20260603-field-rail-bg" defer></script>
   <script src="scripts/sections/command-palette.js?v=20260603-field-rail-bg" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
+  <link rel="stylesheet" href="styles/portfolio.css?v=20261006-portfolio" />
 </head>
 <body class="signal-rebuild" data-motion-page-transition data-page-key="projects">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -53,16 +54,16 @@
       <div class="container page-hero-grid">
         <div>
           <p class="eyebrow" data-editable="hero-eyebrow">Project library</p>
-          <h1 data-editable="hero-title">Project evidence for research and industrial R&amp;D.</h1>
+          <h1 data-editable="hero-title">A portfolio of questions, models and working software.</h1>
           <p class="hero-text" data-editable="hero-lead">
-            Case studies grouped by method: high-temperature thermal-fluid validation, industrial decarbonization and electrification, energy/process modelling, experimental coursework, optimisation and reproducible engineering tools.
+            Explore my work in thermal engineering, energy systems and software. Search by method or tool, then open a case study for the question, approach, results and limitations.
           </p>
         </div>
         <div class="page-panel page-summary" aria-hidden="true">
           <p class="eyebrow">At a glance</p>
           <ul class="clean-list">
             <li>Siemens thesis as the flagship research anchor</li>
-            <li>ABB-facing evidence in energy/process modelling, optimisation, technical reporting and prototype tools</li>
+            <li>Independent energy models and inspectable research software</li>
             <li>Coursework retained as supporting evidence where it shows a distinct method or experimental skill</li>
           </ul>
           <p class="eyebrow page-summary-note">Suggested starting points</p>
@@ -87,9 +88,6 @@
             <input type="search" data-project-search placeholder="Search tools, methods, outcomes..." />
           </label>
           <div class="filter-chip-row" data-project-filters aria-label="Project filters"></div>
-        </div>
-        <div class="case-template-note" aria-label="Standard case-study structure">
-          <strong>Case-study structure:</strong> technical question -> method -> evidence -> result -> limitations -> role relevance -> links
         </div>
         <p class="content-count" data-project-count></p>
         <div class="project-browser" data-dynamic-projects data-api-resource="projects">

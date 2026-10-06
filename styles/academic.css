@@ -266,18 +266,6 @@ p { margin-bottom: 1rem; }
 .matrix-heading span { display: block; margin-bottom: 4px; color: var(--muted); font-size: .59rem; letter-spacing: .07em; line-height: 1.4; text-transform: uppercase; }
 .matrix-heading h2 { margin: 0; font-size: clamp(1.45rem, 2.4vw, 2rem); letter-spacing: -.045em; }
 .matrix-heading > a { flex: none; font-size: .72rem; }
-.radar-figure { margin: 0; }
-.skill-radar { display: block; width: 100%; height: auto; max-height: 322px; overflow: visible; }
-.radar-grid polygon { fill: none; stroke: color-mix(in srgb, var(--accent) 19%, var(--rule)); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.radar-grid polygon:last-child { stroke: color-mix(in srgb, var(--accent) 36%, var(--rule)); }
-.radar-axes line { stroke: color-mix(in srgb, var(--accent) 21%, var(--rule)); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.radar-scale text { fill: var(--faint); font: 600 8px/1 var(--mono); }
-.radar-shape { fill: color-mix(in srgb, var(--accent) 24%, transparent); stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; vector-effect: non-scaling-stroke; filter: drop-shadow(0 8px 15px color-mix(in srgb, var(--accent) 18%, transparent)); transform-box: fill-box; transform-origin: center; }
-.radar-dot { fill: var(--surface); stroke: var(--accent-2); stroke-width: 3; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent-2) 56%, transparent)); }
-.radar-label { fill: var(--ink); font: 650 10px/1.1 var(--sans); letter-spacing: .01em; }
-.radar-figure figcaption { display: flex; justify-content: space-between; gap: 14px; align-items: baseline; margin-top: -3px; padding: 10px 4px 12px; border-bottom: 1px solid var(--rule); }
-.radar-figure figcaption span { color: var(--ink); font-size: .65rem; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; }
-.radar-figure figcaption small { color: var(--muted); font-size: .59rem; text-align: right; }
 .matrix-panel footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 16px; }
 .matrix-panel footer p { margin: 0; color: var(--muted); font-size: .64rem; }
 .matrix-panel footer a { flex: none; font-size: .7rem; }
@@ -417,10 +405,6 @@ p { margin-bottom: 1rem; }
   .matrix-panels { min-height: 0; }
   .matrix-panel { padding: 20px 18px 17px; }
   .matrix-heading { align-items: flex-start; }
-  .skill-radar { margin-inline: -7px; width: calc(100% + 14px); }
-  .radar-label { font-size: 9px; }
-  .radar-figure figcaption { align-items: flex-start; flex-direction: column; gap: 3px; }
-  .radar-figure figcaption small { text-align: left; }
   .matrix-panel footer { align-items: flex-start; flex-direction: column; gap: 8px; }
   .signal-band { width: calc(100% + 40px); margin: 4px 0 0 -20px; }
   .track-layer { margin: 32px 0 0; padding: 38px 20px; border-radius: 28px; }
