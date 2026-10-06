@@ -27,6 +27,7 @@ jobs:
 
       - name: Validate homepage, application tracks and skill evidence
         run: |
+          node scripts/build-portfolio-art.cjs --check
           node scripts/build-academic.cjs --check
           node scripts/validate-academic.cjs
           node scripts/validate-unified-ui.cjs

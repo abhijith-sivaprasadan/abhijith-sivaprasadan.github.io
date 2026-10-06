@@ -4,6 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const data = require('./data/skill-evidence.cjs');
 const tracks = require('./data/portfolio-tracks.cjs');
+const radarExamples = require('./data/track-radar.cjs');
+const art = require('./data/portfolio-art.cjs');
 const root = path.resolve(__dirname, '..');
 const read = name => JSON.parse(fs.readFileSync(path.join(root, 'api', name), 'utf8'));
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
@@ -24,7 +26,7 @@ const featured = ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flex
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
-const version = '20261006-portfolio';
+const version = '20261006-radar-art';
 const arrow = '<span aria-hidden="true">↗</span>';
 const cvs = {
   modelling: ['downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf', 'Modelling CV (PDF)'],
@@ -35,9 +37,10 @@ function link(href, label, prefix = '', cls = '') {
   return `<a${cls ? ` class="${cls}"` : ''} href="${escape(external(href) || href.startsWith('mailto:') || href.startsWith('#') ? href : prefix + href)}">${escape(label)}</a>`;
 }
 function projectMedia(project, prefix = '', compact = false) {
-  if (!project.image || !project.caseStudyUrl) return '';
+  const image = art.coverFor(project);
+  if (!image || !project.caseStudyUrl) return '';
   const href = external(project.caseStudyUrl) ? project.caseStudyUrl : prefix + project.caseStudyUrl;
-  const src = external(project.image) ? project.image : prefix + project.image;
+  const src = external(image) ? image : prefix + image;
   const action = external(project.caseStudyUrl) ? 'Open source ↗' : 'View case study →';
   return `<a class="${compact ? 'evidence-media' : 'work-media'}" href="${escape(href)}" aria-label="View ${escape(project.title || project.role || 'project')} details"><img src="${escape(src)}" alt="" width="960" height="540" loading="lazy" decoding="async" /><span aria-hidden="true">${action}</span></a>`;
 }
@@ -55,22 +58,44 @@ const trackSkillLinks = {
 };
 function matrixPanel(track, index) {
   const cv = track.resources.find(resource => /CV \(PDF\)$/.test(resource.label));
-  const picks = track.projects.slice(0, 3).map(id => projects.find(p => p.id === id || projectKey(p) === id)).filter(Boolean);
+  const axes = radarExamples[track.id].map(ids => ids.map(id => {
+    if (id.startsWith('experience:')) {
+      const key = id.slice('experience:'.length), role = experiences.find(e => e.id === key);
+      const url = role?.detailUrl || data.experienceUrls[key];
+      if (!role || !url) throw new Error(`Unknown radar role: ${id}`);
+      return { title: `${role.role} · ${role.company}`, caseStudyUrl: url };
+    }
+    const project = projects.find(p => p.id === id || projectKey(p) === id);
+    if (!project) throw new Error(`Unknown radar project: ${id}`);
+    return project;
+  }));
+  const maximum = Math.max(...Object.values(radarExamples).flat().map(ids => ids.length));
+  const point = (axis, radius) => {
+    const angle = -Math.PI / 2 + axis * 2 * Math.PI / 5;
+    return [260 + Math.cos(angle) * radius, 212 + Math.sin(angle) * radius].map(n => Number(n.toFixed(2)));
+  };
+  const polygon = radius => Array.from({ length: 5 }, (_, i) => point(i, radius).join(',')).join(' ');
+  const label = (title, i) => {
+    const [x, y] = point(i, 165);
+    const words = title.split(' '), split = Math.ceil(words.length / 2);
+    const lines = title.length > 18 ? [words.slice(0, split).join(' '), words.slice(split).join(' ')] : [title];
+    return `<a href="skills/${trackSkillLinks[track.id][i]}.html" aria-label="Explore ${escape(title)}"><rect x="${x - 85}" y="${y - 27}" width="170" height="76" fill="transparent" pointer-events="all" /><text x="${x}" y="${y}" text-anchor="middle">${lines.map((line, row) => `<tspan x="${x}" dy="${row ? 21 : 0}">${escape(line)}</tspan>`).join('')}</text></a>`;
+  };
   return `<section class="matrix-panel" id="matrix-panel-${track.id}" role="tabpanel" aria-labelledby="matrix-tab-${track.id}"${index ? ' hidden' : ''}>
-    <div class="track-overview"><p class="overline">${escape(track.audience)}</p><h3>${escape(track.title)}</h3><p>${escape(track.intro)}</p><div class="hero-links">${link(`tracks/${track.id}.html`, 'Explore this track ↗', '', 'primary-link')}${cv ? link(cv.url, cv.label) : ''}</div></div>
-    <div class="track-evidence"><h4>Explore the skills</h4><ul class="track-skill-links">${track.matrix.map(([title, evidence], skillIndex) => `<li>${link(`skills/${trackSkillLinks[track.id][skillIndex]}.html`, title + ' ↗')}<small>${escape(evidence)}</small></li>`).join('')}</ul><h4>Start with this work</h4><div class="track-project-links">${picks.map(p => link(p.caseStudyUrl, p.title + ' ↗')).join('')}</div></div>
+    <p class="radar-track-detail">${escape(track.detail)}</p>
+    <svg class="portfolio-radar-chart" viewBox="0 0 520 400" role="group" aria-label="${escape(track.label)} project coverage radar">
+      <g class="radar-grid">${[.25, .5, .75, 1].map(level => `<polygon points="${polygon(122 * level)}" />`).join('')}${axes.map((_, i) => `<line x1="260" y1="212" x2="${point(i, 122)[0]}" y2="${point(i, 122)[1]}" />`).join('')}</g>
+      <polygon class="radar-coverage" points="${axes.map((examples, i) => point(i, 122 * examples.length / maximum).join(',')).join(' ')}" />
+      ${axes.map((examples, i) => `<circle class="radar-node" cx="${point(i, 122 * examples.length / maximum)[0]}" cy="${point(i, 122 * examples.length / maximum)[1]}" r="5" />`).join('')}
+      <g class="radar-labels">${track.matrix.map(([title], i) => label(title, i)).join('')}</g>
+    </svg>
+    <p class="radar-explanation">Shape = selected work examples, <strong>not skill ratings.</strong> Outer ring = ${maximum} examples. Tap a label to explore the skill.</p>
+    <div class="radar-evidence">${track.matrix.map(([title], i) => `<details><summary><span>${escape(title)}</span><span>${axes[i].length} ${axes[i].length === 1 ? 'example' : 'examples'} <span aria-hidden="true">+</span></span></summary><div>${axes[i].map(project => link(project.caseStudyUrl, project.title + ' ↗')).join('')}${link(`skills/${trackSkillLinks[track.id][i]}.html`, 'All related work & education ↗', '', 'radar-skill-link')}</div></details>`).join('')}</div>
+    <div class="radar-actions">${link(`tracks/${track.id}.html`, 'Explore this track ↗', '', 'primary-link')}${cv ? link(cv.url, cv.label) : ''}</div>
   </section>`;
 }
-function showcase() {
-  const entries = [
-    ['projects/siemens-thesis.html', 'assets/thesis/lab-rig-pulsatorn.webp', 'Thermal engineering', 'Inside a high-temperature calibration rig.', 'My KTH thesis at Siemens Energy: CFD, conjugate heat transfer and measurement-chain commissioning.', 'Thesis'],
-    ['projects/kerala2040.html', 'assets/thumb-pypsa-grid.svg', 'Energy systems', 'Understanding a power system under pressure.', 'Kerala2040 connects public electricity data, hydropower, network constraints and resilience research.', 'Energy'],
-    ['projects/tes-discharge-screen.html', 'assets/thumb-tes-peak-shaving.svg', 'Research software', 'How storage behaves changes the decision.', 'Dynamic thermal-storage models connected to industrial process-heat screening.', 'Storage'],
-  ];
-  return `<aside class="project-showcase" aria-label="Featured project showcase"><div class="showcase-topline"><span>In the portfolio</span><span>Selected studies ↙</span></div>
-    ${entries.map(([url, img, category, title, summary], index) => `<section class="showcase-panel" id="showcase-${index}" role="tabpanel" aria-labelledby="showcase-tab-${index}"${index ? ' hidden' : ''}><a class="showcase-image" href="${url}" aria-label="View ${escape(category)} case study"><img src="${img}" alt="" width="960" height="540" ${index ? 'loading="lazy"' : 'fetchpriority="high"'} /></a><div class="showcase-copy"><p class="overline">${category}</p><h2>${title}</h2><p>${summary}</p>${link(url, 'Explore the case study ↗')}</div></section>`).join('')}
-    <div class="showcase-controls" role="tablist" aria-label="Featured studies">${entries.map((entry, index) => `<button type="button" role="tab" id="showcase-tab-${index}" aria-controls="showcase-${index}" aria-selected="${index === 0}" tabindex="${index ? '-1' : '0'}" data-showcase-tab>${entry[5]}</button>`).join('')}</div>
-  </aside>`;
+function radar() {
+  return `<aside class="portfolio-radar skill-matrix" data-skill-matrix aria-label="Interactive skill and project radar"><header><p class="overline">Explore my expertise</p><h2>One portfolio. Five perspectives.</h2></header><div class="matrix-tabs" role="tablist" aria-label="Portfolio application tracks">${tracks.map((track, index) => `<button type="button" role="tab" id="matrix-tab-${track.id}" aria-controls="matrix-panel-${track.id}" aria-selected="${index === 0}" tabindex="${index ? '-1' : '0'}" data-matrix-tab>${escape(track.label)}</button>`).join('')}</div><div class="matrix-panels">${tracks.map(matrixPanel).join('')}</div></aside>`;
 }
 function page(file, title, description, content, isHome = false) {
   const prefix = isHome ? '' : '../';
@@ -131,7 +156,7 @@ function evidenceCard(item, kind, prefix = '../') {
   const title = item.title || `${item.role} · ${item.company}`;
   const meta = [kind, item.period, item.associatedWith || item.context || item.institution].filter(Boolean).join(' · ');
   return `<article class="evidence-item">
-    ${projectMedia(item, prefix, true)}
+    ${projectMedia({ ...item, caseStudyUrl: item.caseStudyUrl || item.detailUrl }, prefix, true)}
     <p class="item-meta">${escape(meta)}</p>
     <h3>${link(href, title, prefix)}</h3>
     ${item.summary ? `<p>${escape(item.summary)}</p>` : ''}
@@ -239,7 +264,7 @@ function home() {
         <p class="hero-interest">Interested in research-engineer and PhD opportunities in thermal-fluid engineering, energy systems and nuclear-energy applications.</p>
         <div class="hero-links">${link('#projects', 'Explore my work ↓', '', 'primary-link')}${link(...cvs.research)}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}</div>
       </div>
-      ${showcase()}
+      ${radar()}
     </section>
     <div class="portfolio-credentials"><span>M.Sc. Sustainable Energy Engineering <strong>KTH</strong></span><span>Thesis <strong>Siemens Energy</strong></span><span>Industrial energy <strong>Alleima</strong></span><span>Software engineering <strong>QBurst</strong></span></div>
     <nav class="section-index" aria-label="Page sections"><a href="#tracks">Choose a track</a><a href="#research">Research interests</a><a href="#projects">Selected work</a><a href="#skills">Expertise</a><a href="#experience">Experience</a><a href="#education">Education</a></nav>
@@ -250,10 +275,7 @@ function home() {
       <p class="project-footnote">Also: ${link('projects/siemens-thesis.html', 'Siemens thesis')} · ${link('projects/structural-fea-reactor-internals.html', 'Structural FEA')} · ${link('https://github.com/abhijith-sivaprasadan/non-gray-radiation-modeling', 'Non-gray radiation modelling')} · ${link('projects/thermotwin-f.html', 'Explore ThermoTwin-F →', '', 'thermotwin-shortcut')}</p>
     </section>
     <section id="tracks" class="track-layer"><div class="section-heading"><div><p class="overline">Your interests. A focused view.</p><h2>Find the work that matters to you.</h2></div>${link('tracks/index.html', 'All application tracks ↗')}</div><p class="section-intro">Choose a perspective to explore relevant projects, experience and skills. Each track has a dedicated page to share.</p>
-      <div class="skill-matrix" data-skill-matrix>
-        <div class="matrix-tabs" role="tablist" aria-label="Portfolio application tracks">${tracks.map((track, index) => `<button type="button" role="tab" id="matrix-tab-${track.id}" aria-controls="matrix-panel-${track.id}" aria-selected="${index === 0}" tabindex="${index === 0 ? '0' : '-1'}" data-matrix-tab>${escape(track.label)}</button>`).join('')}</div>
-        <div class="matrix-panels">${tracks.map(matrixPanel).join('')}</div>
-      </div>
+      ${trackCards('', true)}
     </section>
     <section id="research" class="page-section">
       <div class="section-heading"><div><p class="overline">Research direction</p><h2>Questions that connect the work.</h2></div>${link('research.html', 'Full research statement →')}</div>

@@ -22,7 +22,7 @@
       "featured": true,
       "order": 1,
       "detailUrl": "experience/siemens-energy.html",
-      "image": "assets/thumb-experience-siemens.svg"
+      "image": "assets/illustrations/experience-siemens.svg"
     },
     {
       "id": "energy-efficiency-intern",
@@ -45,7 +45,7 @@
       "featured": true,
       "order": 2,
       "detailUrl": "experience/alleima.html",
-      "image": "assets/thumb-experience-alleima.svg"
+      "image": "assets/illustrations/experience-alleima.svg"
     },
     {
       "id": "evening-shift-rider-last-mile-delivery",
@@ -62,7 +62,8 @@
       ],
       "status": "published",
       "featured": true,
-      "order": 3
+      "order": 3,
+      "image": "assets/illustrations/experience-velove.svg"
     },
     {
       "id": "student-intern-pyrolysis",
@@ -81,7 +82,7 @@
       "status": "published",
       "featured": false,
       "order": 4,
-      "image": "assets/thumb-experience-kth.svg"
+      "image": "assets/illustrations/experience-kth.svg"
     },
     {
       "id": "wardrobe-manager-etf-head-guest-and-safety",
@@ -99,7 +100,8 @@
       ],
       "status": "published",
       "featured": false,
-      "order": 5
+      "order": 5,
+      "image": "assets/illustrations/experience-nightcap.svg"
     },
     {
       "id": "engineer-backend-developer-typescript-nestjs",
@@ -121,7 +123,7 @@
       "featured": false,
       "order": 6,
       "detailUrl": "experience/qburst.html",
-      "image": "assets/thumb-experience-qburst.svg"
+      "image": "assets/illustrations/experience-qburst.svg"
     },
     {
       "id": "secretary-minutes-student-convention",
@@ -133,7 +135,8 @@
       "summary": "Managed meeting minutes, coordinated student convention logistics and supported club administration.",
       "status": "published",
       "featured": false,
-      "order": 7
+      "order": 7,
+      "image": "assets/illustrations/experience-sae-secretary.svg"
     },
     {
       "id": "project-team-lead-captain",
@@ -152,7 +155,8 @@
       ],
       "status": "published",
       "featured": false,
-      "order": 8
+      "order": 8,
+      "image": "assets/illustrations/experience-sae-captain.svg"
     },
     {
       "id": "student-intern-automotive-intern-case-study",
@@ -164,7 +168,8 @@
       "summary": "Completed an industrial internship covering automotive manufacturing processes and operational workflows.",
       "status": "published",
       "featured": false,
-      "order": 9
+      "order": 9,
+      "image": "assets/illustrations/experience-automotive-intern.svg"
     },
     {
       "id": "student-intern-automation-hydraulics-pneumatics",
@@ -176,7 +181,8 @@
       "summary": "Industrial exposure to automation, hydraulics and pneumatics.",
       "status": "published",
       "featured": false,
-      "order": 10
+      "order": 10,
+      "image": "assets/illustrations/experience-automation-intern.svg"
     }
   ]
 }
