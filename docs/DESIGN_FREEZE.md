@@ -1,4 +1,14 @@
-# Portfolio design baseline — 6 October 2026
+# Portfolio design baseline — 7 October 2026
+
+## Current: engineering index
+
+The user rejected the notebook/purple theme, including its accent treatment. The active design now uses black/white, steel grey and restrained orange. No purple theme tokens remain in the active shared portfolio CSS. The heading, navigation, homepage composition, work entry points, skills layout and project-card treatment are redesigned rather than only recoloured.
+
+The homepage opens with “Heat. Power. Code.” and a role-specific introduction, followed by direct routes to the Siemens thesis, Kerala2040 case study and QBurst experience. A separate skills section places track choices beside the chart on desktop and above it on mobile. Evidence remains collapsed initially; all five assessments, skill links and CV routes are preserved. Selected projects use flat, image-led entries. Shared endpoint surfaces and headings follow the same direction; scientific paper themes remain readable.
+
+Responsive checks cover all five radar tracks at 320px (approximately 542px panel height, no page overflow or clipped labels), desktop composition and representative public endpoints. All existing validation scripts remain required. Cache key: `20261007-engineering-index`.
+
+## Superseded design history
 
 ## Maintained direction
 
@@ -12,7 +22,7 @@ Follow-up, 7 October: neutral grey/charcoal backgrounds replace the violet-tinte
 - Supporting evidence, professional context and methodology sit inside a closed-by-default disclosure. There are no internal scrolling panels. Track and matching CV links remain outside the disclosure.
 - At 1440 × 768 the collapsed radar is approximately 606px tall and ends at y=728, within the initial viewport. At 320px its core is approximately 530px tall; the mobile header scrolls away to avoid covering it. Expanded evidence intentionally grows the page.
 - The headline now states the portfolio's three connected areas: thermal science, energy systems and working code. Shared palette/typography apply across primary endpoints; scientific paper themes remain preserved.
-- Cache key: `20261006-notebook-2`.
+- Cache key: `20261007-engineering-index`.
 
 Browser checks: all five tracks at 320px, no clipped chart labels or page overflow, 44px selector heights, Home-key navigation, expandable backend evidence and chart-to-dossier navigation. Representative mobile checks include the project and experience indexes, QBurst role, TES paper and Software track. The 1440 × 768 desktop radar fits without scrolling. Both homepage themes were visually reviewed. These are targeted checks, not an accessibility certification.
 

@@ -13,7 +13,7 @@
  * To disable for a session, the user can hit `?nosw=1` once.
  */
 
-const VERSION = "v10-20261006-notebook-2";
+const VERSION = "v10-20261007-engineering-index";
 const SHELL_CACHE = `shell-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
 const NETWORK_FIRST_EXTENSIONS = /\.(?:css|js|json)$/i;

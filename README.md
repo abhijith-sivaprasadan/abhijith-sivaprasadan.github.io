@@ -2,13 +2,19 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
-## Research notebook baseline — 6 October 2026
+## Engineering index — 7 October 2026
+
+This visual direction supersedes the rejected notebook theme. The shared palette is black/white and steel grey with restrained orange accents, including dark mode; purple tokens are removed from the active portfolio layer. The homepage is restructured into a large personal engineering introduction, three direct work-entry links, a separate compact skills section and an image-led project index. Desktop tracks run vertically beside the radar; mobile keeps two rows of touch-friendly controls. Navigation is unboxed and surfaces are square/flat. Assessments, scientific limitations, five shareable endpoints and CV routing are preserved. Native transitions remain lightweight and respect reduced motion.
+
+The superseded notebook history is retained below for traceability; the current visual baseline and release checks are documented in [DESIGN_FREEZE.md](docs/DESIGN_FREEZE.md).
+
+### Superseded notebook direction
 
 7 October refinement: page and card surfaces are neutral grey/charcoal, not purple. Violet remains an accent for links, selection indicators and diagram marks.
 
 The user-selected research-notebook direction supersedes the earlier cream/forest/rust freeze: cool grey pages, violet accents, sans-serif headings, monospaced annotations and a dotted diagram surface distinguish this personal portfolio from the Kerala2040 research site. Shared navigation retains current-page states and all six mobile destinations. The compact radar keeps five track choices, clickable skill labels and track/CV links visible; supporting evidence, QBurst context and methodology are expandable. On phones the header scrolls away so it cannot obscure the chart. Skill assessments and scientific claims are unchanged. Entrance motion remains short and unblurred, with reduced-motion support.
 
-See [design-freeze verification and maintenance rules](docs/DESIGN_FREEZE.md). Future routine updates should change content, evidence and project status within these components. Reopening the visual direction requires an explicit design request; bug fixes and accessibility improvements remain appropriate. Cache version `20261006-notebook-2` is shared across the 66 primary portfolio pages.
+See [design-freeze verification and maintenance rules](docs/DESIGN_FREEZE.md). Future routine updates should change content, evidence and project status within these components. Reopening the visual direction requires an explicit design request; bug fixes and accessibility improvements remain appropriate. Cache version `20261007-engineering-index` is shared across the 66 primary portfolio pages.
 
 Public-profile reconciliation (6 October 2026): the supplied maximal profile informs public copy without publishing the source attachment, compensation, immigration details or private projects. QBurst is approximately 21 months of professional backend experience (Go, then JavaScript/TypeScript/NestJS; production APIs, automated negative-path tests, Git and Docker). Employer/client code is not public portfolio code. Detailed implementation claims absent from the profile were removed. KTH programme requirements are complete; the degree certificate is in process. MJ2509 is 5 ECTS. The radar remains a linked-record coverage view, with professional duration stated separately rather than invented proficiency scores. Existing track CV PDFs remain unchanged.
 
