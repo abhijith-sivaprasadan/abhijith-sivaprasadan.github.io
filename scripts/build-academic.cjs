@@ -71,7 +71,7 @@ function matrixPanel(track, index) {
     return project;
   }));
   const levels = radarDevelopment.tracks[track.id];
-  if (levels?.length !== 5 || levels.some(level => !Number.isInteger(level) || level < 1 || level > 3)) {
+  if (levels?.length !== 5 || levels.some(level => !Number.isInteger(level) || level < 1 || level > 4) || radarDevelopment.rationale[track.id]?.length !== 5) {
     throw new Error(`Radar must retain conservative early-career assessments: ${track.id}`);
   }
   const maximum = radarDevelopment.stages.length;
@@ -90,16 +90,16 @@ function matrixPanel(track, index) {
     <p class="radar-track-detail">${escape(track.detail)}</p>
     <svg class="portfolio-radar-chart" viewBox="0 0 520 400" role="group" aria-label="${escape(track.label)} early-career development radar">
       <title>${escape(track.label)} — qualitative portfolio assessment</title>
-      <desc>${track.matrix.map(([title], i) => escape(`${title}: ${radarDevelopment.stages[levels[i] - 1]}`)).join('; ')}. Advanced and Expert are not claimed.</desc>
+      <desc>${track.matrix.map(([title], i) => escape(`${title}: ${radarDevelopment.stages[levels[i] - 1]}`)).join('; ')}. Expert is not claimed.</desc>
       <g class="radar-grid">${radarDevelopment.stages.map((stage, i) => `<polygon points="${polygon(122 * (i + 1) / maximum)}"><title>${stage}</title></polygon>`).join('')}${axes.map((_, i) => `<line x1="260" y1="212" x2="${point(i, 122)[0]}" y2="${point(i, 122)[1]}" />`).join('')}</g>
       <polygon class="radar-coverage" points="${levels.map((level, i) => point(i, 122 * level / maximum).join(',')).join(' ')}" />
       ${levels.map((level, i) => `<circle class="radar-node" cx="${point(i, 122 * level / maximum)[0]}" cy="${point(i, 122 * level / maximum)[1]}" r="5"><title>${escape(track.matrix[i][0])}: ${radarDevelopment.stages[level - 1]}</title></circle>`).join('')}
       <g class="radar-labels">${track.matrix.map(([title], i) => label(title, i)).join('')}</g>
     </svg>
-    <p class="radar-explanation"><strong>Early-career profile.</strong> Inner → outer: Foundational · Applied · Practised · Advanced · Expert. Qualitative portfolio assessments, not measured skill ratings. Advanced and Expert are intentionally unclaimed.</p>
-    <p class="radar-explanation">Foundational = initial exposure; Applied = bounded project practice; Practised = sustained professional or focused thesis practice. Links below show the evidence, not a score.</p>
+    <p class="radar-explanation"><strong>Strengths built through practice.</strong> Inner → outer: Exposure · Applied · Established practice · Focused strength · Expert. Qualitative portfolio assessments, not measured skill ratings. Expert is intentionally unclaimed.</p>
+    <p class="radar-explanation">Established practice = repeated application; Focused strength = sustained depth in a bounded area. Career seniority and real-system validation are separate. Expand an area for the assessment and evidence.</p>
     ${['software', 'general'].includes(track.id) ? '<p class="radar-track-detail"><strong>Professional backend foundation:</strong> approximately 21 months at QBurst · Go → JavaScript/TypeScript &amp; NestJS · production APIs, automated tests, Git &amp; Docker.</p>' : ''}
-    <div class="radar-evidence">${track.matrix.map(([title, description], i) => `<details><summary><span>${escape(title)}</span><span>${radarDevelopment.stages[levels[i] - 1]} <span aria-hidden="true">+</span></span></summary><div><p>${escape(description)}. ${axes[i].length} linked work records; not a proficiency score.</p>${axes[i].map(project => link(project.caseStudyUrl, project.title + ' ↗')).join('')}${link(`skills/${trackSkillLinks[track.id][i]}.html`, 'All related work & education ↗', '', 'radar-skill-link')}</div></details>`).join('')}</div>
+<div class="radar-evidence">${track.matrix.map(([title, description], i) => `<details><summary><span>${escape(title)}</span><span>${radarDevelopment.stages[levels[i] - 1]} <span aria-hidden="true">+</span></span></summary><div><p>${escape(radarDevelopment.rationale[track.id][i])}</p><p>${escape(description)}. ${axes[i].length} linked work records; not a proficiency score.</p>${axes[i].map(project => link(project.caseStudyUrl, project.title + ' ↗')).join('')}${link(`skills/${trackSkillLinks[track.id][i]}.html`, 'All related work & education ↗', '', 'radar-skill-link')}</div></details>`).join('')}</div>
     <div class="radar-actions">${link(`tracks/${track.id}.html`, 'Explore this track ↗', '', 'primary-link')}${cv ? link(cv.url, cv.label) : ''}</div>
   </section>`;
 }
