@@ -25,7 +25,7 @@ module.exports = [
     matrix: [
       ['Thermal-fluid analysis', 'CFD, heat transfer and thermal systems'],
       ['Energy systems', 'Power, heat, storage and optimisation'],
-      ['Engineering software', 'Python, TypeScript, Fortran and Modelica'],
+      ['Engineering software', 'Go, TypeScript, Python, Fortran and Modelica'],
       ['Experimental methods', 'Instrumentation, laboratories and diagnostics'],
       ['Mechanical engineering', 'CAD, structural analysis and design'],
     ],
@@ -92,17 +92,17 @@ module.exports = [
   {
     id: 'software', label: 'Software', title: 'Software with engineering depth.',
     detail: 'Backend APIs & scientific software',
-    description: 'Software portfolio of Abhijith Sivaprasadan: TypeScript/NestJS backend experience at QBurst, Python engineering tools, numerical software and reproducible workflows.',
-    intro: 'I bring professional TypeScript/NestJS backend experience together with scientific and engineering software. At QBurst, I implemented API endpoints, reliability fixes and endpoint tests. My public projects apply that software discipline to models, data and engineering analysis.',
+    description: 'Software portfolio of Abhijith Sivaprasadan: Go and TypeScript/NestJS backend engineering at QBurst, Python engineering tools, numerical software and reproducible workflows.',
+    intro: 'I bring approximately 21 months of professional backend engineering at QBurst, starting with Go and later moving into JavaScript/TypeScript and NestJS. My work covered production APIs, automated endpoint tests including negative-path validation, Git and Docker in a professional team. My public engineering projects are separate work applying software discipline to models, data and analysis.',
     audience: 'Backend, Python, data-tooling and research-software roles',
     focus: [
-      ['Professional backend work', 'TypeScript, NestJS, PostgreSQL, REST APIs and Postman automation.'],
+      ['Professional backend work', 'Go, JavaScript/TypeScript, NestJS, production APIs, Git and Docker.'],
       ['Engineering tools', 'Python analysis, local interfaces, inspectable exports and reporting.'],
       ['Reproducibility & checks', 'Known-answer tests, numerical regression and documented assumptions.'],
     ],
     matrix: [
       ['Scientific Python', 'Analysis, optimisation and engineering tools'],
-      ['Backend systems', 'TypeScript, NestJS, APIs and PostgreSQL'],
+      ['Backend systems', 'Go, TypeScript/NestJS, production APIs and Docker'],
       ['Testing discipline', 'Regression, known-answer and negative-path tests'],
       ['Simulation software', 'Modern Fortran, Modelica and FMI'],
       ['Research interfaces', 'Inspectable local GUIs, exports and reports'],
@@ -119,7 +119,7 @@ module.exports = [
     id: 'research', label: 'Research / PhD', title: 'Questions first. Evidence throughout.',
     detail: 'Research interests, thesis & publications',
     description: 'Research and PhD portfolio of Abhijith Sivaprasadan: high-temperature heat transfer, thermal storage, power-system resilience, emerging nuclear-energy applications, published thesis and reproducible scientific software.',
-    intro: 'I’m interested in research-engineer and doctoral work across thermal-fluid engineering, energy-system resilience and nuclear-energy applications. My work combines a published KTH master’s thesis with open scientific software, dynamic thermal-storage modelling and evidence-first power-system research.',
+    intro: 'I’m interested in research-engineer and doctoral work across thermal-fluid and process modelling, dynamic energy-system simulation, integrated energy systems, uncertainty quantification and machine learning for physical systems. My work combines a published KTH master’s thesis with measurement-chain commissioning, dynamic thermal-storage modelling, industrial decarbonisation methodology and evidence-first power-system research.',
     audience: 'Doctoral applications and research collaborations',
     focus: [
       ['High-temperature heat transfer', 'Geometry, thermal resistance, radiation and transient CHT.'],
