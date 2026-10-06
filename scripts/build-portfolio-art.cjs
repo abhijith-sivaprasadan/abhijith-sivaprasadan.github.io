@@ -61,7 +61,7 @@ let count = 0;
 function output(file, content) {
   const target = path.join(root,file);
   if (check) {
-    if (!fs.existsSync(target) || fs.readFileSync(target,'utf8') !== content) throw new Error(`Stale illustration: ${file}`);
+    if (!fs.existsSync(target) || fs.readFileSync(target,'utf8').replace(/\r\n/g,'\n') !== content) throw new Error(`Stale illustration: ${file}`);
   } else { fs.mkdirSync(path.dirname(target),{recursive:true}); fs.writeFileSync(target,content); }
   count++;
 }
