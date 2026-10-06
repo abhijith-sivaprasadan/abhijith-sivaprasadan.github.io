@@ -40,9 +40,9 @@ const skills = [
   {
     id: 'data-software', short: 'Data & engineering software',
     detail: 'Analysis, forecasting & reproducible tools',
-    summary: 'Production-oriented backend experience alongside scientific and engineering software: data preparation, forecasting, numerical methods, automated checks and inspectable reporting workflows.',
+    summary: 'Approximately 21 months of professional backend engineering at QBurst, progressing from Go to JavaScript/TypeScript and NestJS, alongside separately documented scientific software, forecasting, numerical methods and reproducible reporting workflows.',
     scope: 'QBurst is professional software experience; the engineering tools are separately documented portfolio or course work. Streamlit and native desktop interfaces are local applications unless a case study explicitly provides a hosted demo.',
-    tools: ['Python', 'pandas / NumPy', 'scikit-learn', 'Streamlit / Plotly', 'Modelica / FMI', 'TypeScript / NestJS', 'PostgreSQL', 'Git / CI'],
+    tools: ['Go', 'JavaScript / TypeScript / NestJS', 'Docker', 'Postman', 'Python', 'pandas / NumPy', 'scikit-learn / XGBoost / LightGBM', 'Streamlit / Plotly', 'Modelica / FMI', 'Modern Fortran', 'Git / CI'],
     courses: ['MJ2507', 'MJ2515', 'MJ2505', 'MA101', 'MA102', 'MA201', 'MA202', 'ME407', 'EE311'],
     education: ['kth', 'btech'],
   },
@@ -135,7 +135,7 @@ const experienceUrls = {
 };
 
 const education = {
-  kth: { title: 'M.Sc. Sustainable Energy Engineering', institution: 'KTH Royal Institute of Technology', period: '2023–2026', summary: 'Master’s programme in heat and power, energy systems and numerical methods. All requirements for the 120 hp programme were completed in September 2026; the record also includes a 3 hp Aalto/Unite! elective.', url: 'about.html#kth-coursework' },
+  kth: { title: 'M.Sc. Sustainable Energy Engineering', institution: 'KTH Royal Institute of Technology', period: '2023–2026', summary: 'Completed the M.Sc. programme, including the 30 ECTS thesis within the 120 ECTS total; degree certificate in process. Specialisation: Energy Supply through Clean Conversion Technologies. Grade A in Numerical Heat Transfer and AI Applications. The record also includes a 3 ECTS Aalto/Unite! elective.', url: 'about.html#kth-coursework' },
   btech: { title: 'B.Tech Mechanical Engineering', institution: 'College of Engineering Perumon / APJ Abdul Kalam Technological University', period: '2017–2021', summary: 'Mechanical engineering foundation with coursework, design competitions and the final-year interactive robot project.', url: 'courses.html' },
   aalto: { title: 'Circular Economy for Energy Storage', institution: 'Aalto University / Unite! Virtual Exchange', period: '2024', summary: 'Credited exchange elective covering lifecycle and circular-economy perspectives on energy storage; not a separate degree.', url: 'about.html#kth-coursework' },
 };

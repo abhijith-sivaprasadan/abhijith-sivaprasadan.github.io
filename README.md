@@ -2,6 +2,8 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
+Public-profile reconciliation (6 October 2026): the supplied maximal profile informs public copy without publishing the source attachment, compensation, immigration details or private projects. QBurst is approximately 21 months of professional backend experience (Go, then JavaScript/TypeScript/NestJS; production APIs, automated negative-path tests, Git and Docker). Employer/client code is not public portfolio code. Detailed implementation claims absent from the profile were removed. KTH programme requirements are complete; the degree certificate is in process. MJ2509 is 5 ECTS. The radar remains a linked-record coverage view, with professional duration stated separately rather than invented proficiency scores. Existing track CV PDFs remain unchanged.
+
 ## Work-first portfolio, application tracks and skill evidence — October 2026
 
 The landing page now reflects completion of the KTH M.Sc. Sustainable Energy Engineering programme and the latest evidence base: the published KTH/Siemens thesis, Kerala2040 power-system resilience research, TES Discharge Screen, OpenSteamOpt and other research-software projects. Nuclear energy is presented as an emerging research direction rather than an established specialisation. A dedicated CET 2026 conference landing page provides a fast QR-friendly overview and routes visitors into the detailed portfolio. Eight [skill dossiers](skills/index.html) group related public projects, roles, coursework, certifications and supporting resources. Duplicate imported project records are consolidated by case-study URL. No self-assessed scores are shown.
