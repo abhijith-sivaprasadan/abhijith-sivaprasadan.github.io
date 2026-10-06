@@ -92,7 +92,7 @@ for (const skill of data.skills) {
 }
 for (const file of files) {
   const html = read(file);
-  assert.ok(html.includes('styles/portfolio.css?v=20261006-portfolio'), `${file}: missing shared portfolio art direction`);
+  assert.ok(html.includes('styles/portfolio.css?v=20261006-radar-art'), `${file}: missing shared portfolio art direction`);
   assert.ok(!/[ \t]+\r?$/m.test(html), `${file}: trailing whitespace`);
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
   assert.equal(ids.length, new Set(ids).size, `${file}: duplicate IDs`);
@@ -167,10 +167,12 @@ assert.ok(read('styles/academic.css').includes('@view-transition'), 'Retain prog
 assert.ok(read('styles/academic.css').includes('--accent-2'), 'Retain the research-spectrum depth system.');
 assert.ok(read('styles/academic.css').includes('animation-timeline: scroll(root block)'), 'Retain progressive reading position.');
 assert.ok(read('styles/academic.css').includes('scroll-snap-type'), 'Retain touch-friendly track browsing.');
-for (const surface of ['skill-matrix', 'matrix-tabs', 'matrix-panels', 'project-showcase']) assert.ok(home.includes(`class="${surface}`), `Homepage missing ${surface}.`);
+for (const surface of ['portfolio-radar', 'matrix-tabs', 'matrix-panels', 'portfolio-radar-chart']) assert.ok(home.includes(`class="${surface}`), `Homepage missing ${surface}.`);
 assert.equal((home.match(/data-matrix-tab/g) || []).length, 5, 'Homepage needs one selector for every track matrix.');
 assert.equal((home.match(/class="matrix-panel"/g) || []).length, 5, 'Homepage needs one skill matrix for every track.');
 assert.ok(!/data-radar-value|radar-shape|evidence coverage [1-5]/.test(home), 'Unsupported numerical skill ratings must not return.');
+assert.equal((home.match(/class="radar-coverage"/g) || []).length, 5, 'Each track needs its own evidence radar.');
+assert.ok(home.includes('not skill ratings.') && home.includes('radar-evidence'), 'Radar values need an explanation and inspectable examples.');
 assert.ok(!/research-atlas|hero-lab/.test(home), 'Decorative research atlas must remain retired.');
 assert.ok(read('scripts/academic.js').includes('activateMatrix') && read('scripts/academic.js').includes("event.key === 'ArrowRight'"), 'Track matrix must support animated and keyboard selection.');
 const cvFiles = [

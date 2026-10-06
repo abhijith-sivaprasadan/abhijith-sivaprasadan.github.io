@@ -31,7 +31,7 @@
         "Sensitivity analysis",
         "Model verification"
       ],
-      "image": "assets/thumb-tes-peak-shaving.svg",
+      "image": "assets/illustrations/tes-discharge-screen.svg",
       "caseStudyUrl": "projects/tes-discharge-screen.html",
       "githubUrl": "https://github.com/abhijith-sivaprasadan/tes-discharge-screen",
       "highlights": [
@@ -71,7 +71,7 @@
         "Energy-system modelling",
         "Evidence provenance"
       ],
-      "image": "assets/thumb-pypsa-grid.svg",
+      "image": "assets/illustrations/kerala2040.svg",
       "caseStudyUrl": "projects/kerala2040.html",
       "githubUrl": "https://github.com/abhijith-sivaprasadan/kerala2040",
       "highlights": [
@@ -109,7 +109,7 @@
         "Mesh independence",
         "Root cause analysis"
       ],
-      "image": "assets/thumb-siemens-validation.svg",
+      "image": "assets/illustrations/siemens-thesis.svg",
       "caseStudyUrl": "projects/siemens-thesis.html",
       "highlights": [
         "Published thesis: Numerical Investigation of Steady-State Thermo-Fluid Performance of a Reducer for a High-Temperature Dynamic Pressure Sensor Calibration Rig, TRITA-ITM-EX 2026:14.",
@@ -145,7 +145,7 @@
         "Renewable curtailment",
         "Flexible connections"
       ],
-      "image": "assets/thumb-pypsa-grid.svg",
+      "image": "assets/illustrations/pypsa-nl-grid-flexibility.svg",
       "caseStudyUrl": "projects/pypsa-nl-grid-flexibility.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/pypsa-nl-grid-flexibility",
       "highlights": [
@@ -180,7 +180,7 @@
         "Metering readiness",
         "Energy audits"
       ],
-      "image": "assets/thumb-energy-kpi.svg",
+      "image": "assets/illustrations/alleima-energy-efficiency.svg",
       "caseStudyUrl": "projects/alleima-energy-efficiency.html",
       "highlights": [
         "Developed and independently validated a quantitative methodology for industrial energy performance mapping rather than a one-off audit checklist.",
@@ -212,7 +212,7 @@
         "Self-consumption",
         "Techno-economics"
       ],
-      "image": "assets/thumb-hylkysaari-energy-island.svg",
+      "image": "assets/illustrations/hylkysaari-sustainable-tourism.svg",
       "caseStudyUrl": "projects/hylkysaari-sustainable-tourism.html",
       "highlights": [
         "Compared BAU and two improved scenarios using three KPIs: nearly zero energy demand, nearly total renewable energy supply and nearly full waste-heat recovery.",
@@ -246,7 +246,7 @@
         "LCOE",
         "Payback"
       ],
-      "image": "assets/thumb-residential-heating-technoeconomics.svg",
+      "image": "assets/illustrations/residential-heating-technoeconomics.svg",
       "caseStudyUrl": "projects/residential-heating-technoeconomics.html",
       "highlights": [
         "Built CAPEX/OPEX/LCOE/payback interpretation around hourly demand and irradiance data for residential heat alternatives.",
@@ -280,7 +280,7 @@
         "Storage sizing",
         "Trade-off analysis"
       ],
-      "image": "assets/thumb-tes-peak-shaving.svg",
+      "image": "assets/illustrations/tes-peak-shaving.svg",
       "caseStudyUrl": "projects/tes-peak-shaving.html",
       "highlights": [
         "Structured the project around electricity price signals, storage control strategies and technology metrics for shifting thermal loads.",
@@ -312,7 +312,7 @@
         "Scenario modelling",
         "Carbon implications"
       ],
-      "image": "assets/thumb-germany-leap-transition.svg",
+      "image": "assets/illustrations/germany-energy-economy-analysis.svg",
       "caseStudyUrl": "projects/germany-energy-economy-analysis.html",
       "highlights": [
         "Used LEAP to analyse electricity, cost and carbon-emissions implications for Germany's energy transition pathways.",
@@ -344,7 +344,7 @@
         "Dispatch optimisation",
         "CO2 analysis"
       ],
-      "image": "assets/thumb-district-heating.svg",
+      "image": "assets/illustrations/district-heating-optimisation.svg",
       "caseStudyUrl": "projects/district-heating-optimisation.html",
       "highlights": [
         "Designed and implemented a multi-objective MILP dispatch model from first principles using Python/PuLP.",
@@ -375,7 +375,7 @@
         "EV charging",
         "PV/storage impacts"
       ],
-      "image": "assets/thumb-distribution-grid.svg",
+      "image": "assets/illustrations/distribution-grid-study.svg",
       "caseStudyUrl": "projects/distribution-grid-study.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/PRO1_network",
       "highlights": [
@@ -406,7 +406,7 @@
         "Feature engineering",
         "Model evaluation"
       ],
-      "image": "assets/thumb-heating-forecast.svg",
+      "image": "assets/illustrations/heating-demand-forecasting.svg",
       "caseStudyUrl": "projects/heating-demand-forecasting.html",
       "highlights": [
         "Forecasted day-ahead heating need for a university building using weather and temporal features including outdoor temperature, wind speed and global radiation.",
@@ -438,7 +438,7 @@
         "MILP dispatch",
         "Curtailment KPIs"
       ],
-      "image": "assets/thumb-pynexus.svg",
+      "image": "assets/illustrations/pynexus-green-hydrogen.svg",
       "caseStudyUrl": "projects/pynexus-green-hydrogen.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/PyNEXUS",
       "highlights": [
@@ -471,7 +471,7 @@
         "Scenario analysis",
         "Reporting"
       ],
-      "image": "assets/thumb-eu-ets.svg",
+      "image": "assets/illustrations/eu-ets-exposure-calculator.svg",
       "caseStudyUrl": "projects/eu-ets-exposure-calculator.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/EU-ETS-Exposure-Calculator-Package",
       "highlights": [
@@ -503,7 +503,7 @@
         "EnPI normalisation",
         "Anomaly detection"
       ],
-      "image": "assets/thumb-industrial-kpi-toolkit.svg",
+      "image": "assets/illustrations/industrial-energy-kpi-toolkit.svg",
       "caseStudyUrl": "projects/industrial-energy-kpi-toolkit.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/Energy-KPI-Toolkit",
       "highlights": [
@@ -537,7 +537,7 @@
         "Signal processing",
         "Rotating machinery"
       ],
-      "image": "assets/thumb-vibration-minilab.svg",
+      "image": "assets/illustrations/rotating-machinery-vibration-minilab.svg",
       "caseStudyUrl": "projects/rotating-machinery-vibration-minilab.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/rotating-machinery-vibration-minilab",
       "highlights": [
@@ -570,7 +570,7 @@
         "Load analysis",
         "Scenario comparison"
       ],
-      "image": "assets/thumb-built-environment.svg",
+      "image": "assets/illustrations/built-environment-ida-ice-simulation.svg",
       "caseStudyUrl": "projects/built-environment-ida-ice-simulation.html",
       "highlights": [
         "Compared supply-system options through building energy simulation outputs.",
@@ -601,7 +601,7 @@
         "System design",
         "Resource assessment"
       ],
-      "image": "assets/thumb-emergency-energy-module.svg",
+      "image": "assets/illustrations/philippines-emergency-energy-module.svg",
       "caseStudyUrl": "projects/philippines-emergency-energy-module.html",
       "highlights": [
         "Mapped emergency loads and modular energy-system functions.",
@@ -633,7 +633,7 @@
         "Lab data",
         "Heat transfer"
       ],
-      "image": "assets/thumb-mtes-pcm-lab.svg",
+      "image": "assets/illustrations/mtes-pcm-thermal-lab.svg",
       "caseStudyUrl": "projects/mtes-pcm-thermal-lab.html",
       "highlights": [
         "Evaluated a latent heat-based M-TES prototype with oil bath, water cooling, coil heat exchanger, HTF reservoir, pump and data-logging chain.",
@@ -666,7 +666,7 @@
         "Discharge curves",
         "Experimental analysis"
       ],
-      "image": "assets/thumb-battery-discharge.svg",
+      "image": "assets/illustrations/battery-cell-discharge-lab.svg",
       "caseStudyUrl": "projects/battery-cell-discharge-lab.html",
       "highlights": [
         "Compared Ni-MH, Li-Po and lead-acid batteries through C-rate, temperature and chemistry-specific discharge tests.",
@@ -698,7 +698,7 @@
         "Process mapping",
         "Sustainability analysis"
       ],
-      "image": "assets/thumb-waste-to-energy.svg",
+      "image": "assets/illustrations/waste-to-energy-india.svg",
       "caseStudyUrl": "projects/waste-to-energy-india.html",
       "highlights": [
         "Kozhikode concept mapped a 600 tonne/day waste stream with biological and thermal processing pathways for electricity, heat and public-transport links.",
@@ -731,7 +731,7 @@
         "Error analysis",
         "Scientific computing"
       ],
-      "image": "assets/thumb-numerical-heat-transfer.svg",
+      "image": "assets/illustrations/numerical-heat-transfer.svg",
       "caseStudyUrl": "projects/numerical-heat-transfer.html",
       "highlights": [
         "Analysed catastrophic cancellation, machine precision and numerical differentiation error, including forward and central differencing of cos(x).",
@@ -764,7 +764,7 @@
         "Storage dispatch",
         "Market framing"
       ],
-      "image": "assets/thumb-gridflex-concept.svg",
+      "image": "assets/illustrations/gridflex-energy-optimizer.svg",
       "caseStudyUrl": "projects/gridflex-energy-optimizer.html",
       "highlights": [
         "Developed GridFlex as a service for dynamically managing energy storage in renewable-powered solar and wind grids.",
@@ -794,7 +794,7 @@
       "featured": false,
       "order": 100,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-hylkysaari-energy-island.svg",
+      "image": "assets/illustrations/hylkysaari-sustainable-tourism.svg",
       "highlights": [
         "IDA ICE and HOMER Pro scenario modelling for a smart-energy island concept.",
         "Framed tourism energy demand through nearly zero energy demand, renewable supply and waste-heat recovery KPIs."
@@ -821,7 +821,7 @@
       "featured": false,
       "order": 101,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-residential-heating-technoeconomics.svg",
+      "image": "assets/illustrations/residential-heating-technoeconomics.svg",
       "highlights": [
         "Compared solar thermal storage, PV-electric boiler and PV-heat-pump alternatives against district heating.",
         "Used techno-economic metrics to discuss seasonal heating alternatives for a residential building context."
@@ -848,7 +848,7 @@
       "featured": false,
       "order": 102,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-germany-leap-transition.svg",
+      "image": "assets/illustrations/germany-energy-economy-analysis.svg",
       "highlights": [
         "LEAP-based national energy scenario modelling for Germany's 2045 greenhouse-neutrality pathway.",
         "Compared electricity mix, cost, emissions, renewable integration, storage and nuclear reintroduction scenarios."
@@ -871,7 +871,7 @@
       "featured": false,
       "order": 103,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-mechanical-design.svg",
+      "image": "assets/illustrations/bicycle-design-competition.svg",
       "highlights": [
         "Led Team TRAMS for SAEINDIA Bicycle Design Competition 2020 and coordinated design-report deliverables.",
         "Documented AISI 4130 chromoly frame design, static CAE checks and manufacturing/cost rationale."
@@ -903,7 +903,7 @@
       "featured": false,
       "order": 104,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-thermal-prototype.svg",
+      "image": "assets/illustrations/automatic-sanitizer-dispenser.svg",
       "highlights": [
         "Rapid hardware prototype for contactless dispensing using basic Arduino logic and reused components.",
         "Kept as early evidence of practical build-test iteration and low-cost prototyping."
@@ -924,7 +924,7 @@
       "featured": false,
       "order": 105,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-thermal-prototype.svg",
+      "image": "assets/illustrations/wireless-charging-technology.svg",
       "highlights": [
         "Automotive technology study covering wireless charging concepts, deployment routes and technical constraints.",
         "Useful as early background for electrified transport and charging-infrastructure thinking."
@@ -954,7 +954,7 @@
       "featured": false,
       "order": 106,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-thermal-prototype.svg",
+      "image": "assets/illustrations/peltier-refrigerator.svg",
       "highlights": [
         "Bachelor design project on a thermoelectric refrigerator using the Peltier effect as a compact compressor-free cooling concept.",
         "Useful as early evidence of thermal-hardware prototyping interest before later KTH heat-transfer and Siemens test-rig work."
@@ -982,7 +982,7 @@
       "featured": false,
       "order": 107,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-mechanical-design.svg",
+      "image": "assets/illustrations/tractor-design-competition.svg",
       "highlights": [
         "SAEINDIA tractor design report with chassis, braking, steering, engine/transmission and QFD-style design-review evidence.",
         "Documented AISI 1018 frame sizing, safety-factor reasoning, 25 km/h braking assumptions and vehicle-system packaging constraints."
@@ -1010,7 +1010,7 @@
       "featured": false,
       "order": 108,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-mechanical-design.svg",
+      "image": "assets/illustrations/baja-sae-2019.svg",
       "highlights": [
         "Engine and transmission team role in an SAEINDIA off-road vehicle competition context.",
         "Kept as early vehicle-systems evidence rather than a current target-role headline."
@@ -1052,7 +1052,7 @@
       "featured": false,
       "order": 109,
       "category": "Academic & Mechanical",
-      "image": "assets/thumb-mechanical-design.svg",
+      "image": "assets/illustrations/robotic-frame-locomotion.svg",
       "caseStudyUrl": "projects/robotic-frame-locomotion.html",
       "highlights": [
         "B.Tech final-year project represented by the IRJET control-system/subsystem-integration manuscript and the IRJET frame/locomotion publication.",
