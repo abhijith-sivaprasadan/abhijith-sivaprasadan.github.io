@@ -178,9 +178,10 @@ assert.equal(radarDevelopment.stages.length, 5, 'Radar needs five clearly define
 for (const track of tracks) {
   const levels = radarDevelopment.tracks[track.id];
   assert.equal(levels.length, 5, `${track.id}: five radar assessments required.`);
-  assert.ok(levels.every(level => Number.isInteger(level) && level >= 1 && level <= 3), `${track.id}: no advanced/expert claims for the early-career profile.`);
+  assert.ok(levels.every(level => Number.isInteger(level) && level >= 1 && level <= 4), `${track.id}: no expert claims for the early-career profile.`);
+  assert.equal(radarDevelopment.rationale[track.id].length, 5, `${track.id}: every assessment needs a rationale.`);
 }
-assert.ok(home.includes('Advanced and Expert are intentionally unclaimed.'), 'Radar must explain its conservative ceiling.');
+assert.ok(home.includes('Expert is intentionally unclaimed.'), 'Radar must explain its conservative ceiling.');
 assert.ok(!/research-atlas|hero-lab/.test(home), 'Decorative research atlas must remain retired.');
 assert.ok(read('scripts/academic.js').includes('activateMatrix') && read('scripts/academic.js').includes("event.key === 'ArrowRight'"), 'Track matrix must support animated and keyboard selection.');
 const cvFiles = [
