@@ -304,8 +304,8 @@ The current backend stores edits in JSON files. That is good for localhost and s
 <!-- ci-workflow-coverage -->
 ## Continuous integration
 
-[![CI](https://github.com/abhijith-sivaprasadan/abhijith-sivaprasadan.github.io/actions/workflows/ci.yml/badge.svg?branch=codex%2Fci-publication)](https://github.com/abhijith-sivaprasadan/abhijith-sivaprasadan.github.io/actions/workflows/ci.yml)
+[![CI](https://github.com/abhijith-sivaprasadan/abhijith-sivaprasadan.github.io/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/abhijith-sivaprasadan/abhijith-sivaprasadan.github.io/actions/workflows/ci.yml)
 
-See [CI coverage and limitations](CI.md) for the automated checks. The status badge tracks the published CI review branch.
+See [CI coverage and limitations](CI.md) for the automated checks. The status badge tracks the default branch.
 
-The ThermoTwin-F and PyNEXUS case studies link the verified hosted runs and proposed OpenMP/MPI review branches, with their scientific limits and unmerged status stated explicitly. See [CI publication record](docs/CI_PUBLICATION.md).
+The ThermoTwin-F and PyNEXUS case studies link the verified hosted runs and merged OpenMP/MPI implementations, with their scientific limits stated explicitly. See [CI publication record](docs/CI_PUBLICATION.md).
