@@ -299,3 +299,13 @@ The current backend stores edits in JSON files. That is good for localhost and s
 ### CET 2026 conference landing page
 
 `/cet2026/` is a mobile-first TL;DR profile for QR/NFC sharing at CET 2026. It summarizes the work and routes visitors to the main portfolio, skill dossiers, application tracks, research statement, detailed project case studies, GitHub and LinkedIn rather than duplicating the full evidence base.
+
+
+<!-- ci-workflow-coverage -->
+## Continuous integration
+
+[![CI](https://github.com/abhijith-sivaprasadan/abhijith-sivaprasadan.github.io/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/abhijith-sivaprasadan/abhijith-sivaprasadan.github.io/actions/workflows/ci.yml)
+
+See [CI coverage and limitations](CI.md) for the automated checks. The status badge tracks the default branch.
+
+The ThermoTwin-F and PyNEXUS case studies link the verified hosted runs and merged OpenMP/MPI implementations, with their scientific limits stated explicitly. See [CI publication record](docs/CI_PUBLICATION.md).
