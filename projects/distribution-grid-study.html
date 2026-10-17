@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Case study for distribution-grid power-flow, N-1 and 24-hour EV/PV/storage simulation work." />
-  <meta property="og:title" content="Distribution Grid Study with EV, PV and Storage Impacts" />
-  <meta property="og:description" content="Distribution grid simulation case study covering power flow, N-1, EV charging, PV and storage impacts." />
+  <meta name="description" content="Archived CIGRE MV pandapower coursework with documented 24-hour notebook and explicit numerical-reproduction limitations." />
+  <meta property="og:title" content="Distribution Grid Study — Coursework Archive" />
+  <meta property="og:description" content="CIGRE MV distribution-grid coursework archive, historical pandapower notebooks, and reproduction limitations." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png" />
   <title>Distribution Grid Study with EV, PV and Storage Impacts | Abhijith Sivaprasadan</title>
@@ -61,131 +61,37 @@
     <section class="case-hero">
       <div class="container">
         <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
-        <p class="eyebrow">KTH MJ2505 &middot; Power flow &middot; Grid planning &middot; pandapower</p>
-        <h1>Distribution Grid Study with EV, PV and Storage Impacts</h1>
-        <p class="hero-text">Distribution-grid simulation study using a CIGRE MV network, 24-hour load profiles, EV charging profiles, transformer-level connection assumptions and N-1 contingency analysis.</p>
-        <div class="button-row"><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/PRO1_network" target="_blank" rel="noreferrer">GitHub repository</a></div>
-        <img class="case-visual" src="../assets/illustrations/distribution-grid-study.svg" alt="Distribution grid power-flow and N-1 study visual" loading="lazy" width="960" height="540" />
-
-      </div>
-    </section>
-
-    <section class="section project-evidence-dashboard">
-      <div class="container">
-        <div class="section-heading compact-heading">
-          <p class="eyebrow">Evidence dashboard</p>
-          <h2>Grid flexibility framed as physical constraint analysis.</h2>
+        <p class="eyebrow">KTH MJ2505 &middot; Pandapower &middot; CIGRE MV &middot; Academic archive</p>
+        <h1>Distribution Grid Study: Archived Coursework and Reproduction Status</h1>
+        <p class="hero-text">Academic coursework exploring CIGRE medium-voltage power flow and time-varying demand. The root PDF is a course-provided assignment brief, not a submitted results report. Historical Step 1 and Step 2 notebooks are preserved on a separate branch. The public repository is not a verified reproducible software release.</p>
+        <div class="button-row">
+          <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/PRO1_network" target="_blank" rel="noreferrer">Coursework archive</a>
+          <a class="button secondary" href="https://github.com/abhijith-sivaprasadan/PRO1_network/blob/main/REPRODUCTION_PLAN.md" target="_blank" rel="noreferrer">Reproduction plan</a>
         </div>
-        <div class="evidence-tabs" data-evidence-tabs>
-          <div class="evidence-tab-row" role="tablist" aria-label="Distribution grid evidence">
-            <button class="evidence-tab-button is-active" type="button" data-evidence-tab="question" aria-pressed="true">Question</button>
-            <button class="evidence-tab-button" type="button" data-evidence-tab="method" aria-pressed="false">Method</button>
-            <button class="evidence-tab-button" type="button" data-evidence-tab="outputs" aria-pressed="false">Outputs</button>
-            <button class="evidence-tab-button" type="button" data-evidence-tab="limits" aria-pressed="false">Limits</button>
-          </div>
-          <article class="evidence-panel" data-evidence-panel="question">
-            <div class="evidence-panel-grid">
-              <div>
-                <h3>Technical question</h3>
-                <p>How do EV charging, PV generation and storage assumptions alter voltage profiles, line loading and N-1 security in a medium-voltage distribution network?</p>
-              </div>
-              <div class="evidence-kpi-strip">
-                <span><strong>24 h</strong><small>load profiles</small></span>
-                <span><strong>N-1</strong><small>contingency</small></span>
-                <span><strong>348</strong><small>EV profiles</small></span>
-              </div>
-            </div>
-          </article>
-          <article class="evidence-panel" data-evidence-panel="method" hidden>
-            <div class="evidence-panel-grid">
-              <div>
-                <h3>Method</h3>
-                <p>The study used pandapower's CIGRE medium-voltage test network, then layered base power flow, 24-hour time-series profiles, EV charging additions and contingency runs to locate voltage and loading bottlenecks.</p>
-              </div>
-              <div class="method-flow">
-                <span>Base flow</span>
-                <span>N-1 outage</span>
-                <span>EV profiles</span>
-                <span>Storage response</span>
-              </div>
-            </div>
-          </article>
-          <article class="evidence-panel" data-evidence-panel="outputs" hidden>
-            <div class="evidence-panel-grid">
-              <div>
-                <h3>Outputs</h3>
-                <p>The outputs were spreadsheet-backed voltage, line-loading and transformer-loading tables, including a rigorous contingency case where line loading exceeded 110% and transformer loading exceeded 104% in the stressed configuration.</p>
-              </div>
-              <div class="evidence-kpi-strip">
-                <span><strong>16</strong><small>bus voltage rows</small></span>
-                <span><strong>110.6%</strong><small>line loading case</small></span>
-                <span><strong>104.4%</strong><small>transformer case</small></span>
-              </div>
-            </div>
-          </article>
-          <article class="evidence-panel" data-evidence-panel="limits" hidden>
-            <div class="evidence-panel-grid">
-              <div>
-                <h3>Limitations and relevance</h3>
-                <p>This is coursework-scale evidence, so it should support the Energy Systems track rather than carry a standalone grid-flexibility identity. It is still useful because it connects decarbonisation technologies to the physical constraints they create in distribution networks.</p>
-              </div>
-              <div class="method-flow">
-                <span>Not a headline track</span>
-                <span>Supports modelling breadth</span>
-                <span>Links to BESS/EV/PV roles</span>
-              </div>
-            </div>
-          </article>
-        </div>
+        <img class="case-visual" src="../assets/illustrations/distribution-grid-study.svg" alt="Illustrative distribution-grid schematic, not a reproduced simulation output" loading="lazy" width="960" height="540" />
       </div>
     </section>
 
     <section class="section subtle">
       <div class="container case-grid">
-        <aside class="case-panel">
-          <h2>Project snapshot</h2>
-          <ul>
-            <li><strong>Repository:</strong> PRO1_network</li>
-            <li><strong>Model:</strong> pandapower CIGRE medium-voltage network</li>
-            <li><strong>Input data:</strong> 24-hour load profiles and 348 EV charging profiles</li>
-            <li><strong>Outputs:</strong> bus-voltage, line-loading and transformer-loading spreadsheets</li>
-            <li><strong>Skills:</strong> grid analysis, time-series simulation, contingency interpretation</li>
-          </ul>
-        </aside>
         <article class="case-panel">
-          <h2>Engineering contribution</h2>
+          <h2>What the preserved code demonstrates</h2>
           <ul>
-            <li>Ran a base CIGRE MV power-flow study and exported voltage and line-loading results.</li>
-            <li>Used 24-hour load-shape data to move from static power flow to time-series grid behaviour.</li>
-            <li>Integrated EV charging profiles through additional low-voltage buses and transformer connections.</li>
-            <li>Compared contingency outputs to identify where flexibility measures need to target thermal loading rather than only voltage support.</li>
+            <li><strong>Step 1:</strong> A historical notebook creates the built-in CIGRE MV example and calls <code>pandapower.runpp</code>, inspecting bus voltages and line loading.</li>
+            <li><strong>Step 2:</strong> A separate notebook constructs a 24-hour load profile and calls pandapower's time-series runner, with output logging configured for bus voltage and line loading.</li>
+            <li><strong>Engineering context:</strong> Load-flow interpretation, the role of time-dependent demand, and the importance of checking numerical output provenance.</li>
           </ul>
+          <p>The notebooks are preserved on <a href="https://github.com/abhijith-sivaprasadan/PRO1_network/tree/step_2">the historical <code>step_2</code> branch</a>. They have not yet been cleanly rerun, and no submitted student results report was identified in the public repository. The linked PDF documents the assignment tasks, not the results.</p>
         </article>
-      </div>
-    </section>
-
-    <section class="section subtle">
-      <div class="container case-grid">
-        <aside class="case-panel">
-          <h2>Project snapshot</h2>
-          <ul>
-            <li><strong>Course:</strong> KTH MJ2505 Optimisation of Energy Networks</li>
-            <li><strong>Model:</strong> pandapower CIGRE medium-voltage network</li>
-            <li><strong>Input data:</strong> 24-hour load profiles, 348 EV charging profiles, PV generation profiles</li>
-            <li><strong>Tools:</strong> pandapower, Python, time-series power flow</li>
-            <li><strong>Outputs:</strong> bus-voltage, line-loading and transformer-loading spreadsheets</li>
-            <li><strong>Skills:</strong> grid analysis, time-series simulation, N-1 contingency, operational optimisation</li>
-          </ul>
-        </aside>
         <article class="case-panel">
-          <h2>Five-step methodology</h2>
+          <h2>What is not independently verified</h2>
           <ul>
-            <li><strong>Step 1 &ndash; Initial network state:</strong> base power flow analysis and N-1 contingency analysis on the CIGRE MV network to establish voltage and loading baselines; exports confirmed 16 bus rows with voltage and thermal margins.</li>
-            <li><strong>Step 2 &ndash; Time-series simulation:</strong> 24-hour load-shape profiles added; time-series power flow run to analyse daily demand variation and its impact on line and transformer loading across all network buses.</li>
-            <li><strong>Step 3 &ndash; EV integration:</strong> estimated number of EV charging stations based on penetration scenarios; new low-voltage buses and transformer connections added; load flow and N-1 contingency repeated to locate voltage and thermal bottlenecks introduced by EV charging. Results: line loading reached 110.6%, transformer loading reached 104.4% in the stressed case.</li>
-            <li><strong>Step 4 &ndash; Load management and optimisation:</strong> load profiles optimised to minimise operational costs; PV systems and storage added to both base and EV-stressed configurations; optimised dispatch evaluated against the unmanaged baseline to quantify the benefit of flexibility.</li>
-            <li><strong>Step 5 &ndash; Network losses minimisation:</strong> operational optimisation to minimise network losses through strategic EV charging scheduling; evaluated potential loss reductions across the full 24-hour horizon using the optimised profiles.</li>
+            <li>The report's numerical loading values, including previously displayed 110.6% line and 104.4% transformer loading figures.</li>
+            <li>A complete N-1 contingency implementation and quantitative EV/PV/storage optimisation chain in the publicly reviewed notebooks.</li>
+            <li>The claimed 348-profile EV dataset, including its inputs, redistribution permissions and relation to final reported results.</li>
+            <li>Correspondence between exported spreadsheets and the full hour-by-hour simulation.</li>
           </ul>
+          <p>The Step 2 notebook also builds post-run hourly result tables by repeatedly reading <code>net.res_bus</code> and <code>net.res_line</code> after the time-series loop. Those objects reflect the latest network state, not automatically the state at each historical time step. The separately configured OutputWriter may contain time-indexed results, but this needs verification.</p>
         </article>
       </div>
     </section>
@@ -193,17 +99,17 @@
     <section class="section">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Relevance</p>
-          <h2>Why this matters</h2>
+          <p class="eyebrow">Evidence and provenance</p>
+          <h2>How to interpret this project</h2>
         </div>
         <div class="case-panel">
-          <p>This project supports Energy Systems Modelling because it connects decarbonisation technologies to the physical network constraints they create. EV charging, PV and storage are not just scenario labels; they change line currents, transformer loading and operational margins in a real distribution-grid calculation workflow.</p>
+          <p>This is a record of university-level grid-analysis work, not currently evidence of a deployable pandapower tool or independently validated contingency results. The <a href="https://github.com/abhijith-sivaprasadan/PRO1_network/blob/main/PRO1_2024_Sep5.pdf">course assignment brief</a> is retained for task context, not as proof of completed calculations, while <a href="https://github.com/abhijith-sivaprasadan/PRO1_network/blob/main/PROVENANCE.md">the provenance note</a> records unresolved team and input-licensing questions. The <a href="https://github.com/abhijith-sivaprasadan/PRO1_network/blob/main/REPRODUCTION_PLAN.md">reproduction plan</a> sets out the remaining checks.</p>
+          <p><strong>Current classification:</strong> archived coursework artifacts and instructions; neither complete implementation nor numerical results are independently evidenced. Future reconstructed code must be separately identified and tested before it is cited as new reproducible evidence.</p>
           <div class="result-metric-row">
-            <span class="result-metric-card"><strong>Base case</strong><small>16-row voltage and line-loading exports</small></span>
-            <span class="result-metric-card"><strong>110.6%</strong><small>line loading under EV stress (N-1 case)</small></span>
-            <span class="result-metric-card"><strong>104.4%</strong><small>transformer loading under EV stress</small></span>
+            <span class="result-metric-card"><strong>Step 1</strong><small>base power-flow notebook</small></span>
+            <span class="result-metric-card"><strong>Step 2</strong><small>historical time-series notebook</small></span>
+            <span class="result-metric-card"><strong>Pending</strong><small>clean replay and numerical comparison</small></span>
           </div>
-          <p style="margin-top:1rem;">The structured five-step approach isolates each intervention — adding EVs, then adding storage and PV, then switching from cost to loss minimisation — so the effect of each design choice is traceable rather than mixed into a single scenario comparison.</p>
         </div>
       </div>
     </section>
