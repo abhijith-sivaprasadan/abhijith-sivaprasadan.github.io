@@ -639,7 +639,7 @@
       "order": 10,
       "period": "Oct 2026",
       "associatedWith": "Independent research-methods software",
-      "summary": "Reproducible human-in-the-loop screening and structured extraction for residential heat-pump adoption research. Frozen OpenAlex candidate corpus; large-sample human reference screening is unfinished.",
+      "summary": "Source-linked AI-assisted title/available-abstract screening of 538 OpenAlex heat-pump adoption candidates (144 include, 341 exclude, 53 uncertain). Independent 240-record human reference screening and blinded second review remain unfinished.",
       "audienceTags": [
         "Research",
         "Software",
@@ -661,9 +661,9 @@
       "caseStudyUrl": "projects/synthsift.html",
       "repoUrl": "https://github.com/abhijith-sivaprasadan/SynthSift",
       "highlights": [
-        "600 ranked OpenAlex retrievals yield a frozen 538-record exact-deduplicated candidate corpus.",
-        "Predefined 240-record screening sample and 96-record second-review subset; reference screening and adjudication are pending.",
-        "Sixteen-record pilot tests evaluation infrastructure only and is not external model-performance evidence."
+        "Six frozen OpenAlex query arms yield 538 exact-deduplicated bibliographic candidate records; 330 abstracts and 208 title-only.",
+        "AI first-pass decisions for all 538 (144 include / 341 exclude / 53 uncertain), 150 unique recheck priorities; original 240 machine decisions preserved.",
+        "Independent human screening, 96-record blinded second review, adjudication and full-text evidence synthesis remain undone; 16-record pilot is not an external performance estimate."
       ],
       "image": "assets/illustrations/synthsift.svg"
     },
