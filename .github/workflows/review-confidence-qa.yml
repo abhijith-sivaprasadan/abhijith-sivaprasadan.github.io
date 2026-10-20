@@ -1,0 +1,27 @@
+name: Confidence copy QA (review branch)
+on:
+  push:
+    branches: [review/siemens-feed-curated-20261020]
+    paths:
+      - .github/workflows/review-confidence-qa.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/review/siemens-feed-curated-20261020'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+      - name: Check entire static portfolio
+        run: |
+          node scripts/validate-static.cjs
+          node scripts/build-portfolio-art.cjs --check
+          node scripts/build-academic.cjs --check
+          node scripts/validate-academic.cjs
+          node scripts/validate-unified-ui.cjs
+          node scripts/validate-feed-page.cjs
