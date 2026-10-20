@@ -436,7 +436,7 @@
       "featured": false,
       "order": 4,
       "associatedWith": "Portfolio project",
-      "summary": "Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass/geothermal assets, outages, CO2 and electricity-price coupling.",
+      "summary": "Multi-asset heat dispatch optimisation with CHP, heat pumps, biomass/geothermal assets, scenarios, CO2 and electricity-price coupling.",
       "audienceTags": [
         "Industrial R&D",
         "Energy Systems"
@@ -444,8 +444,7 @@
       "tools": [
         "PuLP",
         "HiGHS",
-        "Python",
-        "MILP"
+        "Python"
       ],
       "skills": [
         "District heating",
@@ -455,7 +454,7 @@
       "image": "assets/illustrations/district-heating-optimisation.svg",
       "caseStudyUrl": "projects/district-heating-optimisation.html",
       "highlights": [
-        "Designed and implemented a multi-objective MILP dispatch model from first principles using Python/PuLP.",
+        "Designed and implemented a stepwise LP dispatch model from first principles using Python/PuLP.",
         "Coupled electricity market price signals to heat-source dispatch across CHP, heat pump, geothermal and storage assets.",
         "Compared cost and emissions trade-offs across base, future-demand, storage, cost-minimisation and emissions-minimisation scenarios."
       ]
