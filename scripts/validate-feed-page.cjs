@@ -22,7 +22,7 @@ for (let i = 0; i < expected.length; i++) {
   if (repo) assert.ok(article.includes(`href="https://github.com/abhijith-sivaprasadan/${repo}"`), `Missing specific source repository: ${repo}`);
   else assert.ok(!article.includes('github.com/'), 'Industrial thesis must not suggest a public code repository');
 }
-assert.ok(!/href="(?:https:\/\/github\.com\/abhijith-sivaprasadan\/?|\.\.\/projects\.html|\.\.\/tracks\/|\.\.\/skills\/)/.test(html), 'No links to public repo profile or site archive/track/skill pages');
+assert.ok(!/href="https:\/\/github\.com\/abhijith-sivaprasadan\/?"|href="\.\.\/(?:projects\.html|tracks\/|skills\/)/.test(html), 'No links to public repo profile or site archive/track/skill pages');
 assert.ok(html.includes('styles/academic.css') && html.includes('styles/portfolio.css') && html.includes('scripts/academic.js'), 'Use actual shared design system');
 assert.ok(html.includes('class="academic-header"') && html.includes('class="academic-footer"'), 'Use site header and footer');
 assert.ok(html.includes('class="theme-switch"'), 'Preserve theme switch');
