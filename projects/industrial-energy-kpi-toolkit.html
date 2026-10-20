@@ -94,9 +94,9 @@
         <div class="case-panel">
           <ol>
             <li><strong>Ingest:</strong> read monthly utility data (electricity, gas, steam, compressed air) plus production volumes and operating hours from an Excel workbook (one row per period, one column per stream).</li>
-            <li><strong>Baseline regression:</strong> fit E = a + b·P + c·HDD on the baseline window (typically 12 prior months), where P is production and HDD is heating-degree-days for climate-driven loads. Residuals flag drift from the baseline relationship.</li>
+            <li><strong>Baseline regression:</strong> fit a least-squares baseline using the configured production and/or operating-hours drivers (E = a + b·P + c·H when both are selected); P is production and H is operating hours. Heating-degree-day normalisation is not implemented. Residuals support screening against this baseline.</li>
             <li><strong>Normalise:</strong> compute EnPI = E_actual / E_baseline (relative) and the absolute EnPI = E / P (kWh/unit). ISO 50006:2014 framing throughout.</li>
-            <li><strong>Diagnose:</strong> flag rows where |residual| &gt; 2σ (anomaly) or where the trailing-3-month residual mean is monotonic (drift).</li>
+            <li><strong>Diagnose:</strong> flag rows using user-configurable anomaly and drift thresholds; the heuristics are screening flags, not statistical proof of abnormal operation.</li>
             <li><strong>Report:</strong> Streamlit dashboard for review, plus a one-page PDF with chart + commentary box for management circulation.</li>
           </ol>
         </div>
@@ -131,7 +131,7 @@
           <ul>
             <li>Does not perform measurement-and-verification (M&amp;V) to IPMVP Option C; the regression is a screening EnPI baseline, not a savings-verification protocol.</li>
             <li>Does not handle sub-metering hierarchies — it assumes a single aggregate meter per stream. Sites with parallel metering need a pre-aggregation step.</li>
-            <li>The anomaly threshold (2σ) is a stand-in; production sites should calibrate to historical false-positive rate during the first 3 months of use.</li>
+            <li>Anomaly and drift thresholds are configurable heuristics; site-specific false-positive rates and model residual assumptions need evaluation before operational use.</li>
             <li>No automated bill-data ingestion — utility bills must be transcribed or exported to the workbook template manually.</li>
           </ul>
         </div>
