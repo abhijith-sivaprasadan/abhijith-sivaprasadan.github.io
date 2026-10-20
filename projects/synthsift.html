@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A source-audited research-methods workflow for screening and structured extraction of studies on residential heat-pump adoption, developed to test automation without hiding eligibility errors or human decisions." />
+  <meta property="og:title" content="SynthSift — Evidence synthesis and review workflow" />
+  <meta property="og:description" content="A source-audited research-methods workflow for screening and structured extraction of studies on residential heat-pump adoption, developed to test automation without hiding eligibility errors or human decisions." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://abhijith-sivaprasadan.github.io/projects/synthsift.html" />
+  <link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/synthsift.html" />
+  <title>SynthSift — Evidence synthesis and review workflow | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css?v=20260603-field-rail-bg" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260830-paper-contrast" />
+  <link rel="stylesheet" href="../styles/portfolio.css?v=20261007-engineering-index" />
+  <script src="../scripts/public-config.js?v=20261007-engineering-index"></script>
+  <script src="../scripts/sections/command-palette.js?v=20260603-field-rail-bg" defer></script>
+</head>
+<body class="signal-rebuild" data-page-key="case-study">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../research.html">Research</a><a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a><a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a><a href="../index.html#contact">Contact</a>
+      </div>
+      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Literature screening · OpenAlex · human-in-the-loop · evaluation</p>
+        <h1>SynthSift — Evidence synthesis and review workflow</h1>
+        <p class="hero-text">A source-audited research-methods workflow for screening and structured extraction of studies on residential heat-pump adoption, developed to test automation without hiding eligibility errors or human decisions. This project demonstrates how I design auditable data-acquisition and evaluation workflows, distinguish reference labels from model predictions, and make uncertainty in a research pipeline inspectable.</p>
+        <div class="button-row"><a class="button primary" href="https://github.com/abhijith-sivaprasadan/SynthSift">Source, documentation &amp; reproducibility</a><a class="button secondary" href="#scope">Read limitations</a></div>
+        <img class="case-visual" src="../assets/illustrations/synthsift.svg" alt="Concept illustration for synthsift; not a measured result or map" loading="lazy" width="960" height="540" />
+      </div>
+    </section>
+    <section class="section subtle" id="evidence">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul><li><strong>Type:</strong> Independent research and software project</li><li><strong>Period:</strong> October 2026</li><li><strong>Relevance:</strong> Evidence synthesis / research automation / reproducible software</li><li><strong>Record:</strong> Source and reproducibility in the linked GitHub repository</li></ul>
+        </aside>
+        <article class="case-panel">
+          <h2>Work and evidence</h2>
+          <ul><li>Corpus: six frozen OpenAlex query arms (600 raw retrievals) produced 538 exact-deduplicated candidates; 330 have abstracts and 208 are title-only records.</li><li>Reference workflow: a prespecified 240-record screening sample and 96-record blinded second-review subset are frozen for independent human decisions. Their reference screening and adjudication are not yet complete.</li><li>Pilot: a separate provenance-clean 16-record benchmark tests TF-IDF/logistic-regression screening and structured field extraction for nine eligible pilot studies.</li><li>Reproduction: immutable source snapshot, sampling protocol, resumable screening queue, field-level evaluators, tests and offline CI; manual labels are kept separate from automated predictions.</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Method and judgment</p><h2>What is measured — and what is not</h2></div>
+        <div class="case-panel"><ol><li>Freeze the acquisition query arms and ranked candidate set rather than silently allowing changing API relevance ranking to alter the experiment.</li><li>Preserve DOI/OpenAlex identifier provenance and flag possible study-version duplicates for human review instead of collapsing them automatically.</li><li>Evaluate workload reduction and recall only against a labelled reference set, separating unfinished human decisions from frozen labels.</li><li>Allow provider-agnostic model prediction files but do not claim an LLM experiment unless a specific executed run and its configuration are committed.</li></ol></div>
+      </div>
+    </section>
+    <section class="section subtle" id="scope">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Scope and evidence boundary</p><h2>Limits that matter.</h2></div>
+        <div class="case-panel">
+          <p>This is not a completed systematic review or a validated screening model for real reviews. OpenAlex relevance-ranked retrieval is not an exhaustive multi-database search. The 16-record pilot is a pipeline check, not an estimate of external screening performance; large-sample human reference screening, independent adjudication and real LLM evaluation remain unfinished.</p>
+          <p><strong>Demonstrated judgment:</strong> This project demonstrates how I design auditable data-acquisition and evaluation workflows, distinguish reference labels from model predictions, and make uncertainty in a research pipeline inspectable.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Primary evidence</p><h2>Read the original work.</h2></div>
+        <div class="case-panel">
+          <ul><li><a href="https://github.com/abhijith-sivaprasadan/SynthSift/blob/main/protocols/search_protocol_v1.md">Frozen search protocol &rarr;</a></li><li><a href="https://github.com/abhijith-sivaprasadan/SynthSift/blob/main/docs/screening_workflow.md">Screening workflow and status &rarr;</a></li><li><a href="https://github.com/abhijith-sivaprasadan/SynthSift/blob/main/docs/ai_disclosure.md">AI-assistance disclosure &rarr;</a></li><li><a href="https://github.com/abhijith-sivaprasadan/SynthSift">Repository README, code, commit history and tests &rarr;</a></li></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container"><p>&copy; 2026 Abhijith Sivaprasadan. Independent technical work; project scope is stated above.</p></div></footer>
+  <script src="../scripts/site.js?v=20260603-field-rail-bg"></script>
+</body>
+</html>

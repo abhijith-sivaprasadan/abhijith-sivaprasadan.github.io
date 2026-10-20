@@ -4,7 +4,7 @@ const skills = [
   {
     id: 'cfd-heat-transfer', short: 'CFD & heat transfer',
     detail: 'Flow, thermal modelling & numerical methods',
-    summary: 'From geometry and boundary conditions to numerical checks and physical interpretation: compressible flow, conjugate heat transfer and thermal systems.',
+    summary: 'From geometry and boundary conditions to numerical checks and physical interpretation: compressible flow, conjugate heat transfer and thermal systems. The work demonstrates how I turn flow fields and thermal resistance into explicit design comparisons instead of relying on a simulation image alone.',
     scope: 'The Siemens thesis is a numerical investigation with measurement-chain commissioning. Heater failure occurred before high-temperature testing could begin, so the work does not establish experimental validation. Independent thermal models retain their own verification limits.',
     tools: ['ANSYS Fluent', 'SpaceClaim', 'k-omega SST', 'Python', 'Fortran', 'Modelica / FMI'],
     courses: ['MJ2515', 'MJ232X', 'MJ2426', 'MJ2405', 'ME409', 'ME203', 'ME206', 'ME302', 'ME204', 'ME205', 'ME405', 'MA102', 'MA202'],
@@ -13,7 +13,7 @@ const skills = [
   {
     id: 'test-instrumentation', short: 'Testing & instrumentation',
     detail: 'Measurement chains, lab work & diagnostics',
-    summary: 'Measurement-chain commissioning, thermal and battery laboratory work, signal processing and structured troubleshooting, with the distinction between readiness and validated performance kept explicit.',
+    summary: 'Measurement-chain commissioning, thermal and battery laboratory work, signal processing and structured troubleshooting, with the distinction between readiness and validated performance kept explicit. These examples show how I prepare measurement chains, interpret signals and distinguish commissioning from completed high-temperature qualification.',
     scope: 'Commissioning and laboratory interpretation are not equivalent to accredited calibration. The Siemens measurement chain was commissioned, but heater failure occurred before high-temperature testing could begin; low-cost vibration work is not certified condition monitoring.',
     tools: ['NI-DAQ', 'LabVIEW', 'Thermocouples', 'Pressure sensors', 'Python / FFT'],
     courses: ['MJ232X', 'MJ2386', 'MJ2426', 'ME312', 'ME407', 'EE311', 'ME304', 'ME376'],
@@ -22,7 +22,7 @@ const skills = [
   {
     id: 'energy-systems', short: 'Energy systems',
     detail: 'Buildings, heat, power & storage',
-    summary: 'Energy-system modelling across buildings, district heat, electricity networks, storage, hydropower and hydrogen, connecting demand, weather, network and technology assumptions to operational and investment trade-offs.',
+    summary: 'Energy-system modelling across buildings, district heat, electricity networks, storage, hydropower and hydrogen, connecting demand, weather, network and technology assumptions to operational and investment trade-offs. I translate those assumptions into modelled dispatch and flexibility comparisons and test whether balances, capacity and chronology support the interpretation.',
     scope: 'Course studies and independent screening tools are identified separately. OpenSteamOpt and GB-FLEXABM are synthetic and uncalibrated; PyPSA-NL uses a synthetic topology. None is a validated operational or national-system model. Local applications run outside GitHub Pages.',
     tools: ['IDA ICE', 'HOMER Pro', 'LEAP', 'SAM', 'PyPSA', 'OSeMOSYS', 'Pyomo', 'HiGHS'],
     courses: ['MJ2438', 'MJ2509', 'MJ2508', 'MJ2503', 'MJ2405', 'MJ2411', 'MJ2426', 'MJ2386', 'MJ2505', 'MJ2507', 'MJ2511', 'AAE-E3121', 'ME403', 'ME405', 'ME205', 'BE103', 'CE482'],
@@ -31,7 +31,7 @@ const skills = [
   {
     id: 'optimisation', short: 'Optimisation & decisions',
     detail: 'Dispatch, scenarios & techno-economics',
-    summary: 'Turning engineering choices into objectives, constraints and comparable scenarios: heat dispatch, grid flexibility, hydrogen production, investment modelling and techno-economic assessment.',
+    summary: 'Turning engineering choices into objectives, constraints and comparable scenarios: heat dispatch, grid flexibility, hydrogen production, investment modelling and techno-economic assessment. The code and studies demonstrate my ability to formulate solvable constraints, check numerical accounting and interpret small or infeasible effects honestly.',
     scope: 'Mathematical optimisation, scenario comparison and business concepts are different kinds of evidence. Results depend on the documented inputs and constraints; they are not operational guarantees or investment advice.',
     tools: ['PuLP', 'Pyomo', 'HiGHS', 'Linopy', 'SALib', 'Python', 'Excel'],
     courses: ['MJ2505', 'MJ2438', 'MJ2507', 'MJ2508', 'MJ2511', 'MJ2503', 'ME2072', 'MA201', 'MA202', 'ME404'],
@@ -40,7 +40,7 @@ const skills = [
   {
     id: 'data-software', short: 'Data & engineering software',
     detail: 'Analysis, forecasting & reproducible tools',
-    summary: 'Approximately 21 months of professional backend engineering at QBurst, progressing from Go to JavaScript/TypeScript and NestJS, alongside separately documented scientific software, forecasting, numerical methods and reproducible reporting workflows.',
+    summary: 'Approximately 21 months of professional backend engineering at QBurst, progressing from Go to JavaScript/TypeScript and NestJS, alongside separately documented scientific software, forecasting, numerical methods and reproducible reporting workflows. I can produce software that other engineers can inspect through version control, automated tests, reproducible inputs and documented failure conditions.',
     scope: 'QBurst is professional software experience; the engineering tools are separately documented portfolio or course work. Streamlit and native desktop interfaces are local applications unless a case study explicitly provides a hosted demo.',
     tools: ['Go', 'JavaScript / TypeScript / NestJS', 'Docker', 'Postman', 'Python', 'pandas / NumPy', 'scikit-learn / XGBoost / LightGBM', 'Streamlit / Plotly', 'Modelica / FMI', 'Modern Fortran', 'Git / CI'],
     courses: ['MJ2507', 'MJ2515', 'MJ2505', 'MA101', 'MA102', 'MA201', 'MA202', 'ME407', 'EE311'],
@@ -49,7 +49,7 @@ const skills = [
   {
     id: 'industrial-energy', short: 'Industrial energy & EnPI',
     detail: 'Performance mapping & decarbonisation',
-    summary: 'Industrial energy-performance methodology, load-driver analysis, metering readiness and decision-support tools for examining energy use, emissions and improvement options.',
+    summary: 'Industrial energy-performance methodology, load-driver analysis, metering readiness and decision-support tools for examining energy use, emissions and improvement options. I can structure site energy data around meaningful drivers and decision-ready diagnostics without conflating a screening signal with independently verified savings.',
     scope: 'Alleima work was desk-based method development, not implementation of plant savings. Proprietary site detail is excluded. Demonstration emissions factors and KPI alerts are not compliance advice or root-cause diagnoses.',
     tools: ['KPI / EnPI design', 'ISO 50001 context', 'Python', 'Excel', 'Streamlit'],
     courses: ['MJ2511', 'MJ2508', 'MJ2426', 'MJ2405', 'MJ2411', 'AAE-E3121', 'ME403', 'ME404', 'ME376', 'CE482', 'BE103'],
@@ -58,7 +58,7 @@ const skills = [
   {
     id: 'cad-fea', short: 'CAD & structural analysis',
     detail: 'Geometry, mechanical design & FEA',
-    summary: 'Mechanical design from geometry preparation and CAD/PLM workflows to student vehicle projects, prototype integration and documented finite-element screening.',
+    summary: 'Mechanical design from geometry preparation and CAD/PLM workflows to student vehicle projects, prototype integration and documented finite-element screening. The work demonstrates model preparation, load-case framing and evidence-based interpretation while keeping stress-screening distinct from certification.',
     scope: 'The reactor-internals pilot is preliminary linear-elastic screening, not a certified nuclear or pressure-boundary calculation. Student design competitions and prototype projects are not industrial product qualifications.',
     tools: ['Siemens NX', 'Teamcenter', 'SolidWorks', 'ANSYS Mechanical', 'SpaceClaim'],
     courses: ['ME308', 'ME202', 'ME201', 'ME401', 'ME402', 'BE110', 'BE100', 'ME304', 'ME301', 'ME210', 'ME306', 'ME303', 'ME220', 'ME463', 'ME407'],
@@ -67,7 +67,7 @@ const skills = [
   {
     id: 'research', short: 'Research & technical communication',
     detail: 'Methods, publications & critical interpretation',
-    summary: 'Research framing, literature synthesis, published student work and reproducible scientific software, with assumptions, verification and open questions documented alongside the results.',
+    summary: 'Research framing, literature synthesis, published student work and reproducible scientific software, with assumptions, verification and open questions documented alongside the results. I can turn an open technical question into a documented method, trace its assumptions and explain what further evidence would be needed to support a stronger claim.',
     scope: 'A thesis, student publication, course assignment and independent research tool carry different levels of review. Research interests are directions for future work, not claims of completed experiments or institutional endorsement.',
     tools: ['Literature synthesis', 'Numerical verification', 'Sensitivity analysis', 'Evidence provenance', 'Reproducibility', 'Technical reporting'],
     courses: ['MJ2510', 'MJ232X', 'MJ2515', 'MJ2507', 'MJ2508', 'MJ2438', 'ME2072', 'MA202'],
@@ -94,6 +94,9 @@ const projectSkills = {
   'gb-flexabm': [E, O, D, R],
   'pypsa-nl-grid-flexibility': [E, O, D],
   'pynexus-green-hydrogen': [E, O, D, I],
+  'gridguardpinn': [E, D, R],
+  'finnish-grid-connection-evidence': [E, D, I, R],
+  'synthsift': [D, R],
   'district-heating-optimisation': [E, O, D, I],
   'distribution-grid-study': [E, D],
   'heating-demand-forecasting': [E, O, D, R],
@@ -190,12 +193,12 @@ const resources = [
 const projectOrder = {
   [C]: ['siemens-thesis', 'tes-discharge-screen', 'non-gray-radiation-modeling', 'thermotwin-f', 'numerical-heat-transfer'],
   [T]: ['siemens-thesis', 'mtes-pcm-thermal-lab', 'battery-cell-discharge-lab', 'rotating-machinery-vibration-minilab'],
-  [E]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen'],
+  [E]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'pynexus-green-hydrogen', 'finnish-grid-connection-evidence', 'gridguardpinn', 'gb-flexabm', 'pypsa-nl-grid-flexibility'],
   [O]: ['tes-discharge-screen', 'kerala2040', 'opensteamopt', 'district-heating-optimisation', 'gb-flexabm', 'pynexus-green-hydrogen'],
-  [D]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
+  [D]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gridguardpinn', 'finnish-grid-connection-evidence', 'synthsift', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
   [I]: ['tes-discharge-screen', 'opensteamopt', 'alleima-energy-efficiency', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator'],
   [M]: ['structural-fea-reactor-internals', 'siemens-thesis', 'robotic-frame-locomotion', 'bicycle-design-competition'],
-  [R]: ['siemens-thesis', 'kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
+  [R]: ['siemens-thesis', 'kerala2040', 'tes-discharge-screen', 'gridguardpinn', 'synthsift', 'finnish-grid-connection-evidence', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
 };
 
 // This public case study predates its inclusion in the JSON project index.

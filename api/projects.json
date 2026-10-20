@@ -555,6 +555,119 @@
       "githubUrl": "https://github.com/abhijith-sivaprasadan/PyNEXUS"
     },
     {
+      "id": "gridguardpinn",
+      "title": "GridGuardPINN · Trust-aware PINN grid-dynamics surrogates",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": false,
+      "order": 8,
+      "period": "Oct 2026",
+      "associatedWith": "Independent research software",
+      "summary": "Physics-informed power-system dynamics surrogate with deterministic reference-simulator fallback. Frozen IEEE-14 mixed-workload tests report 1.57–1.95× full-route speedup; no operational safety claim.",
+      "audienceTags": [
+        "Energy Systems",
+        "Research",
+        "Software"
+      ],
+      "tools": [
+        "PyTorch",
+        "ANDES",
+        "Python",
+        "SciPy",
+        "CI"
+      ],
+      "skills": [
+        "Physics-informed ML",
+        "Power-system dynamics",
+        "Trust gating",
+        "Reproducibility"
+      ],
+      "caseStudyUrl": "projects/gridguardpinn.html",
+      "repoUrl": "https://github.com/abhijith-sivaprasadan/GridGuardPINN",
+      "highlights": [
+        "Reproducible SMIB and IEEE-14 transient-simulation experiments with held-out case protocols.",
+        "Conservative routing to the ANDES reference solver when the surrogate cannot be trusted; unseen fault locations rejected.",
+        "Synthetic IEEE-14 randomized routing benchmark: 1.57–1.95× speedup on defined mixed workload; not a safety guarantee."
+      ],
+      "image": "assets/illustrations/gridguardpinn.svg"
+    },
+    {
+      "id": "finnish-grid-connection-evidence",
+      "title": "Finnish Grid Connection Evidence Screener",
+      "category": "Energy Systems",
+      "status": "published",
+      "featured": false,
+      "order": 9,
+      "period": "Oct 2026",
+      "associatedWith": "Independent grid-data research tool",
+      "summary": "Source-audited indicative Finnish grid-capacity observations with provenance-aware data storage and dashboards; not confirmed connection headroom or a validated load-flow model.",
+      "audienceTags": [
+        "Energy Systems",
+        "Research",
+        "Industrial R&D",
+        "Software"
+      ],
+      "tools": [
+        "Python",
+        "SQLite",
+        "Next.js",
+        "PostgreSQL",
+        "Fingrid",
+        "ENTSO-E"
+      ],
+      "skills": [
+        "Source auditing",
+        "Grid data",
+        "Data integrity",
+        "API development"
+      ],
+      "caseStudyUrl": "projects/finnish-grid-connection-evidence.html",
+      "repoUrl": "https://github.com/abhijith-sivaprasadan/finnish-grid-connection-evidence",
+      "highlights": [
+        "18 original Fingrid Grid Scope readings rechecked against 18–19 October screenshot evidence; not operator-confirmed availability.",
+        "Preserves missing years, direction, units, revisions and citation links instead of interpolating or inventing values.",
+        "Separates historical national operational series from future scenarios and connection-point availability assumptions."
+      ],
+      "image": "assets/illustrations/finnish-grid-connection-evidence.svg"
+    },
+    {
+      "id": "synthsift",
+      "title": "SynthSift · Evidence synthesis research software",
+      "category": "Research",
+      "status": "published",
+      "featured": false,
+      "order": 10,
+      "period": "Oct 2026",
+      "associatedWith": "Independent research-methods software",
+      "summary": "Reproducible human-in-the-loop screening and structured extraction for residential heat-pump adoption research. Frozen OpenAlex candidate corpus; large-sample human reference screening is unfinished.",
+      "audienceTags": [
+        "Research",
+        "Software",
+        "Energy Systems"
+      ],
+      "tools": [
+        "Python",
+        "scikit-learn",
+        "OpenAlex",
+        "pytest",
+        "GitHub Actions"
+      ],
+      "skills": [
+        "Evidence synthesis",
+        "Scientific software",
+        "Model evaluation",
+        "Provenance"
+      ],
+      "caseStudyUrl": "projects/synthsift.html",
+      "repoUrl": "https://github.com/abhijith-sivaprasadan/SynthSift",
+      "highlights": [
+        "600 ranked OpenAlex retrievals yield a frozen 538-record exact-deduplicated candidate corpus.",
+        "Predefined 240-record screening sample and 96-record second-review subset; reference screening and adjudication are pending.",
+        "Sixteen-record pilot tests evaluation infrastructure only and is not external model-performance evidence."
+      ],
+      "image": "assets/illustrations/synthsift.svg"
+    },
+    {
       "id": "eu-ets-exposure-calculator",
       "title": "EU ETS Exposure Calculator",
       "category": "Sustainability",

@@ -22,6 +22,19 @@ for (let i = 0; i < expected.length; i++) {
   if (repo) assert.ok(article.includes(`href="https://github.com/abhijith-sivaprasadan/${repo}"`), `Missing specific source repository: ${repo}`);
   else assert.ok(!article.includes('github.com/'), 'Industrial thesis must not suggest a public code repository');
 }
+const requiredCaveats = [
+  "The numerical findings were not experimentally validated after the heater failure.",
+  "This is not a design tool or a model validated against a real installation.",
+  "It is neither a commissioned plant twin nor an operational control system.",
+  "Annual wind-only cases were infeasible for the specified demand; results are not project-specific design predictions.",
+  "Its regression is a screening baseline, not an IPMVP Option C measurement-and-verification protocol or evidence of savings at an operating plant."
+];
+for (let i = 0; i < articleBlocks.length; i++) {
+  const text = articleBlocks[i].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+  const idx = text.indexOf(requiredCaveats[i]);
+  assert.ok(idx >= 0, 'Preserve original hedge for project '+(i+1));
+  assert.ok(/(?:This work demonstrates|It demonstrates)/.test(text.slice(idx + requiredCaveats[i].length)), 'Keep competency statement after caveat for project '+(i+1));
+}
 assert.ok(!/href="https:\/\/github\.com\/abhijith-sivaprasadan\/?"|href="\.\.\/(?:projects\.html|tracks\/|skills\/)/.test(html), 'No links to public repo profile or site archive/track/skill pages');
 assert.ok(html.includes('styles/academic.css') && html.includes('styles/portfolio.css') && html.includes('scripts/academic.js'), 'Use actual shared design system');
 assert.ok(html.includes('class="academic-header"') && html.includes('class="academic-footer"'), 'Use site header and footer');
