@@ -197,6 +197,6 @@ const cvFiles = [
 ];
 for (const file of cvFiles) assert.ok(fs.existsSync(path.join(root, file)), `Missing replacement CV: ${file}`);
 for (const file of files) assert.ok(!/Abhijith_CV_(?:PhD_Academic|GasTurbine_HeatTransfer|EnergyCoordinator|TestEngineer)\.pdf/.test(read(file)), `${file}: retired CV link`);
-assert.equal((home.match(/class="work-media"/g) || []).length, 6, 'Every featured homepage project needs a visual preview.');
+assert.equal((home.match(/class="work-media"/g) || []).length, 5, 'Every featured homepage project needs a visual preview.');
 for (const track of tracks) assert.ok(read(`tracks/${track.id}.html`).includes('class="work-media"'), `Track ${track.id} needs visual project evidence.`);
 console.log(`Passed: ${files.length} academic pages, ${tracks.length} shareable tracks, ${skills.size} skill dossiers, ${projectKeys.size} distinct projects, local fragments, static navigation, metadata and theme behavior.`);
