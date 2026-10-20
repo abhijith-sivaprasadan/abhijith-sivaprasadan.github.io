@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="An independent source-linked grid-data tool that separates published indicative capacity observations, historical national operational data and hypothetical future model scenarios." />
+  <meta property="og:title" content="Finnish Grid Connection Evidence Screener" />
+  <meta property="og:description" content="An independent source-linked grid-data tool that separates published indicative capacity observations, historical national operational data and hypothetical future model scenarios." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://abhijith-sivaprasadan.github.io/projects/finnish-grid-connection-evidence.html" />
+  <link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/finnish-grid-connection-evidence.html" />
+  <title>Finnish Grid Connection Evidence Screener | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css?v=20260603-field-rail-bg" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260830-paper-contrast" />
+  <link rel="stylesheet" href="../styles/portfolio.css?v=20261007-engineering-index" />
+  <script src="../scripts/public-config.js?v=20261007-engineering-index"></script>
+  <script src="../scripts/sections/command-palette.js?v=20260603-field-rail-bg" defer></script>
+</head>
+<body class="signal-rebuild" data-page-key="case-study">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../research.html">Research</a><a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a><a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a><a href="../index.html#contact">Contact</a>
+      </div>
+      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Fingrid · ENTSO-E · provenance · evidence database</p>
+        <h1>Finnish Grid Connection Evidence Screener</h1>
+        <p class="hero-text">An independent source-linked grid-data tool that separates published indicative capacity observations, historical national operational data and hypothetical future model scenarios. This project demonstrates how I build defensible infrastructure-data workflows, preserve source provenance and uncertainty, and stop a dashboard from presenting indicative estimates as operational availability.</p>
+        <div class="button-row"><a class="button primary" href="https://github.com/abhijith-sivaprasadan/finnish-grid-connection-evidence">Source, documentation &amp; reproducibility</a><a class="button secondary" href="#scope">Read limitations</a></div>
+      </div>
+    </section>
+    <section class="section subtle" id="evidence">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul><li><strong>Type:</strong> Independent research and software project</li><li><strong>Period:</strong> October 2026</li><li><strong>Relevance:</strong> Grid-data engineering / infrastructure screening / research software</li><li><strong>Record:</strong> Source and reproducibility in the linked GitHub repository</li></ul>
+        </aside>
+        <article class="case-panel">
+          <h2>Work and evidence</h2>
+          <ul><li>Original capacity capture: 18 source-transcribed Fingrid Grid Scope values, corresponding to 17 tooltip and one panel-value matches against screenshots during the 18–19 October 2026 audit.</li><li>Coverage: the initial five-point, two-direction, three-year outlook shows 18 observed intersections and 12 not present in the compiled capture; absent values are not treated as zero.</li><li>Data workflow: Python ingestion, SQLite evidence records, revision-aware histories, source and unit checks; a read-only Next.js/Neon API and an original Streamlit Atlas are documented in the repository.</li><li>Operational context: the live-source pipeline covers Fingrid datasets 124/74 and ENTSO-E actual load/generation categories. These are historical national series, not substation-level connection forecasts.</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Method and judgment</p><h2>Evidence rather than invented availability</h2></div>
+        <div class="case-panel"><ol><li>Keep the operator's published point name, direction, unit, year, source URL, capture time and caveat attached to each observation.</li><li>Preserve missing and conflicting observations as explicit uncertainty; never interpolate between published years or sum indicative point capacities.</li><li>Keep operational data, planned projects, operator confirmations and modelled scenarios in separate database categories with independent evidence-status checks.</li><li>Publish versioned audit logs and software tests for ingestion and display, while reserving grid-flow and operator-confirmation work for later stages.</li></ol></div>
+      </div>
+    </section>
+    <section class="section subtle" id="scope">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Scope and evidence boundary</p><h2>Limits that matter.</h2></div>
+        <div class="case-panel">
+          <p>This is an independent portfolio screening and research application, not Fingrid or another operator's service. Indicative published MW/MVA values are not guaranteed grid headroom or a connection entitlement. No operator-confirmed capacity, model-scenario result or completed nodal load-flow planning model is claimed. A live website is listed in the repository, but this portfolio entry does not independently certify the deployment's current uptime or its API values.</p>
+          <p><strong>Demonstrated judgment:</strong> This project demonstrates how I build defensible infrastructure-data workflows, preserve source provenance and uncertainty, and stop a dashboard from presenting indicative estimates as operational availability.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Primary evidence</p><h2>Read the original work.</h2></div>
+        <div class="case-panel">
+          <ul><li><a href="https://github.com/abhijith-sivaprasadan/finnish-grid-connection-evidence/blob/main/docs/STATUS.md">Source and status record &rarr;</a></li><li><a href="https://github.com/abhijith-sivaprasadan/finnish-grid-connection-evidence/blob/main/docs/audits/GRID_SCOPE_18_ROW_SCREENSHOT_RECHECK_2026_10_19.csv">18-reading screenshot recheck &rarr;</a></li><li><a href="https://finnish-grid-atlas.vercel.app/">Hosted Atlas (linked by project) &rarr;</a></li><li><a href="https://github.com/abhijith-sivaprasadan/finnish-grid-connection-evidence">Repository README, code, commit history and tests &rarr;</a></li></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container"><p>&copy; 2026 Abhijith Sivaprasadan. Independent technical work; project scope is stated above.</p></div></footer>
+  <script src="../scripts/site.js?v=20260603-field-rail-bg"></script>
+</body>
+</html>
