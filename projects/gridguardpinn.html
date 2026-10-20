@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A reproducible research demonstrator that asks when a physics-informed surrogate should be used for transient simulation and when the workflow must return to the reference simulator." />
+  <meta property="og:title" content="GridGuardPINN — Trust-aware power-system surrogates" />
+  <meta property="og:description" content="A reproducible research demonstrator that asks when a physics-informed surrogate should be used for transient simulation and when the workflow must return to the reference simulator." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://abhijith-sivaprasadan.github.io/projects/gridguardpinn.html" />
+  <link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/gridguardpinn.html" />
+  <title>GridGuardPINN — Trust-aware power-system surrogates | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css?v=20260603-field-rail-bg" />
+  <link rel="stylesheet" href="../styles/v4.css?v=20260830-paper-contrast" />
+  <link rel="stylesheet" href="../styles/portfolio.css?v=20261007-engineering-index" />
+  <script src="../scripts/public-config.js?v=20261007-engineering-index"></script>
+  <script src="../scripts/sections/command-palette.js?v=20260603-field-rail-bg" defer></script>
+</head>
+<body class="signal-rebuild" data-page-key="case-study">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
+      <div class="nav-links">
+        <a href="../research.html">Research</a><a href="../energy-systems.html">Energy Systems</a>
+        <a href="../industrial-rd.html">Industrial R&amp;D</a><a href="../projects.html">Projects</a>
+        <a href="../experience.html">Experience</a><a href="../index.html#contact">Contact</a>
+      </div>
+      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="case-hero">
+      <div class="container">
+        <a class="back-link" href="../projects.html">&larr; Back to portfolio</a>
+        <p class="eyebrow">Physics-informed ML · ANDES · power-system dynamics · research software</p>
+        <h1>GridGuardPINN — Trust-aware power-system surrogates</h1>
+        <p class="hero-text">A reproducible research demonstrator that asks when a physics-informed surrogate should be used for transient simulation and when the workflow must return to the reference simulator. This project demonstrates my ability to evaluate a model's reliability separately from its accuracy, construct conservative fallback logic, and report where the learned approximation breaks down.</p>
+        <div class="button-row"><a class="button primary" href="https://github.com/abhijith-sivaprasadan/GridGuardPINN">Source, documentation &amp; reproducibility</a><a class="button secondary" href="#scope">Read limitations</a></div>
+      </div>
+    </section>
+    <section class="section subtle" id="evidence">
+      <div class="container case-grid">
+        <aside class="case-panel">
+          <h2>Project snapshot</h2>
+          <ul><li><strong>Type:</strong> Independent research and software project</li><li><strong>Period:</strong> October 2026</li><li><strong>Relevance:</strong> Power systems / scientific machine learning / research methods</li><li><strong>Record:</strong> Source and reproducibility in the linked GitHub repository</li></ul>
+        </aside>
+        <article class="case-panel">
+          <h2>Work and evidence</h2>
+          <ul><li>Method: SMIB swing-equation experiments and an ANDES IEEE-14 multi-machine case, trained/calibration/held-out splits, physics-residual and parameter-space checks.</li><li>Trust routing: the deterministic router refuses unseen fault-bus locations by default and sends unsupported cases to ANDES; the surrogate is not its own safety authority.</li><li>Reported result: a pre-registered randomized comparison found 1.57–1.95× fully routed speedup over ANDES-only on the fixed 50% in-envelope / 50% out-of-distribution benchmark across three seeds.</li><li>Reproducibility: released checkpoints, case-level ledgers, figures, dependency snapshot, SHA-256 manifest, test workflows and a technical working paper.</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Method and judgment</p><h2>What the experiment actually establishes</h2></div>
+        <div class="case-panel"><ol><li>Freeze training, validation and test cases before evaluating each successor model; calibrate acceptance thresholds on validation data rather than the reported holdout.</li><li>Evaluate surrogate accuracy separately from the routing decision. Residual-only acceptance failed on unseen fault locations even where the network-aware approach improved error for two of three seeds.</li><li>Time a routed workload that includes real ANDES fallbacks, rather than reporting neural-network inference speed alone.</li><li>Retain adverse results, including historically observed false acceptances and an independent subsynchronous-oscillation extension with partially unresolved modal comparisons.</li></ol></div>
+      </div>
+    </section>
+    <section class="section subtle" id="scope">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Scope and evidence boundary</p><h2>Limits that matter.</h2></div>
+        <div class="case-panel">
+          <p>This is research software, not certified grid-control, a protection system or a peer-reviewed publication. The reported speedup is specific to the fixed IEEE-14 workload and CI environment; it excludes training and does not demonstrate performance on other grids. SSR benchmark signals are synthetic, coupled-fault damping is not independently validated, and independent numerical review of that extension remains pending.</p>
+          <p><strong>Demonstrated judgment:</strong> This project demonstrates my ability to evaluate a model's reliability separately from its accuracy, construct conservative fallback logic, and report where the learned approximation breaks down.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Primary evidence</p><h2>Read the original work.</h2></div>
+        <div class="case-panel">
+          <ul><li><a href="https://github.com/abhijith-sivaprasadan/GridGuardPINN/blob/main/docs/v1_0_release_scope.md">v1.0 release scope &rarr;</a></li><li><a href="https://github.com/abhijith-sivaprasadan/GridGuardPINN/blob/main/docs/results_andes_v1_randomized_performance.md">Randomized performance evidence &rarr;</a></li><li><a href="https://github.com/abhijith-sivaprasadan/GridGuardPINN/blob/main/docs/ssr/comparison.md">SSR verification limits &rarr;</a></li><li><a href="https://github.com/abhijith-sivaprasadan/GridGuardPINN">Repository README, code, commit history and tests &rarr;</a></li></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container"><p>&copy; 2026 Abhijith Sivaprasadan. Independent technical work; project scope is stated above.</p></div></footer>
+  <script src="../scripts/site.js?v=20260603-field-rail-bg"></script>
+</body>
+</html>
