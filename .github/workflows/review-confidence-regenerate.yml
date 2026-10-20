@@ -1,0 +1,36 @@
+name: Regenerate academic copy (review only)
+on:
+  push:
+    branches: [review/siemens-feed-curated-20261020]
+    paths:
+      - .github/workflows/review-confidence-regenerate.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  regenerate:
+    if: github.ref == 'refs/heads/review/siemens-feed-curated-20261020'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+      - name: Generate and verify
+        run: |
+          node scripts/build-academic.cjs
+          node scripts/build-academic.cjs --check
+          node scripts/validate-academic.cjs
+          node scripts/validate-feed-page.cjs
+      - name: Commit only generated HTML to review branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html tracks skills
+          if ! git diff --cached --quiet; then
+            git commit -m "Regenerate confident evidence-based academic copy"
+            git push
+          fi
