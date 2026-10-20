@@ -1,4 +1,5 @@
 name: Build and verify new contribution pages (review)
+# Include the three new legacy-shell endpoints in the regression inventory.
 on:
   push:
     branches: [review/siemens-feed-curated-20261020]
