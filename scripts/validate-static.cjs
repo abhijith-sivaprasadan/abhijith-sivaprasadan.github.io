@@ -61,5 +61,21 @@ const gb = projectData.projects.find(project => project.id === 'gb-flexabm');
 if (gb?.caseStudyUrl !== 'projects/gb-flexabm.html') errors.push('GB-FLEXABM search must open its portfolio case study.');
 const opensteamopt = projectData.projects.find(project => project.id === 'opensteamopt');
 if (opensteamopt?.caseStudyUrl !== 'projects/opensteamopt.html') errors.push('OpenSteamOpt search must open its portfolio case study.');
+// Original October 2026 repository contributions must remain visible, cited and supporting.
+for (const [id, repoName, requiredLimit] of [
+  ['gridguardpinn', 'GridGuardPINN', 'not certified grid-control'],
+  ['finnish-grid-connection-evidence', 'finnish-grid-connection-evidence', 'not guaranteed grid headroom'],
+  ['synthsift', 'SynthSift', 'not a completed systematic review'],
+]) {
+  const p = projectData.projects.find(x => x.id === id);
+  if (!p || p.repoUrl !== 'https://github.com/abhijith-sivaprasadan/' + repoName || p.featured || p.status !== 'published') errors.push('Missing or wrongly promoted original contribution: ' + id);
+  if (!library.includes('data-project-id="' + id + '"')) errors.push('Project library missing ' + id);
+  if (!p?.caseStudyUrl || !fs.existsSync(path.join(root, p.caseStudyUrl))) {
+    errors.push('Missing case study for ' + id);
+  } else {
+    const detail = fs.readFileSync(path.join(root, p.caseStudyUrl), 'utf8');
+    if (!detail.includes('github.com/abhijith-sivaprasadan/' + repoName) || !detail.toLowerCase().includes(requiredLimit)) errors.push('Uncited or unqualified contribution case study: ' + id);
+  }
+}
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log(`Passed: ${pages} HTML pages (local links), ${scripts} JavaScript files (syntax), ${json} JSON files.`);
