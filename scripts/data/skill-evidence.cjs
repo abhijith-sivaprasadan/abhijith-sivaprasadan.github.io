@@ -94,6 +94,9 @@ const projectSkills = {
   'gb-flexabm': [E, O, D, R],
   'pypsa-nl-grid-flexibility': [E, O, D],
   'pynexus-green-hydrogen': [E, O, D, I],
+  'gridguardpinn': [E, D, R],
+  'finnish-grid-connection-evidence': [E, D, I, R],
+  'synthsift': [D, R],
   'district-heating-optimisation': [E, O, D, I],
   'distribution-grid-study': [E, D],
   'heating-demand-forecasting': [E, O, D, R],
@@ -190,12 +193,12 @@ const resources = [
 const projectOrder = {
   [C]: ['siemens-thesis', 'tes-discharge-screen', 'non-gray-radiation-modeling', 'thermotwin-f', 'numerical-heat-transfer'],
   [T]: ['siemens-thesis', 'mtes-pcm-thermal-lab', 'battery-cell-discharge-lab', 'rotating-machinery-vibration-minilab'],
-  [E]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'pypsa-nl-grid-flexibility', 'pynexus-green-hydrogen'],
+  [E]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'pynexus-green-hydrogen', 'finnish-grid-connection-evidence', 'gridguardpinn', 'gb-flexabm', 'pypsa-nl-grid-flexibility'],
   [O]: ['tes-discharge-screen', 'kerala2040', 'opensteamopt', 'district-heating-optimisation', 'gb-flexabm', 'pynexus-green-hydrogen'],
-  [D]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
+  [D]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gridguardpinn', 'finnish-grid-connection-evidence', 'synthsift', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
   [I]: ['tes-discharge-screen', 'opensteamopt', 'alleima-energy-efficiency', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator'],
   [M]: ['structural-fea-reactor-internals', 'siemens-thesis', 'robotic-frame-locomotion', 'bicycle-design-competition'],
-  [R]: ['siemens-thesis', 'kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
+  [R]: ['siemens-thesis', 'kerala2040', 'tes-discharge-screen', 'gridguardpinn', 'synthsift', 'finnish-grid-connection-evidence', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
 };
 
 // This public case study predates its inclusion in the JSON project index.
