@@ -588,7 +588,8 @@
         "Reproducible SMIB and IEEE-14 transient-simulation experiments with held-out case protocols.",
         "Conservative routing to the ANDES reference solver when the surrogate cannot be trusted; unseen fault locations rejected.",
         "Synthetic IEEE-14 randomized routing benchmark: 1.57–1.95× speedup on defined mixed workload; not a safety guarantee."
-      ]
+      ],
+      "image": "assets/illustrations/gridguardpinn.svg"
     },
     {
       "id": "finnish-grid-connection-evidence",
@@ -626,7 +627,8 @@
         "18 original Fingrid Grid Scope readings rechecked against 18–19 October screenshot evidence; not operator-confirmed availability.",
         "Preserves missing years, direction, units, revisions and citation links instead of interpolating or inventing values.",
         "Separates historical national operational series from future scenarios and connection-point availability assumptions."
-      ]
+      ],
+      "image": "assets/illustrations/finnish-grid-connection-evidence.svg"
     },
     {
       "id": "synthsift",
@@ -662,7 +664,8 @@
         "600 ranked OpenAlex retrievals yield a frozen 538-record exact-deduplicated candidate corpus.",
         "Predefined 240-record screening sample and 96-record second-review subset; reference screening and adjudication are pending.",
         "Sixteen-record pilot tests evaluation infrastructure only and is not external model-performance evidence."
-      ]
+      ],
+      "image": "assets/illustrations/synthsift.svg"
     },
     {
       "id": "eu-ets-exposure-calculator",
