@@ -7,6 +7,7 @@ on:
       - api/courses.json
       - api/projects.json
       - scripts/build-academic.cjs
+      - scripts/validate-academic.cjs
   workflow_dispatch:
 
 permissions:
