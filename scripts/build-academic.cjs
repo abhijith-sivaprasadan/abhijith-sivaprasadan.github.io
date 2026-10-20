@@ -275,7 +275,7 @@ function home() {
       </div>
       <div class="hero-summary">
         <p class="hero-specialism">Thermal engineering<br />&amp; energy systems modelling</p>
-        <p class="lead">I connect thermal-fluid engineering, energy-system modelling and professional software delivery. I have completed the M.Sc. in Sustainable Energy Engineering at KTH, including my 30 ECTS thesis; my degree certificate is in process.</p>
+        <p class="lead">I build and test engineering models that connect physical assumptions to practical questions in heat, power and energy systems. My work spans compressible CFD/CHT, dispatch optimisation and software workflows with explicit checks and documented limits. I have completed the M.Sc. in Sustainable Energy Engineering at KTH, including my 30 ECTS thesis; my degree certificate is in process.</p>
         <p class="hero-interest">Interested in research-engineer and PhD opportunities in thermal-fluid engineering, energy systems and nuclear-energy applications.</p>
         <div class="hero-links">${link('#projects', 'Selected work ↓', '', 'primary-link')}${link('#practice', 'Skills & tracks ↓')}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}${link(...cvs.research)}</div>
       </div>
