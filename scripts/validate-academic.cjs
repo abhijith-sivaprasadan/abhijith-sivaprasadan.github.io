@@ -39,8 +39,12 @@ assert.equal(new Set(tracks.map(t => t.projects.join(','))).size, 5, 'Tracks mus
 for (const track of tracks) {
   const file = `tracks/${track.id}.html`;
   const html = read(file);
-  assert.ok(home.includes(`href="${file}"`), `Homepage missing track ${track.id}`);
-  assert.ok(read('tracks/index.html').includes(`href="../${file}"`), `Track directory missing ${track.id}`);
+  if (track.id !== 'general') {
+    assert.ok(home.includes(`href="${file}"`), `Homepage missing track ${track.id}`);
+    assert.ok(read('tracks/index.html').includes(`href="../${file}"`), `Track directory missing ${track.id}`);
+  } else {
+    assert.ok(!read('tracks/index.html').includes(`href="../${file}"`), 'Redundant general track must not be promoted in directory');
+  }
   assert.ok(read('sitemap.xml').includes(`/${file}</loc>`), `Sitemap missing ${file}`);
   assert.ok(html.includes(`<h1>${escape(track.title)}</h1>`));
   assert.ok(html.includes(escape(track.intro)) && html.includes(escape(track.scope)), `Missing track-specific introduction or limitations: ${track.id}`);
@@ -52,9 +56,9 @@ for (const track of tracks) {
     assert.ok(html.includes(`id="${section}"`), `${file}: missing ${section}`);
   }
   const nav = html.split('aria-label="Portfolio tracks"')[1].split('</nav>')[0];
-  assert.equal((nav.match(/aria-current="page"/g) || []).length, 1, `${file}: exactly one selected track`);
-  assert.ok(nav.includes(`href="${track.id}.html" aria-current="page"`));
-  for (const other of tracks) assert.ok(nav.includes(`href="${other.id}.html"`), `${file}: missing sibling navigation`);
+  assert.equal((nav.match(/aria-current="page"/g) || []).length, track.id === 'general' ? 0 : 1, `${file}: selected visible track`);
+  if (track.id !== 'general') assert.ok(nav.includes(`href="${track.id}.html" aria-current="page"`));
+  for (const other of tracks.filter(t => t.id !== 'general')) assert.ok(nav.includes(`href="${other.id}.html"`), `${file}: missing visible sibling navigation`);
   const renderedProjects = [...html.matchAll(/data-project-id="([^"]+)"/g)].map(m => m[1]);
   assert.deepEqual(renderedProjects, track.projects, `${file}: project selection/order mismatch`);
   for (const property of ['projects', 'experiences', 'skills', 'education']) {
@@ -193,6 +197,6 @@ const cvFiles = [
 ];
 for (const file of cvFiles) assert.ok(fs.existsSync(path.join(root, file)), `Missing replacement CV: ${file}`);
 for (const file of files) assert.ok(!/Abhijith_CV_(?:PhD_Academic|GasTurbine_HeatTransfer|EnergyCoordinator|TestEngineer)\.pdf/.test(read(file)), `${file}: retired CV link`);
-assert.equal((home.match(/class="work-media"/g) || []).length, 6, 'Every featured homepage project needs a visual preview.');
+assert.equal((home.match(/class="work-media"/g) || []).length, 5, 'Every featured homepage project needs a visual preview.');
 for (const track of tracks) assert.ok(read(`tracks/${track.id}.html`).includes('class="work-media"'), `Track ${track.id} needs visual project evidence.`);
 console.log(`Passed: ${files.length} academic pages, ${tracks.length} shareable tracks, ${skills.size} skill dossiers, ${projectKeys.size} distinct projects, local fragments, static navigation, metadata and theme behavior.`);

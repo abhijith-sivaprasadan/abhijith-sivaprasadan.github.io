@@ -23,7 +23,7 @@ const projects = [...canonicalProjects.values()];
 const experiences = read('linkedin-experience.json').experience.filter(e => e.status === 'published');
 const courses = read('courses.json').courses.filter(c => c.status === 'published');
 const certifications = read('certifications.json').certifications;
-const featured = ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gb-flexabm', 'thermotwin-f', 'pypsa-nl-grid-flexibility'];
+const featured = ['siemens-thesis', 'tes-discharge-screen', 'opensteamopt', 'kerala2040', 'pynexus-green-hydrogen'];
 const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
@@ -184,12 +184,12 @@ function projectKind(p) {
   return 'Independent project';
 }
 function trackCards(prefix = '', compact = false) {
-  return `<ul class="track-directory${compact ? ' track-directory-compact' : ''}">${tracks.map((track, index) => `
+  return `<ul class="track-directory${compact ? ' track-directory-compact' : ''}">${tracks.filter(track => track.id !== 'general').map((track, index) => `
     <li data-track-card="${track.id}"><a href="${prefix}tracks/${track.id}.html"><span class="track-visual" aria-hidden="true"><i></i><i></i><i></i><b></b></span><span class="track-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span><strong>${escape(track.label)}</strong><span class="track-detail">${escape(track.detail)}</span><span class="track-open">Explore track <span aria-hidden="true">→</span></span></a></li>`).join('')}
   </ul>`;
 }
 function trackNavigation(current) {
-  return `<nav class="track-navigation" aria-label="Portfolio tracks"><span>Choose a track</span><ul>${tracks.map(track => `<li><a href="${track.id}.html"${current === track.id ? ' aria-current="page"' : ''}>${escape(track.label)}</a></li>`).join('')}</ul></nav>`;
+  return `<nav class="track-navigation" aria-label="Portfolio tracks"><span>Choose a track</span><ul>${tracks.filter(track => track.id !== 'general').map(track => `<li><a href="${track.id}.html"${current === track.id ? ' aria-current="page"' : ''}>${escape(track.label)}</a></li>`).join('')}</ul></nav>`;
 }
 function trackPage(track) {
   const selectedProjects = track.projects.map(key => projects.find(p => projectKey(p) === key));
@@ -321,9 +321,9 @@ function home() {
 
 const outputs = new Map([['index.html', home()]]);
 for (const track of tracks) outputs.set(`tracks/${track.id}.html`, trackPage(track));
-outputs.set('tracks/index.html', page('tracks/index.html', 'Choose a Portfolio Track', 'Five focused, shareable portfolios: general engineering, thermal engineering, energy modelling, software, and research or PhD applications.', `
+outputs.set('tracks/index.html', page('tracks/index.html', 'Choose a Portfolio Track', 'Four focused, shareable portfolios: thermal engineering, energy modelling, software, and research or PhD applications.', `
   <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Tracks</span></nav>
-  <header class="dossier-hero"><p class="overline">One portfolio / Five perspectives</p><h1>Choose a track.</h1><p class="lead">Explore the work most relevant to your interests. Each track brings together a focused introduction, projects, experience, skills, education and supporting resources.</p><p class="section-intro">Each page has a direct link you can share. No filters to set, no sign-in required.</p></header>
+  <header class="dossier-hero"><p class="overline">One portfolio / Four perspectives</p><h1>Choose a track.</h1><p class="lead">Explore the work most relevant to your interests. Each track brings together a focused introduction, projects, experience, skills, education and supporting resources.</p><p class="section-intro">Each page has a direct link you can share. No filters to set, no sign-in required.</p></header>
   ${trackCards('../')}
   <section class="scope-note index-scope"><h2>The same work, with a different focus.</h2><p>Tracks are curated entry points, not separate claims or qualifications. They link to the same public case studies and skill dossiers, with the same scientific limitations. For an unfiltered overview, ${link('index.html', 'visit the full portfolio', '../')}.</p></section>`));
 for (const skill of data.skills) outputs.set(`skills/${skill.id}.html`, skillPage(skill));
