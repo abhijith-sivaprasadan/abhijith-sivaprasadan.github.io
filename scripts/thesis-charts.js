@@ -251,10 +251,11 @@
     });
   }
 
-  function drawCategoryLabels(ctx, labels, plot) {
+  function drawCategoryLabels(ctx, labels, plot, xRange) {
     ctx.fillStyle = colors.muted;
     labels.forEach(function (label, index) {
-      var x = plot.left + ((plot.right - plot.left) * index) / Math.max(1, labels.length - 1);
+      // Use exactly the same padded numeric x-domain as the plotted series.
+      var x = scale(index, xRange, plot.left, plot.right);
       ctx.fillText(String(label), x - ctx.measureText(String(label)).width / 2, plot.bottom + 16);
     });
   }
@@ -338,7 +339,7 @@
     drawAxes(ctx, plot, prepared.width, prepared.height, yRange, chart);
 
     if (chart.type === axis.line) {
-      drawCategoryLabels(ctx, chart.labels || [], plot);
+      drawCategoryLabels(ctx, chart.labels || [], plot, chart.xRange);
     }
 
     chart.datasets.forEach(function (dataset) {
