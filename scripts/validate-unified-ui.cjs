@@ -133,7 +133,7 @@ for (const file of chronologyFiles) {
 }
 assert.ok(read('index.html').includes('heater failure occurred before high-temperature testing began'));
 assert.ok(read('cet2026/index.html').includes('heater failure occurred before high-temperature testing began'));
-assert.ok(read('projects/siemens-thesis.html').includes('before high-temperature testing could begin'));
+assert.ok(read('projects/siemens-thesis.html').includes('which was not completed'));
 assert.ok(read('tracks/thermal.html').includes('no experimental validation campaign was completed'));
 assert.ok(read('skills/cfd-heat-transfer.html').toLowerCase().includes('heater failure occurred before high-temperature testing could begin'));
 for (const file of ['api/projects.json', 'api/linkedin-projects.json', 'backend/data/projects.json']) {
