@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Research-depth Siemens Energy thesis case study: compressible CFD/CHT, mesh independence, Biot number decomposition, high-temperature instrumentation and RCA." />
+  <meta name="description" content="Published Siemens Energy/KTH thesis results: compressor-flow CFD/CHT, mesh sensitivity, pressure losses, thermal design trade-offs and laboratory scope." />
   <meta property="og:title" content="Siemens Energy CFD/CHT Thesis - Research Case Study" />
   <meta property="og:description" content="Published KTH Siemens thesis: CFD/CHT results for pressure loss, near-choked flow, external heat loss and ideal insulation." />
   <meta property="og:type" content="article" />
@@ -378,52 +378,44 @@
           </section>
 
           <section>
-            <p class="eyebrow">Key findings</p>
-            <h2>What the evidence says once the repeated wording is stripped out.</h2>
+            <p class="eyebrow">Principal results</p>
+            <h2>Flow and heat-transfer trade-offs</h2>
             <div class="comparison-panel thesis-takeaway-grid">
               <article>
-                <span class="comparison-label">Flow outcome</span>
-                <strong>The smooth reducer removes the abrupt jet mechanism.</strong>
-                <p>The strongest aerodynamic result is not a small incremental improvement but a change in flow behaviour: smoother acceleration, much lower total pressure loss, and no equivalent step-driven vena contracta.</p>
+                <span class="comparison-label">Internal flow</span>
+                <strong>Different Case C flow regimes; higher redesign pressure loss.</strong>
+                <p>The smooth reducer approached sonic flow at the geometric outlet (Ma = 0.990). The legacy reducer formed a localized supersonic vena-contracta pocket (Ma = 1.006). The redesigned geometry nevertheless produced 2.3–3.8% higher total pressure loss in the standard CHT cases.</p>
               </article>
               <article>
-                <span class="comparison-label">Thermal outcome</span>
-                <strong>The thermal penalty comes from exposed area, not worse internal transfer.</strong>
-                <p>The redesigned reducer loses more heat only when the external loss path is available. Once insulation removes that path, the internal convective picture reappears and the redesigned outlet becomes warmer.</p>
+                <span class="comparison-label">External heat loss</span>
+                <strong>Lower flux density but larger absolute heat loss.</strong>
+                <p>Although the redesign reduced external heat flux per unit surface area by 9.5–14.3%, its 3.35× larger exposed area produced about three times the total external heat loss when uninsulated.</p>
               </article>
               <article>
-                <span class="comparison-label">Rig implication</span>
-                <strong>Calibration confidence improves when pressure delivery becomes more predictable.</strong>
-                <p>The near-choked asymmetry matters because a local supersonic pocket in a nominally subcritical supply chain makes the rig more sensitive to downstream conditions and harder to interpret during sensor calibration.</p>
+                <span class="comparison-label">Insulated reference</span>
+                <strong>Removing external heat flux reverses the Case C temperature difference.</strong>
+                <p>In uninsulated Case C the legacy reducer delivered 3.36 K warmer gas. In the ideal zero-external-flux reference the redesign delivered 1.24 K warmer gas. Neither transient pulsations nor sensor-calibration accuracy were simulated.</p>
               </article>
             </div>
           </section>
 
           <section>
-            <p class="eyebrow">Experimental phase</p>
-            <h2>Measurement-chain commissioning and RCA kept the thesis tied to hardware.</h2>
-            <p>
-              The experimental phase involved commissioning a high-temperature measurement chain for planned validation at approximately 700&deg;C. The chain combined thermocouple channels, pressure transducer inputs, NI-DAQ chassis configuration, NI MAX verification and LabVIEW VI modification for synchronized acquisition. The commissioning steps included channel identification, signal-path checks, unit and scaling verification, acquisition-loop validation and preparation for the planned validation campaign.
-            </p>
-            <p>
-              When a heater failure occurred during commissioning, before high-temperature testing could begin, the work shifted into formal root cause analysis rather than pretending the validation plan had simply disappeared. The RCA process considered instrumentation error, wiring/channel configuration, sensor placement, control logic, operating sequence and heater hardware condition. Hypotheses were eliminated by matching observed behaviour against channel checks, acquisition records and physical hardware evidence. The final confidence came from convergence between measurement-chain checks and hardware-level symptoms, leading to an approved scope revision: the thesis became a rigorous numerical study with experimental limitations explicitly documented.
-            </p>
+            <p class="eyebrow">Laboratory work</p>
+            <h2>Preliminary instrumentation and heater troubleshooting</h2>
+            <p>Prior to the numerical work, I modified existing LabVIEW measurement VIs, developed additional acquisition routines, and carried out preliminary commissioning checks with NI-DAQ, thermocouples and pressure-transducer instrumentation on the Pulsatorn rig. This work was separate from the planned high-temperature validation campaign, which was not completed.</p>
+            <p>Following an inline-heater failure, I carried out root-cause troubleshooting with technical guidance from industrial supervisor Jonas Deurell. Siemens Energy and KTH approved a revised thesis scope focused on comparative steady-state numerical modelling. The published thesis documents the hardware failure and scope revision in Appendix E; detailed commissioning activities are described here from my own industrial placement experience.</p>
           </section>
 
           <section>
-            <p class="eyebrow">Research-level conclusion</p>
-            <h2>The recommendation is conditional, not cosmetic.</h2>
-            <p>
-              The redesigned C&sup2; reducer should be used when it can be insulated, because insulation preserves the aerodynamic gain while removing the thermal penalty created by the larger exposed surface area. Without insulation, the legacy reducer remains thermally competitive only for the wrong reason: compact geometry reduces external heat loss, even though the internal flow behaviour is inferior.
-            </p>
-            <p>
-              This is the most important scientific result of the thesis: pressure recovery and thermal delivery did not point in the same direction until the thermal resistance pathways were decomposed. The useful design decision came from explaining the trade-off, not from choosing the geometry that won a single metric.
-            </p>
+            <p class="eyebrow">Engineering interpretation</p>
+            <h2>Design implications under the simulated conditions</h2>
+            <p>The quintic contraction produced a more uniform near-choked outlet flow regime, but not a total-pressure-loss improvement. Its greater exposed area also increased total convective heat loss under the uninsulated boundary condition. The ideal insulated reference suggests that controlling external heat loss could change the thermal comparison.</p>
+            <p>The numerical study therefore supports further evaluation of the geometry with insulation, not unconditional adoption of a new reducer. Thermal radiation, a practical insulation configuration, dynamic rig operation and experimental testing must be addressed before the design can be qualified for calibration work.</p>
           </section>
 
           <section>
             <p class="eyebrow">Limitations and future work</p>
-            <h2>Where the model is incomplete, and why that matters for PhD-level work.</h2>
+            <h2>Numerical limitations and future experimental work</h2>
             <div class="cards two">
               <article class="card">
                 <h3>Steady-state assumption</h3>
@@ -435,11 +427,11 @@
               </article>
               <article class="card">
                 <h3>Validation gap</h3>
-                <p>The pressure-drop reduction is simulation-indicated, not experimentally verified. A repaired heater chain, calibrated pressure measurement and thermal mapping would be needed to close the loop.</p>
+                <p>The redesigned reducer was not manufactured or experimentally validated. A repaired heater chain, reliable temperature and pressure measurements and controlled validation conditions would be needed to test the simulated findings.</p>
               </article>
               <article class="card">
                 <h3>Next investigation</h3>
-                <p>The natural extension is transient CHT under pulsating flow, then reactive or deposition-aware wall modelling where surface condition evolves during operation.</p>
+                <p>The published thesis identifies higher-fidelity thermal radiation, full-CHT mesh sensitivity, unsteady near-choked flow and parametric optimisation of the quintic geometry as next research steps.</p>
               </article>
             </div>
             <div class="thesis-next-grid">
@@ -452,7 +444,7 @@
               <span>Quantified insulation benefit and implementation detail</span>
             </div>
             <p>
-              That final extension connects directly to rocket cooling-channel research: both problems ask how high-temperature flow passages lose predictable heat-transfer behaviour when wall boundary conditions or surface condition change. In my thesis the surface-condition effect was geometric exposure and insulation; in catalytic pyrolysis it becomes coke deposition, roughness and added thermal resistance.
+              These extensions remain future research. The completed thesis is a steady-state numerical comparison of two reducer geometries, not an experimental rig-validation study.
             </p>
           </section>
         </article>
