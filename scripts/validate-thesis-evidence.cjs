@@ -29,7 +29,7 @@ for (const term of ["22x pressure-loss reduction","3,688 Pa","168 Pa","96,312 Pa
  assert(!html.toLowerCase().includes(term.toLowerCase()),"Outdated HTML claim: "+term);
  assert(!script.toLowerCase().includes(term.toLowerCase()),"Outdated chart claim: "+term);
 }
-for (const filename of ["api/projects.json","api/linkedin-projects.json"]) {
+for (const filename of ["api/projects.json","api/linkedin-projects.json","backend/data/projects.json"]) {
  const obj=JSON.parse(fs.readFileSync(filename,"utf8"));
  const item=obj.projects.find(p=>p.id==="siemens-thesis");
  assert(item,"Siemens project missing in "+filename);
