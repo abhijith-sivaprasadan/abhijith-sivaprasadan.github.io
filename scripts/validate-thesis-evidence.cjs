@@ -3,6 +3,16 @@ const fs = require("node:fs");
 const vm = require("node:vm");
 const assert = require("node:assert/strict");
 const html = fs.readFileSync("projects/siemens-thesis.html","utf8");
+const crypto = require("node:crypto");
+assert.equal(
+ crypto.createHash("sha256").update(fs.readFileSync("assets/thesis/FULLTEXT01.pdf")).digest("hex"),
+ "75bfe0db65c486eef2f8423b5f70dd9b51199bad43daaa2090aef13ccb080550",
+ "Published KTH thesis PDF fingerprint has changed"
+);
+assert(html.includes('href="../assets/thesis/FULLTEXT01.pdf"'),"Direct thesis PDF link is missing");
+assert(html.includes('name="citation_pdf_url" content="https://abhijith-sivaprasadan.github.io/assets/thesis/FULLTEXT01.pdf"'),
+       "Scholarly PDF metadata does not reference the direct primary-source PDF");
+
 const script = fs.readFileSync("scripts/thesis-charts.js","utf8");
 const match = script.match(/  var chartDefinitions = \{[\s\S]*?\n  \};/);
 assert(match, "Missing chart definitions");
