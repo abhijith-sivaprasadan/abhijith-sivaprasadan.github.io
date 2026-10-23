@@ -57,7 +57,7 @@ for (const surface of ['.method-flow span', '.gb-callout', '.os-callout', '.os-m
   assert.ok(stylesheet.includes(surface), `Paper theme missing custom surface ${surface}`);
 }
 assert.ok(stylesheet.includes("@media print") && stylesheet.includes("--paper-sheet: #fff"), 'Dark papers must print with a light high-contrast palette.');
-assert.ok(read('projects/siemens-thesis.html').includes('scripts/thesis-charts.js?v=20261005-paper-themes'), 'Thesis chart cache key is stale.');
+assert.ok(read('projects/siemens-thesis.html').includes('scripts/thesis-charts.js?v=20261023-diva-thesis'), 'Thesis chart cache key is stale.');
 assert.ok(read('scripts/thesis-charts.js').includes('light ? "#2563a8" : "#72b7ff"'), 'Thesis charts need a high-contrast dark blue series.');
 assert.ok(read('scripts/thesis-charts.js').includes('light ? "#b84b19" : "#ff9a66"'), 'Thesis charts need a high-contrast dark orange series.');
 assert.ok(!/requestAnimationFrame|addEventListener\(['"]scroll/.test(shell), 'Unified shell must not add continuous scroll work.');
