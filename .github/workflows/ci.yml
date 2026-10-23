@@ -33,6 +33,8 @@ jobs:
 
       - name: Validate all static pages and scripts
         run: node scripts/validate-static.cjs
+          node scripts/validate-thesis-evidence.cjs
+          node --check scripts/thesis-charts.js
 
       - name: Validate homepage, application tracks and skill evidence
         run: |

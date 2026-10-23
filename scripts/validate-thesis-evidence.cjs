@@ -1,0 +1,32 @@
+// Published source of truth: KTH thesis TRITA-ITM-EX 2026:14 (Tables 4.2, 4.4, 4.6, 4.7).
+const fs = require("node:fs");
+const vm = require("node:vm");
+const assert = require("node:assert/strict");
+const html = fs.readFileSync("projects/siemens-thesis.html","utf8");
+const script = fs.readFileSync("scripts/thesis-charts.js","utf8");
+const match = script.match(/  var chartDefinitions = \{[\s\S]*?\n  \};/);
+assert(match, "Missing chart definitions");
+const data = JSON.parse(JSON.stringify(vm.runInNewContext(
+  "(function(){var axis={line:'line',bar:'bar'};"+match[0]+"return chartDefinitions;})()"
+)));
+const expected = {
+ meshPressure:[[36214,36285,35797],[38810,39146,39387]],
+ meshMach:[[1.0099,1.0148,1.0164],[0.9888,0.9903,0.9887]],
+ chtPressure:[[8777,24752,36720],[9114,25319,37810]],
+ chtMach:[[0.412,0.767,1.006],[0.352,0.674,0.990]],
+ heatLoss:[[18.59,18.93,18.88],[53.36,56.58,57.21]],
+ outletTemp:[[657.29,629.34,585.45],[649.49,624.59,582.10]],
+ flux:[[3230,3288,3279],[2768,2935,2967]],
+ outletGap:[[7.8,4.75,3.36,-1.24]]
+};
+assert.deepEqual(Object.keys(data).sort(),Object.keys(expected).sort());
+for (const [name, series] of Object.entries(expected)){
+ assert.deepEqual(data[name].datasets.map(d=>d.data),series,"Incorrect published data for "+name);
+ assert(html.includes('data-chart-id="'+name+'"'),"Missing chart: "+name);
+}
+assert.equal([...html.matchAll(/data-chart-id="/g)].length,8);
+for (const term of ["22x pressure-loss reduction","3,688 Pa","168 Pa","96,312 Pa","Ma 0.908","much lower total pressure loss","calibration confidence improves","pressure-drop reduction is simulation-indicated"]) {
+ assert(!html.toLowerCase().includes(term.toLowerCase()),"Outdated HTML claim: "+term);
+ assert(!script.toLowerCase().includes(term.toLowerCase()),"Outdated chart claim: "+term);
+}
+console.log("Validated 8 interactive charts against the published KTH thesis tables.");
