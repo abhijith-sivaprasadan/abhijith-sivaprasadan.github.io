@@ -198,7 +198,7 @@
       "order": 1,
       "period": "Apr 2025 - Nov 2025",
       "associatedWith": "Siemens Energy",
-      "summary": "Seven months embedded at Siemens Energy Finspång conducting compressible CFD/CHT, high-temperature instrumentation and root-cause analysis for the Pulsatorn dynamic pressure sensor calibration rig.",
+      "summary": "Industrial thesis at Siemens Energy Finspång combining preliminary NI-DAQ/LabVIEW commissioning and supervised heater-failure troubleshooting with a 15-run numerical CFD/CHT comparison of Pulsatorn reducer geometries.",
       "audienceTags": [
         "Thermal & Fluid",
         "Research",
@@ -224,7 +224,7 @@
         "Published thesis: Numerical Investigation of Steady-State Thermo-Fluid Performance of a Reducer for a High-Temperature Dynamic Pressure Sensor Calibration Rig, TRITA-ITM-EX 2026:14.",
         "Compared a legacy 35.05 mm -> 11.25 mm -> 6.0 mm stepped reducer with a 150 mm quintic C2 contraction using adiabatic and CHT simulation campaigns.",
         "Applied Biot number analysis (Bi = 0.003-0.004) and insulation-reference cases to separate internal convective behaviour from external surface-area heat-loss effects.",
-        "Commissioned NI-DAQ measurement chains, modified LabVIEW VIs, ran thermal test work up to 700°C and completed formal root cause analysis after heater failure."
+        "Modified LabVIEW VIs and performed preliminary sensor-acquisition commissioning; conducted heater-failure root-cause troubleshooting with industrial supervision. The planned high-temperature validation campaign was not completed."
       ]
     },
     {

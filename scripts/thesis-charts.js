@@ -30,182 +30,79 @@
   var chartRenderState = {};
   var chartTooltip = null;
 
+  // Source: published KTH thesis TRITA-ITM-EX 2026:14.
+  // Only verified tabulated results; no interpolated or illustrative profiles.
   var chartDefinitions = {
     meshPressure: {
-      canvasId: "meshPressureChart",
-      type: axis.line,
-      labels: ["Coarse", "Baseline", "Fine"],
-      yLabel: "Pressure drop (Pa)",
-      fallback: {
-        title: "Pressure drop convergence",
-        lines: ["Redesigned: 38,810 -> 39,146 -> 39,387 Pa.", "Legacy: 36,814 -> 36,285 -> 35,797 Pa."]
-      },
+      canvasId: "meshPressureChart", type: axis.line,
+      labels: ["Coarse","Baseline","Fine"], yLabel: "Pressure drop (Pa)",
+      fallback: {title: "Tables 4.2, 4.4 · adiabatic mesh study",lines:["Legacy: 36214 / 36285 / 35797","Redesigned: 38810 / 39146 / 39387"]},
       datasets: [
-        { label: "Redesigned", data: [38810, 39146, 39387], color: "blue" },
-        { label: "Legacy", data: [36814, 36285, 35797], color: "orange" }
+        {label:"Legacy",data:[36214,36285,35797],color:"orange"},
+        {label:"Redesigned",data:[38810,39146,39387],color:"blue"}
       ]
     },
     meshMach: {
-      canvasId: "meshMachChart",
-      type: axis.line,
-      labels: ["Coarse", "Baseline", "Fine"],
-      yLabel: "Maximum Mach",
-      fallback: {
-        title: "Maximum Mach convergence",
-        lines: ["Redesigned remains stable at Ma 0.9888-0.9904.", "Legacy baseline/fine: Ma 1.0148 -> 1.0164."]
-      },
+      canvasId: "meshMachChart", type: axis.line,
+      labels: ["Coarse","Baseline","Fine"], yLabel: "Maximum Mach",
+      fallback: {title: "Tables 4.2, 4.4 · adiabatic mesh study",lines:["Legacy: 1.0099 / 1.0148 / 1.0164","Redesigned: 0.9888 / 0.9903 / 0.9887"]},
       datasets: [
-        { label: "Redesigned", data: [0.9888, 0.9904, 0.9887], color: "blue" },
-        { label: "Legacy", data: [null, 1.0148, 1.0164], color: "orange" }
+        {label:"Legacy",data:[1.0099,1.0148,1.0164],color:"orange"},
+        {label:"Redesigned",data:[0.9888,0.9903,0.9887],color:"blue"}
       ]
     },
-    convergence: {
-      canvasId: "convergenceChart",
-      type: axis.line,
-      labels: [0, 100, 250, 500, 750, 1000, 1250, 1500],
-      yLabel: "Scaled residual",
-      xLabel: "Iteration",
-      log: true,
-      fallback: {
-        title: "Solver convergence",
-        lines: [
-          "Continuity residuals finished at 5.1e-7 for the redesigned reducer and 1.7e-6 for the legacy reducer.",
-          "Higher legacy turbulence residuals align with the stronger jet and separated-flow physics."
-        ]
-      },
+    chtPressure: {
+      canvasId: "chtPressureChart", type: axis.line,
+      labels: ["A","B","C"], yLabel: "Pressure drop (Pa)",
+      fallback: {title: "Table 4.6 · CHT cases",lines:["Legacy: 8777 / 24752 / 36720","Redesigned: 9114 / 25319 / 37810"]},
       datasets: [
-        { label: "New continuity", data: [0.097, 0.041, 0.008, 0.0012, 0.00014, 0.000016, 0.0000022, 0.00000051], color: "teal" },
-        { label: "Legacy continuity", data: [0.088, 0.052, 0.014, 0.0026, 0.00034, 0.000044, 0.0000068, 0.0000017], color: "orange" },
-        { label: "New energy", data: [7152, 1900, 180, 18, 2.1, 0.28, 0.046, 0.008], color: "amber", dash: true },
-        { label: "Legacy energy", data: [6855, 2100, 260, 31, 4.6, 0.72, 0.11, 0.018], color: "gray", dash: true }
+        {label:"Legacy",data:[8777,24752,36720],color:"orange"},
+        {label:"Redesigned",data:[9114,25319,37810],color:"blue"}
       ]
     },
-    yplus: {
-      canvasId: "yplusChart",
-      type: axis.scatter,
-      yLabel: "Wall y+",
-      xLabel: "Axial position (mm)",
-      fallback: {
-        title: "Near-wall resolution",
-        lines: ["Legacy y+ range: 0.2-11.2, with a local spike at the step.", "Redesigned y+ range: 0.3-10.6, rising smoothly through the contraction."]
-      },
+    chtMach: {
+      canvasId: "chtMachChart", type: axis.line,
+      labels: ["A","B","C"], yLabel: "Maximum Mach",
+      fallback: {title: "Table 4.6 · CHT cases",lines:["Legacy: 0.412 / 0.767 / 1.006","Redesigned: 0.352 / 0.674 / 0.99"]},
       datasets: [
-        { label: "Legacy y+", x: [0, 10, 20, 26, 32, 38, 50, 65, 80, 95], y: [0.5, 1.2, 3.5, 11.2, 8.6, 4.1, 2.6, 2.1, 1.8, 1.6], color: "orange" },
-        { label: "Redesigned y+", x: [0, 15, 30, 45, 60, 75, 90, 110, 130, 150], y: [0.34, 0.8, 1.5, 2.4, 3.6, 4.8, 6.2, 7.8, 9.2, 10.6], color: "blue" }
-      ]
-    },
-    flowMach: {
-      canvasId: "flowMachChart",
-      type: axis.scatter,
-      yLabel: "Mach number",
-      xLabel: "Axial position (mm)",
-      fallback: {
-        title: "Centerline Mach",
-        lines: ["Legacy adiabatic centerline peak: Ma 0.908.", "Redesigned adiabatic centerline peak: Ma 0.640."]
-      },
-      datasets: [
-        { label: "Legacy", x: [0, 20, 40, 55, 62.3, 70, 90, 110, 130, 150], y: [0.016, 0.018, 0.022, 0.21, 0.908, 0.84, 0.80, 0.795, 0.792, 0.791], color: "orange" },
-        { label: "Redesigned", x: [0, 20, 40, 60, 80, 100, 120, 140, 150], y: [0.016, 0.025, 0.06, 0.14, 0.27, 0.42, 0.55, 0.62, 0.64], color: "blue" }
-      ]
-    },
-    flowPressure: {
-      canvasId: "flowPressureChart",
-      type: axis.scatter,
-      yLabel: "Total pressure (Pa)",
-      xLabel: "Axial position (mm)",
-      fallback: {
-        title: "Total pressure",
-        lines: ["Legacy loss: 3,688 Pa.", "Redesigned loss: 168 Pa, a 22x reduction."]
-      },
-      datasets: [
-        { label: "Legacy total pressure", x: [0, 20, 40, 55, 62.3, 70, 90, 110, 130, 150], y: [100000, 100000, 99980, 99100, 97700, 97000, 96600, 96380, 96320, 96312], color: "orange" },
-        { label: "Redesigned total pressure", x: [0, 20, 40, 60, 80, 100, 120, 140, 150], y: [99999.8, 99999.6, 99998.5, 99982, 99954, 99910, 99870, 99842, 99832], color: "blue" }
-      ]
-    },
-    legacyFlow: {
-      canvasId: "legacyFlowChart",
-      type: axis.scatter,
-      yLabel: "Mach or normalized pressure",
-      xLabel: "Axial position (mm)",
-      fallback: {
-        title: "Legacy diagnostic",
-        lines: ["Inlet Ma 0.016 rises to a local Ma 0.908 jet near the step.", "Effective outlet total pressure falls to 96,312 Pa."]
-      },
-      datasets: [
-        { label: "Legacy Mach", x: [0, 20, 40, 55, 62.3, 70, 90, 110, 130, 150], y: [0.016, 0.018, 0.022, 0.21, 0.908, 0.84, 0.80, 0.795, 0.792, 0.791], color: "orange" },
-        { label: "Legacy pressure / 100000", x: [0, 20, 40, 55, 62.3, 70, 90, 110, 130, 150], y: [1.0, 1.0, 0.9998, 0.991, 0.977, 0.970, 0.966, 0.9638, 0.9632, 0.96312], color: "teal", dash: true }
-      ]
-    },
-    wallTemp: {
-      canvasId: "wallTempChart",
-      type: axis.scatter,
-      yLabel: "Wall temperature (K)",
-      xLabel: "Axial position (mm)",
-      fallback: {
-        title: "Wall temperature",
-        lines: ["Legacy wall: 671.6 K inlet to 639.2 K outlet.", "Redesigned wall: 673.0 K inlet to 647.9 K outlet."]
-      },
-      datasets: [
-        { label: "Legacy wall", x: [0, 10, 20, 25, 32, 38, 50, 65, 80, 95], y: [671.6, 671.3, 670.7, 665.0, 650.2, 642.0, 640.5, 640.0, 639.6, 639.2], color: "orange" },
-        { label: "Redesigned wall", x: [0, 20, 40, 60, 80, 100, 120, 140, 150], y: [673.0, 670.9, 667.8, 664.5, 660.2, 655.6, 651.7, 648.8, 647.9], color: "blue" }
+        {label:"Legacy",data:[0.412,0.767,1.006],color:"orange"},
+        {label:"Redesigned",data:[0.352,0.674,0.99],color:"blue"}
       ]
     },
     heatLoss: {
-      canvasId: "heatLossChart",
-      type: axis.bar,
-      labels: ["Heat loss", "Resistance"],
-      yLabel: "W or K/W",
-      fallback: {
-        title: "Heat loss and resistance",
-        lines: ["External heat loss: redesigned 55.7 W avg, legacy 18.8 W avg.", "External resistance: 5.19 K/W vs 17.37 K/W."]
-      },
+      canvasId: "heatLossChart", type: axis.line,
+      labels: ["A","B","C"], yLabel: "External heat loss (W)",
+      fallback: {title: "Table 4.6 · CHT cases",lines:["Legacy: 18.59 / 18.93 / 18.88","Redesigned: 53.36 / 56.58 / 57.21"]},
       datasets: [
-        { label: "Redesigned", data: [55.7, 5.19], color: "blue" },
-        { label: "Legacy", data: [18.8, 17.37], color: "orange" }
+        {label:"Legacy",data:[18.59,18.93,18.88],color:"orange"},
+        {label:"Redesigned",data:[53.36,56.58,57.21],color:"blue"}
+      ]
+    },
+    outletTemp: {
+      canvasId: "outletTempChart", type: axis.line,
+      labels: ["A","B","C"], yLabel: "Outlet static temperature (K)",
+      fallback: {title: "Table 4.6 · CHT cases",lines:["Legacy: 657.29 / 629.34 / 585.45","Redesigned: 649.49 / 624.59 / 582.1"]},
+      datasets: [
+        {label:"Legacy",data:[657.29,629.34,585.45],color:"orange"},
+        {label:"Redesigned",data:[649.49,624.59,582.1],color:"blue"}
+      ]
+    },
+    flux: {
+      canvasId: "fluxChart", type: axis.line,
+      labels: ["A","B","C"], yLabel: "External heat flux density (W/m²)",
+      fallback: {title: "Table 4.6 · CHT cases",lines:["Legacy: 3230 / 3288 / 3279","Redesigned: 2768 / 2935 / 2967"]},
+      datasets: [
+        {label:"Legacy",data:[3230,3288,3279],color:"orange"},
+        {label:"Redesigned",data:[2768,2935,2967],color:"blue"}
       ]
     },
     outletGap: {
-      canvasId: "outletGapChart",
-      type: axis.bar,
-      labels: ["80 kPa", "40 kPa", "0 Pa", "Insulated"],
-      yLabel: "Temperature gap (K)",
-      fallback: {
-        title: "Outlet temperature gap",
-        lines: ["Uninsulated legacy advantage: 7.80 K, 4.75 K, 3.36 K.", "Insulated reference reverses by 1.24 K in favor of the redesigned reducer."]
-      },
-      datasets: [
-        { label: "Legacy outlet temp advantage", data: [7.8, 4.75, 3.36, -1.24], color: ["orange", "orange", "orange", "blue"] }
-      ]
-    },
-    biot: {
-      canvasId: "biotChart",
-      type: axis.bar,
-      labels: ["Biot number", "Max wall dT"],
-      yLabel: "Dimensionless or K",
-      fallback: {
-        title: "Biot proof",
-        lines: ["Bi = 0.003-0.004, so through-wall gradients are negligible.", "Maximum wall delta T: 0.70 K legacy, 0.06 K redesigned."]
-      },
-      datasets: [
-        { label: "Legacy", data: [0.004, 0.70], color: "orange" },
-        { label: "Redesigned", data: [0.003, 0.06], color: "blue" }
-      ]
-    },
-    insulation: {
-      canvasId: "insulationChart",
-      type: axis.bar,
-      labels: ["Outlet wall temp", "Insulation effect"],
-      yLabel: "K",
-      fallback: {
-        title: "Insulation effect",
-        lines: ["Legacy outlet wall: 627.2 K uninsulated, 648.1 K insulated.", "Redesigned outlet wall: 597.6 K uninsulated, 653.8 K insulated."]
-      },
-      datasets: [
-        { label: "Legacy uninsulated", data: [627.2, 25.5], color: "rgba(208,98,44,0.58)" },
-        { label: "Legacy insulated", data: [648.1, 0], color: "orange" },
-        { label: "Redesigned uninsulated", data: [597.6, 64.6], color: "rgba(37,99,168,0.58)" },
-        { label: "Redesigned insulated", data: [653.8, 0], color: "blue" }
-      ]
+      canvasId:"outletGapChart",type:axis.bar, labels:["A","B","C","C insulated"],
+      yLabel:"Legacy minus redesigned (K)",
+      fallback:{title:"Tables 4.6–4.7 · outlet static temperature difference",
+        lines:["Legacy advantage uninsulated: +7.80 / +4.75 / +3.36 K.",
+               "Insulated Case C: redesign warmer by 1.24 K."]},
+      datasets:[{label:"Legacy − redesigned",data:[7.80,4.75,3.36,-1.24],color:["orange","orange","orange","blue"]}]
     }
   };
 
