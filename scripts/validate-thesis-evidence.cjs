@@ -29,4 +29,13 @@ for (const term of ["22x pressure-loss reduction","3,688 Pa","168 Pa","96,312 Pa
  assert(!html.toLowerCase().includes(term.toLowerCase()),"Outdated HTML claim: "+term);
  assert(!script.toLowerCase().includes(term.toLowerCase()),"Outdated chart claim: "+term);
 }
-console.log("Validated 8 interactive charts against the published KTH thesis tables.");
+for (const filename of ["api/projects.json","api/linkedin-projects.json"]) {
+ const obj=JSON.parse(fs.readFileSync(filename,"utf8"));
+ const item=obj.projects.find(p=>p.id==="siemens-thesis");
+ assert(item,"Siemens project missing in "+filename);
+ assert(!item.highlights.join(" ").includes("thermal test work up to 700°C"),
+        "Uncompleted experimental validation misrepresented: "+filename);
+ assert(item.highlights.join(" ").includes("not completed"),
+        "Missing lab-validation boundary in "+filename);
+}
+console.log("Validated 8 interactive charts and two project records against the published KTH thesis.");
