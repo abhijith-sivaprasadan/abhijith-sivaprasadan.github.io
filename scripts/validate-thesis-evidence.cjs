@@ -38,4 +38,32 @@ for (const filename of ["api/projects.json","api/linkedin-projects.json","backen
  assert(item.highlights.join(" ").includes("not completed"),
         "Missing lab-validation boundary in "+filename);
 }
-console.log("Validated 8 interactive charts and two project records against the published KTH thesis.");
+
+const overview=fs.readFileSync("projects.html","utf8");
+assert(!overview.includes("during 700&deg;C testing"),
+       "Projects overview must not claim the cancelled validation happened");
+assert(!overview.includes("discretisation error below 2%"),
+       "Mesh-refinement change is not a measured discretisation error bound");
+assert(overview.includes("baseline-to-fine changes below 2%"),
+       "Correct mesh-sensitivity interpretation missing from Projects overview");
+const detail=fs.readFileSync("experience/siemens-energy.html","utf8");
+assert(detail.includes("guidance from industrial supervisor Jonas Deurell"),
+       "RCA responsibility and supervisory guidance must be distinguishable");
+const retired=[
+ "biot_proof_and_insulation_effect.html",
+ "legacy_reducer_flow_profiles.html",
+ "mesh_independence_study.html",
+ "reducer_comparison_flow_profiles.html",
+ "solver_convergence_both_geometries.html",
+ "thesis_charts_branded.html",
+ "wall_temperature_comparison.html",
+ "yplus_and_temperature_comparison.html"
+];
+for(const name of retired){
+ assert(!fs.existsSync("assets/thesis/"+name),"Unverified, orphaned chart fragment republished: "+name);
+}
+const title=fs.readFileSync("experience.html","utf8");
+assert(title.includes("Master's Thesis Researcher — Test Engineering &amp; CFD"),
+       "Siemens thesis role misrepresented as formal Test Engineer appointment");
+
+console.log("Verified eight charts, published thesis boundaries, Siemens portfolio pages and retired chart fragments.");
