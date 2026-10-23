@@ -1,0 +1,33 @@
+name: Rebuild generated portfolio pages for thesis corrections
+on:
+  push:
+    branches:
+      - fix/siemens-thesis-diva-results-20261023
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout proposed fixes
+        uses: actions/checkout@v4
+        with:
+          ref: fix/siemens-thesis-diva-results-20261023
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Regenerate dependent public pages
+        run: node scripts/build-academic.cjs
+      - name: Commit matching generated outputs to the review branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html tracks skills
+          if ! git diff --cached --quiet; then
+            git commit -m "Regenerate academic portfolio pages from corrected thesis records"
+            git push origin HEAD:fix/siemens-thesis-diva-results-20261023
+          fi
