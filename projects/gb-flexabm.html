@@ -101,6 +101,17 @@ uv run --locked --extra gui gbflex gui</code></pre>
         <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/tree/main/docs/reference/experiment">Download the reference tables, assumptions and manifest</a></p>
       </div>
     </section>
+    <section class="section" id="investor-audit">
+      <div class="container">
+        <p class="eyebrow">Research update / 26 October 2026</p>
+        <h2>Why was the capacity-payment response exactly zero?</h2>
+        <p>A separate five-variant investor-mechanism study completed <strong>120 synthetic trajectories</strong> (12 common seeds, two payment treatments and five investor variants). None of its 60 matched payment comparisons changed accepted construction or modelled physical outcomes. Financing restrictions themselves did change synthetic resource costs; this is not an identified effect in the actual GB electricity market.</p>
+        <p>A subsequent source-rule audit reconstructed all <strong>600</strong> seed–year–investor decisions in the archived original 20-seed reference. The breakdown is unusually clear: <strong>440</strong> decisions were already profitable without the capacity payment; the remaining <strong>160</strong> were blocked by the experiment's terminal commissioning horizon. None crossed the payment-dependent entry threshold, and requests did not change. The audit checks the recorded expected margins, project NPV and requested MW against the source implementation.</p>
+        <p>These findings identify the reason for the reference model's nonresponse under its chosen assumptions. They do not imply that real capacity markets are ineffective or that actual GB generators follow this rule.</p>
+        <p><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/INVESTOR_MECHANISMS_RESEARCH_NOTE_2026-10-26.md">Investor-mechanism research note</a> · <a href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/S2_ARCHIVE_AND_INVESTOR_DIAGNOSTICS_2026-10-26.md">Methods and independent decision-rule audit</a></p>
+        <p class="gb-callout"><strong>Historical price-data bottleneck persists:</strong> A new offline original Elexon MID/APXMIDP archive preflight can check 46/48/50-period settlement calendars, revisions, duplicate entries, missing records, zero traded volume and source hashes. No authentic replacement archive has been obtained or admitted. None of the 2013–2018 APXMIDP training years is complete under the existing API audit; historical investor calibration and holdout evaluation remain blocked.</p>
+      </div>
+    </section>
     <section class="section" id="verification">
       <div class="container">
         <p class="eyebrow">04 / Research-software practice</p>
@@ -123,12 +134,12 @@ uv run --locked python scripts/reproduce.py --output runs/reference</code></pre>
     </section>
     <section class="section" id="delivery">
       <div class="container">
-        <p class="eyebrow">Delivery status / Updated 31 August 2026</p>
+        <p class="eyebrow">Delivery status / Updated 26 October 2026</p>
         <h2>Historical data work, with explicit unfinished gates.</h2>
         <div class="gb-table-wrap"><table><caption>Software milestones and scientific gates</caption><thead><tr><th scope="col">Stage</th><th scope="col">Scope</th><th scope="col">Status</th></tr></thead><tbody>
           <tr><th scope="row">S0</th><td>Shared electricity model, investors, audit trails and reference experiment</td><td>Done · v0.1</td></tr>
           <tr><th scope="row">S1</th><td>Local GUI, whole-year demand validation and delivery contract</td><td>Implemented · v0.2</td></tr>
-          <tr><th scope="row">S2</th><td>Demand/ERA5 tooling, 804 Elexon responses and 175 additional acquired/extracted public references</td><td>In progress · normalization, price-target decision and weather conversion pending</td></tr>
+          <tr><th scope="row">S2</th><td>Demand/ERA5 tooling, 804 Elexon responses and 175 additional acquired/extracted public references</td><td>In progress · original price-archive preflight now available; price-target admission, source reconciliation and weather conversion still pending</td></tr>
           <tr><th scope="row">S3–S5</th><td>Medoid/dispatch diagnostics, trial/sensitivity records and evaluation metrics</td><td>Utilities tested · empirical calibration/evaluation pending</td></tr>
           <tr><th scope="row">S6</th><td>Zonal systems, flexibility, heat and hydrogen</td><td>Deferred</td></tr>
         </tbody></table></div>
