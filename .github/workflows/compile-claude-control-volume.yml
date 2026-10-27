@@ -1,0 +1,47 @@
+name: Compile approved Claude Control Volume pages
+on:
+  push:
+    branches:
+      - rebuild-from-claude-control-volume-source
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Expand approved design and reconstruction tools
+        run: |
+          mkdir -p scripts styles
+          tar -xJf design/claude-control-volume/implementation.tar.xz
+          python3 scripts/rebuild-claude-site.py
+      - name: Verify source-based page fidelity
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          pages=['index.html','about.html','projects.html','research.html','energy-systems.html','industrial-rd.html','experience.html','courses.html','ideas.html','interests.html','hobbies.html','404.html']
+          for name in pages:
+              s=Path(name).read_text()
+              assert 'data-design-source="claude-control-volume-v1"' in s, name
+              assert 'styles/claude-exact.css' in s and 'scripts/claude-exact.js' in s, name
+              assert 'signal-rebuild' not in s and 'academic-site' not in s, name
+              assert not re.search(r'href="(?:Applied|About|Projects|Research|Record|NotFound)\.html"',s),name
+          assert 'data-cv-toy="heat-field"' in Path('index.html').read_text()
+          assert 'data-cv-toy="biot"' in Path('research.html').read_text()
+          print('Passed: canonical pages derive from the approved Claude source, not legacy wrappers.')
+          PY
+      - name: Commit rebuilt canonical page source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html about.html projects.html research.html energy-systems.html industrial-rd.html experience.html courses.html ideas.html interests.html hobbies.html 404.html story.html design-legacy scripts/build-academic.cjs scripts/validate-academic.cjs scripts/validate-unified-ui.cjs scripts/rebuild-claude-site.py scripts/claude-exact.js styles/claude-exact.css
+          if ! git diff --cached --quiet; then
+            git commit -m "Implement the actual Claude Control Volume page layouts and interactions"
+            git push origin HEAD:rebuild-from-claude-control-volume-source
+          fi
