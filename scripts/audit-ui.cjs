@@ -81,7 +81,7 @@ const severity = (where, issue, value) => {
           return false;
         }
         for(const el of document.querySelectorAll('h1,h2,h3,h4,p,button,a,label,summary,output,[data-out],.cvfx-clue')) {
-          if(!visibly(el)||scrollable(el))continue;
+          if(!visibly(el)||scrollable(el)||el.closest('.admin-sidebar:not(.is-open)'))continue;
           const r=el.getBoundingClientRect(), st=getComputedStyle(el);
           // Positioning out of the viewport is a defect for visible, meaningful text.
           if(r.left<-5||r.right>width+5) {
