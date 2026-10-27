@@ -138,7 +138,7 @@ module.exports = [
     experiences: [siemens, kth, alleima],
     skills: [research, thermal, energy, software],
     education: ['kth', 'btech', 'aalto'],
-    resources: [researchCV, thesis, { url: 'research.html', label: 'Full research statement' }, { url: 'projects/robotic-frame-locomotion.html', label: 'Undergraduate publications' }, { url: 'https://orcid.org/0000-0003-0299-5745', label: 'ORCID ↗' }, { url: 'https://zenodo.org/records/23679426', label: 'Zenodo — ThermoTwin software archive ↗' }, { url: 'https://explore.openaire.eu/', label: 'OpenAIRE EXPLORE — discovery portal ↗' }],
+    resources: [researchCV, thesis, { url: 'research.html', label: 'Full research statement' }, { url: 'projects/robotic-frame-locomotion.html', label: 'Undergraduate publications' }, { url: 'https://orcid.org/0009-0009-8429-1266', label: 'ORCID ↗' }, { url: 'https://zenodo.org/records/23679426', label: 'Zenodo — ThermoTwin software archive ↗' }, { url: 'https://explore.openaire.eu/', label: 'OpenAIRE EXPLORE — discovery portal ↗' }],
     primary: researchCV,
     scope: 'Research interests describe future directions, not completed experiments or institutional endorsement. Nuclear energy is an emerging direction; it is not presented as an existing qualification. The thesis is a numerical investigation with measurement-chain commissioning; heater failure occurred before high-temperature testing could begin, so it does not establish experimental validation. Kerala2040 and TES Discharge Screen publish explicit screening, verification and validation boundaries; independent models are not operational forecasts.',
   },

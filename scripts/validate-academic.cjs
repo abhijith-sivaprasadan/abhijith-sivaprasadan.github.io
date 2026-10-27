@@ -199,4 +199,17 @@ for (const file of cvFiles) assert.ok(fs.existsSync(path.join(root, file)), `Mis
 for (const file of files) assert.ok(!/Abhijith_CV_(?:PhD_Academic|GasTurbine_HeatTransfer|EnergyCoordinator|TestEngineer)\.pdf/.test(read(file)), `${file}: retired CV link`);
 assert.equal((home.match(/class="work-media"/g) || []).length, 5, 'Every featured homepage project needs a visual preview.');
 for (const track of tracks) assert.ok(read(`tracks/${track.id}.html`).includes('class="work-media"'), `Track ${track.id} needs visual project evidence.`);
+
+// Regression: researcher identifiers must always resolve to the account owner's confirmed ORCID.
+// Guard both authored sources and the generated public pages against cross-linking another researcher.
+const verifiedORCID = '0009-0009-8429-1266';
+const unrelatedORCID = '0000-0003-0299-5745';
+assert.equal(JSON.parse(read('cv.json')).identifier.value, verifiedORCID, 'Website ORCID must match canonical structured CV data.');
+for (const file of ['cv.json', 'scripts/build-academic.cjs', 'scripts/data/portfolio-tracks.cjs', 'index.html', 'research.html', 'reports.html', 'tracks/research.html', 'README.md']) {
+  const source = read(file);
+  assert.ok(!source.includes(unrelatedORCID), `${file}: unrelated researcher's ORCID must not be published`);
+  assert.ok(source.includes(verifiedORCID), `${file}: confirmed ORCID must be used`);
+}
+assert.ok(read('research.html').includes(`https://orcid.org/${verifiedORCID}`), 'Research profile must link to the public canonical ORCID page.');
+assert.ok(read('tracks/research.html').includes(`https://orcid.org/${verifiedORCID}`), 'Research track must link to the public canonical ORCID page.');
 console.log(`Passed: ${files.length} academic pages, ${tracks.length} shareable tracks, ${skills.size} skill dossiers, ${projectKeys.size} distinct projects, local fragments, static navigation, metadata and theme behavior.`);
