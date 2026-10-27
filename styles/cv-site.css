@@ -523,3 +523,25 @@ body.cv .cv-year-read :is([data-out="day"],[data-out="pct"],[data-out="montext"]
  body.cv .cv-year-svg{max-width:min(100%,620px)}
 }
 @media(max-width:560px){body.cv .cv-year{padding:clamp(12px,4vw,20px)}}
+
+
+/* Fluid type for long research titles on narrow screens.
+   Let headings wrap rather than enlarging the document and hiding the final word. */
+@media(max-width:480px) {
+ body.cv :is(.dossier-hero h1, .academic-hero.track-hero h1, .hero-intro h1) {
+   font-size:clamp(1.78rem,8vw,2.4rem)!important;
+   line-height:1.13!important;letter-spacing:-.032em!important;
+   overflow-wrap:anywhere;word-break:normal;hyphens:auto;
+   max-width:100%;min-width:0;
+ }
+ body.cv :is(.dossier-hero,.academic-hero.track-hero,.hero-intro) {min-width:0}
+}
+/* Text-heavy cards must size to the actual viewport, not a fixed desktop minimum. */
+@media(max-width:560px) {
+ body.cv :is(.course-card,.course-cards,.course-group,.course-card h3,.course-card p) {
+   min-width:0;max-width:100%;
+ }
+ body.cv .course-cards {grid-template-columns:minmax(0,1fr)!important}
+ body.cv .course-card {box-sizing:border-box;padding:clamp(14px,4vw,20px)!important}
+ body.cv .course-card :is(p,h3,a) {overflow-wrap:anywhere}
+}
