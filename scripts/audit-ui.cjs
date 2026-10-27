@@ -267,17 +267,27 @@ const severity = (where, issue, value) => {
     catch(e){severity('projects.html@390','CASE FILTER','Source-driven cases did not load');}
     const caseFilter=await page.evaluate(()=>{
       const rows=[...document.querySelectorAll('#cv-case-list article')];
+      const initial=rows.filter(r=>!r.hidden).length;
+      const flagship=rows[0]?.querySelector('a[href]')?.getAttribute('href');
       const button=[...document.querySelectorAll('[data-cv-filter]')]
         .find(b=>b.dataset.cvFilter.toUpperCase()==='SOFTWARE');
+      const softwareTotal=rows.filter(r=>r.dataset.cvCaseCategory==='SOFTWARE').length;
       button?.click();
       const selected=rows.filter(r=>!r.hidden).length;
       const pressed=button?.getAttribute('aria-pressed');
       document.querySelector('[data-cv-filter="All"]')?.click();
       const restored=rows.filter(r=>!r.hidden).length;
-      return {total:rows.length,selected,pressed,restored};
+      const more=document.querySelector('[data-cv-load-more]');
+      const offered=!!more&&!more.hidden;
+      more?.click();
+      const expanded=rows.filter(r=>!r.hidden).length;
+      return {total:rows.length,initial,flagship,selected,softwareTotal,pressed,restored,offered,expanded};
     });
-    if(caseFilter.total<30||caseFilter.selected<1||caseFilter.selected>=caseFilter.total||
-       caseFilter.pressed!=='true'||caseFilter.restored!==caseFilter.total){
+    if(caseFilter.total<30||caseFilter.flagship!=='projects/siemens-thesis.html'||
+       caseFilter.initial!==8||caseFilter.softwareTotal<1||
+       caseFilter.selected!==Math.min(8,caseFilter.softwareTotal)||
+       caseFilter.pressed!=='true'||caseFilter.restored!==8||
+       !caseFilter.offered||caseFilter.expanded!==16){
       severity('projects.html@390','CASE FILTER',caseFilter);
     }
     await context.close();
