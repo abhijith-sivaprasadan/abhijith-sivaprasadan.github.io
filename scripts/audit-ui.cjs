@@ -281,6 +281,28 @@ const severity = (where, issue, value) => {
       const visualErrors=[];
       visual.on('pageerror',err=>visualErrors.push(err.message));
       const shots=[
+        {name:'index.html',width:1440,selector:'body',file:'canonical-index-1440.png'},
+        {name:'projects.html',width:1440,selector:'body',file:'canonical-projects-1440.png'},
+        {name:'research.html',width:1440,selector:'body',file:'canonical-research-1440.png'},
+        {name:'energy-systems.html',width:1440,selector:'body',file:'canonical-energy-systems-1440.png'},
+        {name:'industrial-rd.html',width:1440,selector:'body',file:'canonical-industrial-rd-1440.png'},
+        {name:'experience.html',width:1440,selector:'body',file:'canonical-experience-1440.png'},
+        {name:'about.html',width:1440,selector:'body',file:'canonical-about-1440.png'},
+        {name:'courses.html',width:1440,selector:'body',file:'canonical-courses-1440.png'},
+        {name:'ideas.html',width:1440,selector:'body',file:'canonical-ideas-1440.png'},
+        {name:'interests.html',width:1440,selector:'body',file:'canonical-interests-1440.png'},
+        {name:'hobbies.html',width:1440,selector:'body',file:'canonical-hobbies-1440.png'},
+        {name:'story.html',width:1440,selector:'body',file:'canonical-story-1440.png'},
+        {name:'404.html',width:1440,selector:'body',file:'canonical-404-1440.png'},
+        {name:'index.html',width:390,selector:'body',file:'canonical-index-390.png'},
+        {name:'projects.html',width:390,selector:'body',file:'canonical-projects-390.png'},
+        {name:'research.html',width:390,selector:'body',file:'canonical-research-390.png'},
+        {name:'energy-systems.html',width:390,selector:'body',file:'canonical-energy-systems-390.png'},
+        {name:'industrial-rd.html',width:390,selector:'body',file:'canonical-industrial-rd-390.png'},
+        {name:'experience.html',width:390,selector:'body',file:'canonical-experience-390.png'},
+        {name:'about.html',width:390,selector:'body',file:'canonical-about-390.png'},
+        {name:'hobbies.html',width:390,selector:'body',file:'canonical-hobbies-390.png'},
+        {name:'404.html',width:390,selector:'body',file:'canonical-404-390.png'},
         {name:'index.html',width:320,selector:'[data-cv-toy="year"]',file:'year-320.png'},
         {name:'index.html',width:673,selector:'[data-cv-toy="year"]',file:'year-673.png'},
         {name:'index.html',width:1440,selector:'[data-cv-toy="year"]',file:'year-1440.png'},
@@ -306,7 +328,7 @@ const severity = (where, issue, value) => {
         await visual.waitForTimeout(220);
         const bleed=await visual.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
         if(bleed>5)severity(shot.name+'@'+shot.width,'DOCUMENT BLEED','Full motion: '+bleed+'px');
-        if(shot.name==='index.html') {
+        if(shot.name==='index.html' && shot.selector==='[data-cv-toy="year"]') {
           const yearState=await visual.evaluate(()=>{
             const root=document.querySelector('[data-cv-toy="year"]');
             const svg=root.querySelector('svg');
@@ -332,6 +354,9 @@ const severity = (where, issue, value) => {
             return {visible:parseFloat(getComputedStyle(el).opacity)>.05};
           });
           if(probe.visible)severity(shot.name+'@'+shot.width,'PROBE CLIPPED','Probe obscures year motif');
+          const hoverMesh=await locus.evaluate(el=>parseFloat(getComputedStyle(el,'::after').opacity)||0);
+          if(hoverMesh>0.3)severity(shot.name+'@'+shot.width,'PROBE CLIPPED','Hover mesh is too opaque over diagram: '+hoverMesh);
+
         }
         try {
           await locus.screenshot({path:path.join(screenRoot,shot.file),animations:'disabled',timeout:8000});
