@@ -6,7 +6,7 @@ const vm = require('node:vm');
 const data = require('./data/skill-evidence.cjs');
 const tracks = require('./data/portfolio-tracks.cjs');
 const root = path.resolve(__dirname, '..');
-const read = file => fs.readFileSync(path.join(root, file === 'index.html' ? 'design-legacy/index.html' : file), 'utf8');
+const read = file => fs.readFileSync(path.join(root, file === 'index.html' ? 'design-legacy/index.source.txt' : file), 'utf8');
 assertPublicClaudeDesign();
 function assertPublicClaudeDesign() {
   const page = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
