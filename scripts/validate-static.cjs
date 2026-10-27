@@ -48,7 +48,7 @@ const isClaudeDesign = home.includes('data-design-source="claude-control-volume-
 const cards = [...home.matchAll(/<article\b[^>]*data-project-id="([^"]+)"/g)].map(match => match[1]);
 const indexedFeatured = projectData.projects.filter(project => project.featured).map(project => project.id);
 if (!isClaudeDesign && JSON.stringify(cards) !== JSON.stringify(featuredIds)) errors.push('Homepage must show the five curated engineering projects in the agreed order.');
-if (isClaudeDesign && !home.includes('Heat. Power.')) errors.push('Claude homepage must retain approved control-volume hero.');
+if (isClaudeDesign && !home.includes('data-cv-toy="heat-field"')) errors.push('Claude homepage must retain interactive control-volume hero.');
 if (indexedFeatured.length !== featuredIds.length || featuredIds.some(id => !indexedFeatured.includes(id))) errors.push('Project index must agree with the five featured homepage projects.');
 const shortcuts = [...home.matchAll(/<a\b[^>]*class="thermotwin-shortcut"[^>]*>/g)];
 if (!isClaudeDesign && (shortcuts.length !== 1 || /\b(?:hidden|data-home-mode-target)\b/.test(shortcuts[0]?.[0] || '') || !shortcuts[0]?.[0].includes('href="projects/thermotwin-f.html"'))) {
