@@ -12,7 +12,7 @@ const { chromium } = require('playwright');
 const root = path.resolve(__dirname, '..');
 const base = process.env.UI_AUDIT_BASE || 'http://127.0.0.1:8099';
 const REPORT = path.join(root, 'ui-audit-report.json');
-const highlight = ['index.html','404.html','projects.html','research.html','reports.html',
+const highlight = ['index.html','404.html','admin.html','projects.html','research.html','reports.html',
   'experience.html','about.html','energy-systems.html','industrial-rd.html','interests.html',
   'hobbies.html','ideas.html','courses.html','cet2026/index.html','labs/control-volume.html',
   'for/siemens-feed.html','tracks/research.html','tracks/index.html','skills/research.html',
@@ -206,7 +206,8 @@ const severity = (where, issue, value) => {
         {name:'tracks/research.html',width:320,selector:'.track-hero',file:'research-track-320.png'},
         {name:'skills/research.html',width:320,selector:'.dossier-hero',file:'research-skill-320.png'},
         {name:'projects/residual-pathways.html',width:320,selector:'.dossier-hero',file:'residual-320.png'},
-        {name:'for/siemens-feed.html',width:320,selector:'.track-hero',file:'feed-320.png'}
+        {name:'for/siemens-feed.html',width:320,selector:'.track-hero',file:'feed-320.png'},
+        {name:'admin.html',width:320,selector:'#panel-connection',file:'admin-320.png'}
       ];
       for(const shot of shots) {
         visualErrors.length=0;
