@@ -210,6 +210,9 @@ def process(s,name):
         if marker:
             spans=''.join('<span id="'+key+'" class="cv-anchor-alias" aria-hidden="true"></span>' for key in pending)
             s=s[:marker.end()]+spans+s[marker.end():]
+    if name in ('Research','Projects'):
+        upstream='''<section data-cv-evidence="upstream" class="cd cs" style="padding:clamp(20px,4vw,36px);display:flex;flex-direction:column;gap:14px;min-width:0"><div class="m" style="font-size:11px;color:#d7b46a;letter-spacing:.14em">UPSTREAM CONTRIBUTION · EVIDENCE</div><h2 style="margin:0;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em">Open-TYNDP · documentation PR #917</h2><p style="margin:0;color:#c9cfc6;line-height:1.65">Contributed a source-linked technology-mapping table and documentation corrections. <a href="https://github.com/open-energy-transition/open-tyndp/pull/917">Merged PR #917 ↗</a> · <a href="https://zenodo.org/records/22899072">Upstream Zenodo v0.9 ↗</a>. Credited as a first-time contributor; this is not authorship of the whole model or its Zenodo record.</p></section>'''
+        s=s.replace('</main>',upstream+'\n</main>',1)
     s=s.replace('</head>',CSS+'\n</head>',1)
     s=s.replace('</body>',JS+'\n</body>',1)
     s=s.replace('Control volume reference','Abhijith Sivaprasadan · Control Volume')
