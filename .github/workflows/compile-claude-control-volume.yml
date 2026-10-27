@@ -1,8 +1,5 @@
 name: Compile approved Claude Control Volume pages
 on:
-  push:
-    branches:
-      - rebuild-from-claude-control-volume-source
   workflow_dispatch:
 permissions:
   contents: write

@@ -17,7 +17,7 @@ const highlight = ['index.html','404.html','admin.html','projects.html','researc
   'hobbies.html','ideas.html','courses.html','cet2026/index.html','labs/control-volume.html',
   'for/siemens-feed.html','tracks/research.html','tracks/index.html','skills/research.html',
   'projects/siemens-thesis.html','projects/kerala2040.html','projects/thermotwin-f.html'];
-const excludedDirs = new Set(['node_modules','backend','.github','.git','.claude','scripts','docs','dist','coverage']);
+const excludedDirs = new Set(['node_modules','backend','.github','.git','.claude','scripts','docs','dist','coverage','design-legacy']);
 const pages = [];
 function walk(dir) {
   for (const item of fs.readdirSync(dir, {withFileTypes:true})) {

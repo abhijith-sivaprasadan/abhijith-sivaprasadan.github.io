@@ -70,7 +70,7 @@ jobs:
           const htmlFiles = [];
           const walk = (dir) => {
             for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-              if (entry.name === '.git' || entry.name === 'node_modules') continue;
+              if (entry.name === '.git' || entry.name === 'node_modules' || entry.name === 'design-legacy') continue;
               const full = path.join(dir, entry.name);
               if (entry.isDirectory()) walk(full);
               if (entry.isFile() && entry.name.endsWith('.html')) htmlFiles.push(full);
