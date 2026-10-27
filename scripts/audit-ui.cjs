@@ -38,7 +38,7 @@ if (debug) for (const name of debugRoutes) if (pages.includes(name)) tests.push(
 const failures=[], warnings=[], summaries=[];
 const severity = (where, issue, value) => {
   const info = {page:where, issue, detail:value};
-  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE|STORY LAMP/.test(issue)) failures.push(info);
+  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE|STORY LAMP|MOBILE CONTROLS/.test(issue)) failures.push(info);
   else warnings.push(info);
 };
 (async () => {
@@ -218,6 +218,13 @@ const severity = (where, issue, value) => {
     if(biot.inputs!==3||!biot.before||biot.before===biot.after)
       severity('research.html@320','BIOT CONTROL',biot);
     await page.goto(base+'/story.html',{waitUntil:'domcontentloaded'});
+    const mobileControls=await page.evaluate(()=>{
+      const names=['.cmdbtn','.snd','.thm'];
+      return names.map(s=>{const el=document.querySelector(s);return {selector:s,present:!!el,position:el?getComputedStyle(el).position:null};});
+    });
+    if(mobileControls.some(c=>!c.present||c.position==='fixed'))
+      severity('story.html@320','MOBILE CONTROLS',mobileControls);
+
     const story=await page.evaluate(()=>{
       const root=document.querySelector('[data-cv-toy="cycle"]');
       const slider=root?.querySelector('input[type="range"]');
