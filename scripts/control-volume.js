@@ -116,14 +116,21 @@
     function paint() {
       raf = 0;
       ui.heat.style.transform = 'translate(' + (x - 130) + 'px,' + (y - 130) + 'px)';
-      ui.probe.style.transform = 'translate(' + (x + 18) + 'px,' + (y + 20) + 'px)';
-      ui.probe.style.opacity = x < 0 ? '0' : '1';
       ui.probe.querySelector('span').textContent = label || ('PROBE · x ' + num(x) + ' · y ' + num(y));
+      var rect = ui.probe.getBoundingClientRect();
+      var left = Math.max(12, Math.min(x + 18, window.innerWidth - rect.width - 12));
+      var top = y + rect.height + 28 > window.innerHeight ? y - rect.height - 18 : y + 20;
+      top = Math.max(12, Math.min(top, window.innerHeight - rect.height - 12));
+      ui.probe.style.transform = 'translate(' + left + 'px,' + top + 'px)';
+      ui.probe.style.opacity = x < 0 ? '0' : '1';
     }
     doc.addEventListener('mousemove', function (e) {
       x = e.clientX; y = e.clientY;
       var target = e.target && e.target.closest ? e.target.closest('[data-probe]') : null;
+      // The live year card has its own accessible telemetry; do not cover it.
+      var inYear = e.target && e.target.closest && e.target.closest('[data-cv-toy="year"]');
       label = target ? target.getAttribute('data-probe') : contextLabel(e.target);
+      if (inYear) { x = y = -999; label = ''; }
       if (!raf) raf = requestAnimationFrame(paint);
     }, { passive: true });
     doc.addEventListener('mouseleave', function () { x = y = -999; paint(); });
@@ -383,31 +390,57 @@
   }
 
   function year(root) {
+    // Accessible, date-driven annual cycle. Geometry and calendar labels update
+    // together, so no tooltip or long SVG annotation can obscure the chart.
+    var slider = root.querySelector('[data-cv-year-day]');
+    var reset = root.querySelector('[data-cv-year-reset]');
+    var stamp = root.querySelector('[data-cv-year-date]');
+    var selected = null;
+    var fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long' });
+    var outPart = function (name) { return out(root, name); };
     function refresh() {
-      var now = new Date(), y0 = new Date(now.getFullYear(), 0, 1);
-      var nd = new Date(now.getFullYear(), 1, 29).getMonth() === 1 ? 366 : 365;
-      var day = function (dt) { return Math.floor((dt - y0) / 86400000) + 1; };
-      var doy = day(now), jun1 = day(new Date(now.getFullYear(), 5, 1)), sep30 = day(new Date(now.getFullYear(), 8, 30));
-      var pt = function (dd) { var ph = Math.PI / 2 + 2 * Math.PI * (dd / nd - 0.04); return [270 + 200 * Math.cos(ph), 150 + 105 * Math.sin(ph)]; };
-      var arc = function (a, b) { var p = []; for (var dd = a; dd <= b; dd += 2) { var q = pt(dd); p.push(q[0].toFixed(1) + ',' + q[1].toFixed(1)); } return p.join(' '); };
-      var here = pt(doy), mid = pt(Math.round((jun1 + sep30) / 2));
-      out(root, 'monsoon').setAttribute('points', arc(jun1, sep30));
-      out(root, 'done').setAttribute('points', arc(1, doy));
-      root.querySelectorAll('[data-out="dot"]').forEach(function (c) { c.setAttribute('cx', here[0].toFixed(1)); c.setAttribute('cy', here[1].toFixed(1)); });
-      out(root, 'monlabel').setAttribute('x', (mid[0] - 12).toFixed(0));
-      out(root, 'monlabel').setAttribute('y', (mid[1] + 30).toFixed(0));
-      out(root, 'monlabel').setAttribute('text-anchor', 'end');
+      var now = new Date();
+      var year = now.getFullYear();
+      var leap = new Date(year, 1, 29).getMonth() === 1;
+      var nd = leap ? 366 : 365;
+      var doyNow = Math.floor((Date.UTC(year, now.getMonth(), now.getDate()) - Date.UTC(year, 0, 1)) / 86400000) + 1;
+      var doy = selected === null ? doyNow : Math.min(nd, Math.max(1, selected));
+      var date = new Date(year, 0, doy);
+      var jun1 = Math.floor((Date.UTC(year, 5, 1) - Date.UTC(year, 0, 1)) / 86400000) + 1;
+      var sep30 = Math.floor((Date.UTC(year, 8, 30) - Date.UTC(year, 0, 1)) / 86400000) + 1;
+      var point = function (dd) {
+        var phase = Math.PI / 2 + 2 * Math.PI * (dd / nd - 0.04);
+        return [270 + 200 * Math.cos(phase), 150 + 105 * Math.sin(phase)];
+      };
+      var arc = function (a, b) {
+        var points = [];
+        for (var dd = a; dd <= b; dd += 2) { var pt = point(dd); points.push(pt[0].toFixed(1) + ',' + pt[1].toFixed(1)); }
+        var end = point(b); points.push(end[0].toFixed(1) + ',' + end[1].toFixed(1));
+        return points.join(' ');
+      };
+      var marker = point(doy);
+      outPart('monsoon').setAttribute('points', arc(jun1, sep30));
+      outPart('done').setAttribute('points', arc(1, doy));
+      root.querySelectorAll('[data-out="dot"]').forEach(function (c) {
+        c.setAttribute('cx', marker[0].toFixed(1));
+        c.setAttribute('cy', marker[1].toFixed(1));
+      });
       var mon;
-      if (doy < jun1) mon = 'KERALA MONSOON IN ' + num(jun1 - doy) + ' DAYS';
-      else if (doy <= sep30) mon = 'KERALA MONSOON · IN PROGRESS · DAY ' + num(doy - jun1 + 1);
-      else mon = 'KERALA MONSOON · NEXT IN ' + num(Math.ceil((new Date(now.getFullYear() + 1, 5, 1) - now) / 86400000)) + ' DAYS';
-      out(root, 'day').textContent = 'DAY ' + num(doy) + ' / ' + num(nd);
-      out(root, 'pct').textContent = num(Math.round(doy / nd * 100)) + ' % ROUND THE CYCLE · ' + num(now.getFullYear());
-      out(root, 'montext').textContent = mon;
-      root.setAttribute('data-probe', 'DAY ' + num(doy) + ' · ' + mon);
+      if (doy < jun1) mon = 'KERALA MONSOON · IN ' + num(jun1 - doy) + ' DAYS';
+      else if (doy <= sep30) mon = 'KERALA MONSOON · DAY ' + num(doy - jun1 + 1);
+      else mon = 'KERALA MONSOON · NEXT CYCLE IN ' + num(nd - doy + jun1) + ' DAYS';
+      outPart('day').textContent = 'DAY ' + num(doy) + ' / ' + num(nd);
+      outPart('pct').textContent = num(Math.round(doy / nd * 100)) + '% OF ' + num(year);
+      outPart('montext').textContent = mon;
+      if (slider) { slider.max = String(nd); slider.value = String(doy); slider.setAttribute('aria-valuetext', fmt.format(date) + ' ' + year); }
+      if (stamp) stamp.textContent = fmt.format(date) + ' ' + year + (selected === null ? ' · TODAY' : ' · EXPLORING');
+      if (reset) reset.disabled = selected === null;
+      root.setAttribute('data-probe', 'DAY ' + doy + ' · ' + mon);
     }
+    if (slider) slider.addEventListener('input', function () { selected = Number(slider.value); refresh(); });
+    if (reset) reset.addEventListener('click', function () { selected = null; refresh(); slider && slider.focus(); });
     refresh();
-    setInterval(refresh, 60000);
+    var timer = setInterval(function () { if (root.isConnected) refresh(); else clearInterval(timer); }, 60000);
     return { refresh: refresh };
   }
 

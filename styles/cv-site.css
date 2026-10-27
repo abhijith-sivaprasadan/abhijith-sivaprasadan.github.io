@@ -506,3 +506,20 @@ body.cv .collection-grid > .entry-card { margin: 0 !important; display: flex; fl
 body.cv .collection-grid > .entry-card h3 { margin: 0; }
 body.cv .collection-grid > .entry-card p { margin: 0; }
 body.cv .cv-rows { list-style: none; margin: 0; padding: 0; }
+
+
+/* Layout-safe annual-cycle responsive card; diagram and telemetry never overlap. */
+body.cv .cv-year {
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,.65fr);align-items:center;
+  gap:clamp(20px,3vw,46px);max-width:100%;min-width:0;
+}
+body.cv .cv-year-svg {width:100%;max-width:100%;min-width:0;justify-self:center;overflow:visible}
+body.cv .cv-year-read {width:100%;min-width:0;max-width:100%;overflow-wrap:anywhere}
+body.cv .cv-year-read :is([data-out="day"],[data-out="pct"],[data-out="montext"]) {
+  white-space:normal;max-width:100%;overflow-wrap:anywhere;word-break:normal;line-height:1.35;
+}
+@media(max-width:1050px) {
+ body.cv .cv-year {grid-template-columns:minmax(0,1fr);gap:18px}
+ body.cv .cv-year-svg{max-width:min(100%,620px)}
+}
+@media(max-width:560px){body.cv .cv-year{padding:clamp(12px,4vw,20px)}}

@@ -294,3 +294,17 @@
   .sweep,.heat,.probe,.boot{display:none!important}
   .cv svg polyline,.cv svg path{stroke-dashoffset:0!important}
 }
+
+
+/* Accessible date interaction for the live year motif, including lab demo. */
+.cv-year-controls {display:flex;flex-direction:column;gap:10px;min-width:0;width:100%;max-width:100%;margin:4px 0}
+.cv-year-controls label{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 12px;font:11px/1.5 'JetBrains Mono',monospace;letter-spacing:.04em;color:#d7b46a}
+.cv-year-controls output{color:#65d6c9;font-variant-numeric:tabular-nums;letter-spacing:0}
+.cv-year-controls input[type=range]{width:100%;min-width:0;min-height:34px;accent-color:#65d6c9;cursor:ew-resize}
+.cv-year-controls button{align-self:start;min-height:44px;border:1px solid #43544a;background:#121813;border-radius:7px;padding:0 14px;color:#f2f0e7;font:11px 'JetBrains Mono',monospace;cursor:pointer}
+.cv-year-controls button:disabled{opacity:.45;cursor:default}
+.cv-year-controls :focus-visible{outline:3px solid #f98e09;outline-offset:3px}
+.cv-year-svg {overflow:visible}
+.probe{box-sizing:border-box;width:max-content;max-width:min(320px,calc(100vw - 24px));white-space:normal;overflow-wrap:anywhere;line-height:1.35}
+.probe span{display:block;min-width:0}
+@media(max-width:560px){.probe{max-width:calc(100vw - 24px);font-size:10px}}
