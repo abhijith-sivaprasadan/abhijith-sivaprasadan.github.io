@@ -154,6 +154,7 @@ def patch_projects(s):
     return supplement_projects(s)
 
 def correct_facts(s,name):
+    s=s.replace("Test engineer and master's thesis student","Master's thesis researcher · test engineering and CFD")
     s=s.replace('115 hp','120 hp').replace('115 HP','120 HP')
     s=s.replace('RECORDED ON THE KTH TRANSCRIPT, MAY 2026','REQUIREMENTS COMPLETED · SEPTEMBER 2026')
     s=s.replace('M.Sc. Sustainable Energy Engineering student at KTH','M.Sc. Sustainable Energy Engineering programme completed at KTH')
