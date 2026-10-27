@@ -1,6 +1,6 @@
-# Control volume: motion and interaction layer (design spike)
+# Control volume: site theme, motion and interaction layer
 
-Status: **design spike, not wired into live pages.** The demo lives at `labs/control-volume.html` (marked `noindex`). Adopting it site-wide would supersede the 7 October 2026 "engineering index" baseline in `docs/DESIGN_FREEZE.md`, so that is a deliberate decision, not a side effect of merging this branch.
+Status: **the live design for every page** (27 October 2026). It supersedes the 7 October "engineering index" baseline; see `docs/DESIGN_FREEZE.md`. The feature demo stays at `labs/control-volume.html` (marked `noindex`).
 
 ## The idea
 
@@ -17,9 +17,21 @@ The motion is physics-true: fronts propagate, residuals converge, boundaries mar
 
 | File | Role |
 | --- | --- |
+| `styles/cv-site.css` | Site theme: re-points the shared tokens (`--folio-*`, `--unified-*`, `--paper-*`, …) and restyles shared structures, plus the page modules (lenses, cycle, nested boundaries, gates, scale ladder, evidence-class pills, 404). Loaded last. |
 | `styles/control-volume.css` | All motion, overlays, glyph animations and toy styles. Scoped to `body.cv`. |
 | `scripts/control-volume.js` | Vanilla runtime (no dependencies, no audio files, no network). Auto-starts on `body.cv`. |
 | `labs/control-volume.html` | Standalone demo of every feature. |
+
+## How pages are wired
+
+| Pages | Wiring |
+| --- | --- |
+| Generated: `index.html`, `tracks/*`, `skills/*` | `scripts/build-academic.cjs` writes the fonts, both stylesheets and the runtime into every page. Edit the generator, then run `node scripts/build-academic.cjs`. |
+| 57 legacy endpoints (root pages, `projects/`, `experience/`, `reports.html`) | `scripts/public-config.js` adds the fonts, both stylesheets (re-appended at `DOMContentLoaded` so they load last), the runtime and the `cv` body class, and pins the dark theme. |
+| `404.html` | Loads everything directly with root-absolute paths, because GitHub Pages serves it at any depth. `scripts/unified-shell.js` links from `/` on this page. |
+| `for/siemens-feed.html` | Loads both stylesheets and the runtime directly. `data-cv-focused` keeps the console to actions only, matching the page's deliberately narrow navigation. |
+| `cet2026/index.html` | `cet2026/cet.css` is re-paletted; the page loads the motion stylesheet and runtime only. |
+| `tap/*` | Contact-card pages are re-paletted inline and carry the dashed boundary, with no runtime, so the floating controls never cover the contact buttons. |
 
 ## Opting a page in
 
@@ -47,7 +59,8 @@ Markup hooks:
 | `data-cv-num="2026"` | Number that switches to Malayalam numerals on request. |
 | `data-cv-toy="heat-field \| mesh \| biot \| year \| cycle"` | Interactive toys (see the demo for the expected inner `data-out` slots). |
 | `data-cv-lamp="template-id"` | Opens the Kerala night scene from a `<template>`. |
-| `data-note="220"` | Plucks a string when sound is on. |
+| `data-note="220"` | Plucks a string when sound is on; the button vibrates either way and nudges the sound switch when it is off. |
+| `data-cv-focused` (body) | Console shows actions only, no site navigation. |
 
 ## Motion catalogue
 
@@ -73,4 +86,4 @@ Markup hooks:
 - Preferences (`cv-sound`, `cv-theme`, `cv-rain`, `cv-ml`) live in `localStorage` and fail safe when storage is blocked.
 - The cold theme uses `backdrop-filter`; browsers without it simply keep the hot theme.
 - Toy values are illustrative and labelled as such. Thesis figures shown (T = 673 K, P_gauge = 100 kPa, Bi = 0.003–0.004, discretisation error below 2 %) are the ones already published on the site. The mesh toy states that mesh independence is not validation.
-- The colours follow the earlier Signal palette (`#070807`, `#65d6c9`, `#d7b46a`), not the current engineering-index palette.
+- The colours follow the Signal palette (`#070807`, `#65d6c9`, `#d7b46a`, `#8fb7ff`, `#9bd69f`, `#f98e09`).

@@ -26,7 +26,7 @@
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
   <link rel="stylesheet" href="styles/portfolio.css?v=20261007-engineering-index" />
 </head>
-<body class="signal-rebuild" data-motion-page-transition data-page-key="ideas">
+<body class="signal-rebuild" data-cv-label="IDEAS · CANDIDATES" data-page-key="ideas">
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -51,15 +51,27 @@
       <div class="container page-shell-grid single-column">
         <div>
           <div class="hero-slab">
-            <p class="eyebrow" data-editable="eyebrow">Future project ideas</p>
+            <p class="eyebrow cv-eyebrow" data-editable="eyebrow">Future project ideas · /ideas</p>
             <h1 data-editable="title">A backlog for future experiments, side projects and tooling.</h1>
             <p class="hero-text" data-editable="lead">
               A public shortlist of experiments, side projects and tools that could become working prototypes.
             </p>
           </div>
 
+          <section class="cd cv-gate" aria-labelledby="gate-heading" data-probe="GATE · REUSE AN AUDITED METHOD?">
+            <p class="eyebrow cv-eyebrow emo"><svg class="gl gl-spark" viewBox="0 0 24 24" aria-hidden="true"><g class="sk"><path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3.5 3.5M15.5 15.5L19 19M5 19l3.5-3.5M15.5 8.5L19 5"/></g></svg><span>The filter, drawn as a gate</span></p>
+            <h2 id="gate-heading">An idea crosses the boundary only if it reuses a method I have already checked</h2>
+            <ol class="cv-flow" aria-label="How an idea moves from candidate to project">
+              <li><span class="cv-label b">Candidate</span><strong>Idea on this page</strong><span>A thinking artefact. Not a commitment.</span></li>
+              <li class="gate"><span class="cv-label a">Gate</span><strong>Reuses an audited method?</strong><span>Same physics or toolkit, new evidence base.</span></li>
+              <li><span class="cv-label g">Inside</span><strong>Project list</strong><span>Scoped, built and written up with its residual.</span></li>
+            </ol>
+            <p class="cv-residual">Nothing on this page is claimed as done. Figures inside an idea are design targets, not results.</p>
+          </section>
+
           <article class="page-panel" style="margin-top: 22px;">
             <div class="collection-head">
+              <p class="eyebrow">Outside the boundary, for now</p>
               <h2>Project watchlist</h2>
             </div>
             <div class="collection-grid" data-dynamic-ideas data-api-resource="ideas" data-cms-ideas>

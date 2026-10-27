@@ -76,9 +76,9 @@ The [GB-FLEXABM case study](projects/gb-flexabm.html) now documents 175 addition
 
 The GUI runs locally (`uv run --locked --extra gui gbflex gui` in the model repository); GitHub Pages does not execute Python. Each future project milestone must update its model README, this portfolio README, the case study and relevant discovery summaries, then pass checks and be pushed with CI/Pages publication verified. See `AGENTS.md`.
 
-## Control volume motion layer — design spike (27 October 2026)
+## Control volume theme (27 October 2026)
 
-An opt-in motion and interaction layer, demonstrated at `labs/control-volume.html` (noindex) and documented in `docs/CONTROL_VOLUME.md`. It adds physics-true motion (heat-front page sweep, probe cursor, marching control surfaces, residual scroll rail), a cold/hot theme, a June-to-September Kerala monsoon mode, a ⌘K solver console, opt-in synthesised sound and interactive toys (heat source, mesh refinement, Biot slider, year cycle). It is not wired into live pages: adopting it would supersede the engineering-index baseline. Toy values are illustrative and labelled; the only thesis figures used are those already published.
+The whole site uses the Control volume theme: every piece of work is read as boundary, method, evidence and residual. `styles/cv-site.css` re-points the shared tokens and restyles shared structures on every page; `styles/control-volume.css` and `scripts/control-volume.js` add the motion and interaction layer (heat-front page sweep, probe cursor, marching control surfaces, residual scroll rail, cold/hot theme, June-to-September Kerala monsoon, ⌘K solver console, opt-in synthesised sound, and toys: heat source, mesh refinement, Biot slider, year cycle, career cycle). Generated pages load them from `scripts/build-academic.cjs`; legacy endpoints get them through `scripts/public-config.js`. See `docs/CONTROL_VOLUME.md`. Toy values are illustrative and labelled; the only thesis figures used are those already published.
 
 ## Shared portfolio design tokens
 

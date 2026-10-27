@@ -1,59 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Page not found — Abhijith Sivaprasadan portfolio." />
-  <title>404 — Page Not Found | Abhijith Sivaprasadan</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <meta name="robots" content="noindex" />
+  <title>404 — Outside the control volume | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260830-open-source" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260830-open-source" />
-  <link rel="stylesheet" href="styles/unified.css?v=20261007-engineering-index" />
-  <script src="scripts/unified-shell.js?v=20261007-engineering-index" defer></script>
-  <script src="scripts/sections/command-palette.js?v=20260830-open-source" defer></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" />
+  <!-- Absolute paths: GitHub Pages serves this page at whatever depth was requested. -->
+  <link rel="stylesheet" href="/styles.css?v=20260830-open-source" />
+  <link rel="stylesheet" href="/styles/v4.css?v=20260830-open-source" />
+  <link rel="stylesheet" href="/styles/unified.css?v=20261007-engineering-index" />
+  <link rel="stylesheet" href="/styles/portfolio.css?v=20261007-engineering-index" />
+  <link rel="stylesheet" href="/styles/control-volume.css?v=20261027-control-volume" />
+  <link rel="stylesheet" href="/styles/cv-site.css?v=20261027-control-volume" />
+  <script src="/scripts/unified-shell.js?v=20261007-engineering-index" defer></script>
+  <script src="/scripts/control-volume.js?v=20261027-control-volume" defer></script>
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
-  <link rel="stylesheet" href="styles/portfolio.css?v=20261007-engineering-index" />
 </head>
-<body data-page-key="not-found" class="signal-rebuild">
+<body data-page-key="not-found" class="signal-rebuild cv" data-cv-label="404 · OUTSIDE ∂Ω">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <nav class="nav container">
-      <a href="index.html" class="logo">Abhijith Sivaprasadan</a>
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="/index.html" class="logo">Abhijith Sivaprasadan</a>
       <div class="nav-links">
-        <a href="index.html#projects">Featured</a>
-        <a href="projects.html">Projects</a>
-        <a href="experience.html">Experience</a>
-        <a href="index.html#cv">CVs</a>
-        <a href="about.html">About</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="/index.html">System</a>
+        <a href="/projects.html">Cases</a>
+        <a href="/research.html">Research</a>
+        <a href="/experience.html">Record</a>
+        <a href="/index.html#contact">Contact</a>
       </div>
-      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
     </nav>
   </header>
 
   <main id="main" tabindex="-1">
-    <section class="section" style="min-height: calc(100svh - 72px); display: grid; align-items: center;">
-      <div class="container" style="text-align: center; max-width: 560px;">
-        <p class="eyebrow">404</p>
-        <h1 style="font-size: clamp(2rem, 5vw, 3.5rem); margin: 12px 0 20px;">Page not found.</h1>
-        <p style="font-size: 1.08rem; margin-bottom: 32px;">
-          The page you're looking for doesn't exist or may have moved.
-          Head back to the homepage to find what you need.
-        </p>
-        <div class="button-row" style="justify-content: center;">
-          <a class="button primary" href="index.html">Back to homepage</a>
-          <a class="button secondary" href="projects.html">View projects</a>
+    <section class="cv-404" aria-labelledby="nf-heading">
+      <div class="cv-404-box">
+        <svg class="cv-404-svg" viewBox="0 0 520 300" role="img" aria-label="A dashed control volume with a probe point sitting outside it">
+          <rect x="70" y="50" width="300" height="200" rx="16" fill="rgba(101,214,201,.05)" stroke="#65d6c9" stroke-width="1.6" stroke-dasharray="7 7" class="cv-march"/>
+          <g font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="1.2">
+            <text x="86" y="40" fill="#65d6c9">∂Ω · THE SITE</text>
+            <text x="220" y="156" text-anchor="middle" fill="#a9b3a8">EVERY PAGE THAT EXISTS</text>
+            <text x="470" y="206" text-anchor="middle" fill="#fcffa4">YOU</text>
+          </g>
+          <path d="M370 150 C410 150 430 170 458 184" stroke="#d7b46a" stroke-width="1.4" stroke-dasharray="3 5" fill="none"/>
+          <circle cx="470" cy="186" r="16" fill="rgba(249,142,9,.22)" class="cv-404-pulse"/>
+          <circle cx="470" cy="186" r="6" fill="#fcffa4"/>
+        </svg>
+        <div class="cv-404-copy">
+          <p class="eyebrow cv-eyebrow">Error 404 · residual not converged</p>
+          <h1 id="nf-heading">Page not found. You are outside the control volume.</h1>
+          <p>The page you are looking for does not exist or has moved. Nothing is claimed out here, which is at least consistent.</p>
+          <div class="cv-404-actions">
+            <a class="cv-btn primary" href="/index.html">Back inside the boundary</a>
+            <a class="cv-btn" href="/projects.html">Case studies</a>
+            <a class="cv-btn" href="/research.html">Research</a>
+          </div>
+          <p class="cv-404-hint cv-mono">Or press <kbd>Ctrl</kbd> + <kbd>K</kbd> for the solver console.</p>
         </div>
+      </div>
+      <div class="cv-404-coffee" aria-hidden="true">
+        <svg class="cf" viewBox="0 0 120 150" fill="none" stroke="#c9cfc6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="stm" d="M50 8c-4 4 4 6 0 10"/><path class="stm" d="M70 8c-4 4 4 6 0 10"/><path d="M26 22h68M50 16h20v6"/><path d="M32 22h56v34H32z"/><path d="M40 56h40" stroke-dasharray="2 5"/><circle class="dr" cx="52" cy="60" r="2" fill="#a8683a" stroke="none"/><circle class="dr" cx="60" cy="60" r="2" fill="#a8683a" stroke="none"/><circle class="dr" cx="68" cy="60" r="2" fill="#a8683a" stroke="none"/><rect class="lv" x="31" y="92" width="58" height="46" fill="#6b3a1f" stroke="none"/><path d="M28 64h64v72a6 6 0 0 1-6 6H34a6 6 0 0 1-6-6z"/></svg>
+        <span class="cv-mono">Decoction still dripping. Take a coffee and try the homepage.</span>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2026 Abhijith Sivaprasadan. Built with GitHub Pages.</p>
+      <p>&copy; 2026 Abhijith Sivaprasadan. Methods, evidence, and their limits.</p>
     </div>
   </footer>
 </body>

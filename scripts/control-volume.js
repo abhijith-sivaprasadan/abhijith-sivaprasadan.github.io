@@ -8,6 +8,8 @@
   'use strict';
 
   var doc = document;
+  var here = doc.currentScript && doc.currentScript.src ? doc.currentScript.src : location.href;
+  var siteRoot = new URL('../', here);
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var MALAYALAM = '൦൧൨൩൪൫൬൭൮൯';
 
@@ -96,6 +98,19 @@
   }
 
   /* ---------------- probe cursor + heat blob ---------------- */
+  var labelCache = typeof WeakMap === 'function' ? new WeakMap() : null;
+  function contextLabel(node) {
+    if (!node || !node.closest) return '';
+    var box = node.closest('article, .card, .page-panel, .case-panel, .cd, section');
+    if (!box) return '';
+    if (labelCache && labelCache.has(box)) return labelCache.get(box);
+    var h = box.querySelector('h3, h2, h1, strong');
+    var text = h ? h.textContent.replace(/\s+/g, ' ').trim() : '';
+    if (text.length > 46) text = text.slice(0, 44) + '…';
+    var out = text ? 'PROBE · ' + text.toUpperCase() : '';
+    if (labelCache) labelCache.set(box, out);
+    return out;
+  }
   function bindProbe() {
     var x = -999, y = -999, label = '', raf = 0;
     function paint() {
@@ -108,7 +123,7 @@
     doc.addEventListener('mousemove', function (e) {
       x = e.clientX; y = e.clientY;
       var target = e.target && e.target.closest ? e.target.closest('[data-probe]') : null;
-      label = target ? target.getAttribute('data-probe') : '';
+      label = target ? target.getAttribute('data-probe') : contextLabel(e.target);
       if (!raf) raf = requestAnimationFrame(paint);
     }, { passive: true });
     doc.addEventListener('mouseleave', function () { x = y = -999; paint(); });
@@ -157,19 +172,22 @@
     ['run thesis', 'projects/siemens-thesis.html', 'the Siemens thesis case'],
     ['open home', 'index.html', 'heat · power · code'],
     ['open cases', 'projects.html', 'project library'],
-    ['open lens research', 'research.html', 'research statement'],
+    ['open lens research', 'research.html', 'research statement · Biot slider'],
     ['open lens energy', 'energy-systems.html', 'energy systems lens'],
     ['open lens industrial', 'industrial-rd.html', 'industrial R&D lens'],
-    ['open record', 'experience.html', 'roles'],
+    ['open record', 'experience.html', 'roles and residuals'],
+    ['open skills', 'skills/index.html', 'evidence dossiers'],
+    ['open tracks', 'tracks/index.html', 'application tracks'],
+    ['open reports', 'reports.html', 'PDF report library'],
     ['open about', 'about.html', 'about'],
     ['open courses', 'courses.html', 'academic record'],
     ['open ideas', 'ideas.html', 'next boundaries'],
-    ['open interests', 'interests.html', 'questions I keep returning to'],
+    ['open interests', 'interests.html', 'nested boundaries'],
     ['open hobbies', 'hobbies.html', 'outside the boundary'],
-    ['open demo', 'labs/control-volume.html', 'the control volume layer']
+    ['open contact', 'index.html#contact', 'open boundary'],
+    ['open demo', 'labs/control-volume.html', 'every toy on one page']
   ];
   var extra = [];
-  var base = (doc.body && doc.body.getAttribute('data-cv-root')) || '';
   function commands() {
     var acts = extra.concat([
       ['theme cold', 'frost the page', function () { return setTheme(true); }],
@@ -181,7 +199,9 @@
       ['malayalam', 'Malayalam numerals · ൧൨൩', function () { return setMalayalam(!malayalam); }],
       ['residual', 'what is never quite done', function () { return 'always > 0'; }]
     ]).map(function (a) { return { cmd: a[0], desc: a[1], run: a[2] }; });
-    return acts.concat(NAV.map(function (n) { return { cmd: n[0], desc: n[2], href: base + n[1] }; }));
+    // Focused share pages (data-cv-focused) keep their deliberately narrow navigation.
+    if (doc.body.hasAttribute('data-cv-focused')) return acts;
+    return acts.concat(NAV.map(function (n) { return { cmd: n[0], desc: n[2], href: new URL(n[1], siteRoot).href }; }));
   }
   function openConsole() {
     if (ui.cmdk) { closeConsole(); return; }
@@ -349,8 +369,9 @@
       out(root, 'monsoon').setAttribute('points', arc(jun1, sep30));
       out(root, 'done').setAttribute('points', arc(1, doy));
       root.querySelectorAll('[data-out="dot"]').forEach(function (c) { c.setAttribute('cx', here[0].toFixed(1)); c.setAttribute('cy', here[1].toFixed(1)); });
-      out(root, 'monlabel').setAttribute('x', (mid[0] - 110).toFixed(0));
-      out(root, 'monlabel').setAttribute('y', (mid[1] - 18).toFixed(0));
+      out(root, 'monlabel').setAttribute('x', (mid[0] - 12).toFixed(0));
+      out(root, 'monlabel').setAttribute('y', (mid[1] + 30).toFixed(0));
+      out(root, 'monlabel').setAttribute('text-anchor', 'end');
       var mon;
       if (doy < jun1) mon = 'KERALA MONSOON IN ' + num(jun1 - doy) + ' DAYS';
       else if (doy <= sep30) mon = 'KERALA MONSOON · IN PROGRESS · DAY ' + num(doy - jun1 + 1);
@@ -402,14 +423,40 @@
     button.addEventListener('click', function () {
       var f = parseFloat(button.getAttribute('data-note'));
       tone(f, 0.9, 'triangle', 0.05); tone(f * 1.5, 0.7, 'sine', 0.025);
+      // The string vibrates visibly either way; with sound off, point at the switch.
+      button.classList.remove('plucked'); void button.offsetWidth; button.classList.add('plucked');
+      setTimeout(function () { button.classList.remove('plucked'); }, 700);
+      if (!soundOn && ui.sound) { ui.sound.classList.remove('nudge'); void ui.sound.offsetWidth; ui.sound.classList.add('nudge'); }
     });
+  }
+
+  /* ---------------- scroll rail fallback (browsers without scroll-driven animations) ---------------- */
+  function railFallback() {
+    var supported = window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()');
+    if (supported) return;
+    var path = ui.rail && ui.rail.querySelector('.rp');
+    if (!path) return;
+    var raf = 0;
+    function paint() {
+      raf = 0;
+      var max = doc.documentElement.scrollHeight - window.innerHeight;
+      var f = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 1;
+      path.style.strokeDashoffset = String(1000 * (1 - f));
+    }
+    window.addEventListener('scroll', function () { if (!raf) raf = requestAnimationFrame(paint); }, { passive: true });
+    window.addEventListener('resize', function () { if (!raf) raf = requestAnimationFrame(paint); });
+    paint();
   }
 
   /* ---------------- start ---------------- */
   function start() {
     var body = doc.body;
-    if (!body || !body.classList.contains('cv')) return;
+    if (!body) return;
+    body.classList.add('cv');
+    doc.documentElement.dataset.theme = 'dark';
+    try { window.localStorage.setItem('portfolioTheme', 'dark'); } catch (e) { /* storage is optional */ }
     buildShell(body);
+    railFallback();
     bindProbe();
     setSound(soundOn);
     ui.frost.classList.toggle('on', cold);
@@ -420,10 +467,10 @@
     ui.sound.addEventListener('click', function () { setSound(!soundOn); });
     ui.theme.addEventListener('click', function () { setTheme(!cold); });
     ui.cmdBtn.addEventListener('click', openConsole);
-    doc.addEventListener('keydown', function (e) {
-      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); openConsole(); }
-      else if (e.key === 'Escape' && ui.cmdk) closeConsole();
-    });
+    window.addEventListener('keydown', function (e) {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); e.stopImmediatePropagation(); openConsole(); }
+      else if (e.key === 'Escape' && ui.cmdk) { e.stopImmediatePropagation(); closeConsole(); }
+    }, true);
     var map = { biot: biot, 'heat-field': heatField, mesh: mesh, year: year, cycle: cycle };
     doc.querySelectorAll('[data-cv-toy]').forEach(function (n) {
       var fn = map[n.getAttribute('data-cv-toy')];
@@ -431,6 +478,7 @@
     });
     doc.querySelectorAll('[data-cv-lamp]').forEach(lamp);
     doc.querySelectorAll('[data-note]').forEach(pluck);
+    doc.querySelectorAll('[data-cv-ml]').forEach(function (b) { b.setAttribute('aria-pressed', String(malayalam)); b.addEventListener('click', function () { setMalayalam(!malayalam); doc.querySelectorAll('[data-cv-ml]').forEach(function (x) { x.setAttribute('aria-pressed', String(malayalam)); }); }); });
     doc.querySelectorAll('[data-cv-num]').forEach(function (n) { n.textContent = num(n.getAttribute('data-cv-num')); });
     if (body.hasAttribute('data-cv-boot')) {
       extra.push(['boot', 'rerun the solver', function () { closeConsole(); boot(true); return 'solver restarted'; }]);

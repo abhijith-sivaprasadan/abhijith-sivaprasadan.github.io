@@ -74,7 +74,7 @@
 @keyframes cv-caret{50%{opacity:0}}
 
 /* ---------- navigation: the underline is a flow line ---------- */
-.cv header{position:relative;overflow:hidden}
+.cv>header:not(.site-header):not(.academic-header){position:relative;overflow:hidden}
 .cv header nav a{position:relative;transition:color .25s}
 .cv header nav a::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:1.5px;
   background:repeating-linear-gradient(90deg,currentColor 0 5px,transparent 5px 9px);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1)}
@@ -129,18 +129,22 @@
 .cv a.m{transition:letter-spacing .35s cubic-bezier(.22,1,.36,1),text-shadow .35s}
 .cv a.m:hover{letter-spacing:.2em!important;text-shadow:0 0 14px currentColor}
 
+/* floating controls stay fixed even though buttons get position:relative above */
+.cv .snd,.cv .thm,.cv .cmdbtn{position:fixed}
+.cv .snd:hover,.cv .thm:hover,.cv .cmdbtn:hover{transform:translateY(-2px)}
+
 /* ---------- curves draw themselves; tolerance lines march ---------- */
-.cv svg polyline{stroke-dasharray:1400;stroke-dashoffset:1400;animation:cv-draw 2.6s cubic-bezier(.22,1,.36,1) .9s forwards}
-.cv svg path[vector-effect]{stroke-dasharray:2400;stroke-dashoffset:2400;animation:cv-draw 2.6s cubic-bezier(.22,1,.36,1) .9s forwards}
-.cv svg line[stroke-dasharray]{animation:cv-march 1.6s linear infinite}
+.cv svg.cv-draw polyline,.cv .boot svg polyline{stroke-dasharray:1400;stroke-dashoffset:1400;animation:cv-draw 2.6s cubic-bezier(.22,1,.36,1) .9s forwards}
+.cv svg.cv-draw path[vector-effect]{stroke-dasharray:2400;stroke-dashoffset:2400;animation:cv-draw 2.6s cubic-bezier(.22,1,.36,1) .9s forwards}
+.cv svg.cv-draw line[stroke-dasharray],.cv .boot svg line[stroke-dasharray]{animation:cv-march 1.6s linear infinite}
 @keyframes cv-draw{to{stroke-dashoffset:0}}
 @keyframes cv-march{to{stroke-dashoffset:-20}}
 
 /* ---------- data elements ---------- */
-.cv .bar{transform-origin:left center;animation:cv-grow 1.3s cubic-bezier(.22,1,.36,1) .9s both}
+.cv .cv-lane .bar{transform-origin:left center;animation:cv-grow 1.3s cubic-bezier(.22,1,.36,1) .9s both}
 @keyframes cv-grow{from{transform:scaleX(0);opacity:0}to{transform:none;opacity:1}}
 .grow{transform-origin:left center;animation:cv-grow 1.4s cubic-bezier(.22,1,.36,1) 1s both}
-.cv .ca,.cv .cb{animation:cv-pop .7s cubic-bezier(.34,1.56,.64,1) 1.1s both}
+.cv .course-grade{animation:cv-pop .7s cubic-bezier(.34,1.56,.64,1) 1.1s both}
 @keyframes cv-pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
 .cv input[type=range]{accent-color:#65d6c9;width:100%;height:32px;margin:0}
 

@@ -26,7 +26,7 @@
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
   <link rel="stylesheet" href="styles/portfolio.css?v=20261007-engineering-index" />
 </head>
-<body class="signal-rebuild" data-motion-page-transition data-page-key="research">
+<body class="signal-rebuild" data-cv-label="RESEARCH · LENS" data-page-key="research">
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -164,6 +164,32 @@
               </p>
             </div>
           </section>
+          <section class="section-lite cv-section" id="resistance-bridge">
+            <div class="section-heading compact-heading"><p class="eyebrow cv-eyebrow emo"><svg class="gl gl-flame" viewBox="0 0 24 24" aria-hidden="true"><path class="fp" d="M12 22c-4 0-7-2.8-7-6.6 0-3.4 2.4-5.2 3.6-8.4.4 1.8 1.4 3 2.6 3.4C11 6.8 12.6 4 15.4 2c-.4 3 .8 4.8 2 6.6 1.2 1.8 1.6 3.4 1.6 5.2C19 18.6 16 22 12 22z"/></svg><span>The bridge, drawn</span></p><h2>Which resistance dominates?</h2></div>
+            <div class="cd cv-bars" data-probe="R_TOTAL = R_CONV + R_WALL + R_DEPOSIT + R_EXT">
+              <div class="cv-barset"><p class="cv-label b">Pulsatorn reducer · thesis</p><div class="cv-stack"><span class="grow" style="flex:38;background:#8fb7ff"></span><span class="grow" style="flex:3;background:#f2f0e7;animation-delay:1.2s"></span><span class="grow" style="flex:59;background:#4a6a9a;animation-delay:1.4s"></span></div><p class="cv-stack-key"><span>Fluid-side convection</span><span>Wall · thin (Bi = 0.003–0.004)</span><span>External convection</span></p></div>
+              <div class="cv-barset"><p class="cv-label b">Methane-cooled channel · research question</p><div class="cv-stack"><span style="flex:36;background:#8fb7ff"></span><span style="flex:8;background:#f2f0e7"></span><span class="cv-unknown" style="flex:30" data-probe="DEPOSIT · UNMEASURED"></span><span style="flex:26;background:#4a6a9a"></span></div><p class="cv-stack-key"><span>Fluid-side convection</span><span>Wall</span><span class="cv-a">Deposit · unmeasured</span><span>Coolant side</span></p></div>
+              <p class="cv-mono cv-muted cv-small">Schematic, not to scale. Segment widths show which resistance is thin or unknown, not measured values.</p>
+            </div>
+          </section>
+          <section class="section-lite cv-section" id="biot-toy">
+            <div class="section-heading compact-heading"><p class="eyebrow cv-eyebrow emo"><svg class="gl gl-therm" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a2 2 0 0 1 4 0v10.3a4 4 0 1 1-4 0z"/><path class="hg" d="M12 9v8" stroke-width="2.4"/><circle cx="12" cy="17.5" r="1.6" fill="currentColor"/></svg><span>Try it</span></p><h2>Move the Biot number yourself.</h2></div>
+            <div class="cd cs b cv-biot" data-cv-toy="biot">
+              <p class="cv-muted">Bi = h·L/k compares the resistance inside a solid with the resistance at its surface. Slide the inputs and watch which side of the wall the problem lives on.</p>
+              <div class="cv-grid" style="--cv-min:220px">
+                <label class="cv-slider"><span>h · surface coefficient · <b data-out="h">50</b> W/m²K</span><input type="range" data-k="h" min="5" max="3000" step="5" value="50" /></label>
+                <label class="cv-slider"><span>L · characteristic length · <b data-out="L">3</b> mm</span><input type="range" data-k="L" min="0.5" max="60" step="0.5" value="3" /></label>
+                <label class="cv-slider"><span>k · wall conductivity · <b data-out="k">43</b> W/mK</span><input type="range" data-k="k" min="0.2" max="400" step="0.2" value="43" /></label>
+              </div>
+              <div class="cv-toy-out"><span data-out="bi" class="cv-big" aria-live="polite"></span><span data-out="verdict" class="cv-mono"></span></div>
+              <div class="cv-stack"><span data-out="conv" style="flex:1;background:#8fb7ff;transition:flex .5s cubic-bezier(.22,1,.36,1)"></span><span data-out="wall" style="flex:.01;transition:flex .5s cubic-bezier(.22,1,.36,1),background .4s"></span></div>
+              <p class="cv-stack-key"><span>Surface resistance · 1/h</span><span>Wall resistance · L/k</span></p>
+              <div class="cv-needle-scale"><span data-out="needle"></span></div>
+              <p class="cv-stack-key"><span>10⁻⁴</span><span>10⁻³</span><span>10⁻²</span><span>0.1</span><span>1</span><span>10</span></p>
+              <p class="cv-mono cv-muted cv-small">Illustrative inputs. The thesis value for the Pulsatorn reducer was Bi = 0.003–0.004.</p>
+            </div>
+          </section>
+
 
           <section class="section-lite">
             <div class="section-heading compact-heading">

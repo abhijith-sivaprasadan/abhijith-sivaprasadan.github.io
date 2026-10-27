@@ -26,7 +26,7 @@
   <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
   <link rel="stylesheet" href="styles/portfolio.css?v=20261007-engineering-index" />
 </head>
-<body class="signal-rebuild" data-motion-page-transition data-page-key="energy-systems">
+<body class="signal-rebuild" data-cv-label="ENERGY · SYSTEMS" data-page-key="energy-systems">
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -51,7 +51,7 @@
       <div class="container page-shell-grid">
         <div>
           <div class="hero-slab">
-            <p class="eyebrow">Energy systems modelling</p>
+            <p class="eyebrow cv-eyebrow">Energy systems modelling · /energy-systems</p>
             <h1>Models that turn heat, power and demand data into engineering decisions.</h1>
             <p class="hero-text">
               This track now leads with two open research programmes: Kerala2040, a diagnosis-first study of power-system resilience using audited electricity history, ERA5-sensitive chronology, hydropower and network screening; and TES Discharge Screen, which connects dynamic thermal-storage physics to annual optimisation. Earlier building, district-energy, forecasting, hydrogen and grid studies remain as supporting evidence. I build scenarios around explicit system constraints and use balance, feasibility and sensitivity checks to establish what the results actually say about technology and dispatch choices. </p>
@@ -67,6 +67,21 @@
               <span><strong>Evidence discipline</strong>Observed, derived, screening and hypothesis kept separate</span>
             </div>
           </div>
+
+          <section class="cd cv-scale" aria-labelledby="scale-heading">
+            <p class="eyebrow cv-eyebrow emo"><svg class="gl gl-nest" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2" stroke-dasharray="3 2"/><rect class="n2" x="6" y="6" width="12" height="12" rx="1.5"/><rect class="n3" x="10" y="10" width="4" height="4"/></svg><span>Same balance, four boundary sizes</span></p>
+            <h2 id="scale-heading">The control volume grows; the bookkeeping does not change</h2>
+            <ol class="cv-scale-row" aria-label="Modelling scales from component to whole power system">
+              <li data-probe="∂Ω · COMPONENT · CFD/CHT"><span class="cv-scale-box s1" aria-hidden="true"></span><span class="cv-label a">Component</span><span>Thermal storage bed, reducer, heat exchanger</span></li>
+              <li data-probe="∂Ω · PLANT · STEAM + HEAT"><span class="cv-scale-box s2" aria-hidden="true"></span><span class="cv-label">Plant</span><span>Steam and power systems, heat-source dispatch</span></li>
+              <li data-probe="∂Ω · NETWORK · IEEE-14 · FINGRID"><span class="cv-scale-box s3" aria-hidden="true"></span><span class="cv-label g">Network</span><span>Distribution grids, connection screening, dynamic surrogates</span></li>
+              <li data-probe="∂Ω · WHOLE SYSTEM · KERALA2040"><span class="cv-scale-box s4" aria-hidden="true"></span><span class="cv-label b">Whole system</span><span>Power-system resilience, demand, hydropower, transfers</span></li>
+            </ol>
+            <div class="cv-evclass" aria-label="Evidence classes kept separate on this track">
+              <span class="cv-label">Evidence classes, never mixed ·</span>
+              <span class="cv-pill g">Observed</span><span class="cv-pill">Derived</span><span class="cv-pill a">Screening</span><span class="cv-pill b">Hypothesis</span>
+            </div>
+          </section>
 
           <section class="section-lite">
             <div class="section-heading compact-heading">

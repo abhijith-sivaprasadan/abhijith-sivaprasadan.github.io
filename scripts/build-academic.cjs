@@ -28,6 +28,21 @@ const github = 'https://github.com/abhijith-sivaprasadan';
 const linkedin = 'https://www.linkedin.com/in/abhijith-sivaprasadan/';
 const origin = 'https://abhijith-sivaprasadan.github.io';
 const version = '20261007-engineering-index';
+const cvVersion = '20261027-control-volume';
+// Control volume reactive glyphs (inline, currentColor, animated by styles/control-volume.css).
+const glyph = {
+  flame: '<svg class="gl gl-flame" viewBox="0 0 24 24" aria-hidden="true"><path class="fp" d="M12 22c-4 0-7-2.8-7-6.6 0-3.4 2.4-5.2 3.6-8.4.4 1.8 1.4 3 2.6 3.4C11 6.8 12.6 4 15.4 2c-.4 3 .8 4.8 2 6.6 1.2 1.8 1.6 3.4 1.6 5.2C19 18.6 16 22 12 22z"/><path class="fi" d="M12 21c-1.8 0-3-1.2-3-2.8 0-1.6 1.2-2.6 1.8-4 .6 1 1.4 1.4 2 1.4.2-1.2.8-2 1.6-2.6 0 1.6 1.6 2.6 1.6 4.4 0 2.2-1.8 3.6-4 3.6z"/></svg>',
+  therm: '<svg class="gl gl-therm" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a2 2 0 0 1 4 0v10.3a4 4 0 1 1-4 0z"/><path class="hg" d="M12 9v8" stroke-width="2.4"/><circle cx="12" cy="17.5" r="1.6" fill="currentColor"/></svg>',
+  mesh: '<svg class="gl gl-mesh" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19"/><path d="M12 2.5v19M2.5 12h19"/><path class="mr" d="M7.25 2.5v19M16.75 2.5v19M2.5 7.25h19M2.5 16.75h19" stroke-width="0.8"/></svg>',
+  nest: '<svg class="gl gl-nest" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2" stroke-dasharray="3 2"/><rect class="n2" x="6" y="6" width="12" height="12" rx="1.5"/><rect class="n3" x="10" y="10" width="4" height="4"/></svg>',
+  cycle: '<svg class="gl gl-cycle" viewBox="0 0 24 24" aria-hidden="true"><g class="cy"><path d="M19.5 12a7.5 7.5 0 0 1-12.8 5.3"/><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3"/><path d="M17.3 3.5v3.2h-3.2M6.7 20.5v-3.2h3.2"/></g></svg>',
+  check: '<svg class="gl gl-check" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="3"/><path class="ck" d="M7 12.5l3.2 3.2L17 8.5"/></svg>',
+  gear: '<svg class="gl gl-gear" viewBox="0 0 24 24" aria-hidden="true"><g class="gg"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="6.5"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></g></svg>',
+  wave: '<svg class="gl gl-wave" viewBox="0 0 24 24" aria-hidden="true"><path class="wv" d="M1 12c2.5-5 5-5 7.5 0s5 5 7.5 0 5-5 7 0"/><path d="M1 20h22" opacity=".4"/></svg>',
+  spark: '<svg class="gl gl-spark" viewBox="0 0 24 24" aria-hidden="true"><g class="sk"><path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3.5 3.5M15.5 15.5L19 19M5 19l3.5-3.5M15.5 8.5L19 5"/></g></svg>',
+  cup: '<svg class="gl gl-cup" viewBox="0 0 24 24" aria-hidden="true"><path class="st" d="M8 2.5c-.8 1 .8 2 0 3"/><path class="st" d="M11.5 2.5c-.8 1 .8 2 0 3"/><path class="st" d="M15 2.5c-.8 1 .8 2 0 3"/><path d="M4 8h14v5a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6z"/><path d="M18 9.5h1.5a2.5 2.5 0 0 1 0 5H17.6"/><path d="M3 21.5h16"/></svg>',
+};
+const eyebrow = (g, text, cls = '') => `<p class="overline cv-eyebrow emo${cls ? ` ${cls}` : ''}">${glyph[g]}<span>${text}</span></p>`;
 const arrow = '<span aria-hidden="true">↗</span>';
 const cvs = {
   modelling: ['downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf', 'Modelling CV (PDF)'],
@@ -107,7 +122,7 @@ return `<a href="skills/${trackSkillLinks[track.id][i]}.html" aria-label="Explor
 }
 function radar() {
   const labels = [['Overview', 'All disciplines'], ['Thermal', 'CFD & heat transfer'], ['Energy', 'Systems & optimisation'], ['Software', 'Backend & scientific tools'], ['Research', 'Thesis & PhD interests']];
-  return `<aside id="practice" class="portfolio-radar skill-matrix" data-skill-matrix aria-label="Interactive skill and project radar"><header><p class="overline">01 / Skills &amp; experience</p><h2>Choose your<br />perspective.</h2><p class="radar-guide">Five routes through my work. Select a track, then a skill to explore the evidence behind it.</p></header><div class="matrix-tabs" role="tablist" aria-label="Portfolio application tracks">${tracks.map((track, index) => `<button type="button" role="tab" id="matrix-tab-${track.id}" aria-label="${escape(track.label)}" aria-controls="matrix-panel-${track.id}" aria-selected="${index === 0}" tabindex="${index ? '-1' : '0'}" data-matrix-tab><strong>${labels[index][0]}</strong><small>${escape(labels[index][1])}</small></button>`).join('')}</div><div class="matrix-panels">${tracks.map(matrixPanel).join('')}</div></aside>`;
+  return `<aside id="practice" class="portfolio-radar skill-matrix" data-skill-matrix aria-label="Interactive skill and project radar"><header>${eyebrow('check', 'S2 · Capabilities')}<h2>Choose your<br />perspective.</h2><p class="radar-guide">Five routes through my work. Select a track, then a skill to explore the evidence behind it.</p></header><div class="matrix-tabs" role="tablist" aria-label="Portfolio application tracks">${tracks.map((track, index) => `<button type="button" role="tab" id="matrix-tab-${track.id}" aria-label="${escape(track.label)}" aria-controls="matrix-panel-${track.id}" aria-selected="${index === 0}" tabindex="${index ? '-1' : '0'}" data-matrix-tab><strong>${labels[index][0]}</strong><small>${escape(labels[index][1])}</small></button>`).join('')}</div><div class="matrix-panels">${tracks.map(matrixPanel).join('')}</div></aside>`;
 }
 function page(file, title, description, content, isHome = false) {
   const prefix = isHome ? '' : '../';
@@ -132,17 +147,23 @@ function page(file, title, description, content, isHome = false) {
   <link rel="icon" href="${prefix}assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="${prefix}styles/academic.css?v=${version}" />
   <link rel="stylesheet" href="${prefix}styles/portfolio.css?v=${version}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" />
+  <link rel="stylesheet" href="${prefix}styles/control-volume.css?v=${cvVersion}" />
+  <link rel="stylesheet" href="${prefix}styles/cv-site.css?v=${cvVersion}" />
   <script src="${prefix}scripts/academic.js?v=${version}" defer></script>
+  <script src="${prefix}scripts/control-volume.js?v=${cvVersion}" defer></script>
 </head>
-<body class="academic-site" data-page-key="${isHome ? 'home' : file.startsWith('tracks/') ? 'application-track' : 'skill-evidence'}">
+<body class="academic-site cv" data-page-key="${isHome ? 'home' : file.startsWith('tracks/') ? 'application-track' : 'skill-evidence'}" data-cv-label="${isHome ? 'S1 · SYSTEM' : file.startsWith('tracks/') ? 'LENS · ' + escape(title.replace(/ Portfolio$/, '').toUpperCase()) : 'EVIDENCE · ' + escape(title.toUpperCase())}"${isHome ? ' data-cv-boot' : ''}>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="academic-header">
     <div class="wrap header-inner">
-      <a class="wordmark" href="${prefix}index.html">Abhijith Sivaprasadan<span>Thermal engineering &amp; energy systems</span></a>
+      <a class="wordmark" href="${prefix}index.html">Abhijith Sivaprasadan<span>Heat · Power · Code</span></a>
       <nav class="main-nav" aria-label="Main navigation">
-        <a href="${prefix}projects.html">Work</a>
-        <a href="${prefix}index.html#research">Research</a>
-        <a href="${prefix}experience.html">Experience</a>
+        <a href="${prefix}index.html"${isHome ? ' aria-current="page"' : ''}>System</a>
+        <a href="${prefix}projects.html">Cases</a>
+        <a href="${prefix}research.html">Research</a>
+        <a href="${prefix}experience.html">Record</a>
         <a href="${prefix}skills/index.html"${file.startsWith('skills/') ? ' aria-current="page"' : ''}>Skills</a>
         <a href="${prefix}tracks/index.html"${file.startsWith('tracks/') ? ' aria-current="page"' : ''}>Tracks</a>
         <a href="${prefix}index.html#contact">Contact</a>
@@ -153,7 +174,7 @@ function page(file, title, description, content, isHome = false) {
   <main id="main" class="wrap" tabindex="-1">
 ${content.trimEnd()}
   </main>
-  <footer class="academic-footer"><div class="wrap footer-inner"><p>© 2026 Abhijith Sivaprasadan</p><div>${link(github, 'GitHub')}${link(linkedin, 'LinkedIn')}${link('mailto:abhijithsivaprasadan@gmail.com', 'Email')}<a href="${prefix}tracks/index.html">All tracks</a><a href="${prefix}skills/index.html">Skill index</a></div><p>Methods, evidence, and their limits.</p></div></footer>
+  <footer class="academic-footer"><div class="wrap footer-inner"><p>© 2026 Abhijith Sivaprasadan</p><div><span class="cv-mono cv-muted">Outside the boundary</span><a href="${prefix}courses.html">Courses</a><a href="${prefix}ideas.html">Ideas</a><a href="${prefix}interests.html">Interests</a><a href="${prefix}hobbies.html">Hobbies</a><a href="${prefix}reports.html">Reports</a><a href="${prefix}tracks/index.html">All tracks</a><a href="${prefix}skills/index.html">Skill index</a>${link(github, 'GitHub')}${link(linkedin, 'LinkedIn')}${link('mailto:abhijithsivaprasadan@gmail.com', 'Email')}</div><p>Methods, evidence, and their limits.</p></div></footer>
 </body>
 </html>
 `;
@@ -264,15 +285,18 @@ function skillPage(skill) {
 function home() {
   const featuredProjects = featured.map(id => projects.find(p => p.id === id));
   const roles = ['test-engineer-master-thesis-student', 'energy-efficiency-intern', 'student-intern-pyrolysis', 'engineer-backend-developer-typescript-nestjs'].map(id => experiences.find(e => e.id === id));
+  const ticker = ['T = 673 K', 'P_GAUGE = 100 kPa', 'Bi = 0.003–0.004', 'MESH · 3 LEVELS', 'TRITA-ITM-EX 2026:14', 'GO · PYTHON · FORTRAN', 'KOLLAM → STOCKHOLM', 'RESIDUAL → TOLERANCE'];
+  const tickerRun = hidden => ticker.map(item => `<span${hidden ? ' aria-hidden="true"' : ''}>${escape(item)}</span>`).join('');
   return page('index.html', 'Thermal Engineering & Energy Systems Research', 'Academic portfolio of Abhijith Sivaprasadan: thermal-fluid engineering, energy-system resilience, thermal storage, research software, published thesis and emerging nuclear-energy interests.', `
-    <!-- The former Live/Evidence Lens, capability radar and decorative field atlas
-         remain intentionally retired. This homepage uses a bounded, evidence-based
-         track matrix: no canvas simulation, CMS hydration or scroll loop. -->
+    <!-- Control volume homepage. The former Live/Evidence Lens and decorative field atlas
+         remain retired; the radar stays the evidence-based capability view. Motion and
+         toys come from scripts/control-volume.js and are illustrative where labelled. -->
+    <div class="cv-ticker" aria-label="Telemetry"><div class="tick">${tickerRun(false)}${tickerRun(true)}</div></div>
     <section id="signal" class="academic-hero">
       <div id="person" class="hero-intro">
         <div class="hero-identity"><img src="assets/headshot.webp" alt="Abhijith Sivaprasadan" width="56" height="56" fetchpriority="high" /><p><strong>Abhijith Sivaprasadan</strong><span>M.Sc. Sustainable Energy Engineering · KTH · Stockholm, Sweden</span></p></div>
-        <p class="overline hero-kicker">Abhijith Sivaprasadan / Engineering portfolio</p>
-        <h1>Heat. Power.<br /><em>Code.</em></h1>
+        ${eyebrow('flame', 'S1 · System')}
+        <h1 class="cv-hero-title"><span data-probe="HEAT · q″ · T = 673 K">Heat.</span> <span data-probe="POWER · ENERGY SYSTEMS">Power.</span> <em data-probe="CODE · GO · PYTHON · FORTRAN">Code.</em></h1>
       </div>
       <div class="hero-summary">
         <p class="hero-specialism">Thermal engineering<br />&amp; energy systems modelling</p>
@@ -280,26 +304,39 @@ function home() {
         <p class="hero-interest">Interested in research-engineer and PhD opportunities in thermal-fluid engineering, energy systems and nuclear-energy applications.</p>
         <div class="hero-links">${link('#projects', 'Selected work ↓', '', 'primary-link')}${link('#practice', 'Skills & tracks ↓')}${link(github, 'GitHub ↗')}${link(linkedin, 'LinkedIn ↗')}${link(...cvs.research)}</div>
       </div>
+      <div class="cv-volume" aria-hidden="true"><div class="cv-streams"><span class="fl">HEAT →</span><span class="fl">POWER →</span><span class="fl">CODE →</span></div><div class="cv-box cs" data-probe="CONTROL VOLUME · ∑ IN = ∑ OUT + RESIDUAL"><span class="cv-label">Control volume</span><span class="cv-mono cv-muted">CFD/CHT · energy systems · Python, Go, Fortran</span><span class="cv-residual">Stated per case</span></div><span class="cv-out">→ EVIDENCE</span></div>
     </section>
     <nav class="work-entrypoints" aria-label="Start exploring my work">
-      <a href="projects/siemens-thesis.html"><span>01 / Published thesis</span><strong>Inside a thermal rig <span aria-hidden="true">↗</span></strong><small>CFD / CHT · Siemens Energy</small></a>
-      <a href="projects/kerala2040.html"><span>02 / Independent research</span><strong>Power-system resilience <span aria-hidden="true">↗</span></strong><small>Energy modelling · Kerala2040</small></a>
-      <a href="experience/qburst.html"><span>03 / Professional experience</span><strong>Backend engineering <span aria-hidden="true">↗</span></strong><small>APIs &amp; automated testing · QBurst</small></a>
+      <a href="projects/siemens-thesis.html" data-probe="PUBLISHED THESIS · TRITA-ITM-EX 2026:14"><span>01 / Published thesis</span><strong>Inside a thermal rig <span aria-hidden="true">↗</span></strong><small>CFD / CHT · Siemens Energy</small></a>
+      <a href="projects/kerala2040.html" data-probe="INDEPENDENT RESEARCH · KERALA2040"><span>02 / Independent research</span><strong>Power-system resilience <span aria-hidden="true">↗</span></strong><small>Energy modelling · Kerala2040</small></a>
+      <a href="experience/qburst.html" data-probe="QBURST · ABOUT 21 MONTHS · GO"><span>03 / Professional experience</span><strong>Backend engineering <span aria-hidden="true">↗</span></strong><small>APIs &amp; automated testing · QBurst</small></a>
     </nav>
+    <section id="field" class="page-section cv-toy-section">
+      <div class="section-heading"><div>${eyebrow('therm', 'Play with it')}<h2>Drag the heat source.</h2></div><p id="field-readout" class="cv-readout" aria-live="polite">PROBE · MOVE INTO THE FIELD</p></div>
+      <p class="section-intro">Isotherms spread from wherever you put it. Hover anywhere in the field to read the temperature at the probe.</p>
+      <div class="field cv-field" data-cv-toy="heat-field" data-readout="#field-readout" role="application" aria-label="Heat source playground: drag to move the source"><p class="cv-field-note">T(r) = T∞ + ΔT·e^(−r/λ) · T_SOURCE 673 K · T∞ 293 K · ILLUSTRATIVE</p></div>
+    </section>
     ${radar()}
     <div class="portfolio-credentials"><span>M.Sc. Sustainable Energy Engineering <strong>KTH</strong></span><span>Thesis <strong>Siemens Energy</strong></span><span>Industrial energy <strong>Alleima</strong></span><span>Software engineering <strong>QBurst</strong></span></div>
-    <nav class="section-index" aria-label="Page sections"><a href="#tracks">Choose a track</a><a href="#research">Research interests</a><a href="#projects">Selected work</a><a href="#skills">Expertise</a><a href="#experience">Experience</a><a href="#education">Education</a></nav>
+    <nav class="section-index" aria-label="Page sections"><a href="#projects">S3 · Cases</a><a href="#tracks">Lenses</a><a href="#research">Open questions</a><a href="#skills">Expertise</a><a href="#experience">S4 · Record</a><a href="#new-work">S5 · Evidence</a><a href="#contact">S6 · Open boundary</a></nav>
     <section id="projects" class="page-section">
-      <div class="section-heading"><div><p class="overline">Selected work</p><h2>Ideas, built and investigated.</h2></div>${link('projects.html', 'Complete project library →')}</div>
+      <div class="section-heading"><div>${eyebrow('nest', 'S3 · Cases')}<h2>Ideas, built and investigated.</h2></div>${link('projects.html', 'Complete project library →')}</div>
       <p class="section-intro">Open methods, inspectable code, and explicit limits. The case studies distinguish numerical verification, coursework and exploratory modelling from real-system validation.</p>
       <div class="selected-work">${featuredProjects.map((p, index) => `<article class="work-row" data-project-id="${p.id}">${projectMedia(p)}<span class="work-number">${String(index + 1).padStart(2, '0')}</span><div><p class="item-meta">${escape(p.category)} · ${escape(p.period || 'Independent project')}</p><h3>${link(p.caseStudyUrl, p.title)}</h3><p>${escape(p.summary)}</p><p class="tools-line">${p.tools.map(escape).join(' · ')}</p></div><div class="work-links">${link(p.caseStudyUrl, 'Case study →')}${p.githubUrl ? link(p.githubUrl, 'GitHub ↗') : ''}</div></article>`).join('\n')}</div>
       <p class="project-footnote">Also: ${link('projects/siemens-thesis.html', 'Siemens thesis')} · ${link('projects/structural-fea-reactor-internals.html', 'Structural FEA')} · ${link('https://github.com/abhijith-sivaprasadan/non-gray-radiation-modeling', 'Non-gray radiation modelling')} · ${link('projects/thermotwin-f.html', 'Explore ThermoTwin-F →', '', 'thermotwin-shortcut')}</p>
+      <div id="mesh" class="cd cs cv-mesh" data-cv-toy="mesh">
+        <div class="cv-toy-head"><div>${eyebrow('mesh', 'Refine the mesh')}<h3>Three levels, the way the thesis ran them</h3><p>Pick a level and watch the cells and near-wall layers fill the reducer. The schematic is not the real geometry.</p></div>
+          <div class="cv-chips" role="group" aria-label="Mesh level"><button type="button" class="cv-chip" data-level="1">L1 · Coarse</button><button type="button" class="cv-chip" data-level="2">L2 · Medium</button><button type="button" class="cv-chip" data-level="3">L3 · Fine</button></div></div>
+        <svg viewBox="0 0 560 220" class="cv-mesh-svg" role="img" aria-label="Schematic reducer with the selected mesh level"><defs><clipPath id="cvduct"><path d="M20 30 L200 30 C280 30 300 85 360 85 L540 85 L540 135 L360 135 C300 135 280 190 200 190 L20 190 Z"/></clipPath></defs><path d="M20 30 L200 30 C280 30 300 85 360 85 L540 85 L540 135 L360 135 C300 135 280 190 200 190 L20 190 Z" fill="rgba(101,214,201,.05)"/><g clip-path="url(#cvduct)"><path data-out="mesh" d="M0 0" fill="none" stroke="#3f5a4b" stroke-width="0.8"/><path data-out="infl" d="M0 0" fill="none" stroke="#f98e09" stroke-width="0.7" opacity=".85"/></g><path d="M20 30 L200 30 C280 30 300 85 360 85 L540 85 M540 135 L360 135 C300 135 280 190 200 190 L20 190" fill="none" stroke="#f2f0e7" stroke-width="1.6"/><g font-family="JetBrains Mono, monospace" font-size="10" fill="#a9b3a8" letter-spacing="1"><text x="24" y="210">INLET · T = 673 K</text><text x="420" y="160">OUTLET</text><text x="300" y="24">CONTRACTION</text></g></svg>
+        <div class="cv-toy-out"><span data-out="cells" class="cv-big"></span><span data-out="verdict" class="cv-mono"></span></div>
+        <p class="cv-residual">Mesh independence is not validation. It says the answer stopped changing with the grid, not that the grid matches the rig.</p>
+      </div>
     </section>
-    <section id="tracks" class="track-layer"><div class="section-heading"><div><p class="overline">Your interests. A focused view.</p><h2>Find the work that matters to you.</h2></div>${link('tracks/index.html', 'All application tracks ↗')}</div><p class="section-intro">Choose a perspective to explore relevant projects, experience and skills. Each track has a dedicated page to share.</p>
+    <section id="tracks" class="track-layer"><div class="section-heading"><div>${eyebrow('wave', 'Lenses · your interests')}<h2>Find the work that matters to you.</h2></div>${link('tracks/index.html', 'All application tracks ↗')}</div><p class="section-intro">Choose a perspective to explore relevant projects, experience and skills. Each track has a dedicated page to share.</p>
       ${trackCards('', true)}
     </section>
     <section id="research" class="page-section">
-      <div class="section-heading"><div><p class="overline">Research direction</p><h2>Questions that connect the work.</h2></div>${link('research.html', 'Full research statement →')}</div>
+      <div class="section-heading"><div>${eyebrow('spark', 'Open questions')}<h2>Questions that connect the work.</h2></div>${link('research.html', 'Full research statement →')}</div>
       <div class="research-grid">
         <article><span class="discipline-number">I</span><h3>Thermal engineering</h3><p>How do geometry, surface condition and thermal resistance affect high-temperature heat transfer? I’m interested in transient CHT and carefully bounded experimental–numerical comparison.</p>${link('skills/cfd-heat-transfer.html', 'Thermal methods & evidence →')}</article>
         <article><span class="discipline-number">II</span><h3>Energy systems modelling</h3><p>How do demand, network limits and storage change system decisions? My work explores heat and power dispatch, grid flexibility, hydrogen and electricity investment.</p>${link('energy-systems.html', 'Energy systems work →')}</article>
@@ -308,16 +345,16 @@ function home() {
       </div>
     </section>
     <section id="skills" class="page-section">
-      <div class="section-heading"><div><p class="overline">03 / Expertise &amp; evidence</p><h2>Explore the work behind each skill.</h2></div>${link('skills/index.html', 'All skill areas →')}</div>
+      <div class="section-heading"><div>${eyebrow('gear', 'Expertise &amp; evidence')}<h2>Explore the work behind each skill.</h2></div>${link('skills/index.html', 'All skill areas →')}</div>
       <p class="section-intro">Each area brings together related projects, professional experience, education, coursework and supporting material. Select an area to see the work behind it.</p>
       ${skillLinks()}
     </section>
     <section id="profile" class="page-section background-grid">
-<div id="experience"><div class="section-heading"><div><p class="overline">04 / Experience</p><h2>Research &amp; engineering practice.</h2></div></div><div class="timeline">${roles.map(e => `<article><p class="item-meta">${escape(e.period)} · ${escape(e.type)}</p><h3>${escape(e.company)}</h3><p class="role-title">${escape(e.role)}</p><p>${escape(e.id === 'test-engineer-master-thesis-student' ? 'CFD/CHT modelling and measurement-chain commissioning in the Fluid Dynamic Lab; heater failure occurred before high-temperature testing began.' : e.id === 'energy-efficiency-intern' ? 'Desk-based industrial energy-performance methodology, EnPI design and metering-readiness assessment; no plant-savings claim.' : e.id === 'student-intern-pyrolysis' ? 'Reactor-concept literature review and cost-analysis drivers for polymer-waste pyrolysis.' : 'Approximately 21 months of professional backend engineering: Go, then JavaScript/TypeScript and NestJS; production APIs, automated tests, Git and Docker.')}</p>${link(e.detailUrl || data.experienceUrls[e.id], 'Role details →')}</article>`).join('')}</div><p>${link('experience.html', 'Full experience record →')}</p></div>
-      <div id="education"><div class="section-heading"><div><p class="overline">05 / Education</p><h2>Academic foundation.</h2></div></div><div class="education-list">${['kth', 'aalto', 'btech'].map(id => { const e = data.education[id]; return `<article><p class="item-meta">${escape(e.period)}</p><h3>${escape(e.title)}</h3><p class="role-title">${escape(e.institution)}</p><p>${escape(e.summary)}</p>${link(e.url, 'Education & coursework →')}</article>`; }).join('')}</div><div class="publication-note"><p class="overline">Publications &amp; written work</p><h3>From thesis to technical record.</h3><p>${link('https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965', 'Published KTH thesis')} and ${link('projects/robotic-frame-locomotion.html', 'undergraduate robot publications')}, alongside reproducible reports and source-linked case studies.</p>${link('skills/research.html', 'Research & communication dossier →')}</div></div>
+<div id="experience"><div class="section-heading"><div>${eyebrow('cycle', 'S4 · Record')}<h2>Research &amp; engineering practice.</h2></div></div><div class="timeline">${roles.map(e => `<article><p class="item-meta">${escape(e.period)} · ${escape(e.type)}</p><h3>${escape(e.company)}</h3><p class="role-title">${escape(e.role)}</p><p>${escape(e.id === 'test-engineer-master-thesis-student' ? 'CFD/CHT modelling and measurement-chain commissioning in the Fluid Dynamic Lab; heater failure occurred before high-temperature testing began.' : e.id === 'energy-efficiency-intern' ? 'Desk-based industrial energy-performance methodology, EnPI design and metering-readiness assessment; no plant-savings claim.' : e.id === 'student-intern-pyrolysis' ? 'Reactor-concept literature review and cost-analysis drivers for polymer-waste pyrolysis.' : 'Approximately 21 months of professional backend engineering: Go, then JavaScript/TypeScript and NestJS; production APIs, automated tests, Git and Docker.')}</p>${link(e.detailUrl || data.experienceUrls[e.id], 'Role details →')}</article>`).join('')}</div><p>${link('experience.html', 'Full experience record →')}</p></div>
+      <div id="education"><div class="section-heading"><div>${eyebrow('check', 'Education')}<h2>Academic foundation.</h2></div></div><div class="education-list">${['kth', 'aalto', 'btech'].map(id => { const e = data.education[id]; return `<article><p class="item-meta">${escape(e.period)}</p><h3>${escape(e.title)}</h3><p class="role-title">${escape(e.institution)}</p><p>${escape(e.summary)}</p>${link(e.url, 'Education & coursework →')}</article>`; }).join('')}</div><div class="publication-note"><p class="overline">Publications &amp; written work</p><h3>From thesis to technical record.</h3><p>${link('https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965', 'Published KTH thesis')} and ${link('projects/robotic-frame-locomotion.html', 'undergraduate robot publications')}, alongside reproducible reports and source-linked case studies.</p>${link('skills/research.html', 'Research & communication dossier →')}</div></div>
     </section>
     <section id="new-work" class="page-section">
-      <div class="section-heading"><div><p class="overline">October 2026 / public research</p><h2>New research &amp; open methods.</h2></div><a href="reports.html">Reports &amp; PDFs &rarr;</a></div>
+      <div class="section-heading"><div>${eyebrow('spark', 'S5 · Evidence · October 2026')}<h2>New research &amp; open methods.</h2></div><a href="reports.html">Reports &amp; PDFs &rarr;</a></div>
       <p class="section-intro">Independent work and an upstream contribution span model-output verification, climate-scenario evidence, research-workflow integrity and open energy-model documentation. Software checks, numerical screening and empirical validation are deliberately separated.</p>
       <div class="selected-work">
         <article class="work-row"><div><p class="item-meta">Open Energy Methods &middot; alpha</p><h3><a href="projects/enerlint.html">EnerLint</a></h3><p>Independent conservation-law checks with analytical fault injections. A compensating error that passes the checks is reported rather than hidden.</p><p><a href="https://github.com/Open-Energy-Methods/enerlint">Source &amp; test record &rarr;</a></p></div></article>
@@ -327,7 +364,14 @@ function home() {
       </div>
       <p class="section-intro">Citable software: <a href="https://doi.org/10.5281/zenodo.23679426">ThermoTwin-F v2.0.0-beta.1 (DOI)</a>, a source-only research beta. Explore the <a href="reports.html">PDF report library and technical working papers</a>.</p>
     </section>
-    <section id="contact" class="contact-section"><div><p class="overline">06 / Contact</p><h2>Let’s discuss the research.</h2><p>I welcome conversations about research-engineer and doctoral opportunities in thermal engineering, energy-system modelling and nuclear-energy applications in Sweden and the EU.</p><a class="contact-email" href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a></div><div id="cv" class="contact-resources"><h3>Profiles &amp; documents</h3>${link(github, 'GitHub — code & repositories ↗')}${link(linkedin, 'LinkedIn — professional profile ↗')}${link(...cvs.modelling)}${link(...cvs.thermal)}${link(...cvs.research)}${link('https://orcid.org/0009-0009-8429-1266', 'ORCID ↗')}${link('https://zenodo.org/records/23679426', 'Zenodo — citable software archive ↗')}${link('https://explore.openaire.eu/', 'OpenAIRE EXPLORE — research discovery ↗')}</div></section>
+    <section id="year" class="page-section">
+      <div class="section-heading"><div>${eyebrow('cycle', 'Live · the year as a cycle')}<h2>Where we are on the loop today.</h2></div></div>
+      <div class="cd cv-year" data-cv-toy="year">
+        <svg viewBox="0 0 520 300" class="cv-year-svg" role="img" aria-label="Today on an annual cycle, with the Kerala monsoon marked"><path d="M40 280 H500 M40 280 V20" stroke="#2d3a31" fill="none"/><text x="490" y="296" font-family="JetBrains Mono, monospace" font-size="10" fill="#a9b3a8">s →</text><text x="8" y="28" font-family="JetBrains Mono, monospace" font-size="10" fill="#a9b3a8">T</text><ellipse cx="270" cy="150" rx="200" ry="105" fill="rgba(101,214,201,.04)" stroke="#43544a" stroke-width="1.5"/><polyline data-out="monsoon" points="0,0" fill="none" stroke="#8fb7ff" stroke-width="5" stroke-linecap="round" opacity=".8"/><polyline data-out="done" points="0,0" fill="none" stroke="#65d6c9" stroke-width="1.8"/><g font-family="JetBrains Mono, monospace" font-size="11" fill="#f2f0e7" letter-spacing="1.2"><text x="270" y="275" text-anchor="middle">WINTER</text><text x="82" y="154">SPRING</text><text x="270" y="34" text-anchor="middle">SUMMER</text><text x="458" y="154" text-anchor="end">AUTUMN</text></g><text data-out="monlabel" x="0" y="0" font-family="JetBrains Mono, monospace" font-size="10" fill="#8fb7ff" letter-spacing="1">ഇടവപ്പാതി · KERALA MONSOON</text><circle data-out="dot" cx="0" cy="0" r="16" fill="rgba(249,142,9,.25)"/><circle data-out="dot" class="yr-dot" cx="0" cy="0" r="7" fill="#fcffa4"/></svg>
+        <div class="cv-year-read"><span data-out="day" class="cv-big"></span><span data-out="pct" class="cv-label"></span><span data-out="montext" class="cv-label b"></span><p>The loop closes every 31 December. What changed in between is the net work.</p></div>
+      </div>
+    </section>
+    <section id="contact" class="contact-section"><div>${eyebrow('cup', 'S6 · Open boundary')}<h2>Let’s discuss the research.</h2><p>I welcome conversations about research-engineer and doctoral opportunities in thermal engineering, energy-system modelling and nuclear-energy applications in Sweden and the EU.</p><a class="contact-email" href="mailto:abhijithsivaprasadan@gmail.com">abhijithsivaprasadan@gmail.com</a><div class="cv-chips cv-after-contact"><button type="button" class="cv-chip" data-cv-reboot>↻ Rerun the solver</button><button type="button" class="cv-chip" data-cv-ml aria-label="Toggle Malayalam numerals">൧൨൩</button></div></div><div id="cv" class="contact-resources"><h3>Profiles &amp; documents</h3>${link(github, 'GitHub — code & repositories ↗')}${link(linkedin, 'LinkedIn — professional profile ↗')}${link(...cvs.modelling)}${link(...cvs.thermal)}${link(...cvs.research)}${link('https://orcid.org/0009-0009-8429-1266', 'ORCID ↗')}${link('https://zenodo.org/records/23679426', 'Zenodo — citable software archive ↗')}${link('https://explore.openaire.eu/', 'OpenAIRE EXPLORE — research discovery ↗')}</div></section>
   `, true);
 }
 
