@@ -38,7 +38,7 @@ if (debug) for (const name of debugRoutes) if (pages.includes(name)) tests.push(
 const failures=[], warnings=[], summaries=[];
 const severity = (where, issue, value) => {
   const info = {page:where, issue, detail:value};
-  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR/.test(issue)) failures.push(info);
+  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER/.test(issue)) failures.push(info);
   else warnings.push(info);
 };
 (async () => {
@@ -182,6 +182,53 @@ const severity = (where, issue, value) => {
       if(await page.locator('dialog.cvfx-dialog[open]').count())
         severity('index.html@390','DIALOG ERROR','Flux Lab panel fails Escape');
     } else if (!(await page.locator('body[data-design-source="claude-control-volume-v1"]').count())) severity('index.html@390','DIALOG ERROR','Flux Lab entry missing');
+
+    // Dynamic interactions on the actual authored pages, not only DOM presence.
+    await page.goto(base+'/energy-systems.html',{waitUntil:'domcontentloaded'});
+    const lens=await page.evaluate(()=>{
+      const group=document.querySelector('[aria-label="Modelling lens"]');
+      const card=group?.nextElementSibling;
+      const buttons=[...(group?.querySelectorAll('button')||[])];
+      const read=()=>{
+        const title=card?.querySelector('h3')?.textContent||'';
+        const rows=[...(card?.querySelectorAll('div')||[])]
+          .filter(e=>/^(01 · BOUNDARY|02 · METHOD|03 · EVIDENCE|04 · RESIDUAL)$/.test(e.firstElementChild?.textContent?.trim()||'')&&e.children.length===2)
+          .map(e=>e.lastElementChild.textContent.trim());
+        return {title,rows,href:card?.querySelector('a[href]')?.getAttribute('href')||''};
+      };
+      const first=read(),states={};
+      for(const button of buttons){
+        button.click();
+        const label=button.textContent.trim().toUpperCase();
+        states[label]={...read(),pressed:button.getAttribute('aria-pressed')};
+      }
+      return {first,states,buttonCount:buttons.length,restored:states.BUILDINGS};
+    });
+    const energyStates=['BUILDINGS','DISPATCH','SCENARIO','FORECAST','GRID'];
+    if(lens.buttonCount!==5||lens.first.rows.length!==4||
+       energyStates.some(key=>!lens.states[key]||lens.states[key].rows.length!==4||lens.states[key].pressed!=='true')||
+       energyStates.slice(1).some(key=>lens.states[key].rows.some((s,i)=>s===lens.first.rows[i])||lens.states[key].href===lens.first.href)||
+       JSON.stringify(lens.first)!==JSON.stringify({title:lens.restored.title,rows:lens.restored.rows,href:lens.restored.href})){
+      severity('energy-systems.html@390','ENERGY LENS',lens);
+    }
+    await page.goto(base+'/projects.html',{waitUntil:'domcontentloaded'});
+    try{await page.waitForFunction(()=>document.querySelectorAll('#cv-case-list article').length>=30,{timeout:12000});}
+    catch(e){severity('projects.html@390','CASE FILTER','Source-driven cases did not load');}
+    const caseFilter=await page.evaluate(()=>{
+      const rows=[...document.querySelectorAll('#cv-case-list article')];
+      const button=[...document.querySelectorAll('[data-cv-filter]')]
+        .find(b=>b.dataset.cvFilter.toUpperCase()==='SOFTWARE');
+      button?.click();
+      const selected=rows.filter(r=>!r.hidden).length;
+      const pressed=button?.getAttribute('aria-pressed');
+      document.querySelector('[data-cv-filter="All"]')?.click();
+      const restored=rows.filter(r=>!r.hidden).length;
+      return {total:rows.length,selected,pressed,restored};
+    });
+    if(caseFilter.total<30||caseFilter.selected<1||caseFilter.selected>=caseFilter.total||
+       caseFilter.pressed!=='true'||caseFilter.restored!==caseFilter.total){
+      severity('projects.html@390','CASE FILTER',caseFilter);
+    }
     await context.close();
     // Full motion-on render checks: the reduced-motion pass is not enough to
     // detect pointer overlays, animated motifs or first-visit obstructions.
