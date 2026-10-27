@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Applied to the site · Abhijith Sivaprasadan · Control Volume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#070807}
+a{color:inherit}
+</style>
+<link rel="stylesheet" href="styles/control-volume.css?v=20261027-control-volume">
+<style>
+/* the canvas wraps each page in .pg; give it the header rules the runtime scopes to body children */
+.pg>header{position:relative;overflow:hidden}
+</style>
+<link rel="stylesheet" href="styles/claude-exact.css?v=20261027-v2">
+</head>
+<body class="cv" data-design-source="claude-control-volume-v1" data-page-key="applied" data-cv-label="S1 · SYSTEM" >
+<div class="pg"  style="background:#070807;color:#f2f0e7;font-family:Inter,system-ui,sans-serif;min-height:4900px;display:flex;flex-direction:column">
+
+<div style="padding:10px 24px;border-bottom:1px solid #2d3a31;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;color:#c9cfc6">
+<span class="dot" style="width:8px;height:8px;border-radius:999px;background:#65d6c9"></span>
+<span>Currently targeting PhD positions and industrial R&amp;D roles in Sweden and the EU.</span>
+</div>
+
+<div style="border-bottom:1px solid #2d3a31;overflow:hidden;background:#050605" aria-label="Telemetry">
+<div class="tick m" style="gap:0;font-size:11px;letter-spacing:.14em;color:#a9b3a8">
+<span style="padding:9px 28px">T = 673 K</span><span style="padding:9px 28px;color:#65d6c9">P_GAUGE = 100 kPa</span><span style="padding:9px 28px">Ma 0.990 · 1.006</span><span style="padding:9px 28px;color:#d7b46a">Bi = 0.003–0.004</span><span style="padding:9px 28px">MESH · 3 LEVELS</span><span style="padding:9px 28px;color:#8fb7ff">TRITA-ITM-EX 2026:14</span><span style="padding:9px 28px">120 hp</span><span style="padding:9px 28px;color:#9bd69f">GO · PYTHON · FORTRAN</span><span style="padding:9px 28px">KOLLAM → STOCKHOLM</span><span style="padding:9px 28px;color:#d7b46a">RESIDUAL → TOLERANCE</span>
+<span style="padding:9px 28px" aria-hidden="true">T = 673 K</span><span style="padding:9px 28px;color:#65d6c9" aria-hidden="true">P_GAUGE = 100 kPa</span><span style="padding:9px 28px" aria-hidden="true">Ma 0.990 · 1.006</span><span style="padding:9px 28px;color:#d7b46a" aria-hidden="true">Bi = 0.003–0.004</span><span style="padding:9px 28px" aria-hidden="true">MESH · 3 LEVELS</span><span style="padding:9px 28px;color:#8fb7ff" aria-hidden="true">TRITA-ITM-EX 2026:14</span><span style="padding:9px 28px" aria-hidden="true">120 hp</span><span style="padding:9px 28px;color:#9bd69f" aria-hidden="true">GO · PYTHON · FORTRAN</span><span style="padding:9px 28px" aria-hidden="true">KOLLAM → STOCKHOLM</span><span style="padding:9px 28px;color:#d7b46a" aria-hidden="true">RESIDUAL → TOLERANCE</span>
+</div>
+</div>
+
+<header style="border-bottom:1px solid #2d3a31;background:#0a0d0b">
+<div style="max-width:1180px;margin:0 auto;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;box-sizing:border-box">
+<a href="#system" style="text-decoration:none;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.14em;color:#f2f0e7">ABHIJITH SIVAPRASADAN</a>
+<nav style="display:flex;gap:6px 24px;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em">
+<a href="index.html" style="text-decoration:none;color:#65d6c9;padding:10px 0">SYSTEM</a>
+<a href="projects.html" style="text-decoration:none;color:#a9b3a8;padding:10px 0">CASES</a>
+<a href="research.html" style="text-decoration:none;color:#a9b3a8;padding:10px 0">RESEARCH</a>
+<a href="energy-systems.html" style="text-decoration:none;color:#a9b3a8;padding:10px 0">ENERGY</a>
+<a href="industrial-rd.html" style="text-decoration:none;color:#a9b3a8;padding:10px 0">INDUSTRIAL R&amp;D</a>
+<a href="experience.html" style="text-decoration:none;color:#a9b3a8;padding:10px 0">RECORD</a>
+<a href="about.html" style="text-decoration:none;color:#a9b3a8;padding:10px 0">ABOUT</a>
+</nav>
+</div>
+</header>
+
+<main id="main" style="flex:1;max-width:1180px;width:100%;margin:0 auto;padding:88px 48px 112px;box-sizing:border-box;display:flex;flex-direction:column;gap:112px"><span id="signal" class="cv-anchor-alias" aria-hidden="true"></span><span id="person" class="cv-anchor-alias" aria-hidden="true"></span><span id="field-readout" class="cv-anchor-alias" aria-hidden="true"></span><span id="practice" class="cv-anchor-alias" aria-hidden="true"></span>
+
+<section id="system" style="display:flex;flex-wrap:wrap;gap:56px;align-items:center">
+<div style="flex:1 1 520px;display:flex;flex-direction:column;gap:28px">
+<div class="emo" style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a"><svg class="gl gl-flame" viewBox="0 0 24 24" aria-hidden="true"><path class="fp" d="M12 22c-4 0-7-2.8-7-6.6 0-3.4 2.4-5.2 3.6-8.4.4 1.8 1.4 3 2.6 3.4C11 6.8 12.6 4 15.4 2c-.4 3 .8 4.8 2 6.6 1.2 1.8 1.6 3.4 1.6 5.2C19 18.6 16 22 12 22z"></path><path class="fi" d="M12 21c-1.8 0-3-1.2-3-2.8 0-1.6 1.2-2.6 1.8-4 .6 1 1.4 1.4 2 1.4.2-1.2.8-2 1.6-2.6 0 1.6 1.6 2.6 1.6 4.4 0 2.2-1.8 3.6-4 3.6z"></path></svg><span>S1 · SYSTEM</span></div>
+<h1 style="margin:0;font-size:80px;line-height:1;font-weight:620;letter-spacing:-.03em;display:flex;flex-wrap:wrap;gap:0 .28em"><span data-probe="HEAT · q″ · T = 673 K">Heat.</span><span data-probe="POWER · W · ENERGY SYSTEMS">Power.</span><span data-probe="CODE · GO · PYTHON · FORTRAN">Code.</span></h1>
+<p style="margin:0;font-size:20px;line-height:1.55;color:#c9cfc6;text-wrap:pretty;max-width:600px">Thermal-fluid engineer translating high-temperature heat-transfer and compressible-flow problems into CFD/CHT evidence, instrumentation context and physical design decisions.</p>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;color:#a9b3a8">Thesis at Siemens Energy Finspång · KTH · TRITA-ITM-EX 2026:14</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap">
+<a href="#cases" style="text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:6px;background:#65d6c9;color:#071007;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;letter-spacing:.12em">SEE THE CASES →</a>
+<a href="#evidence" style="text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:6px;border:1px solid #2d3a31;color:#f2f0e7;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em">READ THE THESIS →</a>
+</div>
+</div>
+
+<div style="flex:1 1 400px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+<div style="display:flex;flex-direction:column;gap:22px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.12em">
+<span class="fl">HEAT →</span>
+<span class="fl">POWER →</span>
+<span class="fl">CODE →</span>
+</div>
+<div class="cs" data-probe="CONTROL VOLUME · ∑ IN = ∑ OUT + RESIDUAL" style="flex:1 1 200px;min-height:260px;border:1.5px dashed #65d6c9;border-radius:6px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;background-image:linear-gradient(to right,rgba(45,58,49,.55) 1px,transparent 1px),linear-gradient(to bottom,rgba(45,58,49,.55) 1px,transparent 1px);background-size:36px 36px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#65d6c9">CONTROL VOLUME</div>
+<div style="font-size:15px;line-height:1.5;color:#c9cfc6">CFD/CHT · energy-systems modelling · Python, Go, Fortran</div>
+</div>
+<div style="padding:10px 12px;border-radius:4px;background-color:#0d110e;background-image:repeating-linear-gradient(135deg,rgba(215,180,106,.2) 0 1px,transparent 1px 8px);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#d7b46a">RESIDUAL · STATED PER CASE</div>
+</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;letter-spacing:.12em">→ EVIDENCE</div>
+</div>
+</section>
+
+<section id="field" style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-wrap:wrap;gap:12px 40px;align-items:flex-end;justify-content:space-between">
+<div style="display:flex;flex-direction:column;gap:10px;max-width:640px"><div class="emo" style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a"><svg class="gl gl-therm" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a2 2 0 0 1 4 0v10.3a4 4 0 1 1-4 0z"></path><path class="hg" d="M12 9v8" stroke-width="2.4"></path><circle cx="12" cy="17.5" r="1.6" fill="currentColor"></circle></svg><span>PLAY WITH IT</span></div><h2 style="margin:0;font-size:40px;line-height:1.1;font-weight:580;letter-spacing:-.02em">Drag the heat source</h2><p style="margin:0;font-size:16px;line-height:1.6;color:#a9b3a8">Isotherms spread from wherever you put it. Hover anywhere in the field to read the temperature at the probe.</p></div>
+<div class="m" style="font-size:13px;letter-spacing:.06em;color:#f2f0e7;padding:12px 16px;border:1px solid #2d3a31;border-radius:6px;background:#0d110e;min-width:260px" id="cv-live-field-readout" aria-live="polite">PROBE · MOVE INTO THE FIELD</div>
+</div>
+<div class="field" data-cv-toy="heat-field" data-readout="#cv-live-field-readout" tabindex="0" role="group" aria-label="Heat source playground: drag to move the source" style="height:380px;border:1px solid #2d3a31;border-radius:14px;background-color:#060706;background-image:radial-gradient(circle at 300px 180px,rgba(252,255,164,.75) 0,rgba(249,142,9,.5) 50px,rgba(188,55,84,.32) 120px,rgba(87,16,110,.18) 210px,rgba(7,8,7,0) 330px),linear-gradient(to right,rgba(45,58,49,.6) 1px,transparent 1px),linear-gradient(to bottom,rgba(45,58,49,.6) 1px,transparent 1px);background-size:auto,24px 24px,24px 24px">
+
+
+<div class="m" style="position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.1em;color:#a9b3a8;pointer-events:none">T(r) = T∞ + ΔT·e^(−r/λ) · T_SOURCE 673 K · T∞ 293 K · ILLUSTRATIVE</div>
+</div>
+</section>
+
+<section id="lenses" style="display:flex;flex-direction:column;gap:28px"><span id="tracks" class="cv-anchor-alias" aria-hidden="true"></span><span id="learning" class="cv-anchor-alias" aria-hidden="true"></span><span id="skills" class="cv-anchor-alias" aria-hidden="true"></span>
+<div style="display:flex;gap:20px;align-items:flex-start">
+<div style="width:36px;height:36px;border-radius:999px;border:1px solid #65d6c9;color:#65d6c9;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;flex:none">S2</div>
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">LENSES</div><h2 style="margin:0;font-size:40px;line-height:1.1;font-weight:580;letter-spacing:-.02em">One evidence base, four ways to read it</h2></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:16px">
+<a href="projects.html" style="text-decoration:none;color:inherit;border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:28px;display:flex;flex-direction:column;gap:12px;min-height:200px"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#65d6c9">THERMAL AND FLUID</span><span style="font-size:15px;line-height:1.6;color:#c9cfc6">High-temperature CFD/CHT, compressible flow and test-rig instrumentation.</span><span style="margin-top:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#65d6c9">OPEN LENS →</span></a>
+<a href="energy-systems.html" style="text-decoration:none;color:inherit;border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:28px;display:flex;flex-direction:column;gap:12px;min-height:200px"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#9bd69f">ENERGY SYSTEMS</span><span style="font-size:15px;line-height:1.6;color:#c9cfc6">IDA ICE, HOMER Pro, LEAP, dispatch optimisation and forecasting.</span><span style="margin-top:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#9bd69f">OPEN LENS →</span></a>
+<a href="industrial-rd.html" style="text-decoration:none;color:inherit;border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:28px;display:flex;flex-direction:column;gap:12px;min-height:200px"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">INDUSTRIAL R&amp;D</span><span style="font-size:15px;line-height:1.6;color:#c9cfc6">KPI/EnPI methods, metering logic and decarbonisation decision support.</span><span style="margin-top:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#d7b46a">OPEN LENS →</span></a>
+<a href="research.html" style="text-decoration:none;color:inherit;border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:28px;display:flex;flex-direction:column;gap:12px;min-height:200px"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#8fb7ff">RESEARCH</span><span style="font-size:15px;line-height:1.6;color:#c9cfc6">Conjugate heat transfer, surface-condition effects and experimental-numerical methods.</span><span style="margin-top:auto;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#8fb7ff">OPEN LENS →</span></a>
+</div>
+</section>
+
+<section id="cases" style="display:flex;flex-direction:column;gap:32px"><span id="new-work" class="cv-anchor-alias" aria-hidden="true"></span><span id="mesh" class="cv-anchor-alias" aria-hidden="true"></span><span id="projects" class="cv-anchor-alias" aria-hidden="true"></span>
+<div style="display:flex;gap:20px;align-items:flex-start">
+<div style="width:36px;height:36px;border-radius:999px;border:1px solid #65d6c9;color:#65d6c9;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;flex:none">S3</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">CASES</div>
+<h2 style="margin:0;font-size:40px;line-height:1.1;font-weight:580;letter-spacing:-.02em">Each case states its boundary first and its residual last</h2>
+</div>
+</div>
+
+<svg viewBox="0 0 600 24" preserveAspectRatio="none" style="width:100%;height:24px;display:block" aria-hidden="true">
+<path d="M0 2 C60 2 90 20 160 20 S300 22 600 22" fill="none" stroke="#65d6c9" stroke-width="1.5" vector-effect="non-scaling-stroke"></path>
+<line x1="0" y1="22" x2="600" y2="22" stroke="#d7b46a" stroke-width="1" stroke-dasharray="4 4" vector-effect="non-scaling-stroke" opacity="0.6"></line>
+</svg>
+
+<article class="cs" data-probe="CASE · PULSATORN · RESIDUAL STATED" style="border:1.5px dashed #65d6c9;border-radius:14px;background:#0d110e;box-shadow:0 18px 60px rgba(0,0,0,.28);padding:36px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#a9b3a8">PULSATORN RIG · CFD/CHT REDUCER</div>
+<h3 style="margin:0;font-size:28px;font-weight:580;letter-spacing:-.01em">Siemens Energy thesis</h3>
+</div>
+<div style="display:flex;flex-direction:column;border-top:1px solid #2d3a31">
+
+<div style="display:flex;flex-wrap:wrap;gap:8px 32px;padding:20px 0;border-bottom:1px solid #2d3a31">
+<div style="flex:0 0 160px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#65d6c9">01 · BOUNDARY</div>
+<div style="flex:1 1 360px;font-size:16px;line-height:1.6;color:#f2f0e7">Steady-state thermo-fluid performance of a reducer for a high-temperature dynamic pressure sensor calibration rig.</div>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:8px 32px;padding:20px 0;border-bottom:1px solid #2d3a31">
+<div style="flex:0 0 160px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#9bd69f">02 · METHOD</div>
+<div style="flex:1 1 360px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;line-height:1.6;color:#f2f0e7">ANSYS Fluent · k-omega SST · conjugate heat transfer · three-level mesh independence</div>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:8px 32px;padding:20px 0;border-bottom:1px solid #2d3a31">
+<div style="flex:0 0 160px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#8fb7ff">03 · EVIDENCE</div>
+<div style="flex:1 1 360px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;line-height:1.6;color:#f2f0e7">Bi = 0.003–0.004 · TRITA-ITM-EX 2026:14</div>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:8px 32px;padding:20px 20px;margin:0 -20px;border-radius:6px;background-color:rgba(215,180,106,.04);background-image:repeating-linear-gradient(135deg,rgba(215,180,106,.14) 0 1px,transparent 1px 8px)">
+<div style="flex:0 0 160px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">04 · RESIDUAL</div>
+<div style="flex:1 1 360px;font-size:16px;line-height:1.6;color:#f2f0e7">Numerical study. Mesh independence is not validation, and no experimental validation of the redesigned reducer is claimed.</div>
+</div>
+
+</div>
+<div style="display:flex;gap:24px;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em">
+<a href="projects.html" style="text-decoration:none;color:#65d6c9;padding:12px 0">OPEN THE CASE LIBRARY →</a>
+<a href="https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965" style="text-decoration:none;color:#a9b3a8;padding:12px 0">THESIS ON DIVA →</a>
+</div>
+</article>
+
+<div class="cd cs" data-cv-toy="mesh" data-probe="L1 · COARSE · 95 CELLS · 0 WALL LAYERS" style="padding:32px;display:flex;flex-direction:column;gap:24px;margin-top:8px">
+<div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:flex-end;justify-content:space-between">
+<div style="display:flex;flex-direction:column;gap:8px;max-width:560px"><div class="emo" style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#65d6c9"><svg class="gl gl-mesh" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19"></rect><path d="M12 2.5v19M2.5 12h19"></path><path class="mr" d="M7.25 2.5v19M16.75 2.5v19M2.5 7.25h19M2.5 16.75h19" stroke-width="0.8"></path></svg><span>REFINE THE MESH</span></div><div style="font-size:24px;font-weight:580;letter-spacing:-.01em">Three levels, the way the thesis ran them</div><div style="font-size:15px;line-height:1.6;color:#a9b3a8">Pick a level and watch the cells and near-wall layers fill the reducer. The schematic is not the real geometry.</div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap" role="group" aria-label="Mesh level">
+<button type="button" class="lvl" data-level="1" style="background:#65d6c9;color:#071007;border:1px solid #65d6c9;font-weight:600" aria-pressed="true">L1 · COARSE</button><button type="button" class="lvl" data-level="2" style="background:transparent;color:#c9cfc6;border:1px solid #2d3a31" aria-pressed="false">L2 · MEDIUM</button><button type="button" class="lvl" data-level="3" style="background:transparent;color:#c9cfc6;border:1px solid #2d3a31" aria-pressed="false">L3 · FINE</button>
+</div>
+</div>
+<svg viewBox="0 0 560 220" style="width:100%;height:auto;display:block;background:#060706;border:1px solid #2d3a31;border-radius:8px" role="img" aria-label="Schematic reducer with the selected mesh level">
+<defs><clipPath id="cvduct"><path d="M20 30 L200 30 C280 30 300 85 360 85 L540 85 L540 135 L360 135 C300 135 280 190 200 190 L20 190 Z"></path></clipPath></defs>
+<path d="M20 30 L200 30 C280 30 300 85 360 85 L540 85 L540 135 L360 135 C300 135 280 190 200 190 L20 190 Z" fill="rgba(101,214,201,.05)"></path>
+<g clip-path="url(#cvduct)"><path class="mesh-lines" data-out="mesh" d="M20 20V200M44 20V200M68 20V200M92 20V200M116 20V200M140 20V200M164 20V200M188 20V200M212 20V200M236 20V200M260 20V200M284 20V200M308 20V200M332 20V200M356 20V200M380 20V200M404 20V200M428 20V200M452 20V200M476 20V200M500 20V200M524 20V200M20 20H540M20 44H540M20 68H540M20 92H540M20 116H540M20 140H540M20 164H540M20 188H540" fill="none" stroke="#3f5a4b" stroke-width="0.8"></path><path data-out="infl" d="M0 0" fill="none" stroke="#f98e09" stroke-width="0.7" opacity=".85"></path></g>
+<path d="M20 30 L200 30 C280 30 300 85 360 85 L540 85 M540 135 L360 135 C300 135 280 190 200 190 L20 190" fill="none" stroke="#f2f0e7" stroke-width="1.6"></path>
+<g font-family="JetBrains Mono, monospace" font-size="10" fill="#a9b3a8" letter-spacing="1"><text x="24" y="210">INLET · T = 673 K</text><text x="420" y="160">OUTLET</text><text x="300" y="24">CONTRACTION</text></g>
+</svg>
+<div style="display:flex;flex-wrap:wrap;gap:12px 32px;align-items:baseline">
+<div class="m" style="font-size:28px;font-weight:600"><span data-out="cells">95 SCHEMATIC CELLS</span></div>
+<div class="m" style="font-size:12px;letter-spacing:.12em;color:#f98e09;transition:color .4s"><span data-out="verdict">COARSE · Δ TO NEXT LEVEL STILL LARGE</span></div>
+</div>
+<div class="rs" style="padding:12px 14px;border-radius:6px;font-size:14px;line-height:1.55"><span class="m" style="font-size:11px;letter-spacing:.14em;color:#d7b46a">RESIDUAL · </span>Mesh independence is not validation. It says the answer stopped changing with the grid, not that the grid matches the rig.</div>
+</div>
+</section>
+
+<section id="record" style="display:flex;flex-direction:column;gap:24px"><span id="profile" class="cv-anchor-alias" aria-hidden="true"></span><span id="experience" class="cv-anchor-alias" aria-hidden="true"></span><span id="education" class="cv-anchor-alias" aria-hidden="true"></span>
+<div style="display:flex;gap:20px;align-items:flex-start">
+<div style="width:36px;height:36px;border-radius:999px;border:1px solid #2d3a31;color:#a9b3a8;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;flex:none">S4</div>
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">RECORD</div><h2 style="margin:0;font-size:40px;line-height:1.1;font-weight:580;letter-spacing:-.02em">Four roles, each with its residual</h2></div>
+</div>
+<div style="display:flex;flex-direction:column;border-top:1px solid #2d3a31">
+<div style="display:flex;flex-wrap:wrap;gap:6px 32px;padding:18px 0;border-bottom:1px solid #2d3a31;align-items:baseline"><span style="flex:0 0 120px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#65d6c9">2025</span><span style="flex:1 1 300px;font-size:17px;font-weight:560">Siemens Energy AB, Finspång</span><span style="flex:1.4 1 300px;font-size:15px;color:#a9b3a8">Master's thesis, CFD/CHT of a calibration-rig reducer</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px 32px;padding:18px 0;border-bottom:1px solid #2d3a31;align-items:baseline"><span style="flex:0 0 120px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#65d6c9">2024 TO 2025</span><span style="flex:1 1 300px;font-size:17px;font-weight:560">Alleima AB</span><span style="flex:1.4 1 300px;font-size:15px;color:#a9b3a8">Industrial energy performance mapping methodology</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px 32px;padding:18px 0;border-bottom:1px solid #2d3a31;align-items:baseline"><span style="flex:0 0 120px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#65d6c9">2024</span><span style="flex:1 1 300px;font-size:17px;font-weight:560">KTH Process Technology</span><span style="flex:1.4 1 300px;font-size:15px;color:#a9b3a8">Research engagement on polymer-waste pyrolysis</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px 32px;padding:18px 0;border-bottom:1px solid #2d3a31;align-items:baseline"><span style="flex:0 0 120px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#65d6c9">2021 TO 2023</span><span style="flex:1 1 300px;font-size:17px;font-weight:560">QBurst</span><span style="flex:1.4 1 300px;font-size:15px;color:#a9b3a8">Backend engineering, starting in Go</span></div>
+</div>
+<a href="experience.html" style="text-decoration:none;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#65d6c9;padding:10px 0;align-self:flex-start">OPEN THE FULL RECORD →</a>
+</section>
+
+<section id="evidence" style="display:flex;flex-direction:column;gap:24px"><span id="research" class="cv-anchor-alias" aria-hidden="true"></span><span id="resources" class="cv-anchor-alias" aria-hidden="true"></span>
+<div style="display:flex;gap:20px;align-items:flex-start">
+<div style="width:36px;height:36px;border-radius:999px;border:1px solid #2d3a31;color:#a9b3a8;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;flex:none">S5</div>
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">EVIDENCE</div><h2 style="margin:0;font-size:40px;line-height:1.1;font-weight:580;letter-spacing:-.02em">Documents, listed by identifier</h2></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:12px">
+<a href="https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965" style="text-decoration:none;color:inherit;border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:22px;display:flex;flex-direction:column;gap:6px"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#65d6c9">KTH DIVA →</span><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px">TRITA-ITM-EX 2026:14</span></a>
+<a href="https://orcid.org/0009-0009-8429-1266" style="text-decoration:none;color:inherit;border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:22px;display:flex;flex-direction:column;gap:6px"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#65d6c9">ORCID →</span><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px">0009-0009-8429-1266</span></a>
+<a href="https://scholar.google.com/citations?user=o2nI60MAAAAJ" style="text-decoration:none;color:inherit;border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:22px;display:flex;flex-direction:column;gap:6px"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#65d6c9">GOOGLE SCHOLAR →</span><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px">Abhijith Sivaprasadan</span></a>
+<a href="https://github.com/abhijith-sivaprasadan" style="text-decoration:none;color:inherit;border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:22px;display:flex;flex-direction:column;gap:6px"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#65d6c9">GITHUB →</span><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px">abhijith-sivaprasadan</span></a>
+</div>
+</section>
+
+<section id="year" style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;gap:20px;align-items:flex-start">
+<div style="width:36px;height:36px;border-radius:999px;border:1px solid #2d3a31;color:#a9b3a8;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;flex:none" aria-hidden="true">↻</div>
+<div style="display:flex;flex-direction:column;gap:10px"><div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">LIVE · THE YEAR AS A CYCLE</div><h2 style="margin:0;font-size:40px;line-height:1.1;font-weight:580;letter-spacing:-.02em">Where we are on the loop today</h2></div>
+</div>
+<div class="cd cv-year-exact" data-cv-toy="year" data-probe="ANNUAL CYCLE · KERALA" style="padding:32px;display:flex;flex-wrap:wrap;gap:32px 48px;align-items:center">
+<svg viewBox="0 0 520 300" style="flex:1 1 380px;max-width:560px;width:100%;height:auto;display:block" role="img" aria-label="Day 300 of 365 on an annual cycle; kerala monsoon · next in 217 days">
+<path d="M40 280 H500 M40 280 V20" stroke="#2d3a31" fill="none"></path>
+<text x="490" y="296" font-family="JetBrains Mono, monospace" font-size="10" fill="#a9b3a8">s →</text>
+<text x="8" y="28" font-family="JetBrains Mono, monospace" font-size="10" fill="#a9b3a8">T</text>
+<ellipse cx="270" cy="150" rx="200" ry="105" fill="rgba(101,214,201,.04)" stroke="#43544a" stroke-width="1.5"></ellipse>
+<polyline data-out="monsoon" points="" fill="none" stroke="#8fb7ff" stroke-width="5" stroke-linecap="round" opacity=".8"></polyline>
+<polyline data-out="done" points="" fill="none" stroke="#65d6c9" stroke-width="1.8"></polyline>
+<g font-family="JetBrains Mono, monospace" font-size="11" fill="#f2f0e7" letter-spacing="1.2">
+<text x="270" y="275" text-anchor="middle">WINTER</text><text x="50" y="154">SPRING</text><text x="270" y="36" text-anchor="middle">SUMMER</text><text x="480" y="154">AUTUMN</text>
+</g>
+
+<circle data-out="dot" cx="466.0" cy="170.9" r="16" fill="rgba(249,142,9,.25)"></circle>
+<circle data-out="dot" class="yr-dot" cx="466.0" cy="170.9" r="7" fill="#fcffa4"></circle>
+</svg>
+<div style="flex:1 1 260px;display:flex;flex-direction:column;gap:14px">
+<div class="m" style="font-size:44px;font-weight:600;letter-spacing:-.01em"><span data-out="day">DAY 300 / 365</span></div>
+<div class="m" style="font-size:13px;letter-spacing:.12em;color:#65d6c9"><span data-out="pct">82 % ROUND THE CYCLE · 2026</span></div>
+<div class="m" style="font-size:13px;letter-spacing:.12em;color:#8fb7ff"><span data-out="montext">KERALA MONSOON · NEXT IN 217 DAYS</span></div>
+<div style="font-size:15px;line-height:1.6;color:#a9b3a8"><div class="cv-exact-year-control"><label for="cv-exact-year-day">EXPLORE THE YEAR · <output data-cv-year-date aria-live="polite"></output></label><input id="cv-exact-year-day" type="range" data-cv-year-day min="1" max="366" value="300" step="1" aria-label="Day of the year"><button type="button" data-cv-year-reset>↺ TODAY</button></div>The loop closes every 31 December. What changed in between is the net work.</div>
+</div>
+</div>
+</section>
+
+<section id="open-boundary" style="display:flex;gap:20px;align-items:flex-start"><span id="cv" class="cv-anchor-alias" aria-hidden="true"></span><span id="contact" class="cv-anchor-alias" aria-hidden="true"></span><span id="scope" class="cv-anchor-alias" aria-hidden="true"></span>
+<div style="width:36px;height:36px;border-radius:999px;border:1px solid #2d3a31;color:#a9b3a8;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;flex:none">S6</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">OPEN BOUNDARY</div>
+<div style="font-size:18px;line-height:1.5;color:#c9cfc6;max-width:640px">Where the work can be checked or continued.</div>
+<div style="display:flex;gap:24px;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em">
+<a href="https://github.com/abhijith-sivaprasadan" style="text-decoration:none;color:#65d6c9;padding:12px 0">GITHUB →</a>
+<a href="https://orcid.org/0009-0009-8429-1266" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID →</a>
+<a href="downloads/Abhijith_Sivaprasadan_CV_Generic_Thermal_Process.pdf" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV →</a>
+<a href="mailto:abhijithsivaprasadan@gmail.com" style="padding:12px 0;color:#a9b3a8">EMAIL →</a>
+<button type="button" style="min-height:44px;padding:0 14px;border-radius:6px;border:1px solid #2d3a31;background:transparent;color:#a9b3a8;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.12em" data-cv-reboot>↻ RERUN THE SOLVER</button>
+<button type="button" aria-pressed="false" aria-label="Toggle Malayalam numerals" data-cv-ml style="min-height:44px;min-width:44px;padding:0 12px;border-radius:6px;border:1px dashed #2d3a31;background:transparent;color:#a9b3a8;font-size:14px">൧൨൩</button>
+</div>
+<div class="emo" style="display:flex;gap:18px;align-items:center;color:#a9b3a8;margin-top:8px" aria-hidden="true">
+<svg class="gl gl-cup" viewBox="0 0 24 24"><path class="st" d="M8 2.5c-.8 1 .8 2 0 3"></path><path class="st" d="M11.5 2.5c-.8 1 .8 2 0 3"></path><path class="st" d="M15 2.5c-.8 1 .8 2 0 3"></path><path d="M4 8h14v5a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6z"></path><path d="M18 9.5h1.5a2.5 2.5 0 0 1 0 5H17.6"></path><path d="M3 21.5h16"></path></svg>
+<svg class="gl gl-wave" viewBox="0 0 24 24"><path class="wv" d="M1 12c2.5-5 5-5 7.5 0s5 5 7.5 0 5-5 7 0"></path></svg>
+<svg class="gl gl-gear" viewBox="0 0 24 24"><g class="gg"><circle cx="12" cy="12" r="3.2"></circle><circle cx="12" cy="12" r="6.5"></circle><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"></path></g></svg>
+<svg class="gl gl-cycle" viewBox="0 0 24 24"><g class="cy"><path d="M19.5 12a7.5 7.5 0 0 1-12.8 5.3"></path><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3"></path><path d="M17.3 3.5v3.2h-3.2M6.7 20.5v-3.2h3.2"></path></g></svg>
+</div>
+</div>
+</section>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<script src="scripts/control-volume.js?v=20261027-control-volume" defer></script>
+<script src="scripts/claude-exact.js?v=20261027-v2" defer></script>
+</body>
+</html>

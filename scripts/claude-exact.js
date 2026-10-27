@@ -3,6 +3,7 @@
 const $=(sel,root=document)=>root.querySelector(sel);
 const $$=(sel,root=document)=>Array.from(root.querySelectorAll(sel));
 function initCases(){
+ if(document.getElementById('cv-case-list'))return; // Complete API catalogue owns its filters.
  const group=$('[aria-label="Filter cases by method"]'); if(!group)return;
  const buttons=$$('button',group),rows=$$('[data-cv-case]'),readout=$('[data-cv-case-count]');
  const classify=el=>(el.getAttribute('data-cv-case-category')||el.getAttribute('data-probe')||'').toUpperCase();

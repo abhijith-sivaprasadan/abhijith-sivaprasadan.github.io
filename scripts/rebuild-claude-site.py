@@ -6,10 +6,17 @@ Usage: python3 scripts/rebuild-claude-site.py  [repo root]
 Design source: design/claude-control-volume/claude-page-sources.zip (immutable approved pages)
 """
 from __future__ import annotations
-import os,sys,re,json,zipfile,html,shutil,datetime,tarfile
+import os,sys,re,json,zipfile,html,shutil,datetime
 from pathlib import Path
 ROOT=Path(sys.argv[1] if len(sys.argv)>1 else Path(__file__).resolve().parents[1]).resolve()
-source=ROOT/'design/claude-control-volume/claude-page-sources.tar.xz'
+source=ROOT/'design/claude-control-volume/claude-page-sources.zip'
+if not source.exists():
+    partdir=ROOT/'design/claude-control-volume/chunks'
+    if partdir.exists():
+        import base64
+        source.parent.mkdir(parents=True,exist_ok=True)
+        encoded=''.join(p.read_text().strip() for p in sorted(partdir.glob('*.b64')))
+        source.write_bytes(base64.b64decode(encoded,validate=True))
 if not source.exists():
     raise SystemExit('Missing approved Claude source archive at '+str(source))
 
@@ -154,11 +161,6 @@ def correct_facts(s,name):
     s=s.replace('[RESIDUAL LINE NEEDED]','Scenario or prototype study; no live operational validation is claimed.')
     # The thesis is a verified KTH-approved numerical study, not a validation of heater operation.
     s=s.replace('formal root cause analysis','documented failure and scope review')
-    if name=='Projects':
-        s=s.replace("Redesigned reducer not manufactured or tested. Mesh independence is not validation.","Redesigned reducer not manufactured or tested. The baseline-to-fine changes below 2% indicate mesh sensitivity only; mesh independence is not experimental validation.")
-        s=s.replace('href="index.html" style="font-size:19px;font-weight:560;line-height:1.3">Siemens Energy thesis','href="projects/siemens-thesis.html" style="font-size:19px;font-weight:560;line-height:1.3">Siemens Energy thesis')
-    if name=='Record':
-        s=s.replace("Test engineer and master's thesis student","Master's Thesis Researcher — Test Engineering &amp; CFD")
     return s
 
 def process(s,name):
@@ -169,52 +171,23 @@ def process(s,name):
     s=hrefs(s)
     s=correct_facts(s,name)
     s=patch_toys(s,name)
-    if name=='Projects':s=patch_projects(s)
-    if name=='Applied':
-        s=s.replace('<main style=','<main id="main" style=',1)
-        for identifier, aliases in {'cases':['projects'],'record':['experience','education'],'evidence':['resources'],'open-boundary':['contact','scope'],'lenses':['learning','skills']}.items():
-            marker=re.search(r'(<section id="'+identifier+r'"[^>]*>)',s)
-            if marker:
-                spans=''.join('<span id="'+key+'" class="cv-anchor-alias" aria-hidden="true"></span>' for key in aliases)
-                s=s[:marker.end()]+spans+s[marker.end():]
-        s=s.replace('href="#" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID →','href="https://orcid.org/0009-0009-8429-1266" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID →',1)
-        s=s.replace('href="#" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV →','href="downloads/Abhijith_Sivaprasadan_CV_Generic_Thermal_Process.pdf" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV →',1)
-        s=s.replace('<span style="padding:12px 0;color:#a9b3a8">[EMAIL]</span>','<a href="mailto:abhijithsivaprasadan@gmail.com" style="padding:12px 0;color:#a9b3a8">EMAIL →</a>',1)
-        s=s.replace('>↻ RERUN THE SOLVER</button>',' data-cv-reboot>↻ RERUN THE SOLVER</button>',1)
-        s=s.replace('aria-label="Toggle Malayalam numerals"','aria-label="Toggle Malayalam numerals" data-cv-ml',1)
-    # Old CV links and scholarly bookmarks must resolve after the new page hierarchy is installed.
-    alias_map={
-      'Applied':['signal','person','field-readout','practice','mesh','tracks','research','profile','new-work','cv'],
-      'About':['main','lenses-heading','cycle-heading','kth-coursework','certifications','research-formation','cv-night'],
-      'Projects':['main','upstream-open-source','enerlint','residual-pathways','pathways-hub','kerala2040','tes-discharge-screen','opensteamopt','gb-flexabm','siemens-gas-turbine-thesis','structural-fea-reactor-internals','alleima-energy-efficiency','district-heating-optimisation','distribution-grid-study','gridguardpinn','finnish-grid-connection-evidence','synthsift','eu-ets-exposure-calculator','heating-demand-forecasting','industrial-energy-kpi-toolkit','pynexus-green-hydrogen','tes-peak-shaving','germany-energy-economy-analysis','hylkysaari-sustainable-tourism','residential-heating-technoeconomics','built-environment-ida-ice-simulation','philippines-emergency-energy-module','rotating-machinery-vibration-minilab','mtes-pcm-thermal-lab','battery-cell-discharge-lab','waste-to-energy-india','numerical-heat-transfer','thermotwin-f','gridflex-energy-optimizer','robotic-frame-locomotion'],
-      'Research':['main','open-source-contributions','nuclear-transition','resistance-bridge','biot-toy'],
-      'Energy':['main','scale-heading'],
-      'Industrial':['main','mdp-heading','open-boundary-heading'],
-      'Record':['main','chronology-heading','roles-heading','education-heading'],
-    }
-    missing=[v for v in alias_map.get(name,[]) if not re.search(r'\bid="'+re.escape(v)+'"',s)]
-    pending=[]
-    for key in missing:
-        if key=='main' and '<main ' in s:
-            s=s.replace('<main ','<main id="main" ',1)
-        elif name=='Projects' and key not in ('upstream-open-source','main'):
-            slug='siemens-thesis' if key=='siemens-gas-turbine-thesis' else key
-            mark='<a href="projects/'+slug+'.html"'
-            if mark in s: s=s.replace(mark,'<a id="'+key+'" href="projects/'+slug+'.html"',1)
-            else: pending.append(key)
-        elif name=='Research' and key=='biot-toy' and 'data-cv-toy="biot"' in s:
-            s=s.replace('data-cv-toy="biot"','id="biot-toy" data-cv-toy="biot"',1)
-        else: pending.append(key)
-    if pending:
-        marker=re.search(r'<main\b[^>]*>',s)
-        if marker:
-            spans=''.join('<span id="'+key+'" class="cv-anchor-alias" aria-hidden="true"></span>' for key in pending)
-            s=s[:marker.end()]+spans+s[marker.end():]
-    if name in ('Research','Projects'):
-        upstream='''<section data-cv-evidence="upstream" class="cd cs" style="padding:clamp(20px,4vw,36px);display:flex;flex-direction:column;gap:14px;min-width:0"><div class="m" style="font-size:11px;color:#d7b46a;letter-spacing:.14em">UPSTREAM CONTRIBUTION · EVIDENCE</div><h2 style="margin:0;font-size:clamp(22px,3vw,30px);letter-spacing:-.02em">Open-TYNDP · documentation PR #917</h2><p style="margin:0;color:#c9cfc6;line-height:1.65">Contributed a source-linked technology-mapping table and documentation corrections. <a href="https://github.com/open-energy-transition/open-tyndp/pull/917">Merged PR #917 ↗</a> · <a href="https://zenodo.org/records/22899072">Upstream Zenodo v0.9 ↗</a>. Credited as a first-time contributor; this is not authorship of the whole model or its Zenodo record.</p></section>'''
-        s=s.replace('</main>',upstream+'\n</main>',1)
+    if name=='Projects': pass  # Authored design shell + dynamically loaded complete case catalogue
     s=s.replace('</head>',CSS+'\n</head>',1)
     s=s.replace('</body>',JS+'\n</body>',1)
+    if name=='Projects':
+        s=re.sub(r'<article data-probe=[\s\S]*?</article>\s*','',s)
+        marker='<div class="m mu" style="display:flex;flex-wrap:wrap;gap:8px 32px;padding:0 0 12px;border-bottom:1px solid #2d3a31;font-size:11px;letter-spacing:.14em">'
+        idx=s.find(marker)
+        if idx>=0:
+            end=s.index('</div>',s.index('04 RESIDUAL',idx))
+            end=s.index('</div>',end+6)+len('</div>')
+            s=s[:end]+'\n<div id="cv-case-list" aria-live="polite" class="cv-source-driven-library"></div>'+s[end:]
+        s=s.replace('8 OF 8 CASES · RESIDUAL 4/8 STATED','<span data-cv-case-count>LOADING SOURCE-LINKED CASES · …</span>')
+        s=re.sub(r'(<button)( type="button"[^>]*>)(All|CFD / CHT|STRUCTURAL|ENERGY MANAGEMENT|ENERGY SYSTEMS|GRID|SOFTWARE)(</button>)',lambda m:m.group(1)+' data-cv-filter="'+m.group(3)+'"'+m.group(2)+m.group(3)+m.group(4),s,flags=re.I)
+        s=s.replace('</body>','<script src="scripts/claude-cases.js?v=20261027-v2" defer></script>\n</body>',1)
+    if name=='Applied':
+        s=s.replace('href="#" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID', 'href="https://orcid.org/0009-0009-8429-1266" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID')
+        s=s.replace('href="#" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV','href="downloads/Abhijith_Sivaprasadan_CV_Generic_Research.pdf" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV')
     s=s.replace('Control volume reference','Abhijith Sivaprasadan · Control Volume')
     # Root website cannot retain page-local URLs for the public URL namespace.
     return s
@@ -223,33 +196,12 @@ if not (ROOT/'scripts').exists(): (ROOT/'scripts').mkdir(parents=True)
 (ROOT/'design/claude-control-volume').mkdir(parents=True,exist_ok=True)
 archive=ROOT/'design-legacy'
 archive.mkdir(parents=True,exist_ok=True)
-with tarfile.open(source,mode='r:xz') as z:
+with zipfile.ZipFile(source) as z:
     for name,target in mapping.items():
         dest=ROOT/target
         if dest.exists() and not (archive/target).exists():
             (archive/target).parent.mkdir(parents=True,exist_ok=True)
             shutil.copy2(dest,archive/target)
-        data=z.extractfile('pages/'+name+'.html').read().decode('utf-8')
+        data=z.read('pages/'+name+'.html').decode('utf-8')
         dest.write_text(process(data,name),encoding='utf-8')
-# Keep generated shareable tracks and skill dossiers, but do not overwrite the approved homepage.
-academic = ROOT / 'scripts/build-academic.cjs'
-if academic.exists():
-    old=academic.read_text()
-    revised=old.replace("const outputs = new Map([['index.html', home()]]);", "const outputs = new Map(); // Canonical homepage is rebuilt from Claude-approved source.")
-    if revised!=old:academic.write_text(revised)
-# Older academic assertions audit the original, still preserved and available for traceability.
-validator=ROOT / 'scripts/validate-academic.cjs'
-if validator.exists():
-    old=validator.read_text()
-    needle="const read = file => fs.readFileSync(path.join(root, file), 'utf8');"
-    replacement="const read = file => fs.readFileSync(path.join(root, file === 'index.html' ? 'design-legacy/index.html' : file), 'utf8');\nassertPublicClaudeDesign();\nfunction assertPublicClaudeDesign() {\n  const page = fs.readFileSync(path.join(root, 'index.html'), 'utf8');\n  assert.ok(page.includes('data-design-source=\"claude-control-volume-v1\"'), 'Home must use the approved Claude page document.');\n  for (const name of ['about.html','projects.html','research.html','energy-systems.html','industrial-rd.html','experience.html','courses.html','ideas.html','interests.html','hobbies.html','404.html']) {\n    const html = fs.readFileSync(path.join(root,name),'utf8');\n    assert.ok(html.includes('data-design-source=\"claude-control-volume-v1\"'), name + ': not a Claude-designed page');\n  }\n}"
-    replacement=replacement.replace('\\n','\n')
-    if needle in old:validator.write_text(old.replace(needle,replacement))
-# The original Flux Lab checks apply only to the retired wrapper, not the approved design pages.
-unified=ROOT/'scripts/validate-unified-ui.cjs'
-if unified.exists():
-    old=unified.read_text()
-    banner="// Claude canonical page architecture, checked independently from retired Signal shells.\nif (require('node:fs').readFileSync(require('node:path').resolve(__dirname,'../index.html'),'utf8').includes('data-design-source=\"claude-control-volume-v1\"')) {\n  for (const p of ['index.html','projects.html','research.html','experience.html','about.html']) { const s=require('node:fs').readFileSync(require('node:path').resolve(__dirname,'..',p),'utf8'); if(!s.includes('claude-exact.css')||!s.includes('claude-exact.js'))throw Error(p+' missing Claude interactions'); }\n  console.log('Verified canonical Claude Control Volume pages');\n  process.exit(0);\n}\n"
-    banner=banner.replace('\\n','\n')
-    if not old.startswith('// Claude canonical'):unified.write_text(banner+old)
 print('Claude-design rebuild:',len(mapping),'canonical pages; originals preserved in design-legacy/')

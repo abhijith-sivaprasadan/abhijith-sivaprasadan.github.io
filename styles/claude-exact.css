@@ -75,3 +75,16 @@ body.cv .pg .nv{row-gap:2px}
 @media(max-width:600px){.cv-exact-case-row{grid-template-columns:1fr}}
 /* The user-visible probe may not cover the cyclic graph's live telemetry. */
 body.cv:has([data-cv-toy="year"]:hover) .probe{display:none!important}
+
+/* Source-driven library uses the exact case-column grammar from the Claude board. */
+.cv-dynamic-case{display:grid;grid-template-columns:1.1fr 1.4fr 1fr 1.4fr;gap:clamp(16px,2.3vw,32px);align-items:start;padding:26px 0;border-bottom:1px solid #2d3a31}
+.cv-dynamic-case-name{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cv-dynamic-case-category{font-size:11px;letter-spacing:.14em;color:#a9b3a8}
+.cv-dynamic-case-link{font-size:19px;font-weight:560;line-height:1.3;color:#f2f0e7;text-decoration:none}
+.cv-dynamic-case-link:hover{color:#65d6c9;text-decoration:underline;text-underline-offset:4px}
+.cv-dynamic-case-boundary{font-size:15px;line-height:1.6;color:#e0ded4;min-width:0}
+.cv-dynamic-case-method{font-size:13px;line-height:1.7;color:#c9cfc6;min-width:0}
+.cv-dynamic-case-residual{font-size:14px;line-height:1.55;color:#f2f0e7;padding:12px 14px;min-width:0}
+.cv-dynamic-case[hidden]{display:none!important}
+@media(max-width:900px){.cv-dynamic-case{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.cv-dynamic-case{grid-template-columns:minmax(0,1fr)}}
