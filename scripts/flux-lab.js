@@ -199,7 +199,7 @@
     dialog.showModal();
     last = 0; active = true; target = null; moveCrosshair();
     resetParticles();
-    if (on()) frame = requestAnimationFrame(draw);
+    if (on()) frame = requestAnimationFrame(draw); else draw();
     stage.focus();
   }
   function installTracer() {

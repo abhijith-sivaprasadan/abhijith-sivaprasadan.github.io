@@ -20,6 +20,7 @@ The motion is physics-true: fronts propagate, residuals converge, boundaries mar
 | `styles/cv-site.css` | Site theme: re-points the shared tokens (`--folio-*`, `--unified-*`, `--paper-*`, …) and restyles shared structures, plus the page modules (lenses, cycle, nested boundaries, gates, scale ladder, evidence-class pills, 404). Loaded last. |
 | `styles/control-volume.css` | All motion, overlays, glyph animations and toy styles. Scoped to `body.cv`. |
 | `scripts/control-volume.js` | Vanilla runtime (no dependencies, no audio files, no network). Auto-starts on `body.cv`. |
+| `scripts/flux-lab.js` + `styles/flux-lab.css` | Optional Flux Lab chamber, animated telemetry, visitor-selected motion presets and page transitions. |
 | `labs/control-volume.html` | Standalone demo of every feature. |
 
 ## How pages are wired
@@ -43,7 +44,7 @@ The motion is physics-true: fronts propagate, residuals converge, boundaries mar
 </body>
 ```
 
-Optional body attributes: `data-cv-boot` (solver boot once per session, plus a `boot` console command), `data-cv-no-sweep` (skip the page-entry sweep), `data-cv-root="../"` (prefix for console links on nested pages).
+Optional body attributes: `data-cv-boot` (solver boot available on request through console, not automatic), `data-cv-no-sweep` (skip the page-entry sweep), `data-cv-root="../"` (prefix for console links on nested pages).
 
 Markup hooks:
 
@@ -87,3 +88,14 @@ Markup hooks:
 - The cold theme uses `backdrop-filter`; browsers without it simply keep the hot theme.
 - Toy values are illustrative and labelled as such. Thesis figures shown (T = 673 K, P_gauge = 100 kPa, Bi = 0.003–0.004, discretisation error below 2 %) are the ones already published on the site. The mesh toy states that mesh independence is not validation.
 - The colours follow the Signal palette (`#070807`, `#65d6c9`, `#d7b46a`, `#8fb7ff`, `#9bd69f`, `#f98e09`).
+
+
+## Flux Lab 02 / kinetic overdrive
+
+- FLOW is the animated default; STILL quiets ornamental motion, and CHAOS enables optional pointer trails and stronger interaction effects. Reduced-motion preference forces STILL.
+- Flux Lab includes an explicitly illustrative particle field, with interactive attractor, keyboard arrows and reset. These particles are not a validated energy or thermal model.
+- Native `<dialog>` provides modal focus management, Escape support and a visible close control. The existing solver console has a Tab focus loop; source movement in the heat-field toy is keyboard operable.
+- The first-visit solver boot no longer blocks the homepage; launch it by command. Page-entry sweep remains.
+- Internal page transitions skip external links, downloads, in-page fragments and keyboard modifier clicks. No transition runs for reduced motion or STILL.
+- Flux Lab canvas runs only while open and visible; device pixel ratio and particle count are capped. Decorative trails require a fine pointer and CHAOS.
+- Site-wide assets are wired from the academic generator and shared public config; standalones include the files directly. CI knows how to resolve 404 root-absolute links.

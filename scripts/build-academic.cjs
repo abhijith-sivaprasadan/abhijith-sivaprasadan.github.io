@@ -151,8 +151,10 @@ function page(file, title, description, content, isHome = false) {
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" />
   <link rel="stylesheet" href="${prefix}styles/control-volume.css?v=${cvVersion}" />
   <link rel="stylesheet" href="${prefix}styles/cv-site.css?v=${cvVersion}" />
+  <link rel="stylesheet" href="${prefix}styles/flux-lab.css?v=${cvVersion}" />
   <script src="${prefix}scripts/academic.js?v=${version}" defer></script>
   <script src="${prefix}scripts/control-volume.js?v=${cvVersion}" defer></script>
+  <script src="${prefix}scripts/flux-lab.js?v=${cvVersion}" defer></script>
 </head>
 <body class="academic-site cv" data-page-key="${isHome ? 'home' : file.startsWith('tracks/') ? 'application-track' : 'skill-evidence'}" data-cv-label="${isHome ? 'S1 · SYSTEM' : file.startsWith('tracks/') ? 'LENS · ' + escape(title.replace(/ Portfolio$/, '').toUpperCase()) : 'EVIDENCE · ' + escape(title.toUpperCase())}"${isHome ? ' data-cv-boot' : ''}>
   <a class="skip-link" href="#main">Skip to content</a>

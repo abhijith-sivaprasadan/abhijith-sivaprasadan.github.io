@@ -211,6 +211,15 @@
       '<label class="cmdin"><span>&gt;</span><input type="text" aria-label="Command" placeholder="run thesis · open lens energy · theme cold"></label>' +
       '<div class="cmdlist"></div><div class="cmdlog">&gt; type a command, or pick one below</div></div>');
     doc.body.appendChild(ui.cmdk);
+    ui.cmdk.setAttribute('aria-modal', 'true');
+    ui.cmdk.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var focusables = Array.from(ui.cmdk.querySelectorAll('button:not([disabled]),input:not([disabled]),a[href]')).filter(function (n) { return n.getClientRects().length; });
+      if (!focusables.length) { e.preventDefault(); return; }
+      var first = focusables[0], last = focusables[focusables.length - 1];
+      if (e.shiftKey && doc.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && doc.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
     var input = ui.cmdk.querySelector('input'), list = ui.cmdk.querySelector('.cmdlist'), log = ui.cmdk.querySelector('.cmdlog');
     function render() {
       var q = input.value.trim().toLowerCase();
@@ -316,6 +325,22 @@
     root.addEventListener('pointerdown', function (e) { var p = local(e); drag = true; fx = px = p[0]; fy = py = p[1]; try { root.setPointerCapture(e.pointerId); } catch (x) {} tone(330, 0.15); paint(); });
     root.addEventListener('pointermove', function (e) { var p = local(e); px = p[0]; py = p[1]; if (drag) { fx = px; fy = py; } paint(); });
     ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (t) { root.addEventListener(t, function () { drag = false; }); });
+    root.tabIndex = 0;
+    root.setAttribute('aria-keyshortcuts', 'ArrowUp ArrowDown ArrowLeft ArrowRight');
+    root.setAttribute('aria-description', 'Arrow keys move the illustrated heat source. Hold Shift for larger steps.');
+    root.addEventListener('keydown', function (e) {
+      if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+      e.preventDefault();
+      var box = root.getBoundingClientRect(), delta = e.shiftKey ? 24 : 8;
+      if (e.key === 'ArrowUp') fy -= delta;
+      if (e.key === 'ArrowDown') fy += delta;
+      if (e.key === 'ArrowLeft') fx -= delta;
+      if (e.key === 'ArrowRight') fx += delta;
+      fx = Math.min(box.width, Math.max(0, fx));
+      fy = Math.min(box.height, Math.max(0, fy));
+      px = fx; py = fy;
+      paint();
+    });
     paint();
     return { refresh: paint };
   }
@@ -483,7 +508,8 @@
     if (body.hasAttribute('data-cv-boot')) {
       extra.push(['boot', 'rerun the solver', function () { closeConsole(); boot(true); return 'solver restarted'; }]);
       doc.querySelectorAll('[data-cv-reboot]').forEach(function (b) { b.addEventListener('click', function () { boot(true); }); });
-      boot(false);
+      // Full solver boot is a manual Easter egg, not an automatic first-visit gate.
+      whoosh();
     } else {
       whoosh();
     }
