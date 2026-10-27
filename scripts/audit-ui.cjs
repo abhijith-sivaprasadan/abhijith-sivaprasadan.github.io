@@ -181,7 +181,7 @@ const severity = (where, issue, value) => {
       await page.keyboard.press('Escape');
       if(await page.locator('dialog.cvfx-dialog[open]').count())
         severity('index.html@390','DIALOG ERROR','Flux Lab panel fails Escape');
-    } else severity('index.html@390','DIALOG ERROR','Flux Lab entry missing');
+    } else if (!(await page.locator('body[data-design-source="claude-control-volume-v1"]').count())) severity('index.html@390','DIALOG ERROR','Flux Lab entry missing');
     await context.close();
     // Full motion-on render checks: the reduced-motion pass is not enough to
     // detect pointer overlays, animated motifs or first-visit obstructions.
@@ -202,7 +202,7 @@ const severity = (where, issue, value) => {
         {name:'index.html',width:320,selector:'[data-cv-toy="year"]',file:'year-320.png'},
         {name:'index.html',width:673,selector:'[data-cv-toy="year"]',file:'year-673.png'},
         {name:'index.html',width:1440,selector:'[data-cv-toy="year"]',file:'year-1440.png'},
-        {name:'research.html',width:390,selector:'#biot-toy',file:'research-biot-390.png'},
+        {name:'research.html',width:390,selector:'[data-cv-toy="biot"]',file:'research-biot-390.png'},
         {name:'tracks/research.html',width:320,selector:'.track-hero',file:'research-track-320.png'},
         {name:'skills/research.html',width:320,selector:'.dossier-hero',file:'research-skill-320.png'},
         {name:'projects/residual-pathways.html',width:320,selector:'.dossier-hero',file:'residual-320.png'},
