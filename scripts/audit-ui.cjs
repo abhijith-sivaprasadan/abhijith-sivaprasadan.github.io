@@ -118,7 +118,16 @@ const severity = (where, issue, value) => {
               width:+r.width.toFixed(1),position:st.position,overflow:st.overflowX,family};
           }).filter(Boolean).sort((a,b)=>Math.abs(a.right-(vw+10))-Math.abs(b.right-(vw+10))).slice(0,18);
         });
-        console.log('UI AUDIT OVERFLOW '+JSON.stringify({where,px:data.scroll,offenders}));
+        const scrollOrigins=await page.evaluate(() => [...document.querySelectorAll('html,body,body *')]
+          .map(el=>{
+            const client=el.clientWidth, scroll=el.scrollWidth, r=el.getBoundingClientRect();
+            if(client<2||scroll-client<9)return null;
+            const st=getComputedStyle(el);
+            return {tag:el.tagName,cls:String(el.className?.baseVal||el.className||'').slice(0,70),
+              id:el.id,extra:scroll-client,client,scroll,rect:[Math.round(r.left),Math.round(r.right)],
+              overflow:st.overflowX,ws:st.whiteSpace,wordBreak:st.wordBreak,text:(el.textContent||'').trim().slice(0,85)};
+          }).filter(Boolean).sort((a,b)=>b.extra-a.extra).slice(0,25));
+        console.log('UI AUDIT OVERFLOW '+JSON.stringify({where,px:data.scroll,offenders,scrollOrigins}));
         severity(where,'DOCUMENT BLEED',data.scroll);
       }
       if(data.text.length)severity(where,'TEXT BLEED',data.text);
