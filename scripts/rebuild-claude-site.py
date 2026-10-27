@@ -170,6 +170,18 @@ def process(s,name):
     s=correct_facts(s,name)
     s=patch_toys(s,name)
     if name=='Projects':s=patch_projects(s)
+    if name=='Applied':
+        s=s.replace('<main style=','<main id="main" style=',1)
+        for identifier, aliases in {'cases':['projects'],'record':['experience','education'],'evidence':['resources'],'open-boundary':['contact','scope'],'lenses':['learning','skills']}.items():
+            marker=re.search(r'(<section id="'+identifier+r'"[^>]*>)',s)
+            if marker:
+                spans=''.join('<span id="'+key+'" class="cv-anchor-alias" aria-hidden="true"></span>' for key in aliases)
+                s=s[:marker.end()]+spans+s[marker.end():]
+        s=s.replace('href="#" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID →','href="https://orcid.org/0009-0009-8429-1266" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID →',1)
+        s=s.replace('href="#" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV →','href="downloads/Abhijith_Sivaprasadan_CV_Generic_Thermal_Process.pdf" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV →',1)
+        s=s.replace('<span style="padding:12px 0;color:#a9b3a8">[EMAIL]</span>','<a href="mailto:abhijithsivaprasadan@gmail.com" style="padding:12px 0;color:#a9b3a8">EMAIL →</a>',1)
+        s=s.replace('>↻ RERUN THE SOLVER</button>',' data-cv-reboot>↻ RERUN THE SOLVER</button>',1)
+        s=s.replace('aria-label="Toggle Malayalam numerals"','aria-label="Toggle Malayalam numerals" data-cv-ml',1)
     s=s.replace('</head>',CSS+'\n</head>',1)
     s=s.replace('</body>',JS+'\n</body>',1)
     s=s.replace('Control volume reference','Abhijith Sivaprasadan · Control Volume')
