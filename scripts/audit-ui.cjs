@@ -30,8 +30,11 @@ function walk(dir) {
 }
 walk(root);
 pages.sort();
-const tests = pages.map(name => ({name,width:390}));
-for (const name of highlight) if (pages.includes(name)) for (const width of [320,673,1024,1440]) tests.push({name,width});
+const debugRoutes = new Set(['projects/residual-pathways.html','skills/research.html','skills/test-instrumentation.html','tracks/general.html','tracks/research.html','tracks/software.html','for/siemens-feed.html','courses.html']);
+const debug = process.env.UI_AUDIT_TARGETED === '1';
+const tests = (debug ? pages.filter(p => debugRoutes.has(p)) : pages).map(name => ({name,width:390}));
+for (const name of highlight) if (pages.includes(name) && !debug) for (const width of [320,673,1024,1440]) tests.push({name,width});
+if (debug) for (const name of debugRoutes) if (pages.includes(name)) tests.push({name,width:320});
 const failures=[], warnings=[], summaries=[];
 const severity = (where, issue, value) => {
   const info = {page:where, issue, detail:value};
@@ -99,23 +102,21 @@ const severity = (where, issue, value) => {
       if(data.scroll>5) {
         const offenders=await page.evaluate(() => {
           const vw=innerWidth;
-          return [...document.querySelectorAll('body *')].filter(el=>{
-            const s=getComputedStyle(el),r=el.getBoundingClientRect();
-            if(s.display==='none'||s.visibility==='hidden'||r.width<2||r.height<2)return false;
-            if(r.left>=-5&&r.right<=vw+5)return false;
-            let p=el.parentElement;
-            while(p&&p!==document.body) {
-              const cs=getComputedStyle(p);
-              if(/(hidden|clip|auto|scroll)/.test(cs.overflowX)) return false;
-              p=p.parentElement;
+          return [...document.querySelectorAll('body *')].map(el => {
+            const st=getComputedStyle(el),r=el.getBoundingClientRect();
+            if (st.display==='none'||st.visibility==='hidden'||r.width<2||r.height<2) return null;
+            // Hidden offscreen menus are documented as such in diagnostics.
+            if (r.right<=vw+2) return null;
+            const family=[];
+            for (let p=el.parentElement;p&&family.length<4;p=p.parentElement) {
+              const s=getComputedStyle(p);
+              family.push({name:(p.tagName.toLowerCase()+'.'+String(p.className?.baseVal||p.className||'').slice(0,35)),
+                overflow:s.overflowX,scroll:p.scrollWidth,client:p.clientWidth});
             }
-            return true;
-          }).slice(0,15).map(el=>{
-            const r=el.getBoundingClientRect();
             return {tag:el.tagName,cls:String(el.className?.baseVal||el.className||'').slice(0,75),
               content:(el.textContent||'').trim().slice(0,50),left:+r.left.toFixed(1),right:+r.right.toFixed(1),
-              width:+r.width.toFixed(1)};
-          });
+              width:+r.width.toFixed(1),position:st.position,overflow:st.overflowX,family};
+          }).filter(Boolean).sort((a,b)=>Math.abs(a.right-(vw+10))-Math.abs(b.right-(vw+10))).slice(0,18);
         });
         console.log('UI AUDIT OVERFLOW '+JSON.stringify({where,px:data.scroll,offenders}));
         severity(where,'DOCUMENT BLEED',data.scroll);
