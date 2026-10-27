@@ -204,7 +204,8 @@ for (const track of tracks) assert.ok(read(`tracks/${track.id}.html`).includes('
 // Guard both authored sources and the generated public pages against cross-linking another researcher.
 const verifiedORCID = '0009-0009-8429-1266';
 const unrelatedORCID = '0000-0003-0299-5745';
-for (const file of ['scripts/build-academic.cjs', 'scripts/data/portfolio-tracks.cjs', 'index.html', 'research.html', 'reports.html', 'tracks/research.html', 'README.md']) {
+assert.equal(JSON.parse(read('cv.json')).identifier.value, verifiedORCID, 'Website ORCID must match canonical structured CV data.');
+for (const file of ['cv.json', 'scripts/build-academic.cjs', 'scripts/data/portfolio-tracks.cjs', 'index.html', 'research.html', 'reports.html', 'tracks/research.html', 'README.md']) {
   const source = read(file);
   assert.ok(!source.includes(unrelatedORCID), `${file}: unrelated researcher's ORCID must not be published`);
   assert.ok(source.includes(verifiedORCID), `${file}: confirmed ORCID must be used`);
