@@ -182,6 +182,34 @@ def process(s,name):
         s=s.replace('<span style="padding:12px 0;color:#a9b3a8">[EMAIL]</span>','<a href="mailto:abhijithsivaprasadan@gmail.com" style="padding:12px 0;color:#a9b3a8">EMAIL →</a>',1)
         s=s.replace('>↻ RERUN THE SOLVER</button>',' data-cv-reboot>↻ RERUN THE SOLVER</button>',1)
         s=s.replace('aria-label="Toggle Malayalam numerals"','aria-label="Toggle Malayalam numerals" data-cv-ml',1)
+    # Old CV links and scholarly bookmarks must resolve after the new page hierarchy is installed.
+    alias_map={
+      'Applied':['signal','person','field-readout','practice','mesh','tracks','research','profile','new-work','cv'],
+      'About':['main','lenses-heading','cycle-heading','kth-coursework','certifications','research-formation','cv-night'],
+      'Projects':['main','upstream-open-source','enerlint','residual-pathways','pathways-hub','kerala2040','tes-discharge-screen','opensteamopt','gb-flexabm','siemens-gas-turbine-thesis','structural-fea-reactor-internals','alleima-energy-efficiency','district-heating-optimisation','distribution-grid-study','gridguardpinn','finnish-grid-connection-evidence','synthsift','eu-ets-exposure-calculator','heating-demand-forecasting','industrial-energy-kpi-toolkit','pynexus-green-hydrogen','tes-peak-shaving','germany-energy-economy-analysis','hylkysaari-sustainable-tourism','residential-heating-technoeconomics','built-environment-ida-ice-simulation','philippines-emergency-energy-module','rotating-machinery-vibration-minilab','mtes-pcm-thermal-lab','battery-cell-discharge-lab','waste-to-energy-india','numerical-heat-transfer','thermotwin-f','gridflex-energy-optimizer','robotic-frame-locomotion'],
+      'Research':['main','open-source-contributions','nuclear-transition','resistance-bridge','biot-toy'],
+      'Energy':['main','scale-heading'],
+      'Industrial':['main','mdp-heading','open-boundary-heading'],
+      'Record':['main','chronology-heading','roles-heading','education-heading'],
+    }
+    missing=[v for v in alias_map.get(name,[]) if not re.search(r'\bid="'+re.escape(v)+'"',s)]
+    pending=[]
+    for key in missing:
+        if key=='main' and '<main ' in s:
+            s=s.replace('<main ','<main id="main" ',1)
+        elif name=='Projects' and key not in ('upstream-open-source','main'):
+            slug='siemens-thesis' if key=='siemens-gas-turbine-thesis' else key
+            mark='<a href="projects/'+slug+'.html"'
+            if mark in s: s=s.replace(mark,'<a id="'+key+'" href="projects/'+slug+'.html"',1)
+            else: pending.append(key)
+        elif name=='Research' and key=='biot-toy' and 'data-cv-toy="biot"' in s:
+            s=s.replace('data-cv-toy="biot"','id="biot-toy" data-cv-toy="biot"',1)
+        else: pending.append(key)
+    if pending:
+        marker=re.search(r'<main\b[^>]*>',s)
+        if marker:
+            spans=''.join('<span id="'+key+'" class="cv-anchor-alias" aria-hidden="true"></span>' for key in pending)
+            s=s[:marker.end()]+spans+s[marker.end():]
     s=s.replace('</head>',CSS+'\n</head>',1)
     s=s.replace('</body>',JS+'\n</body>',1)
     s=s.replace('Control volume reference','Abhijith Sivaprasadan · Control Volume')
