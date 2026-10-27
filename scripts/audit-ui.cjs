@@ -38,7 +38,7 @@ if (debug) for (const name of debugRoutes) if (pages.includes(name)) tests.push(
 const failures=[], warnings=[], summaries=[];
 const severity = (where, issue, value) => {
   const info = {page:where, issue, detail:value};
-  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER/.test(issue)) failures.push(info);
+  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL/.test(issue)) failures.push(info);
   else warnings.push(info);
 };
 (async () => {
@@ -183,6 +183,40 @@ const severity = (where, issue, value) => {
         severity('index.html@390','DIALOG ERROR','Flux Lab panel fails Escape');
     } else if (!(await page.locator('body[data-design-source="claude-control-volume-v1"]').count())) severity('index.html@390','DIALOG ERROR','Flux Lab entry missing');
 
+    await page.setViewportSize({width:320,height:844});
+    await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
+    const heatField=page.locator('[data-cv-toy="heat-field"]');
+    const heatBefore=await heatField.evaluate(el=>{
+      const s=el.querySelector('.src');
+      return {x:parseFloat(s?.style.left),y:parseFloat(s?.style.top),width:el.clientWidth,height:el.clientHeight};
+    });
+    await heatField.focus();
+    await page.keyboard.press('ArrowRight');
+    const heatAfter=await heatField.evaluate(el=>parseFloat(el.querySelector('.src')?.style.left));
+    if(!(heatBefore.x>=0&&heatBefore.x<heatBefore.width&&heatBefore.y>=0&&heatBefore.y<heatBefore.height)
+      ||Math.abs((heatAfter-heatBefore.x)-8)>0.1)
+      severity('index.html@320','HEAT CONTROL',{heatBefore,heatAfter});
+    const mesh=await page.evaluate(()=>{
+      const root=document.querySelector('[data-cv-toy="mesh"]');
+      const cells=root?.querySelector('[data-out="cells"]');
+      const before=cells?.textContent||'';
+      root?.querySelector('[data-level="3"]')?.click();
+      const after=cells?.textContent||'';
+      return {before,after,pressed:root?.querySelector('[data-level="3"]')?.getAttribute('aria-pressed')};
+    });
+    if(!mesh.before||mesh.before===mesh.after||mesh.pressed!=='true')
+      severity('index.html@320','MESH CONTROL',mesh);
+    await page.goto(base+'/research.html',{waitUntil:'domcontentloaded'});
+    const biot=await page.evaluate(()=>{
+      const root=document.querySelector('[data-cv-toy="biot"]');
+      const result=root?.querySelector('[data-out="bi"]');
+      const before=result?.textContent||'';
+      const slider=root?.querySelector('input[data-k="h"]');
+      if(slider){slider.value=String(Number(slider.max)||1000);slider.dispatchEvent(new Event('input',{bubbles:true}));}
+      return {before,after:result?.textContent||'',inputs:root?.querySelectorAll('input[data-k]').length};
+    });
+    if(biot.inputs!==3||!biot.before||biot.before===biot.after)
+      severity('research.html@320','BIOT CONTROL',biot);
     // Dynamic interactions on the actual authored pages, not only DOM presence.
     await page.goto(base+'/energy-systems.html',{waitUntil:'domcontentloaded'});
     const lens=await page.evaluate(()=>{
@@ -202,17 +236,18 @@ const severity = (where, issue, value) => {
         const label=button.textContent.trim().toUpperCase();
         states[label]={...read(),pressed:button.getAttribute('aria-pressed')};
       }
-      return {first,states,buttonCount:buttons.length,restored:states.BUILDINGS};
+      buttons[0]?.click();
+      return {first,states,buttonCount:buttons.length,restored:read()};
     });
     const energyStates=['BUILDINGS','DISPATCH','SCENARIO','FORECAST','GRID'];
     if(lens.buttonCount!==5||lens.first.rows.length!==4||
        energyStates.some(key=>!lens.states[key]||lens.states[key].rows.length!==4||lens.states[key].pressed!=='true')||
        energyStates.slice(1).some(key=>lens.states[key].rows.some((s,i)=>s===lens.first.rows[i])||lens.states[key].href===lens.first.href)||
-       JSON.stringify(lens.first)!==JSON.stringify({title:lens.restored.title,rows:lens.restored.rows,href:lens.restored.href})){
+       JSON.stringify(lens.first)!==JSON.stringify(lens.restored)){
       severity('energy-systems.html@390','ENERGY LENS',lens);
     }
     await page.goto(base+'/projects.html',{waitUntil:'domcontentloaded'});
-    try{await page.waitForFunction(()=>document.querySelectorAll('#cv-case-list article').length>=30,{timeout:12000});}
+    try{await page.waitForFunction(()=>document.querySelectorAll('#cv-case-list article').length>=30,null,{timeout:12000});}
     catch(e){severity('projects.html@390','CASE FILTER','Source-driven cases did not load');}
     const caseFilter=await page.evaluate(()=>{
       const rows=[...document.querySelectorAll('#cv-case-list article')];
