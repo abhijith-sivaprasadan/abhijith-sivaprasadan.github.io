@@ -1,0 +1,161 @@
+#!/usr/bin/env node
+/**
+ * Browser layout & interaction audit for Control Volume PR.
+ * Run with NODE_PATH=<...>/node_modules node scripts/audit-ui.cjs
+ * Reads every public HTML endpoint and samples critical ones at five widths.
+ * Fails only on actionable viewport bleed / JavaScript exceptions / broken toys.
+ */
+'use strict';
+const fs = require('fs');
+const path = require('path');
+const { chromium } = require('playwright');
+const root = path.resolve(__dirname, '..');
+const base = process.env.UI_AUDIT_BASE || 'http://127.0.0.1:8099';
+const REPORT = path.join(root, 'ui-audit-report.json');
+const highlight = ['index.html','404.html','projects.html','research.html','reports.html',
+  'experience.html','about.html','energy-systems.html','industrial-rd.html','interests.html',
+  'hobbies.html','ideas.html','courses.html','cet2026/index.html','labs/control-volume.html',
+  'for/siemens-feed.html','tracks/research.html','tracks/index.html','skills/research.html',
+  'projects/siemens-thesis.html','projects/kerala2040.html','projects/thermotwin-f.html'];
+const excludedDirs = new Set(['node_modules','backend','.github','.git','scripts','docs','dist','coverage']);
+const pages = [];
+function walk(dir) {
+  for (const item of fs.readdirSync(dir, {withFileTypes:true})) {
+    if (item.isDirectory()) {
+      if (!excludedDirs.has(item.name)) walk(path.join(dir,item.name));
+    } else if (item.name.endsWith('.html')) {
+      pages.push(path.relative(root,path.join(dir,item.name)).replaceAll(path.sep,'/'));
+    }
+  }
+}
+walk(root);
+pages.sort();
+const tests = pages.map(name => ({name,width:390}));
+for (const name of highlight) if (pages.includes(name)) for (const width of [320,673,1024,1440]) tests.push({name,width});
+const failures=[], warnings=[], summaries=[];
+const severity = (where, issue, value) => {
+  const info = {page:where, issue, detail:value};
+  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR/.test(issue)) failures.push(info);
+  else warnings.push(info);
+};
+(async () => {
+  const browser = await chromium.launch({headless:true,args:['--disable-dev-shm-usage']});
+  try {
+    const context = await browser.newContext({viewport:{width:390,height:844},
+      reducedMotion:'reduce', deviceScaleFactor:1, ignoreHTTPSErrors:true});
+    // Dynamic local code is audited, external tracker/fonts/CDN endpoints are irrelevant.
+    await context.route('**/*', route => {
+      const url = new URL(route.request().url());
+      if (url.hostname === '127.0.0.1' || url.hostname === 'localhost') return route.continue();
+      return route.abort();
+    });
+    const page = await context.newPage();
+    let exceptions=[];
+    page.on('pageerror', error => exceptions.push(error.message));
+    for (const [i,test] of tests.entries()) {
+      exceptions=[];
+      await page.setViewportSize({width:test.width,height:844});
+      const url=base+'/'+test.name;
+      try {await page.goto(url,{waitUntil:'domcontentloaded',timeout:15000});}
+      catch(err) {severity(test.name+'@'+test.width,'PAGE ERROR',err.message);continue;}
+      await page.waitForTimeout(170);
+      const data=await page.evaluate(() => {
+        const doc=document.documentElement;
+        const width=innerWidth;
+        const text=[];
+        function visibly(el) {
+          const st=getComputedStyle(el);
+          const r=el.getBoundingClientRect();
+          return st.display!=='none'&&st.visibility!=='hidden'&&parseFloat(st.opacity)>0&&r.width>1&&r.height>1;
+        }
+        function scrollable(el) {
+          let p=el.parentElement;
+          while(p&&p!==document.body) {
+            const st=getComputedStyle(p);
+            if (/(auto|scroll)/.test(st.overflowX) && p.scrollWidth>p.clientWidth+3) return true;
+            p=p.parentElement;
+          }
+          return false;
+        }
+        for(const el of document.querySelectorAll('h1,h2,h3,h4,p,button,a,label,summary,output,[data-out],.cvfx-clue')) {
+          if(!visibly(el)||scrollable(el))continue;
+          const r=el.getBoundingClientRect(), st=getComputedStyle(el);
+          // Positioning out of the viewport is a defect for visible, meaningful text.
+          if(r.left<-5||r.right>width+5) {
+            const t=(el.textContent||'').trim().slice(0,65);
+            if(t&&text.length<12) text.push({tag:el.tagName,text:t,x:+r.left.toFixed(1),right:+r.right.toFixed(1)});
+          }
+          if(st.overflowX==='hidden' && el.scrollWidth>el.clientWidth+8 && text.length<12)
+            text.push({tag:el.tagName,text:(el.textContent||'').trim().slice(0,65),clipped:el.scrollWidth-el.clientWidth});
+        }
+        const year=document.querySelector('[data-cv-toy="year"]');
+        const yr=year&&{size:year.getBoundingClientRect().width,svg:year.querySelector('svg')?.getBoundingClientRect().width,monsoon:year.querySelector('[data-out="montext"]')?.textContent||'',
+          monlabelPresent:!!year.querySelector('[data-out="monlabel"]'),slider:!!year.querySelector('[data-cv-year-day]')};
+        return {scroll:Math.round(doc.scrollWidth-width),bodyScroll:Math.round(document.body.scrollWidth-width),text,
+          year:yr,heading:document.querySelector('h1')?.textContent?.trim().slice(0,90),body:document.body.className,
+          dialog:!!document.querySelector('.cvfx-dialog')};
+      });
+      const where=test.name+'@'+test.width;
+      if(data.scroll>5)severity(where,'DOCUMENT BLEED',data.scroll);
+      if(data.text.length)severity(where,'TEXT BLEED',data.text);
+      if(exceptions.length)severity(where,'PAGE ERROR',exceptions.slice(0,8));
+      if(data.year) {
+        if(data.year.monlabelPresent||!data.year.slider)severity(where,'YEAR CONTROL',data.year);
+        if(data.year.svg > data.year.size+6)severity(where,'DOCUMENT BLEED',data.year);
+      }
+      if(test.name==='index.html') {
+        const testYear=await page.evaluate(() => {
+          const root=document.querySelector('[data-cv-toy="year"]');
+          const slider=root?.querySelector('[data-cv-year-day]');
+          const reset=root?.querySelector('[data-cv-year-reset]');
+          if(!slider||!reset) return {missing:true};
+          const dot=root.querySelector('[data-out="dot"]').getAttribute('cx');
+          slider.value='120';slider.dispatchEvent(new Event('input',{bubbles:true}));
+          const newDot=root.querySelector('[data-out="dot"]').getAttribute('cx');
+          const changed=dot!==newDot;
+          reset.click();
+          return {missing:false,changed,reset:reset.disabled};
+        });
+        if(testYear.missing||!testYear.changed||!testYear.reset)severity(where,'YEAR CONTROL',testYear);
+        const probe=await page.evaluate(() => {
+          const el=document.querySelector('.probe');
+          if(!el)return {missing:true};
+          el.querySelector('span').textContent='PROBE · VERY LONG INTERACTIVE LABEL '.repeat(10);
+          el.style.transform='translate(9999px, 0px)';
+          const st=getComputedStyle(el);
+          return {maxWidth:st.maxWidth,width:el.getBoundingClientRect().width};
+        });
+        if(probe.missing||probe.width>test.width-10)severity(where,'PROBE CLIPPED',probe);
+      }
+      if((i+1)%20===0)console.log('UI AUDIT: '+(i+1)+' / '+tests.length+' page-width cases');
+      summaries.push({where,scroll:data.scroll,text:data.text.length,exceptions:exceptions.length,year:!!data.year});
+    }
+    // Explicit keyboard-only smoke tests in both motion settings.
+    await page.setViewportSize({width:390,height:844});
+    await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
+    await page.keyboard.press('Control+k');
+    const modal=await page.locator('.cmdk[aria-modal="true"]').count();
+    if(!modal)severity('index.html@390','DIALOG ERROR','Solver console not open by Ctrl+K');
+    await page.keyboard.press('Escape');
+    if(await page.locator('.cmdk').count())severity('index.html@390','DIALOG ERROR','Solver console fails Escape');
+    await page.evaluate(() => window.scrollTo(0,600));
+    await page.waitForTimeout(250);
+    const button=page.locator('.cvfx-opener');
+    if(await button.count()) {
+      await button.evaluate(b=>b.click());
+      if(!(await page.locator('dialog.cvfx-dialog[open]').count()))
+        severity('index.html@390','DIALOG ERROR','Flux Lab panel does not open');
+      await page.keyboard.press('Escape');
+      if(await page.locator('dialog.cvfx-dialog[open]').count())
+        severity('index.html@390','DIALOG ERROR','Flux Lab panel fails Escape');
+    } else severity('index.html@390','DIALOG ERROR','Flux Lab entry missing');
+    await context.close();
+  } finally {await browser.close();}
+  const report={timestamp:new Date().toISOString(),pageCount:pages.length,testCount:tests.length,
+    failures, warnings: warnings.slice(0,150), summaries};
+  fs.writeFileSync(REPORT,JSON.stringify(report,null,2));
+  console.log('UI AUDIT SUMMARY '+JSON.stringify({pageCount:pages.length,testCount:tests.length,failures:failures.length,warnings:warnings.length}));
+  for(const item of failures.slice(0,65))console.log('UI AUDIT FAIL '+JSON.stringify(item));
+  for(const item of warnings.slice(0,65))console.log('UI AUDIT WARN '+JSON.stringify(item));
+  if(failures.length)process.exitCode=1;
+})().catch(err=>{console.error('UI AUDIT INTERNAL ERROR',err);process.exitCode=1;});

@@ -1,0 +1,39 @@
+name: PR browser UI audit
+on:
+  pull_request:
+    paths:
+      - '**/*.html'
+      - 'styles/**'
+      - 'scripts/**'
+      - '.github/workflows/ui-audit.yml'
+  workflow_dispatch:
+jobs:
+  layout-interactions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install browser runner
+        run: |
+          npm install --prefix /tmp/cv-ui-audit --no-audit --no-fund --no-save playwright@1.56.1
+          NODE_PATH=/tmp/cv-ui-audit/node_modules /tmp/cv-ui-audit/node_modules/.bin/playwright install --with-deps chromium
+      - name: Launch static site
+        run: |
+          python3 -m http.server 8099 --bind 127.0.0.1 >/tmp/cv-ui-http.log 2>&1 &
+          echo $! >/tmp/cv-ui-http.pid
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8099/index.html >/dev/null
+      - name: Audit all public routes and critical viewports
+        env:
+          NODE_PATH: /tmp/cv-ui-audit/node_modules
+        run: node scripts/audit-ui.cjs
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: control-volume-ui-audit
+          path: ui-audit-report.json
+          if-no-files-found: ignore
