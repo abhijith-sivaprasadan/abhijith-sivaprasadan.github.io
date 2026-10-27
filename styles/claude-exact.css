@@ -115,3 +115,18 @@ body.cv .cv-legacy-anchor{position:absolute;top:0;left:0;width:1px;height:1px;op
  body.cv[data-page-key="story"] .cyc-grid>div[aria-hidden="true"]{min-height:20px;transform:rotate(90deg)}
  body.cv[data-page-key="story"] .pg section.cd{padding:clamp(16px,4vw,26px)!important}
 }
+
+/* Accessible interactive Kerala nilavilakku scene, launched from the Story board. */
+.cv-night-overlay{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;padding:24px;background:rgba(3,5,4,.96);box-sizing:border-box;overflow-y:auto}
+.cv-night-scene{position:relative;width:min(100%,580px);display:flex;flex-direction:column;align-items:center;text-align:center;border:1px dashed #43544a;border-radius:16px;padding:26px 22px 36px;background:#0d110e;color:#f2f0e7}
+.cv-night-kicker{font-size:11px;letter-spacing:.14em;color:#d7b46a;align-self:flex-start}
+.cv-night-close{position:absolute;right:18px;top:15px;min-height:44px;border:1px solid #43544a;color:#f2f0e7;background:#161c18;border-radius:6px;padding:0 14px;font:12px 'JetBrains Mono',monospace;cursor:pointer}
+.cv-night-close:hover,.cv-night-close:focus-visible{border-color:#65d6c9;outline:2px solid #65d6c9;outline-offset:2px}
+.cv-night-lamp{width:min(70%,300px);height:auto;max-height:48vh;margin:10px 0 0;overflow:visible}
+.cv-night-scene h2{font:600 clamp(24px,5vw,34px)/1.2 Inter,sans-serif;letter-spacing:-.025em;margin:0}
+.cv-night-scene p{font:15px/1.6 Inter,sans-serif;color:#b7c2b9;margin:12px 0 0}
+.cv-night-glow{animation:cv-lamp-glow 3s ease-in-out infinite alternate}
+.cv-night-flame{transform-origin:150px 100px;animation:cv-lamp-flicker 2.6s ease-in-out infinite alternate}
+@keyframes cv-lamp-glow{from{opacity:.7}to{opacity:1}}
+@keyframes cv-lamp-flicker{from{transform:rotate(-2deg) scale(.98)}to{transform:rotate(2deg) scale(1.03)}}
+@media(prefers-reduced-motion:reduce){.cv-night-glow,.cv-night-flame{animation:none!important}}
