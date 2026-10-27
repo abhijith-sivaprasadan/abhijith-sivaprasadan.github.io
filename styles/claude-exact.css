@@ -91,3 +91,11 @@ body.cv:has([data-cv-toy="year"]:hover) .probe{display:none!important}
 
 /* Nonintrusive deep-link aliases for existing track and dossier links. */
 body.cv .cv-legacy-anchor{position:absolute;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;scroll-margin-top:96px}
+
+/* Visible evidence attribution, inside Claude's approved control-surface grammar. */
+.cv-upstream-note{border:1px dashed #43544a;border-radius:7px;background:#0d110e;padding:20px 22px;display:flex;flex-direction:column;gap:12px;max-width:100%;box-sizing:border-box}
+.cv-upstream-label{font:600 11px/1.5 'JetBrains Mono',monospace;letter-spacing:.13em;color:#d7b46a}
+.cv-upstream-note p{margin:0;font:14px/1.7 Inter,system-ui,sans-serif;color:#c9cfc6;max-width:900px}
+.cv-upstream-note a{color:#65d6c9;text-decoration:underline;text-underline-offset:4px}
+.cv-upstream-note a:hover{color:#f98e09}
+@media(max-width:540px){.cv-upstream-note{padding:14px 16px}}
