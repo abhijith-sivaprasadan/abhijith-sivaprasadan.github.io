@@ -289,6 +289,7 @@ const severity = (where, issue, value) => {
       const rows=[...document.querySelectorAll('#cv-case-list article')];
       const initial=rows.filter(r=>!r.hidden).length;
       const flagship=rows[0]?.querySelector('a[href]')?.getAttribute('href');
+      const kerala=rows.find(row=>row.querySelector('a[href]')?.getAttribute('href')==='projects/kerala2040.html')?.dataset.cvCaseCategory;
       const button=[...document.querySelectorAll('[data-cv-filter]')]
         .find(b=>b.dataset.cvFilter.toUpperCase()==='SOFTWARE');
       const softwareTotal=rows.filter(r=>r.dataset.cvCaseCategory==='SOFTWARE').length;
@@ -301,10 +302,10 @@ const severity = (where, issue, value) => {
       const offered=!!more&&!more.hidden;
       more?.click();
       const expanded=rows.filter(r=>!r.hidden).length;
-      return {total:rows.length,initial,flagship,selected,softwareTotal,pressed,restored,offered,expanded};
+      return {total:rows.length,initial,flagship,kerala,selected,softwareTotal,pressed,restored,offered,expanded};
     });
     if(caseFilter.total<30||caseFilter.flagship!=='projects/siemens-thesis.html'||
-       caseFilter.initial!==8||caseFilter.softwareTotal<1||
+       caseFilter.initial!==8||caseFilter.kerala!=='ENERGY SYSTEMS'||caseFilter.softwareTotal<1||
        caseFilter.selected!==Math.min(8,caseFilter.softwareTotal)||
        caseFilter.pressed!=='true'||caseFilter.restored!==8||
        !caseFilter.offered||caseFilter.expanded!==16){
