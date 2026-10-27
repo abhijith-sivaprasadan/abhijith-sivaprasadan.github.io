@@ -1,0 +1,33 @@
+name: Materialize October portfolio generated pages
+on:
+  push:
+    branches: [portfolio-2026-oct-research-reports]
+permissions:
+  contents: write
+jobs:
+  generate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Generate tracked portfolio pages from current source
+        run: |
+          node scripts/build-academic.cjs
+          git diff --stat -- index.html skills tracks
+      - name: Push exact generated pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html skills/*.html tracks/*.html
+          if git diff --cached --quiet; then
+            echo "Generated pages already current"
+          else
+            git commit -m "chore: regenerate academic portfolio pages for October projects"
+            git push origin HEAD:portfolio-2026-oct-research-reports
+          fi
