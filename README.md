@@ -76,6 +76,10 @@ The [GB-FLEXABM case study](projects/gb-flexabm.html) now documents 175 addition
 
 The GUI runs locally (`uv run --locked --extra gui gbflex gui` in the model repository); GitHub Pages does not execute Python. Each future project milestone must update its model README, this portfolio README, the case study and relevant discovery summaries, then pass checks and be pushed with CI/Pages publication verified. See `AGENTS.md`.
 
+## Control volume motion layer — design spike (27 October 2026)
+
+An opt-in motion and interaction layer, demonstrated at `labs/control-volume.html` (noindex) and documented in `docs/CONTROL_VOLUME.md`. It adds physics-true motion (heat-front page sweep, probe cursor, marching control surfaces, residual scroll rail), a cold/hot theme, a June-to-September Kerala monsoon mode, a ⌘K solver console, opt-in synthesised sound and interactive toys (heat source, mesh refinement, Biot slider, year cycle). It is not wired into live pages: adopting it would supersede the engineering-index baseline. Toy values are illustrative and labelled; the only thesis figures used are those already published.
+
 ## Shared portfolio design tokens
 
 Use these defaults when adding or editing UI so pages stay visually consistent:
