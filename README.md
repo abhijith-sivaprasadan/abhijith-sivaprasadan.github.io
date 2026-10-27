@@ -313,3 +313,10 @@ The current backend stores edits in JSON files. That is good for localhost and s
 See [CI coverage and limitations](CI.md) for the automated checks. The status badge tracks the default branch.
 
 The ThermoTwin-F and PyNEXUS case studies link the verified hosted runs and merged OpenMP/MPI implementations, with their scientific limits stated explicitly. See [CI publication record](docs/CI_PUBLICATION.md).
+
+
+## 27 October 2026 update
+
+The portfolio now includes [EnerLint](projects/enerlint.html) under [Open Energy Methods](https://github.com/Open-Energy-Methods), [ResidualPathways](projects/residual-pathways.html), [PathwaysHub](projects/pathways-hub.html), and an indexed [Reports & PDFs](reports.html) page. Reports are identified as actual PDFs, Markdown working papers or citable source software rather than conflated.
+
+ThermoTwin-F has a version-specific source-beta DOI [10.5281/zenodo.23679426](https://doi.org/10.5281/zenodo.23679426), not external industrial certification. The [evidence ledger](docs/portfolio-evidence-status-2026-10.md) records remaining research and validation gates. The public ORCID on the homepage is 0000-0003-0299-5745.
