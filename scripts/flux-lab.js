@@ -15,8 +15,7 @@
   if (media.matches) mode = 'calm';
   let dialog, opener, status, stage, context, canvas, painter, particles = [];
   let active = false, frame = 0, last = 0, turbulence = 0.42, target = null;
-  let tracer, traceContext, traceFrame = 0, pendingPointer = null, lastTrail = 0, shots = 0;
-  const sectionLabels = [];
+  let tracer, lastTrail = 0;
   const root = () => doc.body;
   const $ = (tag, cls, text) => {
     const node = doc.createElement(tag);
@@ -246,11 +245,59 @@
       setTimeout(() => { location.href = dest.href; }, mode === 'overdrive' ? 370 : 240);
     }, false);
   }
+  /* Quiet cross-page signposts. This is not a guided tour or a progress gate.
+     A visitor who has read one research demonstration sees a small next trace.
+     The four surfaces are each backed by real existing work and preserve the main UI. */
+  function installEvidenceTraces() {
+    const path = location.pathname;
+    const home = /\/(?:index\.html)?$/.test(path);
+    const steps = [
+      { id: 'mesh', when: home, at: '#mesh', href: 'research.html#biot-toy', caption: 'A temperature field meets a material boundary.', link: 'What changes inside the wall? ↗' },
+      { id: 'biot', when: /\/research\.html$/.test(path), at: '#biot-toy', href: 'projects/siemens-thesis.html', caption: 'The ratio is a clue, not the whole result.', link: 'Trace it into the reducer study ↗' },
+      { id: 'rig', when: /\/projects\/siemens-thesis\.html$/.test(path), at: '.case-hero, .paper-hero, main > section', href: 'reports.html', caption: 'Every model has a residual: what its evidence cannot establish.', link: 'Follow the written record ↗' },
+      { id: 'reports', when: /\/reports\.html$/.test(path), at: '#external-contributions', href: 'projects.html', caption: 'One boundary closes. Others are still open.', link: 'Return to the full set of cases ↗' }
+    ];
+    for (const step of steps) {
+      if (!step.when) continue;
+      const anchor = doc.querySelector(step.at);
+      if (!anchor || anchor.parentElement?.querySelector('.cvfx-clue[data-clue="' + step.id + '"]')) continue;
+      const note = $('div', 'cvfx-clue');
+      note.dataset.clue = step.id;
+      const small = $('span', 'cvfx-clue-n');
+      small.textContent = '∂Ω // ' + ['01','02','03','04'][steps.indexOf(step)];
+      const content = $('div', 'cvfx-clue-copy');
+      const text = $('span', 'cvfx-clue-text', step.caption);
+      const link = $('a', 'cvfx-clue-link', step.link);
+      link.href = new URL(step.href, siteRoot).href;
+      link.addEventListener('click', () => {
+        try {
+          const stamps = JSON.parse(sessionStorage.getItem('cvfx-traces') || '[]');
+          if (!stamps.includes(step.id)) sessionStorage.setItem('cvfx-traces', JSON.stringify([...stamps, step.id]));
+        } catch (_) { /* optional */ }
+      });
+      content.append(text, link);
+      note.append(small, content);
+      anchor.insertAdjacentElement('afterend', note);
+    }
+  }
+  // The laboratory is an Easter egg, not a fixed banner crowding first paint.
+  function installDiscovery() {
+    let discovered = false;
+    const wake = () => {
+      if (discovered || scrollY < Math.min(440, Math.max(150, innerHeight * .34))) return;
+      discovered = true;
+      root().classList.add('cvfx-awake');
+      removeEventListener('scroll', wake);
+    };
+    addEventListener('scroll', wake, { passive: true });
+    wake();
+  }
   function main() {
     if (!root() || !root().classList.contains('cv')) return;
     opener = $('button', 'cvfx-opener');
     opener.type = 'button'; opener.setAttribute('aria-haspopup', 'dialog');
-    opener.innerHTML = '<span class="cvfx-orbit" aria-hidden="true">◎</span><span>FLUX LAB</span>';
+    opener.setAttribute('aria-label', 'Open the hidden Flux Lab interactive experiment');
+    opener.innerHTML = '<span class="cvfx-orbit" aria-hidden="true">◎</span><span>∂Ω / LAB</span>'; 
     root().appendChild(opener);
     status = $('div', 'cvfx-status', 'FLUX NOMINAL');
     status.setAttribute('aria-hidden', 'true'); root().appendChild(status);
@@ -261,6 +308,7 @@
       e.preventDefault(); if (dialog.open) dialog.close(); else open();
     });
     installTracer(); installTransitions(); setUpRail();
+    installEvidenceTraces(); installDiscovery();
     setMode(mode, false);
     media.addEventListener?.('change', e => {
       if (e.matches) { if (dialog?.open) { active = false; cancelAnimationFrame(frame); draw(); } setMode('calm', false); }

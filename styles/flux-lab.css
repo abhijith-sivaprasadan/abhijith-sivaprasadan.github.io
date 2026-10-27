@@ -95,3 +95,42 @@ body.cv[data-cvfx="calm"] .cvfx-orbit,body.cv[data-cvfx="calm"] .cvfx-status::be
  body.cv .cvfx-opener .cvfx-orbit,body.cv .cvfx-status::before,body.cv .cvfx-head h2 span,body.cv .cvfx-trail-dot,body.cv .cvfx-shockwave{animation:none!important}
  body.cv .cvfx-portal{display:none!important}
 }
+
+/* Subtle discovery: existing headings and cards remain visually primary.
+   The lab control surfaces only after the reader reaches real page content. */
+body.cv .cvfx-opener {
+ opacity:0; visibility:hidden; transform:translateY(14px); pointer-events:none;
+ transition:opacity .38s ease,transform .38s ease,visibility .38s;
+}
+body.cv.cvfx-awake .cvfx-opener {
+ opacity:1; visibility:visible; transform:none; pointer-events:auto;
+}
+body.cv .cvfx-route {
+ opacity:0; visibility:hidden; transition:opacity .4s ease,visibility .4s;
+}
+body.cv.cvfx-awake[data-cvfx="overdrive"] .cvfx-route {
+ opacity:.7; visibility:visible;
+}
+body.cv .cvfx-status{display:none}
+body.cv .cvfx-clue{
+ position:relative;display:flex;align-items:flex-start;gap:14px;max-width:720px;
+ padding:14px 18px;margin:16px 0 28px;border-left:2px dashed #43544a;
+ background:linear-gradient(90deg,rgba(101,214,201,.055),rgba(7,8,7,0) 80%);
+ font-family:'JetBrains Mono',monospace;
+}
+body.cv .cvfx-clue-n{flex:none;color:#d7b46a;font-size:10px;letter-spacing:.08em;white-space:nowrap;padding-top:2px}
+body.cv .cvfx-clue-copy{display:flex;flex-direction:column;gap:6px;min-width:0}
+body.cv .cvfx-clue-text{color:#a9b3a8;font-size:11px;letter-spacing:.01em;line-height:1.5}
+body.cv .cvfx-clue-link{color:#65d6c9!important;font-size:12px;text-decoration:underline;text-decoration-style:dotted;text-decoration-thickness:1px;text-underline-offset:5px;line-height:1.55}
+body.cv .cvfx-clue-link:hover{color:#f98e09!important;text-decoration-style:solid}
+body.cv .cvfx-clue-link:focus-visible{outline:2px solid #f98e09;outline-offset:4px}
+body.cv[data-cvfx="overdrive"] .cvfx-clue::before{content:'';position:absolute;left:-5px;top:18px;width:7px;height:7px;border-radius:50%;background:#65d6c9;box-shadow:0 0 16px #65d6c9;animation:cvfx-ping 2.2s ease-in-out infinite}
+@media(max-width:560px){
+ body.cv .cvfx-clue{gap:10px;padding:12px;margin:14px 0 24px}
+ body.cv .cvfx-clue-n{font-size:9px}
+ body.cv .cvfx-clue-link{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+ body.cv .cvfx-opener,body.cv .cvfx-route{transition:none!important}
+ body.cv .cvfx-clue::before{animation:none!important}
+}

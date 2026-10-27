@@ -99,3 +99,7 @@ Markup hooks:
 - Internal page transitions skip external links, downloads, in-page fragments and keyboard modifier clicks. No transition runs for reduced motion or STILL.
 - Flux Lab canvas runs only while open and visible; device pixel ratio and particle count are capped. Decorative trails require a fine pointer and CHAOS.
 - Site-wide assets are wired from the academic generator and shared public config; standalones include the files directly. CI knows how to resolve 404 root-absolute links.
+
+## Discovery, not a takeover
+
+The Flux Lab expansion is progressive disclosure rather than a new navigation hierarchy. The opener is hidden during the hero and only appears once a visitor has scrolled into meaningful content. Compact *boundary traces* appear after existing demonstrations on the homepage, research page, thesis case and reports index. They link real evidence in a loose loop (heat field → wall resistance → thesis → reports → cases), without a forced tour, reward gate or blocking navigation. The telemetry rail is only visible when users explicitly select CHAOS. Existing sections, headings, cards and information architecture remain primary.
