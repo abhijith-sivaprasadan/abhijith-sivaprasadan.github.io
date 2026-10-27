@@ -88,3 +88,6 @@ body.cv:has([data-cv-toy="year"]:hover) .probe{display:none!important}
 .cv-dynamic-case[hidden]{display:none!important}
 @media(max-width:900px){.cv-dynamic-case{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:580px){.cv-dynamic-case{grid-template-columns:minmax(0,1fr)}}
+
+/* Nonintrusive deep-link aliases for existing track and dossier links. */
+body.cv .cv-legacy-anchor{position:absolute;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;scroll-margin-top:96px}

@@ -187,6 +187,11 @@ def process(s,name):
         s=re.sub(r'(<button)( type="button"[^>]*>)(All|CFD / CHT|STRUCTURAL|ENERGY MANAGEMENT|ENERGY SYSTEMS|GRID|SOFTWARE)(</button>)',lambda m:m.group(1)+' data-cv-filter="'+m.group(3)+'"'+m.group(2)+m.group(3)+m.group(4),s,flags=re.I)
         s=s.replace('</body>','<script src="scripts/claude-cases.js?v=20261027-v2" defer></script>\n</body>',1)
     if name=='Applied':
+        aliases = {'system':['about'],'lenses':['skills','learning'],'cases':['projects'],'record':['experience','education'],'evidence':['resources'],'open-boundary':['contact','scope']}
+        for section,names in aliases.items():
+            pat=re.compile(r'(<section id="'+section+r'" style="[^"]*)(">)')
+            s=pat.sub(lambda m:m.group(1)+';position:relative'+m.group(2)+''.join('<span id="'+x+'" class="cv-legacy-anchor" aria-hidden="true"></span>' for x in names),s,count=1)
+    if name=='Applied':
         s=s.replace('href="#" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID', 'href="https://orcid.org/0009-0009-8429-1266" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID')
         s=s.replace('href="#" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV','href="downloads/Abhijith_Sivaprasadan_CV_Generic_Research.pdf" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV')
     s=s.replace('Control volume reference','Abhijith Sivaprasadan · Control Volume')
