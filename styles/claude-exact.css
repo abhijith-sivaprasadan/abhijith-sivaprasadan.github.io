@@ -99,3 +99,9 @@ body.cv .cv-legacy-anchor{position:absolute;top:0;left:0;width:1px;height:1px;op
 .cv-upstream-note a{color:#65d6c9;text-decoration:underline;text-underline-offset:4px}
 .cv-upstream-note a:hover{color:#f98e09}
 @media(max-width:540px){.cv-upstream-note{padding:14px 16px}}
+
+/* Original Cases-page density, with an explicit way to reveal every source-linked case. */
+.cv-case-more{display:block;min-height:44px;margin:28px 0 0;padding:0 22px;border:1px solid #43544a;border-radius:6px;background:#0d110e;color:#65d6c9;font:600 12px 'JetBrains Mono',monospace;letter-spacing:.1em;cursor:pointer;max-width:100%}
+.cv-case-more:hover{border-color:#65d6c9;background:#121813}
+.cv-case-more:focus-visible{outline:3px solid #65d6c9;outline-offset:3px}
+.cv-case-more[hidden]{display:none!important}
