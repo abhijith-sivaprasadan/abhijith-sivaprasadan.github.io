@@ -191,6 +191,8 @@ def process(s,name):
         for section,names in aliases.items():
             pat=re.compile(r'(<section id="'+section+r'" style="[^"]*)(">)')
             s=pat.sub(lambda m:m.group(1)+';position:relative'+m.group(2)+''.join('<span id="'+x+'" class="cv-legacy-anchor" aria-hidden="true"></span>' for x in names),s,count=1)
+    if name=='About':
+        s=s.replace('<div class="eb">Education</div>','<div class="eb" id="kth-coursework">Education</div>',1)
     if name=='Applied':
         s=s.replace('href="#" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID', 'href="https://orcid.org/0009-0009-8429-1266" style="text-decoration:none;color:#65d6c9;padding:12px 0">ORCID')
         s=s.replace('href="#" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV','href="downloads/Abhijith_Sivaprasadan_CV_Generic_Research.pdf" style="text-decoration:none;color:#65d6c9;padding:12px 0">CV')
