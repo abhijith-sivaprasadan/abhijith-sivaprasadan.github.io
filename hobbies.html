@@ -1,128 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Hobbies and personal routines for Abhijith Sivaprasadan, including gaming, custom keyboards, kickboxing, cycling, guitar and home automation." />
-  <meta property="og:title" content="Hobbies | Abhijith Sivaprasadan" />
-  <meta property="og:description" content="A short view of Abhijith Sivaprasadan outside engineering work, including hobbies, movement and hands-on tinkering." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png" />
-  <title>Hobbies | Abhijith Sivaprasadan</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260603-field-rail-bg" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260603-field-rail-bg" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260603-field-rail-bg" />
-  <script src="scripts/public-config.js?v=20261007-engineering-index"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" async></script>
-  <script type="module" src="scripts/motion/index.js?v=20260603-field-rail-bg"></script>
-  <script src="scripts/motion/sw-register.js?v=20260603-field-rail-bg" defer></script>
-  <script src="scripts/sections/command-palette.js?v=20260603-field-rail-bg" defer></script>
-  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
-  <link rel="stylesheet" href="styles/portfolio.css?v=20261007-engineering-index" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hobbies · Abhijith Sivaprasadan · Control Volume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#070807}
+a{color:inherit;text-decoration:none}
+.m{font-family:'JetBrains Mono',ui-monospace,monospace}
+.eb{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d7b46a}
+.nv{display:flex;gap:2px 22px;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em}
+.nv a{color:#a9b3a8;padding:10px 0}
+.nv a:hover{color:#f2f0e7}
+.mu{color:#a9b3a8}
+.hr{display:flex;flex-wrap:wrap;gap:8px 32px;padding:28px 0;border-bottom:1px solid #2d3a31;align-items:baseline}
+.hn{flex:0 0 48px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;color:#65d6c9}
+.ht{flex:1 1 220px;font-size:22px;font-weight:560;line-height:1.25;letter-spacing:-.01em}
+.hd{flex:2 1 360px;font-size:16px;line-height:1.65;color:#c9cfc6;text-wrap:pretty}
+.hr{transition:background .35s,padding .35s}
+.hr:hover{background:linear-gradient(90deg,rgba(249,142,9,.08),transparent 70%);padding-left:12px!important}
+.hr .gl{align-self:center}
+.hh{flex:0 0 130px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.12em;color:#d7b46a;text-transform:uppercase}
+</style>
+<link rel="stylesheet" href="styles/control-volume.css?v=20261027-control-volume">
+<style>
+/* the canvas wraps each page in .pg; give it the header rules the runtime scopes to body children */
+.pg>header{position:relative;overflow:hidden}
+</style>
+<link rel="stylesheet" href="styles/claude-exact.css?v=20261027-v2">
 </head>
-<body class="signal-rebuild" data-cv-label="HOBBIES · OFF-DESIGN" data-page-key="hobbies">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <div class="scroll-progress" aria-hidden="true"></div>
-  <header class="site-header">
-    <nav class="nav container">
-      <a href="index.html" class="logo">Abhijith Sivaprasadan</a>
-      <div class="nav-links">
-        <a href="index.html#projects">Featured</a>
-        <a href="projects.html">Projects</a>
-        <a href="experience.html">Experience</a>
-        <a href="index.html#cv">CVs</a>
-        <a href="about.html">About</a>
-        <a href="interests.html">Interests</a>
-        <a href="courses.html">Courses</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
-    </nav>
-  </header>
+<body class="cv" data-design-source="claude-control-volume-v1" data-page-key="hobbies" data-cv-label="HOBBIES" >
+<div class="pg"  style="background:#070807;color:#f2f0e7;font-family:Inter,system-ui,sans-serif;min-height:1800px;display:flex;flex-direction:column">
 
-  <main id="main" tabindex="-1">
-    <section class="page-shell">
-      <div class="container page-shell-grid single-column">
-        <div>
-          <div class="hero-slab">
-            <p class="eyebrow cv-eyebrow" data-editable="eyebrow">Hobbies · /hobbies · off-design operation</p>
-            <h1 data-editable="title">The non-work side of the portfolio.</h1>
-            <p class="hero-text" data-editable="lead">
-              Outside engineering work, the same practical curiosity shows up in games, custom builds, movement, music and small automation experiments.
-            </p>
-          </div>
+<header style="border-bottom:1px solid #2d3a31;background:#0a0d0b"><div style="max-width:1180px;margin:0 auto;padding:16px 48px;display:flex;justify-content:space-between;align-items:center;gap:8px 32px;flex-wrap:wrap;box-sizing:border-box">
+<a href="index.html" class="m" style="font-size:13px;letter-spacing:.14em">ABHIJITH SIVAPRASADAN</a>
+<nav class="nv"><a href="index.html">SYSTEM</a><a href="projects.html">CASES</a><a href="research.html">RESEARCH</a><a href="energy-systems.html">ENERGY</a><a href="industrial-rd.html">INDUSTRIAL R&amp;D</a><a href="experience.html">RECORD</a><a href="about.html">ABOUT</a></nav>
+</div></header>
 
-          <article class="page-panel" style="margin-top: 22px;">
-            <div class="collection-head">
-              <h2>Hobbies and routines</h2>
-            </div>
-            <div class="collection-grid" data-collection="hobbies">
-              <article class="entry-card emo" data-probe="SYSTEMS · MECHANICS">
-                <span class="entry-status"><svg class="gl gl-spark" viewBox="0 0 24 24" aria-hidden="true"><g class="sk"><path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3.5 3.5M15.5 15.5L19 19M5 19l3.5-3.5M15.5 8.5L19 5"/></g></svg><span>Repeat</span></span>
-                <h3 data-editable="title">Gaming</h3>
-                <p data-editable="summary">A way to unwind, problem-solve and stay curious about systems, mechanics and design.</p>
-              </article>
-              <article class="entry-card emo" data-probe="TUNING · FEEL">
-                <span class="entry-status"><svg class="gl gl-key" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2"/><rect class="kk" x="7.5" y="10" width="9" height="5" rx="1"/></svg><span>Craft</span></span>
-                <h3 data-editable="title">Custom keyboards</h3>
-                <p data-editable="summary">Hands-on assembly, tuning and personalisation that reward patience, precision and feel.</p>
-              </article>
-              <article class="entry-card emo" data-probe="RHYTHM · f ≈ CONSTANT">
-                <span class="entry-status"><svg class="gl gl-bob" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16"/><g class="bb"><path d="M12 3v13"/><circle cx="12" cy="18.5" r="2.5"/></g></svg><span>Movement</span></span>
-                <h3 data-editable="title">Kickboxing and cycling</h3>
-                <p data-editable="summary">Good for structure, conditioning and keeping a physical rhythm alongside technical work.</p>
-              </article>
-              <article class="entry-card emo" data-probe="STRINGS · E A D">
-                <span class="entry-status"><svg class="gl gl-wave" viewBox="0 0 24 24" aria-hidden="true"><path class="wv" d="M1 12c2.5-5 5-5 7.5 0s5 5 7.5 0 5-5 7 0"/><path d="M1 20h22" opacity=".4"/></svg><span>Sound</span></span>
-                <h3 data-editable="title">Guitar</h3>
-                <p data-editable="summary">A low-friction creative outlet that balances the more analytical parts of the week.</p>
-                <div class="cv-pluck" role="group" aria-label="Pluck a guitar string (turn sound on first)"><span class="cv-label">Pluck ·</span><button type="button" class="cv-chip" data-note="164.8" aria-label="Pluck E string">E</button><button type="button" class="cv-chip" data-note="220" aria-label="Pluck A string">A</button><button type="button" class="cv-chip" data-note="293.7" aria-label="Pluck D string">D</button></div>
-              </article>
-              <article class="entry-card emo" data-probe="FLOWS · TRIGGERS">
-                <span class="entry-status"><svg class="gl gl-gear" viewBox="0 0 24 24" aria-hidden="true"><g class="gg"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="6.5"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></g></svg><span>Automation</span></span>
-                <h3 data-editable="title">Smart home tinkering</h3>
-                <p data-editable="summary">Google Home, NFC stickers and SmartThings-style flows used as small everyday automation experiments.</p>
-              </article>
-              <article class="entry-card emo" data-probe="STACK · ANDERSON · INCROPERA">
-                <span class="entry-status"><svg class="gl gl-check" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="3"/><path class="ck" d="M7 12.5l3.2 3.2L17 8.5"/></svg><span>Reading</span></span>
-                <h3>Engineering reading</h3>
-                <p>A rolling stack of texts that informs the day-job work: Anderson's <em>Modern Compressible Flow</em>, Incropera &amp; DeWitt for heat transfer, Cengel &amp; Boles for thermodynamics. Lighter reading: long-form science journalism, popular-physics, and the occasional manual for whatever tool I'm currently using.</p>
-              </article>
-              <article class="entry-card emo" data-probe="PROCEDURE · WEIGH TIME ADJUST">
-                <span class="entry-status"><svg class="gl gl-cup" viewBox="0 0 24 24" aria-hidden="true"><path class="st" d="M8 2.5c-.8 1 .8 2 0 3"/><path class="st" d="M11.5 2.5c-.8 1 .8 2 0 3"/><path class="st" d="M15 2.5c-.8 1 .8 2 0 3"/><path d="M4 8h14v5a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6z"/><path d="M18 9.5h1.5a2.5 2.5 0 0 1 0 5H17.6"/><path d="M3 21.5h16"/></svg><span>Cooking</span></span>
-                <h3>Cooking — process discipline by another name</h3>
-                <p>Treating a recipe like a procedure: weigh, time, monitor, adjust, document. Kerala and Swedish staples in regular rotation, plus the occasional ambitious project (slow-fermented sourdough, hand-pulled noodles).</p>
-              </article>
-              <article class="entry-card emo" data-probe="RESET · ARCHIPELAGO">
-                <span class="entry-status"><svg class="gl gl-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><g class="sr"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></g></svg><span>Outdoors</span></span>
-                <h3>Outdoors in Sweden</h3>
-                <p>Stockholm archipelago day trips, forest walks and the occasional ski day. The right kind of cognitive reset when the modelling spreadsheet gets too dense.</p>
-              </article>
-            </div>
-          </article>
-        </div>
+<main style="flex:1;max-width:1180px;width:100%;margin:0 auto;padding:80px 48px 112px;box-sizing:border-box;display:flex;flex-direction:column;gap:64px">
 
-        <section class="page-panel" style="margin-top: 28px;">
-          <p class="eyebrow">Same operating system</p>
-          <h2>How these connect to the work</h2>
-          <p>The pattern across hobbies — patience, calibration, iteration, documentation — is the same one that shows up in CFD setup, EnPI baselining and rig commissioning. Hobbies are not a separate track; they're the same operating system applied to different objects.</p>
-        </section>
+<section style="display:flex;flex-direction:column;gap:22px;max-width:880px">
+<div class="eb">Outside the boundary · /hobbies</div>
+<h1 style="margin:0;font-size:56px;line-height:1.06;font-weight:600;letter-spacing:-.025em">Hobbies</h1>
+<p style="margin:0;font-size:19px;line-height:1.6;color:#c9cfc6;text-wrap:pretty">The non-work side of the portfolio. The same practical curiosity shows up in games, custom builds, movement, music and small automation experiments.</p>
+</section>
 
-      </div>
-    </section>
-  </main>
+<section style="display:flex;flex-direction:column;border-top:1px solid #2d3a31">
+<article class="hr emo" data-probe="SYSTEMS · MECHANICS · DESIGN"><span class="hn">01</span><svg class="gl gl-spark" viewBox="0 0 24 24" aria-hidden="true" style="color:#8fb7ff"><g class="sk"><path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3.5 3.5M15.5 15.5L19 19M5 19l3.5-3.5M15.5 8.5L19 5"></path></g></svg><span class="ht">Gaming</span><span class="hd">A way to unwind, problem-solve and stay curious about systems, mechanics and design.</span><span class="hh">Systems</span></article>
+<article class="hr emo" data-probe="ACTUATION · TUNING · FEEL"><span class="hn">02</span><svg class="gl gl-key" viewBox="0 0 24 24" aria-hidden="true" style="color:#c9cfc6"><rect x="3" y="7" width="18" height="12" rx="2"></rect><rect class="kk" x="7.5" y="10" width="9" height="5" rx="1"></rect></svg><span class="ht">Custom keyboards</span><span class="hd">Hands-on assembly, tuning and personalisation that reward patience, precision and feel.</span><span class="hh">Calibration</span></article>
+<article class="hr emo" data-probe="CADENCE · HEART RATE · RHYTHM"><span class="hn">03</span><svg class="gl gl-bob" viewBox="0 0 24 24" aria-hidden="true" style="color:#bc3754"><path d="M4 3h16"></path><g class="bb"><path d="M12 3v13"></path><circle cx="12" cy="18.5" r="2.5"></circle></g></svg><span class="ht">Kickboxing and cycling</span><span class="hd">Structure, conditioning and a physical rhythm alongside technical work.</span><span class="hh">Rhythm</span></article>
+<article class="hr emo" data-probe="PLUCK A STRING · SOUND ON"><span class="hn">04</span><svg class="gl gl-wave" viewBox="0 0 24 24" aria-hidden="true" style="color:#9bd69f"><path class="wv" d="M1 12c2.5-5 5-5 7.5 0s5 5 7.5 0 5-5 7 0"></path><path d="M1 6h22M1 18h22" opacity=".35"></path></svg><span class="ht" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">Guitar <span style="display:inline-flex;gap:6px"><button type="button" data-note="164.8" aria-label="Pluck E string" style="min-height:44px;min-width:44px;border-radius:6px;border:1px solid #2d3a31;background:transparent;color:#9bd69f;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px">E</button><button type="button" data-note="220" aria-label="Pluck A string" style="min-height:44px;min-width:44px;border-radius:6px;border:1px solid #2d3a31;background:transparent;color:#9bd69f;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px">A</button><button type="button" data-note="293.7" aria-label="Pluck D string" style="min-height:44px;min-width:44px;border-radius:6px;border:1px solid #2d3a31;background:transparent;color:#9bd69f;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px">D</button></span></span><span class="hd">A low-friction creative outlet that balances the more analytical parts of the week.</span><span class="hh">Balance</span></article>
+<article class="hr emo" data-probe="TRIGGER → ACTION · NFC · AUTOMATION"><span class="hn">05</span><svg class="gl gl-cycle" viewBox="0 0 24 24" aria-hidden="true" style="color:#65d6c9"><g class="cy"><path d="M19.5 12a7.5 7.5 0 0 1-12.8 5.3"></path><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3"></path><path d="M17.3 3.5v3.2h-3.2M6.7 20.5v-3.2h3.2"></path></g></svg><span class="ht">Smart home tinkering</span><span class="hd">Google Home, NFC stickers and SmartThings-style flows, used as small everyday automation experiments.</span><span class="hh">Iteration</span></article>
+<article class="hr emo" data-probe="ANDERSON · INCROPERA · ÇENGEL"><span class="hn">06</span><svg class="gl gl-check" viewBox="0 0 24 24" aria-hidden="true" style="color:#8fb7ff"><rect x="2.5" y="2.5" width="19" height="19" rx="3"></rect><path class="ck" d="M7 12.5l3.2 3.2L17 8.5"></path></svg><span class="ht">Engineering reading</span><span class="hd">A rolling stack that informs the day job: Anderson's <i>Modern Compressible Flow</i>, Incropera and DeWitt for heat transfer, Çengel and Boles for thermodynamics. Lighter: long-form science journalism, popular physics, and the manual for whatever tool is current.</span><span class="hh">First principles</span></article>
+<article class="hr emo" data-probe="WEIGH · TIME · MONITOR · ADJUST · DOCUMENT"><span class="hn">07</span><svg class="gl gl-cup" viewBox="0 0 24 24" aria-hidden="true" style="color:#c9a27a"><path class="st" d="M8 2.5c-.8 1 .8 2 0 3"></path><path class="st" d="M11.5 2.5c-.8 1 .8 2 0 3"></path><path class="st" d="M15 2.5c-.8 1 .8 2 0 3"></path><path d="M4 8h14v5a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6z"></path><path d="M18 9.5h1.5a2.5 2.5 0 0 1 0 5H17.6"></path><path d="M3 21.5h16"></path></svg><span class="ht">Cooking</span><span class="hd">A recipe treated as a procedure: weigh, time, monitor, adjust, document. Kerala and Swedish staples in regular rotation, plus the occasional ambitious project such as slow-fermented sourdough or hand-pulled noodles.</span><span class="hh">Documentation</span></article>
+<article class="hr emo" data-probe="ARCHIPELAGO · FOREST · SKI"><span class="hn">08</span><svg class="gl gl-sun" viewBox="0 0 24 24" aria-hidden="true" style="color:#fcffa4"><circle cx="12" cy="12" r="4"></circle><g class="sr"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"></path></g></svg><span class="ht">Outdoors in Sweden</span><span class="hd">Stockholm archipelago day trips, forest walks and the occasional ski day. A reset for when the modelling spreadsheet gets too dense.</span><span class="hh">Reset</span></article>
+</section>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2026 Abhijith Sivaprasadan. Built with GitHub Pages.</p>
-    </div>
-  </footer>
-  <script src="scripts/site.js?v=20260603-field-rail-bg"></script>
+<section class="cs" data-probe="SAME OPERATING SYSTEM" style="border:1.5px dashed #65d6c9;border-radius:14px;padding:36px;background:#0d110e;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:10px;max-width:760px"><div class="m" style="font-size:12px;letter-spacing:.14em;color:#65d6c9">HOW THESE CONNECT TO THE WORK</div><div style="font-size:26px;line-height:1.3;font-weight:560;letter-spacing:-.01em;text-wrap:balance">Hobbies are not a separate track. They are the same operating system applied to different objects.</div></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:12px">
+<div class="m" style="padding:16px;border:1px solid #2d3a31;border-radius:6px;font-size:13px;letter-spacing:.12em">PATIENCE</div>
+<div class="m" style="padding:16px;border:1px solid #2d3a31;border-radius:6px;font-size:13px;letter-spacing:.12em">CALIBRATION</div>
+<div class="m" style="padding:16px;border:1px solid #2d3a31;border-radius:6px;font-size:13px;letter-spacing:.12em">ITERATION</div>
+<div class="m" style="padding:16px;border:1px solid #2d3a31;border-radius:6px;font-size:13px;letter-spacing:.12em">DOCUMENTATION</div>
+</div>
+<div style="font-size:15px;line-height:1.6;color:#a9b3a8;max-width:720px">The same habits appear in CFD setup, EnPI baselining and rig commissioning.</div>
+</section>
+
+</main>
+
+<footer style="border-top:1px solid #2d3a31"><div style="max-width:1180px;margin:0 auto;padding:32px 48px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;box-sizing:border-box"><nav class="nv"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#d7b46a;padding:10px 0">OUTSIDE THE BOUNDARY</span><a href="courses.html">COURSES</a><a href="ideas.html">IDEAS</a><a href="interests.html">INTERESTS</a><a href="hobbies.html" style="color:#65d6c9">HOBBIES</a></nav><div class="m mu" style="font-size:12px;letter-spacing:.06em;padding:10px 0">Methods, evidence, and their limits.</div></div></footer>
+
+
+
+
+
+
+
+
+
+
+</div>
+<script src="scripts/control-volume.js?v=20261027-control-volume" defer></script>
+<script src="scripts/claude-exact.js?v=20261027-v2" defer></script>
 </body>
 </html>

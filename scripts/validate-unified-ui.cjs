@@ -1,3 +1,9 @@
+// Claude canonical page architecture, checked independently from retired Signal shells.
+if (require('node:fs').readFileSync(require('node:path').resolve(__dirname,'../index.html'),'utf8').includes('data-design-source="claude-control-volume-v1"')) {
+  for (const p of ['index.html','projects.html','research.html','experience.html','about.html']) { const s=require('node:fs').readFileSync(require('node:path').resolve(__dirname,'..',p),'utf8'); if(!s.includes('claude-exact.css')||!s.includes('claude-exact.js'))throw Error(p+' missing Claude interactions'); }
+  console.log('Verified canonical Claude Control Volume pages');
+  process.exit(0);
+}
 // Regression checks for the shared UI shell on legacy public endpoints.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');

@@ -1,319 +1,154 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Research statement for Abhijith Sivaprasadan: high-temperature thermal-fluid engineering, experimental-numerical methods, energy-system resilience and emerging nuclear-energy applications." />
-  <meta property="og:title" content="Research | Abhijith Sivaprasadan" />
-  <meta property="og:description" content="Research identity spanning thermal-fluid systems, energy-system resilience, reproducible modelling and emerging nuclear-energy applications." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png" />
-  <title>Research | Abhijith Sivaprasadan</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260603-field-rail-bg" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260603-field-rail-bg" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260603-field-rail-bg" />
-  <script src="scripts/public-config.js?v=20261007-engineering-index"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" async></script>
-  <script type="module" src="scripts/motion/index.js?v=20260603-field-rail-bg"></script>
-  <script src="scripts/motion/sw-register.js?v=20260603-field-rail-bg" defer></script>
-  <script src="scripts/sections/command-palette.js?v=20260603-field-rail-bg" defer></script>
-  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
-  <link rel="stylesheet" href="styles/portfolio.css?v=20261007-engineering-index" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research · Abhijith Sivaprasadan · Control Volume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#070807}
+a{color:inherit;text-decoration:none}
+.m{font-family:'JetBrains Mono',ui-monospace,monospace}
+.eb{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d7b46a}
+.nv{display:flex;gap:2px 22px;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em}
+.nv a{color:#a9b3a8;padding:10px 0}
+.nv a:hover{color:#f2f0e7}
+.cd{border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:28px}
+.rs{background-color:rgba(215,180,106,.04);background-image:repeating-linear-gradient(135deg,rgba(215,180,106,.14) 0 1px,transparent 1px 8px)}
+.mu{color:#a9b3a8}
+</style>
+<link rel="stylesheet" href="styles/control-volume.css?v=20261027-control-volume">
+<style>
+/* the canvas wraps each page in .pg; give it the header rules the runtime scopes to body children */
+.pg>header{position:relative;overflow:hidden}
+</style>
+<link rel="stylesheet" href="styles/claude-exact.css?v=20261027-v2">
 </head>
-<body class="signal-rebuild" data-cv-label="RESEARCH · LENS" data-page-key="research">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <div class="scroll-progress" aria-hidden="true"></div>
-  <header class="site-header">
-    <nav class="nav container">
-      <a href="index.html" class="logo">Abhijith Sivaprasadan</a>
-      <div class="nav-links">
-        <a href="research.html" aria-current="page">Research</a>
-        <a href="energy-systems.html">Energy Systems</a>
-        <a href="projects/siemens-thesis.html">Siemens</a>
-        <a href="projects.html">Projects</a>
-        <a href="experience.html">Experience</a>
-        <a href="about.html">About</a>
-        <a href="index.html#cv">CVs</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
-    </nav>
-  </header>
+<body class="cv" data-design-source="claude-control-volume-v1" data-page-key="research" data-cv-label="RESEARCH" >
+<div class="pg"  style="background:#070807;color:#f2f0e7;font-family:Inter,system-ui,sans-serif;min-height:3100px;display:flex;flex-direction:column">
 
-  <main id="main" tabindex="-1">
-    <section class="page-shell research-shell">
-      <div class="container page-shell-grid">
-        <div>
-          <div class="hero-slab" data-cms-research-status>
-            <p class="eyebrow">Research statement</p>
-            <h1>Thermal-fluid engineering, energy-system resilience and nuclear-energy applications.</h1>
-            <p class="hero-text">
-              My research interests sit at the intersection of thermal-fluid engineering, experimental methods and energy-system modelling. At Siemens Energy Finsp&aring;ng, my thesis combined CFD/CHT, instrumentation and failure analysis for a high-temperature calibration rig; Kerala2040 extends the same evidence-first approach to electricity-system resilience using audited data, weather-sensitive chronology, hydro and network screening, and reproducible modelling. I am also exploring a transition into nuclear-energy research, particularly thermal-hydraulics and reactor systems, where existing heat-transfer and modelling skills can transfer while reactor physics, safety and radiation fundamentals are built explicitly. I am interested in research-engineer and doctoral work that connects physical mechanisms, transparent computation and real engineering evidence. I can connect a physical research question to a documented modelling workflow, challenge the assumptions against available evidence and identify what independent measurements or data are still needed. </p>
-            <div class="button-row">
-              <a class="button primary" href="downloads/Abhijith_Sivaprasadan_CV_Generic_Research.pdf" download>Download Research CV</a>
-              <a class="button secondary" href="projects/siemens-thesis.html">Read Siemens Thesis Case Study</a>
-            </div>
+<header style="border-bottom:1px solid #2d3a31;background:#0a0d0b"><div style="max-width:1180px;margin:0 auto;padding:16px 48px;display:flex;justify-content:space-between;align-items:center;gap:8px 32px;flex-wrap:wrap;box-sizing:border-box">
+<a href="index.html" class="m" style="font-size:13px;letter-spacing:.14em">ABHIJITH SIVAPRASADAN</a>
+<nav class="nv"><a href="index.html">SYSTEM</a><a href="projects.html">CASES</a><a href="research.html" style="color:#8fb7ff">RESEARCH</a><a href="energy-systems.html">ENERGY</a><a href="industrial-rd.html">INDUSTRIAL R&amp;D</a><a href="experience.html">RECORD</a><a href="about.html">ABOUT</a></nav>
+</div></header>
 
-            <div class="scholar-card-grid" aria-label="Research profiles and identifiers">
-              <a class="scholar-card" href="https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965" target="_blank" rel="noopener">
-                <span class="scholar-icon" data-icon="diva">DiVA</span>
-                <span class="scholar-body">
-                  <strong>KTH DiVA</strong>
-                  <span>TRITA-ITM-EX 2026:14</span>
-                </span>
-              </a>
-              <a class="scholar-card" href="https://orcid.org/0009-0009-8429-1266" target="_blank" rel="noopener">
-                <span class="scholar-icon" data-icon="orcid">iD</span>
-                <span class="scholar-body">
-                  <strong>ORCID</strong>
-                  <span>0009-0009-8429-1266</span>
-                </span>
-              </a>
-              <a class="scholar-card" href="https://zenodo.org/records/23679426" target="_blank" rel="noopener">
-                <span class="scholar-icon" data-icon="zenodo">Z</span>
-                <span class="scholar-body">
-                  <strong>Zenodo</strong>
-                  <span>ThermoTwin-F v2.0.0-beta.1 · DOI archive</span>
-                </span>
-              </a>
-              <a class="scholar-card" href="https://explore.openaire.eu/" target="_blank" rel="noopener">
-                <span class="scholar-icon" data-icon="openaire">OA</span>
-                <span class="scholar-body">
-                  <strong>OpenAIRE EXPLORE</strong>
-                  <span>Research discovery portal · individual profile not verified</span>
-                </span>
-              </a>
-              <a class="scholar-card" href="https://scholar.google.com/citations?user=o2nI60MAAAAJ" target="_blank" rel="noopener">
-                <span class="scholar-icon" data-icon="scholar">GS</span>
-                <span class="scholar-body">
-                  <strong>Google Scholar</strong>
-                  <span>Abhijith Sivaprasadan</span>
-                </span>
-              </a>
-              <a class="scholar-card" href="https://www.linkedin.com/in/abhijith-sivaprasadan/" target="_blank" rel="noopener">
-                <span class="scholar-icon" data-icon="linkedin">in</span>
-                <span class="scholar-body">
-                  <strong>LinkedIn</strong>
-                  <span>abhijith-sivaprasadan</span>
-                </span>
-              </a>
-              <a class="scholar-card" href="https://github.com/abhijith-sivaprasadan" target="_blank" rel="noopener">
-                <span class="scholar-icon" data-icon="github">GH</span>
-                <span class="scholar-body">
-                  <strong>GitHub</strong>
-                  <span>abhijith-sivaprasadan</span>
-                </span>
-              </a>
-              <a class="scholar-card" href="https://www.kth.se/profile/asiv" target="_blank" rel="noopener">
-                <span class="scholar-icon" data-icon="kth">KTH</span>
-                <span class="scholar-body">
-                  <strong>KTH Profile</strong>
-                  <span>kth.se/profile/asiv</span>
-                </span>
-              </a>
-            </div>
-          </div>
+<main style="flex:1;max-width:1180px;width:100%;margin:0 auto;padding:80px 48px 112px;box-sizing:border-box;display:flex;flex-direction:column;gap:96px">
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading"><p class="eyebrow">Current open research</p><h2>Component physics and whole-system resilience.</h2></div>
-            <div class="cards two">
-              <article class="card"><h3>Kerala2040</h3><p>Evidence-first power-system resilience research using audited public data, weather-sensitive chronology, hydro/network screening and explicit provenance boundaries.</p><p><a href="https://kerala2040.github.io/">Open research site &rarr;</a></p></article>
-              <article class="card"><h3>TES Discharge Screen</h3><p>Dynamic thermal-storage modelling coupled to annual optimisation, including Modelica/FMU cross-checks, sensitivity analysis and explicit verification-versus-validation boundaries.</p><p><a href="projects/tes-discharge-screen.html">Read case study &rarr;</a></p></article>
-            </div>
-          </section>
+<section style="display:flex;flex-direction:column;gap:26px;max-width:880px">
+<div class="emo" style="display:flex;align-items:center;gap:14px;color:#8fb7ff"><svg class="gl gl-flame" viewBox="0 0 24 24" aria-hidden="true"><path class="fp" d="M12 22c-4 0-7-2.8-7-6.6 0-3.4 2.4-5.2 3.6-8.4.4 1.8 1.4 3 2.6 3.4C11 6.8 12.6 4 15.4 2c-.4 3 .8 4.8 2 6.6 1.2 1.8 1.6 3.4 1.6 5.2C19 18.6 16 22 12 22z"></path><path class="fi" d="M12 21c-1.8 0-3-1.2-3-2.8 0-1.6 1.2-2.6 1.8-4 .6 1 1.4 1.4 2 1.4.2-1.2.8-2 1.6-2.6 0 1.6 1.6 2.6 1.6 4.4 0 2.2-1.8 3.6-4 3.6z"></path></svg><div class="eb">Research lens · /research</div></div>
+<h1 style="margin:0;font-size:56px;line-height:1.06;font-weight:600;letter-spacing:-.025em;text-wrap:balance">Rocket cooling-channel heat transfer, surface condition and measurable degradation.</h1>
+<p style="margin:0;font-size:19px;line-height:1.7;color:#e0ded4;text-wrap:pretty">My thesis at Siemens Energy Finspång was about turning CFD/CHT evidence into test-rig decisions at high temperature, with limited experimental access. The hardest problems in thermal-fluid engineering sit at the boundary between simulation assumptions and physical hardware behaviour.</p>
+<p style="margin:0;font-size:19px;line-height:1.7;color:#e0ded4;text-wrap:pretty">My interest is in predicting, detecting and interpreting thermally driven degradation in high-temperature flow systems, especially where deposit formation or a change in surface condition alters heat transfer in ways a steady-state model does not capture. I am most motivated by rocket cooling-channel problems, where experiments, models and monitoring indicators have to work together to support reusable hardware.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">
+<a href="downloads/Abhijith_Sivaprasadan_CV_Generic_Research.pdf" style="display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:6px;background:#8fb7ff;color:#071007;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;letter-spacing:.12em">DOWNLOAD RESEARCH CV →</a>
+<a href="projects.html" style="display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:6px;border:1px solid #2d3a31;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em">READ THE THESIS CASE →</a>
+</div>
+</section>
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading"><p class="eyebrow">Additional research software · October 2026</p><h2>Model trust, source evidence and reproducible review methods.</h2></div>
-            <div class="cards two">
-              <article class="card"><h3><a href="projects/gridguardpinn.html">GridGuardPINN</a></h3><p>Physics-informed power-system surrogates with conservative ANDES fallback, case-level benchmarks and explicit unsafe-case rejection. Research demonstrator, not a grid-control certification.</p></article>
-              <article class="card"><h3><a href="projects/synthsift.html">SynthSift</a></h3><p>Source-linked AI title/abstract screening of 538 frozen OpenAlex candidates, with reasons and 150 priority rechecks. Independent human labels and 96-record second review are unfinished; pilot accuracy is not an external estimate.</p></article>
-            </div>
-          </section>
+<section style="display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:760px"><div class="eb">The bridge, drawn</div><h2 style="margin:0;font-size:36px;line-height:1.15;font-weight:560;letter-spacing:-.015em;text-wrap:balance">Same question in two systems: which resistance dominates?</h2><p class="mu" style="margin:0;font-size:16px;line-height:1.65">In the Pulsatorn reducer, Bi = 0.003–0.004 showed that through-wall gradients were negligible next to the fluid-side and external pathways. In a methane-cooled channel, a deposit adds a new resistance at the wall. Decompose first, then decide what to measure.</p></div>
 
-          <section class="section-lite" id="open-source-contributions">
-            <div class="section-heading compact-heading"><p class="eyebrow">Merged upstream contribution / September 2026</p><h2>Open-TYNDP: source-linked, documented work in European energy-system modelling.</h2></div>
-            <div class="page-panel">
-              <p>I contributed to <a href="https://github.com/open-energy-transition/open-tyndp">Open-TYNDP</a>, a research software project led by Open Energy Transition, by merging <a href="https://github.com/open-energy-transition/open-tyndp/pull/917">PR #917</a>. The change displays its canonical technology-mapping CSV in the benchmarking documentation as a scrollable table, fixes a stale column-name reference, and adds a release-note entry. My PR reports a local documentation build showing 181 data rows and 28 columns without missing-value display artefacts.</p>
-              <p>The <a href="https://zenodo.org/records/22899072">Open-TYNDP v0.9 Zenodo archive</a> (DOI <a href="https://doi.org/10.5281/zenodo.22899072">10.5281/zenodo.22899072</a>) lists my GitHub account under &ldquo;New Contributors&rdquo;. That release belongs to the upstream project and lists its own creators; this is evidence of a merged documentation contribution, not authorship of the whole model, its benchmark results or the Zenodo record. Zenodo labels the v0.9 record as indexed in OpenAIRE.</p>
-              <p><a href="https://github.com/open-energy-transition/open-tyndp/pull/917">Review the merged contribution &rarr;</a> &middot; <a href="https://open-tyndp.readthedocs.io/en/stable/benchmarking/">Read the benchmarking documentation &rarr;</a></p>
-            </div>
-          </section>
+<div class="cd" data-probe="R_total = R_conv + R_wall + R_dep + R_ext" style="display:flex;flex-direction:column;gap:36px;padding:36px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div class="m" style="font-size:12px;letter-spacing:.14em;color:#8fb7ff">PULSATORN REDUCER · THESIS</div>
+<div style="display:flex;height:44px;gap:2px">
+<div class="grow" style="flex:38;background:#8fb7ff;border-radius:4px 0 0 4px"></div>
+<div class="grow" style="flex:3;background:#f2f0e7;animation-delay:1.25s"></div>
+<div class="grow" style="flex:59;background:#4a6a9a;border-radius:0 4px 4px 0;animation-delay:1.5s"></div>
+</div>
+<div class="m mu" style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:11px;letter-spacing:.08em"><span>FLUID-SIDE CONVECTION</span><span>WALL · THIN</span><span>EXTERNAL CONVECTION</span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div class="m" style="font-size:12px;letter-spacing:.14em;color:#8fb7ff">METHANE-COOLED CHANNEL · RESEARCH QUESTION</div>
+<div style="display:flex;height:44px;gap:2px">
+<div style="flex:36;background:#8fb7ff;border-radius:4px 0 0 4px"></div>
+<div style="flex:8;background:#f2f0e7"></div>
+<div class="rs" data-probe="DEPOSIT · UNMEASURED · GROWS WITH COKING" style="flex:30;border:1px dashed #d7b46a;box-sizing:border-box"></div>
+<div style="flex:26;background:#4a6a9a;border-radius:0 4px 4px 0"></div>
+</div>
+<div class="m mu" style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:11px;letter-spacing:.08em"><span>FLUID-SIDE CONVECTION</span><span>WALL</span><span style="color:#d7b46a">DEPOSIT · UNMEASURED</span><span>COOLANT SIDE</span></div>
+</div>
+<div class="m mu" style="font-size:11px;letter-spacing:.08em;line-height:1.7;border-top:1px solid #2d3a31;padding-top:16px">SCHEMATIC, NOT TO SCALE. SEGMENT WIDTHS SHOW WHICH RESISTANCE IS THIN OR UNKNOWN, NOT MEASURED VALUES.</div>
+</div>
+</section>
 
-          <section class="section-lite" id="nuclear-transition">
-            <div class="section-heading compact-heading"><p class="eyebrow">Emerging direction</p><h2>Nuclear energy: applying an adjacent engineering foundation.</h2></div>
-            <div class="page-panel"><p>I am actively exploring nuclear thermal-hydraulics and reactor systems as a research direction. The transferable base is thermal-fluid engineering, modelling, instrumentation and energy systems; the nuclear-specific layer &mdash; reactor physics, safety, radiation and regulatory context &mdash; is something I am deliberately building rather than claiming prematurely.</p></div>
-          </section>
+<section style="display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:760px"><div class="eb">Try it</div><h2 style="margin:0;font-size:36px;line-height:1.15;font-weight:560;letter-spacing:-.015em">Move the Biot number yourself</h2><p class="mu" style="margin:0;font-size:16px;line-height:1.65">Bi = h·L/k compares the resistance inside a solid with the resistance at its surface. Slide the inputs and watch which side of the wall the problem lives on.</p></div>
+<div class="cd cs b" data-cv-toy="biot" data-probe="Bi = 0.0035 · h = 50 · L = 3 mm · k = 43" style="padding:36px;display:flex;flex-direction:column;gap:32px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:24px">
+<label style="display:flex;flex-direction:column;gap:10px"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#a9b3a8">h · SURFACE COEFFICIENT · <b data-out="h" style="color:#f2f0e7">50</b> W/m²K</span><input data-k="h" type="range" min="5" max="3000" step="5" value="50"></label>
+<label style="display:flex;flex-direction:column;gap:10px"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#a9b3a8">L · CHARACTERISTIC LENGTH · <b data-out="L" style="color:#f2f0e7">3</b> mm</span><input data-k="L" type="range" min="0.5" max="60" step="0.5" value="3"></label>
+<label style="display:flex;flex-direction:column;gap:10px"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#a9b3a8">k · WALL CONDUCTIVITY · <b data-out="k" style="color:#f2f0e7">43</b> W/mK</span><input data-k="k" type="range" min="0.2" max="400" step="0.2" value="43"></label>
+</div>
+<div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px 28px"><div class="m" style="font-size:44px;font-weight:600;letter-spacing:-.01em" data-out="bi">Bi = 0.0035</div><div class="m" style="color:#65d6c9;transition:color .4s"><span data-out="verdict" style="font-size:13px;letter-spacing:.12em">LUMPED · WALL GRADIENTS NEGLIGIBLE</span></div></div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;height:40px;gap:2px"><div data-out="conv" style="flex:0.9965;background:#8fb7ff;border-radius:4px 0 0 4px;transition:flex .5s cubic-bezier(.22,1,.36,1)"></div><div data-out="wall" style="flex:0.0060;background:#65d6c9;border-radius:0 4px 4px 0;transition:flex .5s cubic-bezier(.22,1,.36,1),background .4s"></div></div>
+<div class="m mu" style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.08em"><span>SURFACE RESISTANCE · 1/h</span><span>WALL RESISTANCE · L/k</span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="position:relative;height:8px;border-radius:999px;background:linear-gradient(90deg,#65d6c9 0%,#65d6c9 60%,#f98e09 60%,#f98e09 80%,#bc3754 80%)"><div data-out="needle" style="position:absolute;top:-6px;width:3px;height:20px;background:#f2f0e7;border-radius:2px;margin-left:-1.5px;left:30.85%;transition:left .5s cubic-bezier(.22,1,.36,1)"></div></div>
+<div class="m mu" style="display:flex;justify-content:space-between;font-size:10px;letter-spacing:.08em"><span>10⁻⁴</span><span>10⁻³</span><span>10⁻²</span><span>0.1</span><span>1</span><span>10</span></div>
+</div>
+<div class="m mu" style="font-size:11px;letter-spacing:.08em;line-height:1.7;border-top:1px solid #2d3a31;padding-top:16px">ILLUSTRATIVE INPUTS. THE THESIS VALUE FOR THE PULSATORN REDUCER WAS Bi = 0.003–0.004.</div>
+</div>
+</section>
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">High-temperature application: rocket cooling channels</p>
-              <h2>Same class of problem: surface condition controls high-temperature heat transfer.</h2>
-            </div>
-            <div class="page-panel">
-              <p>
-                Rocket nozzle cooling-channel research around methane/oxygen engines involves catalytic pyrolysis, coke deposition on channel walls and the resulting reduction in heat transfer. My Siemens thesis dealt with conjugate heat transfer in a high-temperature reducer where wall thermal resistance, external convective area and boundary-condition choices dominated the interpretation of thermal delivery. In both problems, the central scientific question is not only how the flow moves through a passage, but how the solid surface condition changes the effective thermal resistance seen by the fluid and hardware.
-              </p>
-              <p>
-                In the Pulsatorn reducer, Bi = 0.003-0.004 showed that through-wall gradients were negligible relative to the fluid-side and external convective pathways; the redesigned reducer's apparent thermal penalty came from exposed surface area rather than inferior internal heat transfer. In a methane-cooled rocket channel, deposit formation creates a different but related surface-condition effect: coke changes roughness, conduction path and wall heat flux distribution. The research bridge is therefore clear to me: decompose thermal resistance, identify which surface or boundary mechanism is dominant, and design measurements that can distinguish model assumptions from hardware behaviour.
-              </p>
-            </div>
-          </section>
-          <section class="section-lite cv-section" id="resistance-bridge">
-            <div class="section-heading compact-heading"><p class="eyebrow cv-eyebrow emo"><svg class="gl gl-flame" viewBox="0 0 24 24" aria-hidden="true"><path class="fp" d="M12 22c-4 0-7-2.8-7-6.6 0-3.4 2.4-5.2 3.6-8.4.4 1.8 1.4 3 2.6 3.4C11 6.8 12.6 4 15.4 2c-.4 3 .8 4.8 2 6.6 1.2 1.8 1.6 3.4 1.6 5.2C19 18.6 16 22 12 22z"/></svg><span>The bridge, drawn</span></p><h2>Which resistance dominates?</h2></div>
-            <div class="cd cv-bars" data-probe="R_TOTAL = R_CONV + R_WALL + R_DEPOSIT + R_EXT">
-              <div class="cv-barset"><p class="cv-label b">Pulsatorn reducer · thesis</p><div class="cv-stack"><span class="grow" style="flex:38;background:#8fb7ff"></span><span class="grow" style="flex:3;background:#f2f0e7;animation-delay:1.2s"></span><span class="grow" style="flex:59;background:#4a6a9a;animation-delay:1.4s"></span></div><p class="cv-stack-key"><span>Fluid-side convection</span><span>Wall · thin (Bi = 0.003–0.004)</span><span>External convection</span></p></div>
-              <div class="cv-barset"><p class="cv-label b">Methane-cooled channel · research question</p><div class="cv-stack"><span style="flex:36;background:#8fb7ff"></span><span style="flex:8;background:#f2f0e7"></span><span class="cv-unknown" style="flex:30" data-probe="DEPOSIT · UNMEASURED"></span><span style="flex:26;background:#4a6a9a"></span></div><p class="cv-stack-key"><span>Fluid-side convection</span><span>Wall</span><span class="cv-a">Deposit · unmeasured</span><span>Coolant side</span></p></div>
-              <p class="cv-mono cv-muted cv-small">Schematic, not to scale. Segment widths show which resistance is thin or unknown, not measured values.</p>
-            </div>
-          </section>
-          <section class="section-lite cv-section" id="biot-toy">
-            <div class="section-heading compact-heading"><p class="eyebrow cv-eyebrow emo"><svg class="gl gl-therm" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a2 2 0 0 1 4 0v10.3a4 4 0 1 1-4 0z"/><path class="hg" d="M12 9v8" stroke-width="2.4"/><circle cx="12" cy="17.5" r="1.6" fill="currentColor"/></svg><span>Try it</span></p><h2>Move the Biot number yourself.</h2></div>
-            <div class="cd cs b cv-biot" data-cv-toy="biot">
-              <p class="cv-muted">Bi = h·L/k compares the resistance inside a solid with the resistance at its surface. Slide the inputs and watch which side of the wall the problem lives on.</p>
-              <div class="cv-grid" style="--cv-min:220px">
-                <label class="cv-slider"><span>h · surface coefficient · <b data-out="h">50</b> W/m²K</span><input type="range" data-k="h" min="5" max="3000" step="5" value="50" /></label>
-                <label class="cv-slider"><span>L · characteristic length · <b data-out="L">3</b> mm</span><input type="range" data-k="L" min="0.5" max="60" step="0.5" value="3" /></label>
-                <label class="cv-slider"><span>k · wall conductivity · <b data-out="k">43</b> W/mK</span><input type="range" data-k="k" min="0.2" max="400" step="0.2" value="43" /></label>
-              </div>
-              <div class="cv-toy-out"><span data-out="bi" class="cv-big" aria-live="polite"></span><span data-out="verdict" class="cv-mono"></span></div>
-              <div class="cv-stack"><span data-out="conv" style="flex:1;background:#8fb7ff;transition:flex .5s cubic-bezier(.22,1,.36,1)"></span><span data-out="wall" style="flex:.01;transition:flex .5s cubic-bezier(.22,1,.36,1),background .4s"></span></div>
-              <p class="cv-stack-key"><span>Surface resistance · 1/h</span><span>Wall resistance · L/k</span></p>
-              <div class="cv-needle-scale"><span data-out="needle"></span></div>
-              <p class="cv-stack-key"><span>10⁻⁴</span><span>10⁻³</span><span>10⁻²</span><span>0.1</span><span>1</span><span>10</span></p>
-              <p class="cv-mono cv-muted cv-small">Illustrative inputs. The thesis value for the Pulsatorn reducer was Bi = 0.003–0.004.</p>
-            </div>
-          </section>
+<section style="display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:760px"><div class="eb">Open questions</div><h2 style="margin:0;font-size:36px;line-height:1.15;font-weight:560;letter-spacing:-.015em">Six questions, each with the measurement that would move it</h2></div>
+<div style="display:flex;flex-direction:column;border-top:1px solid #2d3a31">
+
+<div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding:28px 0;border-bottom:1px solid #2d3a31"><div class="m" style="flex:0 0 56px;font-size:13px;color:#8fb7ff">Q1</div><div style="flex:1.2 1 300px;font-size:19px;font-weight:560;line-height:1.35">Conjugate heat transfer in compressible, high-temperature passages</div><div style="flex:1.4 1 320px;font-size:15px;line-height:1.65;color:#c9cfc6"><span class="m" style="font-size:11px;letter-spacing:.12em;color:#d7b46a">NEXT BOUNDARY · PROPOSED</span><br>A small heated-channel rig, Re 10⁴ to 10⁵, with embedded thermocouples. Compare measured heat-transfer coefficients with Bartz-scaled predictions and k-omega SST results.</div></div>
+
+<div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding:28px 0;border-bottom:1px solid #2d3a31"><div class="m" style="flex:0 0 56px;font-size:13px;color:#8fb7ff">Q2</div><div style="flex:1.2 1 300px;font-size:19px;font-weight:560;line-height:1.35">Thermal resistance decomposition</div><div style="flex:1.4 1 320px;font-size:15px;line-height:1.65;color:#c9cfc6"><span class="m" style="font-size:11px;letter-spacing:.12em;color:#d7b46a">NEXT BOUNDARY</span><br>Report every CHT result with its resistance split, so a temperature field can be traced to a mechanism.</div></div>
+
+<div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding:28px 0;border-bottom:1px solid #2d3a31"><div class="m" style="flex:0 0 56px;font-size:13px;color:#8fb7ff">Q3</div><div style="flex:1.2 1 300px;font-size:19px;font-weight:560;line-height:1.35">Experimental validation under high-temperature constraints</div><div style="flex:1.4 1 320px;font-size:15px;line-height:1.65;color:#c9cfc6"><span class="m" style="font-size:11px;letter-spacing:.12em;color:#d7b46a">NEXT BOUNDARY</span><br>Measurement-chain design with uncertainty tracked from sensor to result, for rigs where hardware access is limited.</div></div>
+
+<div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding:28px 0;border-bottom:1px solid #2d3a31"><div class="m" style="flex:0 0 56px;font-size:13px;color:#8fb7ff">Q4</div><div style="flex:1.2 1 300px;font-size:19px;font-weight:560;line-height:1.35">Deposit formation and its heat-transfer consequences</div><div style="flex:1.4 1 320px;font-size:15px;line-height:1.65;color:#c9cfc6"><span class="m" style="font-size:11px;letter-spacing:.12em;color:#d7b46a">NEXT BOUNDARY</span><br>Model structures able to separate deposit growth from boundary-condition error, in the catalytic-pyrolysis and coking setting.</div></div>
+
+<div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding:28px 0;border-bottom:1px solid #2d3a31"><div class="m" style="flex:0 0 56px;font-size:13px;color:#8fb7ff">Q5</div><div style="flex:1.2 1 300px;font-size:19px;font-weight:560;line-height:1.35">Predictive monitoring indicators for thermally loaded hardware</div><div style="flex:1.4 1 320px;font-size:15px;line-height:1.65;color:#c9cfc6"><span class="m" style="font-size:11px;letter-spacing:.12em;color:#d7b46a">NEXT BOUNDARY</span><br>Indicators derived from coupled simulation and measurement data, not from isolated threshold rules.</div></div>
+
+<div style="display:flex;flex-wrap:wrap;gap:12px 40px;padding:28px 0;border-bottom:1px solid #2d3a31"><div class="m" style="flex:0 0 56px;font-size:13px;color:#8fb7ff">Q6</div><div style="flex:1.2 1 300px;font-size:19px;font-weight:560;line-height:1.35">Numerical methods for thermal-fluid systems</div><div style="flex:1.4 1 320px;font-size:15px;line-height:1.65;color:#c9cfc6"><span class="m" style="font-size:11px;letter-spacing:.12em;color:#d7b46a">NEXT BOUNDARY</span><br>Mesh independence, near-wall treatment and turbulence-model sensitivity reported as one convergence discipline.</div></div>
+
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px"><div class="eb">Formation</div><h2 style="margin:0;font-size:36px;font-weight:560;letter-spacing:-.015em">Where the research approach came from</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:16px">
+<div class="cd" style="display:flex;flex-direction:column;gap:12px"><div class="m" style="font-size:12px;letter-spacing:.12em;color:#8fb7ff">TRITA-ITM-EX 2026:14</div><div style="font-size:19px;font-weight:560;line-height:1.3">Siemens Energy thesis</div><div style="font-size:15px;line-height:1.6;color:#c9cfc6">A steady-state compressible CFD/CHT methodology for a high-temperature dynamic pressure sensor calibration rig: three-level mesh independence, k-omega SST, Biot number interpretation.</div></div>
+<div class="cd" style="display:flex;flex-direction:column;gap:12px"><div class="m" style="font-size:12px;letter-spacing:.12em;color:#8fb7ff">MJ2515 · GRADE A</div><div style="font-size:19px;font-weight:560;line-height:1.3">Numerical Heat Transfer in Energy Technology</div><div style="font-size:15px;line-height:1.6;color:#c9cfc6">The finite-volume and heat-transfer foundation behind CHT modelling and the quality of numerical evidence.</div></div>
+<div class="cd" style="display:flex;flex-direction:column;gap:12px"><div class="m" style="font-size:12px;letter-spacing:.12em;color:#8fb7ff">MJ2510</div><div style="font-size:19px;font-weight:560;line-height:1.3">Methods of Research in Sustainable Energy</div><div style="font-size:15px;line-height:1.6;color:#c9cfc6">Framing for moving from engineering tasks to defensible questions, limitations and validation logic.</div></div>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:12px"><div class="eb">Identifiers</div><h2 style="margin:0;font-size:36px;font-weight:560;letter-spacing:-.015em">Where this work can be checked</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:12px">
+<a href="https://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-381965" class="cd" style="padding:20px;display:flex;flex-direction:column;gap:6px"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#8fb7ff">KTH DIVA →</span><span class="m" style="font-size:14px">TRITA-ITM-EX 2026:14</span></a>
+<a href="https://orcid.org/0009-0009-8429-1266" class="cd" style="padding:20px;display:flex;flex-direction:column;gap:6px"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#8fb7ff">ORCID →</span><span class="m" style="font-size:14px">0009-0009-8429-1266</span></a>
+<a href="https://scholar.google.com/citations?user=o2nI60MAAAAJ" class="cd" style="padding:20px;display:flex;flex-direction:column;gap:6px"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#8fb7ff">GOOGLE SCHOLAR →</span><span class="m" style="font-size:14px">Abhijith Sivaprasadan</span></a>
+<a href="https://github.com/abhijith-sivaprasadan" class="cd" style="padding:20px;display:flex;flex-direction:column;gap:6px"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#8fb7ff">GITHUB →</span><span class="m" style="font-size:14px">abhijith-sivaprasadan</span></a>
+<a href="https://www.kth.se/profile/asiv" class="cd" style="padding:20px;display:flex;flex-direction:column;gap:6px"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#8fb7ff">KTH PROFILE →</span><span class="m" style="font-size:14px">kth.se/profile/asiv</span></a>
+<a href="https://www.linkedin.com/in/abhijith-sivaprasadan/" class="cd" style="padding:20px;display:flex;flex-direction:column;gap:6px"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#8fb7ff">LINKEDIN →</span><span class="m" style="font-size:14px">abhijith-sivaprasadan</span></a>
+</div>
+</section>
+
+</main>
+
+<footer style="border-top:1px solid #2d3a31"><div style="max-width:1180px;margin:0 auto;padding:32px 48px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;box-sizing:border-box"><nav class="nv"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#d7b46a;padding:10px 0">OUTSIDE THE BOUNDARY</span><a href="courses.html">COURSES</a><a href="ideas.html">IDEAS</a><a href="interests.html">INTERESTS</a><a href="hobbies.html">HOBBIES</a></nav><div class="m mu" style="font-size:12px;letter-spacing:.06em;padding:10px 0">Methods, evidence, and their limits.</div></div></footer>
 
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Research interests</p>
-              <h2>Specific questions I want to work on.</h2>
-            </div>
-            <div class="cards two">
-              <article class="card">
-                <h3>Conjugate heat transfer in compressible high-temperature flow passages</h3>
-                <p>CHT modelling where pressure loss, acceleration, wall conduction and external or adjacent thermal pathways must be interpreted together.</p>
-              </article>
-              <article class="card">
-                <h3>Thermal resistance decomposition</h3>
-                <p>Separating bulk-flow, conduction, external convection and surface-condition effects so a thermal result can be traced to a physical mechanism.</p>
-              </article>
-              <article class="card">
-                <h3>Experimental validation under high-temperature conditions</h3>
-                <p>Measurement-chain design, thermocouple and pressure-sensor selection, uncertainty tracking and commissioning logic for rig-scale validation.</p>
-              </article>
-              <article class="card">
-                <h3>Predictive maintenance and health monitoring indicators</h3>
-                <p>Indicators for thermally loaded hardware derived from coupled simulation and measurement data rather than from isolated threshold rules.</p>
-              </article>
-              <article class="card">
-                <h3>Deposit formation and heat-transfer consequences</h3>
-                <p>Catalytic pyrolysis context: coke deposition, wall surface changes, heat-transfer degradation and the model structures needed to detect them.</p>
-              </article>
-              <article class="card">
-                <h3>Power-system resilience and evidence provenance</h3>
-                <p>Chronological energy-system modelling that keeps observed data, derived quantities, screening sensitivities and hypotheses separate; Kerala2040 is the current open research testbed.</p>
-              </article>
-              <article class="card">
-                <h3>Nuclear thermal-hydraulics and engineering transition</h3>
-                <p>Applying existing heat-transfer, experimental and systems-modelling skills to nuclear engineering while explicitly building the reactor-physics, safety and radiation foundation the field requires.</p>
-              </article>
-              <article class="card">
-                <h3>Numerical methods for thermal-fluid systems</h3>
-                <p>Finite volume approaches, near-wall treatment, turbulence model sensitivity, mesh independence and residual/KPI convergence discipline.</p>
-              </article>
-            </div>
-          </section>
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Academic formation</p>
-              <h2>How the research approach was formed.</h2>
-            </div>
-            <div class="timeline">
-              <article class="timeline-item">
-                <div>
-                  <h3>Siemens Energy thesis: TRITA-ITM-EX 2026:14</h3>
-                  <p class="meta">Siemens Energy AB, Finsp&aring;ng &middot; KTH academic supervision</p>
-                </div>
-                <p>Built a steady-state compressible CFD/CHT methodology for a high-temperature dynamic pressure sensor calibration rig, including three-level mesh independence, k-omega SST modelling, Biot number interpretation, thermal trade-off analysis and validation-oriented documentation.</p>
-              </article>
-              <article class="timeline-item">
-                <div>
-                  <h3>Experimental and RCA work</h3>
-                  <p class="meta">NI-DAQ / LabVIEW / 700&deg;C measurement-chain context</p>
-                </div>
-                <p>Commissioned measurement channels, modified acquisition logic and contributed to documenting the heater failure and revising the project scope. This experience shaped my interest in how model assumptions fail or survive contact with real hardware.</p>
-              </article>
-              <article class="timeline-item">
-                <div>
-                  <h3>MJ2515 Numerical Heat Transfer in Energy Technology</h3>
-                  <p class="meta">KTH Royal Institute of Technology &middot; Grade A</p>
-                </div>
-                <p>Strengthened the finite-volume and heat-transfer foundation behind CHT modelling, boundary-condition interpretation and numerical evidence quality.</p>
-              </article>
-              <article class="timeline-item">
-                <div>
-                  <h3>MJ2510 Methods of Research in Sustainable Energy</h3>
-                  <p class="meta">KTH Royal Institute of Technology</p>
-                </div>
-                <p>Provided the research-method framing for moving from engineering tasks to defensible questions, limitations, validation logic and future-work formulation.</p>
-              </article>
-              <article class="timeline-item">
-                <div>
-                  <h3>KTH pyrolysis internship</h3>
-                  <p class="meta">Plastic pyrolysis feasibility and reactor literature context</p>
-                </div>
-                <p>Introduced reactor concepts, degradation pathways and the practical difficulty of connecting chemical conversion behaviour to engineering system design.</p>
-              </article>
-            </div>
-          </section>
-        </div>
 
-        <aside class="content-rail">
-          <div class="page-panel">
-            <p class="eyebrow">Research identity</p>
-            <ul class="clean-list">
-              <li>Primary domain: rocket cooling-channel heat transfer</li>
-              <li>Mechanism focus: surface condition, coke deposits and thermal resistance</li>
-              <li>Method focus: experiments, modelling and simulation-to-measurement validation</li>
-              <li>Application domains: reusable propulsion, power generation and thermally loaded industrial hardware</li>
-            </ul>
-          </div>
-          <div class="page-panel">
-            <p class="eyebrow">Future goals</p>
-            <p>I want to become a researcher who can connect experimental measurement directly to predictive models, particularly in reusable propulsion systems where cooling-channel degradation, thermal resistance and monitoring indicators determine component life.</p>
-          </div>
-          <div class="page-panel">
-            <p class="eyebrow">Research outputs</p>
-            <div class="project-links">
-              <a href="projects/siemens-thesis.html">Thesis case study</a>
-              <a href="https://zenodo.org/records/23679426">Zenodo — ThermoTwin-F software archive</a>
-              <a href="https://github.com/open-energy-transition/open-tyndp/pull/917">Open-TYNDP — merged upstream PR #917</a>
-              <a href="https://zenodo.org/records/22899072">Open-TYNDP v0.9 — Zenodo (upstream record)</a>
-              <a href="https://explore.openaire.eu/">OpenAIRE EXPLORE</a>
-              <a href="downloads/Abhijith_Sivaprasadan_CV_Generic_Research.pdf" download>Research CV</a>
-              <a href="interests.html">Interests</a>
-              <a href="courses.html">Coursework evidence</a>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2026 Abhijith Sivaprasadan. Built with GitHub Pages.</p>
-    </div>
-  </footer>
-  <script src="scripts/site.js?v=20260603-field-rail-bg"></script>
+
+
+
+
+
+</div>
+<script src="scripts/control-volume.js?v=20261027-control-volume" defer></script>
+<script src="scripts/claude-exact.js?v=20261027-v2" defer></script>
 </body>
 </html>

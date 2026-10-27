@@ -1,958 +1,146 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Project evidence library for Abhijith Sivaprasadan covering high-temperature thermal-fluid research, industrial decarbonization, energy/process modelling, optimisation and experimental coursework." />
-  <meta property="og:title" content="Projects | Abhijith Sivaprasadan" />
-  <meta property="og:description" content="Research and industrial R&amp;D case studies spanning CFD/CHT, experiments, grid flexibility, optimisation, heating forecasts, thermal storage and Python engineering tools." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png" />
-  <title>Projects | Abhijith Sivaprasadan</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260603-field-rail-bg" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260603-field-rail-bg" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260603-field-rail-bg" />
-  <script src="scripts/public-config.js?v=20261007-engineering-index"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" async></script>
-  <script type="module" src="scripts/motion/index.js?v=20260603-field-rail-bg"></script>
-  <script src="scripts/motion/sw-register.js?v=20260603-field-rail-bg" defer></script>
-  <script src="scripts/sections/command-palette.js?v=20260603-field-rail-bg" defer></script>
-  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
-  <link rel="stylesheet" href="styles/portfolio.css?v=20261007-engineering-index" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cases · Abhijith Sivaprasadan · Control Volume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#070807}
+a{color:inherit;text-decoration:none}
+.m{font-family:'JetBrains Mono',ui-monospace,monospace}
+.eb{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d7b46a}
+.nv{display:flex;gap:2px 22px;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em}
+.nv a{color:#a9b3a8;padding:10px 0}
+.nv a:hover{color:#f2f0e7}
+.cd{border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:28px}
+.rs{background-color:rgba(215,180,106,.04);background-image:repeating-linear-gradient(135deg,rgba(215,180,106,.14) 0 1px,transparent 1px 8px)}
+.mu{color:#a9b3a8}
+</style>
+<link rel="stylesheet" href="styles/control-volume.css?v=20261027-control-volume">
+<style>
+/* the canvas wraps each page in .pg; give it the header rules the runtime scopes to body children */
+.pg>header{position:relative;overflow:hidden}
+</style>
+<link rel="stylesheet" href="styles/claude-exact.css?v=20261027-v2">
 </head>
-<body class="signal-rebuild" data-cv-label="S3 · CASES" data-page-key="projects">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <div class="scroll-progress" aria-hidden="true"></div>
-  <header class="site-header">
-    <nav class="nav container">
-      <a href="index.html" class="logo">Abhijith Sivaprasadan</a>
-      <div class="nav-links">
-        <a href="research.html">Research</a>
-        <a href="energy-systems.html">Energy Systems</a>
-        <a href="industrial-rd.html">Industrial R&amp;D</a>
-        <a href="index.html#projects">Featured</a>
-        <a href="projects.html" aria-current="page">Projects</a>
-        <a href="experience.html">Experience</a>
-        <a href="index.html#cv">CVs</a>
-        <a href="about.html">About</a>
-        <a href="interests.html">Interests</a>
-        <a href="courses.html">Courses</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
-    </nav>
-  </header>
+<body class="cv" data-design-source="claude-control-volume-v1" data-page-key="projects" data-cv-label="S3 · CASES" >
+<div class="pg"  style="background:#070807;color:#f2f0e7;font-family:Inter,system-ui,sans-serif;min-height:1900px;display:flex;flex-direction:column">
 
-  <main id="main" tabindex="-1">
-    <section class="page-hero">
-      <div class="container page-hero-grid">
-        <div>
-          <p class="eyebrow cv-eyebrow" data-editable="hero-eyebrow">S3 · Cases · /projects</p>
-          <h1 data-editable="hero-title">A portfolio of questions, models and working software.</h1>
-          <p class="hero-text" data-editable="hero-lead">
-            Explore my work in thermal engineering, energy systems and software. Search by method or tool, then open a case study for the question, approach, results and limitations. The strongest projects here show an end-to-end engineering process: a defined question, implemented method, reproducible evidence and a clear statement of what the result establishes. </p>
-          <ol class="cv-bmer" aria-label="How every case study is read"><li><span>01</span>Boundary</li><li><span>02</span>Method</li><li><span>03</span>Evidence</li><li class="r"><span>04</span>Residual</li></ol>
-        </div>
-        <div class="page-panel page-summary" aria-hidden="true">
-          <p class="eyebrow">At a glance</p>
-          <ul class="clean-list">
-            <li>Siemens thesis as the flagship research anchor</li>
-            <li>Independent energy models and inspectable research software</li>
-            <li>Coursework retained as supporting evidence where it shows a distinct method or experimental skill</li>
-          </ul>
-          <p class="eyebrow page-summary-note">Suggested starting points</p>
-          <ul class="clean-list path-links">
-            <li><a href="reports.html">Reports, PDFs and technical working papers</a></li>
-            <li><a href="research.html">Research statement and PhD direction</a></li>
-            <li><a href="energy-systems.html">Energy Systems Modelling track</a></li>
-            <li><a href="industrial-rd.html">Industrial decarbonization and electrification R&amp;D</a></li>
-            <li><a href="projects/siemens-thesis.html">High-temperature thesis case study</a></li>
-            <li><a href="projects/alleima-energy-efficiency.html">Industrial decarbonisation</a></li>
-            <li><a href="projects/heating-demand-forecasting.html">Heating forecast machine learning</a></li>
-            <li><a href="projects/mtes-pcm-thermal-lab.html">Thermal lab and storage experiments</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
+<header style="border-bottom:1px solid #2d3a31;background:#0a0d0b"><div style="max-width:1180px;margin:0 auto;padding:16px 48px;display:flex;justify-content:space-between;align-items:center;gap:8px 32px;flex-wrap:wrap;box-sizing:border-box">
+<a href="index.html" class="m" style="font-size:13px;letter-spacing:.14em">ABHIJITH SIVAPRASADAN</a>
+<nav class="nv"><a href="index.html">SYSTEM</a><a href="projects.html" style="color:#65d6c9">CASES</a><a href="research.html">RESEARCH</a><a href="energy-systems.html">ENERGY</a><a href="industrial-rd.html">INDUSTRIAL R&amp;D</a><a href="experience.html">RECORD</a><a href="about.html">ABOUT</a></nav>
+</div></header>
 
-    <section class="section" id="upstream-open-source">
-      <div class="container">
-        <div class="page-panel">
-          <p class="eyebrow">External open-source contribution &middot; merged 8 September 2026</p>
-          <h2>Open-TYNDP &mdash; contributing to an upstream European energy-model project</h2>
-          <p>My <a href="https://github.com/open-energy-transition/open-tyndp/pull/917">merged PR #917</a> makes the canonical technology-mapping CSV available as a scrollable table in Open-TYNDP benchmarking documentation, corrects a naming-reference error and adds a release-note entry. It was a documentation and interface-to-data contribution, not development of the core model or validation of ENTSO-E scenarios.</p>
-          <p>The maintainers&rsquo; <a href="https://zenodo.org/records/22899072">Zenodo v0.9 archive</a>, DOI <a href="https://doi.org/10.5281/zenodo.22899072">10.5281/zenodo.22899072</a>, credits <code>@abhijith-sivaprasadan</code> as a new contributor. The DOI belongs to the Open Energy Transition project, not to an individually authored publication.</p>
-          <div class="project-links"><a href="https://github.com/open-energy-transition/open-tyndp/pull/917">Merged PR &amp; technical diff</a><a href="https://open-tyndp.readthedocs.io/en/stable/benchmarking/">Benchmarking docs</a><a href="https://zenodo.org/records/22899072">Upstream Zenodo record</a></div>
-        </div>
-      </div>
-    </section>
+<main style="flex:1;max-width:1180px;width:100%;margin:0 auto;padding:80px 48px 112px;box-sizing:border-box;display:flex;flex-direction:column;gap:48px">
 
-    <section class="section">
-      <div class="container">
-        <div class="content-controls" data-project-controls>
-          <label class="content-search">
-            <span>Search projects</span>
-            <input type="search" data-project-search placeholder="Search tools, methods, outcomes..." />
-          </label>
-          <div class="filter-chip-row" data-project-filters aria-label="Project filters"></div>
-        </div>
-        <p class="content-count" data-project-count></p>
-        <div class="project-browser" data-dynamic-projects data-api-resource="projects">
+<section style="display:flex;flex-direction:column;gap:22px;max-width:860px">
+<div class="emo" style="display:flex;align-items:center;gap:14px;color:#65d6c9"><svg class="gl gl-nest" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2" stroke-dasharray="3 2"></rect><rect class="n2" x="6" y="6" width="12" height="12" rx="1.5"></rect><rect class="n3" x="10" y="10" width="4" height="4"></rect></svg><div class="eb">S3 · Cases · /projects</div></div>
+<h1 style="margin:0;font-size:56px;line-height:1.06;font-weight:600;letter-spacing:-.025em">Case library</h1>
+<p style="margin:0;font-size:19px;line-height:1.6;color:#c9cfc6;text-wrap:pretty">Every case is read in the same order: boundary, method, evidence, residual. The Siemens thesis is the flagship; the rest are kept because each shows a distinct method.</p>
+</section>
 
-                    <details class="project-browser-item tone-analytics" data-project-id="enerlint" data-audience-tags="Research,Energy Systems,Software" data-order="0.03"><summary class="project-browser-summary"><div class="project-browser-summary-text"><span class="project-browser-kicker">2026 / open research software</span><h3><a class="title-link" href="projects/enerlint.html">EnerLint · Independent physics consistency checks</a></h3><p>Review-stage Python alpha for independent mass, energy and storage consistency checks on exported model results; negative-control benchmarks also demonstrate a compensating fault that passes.</p></div><div class="project-browser-meta"><span>Independent &middot; verifiable &middot; scoped</span></div></summary><div class="project-browser-body"><img class="project-thumb" src="assets/illustrations/enerlint.svg" alt="Abstract project concept artwork, not empirical findings" loading="lazy" width="960" height="540"><div class="project-browser-copy"><div class="tag-row"><span>Open source</span><span>Evidence scope</span><span>Python</span></div><ul class="evidence-list"><li>v0.1.0a0 alpha; no external validation or public PyPI/Zenodo release.</li><li>Four analytical demonstration cases and explicit tolerances.</li><li>A compensating compressor error still passes the declared balance tests.</li></ul><div class="project-links"><a href="projects/enerlint.html">Case study</a><a href="https://github.com/Open-Energy-Methods/enerlint">Source &amp; verification</a><a href="reports.html">Reports &amp; PDFs</a></div></div></div></details>
-          <details class="project-browser-item tone-analytics" data-project-id="residual-pathways" data-audience-tags="Research,Energy Systems,Software" data-order="0.06"><summary class="project-browser-summary"><div class="project-browser-summary-text"><span class="project-browser-kicker">2026 / open research software</span><h3><a class="title-link" href="projects/residual-pathways.html">ResidualPathways · Scenario evidence and residual-emissions research</a></h3><p>Source-audited IAM reporting research and public coverage atlas: 1,202 climate-vetted scenarios and 352 reporting-presence aggregates, without verified physical gross/removal identities.</p></div><div class="project-browser-meta"><span>Independent &middot; verifiable &middot; scoped</span></div></summary><div class="project-browser-body"><img class="project-thumb" src="assets/illustrations/residual-pathways.svg" alt="Abstract project concept artwork, not empirical findings" loading="lazy" width="960" height="540"><div class="project-browser-copy"><div class="tag-row"><span>Open source</span><span>Evidence scope</span><span>Python</span></div><ul class="evidence-list"><li>Coverage-only research candidate; human scientific review pending.</li><li>1,202 matched vetted scenarios, 352 reporting-presence aggregates.</li><li>Zero verified I3 gross/removal partitions; no institutional endorsement.</li></ul><div class="project-links"><a href="projects/residual-pathways.html">Case study</a><a href="https://github.com/abhijith-sivaprasadan/residual-pathways">Source &amp; verification</a><a href="reports.html">Reports &amp; PDFs</a></div></div></div></details>
-          <details class="project-browser-item tone-analytics" data-project-id="pathways-hub" data-audience-tags="Research,Software,Energy Systems" data-order="0.07"><summary class="project-browser-summary"><div class="project-browser-summary-text"><span class="project-browser-kicker">2026 / open research software</span><h3><a class="title-link" href="projects/pathways-hub.html">PathwaysHub · Auditable research-operations prototype</a></h3><p>IAMC submission and release-integrity workflow with versioned contracts, SHA-256 verification, synthetic negative cases and scoped review-state tracking; no real consortium submissions claimed.</p></div><div class="project-browser-meta"><span>Independent &middot; verifiable &middot; scoped</span></div></summary><div class="project-browser-body"><img class="project-thumb" src="assets/illustrations/pathways-hub.svg" alt="Abstract project concept artwork, not empirical findings" loading="lazy" width="960" height="540"><div class="project-browser-copy"><div class="tag-row"><span>Open source</span><span>Evidence scope</span><span>Python</span></div><ul class="evidence-list"><li>Synthetic three-submission intake demo with accepted and rejected cases.</li><li>Fail-closed manifest/hash checks and review-ledger tests.</li><li>No human scientific approvals or real partner-coordination evidence.</li></ul><div class="project-links"><a href="projects/pathways-hub.html">Case study</a><a href="https://github.com/abhijith-sivaprasadan/pathways-hub">Source &amp; verification</a><a href="reports.html">Reports &amp; PDFs</a></div></div></div></details>
-          <details class="project-browser-item tone-energy is-featured" open data-project-id="kerala2040" data-audience-tags="Energy Systems,Research,Sustainability" data-order="0.1">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Power-system resilience / open energy data</span>
-                <h3><a class="title-link" href="projects/kerala2040.html">Kerala2040 · Power-system resilience research</a></h3>
-                <p>Diagnosis-first research on Kerala's electricity-system stress using audited history, ERA5-sensitive demand, hydro timing, transfer constraints and public-network screening. Screening evidence is kept separate from observed data and validated planning claims.</p>
-              </div>
-              <div class="project-browser-meta"><span>Python / PyPSA / OSeMOSYS / ERA5 / GIS</span><span>Featured</span></div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/kerala2040.svg" alt="Kerala2040 power-system resilience and network modelling project visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <p>The public project combines SLDC evidence, chronological demand reconstruction, hydro and interstate-transfer sensitivities, robust network bottleneck screening, PyPSA/OSeMOSYS implementation checks and ecological feasibility work. It is an independent research project, not a calibrated operational planning model.</p>
-                <div class="project-links"><a href="projects/kerala2040.html">Case study</a><a href="https://kerala2040.github.io/">Research site</a><a href="https://github.com/abhijith-sivaprasadan/kerala2040">Source &amp; evidence</a></div>
-              </div>
-            </div>
-          </details>
+<section style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;flex-wrap:wrap;gap:8px" role="group" aria-label="Filter cases by method">
 
-          <details class="project-browser-item tone-thermal is-featured" data-project-id="tes-discharge-screen" data-audience-tags="Thermal &amp; Fluid,Energy Systems,Research,Industrial R&amp;D" data-order="0.15">
-            <summary class="project-browser-summary"><div class="project-browser-summary-text"><span class="project-browser-kicker">Thermal storage / dynamics / optimisation</span><h3><a class="title-link" href="projects/tes-discharge-screen.html">TES Discharge Screen · Dynamic thermal-storage screening</a></h3><p>Industrial process-heat storage screening with state-of-charge-dependent discharge constraints derived from dynamic models, plus Modelica/FMU verification and sensitivity analysis.</p></div><div class="project-browser-meta"><span>Python / Pyomo / HiGHS / Modelica / FMI</span><span>Featured</span></div></summary>
-            <div class="project-browser-body"><img class="project-thumb" src="assets/illustrations/tes-discharge-screen.svg" alt="Thermal storage discharge and optimisation project visual" loading="lazy" width="960" height="540" /><div class="project-browser-copy"><p>The project compares packed-bed, molten-salt and PCM storage under harmonised boundaries, tests reduced-state assumptions, and keeps verification distinct from measured validation. No real installation is represented.</p><div class="project-links"><a href="projects/tes-discharge-screen.html">Case study</a><a href="https://github.com/abhijith-sivaprasadan/tes-discharge-screen">Source &amp; evidence</a></div></div></div>
-          </details>
+<button data-cv-filter="All" type="button" style="min-height:44px;padding:0 16px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:#65d6c9;color:#071007;border:1px solid #65d6c9;font-weight:600;">All</button>
 
-          <details class="project-browser-item tone-energy is-featured" open data-project-id="opensteamopt" data-audience-tags="Energy Systems,Research,Sustainability" data-order="0.25">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Steam / power / digital twin / RTO</span>
-                <h3><a class="title-link" href="projects/opensteamopt.html">OpenSteamOpt · Steam &amp; power RTO</a></h3>
-                <p>A two-boiler steam-and-power twin with carbon-aware scheduling, FMI 2.0 simulation and a local advisory GUI. Synthetic and uncalibrated—not an ABB product or live control system.</p>
-              </div>
-              <div class="project-browser-meta"><span>Python / Modelica / Pyomo / HiGHS</span><span>Featured</span></div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/opensteamopt.svg" alt="Two boilers, HP and MP steam headers, turbine, PRV and the advisory optimisation/shadow-twin path" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <p>Inspect the plant contract, three synthetic sensitivity cases, independent balance/objective checks, byte-reproducible reference pack and real OpenModelica-to-FMPy integration receipt. The Streamlit application runs locally.</p>
-                <div class="project-links"><a href="projects/opensteamopt.html">Case study</a><a href="https://github.com/abhijith-sivaprasadan/opensteamopt#readme">Source &amp; reproduction</a></div>
-              </div>
-            </div>
-          </details>
+<button data-cv-filter="CFD / CHT" type="button" style="min-height:44px;padding:0 16px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:transparent;color:#c9cfc6;border:1px solid #2d3a31;">CFD / CHT</button>
 
-          <details class="project-browser-item tone-energy is-featured" data-project-id="gb-flexabm" data-audience-tags="Energy Systems,Research" data-order="0.5">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Optimisation / agents / market design</span>
-                <h3><a class="title-link" href="projects/gb-flexabm.html">GB-FLEXABM · Electricity investment</a></h3>
-                <p>A local experiment GUI compares heterogeneous investors with a central planner using shared dispatch. Synthetic and exploratory—not a calibrated GB forecast.</p>
-              </div>
-              <div class="project-browser-meta"><span>Python / Pyomo / HiGHS</span><span>Featured</span></div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/gb-flexabm.svg" alt="Shared physical model with planner and investor branches" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <p>Configure paired experiments and export verified evidence through the local GUI. Training-demand checks, bounded ERA5 acquisition and 804 audited Elexon responses expose the remaining data gaps. Historical calibration, locked evaluation and heat/hydrogen remain unfinished.</p>
-                <div class="project-links"><a href="projects/gb-flexabm.html">Case study</a><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm#readme">Source &amp; reproduction</a></div>
-              </div>
-            </div>
-          </details>
+<button data-cv-filter="STRUCTURAL" type="button" style="min-height:44px;padding:0 16px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:transparent;color:#c9cfc6;border:1px solid #2d3a31;">STRUCTURAL</button>
 
-          <details class="project-browser-item tone-thermal is-featured" open data-project-id="siemens-gas-turbine-thesis" data-audience-tags="Thermal &amp; Fluid,Research" data-order="1">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">CFD / CHT</span>
-                <h3><a class="title-link" href="projects/siemens-thesis.html">Siemens Energy CFD/CHT Thesis &ndash; Gas Turbine Reducer Thermo-Fluid Analysis</a></h3>
-                <p>Compressible CFD and conjugate heat transfer analysis of reducer geometries for the Pulsatorn high-temperature dynamic pressure sensor calibration rig at Siemens Energy Finsp&aring;ng.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>ANSYS Fluent / NI-DAQ / LabVIEW / Siemens NX</span>
-                <span>Featured</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/thumb-siemens-validation.svg" alt="High-temperature CFD and instrumentation workflow visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span class="tag-hot">ANSYS Fluent</span><span class="tag-hot">CFD/CHT</span><span>Gas Turbines</span><span class="tag-hot">NI-DAQ</span><span class="tag-hot">LabVIEW</span><span class="tag-hot">Siemens NX</span><span>k-omega SST</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>CFD/CHT model</strong><small>Steady compressible coupled workflow</small></span>
-                  <span class="result-metric-card"><strong>NI-DAQ/LabVIEW commissioning</strong><small>Measurement-chain readiness</small></span>
-                  <span class="result-metric-card"><strong>Pressure and thermal trade-offs</strong><small>Flow, surface area and insulation</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Built steady-state compressible CFD and CHT models in ANSYS Fluent (k-omega SST) at T = 673 K and P_gauge = 100 kPa within one Siemens Energy thesis campaign.</li>
-                  <li>Three-level adiabatic CFD mesh-sensitivity study showed baseline-to-fine changes below 2% across four monitored outputs; this is a refinement-stability check, not a quantified discretisation-error bound.</li>
-                  <li>Biot number analysis (Bi = 0.003-0.004) separated thermal contributions from flow-regime differences between reducer designs.</li>
-                  <li>Performed preliminary NI-DAQ/LabVIEW measurement-chain commissioning and conducted heater-failure root-cause troubleshooting with guidance from Jonas Deurell. The planned high-temperature validation campaign did not take place.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/siemens-thesis.html" aria-label="Siemens thesis — case study">Case study</a>
-                  <a href="experience/siemens-energy.html">Experience</a>
-                </div>
-              </div>
-            </div>
-          </details>
+<button data-cv-filter="ENERGY MANAGEMENT" type="button" style="min-height:44px;padding:0 16px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:transparent;color:#c9cfc6;border:1px solid #2d3a31;">ENERGY MANAGEMENT</button>
 
-          <details class="project-browser-item tone-thermal is-featured" data-project-id="structural-fea-reactor-internals" data-audience-tags="Thermal &amp; Fluid,Research,Industrial R&amp;D" data-order="3">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Structural FEA</span>
-                <h3><a class="title-link" href="projects/structural-fea-reactor-internals.html">Structural FEA Reactor Internals Pilot Study</a></h3>
-                <p>Westinghouse-role-fit ANSYS Mechanical pilot study for a simplified reactor-internals-inspired stainless-steel support plate, covering mesh convergence, load-case screening, reaction checks, LC4R support mapping and boundary-condition judgement.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>ANSYS Mechanical / SpaceClaim / Python</span>
-                <span>Featured</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <div class="project-thumb structural-thumb-board" aria-label="Structural FEA evidence thumbnail">
-                <img src="assets/projects/structural-fea/web/structural-fea-hero-board-web.png" alt="Curated structural FEA evidence board showing stress, mesh and convergence outputs" loading="lazy" width="1800" height="1080" />
-              </div>
-              <div class="project-browser-copy">
-                <div class="tag-row"><span class="tag-hot">ANSYS Mechanical</span><span>ANSYS SpaceClaim</span><span>Reaction checks</span><span>Mesh convergence</span><span>3-2-1 LC4R</span><span>Python reports</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>245,658 elements</strong><small>Fine mesh selected for final reporting</small></span>
-                  <span class="result-metric-card"><strong>20.65 MPa</strong><small>Peak von Mises in the 5 kN lateral case</small></span>
-                  <span class="result-metric-card"><strong>3605.6 N</strong><small>LC3 reaction resultant matches applied load vector</small></span>
-                  <span class="result-metric-card"><strong>0.0171 MPa</strong><small>LC4R relaxed thermal stress</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Screened LC1-LC3 mechanical load cases with reaction-force checks and preliminary factors of safety against an assumed 205 MPa screening yield.</li>
-                  <li>Ran LC1 mesh convergence from coarse to very fine; final reporting used the fine mesh with 416,866 nodes and 245,658 elements.</li>
-                  <li>Documented the final LC4R global-coordinate RD1/RD2/RD3 support mapping and rejected pivot, missing-result-file or disconnected-attachment solve states.</li>
-                  <li>Positioned honestly as an educational ANSYS portfolio study, not an ASME BPVC, Eurocode, EN13001 or certified nuclear-component design calculation.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/structural-fea-reactor-internals.html" aria-label="Structural FEA reactor internals pilot study — case study">Case study</a>
-                  <a href="https://github.com/abhijith-sivaprasadan/structural-fea-reactor-internals" target="_blank" rel="noreferrer">GitHub</a>
-                </div>
-              </div>
-            </div>
-          </details>
+<button data-cv-filter="ENERGY SYSTEMS" type="button" style="min-height:44px;padding:0 16px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:transparent;color:#c9cfc6;border:1px solid #2d3a31;">ENERGY SYSTEMS</button>
 
-          <details class="project-browser-item tone-energy" data-project-id="alleima-energy-efficiency" data-audience-tags="Industrial R&amp;D,Energy Systems" data-order="5">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Energy management</span>
-                <h3><a class="title-link" href="projects/alleima-energy-efficiency.html">Comparative Energy Audit Methods (consultancy)</a></h3>
-                <p>Comparative regulatory analysis and tiered audit-method design across multiple EU, Asian and North American jurisdictions. Public-domain methodology summary only — proprietary site detail is not republished.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>ISO 50001 / EU EED / Comparative regulation</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/alleima-energy-efficiency.svg" alt="Industrial energy KPI mapping visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>ISO 50001</span><span>EU EED</span><span>Energy audits</span><span>Multi-jurisdiction comparison</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>Multi-jurisdiction</strong><small>EU + Asia + North America compared against EU EED</small></span>
-                  <span class="result-metric-card"><strong>Tiered audit method</strong><small>Matches audit depth to site EMS maturity</small></span>
-                  <span class="result-metric-card"><strong>Method-only summary</strong><small>Proprietary site detail withheld</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Translated EU EED-aligned audit obligations into a generic tiered methodology.</li>
-                  <li>Linked methodology components to EnPI, measurement and follow-up logic.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/alleima-energy-efficiency.html" aria-label="Alleima energy efficiency — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
+<button data-cv-filter="GRID" type="button" style="min-height:44px;padding:0 16px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:transparent;color:#c9cfc6;border:1px solid #2d3a31;">GRID</button>
 
-          <details class="project-browser-item tone-energy" data-project-id="district-heating-optimisation" data-audience-tags="Energy Systems,Research" data-order="10">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Energy systems</span>
-                <h3><a class="title-link" href="projects/district-heating-optimisation.html">District Heating Dispatch Optimisation</a></h3>
-                <p>Stepwise optimisation of a district heating system across base case, future demand, storage integration, cost minimisation and emissions minimisation scenarios.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>PuLP / Python / MILP</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/district-heating-optimisation.svg" alt="District heating dispatch optimisation visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>PuLP</span><span>Python</span><span>MILP</span><span>District heating</span><span>Storage</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>CHP flexible role</strong><small>Balances demand across the year</small></span>
-                  <span class="result-metric-card"><strong>Woodchip + geothermal base</strong><small>Stable renewable heat supply</small></span>
-                  <span class="result-metric-card"><strong>Scenario comparison</strong><small>Cost and emissions trade-offs</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Built a stepwise dispatch model covering base, future, storage, cost and emissions scenarios.</li>
-                  <li>Used Python and PuLP to compare heat allocation under resource and demand constraints.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/district-heating-optimisation.html" aria-label="District heating optimisation — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
+<button data-cv-filter="SOFTWARE" type="button" style="min-height:44px;padding:0 16px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:transparent;color:#c9cfc6;border:1px solid #2d3a31;">SOFTWARE</button>
 
-          <details class="project-browser-item tone-energy" data-project-id="distribution-grid-study" data-audience-tags="Energy Systems" data-order="15">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Grid modelling</span>
-                <h3><a class="title-link" href="projects/distribution-grid-study.html">Distribution Grid Study</a></h3>
-                <p>CIGRE MV network-style power-flow, N-1 contingency and 24-hour simulation study with EV charging, PV and storage impact analysis.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Python / Power flow / N-1</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/distribution-grid-study.svg" alt="Distribution grid power-flow and N-1 study visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Power flow</span><span>N-1</span><span>EV/PV/storage</span><span>CIGRE MV</span></div>
-                <ul class="evidence-list">
-                  <li>Screened line loading, voltage behaviour and contingency sensitivity across the 24-hour demand profile.</li>
-                  <li>Compared EV charging, PV injection and battery storage assumptions on network stress indicators.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/distribution-grid-study.html" aria-label="Distribution grid study — case study">Case study</a>
-                  <a href="https://github.com/abhijith-sivaprasadan/PRO1_network" target="_blank" rel="noreferrer">GitHub</a>
-                </div>
-              </div>
-            </div>
-          </details>
+</div>
+<div class="m mu" style="font-size:12px;letter-spacing:.1em"><span data-cv-case-count>8 OF 8 CASES · FOUR TERMS STATED</span></div>
+</section>
+
+<section style="display:flex;flex-direction:column">
+<div class="m mu" style="display:flex;flex-wrap:wrap;gap:8px 32px;padding:0 0 12px;border-bottom:1px solid #2d3a31;font-size:11px;letter-spacing:.14em">
+<div style="flex:1.1 1 200px">CASE</div><div style="flex:1.4 1 220px;color:#65d6c9">01 BOUNDARY</div><div style="flex:1 1 180px;color:#9bd69f">02 METHOD</div><div style="flex:1.4 1 220px;color:#d7b46a">04 RESIDUAL</div>
+</div>
+
+<article data-cv-case data-cv-case-category="CFD / CHT · RESIDUAL STATED" data-probe="CFD / CHT · RESIDUAL STATED" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-bottom:1px solid #2d3a31;align-items:flex-start">
+<div style="flex:1.1 1 200px;display:flex;flex-direction:column;gap:8px"><div class="m" style="font-size:11px;letter-spacing:.14em;color:#a9b3a8">CFD / CHT</div><a href="index.html" style="font-size:19px;font-weight:560;line-height:1.3">Siemens Energy thesis</a></div>
+<div style="flex:1.4 1 220px;font-size:15px;line-height:1.6;color:#e0ded4">Steady-state thermo-fluid performance of a reducer for the Pulsatorn high-temperature dynamic pressure sensor calibration rig.</div>
+<div class="m" style="flex:1 1 180px;font-size:13px;line-height:1.7;color:#c9cfc6">ANSYS Fluent · k-omega SST · conjugate heat transfer · NI-DAQ · LabVIEW</div>
+<div class="rs" style="flex:1.4 1 220px;font-size:14px;line-height:1.55;color:#f2f0e7;padding:12px 14px;border-radius:6px;box-sizing:border-box">Redesigned reducer not manufactured or tested. Mesh independence is not validation.</div>
+</article>
+
+<article data-cv-case data-cv-case-category="STRUCTURAL · RESIDUAL STATED" data-probe="STRUCTURAL · RESIDUAL STATED" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-bottom:1px solid #2d3a31;align-items:flex-start">
+<div style="flex:1.1 1 200px;display:flex;flex-direction:column;gap:8px"><div class="m" style="font-size:11px;letter-spacing:.14em;color:#a9b3a8">STRUCTURAL</div><a href="projects/structural-fea-reactor-internals.html" style="font-size:19px;font-weight:560;line-height:1.3">Structural FEA reactor-internals pilot study</a></div>
+<div style="flex:1.4 1 220px;font-size:15px;line-height:1.6;color:#e0ded4">A simplified stainless-steel support plate inspired by reactor internals: load cases, reaction checks, mesh convergence.</div>
+<div class="m" style="flex:1 1 180px;font-size:13px;line-height:1.7;color:#c9cfc6">ANSYS Mechanical · SpaceClaim · Python reports</div>
+<div class="rs" style="flex:1.4 1 220px;font-size:14px;line-height:1.55;color:#f2f0e7;padding:12px 14px;border-radius:6px;box-sizing:border-box">Educational ANSYS portfolio study, not an ASME BPVC, Eurocode, EN13001 or certified nuclear-component calculation.</div>
+</article>
+
+<article data-cv-case data-cv-case-category="ENERGY MANAGEMENT · RESIDUAL STATED" data-probe="ENERGY MANAGEMENT · RESIDUAL STATED" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-bottom:1px solid #2d3a31;align-items:flex-start">
+<div style="flex:1.1 1 200px;display:flex;flex-direction:column;gap:8px"><div class="m" style="font-size:11px;letter-spacing:.14em;color:#a9b3a8">ENERGY MANAGEMENT</div><a href="projects/alleima-energy-efficiency.html" style="font-size:19px;font-weight:560;line-height:1.3">Comparative energy audit methods</a></div>
+<div style="flex:1.4 1 220px;font-size:15px;line-height:1.6;color:#e0ded4">A tiered audit method matched to site EMS maturity, compared with EU EED obligations across jurisdictions.</div>
+<div class="m" style="flex:1 1 180px;font-size:13px;line-height:1.7;color:#c9cfc6">ISO 50001 · EU EED · EnPI logic</div>
+<div class="rs" style="flex:1.4 1 220px;font-size:14px;line-height:1.55;color:#f2f0e7;padding:12px 14px;border-radius:6px;box-sizing:border-box">Method-only summary. Proprietary site detail is withheld.</div>
+</article>
+
+<article data-cv-case data-cv-case-category="ENERGY SYSTEMS · RESIDUAL OPEN" data-probe="ENERGY SYSTEMS · RESIDUAL OPEN" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-bottom:1px solid #2d3a31;align-items:flex-start">
+<div style="flex:1.1 1 200px;display:flex;flex-direction:column;gap:8px"><div class="m" style="font-size:11px;letter-spacing:.14em;color:#a9b3a8">ENERGY SYSTEMS</div><a href="projects/district-heating-optimisation.html" style="font-size:19px;font-weight:560;line-height:1.3">District heating dispatch optimisation</a></div>
+<div style="flex:1.4 1 220px;font-size:15px;line-height:1.6;color:#e0ded4">Heat-source dispatch across base, future-demand, storage, cost and emissions scenarios.</div>
+<div class="m" style="flex:1 1 180px;font-size:13px;line-height:1.7;color:#c9cfc6">Python · PuLP · MILP</div>
+<div class="rs" style="flex:1.4 1 220px;font-size:14px;line-height:1.55;color:#f2f0e7;padding:12px 14px;border-radius:6px;box-sizing:border-box">Scenario or prototype study; no live operational validation is claimed.</div>
+</article>
+
+<article data-cv-case data-cv-case-category="ENERGY SYSTEMS · RESIDUAL OPEN" data-probe="ENERGY SYSTEMS · RESIDUAL OPEN" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-bottom:1px solid #2d3a31;align-items:flex-start">
+<div style="flex:1.1 1 200px;display:flex;flex-direction:column;gap:8px"><div class="m" style="font-size:11px;letter-spacing:.14em;color:#a9b3a8">ENERGY SYSTEMS</div><a href="projects/heating-demand-forecasting.html" style="font-size:19px;font-weight:560;line-height:1.3">Heating demand forecasting</a></div>
+<div style="flex:1.4 1 220px;font-size:15px;line-height:1.6;color:#e0ded4">Day-ahead building heating demand from weather and calendar features.</div>
+<div class="m" style="flex:1 1 180px;font-size:13px;line-height:1.7;color:#c9cfc6">Logistic regression · shallow and deep neural networks · scikit-learn</div>
+<div class="rs" style="flex:1.4 1 220px;font-size:14px;line-height:1.55;color:#f2f0e7;padding:12px 14px;border-radius:6px;box-sizing:border-box">Scenario or prototype study; no live operational validation is claimed.</div>
+</article>
+
+<article data-cv-case data-cv-case-category="GRID · RESIDUAL OPEN" data-probe="GRID · RESIDUAL OPEN" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-bottom:1px solid #2d3a31;align-items:flex-start">
+<div style="flex:1.1 1 200px;display:flex;flex-direction:column;gap:8px"><div class="m" style="font-size:11px;letter-spacing:.14em;color:#a9b3a8">GRID</div><a href="projects/distribution-grid-study.html" style="font-size:19px;font-weight:560;line-height:1.3">Distribution grid study</a></div>
+<div style="flex:1.4 1 220px;font-size:15px;line-height:1.6;color:#e0ded4">CIGRE MV-style power flow, N-1 contingency and a 24-hour EV, PV and storage study.</div>
+<div class="m" style="flex:1 1 180px;font-size:13px;line-height:1.7;color:#c9cfc6">Python · power flow · N-1</div>
+<div class="rs" style="flex:1.4 1 220px;font-size:14px;line-height:1.55;color:#f2f0e7;padding:12px 14px;border-radius:6px;box-sizing:border-box">Scenario or prototype study; no live operational validation is claimed.</div>
+</article>
+
+<article data-cv-case data-cv-case-category="GRID · RESIDUAL STATED" data-probe="GRID · RESIDUAL STATED" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-bottom:1px solid #2d3a31;align-items:flex-start">
+<div style="flex:1.1 1 200px;display:flex;flex-direction:column;gap:8px"><div class="m" style="font-size:11px;letter-spacing:.14em;color:#a9b3a8">GRID</div><a href="projects/pypsa-nl-grid-flexibility.html" style="font-size:19px;font-weight:560;line-height:1.3">PyPSA-NL grid flexibility</a></div>
+<div style="flex:1.4 1 220px;font-size:15px;line-height:1.6;color:#e0ded4">A Netherlands-inspired grid-flexibility model.</div>
+<div class="m" style="flex:1 1 180px;font-size:13px;line-height:1.7;color:#c9cfc6">PyPSA</div>
+<div class="rs" style="flex:1.4 1 220px;font-size:14px;line-height:1.55;color:#f2f0e7;padding:12px 14px;border-radius:6px;box-sizing:border-box">Exploratory learning project, not a validated planning model.</div>
+</article>
+
+<article data-cv-case data-cv-case-category="SOFTWARE · RESIDUAL OPEN" data-probe="SOFTWARE · RESIDUAL OPEN" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:26px 0;border-bottom:1px solid #2d3a31;align-items:flex-start">
+<div style="flex:1.1 1 200px;display:flex;flex-direction:column;gap:8px"><div class="m" style="font-size:11px;letter-spacing:.14em;color:#a9b3a8">SOFTWARE</div><a href="projects/industrial-energy-kpi-toolkit.html" style="font-size:19px;font-weight:560;line-height:1.3">Industrial energy KPI toolkit</a></div>
+<div style="flex:1.4 1 220px;font-size:15px;line-height:1.6;color:#e0ded4">Baseline normalisation, KPI reporting, anomaly flags and PDF reports for industrial energy data.</div>
+<div class="m" style="flex:1 1 180px;font-size:13px;line-height:1.7;color:#c9cfc6">Python · Streamlit · CLI · automated tests</div>
+<div class="rs" style="flex:1.4 1 220px;font-size:14px;line-height:1.55;color:#f2f0e7;padding:12px 14px;border-radius:6px;box-sizing:border-box">Scenario or prototype study; no live operational validation is claimed.</div>
+</article>
+
+</section>
+
+<section class="cv-exact-extended" aria-label="Additional published case studies"><div class="cv-exact-extended-head"><span class="eb">L2 · ADDITIONAL CASES</span><h2>Source-linked engineering work</h2><p>Further cases from the public portfolio, read using the same boundary, method and residual grammar.</p></div><div class="cv-exact-case-header"><span>CASE</span><span>01 · BOUNDARY</span><span>02 · METHOD</span><span>04 · RESIDUAL</span></div><article data-cv-case data-cv-case-category="Research" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Research</span><a href="projects/enerlint.html">EnerLint · Independent physics consistency checks ↗</a></div><div class="cv-exact-case-summary">Review-stage Python alpha for independent mass, energy and storage consistency checks on exported model results; negative-control benchmarks also demonstrate a compensating fault that passes.</div><div class="m cv-exact-case-method">Python · pytest · JSON/SI contracts · SHA-256</div><div class="rs cv-exact-case-residual">v0.1.0a0 alpha; no external validation or public PyPI/Zenodo release.</div></article><article data-cv-case data-cv-case-category="Research" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Research</span><a href="projects/residual-pathways.html">ResidualPathways · Scenario evidence and residual-emissions research ↗</a></div><div class="cv-exact-case-summary">Source-audited IAM reporting research and public coverage atlas: 1,202 climate-vetted scenarios and 352 reporting-presence aggregates, without verified physical gross/removal identities.</div><div class="m cv-exact-case-method">Python · IAMC · SciPy · HiGHS</div><div class="rs cv-exact-case-residual">Coverage-only research candidate; human scientific review pending.</div></article><article data-cv-case data-cv-case-category="Research" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Research</span><a href="projects/pathways-hub.html">PathwaysHub · Auditable research-operations prototype ↗</a></div><div class="cv-exact-case-summary">IAMC submission and release-integrity workflow with versioned contracts, SHA-256 verification, synthetic negative cases and scoped review-state tracking; no real consortium submissions claimed.</div><div class="m cv-exact-case-method">Python · pytest · JSON · SHA-256</div><div class="rs cv-exact-case-residual">Synthetic three-submission intake demo with accepted and rejected cases.</div></article><article data-cv-case data-cv-case-category="Energy Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Energy Systems</span><a href="projects/kerala2040.html">Kerala2040 · Power-system resilience research ↗</a></div><div class="cv-exact-case-summary">Public-data research freeze (23 October 2026) on Kerala&#x27;s electricity-system stress, with observed SLDC daily targets, ERA5 retrospective demand analysis, hydro timing and bounded transmission screening. Not a validated planning model.</div><div class="m cv-exact-case-method">Python · PyPSA · OSeMOSYS · ERA5</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Thermal Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Thermal Systems</span><a href="projects/tes-discharge-screen.html">TES Discharge Screen · Dynamic thermal-storage screening ↗</a></div><div class="cv-exact-case-summary">Techno-economic screening of industrial thermal energy storage with state-of-charge-dependent discharge constraints derived from dynamic models. Packed-bed, molten-salt and PCM cases are compared with explicit verification, sensitivity and validation boundaries.</div><div class="m cv-exact-case-method">Python · Pyomo · HiGHS · Modelica</div><div class="rs cv-exact-case-residual">26 October computational freeze: pre-registered sweep 35/36 verified, with no ranking reversal.</div></article><article data-cv-case data-cv-case-category="Energy Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Energy Systems</span><a href="projects/opensteamopt.html">OpenSteamOpt · Steam &amp; power RTO ↗</a></div><div class="cv-exact-case-summary">An open-source two-boiler steam-and-power twin with a carbon-aware Pyomo/HiGHS scheduler, OpenModelica FMI 2.0 simulation and a local Streamlit advisory GUI. Synthetic and uncalibrated; not an ABB product or live control system.</div><div class="m cv-exact-case-method">Python · Modelica · Pyomo · HiGHS</div><div class="rs cv-exact-case-residual">29 tests, independent objective/balance reconstruction, byte-reproducible reference artifacts and a real 1,441-sample FMU integration check. Synthetic results are not plant-savings claims.</div></article><article data-cv-case data-cv-case-category="Energy Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Energy Systems</span><a href="projects/gb-flexabm.html">GB-FLEXABM · Electricity investment ↗</a></div><div class="cv-exact-case-summary">Local electricity-investment GUI and shared Pyomo/HiGHS planner, with audited market coverage and 175 extracted public input references. Synthetic and uncalibrated; normalization, price-target decisions and weather conversion still gate historical fitting.</div><div class="m cv-exact-case-method">Python · Pyomo · HiGHS · Streamlit</div><div class="rs cv-exact-case-residual">175 public references acquired/extracted; 804 Elexon responses preserve failed coverage gates. No raw-data publication, silent target substitution or empirical calibration claim.</div></article><article data-cv-case data-cv-case-category="Energy Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Energy Systems</span><a href="projects/pynexus-green-hydrogen.html">PyNEXUS · Multi-vector dispatch ↗</a></div><div class="cv-exact-case-summary">Electricity, hydrogen and heat dispatch (Pyomo/HiGHS) on a real fetched year of ERA5 wind, with independent verification on every run and an interactive Streamlit GUI.</div><div class="m cv-exact-case-method">Pyomo · HiGHS · Python · Streamlit</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Energy Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Energy Systems</span><a href="projects/hylkysaari-sustainable-tourism.html">Hylkysaari Smart Energy Island Modelling ↗</a></div><div class="cv-exact-case-summary">IDA ICE, HOMER Pro and Excel modelling for Valo Finland&#x27;s Hylkysaari smart sustainable tourism concept, comparing energy demand reduction, renewable supply and waste-heat recovery pathways.</div><div class="m cv-exact-case-method">IDA ICE · HOMER Pro · Heat Pumps · Building Energy</div><div class="rs cv-exact-case-residual">Report conclusion favoured combining scenario 1 solar PV with scenario 2 insulation and heat recovery; solar collectors were not attractive because discounted payback approached project lifetime.</div></article><article data-cv-case data-cv-case-category="Sustainability" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Sustainability</span><a href="projects/eu-ets-exposure-calculator.html">EU ETS Exposure Calculator ↗</a></div><div class="cv-exact-case-summary">How do fuel activity and allowance-price assumptions affect exposure? Tested Scope 1 calculations with contextual Scope 2 reporting and transparent demonstration factors. Not compliance advice.</div><div class="m cv-exact-case-method">Streamlit · Excel · Python · EU ETS</div><div class="rs cv-exact-case-residual">How do fuel activity and allowance-price assumptions affect exposure? Tested Scope 1 calculations with contextual Scope 2 reporting and transparent demonstration factors. Not compliance advice.</div></article><article data-cv-case data-cv-case-category="Thermal Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Thermal Systems</span><a href="projects/thermotwin-f.html">ThermoTwin-F · Educational gas turbine ↗</a></div><div class="cv-exact-case-summary">Modern Fortran educational gas-turbine and CCGT simulator. The v2.0.0-beta.1 source-only prerelease is archived on Zenodo (10.5281/zenodo.23679426); release CI passed, while GUI and industrial asset validation remain unaccepted.</div><div class="m cv-exact-case-method">Fortran 2008 · Python · Win32/GDI+</div><div class="rs cv-exact-case-residual">Citable v2.0.0-beta.1 source-only research beta on Zenodo, DOI 10.5281/zenodo.23679426.</div></article><article data-cv-case data-cv-case-category="Energy Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Energy Systems</span><a href="projects/residential-heating-technoeconomics.html">Residential Heating Systems Techno-Economic Comparison ↗</a></div><div class="cv-exact-case-summary">Comparative assessment of district heating, solar PV with heat pump, solar PV with electric boiler, and solar thermal with thermal storage for residential heat supply.</div><div class="m cv-exact-case-method">IDA ICE · SAM · Heat Pumps · Techno-Economic</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Energy Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Energy Systems</span><a href="projects/germany-energy-economy-analysis.html">Germany Energy-Environment-Economy Transition Analysis ↗</a></div><div class="cv-exact-case-summary">Structured analysis of Germany&#x27;s energy transition pathways using LEAP modelling tool, evaluating electricity cost and carbon implications across technology scenarios.</div><div class="m cv-exact-case-method">LEAP · Energy Policy · Energy Transition · Scenario Analysis</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Energy Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Energy Systems</span><a href="projects/gridguardpinn.html">GridGuardPINN · Trust-aware PINN grid-dynamics surrogates ↗</a></div><div class="cv-exact-case-summary">Physics-informed power-system dynamics surrogate with deterministic reference-simulator fallback. Frozen IEEE-14 mixed-workload tests report 1.57–1.95× full-route speedup; no operational safety claim.</div><div class="m cv-exact-case-method">PyTorch · ANDES · Python · SciPy</div><div class="rs cv-exact-case-residual">Synthetic IEEE-14 randomized routing benchmark: 1.57–1.95× speedup on defined mixed workload; not a safety guarantee.</div></article><article data-cv-case data-cv-case-category="Thermal Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Thermal Systems</span><a href="projects/tes-peak-shaving.html">Thermal Energy Storage for District Cooling Peak Shaving ↗</a></div><div class="cv-exact-case-summary">Thermal energy storage concept work for peak shaving and district cooling, comparing phase-change and ice-storage options with control and pricing logic.</div><div class="m cv-exact-case-method">Python · TES · Phase Change Materials · Thermal Analysis</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Energy Systems" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Energy Systems</span><a href="projects/finnish-grid-connection-evidence.html">Finnish Grid Connection Evidence Screener ↗</a></div><div class="cv-exact-case-summary">Source-audited indicative Finnish grid-capacity observations with provenance-aware data storage and dashboards; not confirmed connection headroom or a validated load-flow model.</div><div class="m cv-exact-case-method">Python · SQLite · Next.js · PostgreSQL</div><div class="rs cv-exact-case-residual">18 original Fingrid Grid Scope readings rechecked against 18–19 October screenshot evidence; not operator-confirmed availability.</div></article><article data-cv-case data-cv-case-category="Research" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Research</span><a href="projects/synthsift.html">SynthSift · Evidence synthesis research software ↗</a></div><div class="cv-exact-case-summary">Source-linked AI-assisted title/available-abstract screening of 538 OpenAlex heat-pump adoption candidates (144 include, 341 exclude, 53 uncertain). Independent 240-record human reference screening and blinded second review remain unfinished.</div><div class="m cv-exact-case-method">Python · scikit-learn · OpenAlex · pytest</div><div class="rs cv-exact-case-residual">Independent human screening, 96-record blinded second review, adjudication and full-text evidence synthesis remain undone; 16-record pilot is not an external performance estimate.</div></article><article data-cv-case data-cv-case-category="Mechanical &amp; Diagnostics" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Mechanical &amp; Diagnostics</span><a href="projects/rotating-machinery-vibration-minilab.html">Rotating Machinery Vibration Mini-Lab ↗</a></div><div class="cv-exact-case-summary">Low-cost vibration workflow using phone accelerometer data, filtering, FFT/PSD, spectrograms and report generation.</div><div class="m cv-exact-case-method">Python · FFT · PSD · HTML reports</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Assignments" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Assignments</span><a href="projects/built-environment-ida-ice-simulation.html">Built Environment Energy Simulation - IDA ICE Supply System Comparison ↗</a></div><div class="cv-exact-case-summary">IDA ICE building energy simulation comparing supply-system alternatives, demand behaviour and performance implications for a built-environment assignment.</div><div class="m cv-exact-case-method">IDA ICE · Building energy · Supply systems · Energy simulation</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Assignments" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Assignments</span><a href="projects/philippines-emergency-energy-module.html">Emergency Energy Module - Post-Disaster Polygeneration, Philippines ↗</a></div><div class="cv-exact-case-summary">Post-disaster polygeneration concept for emergency electricity, cooling and water support in a Philippines context.</div><div class="m cv-exact-case-method">Polygeneration · Energy access · Scenario design</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Assignments" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Assignments</span><a href="projects/mtes-pcm-thermal-lab.html">M-TES PCM Thermal Lab - RT60 HC Discharge Characterisation ↗</a></div><div class="cv-exact-case-summary">Latent-heat mobile thermal energy storage lab characterising RT60 HC discharge behaviour, measurement interpretation and thermal-response trends.</div><div class="m cv-exact-case-method">PCM · Thermal lab · Data analysis</div><div class="rs cv-exact-case-residual">Evaluated a latent heat-based M-TES prototype with oil bath, water cooling, coil heat exchanger, HTF reservoir, pump and data-logging chain.</div></article><article data-cv-case data-cv-case-category="Assignments" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Assignments</span><a href="projects/battery-cell-discharge-lab.html">Battery Cell Discharge Performance Testing - Ni-MH, Li-Po and Lead-Acid ↗</a></div><div class="cv-exact-case-summary">Battery discharge lab comparing Ni-MH, Li-Po and lead-acid cells through C-rate behaviour, voltage curves and performance interpretation.</div><div class="m cv-exact-case-method">Battery testing · C-rate · Python · Lab data</div><div class="rs cv-exact-case-residual">Interpreted empirical voltage/capacity behaviour against redox operation, degradation factors and recommended limits.</div></article><article data-cv-case data-cv-case-category="Assignments" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Assignments</span><a href="projects/waste-to-energy-india.html">Waste-to-Energy Proposals - Delhi and Kozhikode ↗</a></div><div class="cv-exact-case-summary">Waste-to-energy assignment work comparing municipal solid waste handling, segregation and energy-recovery concepts for Kozhikode and Delhi.</div><div class="m cv-exact-case-method">Waste-to-energy · MSW · Energy recovery</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Assignments" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Assignments</span><a href="projects/numerical-heat-transfer.html">Numerical Heat Transfer - Finite Difference, Time-Stepping and Advection Schemes ↗</a></div><div class="cv-exact-case-summary">Python assignments covering catastrophic cancellation, numerical differentiation, Laplace stencils, Euler vs RK4 and advection scheme comparison.</div><div class="m cv-exact-case-method">Python · Finite difference · RK4 · Advection schemes</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Assignments" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Assignments</span><a href="projects/gridflex-energy-optimizer.html">GridFlex - ML-Driven Energy Storage Optimisation Concept ↗</a></div><div class="cv-exact-case-summary">Entrepreneurship assignment translating renewable-grid storage optimisation, real-time data and machine learning into a product concept and business model.</div><div class="m cv-exact-case-method">ML concept · BESS · Business Model Canvas · Energy storage</div><div class="rs cv-exact-case-residual">Outlined prototype testing with simulated data, customer interviews and predictive weather-aware storage adjustment.</div></article><article data-cv-case data-cv-case-category="Academic &amp; Mechanical" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Academic &amp; Mechanical</span><a href="projects/bicycle-design-competition.html">Bicycle Design Competition (SAE INDIA) ↗</a></div><div class="cv-exact-case-summary">Project team lead for Team TRAMS in Bicycle Design Competition 2020, coordinating design, analysis, documentation and competition deliverables.</div><div class="m cv-exact-case-method">SolidWorks 2015 · ANSYS Workbench 14.5 · Cost modelling · Design report</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Academic &amp; Mechanical" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Academic &amp; Mechanical</span><a href="projects/automatic-sanitizer-dispenser.html">Automatic Sanitizer Dispenser ↗</a></div><div class="cv-exact-case-summary">Automated hand sanitizer dispenser built by a mechanical engineering student team using e-waste and basic Arduino programming.</div><div class="m cv-exact-case-method">Arduino IDE · IR/proximity sensing · E-waste prototyping</div><div class="rs cv-exact-case-residual">Rapid hardware prototype for contactless dispensing using basic Arduino logic and reused components.</div></article><article data-cv-case data-cv-case-category="Academic &amp; Mechanical" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Academic &amp; Mechanical</span><a href="projects/wireless-charging-technology.html">Wireless Charging Technology and Application in Automobile Industry ↗</a></div><div class="cv-exact-case-summary">Study of wireless charging solutions for portable and automotive environments.</div><div class="m cv-exact-case-method">Technology review · Automotive systems · Power-transfer concepts</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Academic &amp; Mechanical" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Academic &amp; Mechanical</span><a href="projects/peltier-refrigerator.html">Peltier Refrigerator ↗</a></div><div class="cv-exact-case-summary">Compressor-free refrigeration concept based on Peltier cooling with no rotary power-consuming component.</div><div class="m cv-exact-case-method">Thermoelectric cooling · Temperature sensing · Prototype design · Design report</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Academic &amp; Mechanical" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Academic &amp; Mechanical</span><a href="projects/tractor-design-competition.html">Tractor Design Competition 2019 ↗</a></div><div class="cv-exact-case-summary">Team member of Trac Toro Racing for SAEINDIA Tractor Design Competition 2019, with design-review evidence across chassis sizing, braking, steering, engine/transmission and QFD-style design priorities.</div><div class="m cv-exact-case-method">Vehicle layout · Hand calculations · QFD · Mechanical design</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Academic &amp; Mechanical" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Academic &amp; Mechanical</span><a href="projects/baja-sae-2019.html">BAJA SAE 2019 ↗</a></div><div class="cv-exact-case-summary">Engine and transmission team member for BAJA SAEINDIA 2019.</div><div class="m cv-exact-case-method">Engine systems · Transmission · Automotive design · Team documentation</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article><article data-cv-case data-cv-case-category="Academic &amp; Mechanical" class="cv-exact-case-row" data-probe="CASE · SOURCE LINKED"><div class="cv-exact-case-title"><span class="m cv-exact-type">Academic &amp; Mechanical</span><a href="projects/robotic-frame-locomotion.html">B.Tech Final Year Interactive Robot Project ↗</a></div><div class="cv-exact-case-summary">Final-year interactive robot project combining IRJET control-system/subsystem integration work with the published frame and locomotion design: Raspberry Pi/cloud control, surveillance, SOC indication, steering integration, drivetrain sizing and ANSYS deformation screening.</div><div class="m cv-exact-case-method">Raspberry Pi · CAD · ANSYS · BLDC motor controller</div><div class="rs cv-exact-case-residual">Evidence bounds and open items are given in the linked case study; independent field validation is not implied.</div></article></section>
+</main>
+
+<footer style="border-top:1px solid #2d3a31"><div style="max-width:1180px;margin:0 auto;padding:32px 48px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;box-sizing:border-box"><nav class="nv"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#d7b46a;padding:10px 0">OUTSIDE THE BOUNDARY</span><a href="courses.html">COURSES</a><a href="ideas.html">IDEAS</a><a href="interests.html">INTERESTS</a><a href="hobbies.html">HOBBIES</a></nav><div class="m mu" style="font-size:12px;letter-spacing:.06em;padding:10px 0">Methods, evidence, and their limits.</div></div></footer>
 
 
-          <!-- Newly documented original research contributions, October 2026.
-               These are supporting evidence, not additions to the five-project FEED page. -->
-          <details class="project-browser-item tone-energy" data-project-id="gridguardpinn" data-audience-tags="Energy Systems,Research,Software" data-order="8">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Scientific ML / transient stability / fallbacks</span>
-                <h3><a class="title-link" href="projects/gridguardpinn.html">GridGuardPINN · Trust-aware power-system surrogates</a></h3>
-                <p>Physics-informed surrogate simulation with deterministic ANDES fallback. Defined IEEE-14 routing benchmark, not certified grid-control software.</p>
-              </div>
-              <div class="project-browser-meta"><span>PyTorch / ANDES / Python</span><span>Research demonstrator</span></div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/gridguardpinn.svg" alt="Concept artwork for gridguardpinn, not measured project results" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <p>A randomized full-route benchmark recorded 1.57–1.95× speedup on a fixed mixed workload. The project also documents unsafe residual-only acceptance on unseen fault locations and rejects those cases by default.</p>
-                <div class="project-links"><a href="projects/gridguardpinn.html">Case study</a><a href="https://github.com/abhijith-sivaprasadan/GridGuardPINN">Source &amp; evidence</a></div>
-              </div>
-            </div>
-          </details>
 
-          <details class="project-browser-item tone-energy" data-project-id="finnish-grid-connection-evidence" data-audience-tags="Energy Systems,Research,Industrial R&amp;D,Software" data-order="9">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Grid data / source evidence / APIs</span>
-                <h3><a class="title-link" href="projects/finnish-grid-connection-evidence.html">Finnish Grid Connection Evidence Screener</a></h3>
-                <p>Source-linked Fingrid capacity observations, audit logs and national-energy chronology, deliberately separate from model scenarios and guaranteed connection headroom.</p>
-              </div>
-              <div class="project-browser-meta"><span>Python / SQLite / Next.js</span><span>Grid-data tool</span></div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/finnish-grid-connection-evidence.svg" alt="Concept artwork for finnish-grid-connection-evidence, not measured project results" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <p>18 indicative Grid Scope readings cross-checked against the original screenshot capture; missing point/year/direction combinations remain explicitly unknown. The repository documents a hosted read-only interface and data-integrity checks, not a nodal load-flow model.</p>
-                <div class="project-links"><a href="projects/finnish-grid-connection-evidence.html">Case study</a><a href="https://github.com/abhijith-sivaprasadan/finnish-grid-connection-evidence">Source &amp; evidence</a></div>
-              </div>
-            </div>
-          </details>
 
-          <details class="project-browser-item tone-analytics" data-project-id="synthsift" data-audience-tags="Research,Software,Energy Systems" data-order="10">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Research methods / evidence screening / provenance</span>
-                <h3><a class="title-link" href="projects/synthsift.html">SynthSift · Evidence-synthesis research software</a></h3>
-                <p>Reproducible OpenAlex acquisition, human-reference screening queues and field-level evaluation for heat-pump-adoption literature.</p>
-              </div>
-              <div class="project-browser-meta"><span>Python / OpenAlex / pytest</span><span>Pilot research workflow</span></div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/synthsift.svg" alt="Concept artwork for synthsift, not measured project results" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <p>All 538 frozen candidates now have AI-assisted first-pass eligibility recommendations (144 include, 341 exclude, 53 uncertain), with reasons and 150 priority rechecks. The 240-record independent human reference sample, blinded second review and adjudication remain unfinished; the 16-record pilot is not a real-world accuracy estimate.</p>
-                <div class="project-links"><a href="projects/synthsift.html">Case study</a><a href="https://github.com/abhijith-sivaprasadan/SynthSift">Source &amp; evidence</a></div>
-              </div>
-            </div>
-          </details>
 
-          <details class="project-browser-item tone-analytics" data-project-id="eu-ets-exposure-calculator" data-audience-tags="Industrial R&amp;D,Energy Systems" data-order="20">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Software / analytics</span>
-                <h3><a class="title-link" href="projects/eu-ets-exposure-calculator.html">EU ETS Exposure Calculator</a></h3>
-                <p>Excel and Streamlit toolkit for estimating Scope 1 emissions, EUA cost exposure and carbon-intensity trends for industrial sites.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Python / Streamlit / Excel</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/eu-ets-exposure-calculator.svg" alt="EU ETS emissions and allowance exposure dashboard visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>EU ETS</span><span>Streamlit</span><span>Excel</span><span>Carbon</span><span>Python</span></div>
-                <ul class="evidence-list">
-                  <li>Calculates ETS scenario summaries and EUA price sensitivity from workbook inputs.</li>
-                  <li>Includes workbook parsing, CLI runner, PDF export and automated regression tests.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/eu-ets-exposure-calculator.html" aria-label="Eu ets exposure calculator — case study">Case study</a>
-                  <a href="https://github.com/abhijith-sivaprasadan/EU-ETS-Exposure-Calculator-Package" target="_blank" rel="noreferrer">GitHub</a>
-                </div>
-              </div>
-            </div>
-          </details>
 
-          <details class="project-browser-item tone-energy" data-project-id="heating-demand-forecasting" data-audience-tags="Energy Systems,Research" data-order="25">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Data / ML</span>
-                <h3><a class="title-link" href="projects/heating-demand-forecasting.html">Day-Ahead Heating Demand Forecasting &ndash; KTH U-Building</a></h3>
-                <p>Logistic regression, shallow and deep neural network comparison for day-ahead space heating forecast using Mahalanobis-filtered hourly weather and temporal features.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Python / scikit-learn / Neural networks &middot; KTH</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/heating-demand-forecasting.svg" alt="Heating demand forecasting model visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Forecasting</span><span>Python</span><span>scikit-learn</span><span>Neural networks</span><span>Mahalanobis</span><span>Building energy</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>SNN: 93.39% accuracy</strong><small>Best generalisation &mdash; 1.02pp test&ndash;validation gap</small></span>
-                  <span class="result-metric-card"><strong>DNN: 10&times; slower</strong><small>7 s vs 0.69 s for only +0.33pp accuracy gain</small></span>
-                  <span class="result-metric-card"><strong>4,992 rows after cleaning</strong><small>Mahalanobis 3.5&sigma; removed 120 outliers</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Engineered hour-of-day, chronological day and weekday features to capture occupancy and seasonal patterns in KTH U-Building (~3,600 m&sup2;).</li>
-                  <li>Two-stage pipeline: initial range-based cleaning then Mahalanobis multivariate outlier removal; MinMaxScaler normalisation.</li>
-                  <li>SNN (1 hidden layer, 4 neurons) recommended over DNN (6 layers, 8 neurons) on accuracy&ndash;compute trade-off.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/heating-demand-forecasting.html" aria-label="Heating demand forecasting — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
 
-          <details class="project-browser-item tone-energy" data-project-id="industrial-energy-kpi-toolkit" data-audience-tags="Industrial R&amp;D,Energy Systems" data-order="30">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Energy management</span>
-                <h3><a class="title-link" href="projects/industrial-energy-kpi-toolkit.html">Industrial Energy KPI Toolkit</a></h3>
-                <p>Python, Excel and Streamlit toolkit for industrial EnPIs, baseline normalisation, anomaly detection and management reporting.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Python / Streamlit / ISO 50001</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/industrial-energy-kpi-toolkit.svg" alt="Industrial energy KPI and normalisation dashboard visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Energy KPIs</span><span>ISO 50001</span><span>EnPI</span><span>Reporting</span><span>Streamlit</span></div>
-                <ul class="evidence-list">
-                  <li>Generates KPI results, anomaly flags, action logs, plots and one-page PDF reports from meter data inputs.</li>
-                  <li>Guided Streamlit flow with diagnostics, baseline normalisation and CI quality checks.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/industrial-energy-kpi-toolkit.html" aria-label="Industrial energy kpi toolkit — case study">Case study</a>
-                  <a href="https://github.com/abhijith-sivaprasadan/Energy-KPI-Toolkit" target="_blank" rel="noreferrer">GitHub</a>
-                </div>
-              </div>
-            </div>
-          </details>
 
-          <details class="project-browser-item tone-energy" data-project-id="pynexus-green-hydrogen" data-audience-tags="Energy Systems" data-order="35">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Energy systems</span>
-                <h3><a class="title-link" href="projects/pynexus-green-hydrogen.html">PyNEXUS Multi-Vector Dispatch Model</a></h3>
-                <p>Electricity, hydrogen and heat dispatch (Pyomo/HiGHS) coupling offshore wind, electrolysis, storage, grid exchange and waste-heat recovery, run on a real fetched year of ERA5 wind.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Pyomo / HiGHS / MILP / Streamlit</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/pynexus-green-hydrogen.svg" alt="PyNEXUS Streamlit GUI showing a solved dispatch run with independent verification" loading="lazy" width="1280" height="900" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Hydrogen</span><span>Heat</span><span>Pyomo</span><span>MILP</span><span>Streamlit</span></div>
-                <ul class="evidence-list">
-                  <li>A real fetched year of ERA5 wind (2023, no gaps) run through the model: the wind-only annual case is genuinely infeasible against demand &mdash; a real finding, not hidden.</li>
-                  <li>Data reconciliation (WLS + chi-square gross-error test) and a Streamlit GUI wrapping the same optimizer/verification code as the CLI.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/pynexus-green-hydrogen.html" aria-label="Pynexus green hydrogen — case study">Case study</a>
-                  <a href="https://github.com/abhijith-sivaprasadan/PyNEXUS" target="_blank" rel="noreferrer">GitHub</a>
-                </div>
-              </div>
-            </div>
-          </details>
 
-          <details class="project-browser-item tone-energy" data-project-id="tes-peak-shaving" data-audience-tags="Energy Systems" data-order="40">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Energy storage</span>
-                <h3><a class="title-link" href="projects/tes-peak-shaving.html">TES Peak Shaving for District Cooling &ndash; Ice Storage vs PCM</a></h3>
-                <p>Python TES simulation and techno-economic comparison of ice storage and salt hydrate PCM for a shopping centre district cooling network, including break-even and lifetime profit analysis.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Python / TES / PCM &middot; KTH MJ2386</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/thumb-tes-peak-shaving.svg" alt="TES peak shaving district cooling simulation visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>TES</span><span>PCM</span><span>Ice storage</span><span>Peak shaving</span><span>District cooling</span><span>Python</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>~&pound;2,220/week saved</strong><small>Shifting demand below 1,850 kW threshold</small></span>
-                  <span class="result-metric-card"><strong>Ice: 3.5yr payback</strong><small>$404k CAPEX &mdash; $1.6M lifetime profit</small></span>
-                  <span class="result-metric-card"><strong>PCM: 14.9yr payback</strong><small>$1.72M CAPEX &mdash; 4&times; higher cost for same capacity</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Python simulation with 1,850 kW threshold, 12-hour look-ahead and dynamic SoC tracking across 8-day demand profile (198&ndash;3,391 kW range).</li>
-                  <li>Sized both technologies to 14,750 kWh: ice storage at 351 tons / 320 m&sup3; vs PCM at 246 tons / 273 m&sup3;.</li>
-                  <li>Concluded ice storage optimal where space is unconstrained; PCM justified only when footprint is a binding constraint.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/tes-peak-shaving.html" aria-label="Tes peak shaving — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
 
-          <details class="project-browser-item tone-energy" data-project-id="germany-energy-economy-analysis" data-audience-tags="Energy Systems" data-order="45">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Energy systems / LEAP</span>
-                <h3><a class="title-link" href="projects/germany-energy-economy-analysis.html">Germany 3E Analysis &ndash; Electricity, Cost and CO&sub2; Modelling with LEAP</a></h3>
-                <p>Scenario-based modelling of Germany&rsquo;s electricity system to 2045 using LEAP, comparing NDC 2030 targets against nuclear recommissioning on cost and carbon emissions.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>LEAP / Scenario analysis / KTH MJ2508</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/thumb-germany-leap-transition.svg" alt="Germany electricity transition LEAP scenario model visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>LEAP</span><span>Scenario modelling</span><span>Nuclear</span><span>Germany</span><span>CO2 emissions</span><span>SDG 7</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>2,488 million GJ</strong><small>Projected 2045 demand (+42% from 2022)</small></span>
-                  <span class="result-metric-card"><strong>14% nuclear share</strong><small>Own scenario 2045 vs. 0% at start</small></span>
-                  <span class="result-metric-card"><strong>+2.21% social cost</strong><small>Nuclear vs. NDC &ndash; marginal premium for near-zero CO2</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Built demand model covering households, industry, transport electrification (EVs, rail) and commercial services to 2045.</li>
-                  <li>Compared NDC 2030 pathway against recommissioning 12.1 GW of recently decommissioned nuclear capacity.</li>
-                  <li>Contributed Sankey diagram, SDG 7.1 energy poverty analysis and sustainable development section.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/germany-energy-economy-analysis.html" aria-label="Germany energy economy analysis — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-energy" data-project-id="hylkysaari-sustainable-tourism" data-audience-tags="Energy Systems" data-order="50">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Energy management / buildings</span>
-                <h3><a class="title-link" href="projects/hylkysaari-sustainable-tourism.html">Hylkysaari Island &ndash; Smart and Sustainable Tourism Energy Design</a></h3>
-                <p>Building energy simulation, microgrid modelling and economic evaluation for a sustainable tourist island near Helsinki, with a guest-facing energy dashboard business model.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>IDA ICE / HOMER PRO / Excel &middot; Valo Finland &middot; KTH MJ2511</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/thumb-hylkysaari-energy-island.svg" alt="Hylkysaari sustainable island energy design visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>IDA ICE</span><span>HOMER PRO</span><span>Solar PV</span><span>Waste heat recovery</span><span>NPV/BCR</span><span>Business model</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>3 scenarios</strong><small>BAU, solar PV + heat recovery, solar collectors</small></span>
-                  <span class="result-metric-card"><strong>Solar collectors rejected</strong><small>DPP equals project lifetime</small></span>
-                  <span class="result-metric-card"><strong>Vihre&auml; Program</strong><small>Real-time energy dashboard business model</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Modelled building energy use in IDA ICE and microgrid in HOMER PRO across three design scenarios.</li>
-                  <li>Economic evaluation (NPV, BCR, DPP) showed solar PV + improved insulation + waste heat recovery as optimal combination.</li>
-                  <li>Designed guest-facing &ldquo;Hylkysaari Vihre&auml; Program&rdquo; business model with real-time energy dashboard and carbon offset scheme.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/hylkysaari-sustainable-tourism.html" aria-label="Hylkysaari sustainable tourism — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-energy" data-project-id="residential-heating-technoeconomics" data-audience-tags="Energy Systems" data-order="55">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Techno-economic analysis / solar thermal</span>
-                <h3><a class="title-link" href="projects/residential-heating-technoeconomics.html">Residential Heating Techno-Economics &ndash; PV, Heat Pump and Solar Thermal vs District Heating</a></h3>
-                <p>Four-scenario comparison for replacing district heating at BRF &Aring;rstaterrassen (423 apartments, Stockholm) during summer: solar thermal collectors win with a 5-year payback and $128.6/MWh LCoE; PV + electric boiler eliminated at 14% demand coverage.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Solar thermal / Heat pump / SAM &middot; KTH MJ2438</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/thumb-residential-heating-technoeconomics.svg" alt="Residential heating techno-economic comparison visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Solar thermal</span><span>Heat pump</span><span>PV</span><span>District heating</span><span>Techno-economics</span><span>SAM</span><span>LCoE</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>STC: PBP 5yr &mdash; LCoE $128.6/MWh</strong><small>$256k CAPEX, $776/yr OPEX &mdash; recommended solution</small></span>
-                  <span class="result-metric-card"><strong>PVEB: 14% demand only</strong><small>PV surplus 139.6&nbsp;kWh vs 994&nbsp;kWh nocturnal gap &mdash; infeasible</small></span>
-                  <span class="result-metric-card"><strong>STC winter contribution: 18.9%</strong><small>188.9&nbsp;MWh/yr beyond the five-month summer target</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Demand computed from 2,604.4&nbsp;MWh/yr annual baseline, scaled to September worst-case of 2,000&nbsp;kWh/day using district heating monthly demand data.</li>
-                  <li>Wagner-Solar C20 AR-M collectors (85.4% optical efficiency, 2.61&nbsp;m&sup2;): 309 units covering 806&nbsp;m&sup2; generate 5,148.5&nbsp;kWh/day; TES volume 2.95&nbsp;m&sup3; for nocturnal gap.</li>
-                  <li>PV + heat pump (COP&nbsp;=&nbsp;3) is the feasible electrical alternative: 649 panels, $449k CAPEX, 9-year payback &mdash; viable but inferior to STC on all KPIs.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/residential-heating-technoeconomics.html" aria-label="Residential heating technoeconomics — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-energy" data-project-id="built-environment-ida-ice-simulation" data-audience-tags="Energy Systems" data-order="60">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Building energy / simulation</span>
-                <h3><a class="title-link" href="projects/built-environment-ida-ice-simulation.html">Built Environment Energy Simulation &ndash; IDA ICE Supply System Comparison</a></h3>
-                <p>IDA ICE parametric study (heat exchanger, orientation, location) and 11-configuration supply system comparison on bought energy, primary energy and CO&sub2;, plus India built environment decarbonisation policy analysis.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>IDA ICE / HVAC / Building energy &middot; KTH MJ2509</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/built-environment-ida-ice-simulation.svg" alt="Building energy simulation and supply system comparison visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>IDA ICE</span><span>GSHP</span><span>ASHP</span><span>PV</span><span>Building energy</span><span>HVAC</span><span>India policy</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>Heat exchanger: &minus;26% energy</strong><small>160,733 &rarr; 118,890 kWh delivered; AHU &minus;78%</small></span>
-                  <span class="result-metric-card"><strong>GSHP + PV: net export</strong><small>&minus;25,819 kWh bought / &minus;11,436 kg CO&sub2;</small></span>
-                  <span class="result-metric-card"><strong>District H&C: worst config</strong><small>148,461 kWh &mdash; 32% above reference</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Parametric IDA ICE study isolating heat exchanger, window blinds, orientation and Barcelona relocation effects on a ~6% PPD baseline.</li>
-                  <li>11 supply configurations compared: oil boiler reference, GSHP variants, ASHP, district H&C, and GSHP+PV combinations.</li>
-                  <li>India policy essay covering ECBC/NBC enforcement, LEED/GRIHA certification, vernacular architecture principles (Nalukettu, Rajasthan) and case studies (Infosys Mysore, Delhi Metro).</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/built-environment-ida-ice-simulation.html" aria-label="Built environment ida ice simulation — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-energy" data-project-id="philippines-emergency-energy-module" data-audience-tags="Energy Systems" data-order="65">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Polygeneration / off-grid</span>
-                <h3><a class="title-link" href="projects/philippines-emergency-energy-module.html">Emergency Energy Module &ndash; Post-Disaster Polygeneration, Philippines</a></h3>
-                <p>Modular solar PV, biogas digester and battery system for 3,000 disaster survivors after Cyclone Haiyan, with HOMER PRO economic analysis and a PPP business model.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>HOMER PRO / Biogas / Solar PV &middot; KTH MJ2503</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/philippines-emergency-energy-module.svg" alt="Emergency Energy Module polygeneration system visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>HOMER PRO</span><span>Solar PV</span><span>Biogas</span><span>Battery</span><span>Off-grid</span><span>Disaster response</span><span>Polygeneration</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>NPC $444k &mdash; LCOE $0.063/kWh</strong><small>76% below digester-only baseline</small></span>
-                  <span class="result-metric-card"><strong>IRR 92.3% &mdash; 1.08yr payback</strong><small>PPP-deployable economics</small></span>
-                  <span class="result-metric-card"><strong>105% renewable coverage</strong><small>47.9 kWh/yr unmet load for 3,000 people</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Sized solar PV (SunPower Maxeon 7, 24.1% eff, 315 m&sup2;), 920 m&sup3; biogas digester and 50 kWh LiFePO4 battery within a 40-foot container constraint.</li>
-                  <li>Digester produces 1,400 m&sup3;/day biogas covering 886 kWh/day electricity and cooking fuel for 3,000 people.</li>
-                  <li>HOMER PRO economic analysis: $444k NPC, 93% OPEX reduction vs. conventional supply, 92.3% IRR.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/philippines-emergency-energy-module.html" aria-label="Philippines emergency energy module — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-thermal" data-project-id="rotating-machinery-vibration-minilab" data-audience-tags="Thermal &amp; Fluid,Research" data-order="70">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Test / instrumentation</span>
-                <h3><a class="title-link" href="projects/rotating-machinery-vibration-minilab.html">Rotating Machinery Vibration Mini-Lab</a></h3>
-                <p>Low-cost vibration measurement workflow using phone accelerometer data, signal filtering, FFT/PSD analysis, spectrograms and automated report generation.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Python / FFT/PSD / SciPy</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/rotating-machinery-vibration-minilab.svg" alt="Rotating machinery vibration frequency analysis visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Vibration</span><span>FFT/PSD</span><span>Python</span><span>Spectrograms</span><span>SciPy</span></div>
-                <ul class="evidence-list">
-                  <li>Compares operating points through frequency fingerprints and RMS metrics from filtered accelerometer signals.</li>
-                  <li>Packages outputs as HTML reports, plots, spectrograms and summary CSVs.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/rotating-machinery-vibration-minilab.html" aria-label="Rotating machinery vibration minilab — case study">Case study</a>
-                  <a href="https://github.com/abhijith-sivaprasadan/rotating-machinery-vibration-minilab" target="_blank" rel="noreferrer">GitHub</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-energy" data-project-id="mtes-pcm-thermal-lab" data-audience-tags="Thermal &amp; Fluid,Energy Systems" data-order="75">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Energy storage / lab</span>
-                <h3><a class="title-link" href="projects/mtes-pcm-thermal-lab.html">M-TES PCM Thermal Lab &ndash; RT60 HC Discharge Characterisation</a></h3>
-                <p>Experimental discharge measurement of a latent-heat Mobile TES prototype: 10-sensor temperature logging over 8 hours, three heat-transfer calculation methods, and 99.9% theory&ndash;experiment agreement.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>PCM / Heat transfer / Lab &middot; KTH MJ2386</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/mtes-pcm-thermal-lab.svg" alt="M-TES PCM thermal lab visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>PCM</span><span>Latent heat</span><span>TES</span><span>Lab experiment</span><span>PT100</span><span>Heat transfer</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>Q<sub>theoretical</sub> = 10,049 kJ</strong><small>86.9% from RT60 HC latent heat (8,729 kJ)</small></span>
-                  <span class="result-metric-card"><strong>Method 1: 10,036 kJ</strong><small>0.1% below theory with variable &rho; and Cp</small></span>
-                  <span class="result-metric-card"><strong>Tank absorbs +2,250 kJ</strong><small>150 kg steel shell &mdash; largest unmodelled term</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>RT60 HC PCM (33 kg, 44 L) discharged from 71.1&deg;C to 40.1&deg;C via RENOLIN THERM HTF at 2 L/min; 10 PT100 sensors logged every 10 seconds for ~8 hours.</li>
-                  <li>Three integration methods compared: variable-property (Method 1) and constant-property (Method 2) HTF calculations, with and without stainless-steel tank heat absorption.</li>
-                  <li>Propagating thermal front identified in sensor pairs 40 minutes apart; outlet temperature profile confirms integrated heat extraction.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/mtes-pcm-thermal-lab.html" aria-label="Mtes pcm thermal lab — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-energy" data-project-id="battery-cell-discharge-lab" data-audience-tags="Energy Systems" data-order="80">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Battery characterisation / lab</span>
-                <h3><a class="title-link" href="projects/battery-cell-discharge-lab.html">Battery Cell Discharge Performance Testing &ndash; Ni-MH, Li-Po and Lead-Acid</a></h3>
-                <p>Seven-test discharge characterisation across three chemistries (Ni-MH 780&nbsp;mAh, Li-Po 420&nbsp;mAh, Lead-acid 2500&nbsp;mAh), three C-rates and three temperatures: voltage, SOC and power profiles with Peukert and thermal effects.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Electrochemistry / C-rate / Temperature &middot; KTH MJ2386</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/battery-cell-discharge-lab.svg" alt="Battery discharge characterisation lab visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Ni-MH</span><span>Li-Po</span><span>Lead-acid</span><span>C-rate</span><span>Temperature</span><span>Battery degradation</span><span>Electrochemistry</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>2C vs 0.5C: Peukert loss</strong><small>Plateau collapses at 2C; effective capacity reduced by ohmic heating</small></span>
-                  <span class="result-metric-card"><strong>&minus;10&deg;C: severe capacity loss</strong><small>Voltage drops sharply from start; usable charge inaccessible under load</small></span>
-                  <span class="result-metric-card"><strong>Li-Po: 3,500 s vs Lead-acid: 500 s</strong><small>7&times; longer runtime; flat plateau vs linear lead-acid decay</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>C-rate tests (Tests 1.1&ndash;1.3): voltage plateau collapses at 2C; 0.5C maximises runtime and capacity utilisation across all four analysis dimensions.</li>
-                  <li>Temperature tests (Tests 2.1&ndash;2.2): +40&deg;C improves kinetics and lowers internal resistance; &minus;10&deg;C cuts accessible capacity and power delivery.</li>
-                  <li>Chemistry tests (Tests 3.2&ndash;3.3): Li-Po holds flat ~4&nbsp;V plateau until 30% SOC then drops sharply; Lead-acid declines linearly from 1.9&nbsp;V; Ni-MH is predictable across all conditions.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/battery-cell-discharge-lab.html" aria-label="Battery cell discharge lab — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-energy" data-project-id="waste-to-energy-india" data-audience-tags="Energy Systems" data-order="85">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Waste-to-energy / urban energy</span>
-                <h3><a class="title-link" href="projects/waste-to-energy-india.html">Waste-to-Energy Proposals &ndash; Delhi and Kozhikode</a></h3>
-                <p>Delhi MSW crisis policy roadmap (biomethanation &rarr; RDF &rarr; gasification) and a Kozhikode 11.11 MW WTE plant design coupling a grate incinerator with a 36,000 m&sup3; biogas digester for 214 buses.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>WTE / Biogas / Incineration &middot; KTH</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/waste-to-energy-india.svg" alt="Waste-to-energy plant and MSW processing visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Waste-to-energy</span><span>Biogas</span><span>Incineration</span><span>MSW</span><span>India</span><span>Anaerobic digestion</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>Kozhikode: 11.11 MW</strong><small>Grate furnace + cold-condensing steam, 20% eff</small></span>
-                  <span class="result-metric-card"><strong>32,200 m&sup3;/day biogas</strong><small>36,000 m&sup3; digester &rarr; 214 biogas buses daily</small></span>
-                  <span class="result-metric-card"><strong>Delhi: 5,533 TPD landfilled</strong><small>Phased roadmap: biomethanation &rarr; RDF &rarr; gasification</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Delhi proposal: phased technology roadmap matched to segregation reality &mdash; biomethanation first, combustion WTE only after 60&ndash;70% source segregation achieved.</li>
-                  <li>Kozhikode: 600 TPD split 50/50 between grate incineration (11.11 MW) and anaerobic digestion (32,200 m&sup3;/day biogas, 30-day retention, 36,000 m&sup3; digester).</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/waste-to-energy-india.html" aria-label="Waste to energy india — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-analytics" data-project-id="numerical-heat-transfer" data-audience-tags="Thermal &amp; Fluid,Research" data-order="90">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Numerical methods / Python</span>
-                <h3><a class="title-link" href="projects/numerical-heat-transfer.html">Numerical Heat Transfer &ndash; Finite Difference, Time-Stepping and Advection Schemes</a></h3>
-                <p>Python assignments covering catastrophic cancellation, numerical differentiation error analysis, 2D Laplace stencil comparison, Euler vs RK4 time-marching and Lax&ndash;Friedrichs vs Lax&ndash;Wendroff advection.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Python / FD / CFD methods &middot; KTH</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/numerical-heat-transfer.svg" alt="Numerical heat transfer and finite difference methods visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Python</span><span>Finite difference</span><span>RK4</span><span>Lax&ndash;Wendroff</span><span>Numerical methods</span><span>Heat conduction</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>RK4: 323 steps</strong><small>vs Euler 742 &mdash; 56% fewer to converge</small></span>
-                  <span class="result-metric-card"><strong>Central diff: 36&times; better</strong><small>Min error 1.72&times;10&sup3; vs forward 6.23&times;10&sup3;</small></span>
-                  <span class="result-metric-card"><strong>9-pt stencil: 0.038 K error</strong><small>vs 0.187 K for 5-pt at same &Delta;x=1 cm</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>HA1: floating-point cancellation (100% error in single-precision for large-magnitude case), differentiation truncation&ndash;roundoff balance, 2D Laplace 5-pt vs 9-pt stencil grid convergence.</li>
-                  <li>HA2: Euler vs RK4 stability limits and convergence; Lax&ndash;Friedrichs numerical diffusion vs Lax&ndash;Wendroff second-order accuracy for smooth wave advection.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/numerical-heat-transfer.html" aria-label="Numerical heat transfer — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-thermal" data-project-id="thermotwin-f" data-audience-tags="Thermal &amp; Fluid,Research" data-order="4">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Digital twin &middot; gas turbine / CCGT &middot; Modern Fortran</span>
-                <h3><a class="title-link" href="projects/thermotwin-f.html">ThermoTwin-F &ndash; Gas Turbine and CCGT Digital Twin</a></h3>
-                <p>Modern Fortran educational gas-turbine and combined-cycle simulator; source-only v2.0.0-beta.1 is archived on Zenodo. Release CI passed, but native GUI operation and field validation remain unaccepted.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Fortran 2008 &middot; CCGT &middot; Exergy &middot; Self-initiated</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/thermotwin-f.svg" alt="ThermoTwin-F gas turbine digital twin visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Fortran 2008</span><span>CCGT</span><span>Exergy</span><span>Monte Carlo UQ</span><span>Sobol sensitivity</span><span>HMI</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>60.7 MW &middot; 52.8 %</strong><small>Calibrated CCGT design point</small></span>
-                  <span class="result-metric-card"><strong>&eta;<sub>II</sub> = 0.50 &plusmn; 0.03</strong><small>Rational second-law efficiency, 95&thinsp;% CI</small></span>
-                  <span class="result-metric-card"><strong>28 tests &mdash; all green</strong><small>Combustor dominance, Sobol isolation, &chi;&sup2; reconciliation</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>~21,700 lines Modern Fortran across 54 engine modules and a ~11,000-line native Win32/GDI+ HMI, all sharing one <code>GridState</code> contract.</li>
-                  <li>Second-law suite: exergy accounting, Monte-Carlo UQ, Saltelli/Jansen Sobol sensitivity, WLS data reconciliation with &chi;&sup2; gross-error detection, and Carnot/Curzon&ndash;Ahlborn theoretical-limit benchmarking.</li>
-                  <li>Exergy balance closes to machine zero; combustor dominates irreversibility; fuel flow is the sole Sobol driver of &eta;<sub>II</sub> (S<sub>T</sub>&thinsp;&asymp;&thinsp;1.1).</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/thermotwin-f.html" aria-label="ThermoTwin-F — case study">Case study</a>
-                  <a href="https://github.com/abhijith-sivaprasadan/thermotwin">Source code</a>
-                  <a href="https://doi.org/10.5281/zenodo.23679426">Zenodo DOI</a>
-                  <a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/output/ThermoTwin-F_report.pdf">Example report (PDF)</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-analytics" data-project-id="gridflex-energy-optimizer" data-audience-tags="Energy Systems" data-order="110">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">Entrepreneurship / energy tech</span>
-                <h3><a class="title-link" href="projects/gridflex-energy-optimizer.html">GridFlex &ndash; ML-Driven Energy Storage Optimisation Concept</a></h3>
-                <p>KTH entrepreneurship assignment: a predictive ML platform for real-time storage dispatch in renewable grids, addressing 5% curtailment and 30% storage waste &mdash; idea screen score 87/100 with full Business Model Canvas.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Business concept / ML / Energy storage &middot; KTH</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/gridflex-energy-optimizer.svg" alt="GridFlex energy storage optimisation concept visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Machine learning</span><span>Energy storage</span><span>Grid optimisation</span><span>Business model</span><span>SaaS</span><span>Renewable energy</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>Idea screen: 87 / 100</strong><small>Industry 19 &middot; Market 18 &middot; Idea 17</small></span>
-                  <span class="result-metric-card"><strong>$120B storage market by 2030</strong><small>CAGR ~20% driven by renewable integration</small></span>
-                  <span class="result-metric-card"><strong>Addresses 5% curtailment + 30% storage waste</strong><small>Predictive ML dispatch vs static/scheduled systems</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>Three-iteration concept development via SCAMPER: rule-based &rarr; weather-forecast-driven &rarr; real-time ML with historical grid pattern learning.</li>
-                  <li>Multi-storage compatibility (Li-ion, pumped hydro, thermal, flywheel) differentiates from Fluence/Stem focus on utility-scale batteries.</li>
-                  <li>Business Model Canvas: SaaS subscription primary revenue, premium analytics add-on, one-time integration fees.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/gridflex-energy-optimizer.html" aria-label="Gridflex energy optimizer — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-          <details class="project-browser-item tone-thermal" data-project-id="robotic-frame-locomotion" data-audience-tags="Thermal &amp; Fluid" data-order="200">
-            <summary class="project-browser-summary">
-              <div class="project-browser-summary-text">
-                <span class="project-browser-kicker">B.Tech final year / robotics</span>
-                <h3><a class="title-link" href="projects/robotic-frame-locomotion.html">B.Tech Final Year Interactive Robot Project</a></h3>
-                <p>Final-year interactive robot project combining IRJET control-system integration work with published frame and locomotion design: Raspberry Pi/cloud control, surveillance, SOC indication, steering integration and mechanical drivetrain sizing.</p>
-              </div>
-              <div class="project-browser-meta">
-                <span>Raspberry Pi / CAD / ANSYS &middot; IRJET 2021</span>
-              </div>
-            </summary>
-            <div class="project-browser-body">
-              <img class="project-thumb" src="assets/illustrations/robotic-frame-locomotion.svg" alt="Robotic frame and locomotion design visual" loading="lazy" width="960" height="540" />
-              <div class="project-browser-copy">
-                <div class="tag-row"><span>Raspberry Pi</span><span>Cloud control</span><span>CAD</span><span>ANSYS</span><span>Ackermann steering</span><span>BLDC motor</span></div>
-                <div class="result-metric-row">
-                  <span class="result-metric-card"><strong>68 Nm rear-axle torque</strong><small>75 kg system at 30&deg; inclination, 0.5 m/s&sup2;</small></span>
-                  <span class="result-metric-card"><strong>Two-stage gear reduction</strong><small>3,016 &rarr; 532 rpm via compound system</small></span>
-                  <span class="result-metric-card"><strong>Ackermann lock angles</strong><small>35.26&deg; inner / 71.06&deg; outer at R = 510 mm</small></span>
-                </div>
-                <ul class="evidence-list">
-                  <li>IRJET DOCX manuscript covers robotic control-system and subsystem integration for the final-year project.</li>
-                  <li>Control scope included cloud/voice control, surveillance, SOC indication, environmental sensing and servo steering integration.</li>
-                  <li>Mechanical publication covers wheelbase stability, drivetrain torque sizing, compound gear reduction and ANSYS screening.</li>
-                </ul>
-                <div class="project-links">
-                  <a href="projects/robotic-frame-locomotion.html" aria-label="Robotic frame locomotion — case study">Case study</a>
-                </div>
-              </div>
-            </div>
-          </details>
-
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2026 Abhijith Sivaprasadan. Built with GitHub Pages.</p>
-    </div>
-  </footer>
-  <script src="scripts/site.js?v=20260603-field-rail-bg"></script>
+</div>
+<script src="scripts/control-volume.js?v=20261027-control-volume" defer></script>
+<script src="scripts/claude-exact.js?v=20261027-v2" defer></script>
 </body>
 </html>
