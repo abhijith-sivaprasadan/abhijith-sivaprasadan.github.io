@@ -44,6 +44,7 @@ jobs:
           node scripts/validate-academic.cjs
           node scripts/validate-unified-ui.cjs
           node scripts/validate-claude.cjs
+          python3 -m py_compile scripts/rebuild-claude-site.py
           node scripts/validate-feed-page.cjs
 
       - name: Check JavaScript syntax
