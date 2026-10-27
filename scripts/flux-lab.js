@@ -7,6 +7,7 @@
   if (window.__cvFluxLab) return;
   window.__cvFluxLab = true;
   const doc = document;
+  const siteRoot = new URL('../', doc.currentScript?.src || location.href);
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
   const fine = window.matchMedia('(pointer: fine)');
   const keys = ['calm', 'pulse', 'overdrive'];

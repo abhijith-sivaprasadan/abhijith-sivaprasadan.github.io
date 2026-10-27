@@ -17,7 +17,7 @@ const highlight = ['index.html','404.html','projects.html','research.html','repo
   'hobbies.html','ideas.html','courses.html','cet2026/index.html','labs/control-volume.html',
   'for/siemens-feed.html','tracks/research.html','tracks/index.html','skills/research.html',
   'projects/siemens-thesis.html','projects/kerala2040.html','projects/thermotwin-f.html'];
-const excludedDirs = new Set(['node_modules','backend','.github','.git','scripts','docs','dist','coverage']);
+const excludedDirs = new Set(['node_modules','backend','.github','.git','.claude','scripts','docs','dist','coverage']);
 const pages = [];
 function walk(dir) {
   for (const item of fs.readdirSync(dir, {withFileTypes:true})) {
@@ -96,7 +96,30 @@ const severity = (where, issue, value) => {
           dialog:!!document.querySelector('.cvfx-dialog')};
       });
       const where=test.name+'@'+test.width;
-      if(data.scroll>5)severity(where,'DOCUMENT BLEED',data.scroll);
+      if(data.scroll>5) {
+        const offenders=await page.evaluate(() => {
+          const vw=innerWidth;
+          return [...document.querySelectorAll('body *')].filter(el=>{
+            const s=getComputedStyle(el),r=el.getBoundingClientRect();
+            if(s.display==='none'||s.visibility==='hidden'||r.width<2||r.height<2)return false;
+            if(r.left>=-5&&r.right<=vw+5)return false;
+            let p=el.parentElement;
+            while(p&&p!==document.body) {
+              const cs=getComputedStyle(p);
+              if(/(hidden|clip|auto|scroll)/.test(cs.overflowX)) return false;
+              p=p.parentElement;
+            }
+            return true;
+          }).slice(0,15).map(el=>{
+            const r=el.getBoundingClientRect();
+            return {tag:el.tagName,cls:String(el.className?.baseVal||el.className||'').slice(0,75),
+              content:(el.textContent||'').trim().slice(0,50),left:+r.left.toFixed(1),right:+r.right.toFixed(1),
+              width:+r.width.toFixed(1)};
+          });
+        });
+        console.log('UI AUDIT OVERFLOW '+JSON.stringify({where,px:data.scroll,offenders}));
+        severity(where,'DOCUMENT BLEED',data.scroll);
+      }
       if(data.text.length)severity(where,'TEXT BLEED',data.text);
       if(exceptions.length)severity(where,'PAGE ERROR',exceptions.slice(0,8));
       if(data.year) {
