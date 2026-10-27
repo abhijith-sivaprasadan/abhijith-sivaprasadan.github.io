@@ -316,3 +316,19 @@ body.cv:has([data-cv-toy="year"]:hover) .probe,
 body.cv:has(dialog[open]) .probe {
   opacity:0!important;transition:none!important;
 }
+
+/* Mobile control bar: keep console, sound and temperature options functional
+   without fixed-position pills obscuring charts or case rows. */
+@media(max-width:600px){
+ body.cv .cmdbtn,body.cv .snd,body.cv .thm{
+   position:static!important;
+   inset:auto!important;
+   display:inline-flex;
+   vertical-align:middle;
+   margin:10px 6px 10px 10px;
+   transform:none!important;
+   min-height:44px;
+   max-width:calc(100% - 20px);
+ }
+ body.cv .cmdbtn:hover,body.cv .snd:hover,body.cv .thm:hover{transform:none!important}
+}
