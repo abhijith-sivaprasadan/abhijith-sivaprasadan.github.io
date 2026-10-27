@@ -38,7 +38,7 @@ if (debug) for (const name of debugRoutes) if (pages.includes(name)) tests.push(
 const failures=[], warnings=[], summaries=[];
 const severity = (where, issue, value) => {
   const info = {page:where, issue, detail:value};
-  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE/.test(issue)) failures.push(info);
+  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE|STORY LAMP/.test(issue)) failures.push(info);
   else warnings.push(info);
 };
 (async () => {
@@ -233,6 +233,19 @@ const severity = (where, issue, value) => {
     if(story.missing||story.midTitle!=='S3 · KTH'||story.midDot===story.original||
        !story.finalTitle.includes('BACK TO CODE')||story.finalDot!==story.original||story.columns!==1)
       severity('story.html@390','STORY CYCLE',story);
+    const lampTrigger=page.locator('button[data-cv-lamp="cv-night"]');
+    if(!(await lampTrigger.count()))severity('story.html@390','STORY LAMP','Lamp button missing');
+    else {
+      await lampTrigger.evaluate(el=>el.click());
+      const open=await page.locator('.cv-night-overlay[role="dialog"][aria-modal="true"]').count();
+      if(!open)severity('story.html@390','STORY LAMP','Lamp scene did not open');
+      else {
+        const buttonFocused=await page.locator('.cv-night-close').evaluate(el=>document.activeElement===el);
+        if(!buttonFocused)severity('story.html@390','STORY LAMP','Close button not focused');
+        await page.keyboard.press('Escape');
+        if(await page.locator('.cv-night-overlay').count())severity('story.html@390','STORY LAMP','Escape did not close scene');
+      }
+    }
     // Dynamic interactions on the actual authored pages, not only DOM presence.
     await page.goto(base+'/energy-systems.html',{waitUntil:'domcontentloaded'});
     const lens=await page.evaluate(()=>{
