@@ -257,6 +257,25 @@
       { id: 'rig', when: /\/projects\/siemens-thesis\.html$/.test(path), at: '.case-hero, .paper-hero, main > section', href: 'reports.html', caption: 'Every model has a residual: what its evidence cannot establish.', link: 'Follow the written record ↗' },
       { id: 'reports', when: /\/reports\.html$/.test(path), at: '#external-contributions', href: 'projects.html', caption: 'One boundary closes. Others are still open.', link: 'Return to the full set of cases ↗' }
     ];
+    // Four followed traces subtly resolve to a hidden footer annotation in the
+    // full case library. Nothing is shown to visitors who skipped the trail.
+    if (/\/projects\.html$/.test(path)) {
+      let stamps = [];
+      try { stamps = JSON.parse(sessionStorage.getItem('cvfx-traces') || '[]'); } catch (_) {}
+      if (['mesh', 'biot', 'rig', 'reports'].every(id => stamps.includes(id))) {
+        const parent = doc.querySelector('main .page-hero .container');
+        if (parent) {
+          const prize = $('div', 'cvfx-payoff');
+          const stamp = $('span', 'cvfx-payoff-stamp', '∮ ∂Ω  //  FOUR BOUNDARIES TRACED');
+          const words = $('span', 'cvfx-payoff-words', 'Back where you started. The next boundary is yours to move.');
+          const enter = $('button', 'cvfx-payoff-enter', 'PERTURB THE SYSTEM ↗');
+          enter.type = 'button';
+          enter.addEventListener('click', open);
+          prize.append(stamp, words, enter);
+          parent.append(prize);
+        }
+      }
+    }
     for (const step of steps) {
       if (!step.when) continue;
       const anchor = doc.querySelector(step.at);

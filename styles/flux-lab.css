@@ -141,3 +141,18 @@ body.cv[data-cvfx="calm"] *,body.cv[data-cvfx="calm"] *::before,body.cv[data-cvf
  animation:none!important;transition:none!important;scroll-behavior:auto!important;
 }
 body.cv[data-cvfx="calm"] :is(.heat,.probe,.sweep,.rain,.boot,.cvfx-trail,.cvfx-portal) {display:none!important}
+
+
+/* Completion of the optional four-surface evidence trail. Not shown by default. */
+body.cv .cvfx-payoff {
+ display:flex; flex-wrap:wrap; align-items:center; gap:14px 22px;
+ grid-column:1/-1; width:100%;margin:12px auto 0;padding:14px 18px;
+ border:1px dashed #65d6c9;border-radius:9px;
+ background:linear-gradient(110deg,rgba(101,214,201,.12),rgba(13,17,14,.7) 75%);
+ font:11px/1.6 'JetBrains Mono',monospace;
+}
+body.cv .cvfx-payoff-stamp{color:#d7b46a;letter-spacing:.1em}
+body.cv .cvfx-payoff-words{color:#c9cfc6;flex:1 1 220px}
+body.cv .cvfx-payoff-enter{min-height:44px;border:1px solid #65d6c9;color:#65d6c9;border-radius:6px;background:transparent;padding:0 14px;font:600 10px 'JetBrains Mono',monospace;letter-spacing:.08em;cursor:pointer}
+body.cv .cvfx-payoff-enter:hover{background:#65d6c9;color:#071007}
+body.cv .cvfx-payoff-enter:focus-visible{outline:3px solid #f98e09;outline-offset:3px}
