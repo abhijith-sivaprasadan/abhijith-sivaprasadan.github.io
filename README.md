@@ -319,11 +319,11 @@ The ThermoTwin-F and PyNEXUS case studies link the verified hosted runs and merg
 
 The portfolio now includes [EnerLint](projects/enerlint.html) under [Open Energy Methods](https://github.com/Open-Energy-Methods), [ResidualPathways](projects/residual-pathways.html), [PathwaysHub](projects/pathways-hub.html), and an indexed [Reports & PDFs](reports.html) page. Reports are identified as actual PDFs, Markdown working papers or citable source software rather than conflated.
 
-ThermoTwin-F has a version-specific source-beta DOI [10.5281/zenodo.23679426](https://doi.org/10.5281/zenodo.23679426), not external industrial certification. The [evidence ledger](docs/portfolio-evidence-status-2026-10.md) records remaining research and validation gates. The public ORCID on the homepage is 0000-0003-0299-5745.
+ThermoTwin-F has a version-specific source-beta DOI [10.5281/zenodo.23679426](https://doi.org/10.5281/zenodo.23679426), not external industrial certification. The [evidence ledger](docs/portfolio-evidence-status-2026-10.md) records remaining research and validation gates. The public ORCID on the homepage is 0009-0009-8429-1266.
 
 
 ## Research identity / open-science links (27 October 2026)
 
-- [ORCID: 0000-0003-0299-5745](https://orcid.org/0000-0003-0299-5745) is the research identifier used across the public homepage, research statement and research/PhD track.
+- [ORCID: 0009-0009-8429-1266](https://orcid.org/0009-0009-8429-1266) is the research identifier used across the public homepage, research statement and research/PhD track.
 - [Zenodo v2.0.0-beta.1 record](https://zenodo.org/records/23679426) has version-specific DOI [10.5281/zenodo.23679426](https://doi.org/10.5281/zenodo.23679426); [concept DOI](https://doi.org/10.5281/zenodo.23679256) follows the software across versions.
 - [OpenAIRE EXPLORE](https://explore.openaire.eu/) links to the public discovery portal. A researcher-specific OpenAIRE profile URL and indexed ThermoTwin entry were not confirmed and must not be claimed by the portfolio.
