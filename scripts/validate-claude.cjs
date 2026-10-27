@@ -16,7 +16,7 @@ for(const x of ['CFD / CHT','STRUCTURAL','ENERGY SYSTEMS','GRID','SOFTWARE'])ass
 const cases=api.projects.filter(p=>p.status==='published'&&/^projects\/[a-z\d-]+\.html$/.test(p.caseStudyUrl||''));
 assert.ok(cases.length>=30,'Published case index unexpectedly small');
 for(const p of cases)assert.ok(fs.existsSync(path.join(root,p.caseStudyUrl)),p.id+' missing case URL');
-assert.ok(read('scripts/claude-cases.js').includes("fetch('api/projects.json'")),'Cases must be source-driven');
+assert.ok(read('scripts/claude-cases.js').includes("fetch('api/projects.json'"),'Cases must be source-driven');
 assert.ok(read('research.html').includes('data-cv-toy="biot"'),'Research Biot toy missing');
 assert.ok(!read('scripts/control-volume.js').includes("out(root, 'monlabel').setAttribute"),'Overlapping annual diagram regression');
 console.log('Claude documents:',pages.length,'pages and',cases.length,'published project cases');
