@@ -9,7 +9,7 @@ for(const p of pages){
  assert.ok(!s.includes('styles/v4.css')&&!s.includes('styles/portfolio.css'),p+' still wraps old site');
 }
 const home=read('index.html');
-for(const x of ['Heat.','Power.','Code.','data-cv-toy="heat-field"','data-cv-toy="mesh"','data-cv-toy="year"','data-cv-year-day','https://orcid.org/0009-0009-8429-1266'])assert.ok(home.includes(x),'S1 missing '+x);
+for(const x of ['Heat.','Power.','Code.','data-cv-toy="heat-field"','data-cv-toy="mesh"','data-cv-toy="year"','data-cv-year-day','https://orcid.org/0000-0003-0299-5745'])assert.ok(home.includes(x),'S1 missing '+x);
 const projects=read('projects.html'),api=JSON.parse(read('api/projects.json'));
 assert.ok(projects.includes('id="cv-case-list"')&&projects.includes('scripts/claude-cases.js'),'S3 missing live cases');
 for(const x of ['CFD / CHT','STRUCTURAL','ENERGY SYSTEMS','GRID','SOFTWARE'])assert.ok(projects.includes(x),'S3 missing '+x);
