@@ -12,7 +12,7 @@ const { chromium } = require('playwright');
 const root = path.resolve(__dirname, '..');
 const base = process.env.UI_AUDIT_BASE || 'http://127.0.0.1:8099';
 const REPORT = path.join(root, 'ui-audit-report.json');
-const highlight = ['index.html','404.html','admin.html','projects.html','research.html','reports.html',
+const highlight = ['index.html','story.html','404.html','admin.html','projects.html','research.html','reports.html',
   'experience.html','about.html','energy-systems.html','industrial-rd.html','interests.html',
   'hobbies.html','ideas.html','courses.html','cet2026/index.html','labs/control-volume.html',
   'for/siemens-feed.html','tracks/research.html','tracks/index.html','skills/research.html',
@@ -228,10 +228,10 @@ const severity = (where, issue, value) => {
       slider.value='200';slider.dispatchEvent(new Event('input',{bubbles:true}));
       const midTitle=title.textContent,midDot=dot.getAttribute('cx');
       slider.value='400';slider.dispatchEvent(new Event('input',{bubbles:true}));
-      return {missing:false,original,midTitle,midDot,finalTitle:title.textContent,finalDot:dot.getAttribute('cx')};
+      return {missing:false,original,midTitle,midDot,finalTitle:title.textContent,finalDot:dot.getAttribute('cx'),columns:getComputedStyle(document.querySelector('.cyc-grid')).gridTemplateColumns.split(' ').length};
     });
     if(story.missing||story.midTitle!=='S3 · KTH'||story.midDot===story.original||
-       !story.finalTitle.includes('BACK TO CODE')||story.finalDot!==story.original)
+       !story.finalTitle.includes('BACK TO CODE')||story.finalDot!==story.original||story.columns!==1)
       severity('story.html@390','STORY CYCLE',story);
     // Dynamic interactions on the actual authored pages, not only DOM presence.
     await page.goto(base+'/energy-systems.html',{waitUntil:'domcontentloaded'});
@@ -319,6 +319,7 @@ const severity = (where, issue, value) => {
         {name:'interests.html',width:1440,selector:'body',file:'canonical-interests-1440.png'},
         {name:'hobbies.html',width:1440,selector:'body',file:'canonical-hobbies-1440.png'},
         {name:'story.html',width:1440,selector:'body',file:'canonical-story-1440.png'},
+        {name:'story.html',width:390,selector:'body',file:'canonical-story-390.png'},
         {name:'404.html',width:1440,selector:'body',file:'canonical-404-1440.png'},
         {name:'index.html',width:390,selector:'body',file:'canonical-index-390.png'},
         {name:'projects.html',width:390,selector:'body',file:'canonical-projects-390.png'},
