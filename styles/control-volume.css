@@ -308,3 +308,11 @@
 .probe{box-sizing:border-box;width:max-content;max-width:min(320px,calc(100vw - 24px));white-space:normal;overflow-wrap:anywhere;line-height:1.35}
 .probe span{display:block;min-width:0}
 @media(max-width:560px){.probe{max-width:calc(100vw - 24px);font-size:10px}}
+
+
+/* Probe is hidden until a pointer interaction; year telemetry owns its own space. */
+body.cv .probe {opacity:0}
+body.cv:has([data-cv-toy="year"]:hover) .probe,
+body.cv:has(dialog[open]) .probe {
+  opacity:0!important;transition:none!important;
+}

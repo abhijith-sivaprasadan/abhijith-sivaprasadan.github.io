@@ -241,9 +241,8 @@ const severity = (where, issue, value) => {
           });
           if(yearState.collisions.length)severity(shot.name+'@'+shot.width,'YEAR CONTROL','SVG text collision: '+JSON.stringify(yearState.collisions));
           // The custom probe must disappear over the year-card's live readout.
-          const rect=await locus.boundingBox();
-          if(rect)await visual.mouse.move(Math.min(shot.width-8,rect.x+rect.width*.48),rect.y+Math.min(80,rect.height/2));
-          await visual.waitForTimeout(100);
+          await locus.hover({force:true});
+          await visual.waitForTimeout(320);
           const probe=await visual.evaluate(()=>{
             const el=document.querySelector('.probe');
             if(!el)return {visible:false};

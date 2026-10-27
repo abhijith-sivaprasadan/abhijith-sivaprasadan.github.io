@@ -545,3 +545,10 @@ body.cv .cv-year-read :is([data-out="day"],[data-out="pct"],[data-out="montext"]
  body.cv .course-card {box-sizing:border-box;padding:clamp(14px,4vw,20px)!important}
  body.cv .course-card :is(p,h3,a) {overflow-wrap:anywhere}
 }
+
+
+/* Portfolio browsing: compact previews expand to fully legible descriptions. */
+body.cv[data-page-key="projects"] .project-browser-item[open] .project-browser-summary-text p {
+ display:block!important;-webkit-line-clamp:unset!important;line-clamp:unset!important;
+ overflow:visible!important;max-height:none!important;
+}
