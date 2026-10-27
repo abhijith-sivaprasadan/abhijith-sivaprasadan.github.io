@@ -12,12 +12,27 @@
   const norm=s=>String(s||'').toUpperCase();
   const isCaseURL=u=>typeof u==='string' && /^projects\/[a-z\d-]+\.html$/.test(u);
   function classify(p){
-    const t=norm([p.title,p.summary,...(p.tools||[]),...(p.audienceTags||[]),...(p.skills||[])].join(' '));
-    if(/CFD|CHT|TURBULENCE|TURBINE|PRESSURE SENSOR|HEAT TRANSFER|THERMOTWIN/.test(t))return 'CFD / CHT';
-    if(/STRUCTURAL|FEA|STRESS|MECHANICAL DESIGN|REACTOR INTERNAL/.test(t))return 'STRUCTURAL';
-    if(/ENERGY AUDIT|ENERGY EFFICIENCY|INDUSTRIAL ENERGY|ENPI|ISO 50001/.test(t))return 'ENERGY MANAGEMENT';
-    if(/GRID|POWER FLOW|ELECTRIC NETWORK|STATCOM|TRANSMISSION|PYPSA/.test(t))return 'GRID';
-    if(/SOFTWARE|CLI|LIBRARY|FRAMEWORK|BACKEND|TOOLING|LINT|PYTHON PACKAGE|DATA CONTRACT/.test(t))return 'SOFTWARE';
+    // Explicit catalogue taxonomy outranks incidental words such as
+    // "structural constraints" appearing inside an energy-system summary.
+    const primary=norm(p.category);
+    const tags=norm((p.audienceTags||[]).join(' '));
+    const tool=norm([p.title,...(p.tools||[])].join(' '));
+    if(/CFD|THERMAL|FLUID|TURBINE|HEAT TRANSFER|TESTING/.test(primary))return 'CFD / CHT';
+    if(/STRUCTURAL|FEA|MECHANICAL/.test(primary))return 'STRUCTURAL';
+    if(/ENERGY MANAGEMENT|ENERGY AUDIT|ENERGY EFFICIENCY|INDUSTRIAL ENERGY/.test(primary))return 'ENERGY MANAGEMENT';
+    if(/GRID|POWER NETWORK/.test(primary))return 'GRID';
+    if(/SOFTWARE|ENGINEERING TOOL|OPEN SOURCE/.test(primary))return 'SOFTWARE';
+    if(/ENERGY SYSTEM|ENERGY MODELLING|POWER SYSTEM/.test(primary))return 'ENERGY SYSTEMS';
+    if(/SOFTWARE/.test(tags))return 'SOFTWARE';
+    if(/THERMAL|FLUID|CFD/.test(tags))return 'CFD / CHT';
+    if(/INDUSTRIAL R&D/.test(tags)&&/ENERGY AUDIT|ENPI|ISO 50001/.test(tool))return 'ENERGY MANAGEMENT';
+    if(/GRID|ELECTRIC NETWORK/.test(tags))return 'GRID';
+    if(/ENERGY SYSTEM/.test(tags))return 'ENERGY SYSTEMS';
+    if(/STRUCTURAL|FINITE ELEMENT|FEA|STRESS ANALYSIS/.test(tool))return 'STRUCTURAL';
+    if(/CFD|CHT|TURBINE|THERMOTWIN/.test(tool))return 'CFD / CHT';
+    if(/ENERGY AUDIT|INDUSTRIAL ENERGY|ENPI|ISO 50001/.test(tool))return 'ENERGY MANAGEMENT';
+    if(/GRID|POWER FLOW|STATCOM|TRANSMISSION/.test(tool))return 'GRID';
+    if(/SOFTWARE|CLI|LIBRARY|FRAMEWORK|BACKEND|TOOLING|LINT/.test(tool))return 'SOFTWARE';
     return 'ENERGY SYSTEMS';
   }
   function residual(p){
