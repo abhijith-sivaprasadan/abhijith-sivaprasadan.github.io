@@ -19,27 +19,83 @@ function initCases(){
  if(readout)readout.textContent=rows.length+' OF '+rows.length+' CASES · EVIDENCE & LIMITS LINKED';
 }
 function initEnergy(){
- const group=$('[aria-label="Choose modelling lens"]');if(!group)return;
- const buttons=$$('button',group);
+ // The authored Claude board uses aria-label="Modelling lens".
+ const group=$('[aria-label="Modelling lens"],[aria-label="Choose modelling lens"]');
+ if(!group)return;
  const panel=group.nextElementSibling;
- if(!panel)return;
- const byName={
-  'BUILDINGS':{title:'IDA ICE, HOMER Pro and SAM: from building load to system economics',detail:'Hylkysaari island and a Stockholm housing cooperative. Model building demand, renewable supply, storage, heat pumps and scenario economics.',method:'IDA ICE · HOMER Pro · SAM · Excel',link:'projects/hylkysaari-sustainable-tourism.html'},
-  'DISPATCH':{title:'Heat-source dispatch under cost and emissions constraints',detail:'Compare CHP, heat pumps, geothermal, thermal storage and electricity-price scenarios.',method:'Python · PuLP · MILP',link:'projects/district-heating-optimisation.html'},
-  'SCENARIO':{title:'Energy scenarios with explicit source assumptions',detail:'Demand growth, technology mix, policy assumptions and techno-economic scenario boundaries.',method:'LEAP · OSeMOSYS · PyPSA',link:'projects/germany-energy-economy-analysis.html'},
-  'FORECAST':{title:'Heating demand forecasts and chronological evaluation',detail:'Weather and calendar predictors, historical demand evidence and out-of-sample evaluation.',method:'Python · scikit-learn · LightGBM · XGBoost',link:'projects/heating-demand-forecasting.html'},
-  'GRID':{title:'Grid-flexibility and contingency screening',detail:'Representative distribution-grid scenarios, power flows and bounded N-1 studies.',method:'PyPSA · Python · network constraints',link:'projects/distribution-grid-study.html'}
+ if(!panel||!panel.matches('article'))return;
+ const buttons=$$('button',group);
+ const head=$('h3',panel),link=$('a[href]',panel);
+ const labels=['01 · BOUNDARY','02 · METHOD','03 · EVIDENCE','04 · RESIDUAL'];
+ const rows=[...panel.querySelectorAll('div')].filter(el=>labels.includes(el.firstElementChild?.textContent?.trim()) && el.children.length===2);
+ if(rows.length!==4||!head||!link)return;
+ const elements=Object.fromEntries(rows.map(row=>[row.firstElementChild.textContent.trim(),row.lastElementChild]));
+ // Keep the approved Buildings copy, and restore it if a visitor reselects it.
+ const initial={
+  title:head.textContent,boundary:elements[labels[0]].textContent,
+  method:elements[labels[1]].textContent,evidence:elements[labels[2]].textContent,
+  residual:elements[labels[3]].textContent,url:link.getAttribute('href'),cta:link.textContent
  };
- buttons.forEach(btn=>{const key=(btn.textContent||'').trim().toUpperCase();btn.addEventListener('click',()=>{
-  buttons.forEach(b=>{const active=b===btn;b.setAttribute('aria-pressed',String(active));b.style.background=active?'#65d6c9':'transparent';b.style.color=active?'#071007':'#c9cfc6';});
-  const d=byName[key];if(!d)return;const headings=$$('h3,h2',panel),paragraphs=$$('p',panel),links=$$('a',panel);
-  if(headings.length)headings[0].textContent=d.title;
-  if(paragraphs.length)paragraphs[0].textContent=d.detail;
-  const target=links.find(a=>a.href.includes('projects/'));if(target)target.href=d.link;
+ const byName={
+  BUILDINGS:initial,
+  DISPATCH:{
+   title:'Heat-source dispatch under cost and emissions constraints',
+   boundary:'District-heating load and heat-source allocation under technology capacity, price and storage assumptions.',
+   method:'Python · PuLP · linear dispatch modelling · constrained scenario optimisation',
+   evidence:'Dispatch, cost and emissions comparisons from the documented optimisation scenarios.',
+   residual:'Modelled scenarios, not measured plant operation or a commissioned dispatch controller.',
+   url:'projects/district-heating-optimisation.html',cta:'OPEN THE DISTRICT HEATING CASE →'
+  },
+  SCENARIO:{
+   title:'Energy-system scenarios with explicit source assumptions',
+   boundary:'Comparative energy-system pathways conditioned on demand, technology and policy assumptions.',
+   method:'LEAP · OSeMOSYS · PyPSA · scenario modelling',
+   evidence:'Modelled scenario comparisons for documented assumptions and system boundaries.',
+   residual:'Scenarios are conditional model results, not forecasts of realised energy-system outcomes.',
+   url:'projects/germany-energy-economy-analysis.html',cta:'OPEN THE SCENARIO CASE →'
+  },
+  FORECAST:{
+   title:'Heating demand forecasting and out-of-sample evaluation',
+   boundary:'Building heating demand and its relationship to weather, calendar and historical-load predictors.',
+   method:'Python · machine-learning modelling · holdout evaluation as described in the case',
+   evidence:'Training and test comparisons within the documented forecasting exercise.',
+   residual:'Dataset-bounded academic evaluation; no real-world forecasting deployment is claimed.',
+   url:'projects/heating-demand-forecasting.html',cta:'OPEN THE FORECAST CASE →'
+  },
+  GRID:{
+   title:'Distribution-grid scenarios and contingency screening',
+   boundary:'Representative distribution-network loading, electric-vehicle scenarios and N-1 contingency cases.',
+   method:'Python · power-flow modelling · time-series cases · N-1 screening',
+   evidence:'Power-flow and contingency results under the stated representative network assumptions.',
+   residual:'Representative network study, not a validation against an operational utility network.',
+   url:'projects/distribution-grid-study.html',cta:'OPEN THE GRID CASE →'
+  }
+ };
+ function activate(key,animate){
+  const data=byName[key];if(!data)return;
+  for(const b of buttons){
+   const selected=b.textContent.trim().toUpperCase()===key;
+   b.setAttribute('aria-pressed',String(selected));
+   b.style.background=selected?'#9bd69f':'transparent';
+   b.style.color=selected?'#071007':'#c9cfc6';
+   b.style.borderColor=selected?'#9bd69f':'#2d3a31';
+  }
+  head.textContent=data.title;
+  for(const [index,field] of ['boundary','method','evidence','residual'].entries()){
+   elements[labels[index]].textContent=data[field];
+  }
+  link.href=data.url;link.textContent=data.cta;
   panel.dataset.activeLens=key.toLowerCase();
-  // Method is named for readers even when source card has a separate method row.
-  const method=$('[data-cv-current-method]',panel);if(method)method.textContent=d.method;
- });});
+  panel.dataset.probe='LENS · '+key;
+  panel.setAttribute('aria-live','polite');
+  if(animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+   panel.classList.remove('swap0','swap1');
+   void panel.offsetWidth;
+   panel.classList.add('swap1');
+  }
+ }
+ for(const b of buttons)b.addEventListener('click',()=>activate(b.textContent.trim().toUpperCase(),true));
+ activate('BUILDINGS',false);
 }
 function initAccessibility(){
  $$('[data-cv-toy="heat-field"]').forEach(field=>{
