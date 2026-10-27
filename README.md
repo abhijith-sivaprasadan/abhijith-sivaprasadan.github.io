@@ -327,3 +327,11 @@ ThermoTwin-F has a version-specific source-beta DOI [10.5281/zenodo.23679426](ht
 - [ORCID: 0009-0009-8429-1266](https://orcid.org/0009-0009-8429-1266) is the research identifier used across the public homepage, research statement and research/PhD track.
 - [Zenodo v2.0.0-beta.1 record](https://zenodo.org/records/23679426) has version-specific DOI [10.5281/zenodo.23679426](https://doi.org/10.5281/zenodo.23679426); [concept DOI](https://doi.org/10.5281/zenodo.23679256) follows the software across versions.
 - [OpenAIRE EXPLORE](https://explore.openaire.eu/) links to the public discovery portal. A researcher-specific OpenAIRE profile URL and indexed ThermoTwin entry were not confirmed and must not be claimed by the portfolio.
+
+
+## Verified Open-TYNDP upstream contribution (September 2026)
+
+- [Open Energy Transition's Open-TYNDP PR #917](https://github.com/open-energy-transition/open-tyndp/pull/917), submitted by `@abhijith-sivaprasadan`, merged on 8 September 2026: renders the existing `data/tyndp_technology_map.csv` in the benchmarking docs, adds scrollable table CSS, corrects a column-name typo and updates release notes. The PR reports a successful local MkDocs table build for 181 rows and 28 columns. No source mapping data or core model changes claimed.
+- [Open-TYNDP v0.9 Zenodo record](https://zenodo.org/records/22899072), published 22 September 2026, [DOI 10.5281/zenodo.22899072](https://doi.org/10.5281/zenodo.22899072), credits the GitHub account as a **first-time contributor**. It is an Open Energy Transition upstream release with other named creators and **must not** be represented as a sole-authored or co-authored Zenodo publication.
+- Zenodo's v0.9 record shows **Indexed in OpenAIRE**. This does not establish a standalone researcher profile, authorship of the full project or endorsement by ENTSO-E.
+- Public surfaces: homepage, research statement, separate external-contribution block in project library, Reports & PDFs index and research / energy-modelling tracks.

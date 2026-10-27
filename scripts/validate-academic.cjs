@@ -212,4 +212,12 @@ for (const file of ['cv.json', 'scripts/build-academic.cjs', 'scripts/data/portf
 }
 assert.ok(read('research.html').includes(`https://orcid.org/${verifiedORCID}`), 'Research profile must link to the public canonical ORCID page.');
 assert.ok(read('tracks/research.html').includes(`https://orcid.org/${verifiedORCID}`), 'Research track must link to the public canonical ORCID page.');
+
+// Upstream open-source attribution: guard contributor credit against mistaken author/ownership claims.
+for (const file of ['index.html', 'research.html', 'projects.html', 'reports.html', 'tracks/research.html', 'tracks/energy-modelling.html']) {
+  assert.ok(read(file).includes('https://github.com/open-energy-transition/open-tyndp/pull/917'), `${file}: missing verifiable Open-TYNDP PR link`);
+  assert.ok(read(file).includes('https://zenodo.org/records/22899072'), `${file}: missing upstream release link`);
+}
+assert.ok(read('research.html').includes('not authorship of the whole model'), 'Research contribution requires an explicit boundary.');
+assert.ok(read('reports.html').includes('not an individually authored release'), 'Upstream DOI authorship needs accurate attribution.');
 console.log(`Passed: ${files.length} academic pages, ${tracks.length} shareable tracks, ${skills.size} skill dossiers, ${projectKeys.size} distinct projects, local fragments, static navigation, metadata and theme behavior.`);
