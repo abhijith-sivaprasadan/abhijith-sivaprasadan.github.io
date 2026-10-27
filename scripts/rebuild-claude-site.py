@@ -117,6 +117,12 @@ def patch_toys(s,name):
             body=body.replace('style="flex:0.0060;background:#65d6c9','data-out="wall" style="flex:0.0060;background:#65d6c9',1)
             body=body.replace('style="position:absolute;top:-6px;width:3px','data-out="needle" style="position:absolute;top:-6px;width:3px',1)
             s=s[:m.start()]+prefix+body+m.group(3)+s[m.end():]
+    elif name=='Story':
+        s=s.replace('<section class="cd" style=', '<section class="cd" data-cv-toy="cycle" data-names="S1 · KOLLAM|S2 · QBURST|S3 · KTH|S4 · SIEMENS|S1′ · BACK TO CODE" data-stages="From building with hands in Kollam to software that has to fail loudly.|From production APIs at QBurst to numerical heat and energy systems at KTH.|From KTH modelling and instrumented labs to Siemens Energy high-temperature testing.|From instrumentation and CFD/CHT back to code with physical checks attached." style=', 1)
+        s=s.replace('>S1 · KOLLAM</div>', ' data-out="title" aria-live="polite">S1 · KOLLAM</div>', 1)
+        s=s.replace('min-height:52px">From building', 'min-height:52px" data-out="text">From building', 1)
+        s=s.replace('<circle cx="60.0" cy="50.0" r="16"', '<circle data-out="dot" cx="60.0" cy="50.0" r="16"', 1)
+        s=s.replace('<circle cx="60.0" cy="50.0" r="7"', '<circle data-out="dot" cx="60.0" cy="50.0" r="7"', 1)
     return s
 
 def supplement_projects(s):
