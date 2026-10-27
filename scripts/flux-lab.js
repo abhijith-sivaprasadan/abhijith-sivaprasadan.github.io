@@ -35,7 +35,7 @@
       button.setAttribute('aria-pressed', String(chosen));
     });
     if (tracer) tracer.style.display = mode === 'overdrive' && fine.matches ? '' : 'none';
-    if (context) context.classList.toggle('cvfx-live', on());
+    if (dialog?.open && painter) { cancelAnimationFrame(frame); last = 0; if (on()) { active = true; frame = requestAnimationFrame(draw); } else { draw(); } }
   }
   function setUpRail() {
     const sections = [...doc.querySelectorAll('main section[id], main [id="projects"], main [id="experience"], main [id="education"]')]
@@ -296,7 +296,7 @@
     if (!root() || !root().classList.contains('cv')) return;
     opener = $('button', 'cvfx-opener');
     opener.type = 'button'; opener.setAttribute('aria-haspopup', 'dialog');
-    opener.setAttribute('aria-label', 'Open the hidden Flux Lab interactive experiment');
+    opener.setAttribute('aria-label', 'Open the Flux Lab interactive experiment');
     opener.innerHTML = '<span class="cvfx-orbit" aria-hidden="true">◎</span><span>∂Ω / LAB</span>'; 
     root().appendChild(opener);
     status = $('div', 'cvfx-status', 'FLUX NOMINAL');

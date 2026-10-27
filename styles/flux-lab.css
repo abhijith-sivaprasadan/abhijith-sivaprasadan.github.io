@@ -134,3 +134,10 @@ body.cv[data-cvfx="overdrive"] .cvfx-clue::before{content:'';position:absolute;l
  body.cv .cvfx-opener,body.cv .cvfx-route{transition:none!important}
  body.cv .cvfx-clue::before{animation:none!important}
 }
+
+/* The still preset quiets the entire inherited Control Volume motion system,
+   not only the additional Flux Lab layer. Interactive controls continue to work. */
+body.cv[data-cvfx="calm"] *,body.cv[data-cvfx="calm"] *::before,body.cv[data-cvfx="calm"] *::after {
+ animation:none!important;transition:none!important;scroll-behavior:auto!important;
+}
+body.cv[data-cvfx="calm"] :is(.heat,.probe,.sweep,.rain,.boot,.cvfx-trail,.cvfx-portal) {display:none!important}
