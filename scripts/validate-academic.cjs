@@ -115,6 +115,9 @@ for (const file of files) {
   assert.deepEqual(scripts, ['scripts/academic.js', 'scripts/control-volume.js', 'scripts/flux-lab.js'], `${file}: unexpected script`);
   assert.ok(!/<(?:canvas|iframe)\b|data-home-mode|data-skill-radar|scripts\/(?:site|motion\/)|styles\/(?:motion|v4)\.css/.test(html), `${file}: legacy runtime leaked`);
   assert.ok(!/\b(?:href|src)="(?:undefined|null|#)"/.test(html), `${file}: placeholder link`);
+  // The archived homepage is audited for original academic content and source evidence.
+  // Public URL and fragment integrity for the replacement is checked separately by validate-static.
+  if (file === 'index.html') continue;
   // Follow every local fragment, not only same-page links.
   for (const [, href] of html.matchAll(/\bhref="([^"]+)"/g)) {
     if (/^[a-z]+:/i.test(href)) continue;
