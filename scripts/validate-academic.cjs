@@ -101,7 +101,9 @@ for (const file of files) {
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
   assert.equal(ids.length, new Set(ids).size, `${file}: duplicate IDs`);
   assert.equal((html.match(/<h1\b/g) || []).length, 1, `${file}: expected one h1`);
-  assert.equal((html.match(/<script\b/g) || []).length, 1, `${file}: only the theme script should load`);
+  const scripts = [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)].map(m => m[1].replace(/^(?:\.\.\/)+/, '').split('?')[0]);
+  assert.equal((html.match(/<script\b/g) || []).length, 3, `${file}: only the academic script, Control Volume and Flux Lab runtimes should load`);
+  assert.deepEqual(scripts, ['scripts/academic.js', 'scripts/control-volume.js', 'scripts/flux-lab.js'], `${file}: unexpected script`);
   assert.ok(!/<(?:canvas|iframe)\b|data-home-mode|data-skill-radar|scripts\/(?:site|motion\/)|styles\/(?:motion|v4)\.css/.test(html), `${file}: legacy runtime leaked`);
   assert.ok(!/\b(?:href|src)="(?:undefined|null|#)"/.test(html), `${file}: placeholder link`);
   // Follow every local fragment, not only same-page links.

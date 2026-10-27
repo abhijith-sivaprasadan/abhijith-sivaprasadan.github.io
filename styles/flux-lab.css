@@ -1,0 +1,158 @@
+/* Control Volume: Flux Lab 02 — additive motion system.
+   Presets: still (accessibility/performance), flow (default), chaos (opt-in).
+   No static-page interaction is blocked except a user-opened native <dialog>.
+*/
+body.cv .cvfx-opener {
+  position:fixed; z-index:56; bottom:75px; left:20px; display:flex; align-items:center; gap:9px;
+  min-height:44px; padding:0 15px; border-radius:999px; border:1px solid #65d6c9;
+  background:rgba(7,16,14,.94); box-shadow:0 0 0 1px rgba(101,214,201,.12),0 7px 24px rgba(0,0,0,.3);
+  color:#a7e7db; font:600 11px/1.2 'JetBrains Mono',monospace; letter-spacing:.13em; cursor:pointer;
+  -webkit-backdrop-filter:blur(13px); backdrop-filter:blur(13px);
+}
+body.cv .cvfx-orbit { color:#65d6c9; font-size:24px; transform-origin:center; animation:cvfx-orbit 9s linear infinite; }
+@keyframes cvfx-orbit {to{transform:rotate(360deg)}}
+body.cv .cvfx-opener:hover {border-color:#f98e09;color:#f2f0e7;box-shadow:0 0 28px rgba(249,142,9,.24)}
+body.cv .cvfx-opener:focus-visible,body.cv .cvfx-dialog :focus-visible{outline:3px solid #f98e09;outline-offset:4px}
+body.cv .cvfx-status {
+  position:fixed;z-index:42;bottom:135px;left:22px;max-width:200px;pointer-events:none;
+  color:rgba(169,179,168,.58);font:10px 'JetBrains Mono',monospace;letter-spacing:.14em;
+}
+body.cv .cvfx-status::before{content:'●';color:#65d6c9;margin-right:6px;animation:cvfx-ping 3s steps(2) infinite}
+@keyframes cvfx-ping{50%{opacity:.15}}
+body.cv[data-cvfx="calm"] .cvfx-status::before {animation:none}
+body.cv .cvfx-route{
+ position:fixed;z-index:28;right:10px;top:42%;width:126px;pointer-events:none;
+ display:flex;align-items:flex-end;flex-direction:column;gap:9px;text-align:right;
+ font:10px 'JetBrains Mono',monospace;letter-spacing:.07em;line-height:1.35;
+ border-right:2px solid rgba(101,214,201,.44);padding:4px 11px 4px 4px;
+}
+body.cv .cvfx-route-kicker{font-size:8px;color:#d7b46a;letter-spacing:.1em}
+body.cv .cvfx-route-current{color:#a9b3a8;overflow-wrap:anywhere}
+body.cv .cvfx-route-count{color:#65d6c9}
+body.cv .cvfx-dialog{
+  width:min(920px,calc(100vw - 28px));max-width:920px;max-height:min(92dvh,900px);
+  overflow:auto;margin:auto;padding:0;border:1px solid #43544a;border-radius:18px;
+  background:#0d110e;color:#f2f0e7;box-shadow:0 20px 100px rgba(0,0,0,.76);
+  font-family:'JetBrains Mono',monospace;overscroll-behavior:contain;
+}
+body.cv .cvfx-dialog::backdrop{background:rgba(0,0,0,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+body.cv .cvfx-dialog .cvfx-head{display:flex;justify-content:space-between;gap:18px;padding:28px 30px 18px;border-bottom:1px dashed #43544a}
+body.cv .cvfx-head small{display:block;font-size:10px;letter-spacing:.13em;color:#d7b46a;line-height:1.5}
+body.cv .cvfx-head h2{font-family:Inter,system-ui,sans-serif;font-size:clamp(38px,7vw,70px)!important;letter-spacing:-.05em;line-height:.95;margin:12px 0;color:#f2f0e7}
+body.cv .cvfx-head h2 span{color:#65d6c9;animation:cvfx-ping .9s steps(1) infinite}
+body.cv .cvfx-head p{font-size:12px;color:#a9b3a8;margin:0}
+body.cv .cvfx-close{border:1px solid #43544a;color:#f2f0e7;background:transparent;width:44px;height:44px;flex:none;border-radius:9px;font-size:24px;cursor:pointer}
+body.cv .cvfx-close:hover{background:#24312b}
+body.cv .cvfx-modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border:0;margin:0;padding:20px 30px 16px;min-width:0}
+body.cv .cvfx-modes legend{float:left;width:100%;margin-bottom:11px;color:#d7b46a;font-size:10px;letter-spacing:.14em}
+body.cv .cvfx-modes button{min-height:62px;text-align:left;background:#121813;border:1px solid #43544a;color:#c9cfc6;border-radius:9px;padding:10px 12px;cursor:pointer;font:600 12px 'JetBrains Mono',monospace;letter-spacing:.05em}
+body.cv .cvfx-modes button small{display:block;font-size:10px;font-weight:400;letter-spacing:0;color:#a9b3a8;margin-top:5px}
+body.cv .cvfx-modes button[aria-pressed="true"]{border-color:#65d6c9;box-shadow:inset 0 0 0 1px #65d6c9;color:#65d6c9}
+body.cv .cvfx-sim-head{display:flex;justify-content:space-between;gap:12px;padding:0 30px 10px;color:#d7b46a;font-size:10px;letter-spacing:.08em}
+body.cv .cvfx-reynolds{color:#8fb7ff}
+body.cv .cvfx-stage{position:relative;min-height:250px;height:min(38dvh,360px);margin:0 30px;border:1px dashed #43544a;border-radius:12px;overflow:hidden;background:#070b0b;touch-action:none}
+body.cv .cvfx-stage canvas{width:100%;height:100%;display:block}
+body.cv .cvfx-stage-note{position:absolute;bottom:12px;left:16px;color:#a9b3a8;font-size:9px;letter-spacing:.1em;pointer-events:none}
+body.cv .cvfx-crosshair{position:absolute;top:0;left:0;width:0;height:0;font-size:0;pointer-events:none;opacity:0}
+body.cv .cvfx-slider-label{display:flex;justify-content:space-between;gap:8px;margin:20px 30px 9px;color:#d7b46a;font-size:11px;letter-spacing:.1em}
+body.cv .cvfx-slider-label output{color:#65d6c9}
+body.cv #cvfx-turbulence{display:block;width:calc(100% - 60px);margin:0 30px;min-height:24px;accent-color:#65d6c9}
+body.cv .cvfx-disclaimer{margin:15px 30px 18px;padding:12px 14px;border:1px dashed #43544a;background:#121813;color:#a9b3a8;font:11px/1.65 'JetBrains Mono',monospace}
+body.cv .cvfx-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 30px 23px;border-top:1px solid #2d3a31}
+body.cv .cvfx-foot span{color:#8fb7ff;font-size:10px;letter-spacing:.07em}
+body.cv .cvfx-reset{min-height:44px;background:#65d6c9;color:#071007;border:0;border-radius:7px;padding:0 18px;cursor:pointer;font:600 11px 'JetBrains Mono',monospace}
+body.cv .cvfx-trail{position:fixed;inset:0;z-index:64;pointer-events:none}
+body.cv .cvfx-trail-dot{position:absolute;display:block;width:9px;height:9px;transform:translate(-50%,-50%);border:1px solid #65d6c9;border-radius:50%;box-shadow:0 0 12px rgba(101,214,201,.6);animation:cvfx-evaporate .62s ease-out forwards}
+@keyframes cvfx-evaporate{0%{opacity:.8;scale:1}100%{opacity:0;scale:2.8}}
+body.cv .cvfx-shockwave{position:absolute;display:block;width:12px;height:12px;transform:translate(-50%,-50%);border:2px solid #f98e09;border-radius:50%;animation:cvfx-shock .62s ease-out forwards}
+@keyframes cvfx-shock{to{opacity:0;scale:13}}
+body.cv .cvfx-portal{position:fixed;inset:0;z-index:91;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(7,8,7,.03);opacity:0;transition:background .34s,opacity .34s}
+body.cv .cvfx-portal span{color:#a9b3a8;font:10px 'JetBrains Mono',monospace;letter-spacing:.16em}
+body.cv .cvfx-portal b{font:600 clamp(54px,12vw,156px)/1 Inter,system-ui,sans-serif;color:#65d6c9;letter-spacing:-.07em}
+body.cv .cvfx-portal-go{opacity:1;background:rgba(7,8,7,.96)}
+body.cv[data-cvfx="overdrive"] .cvfx-orbit{animation-duration:1.9s}
+body.cv[data-cvfx="overdrive"] :is(.work-row,.project-browser-item,.evidence-item,.card,.page-panel):hover {box-shadow:0 0 0 1px rgba(249,142,9,.5),0 0 26px rgba(249,142,9,.16)!important}
+body.cv[data-cvfx="overdrive"] :is(.overline,.eyebrow)::after {animation-duration:.37s}
+body.cv[data-cvfx="calm"] .cvfx-orbit,body.cv[data-cvfx="calm"] .cvfx-status::before{animation:none!important}
+@media(max-width:780px){
+ body.cv .cvfx-route{display:none}
+ body.cv .cvfx-opener{bottom:74px;left:10px;padding:0 12px}
+ body.cv .cvfx-status{display:none}
+ body.cv .cvfx-dialog .cvfx-head{padding:20px 17px 14px}
+ body.cv .cvfx-modes{padding:15px 17px;gap:5px}
+ body.cv .cvfx-modes button{font-size:10px;padding:8px}
+ body.cv .cvfx-modes button small{font-size:9px}
+ body.cv .cvfx-sim-head{padding:0 17px 9px}
+ body.cv .cvfx-stage{margin:0 17px;height:260px;min-height:230px}
+ body.cv .cvfx-slider-label{margin:17px 17px 8px}
+ body.cv #cvfx-turbulence{width:calc(100% - 34px);margin:0 17px}
+ body.cv .cvfx-disclaimer{margin:14px 17px}
+ body.cv .cvfx-foot{padding:15px 17px 18px}
+}
+@media(max-width:430px){body.cv .cvfx-modes{grid-template-columns:1fr}body.cv .cvfx-modes button{min-height:42px}body.cv .cvfx-modes button small{display:inline;margin-left:8px}body.cv .cvfx-dialog{max-height:95dvh}}
+@media print{body.cv .cvfx-opener,body.cv .cvfx-status,body.cv .cvfx-route,body.cv .cvfx-trail,body.cv .cvfx-portal,body.cv .cvfx-dialog{display:none!important}}
+@media(prefers-reduced-motion:reduce){
+ body.cv .cvfx-opener .cvfx-orbit,body.cv .cvfx-status::before,body.cv .cvfx-head h2 span,body.cv .cvfx-trail-dot,body.cv .cvfx-shockwave{animation:none!important}
+ body.cv .cvfx-portal{display:none!important}
+}
+
+/* Subtle discovery: existing headings and cards remain visually primary.
+   The lab control surfaces only after the reader reaches real page content. */
+body.cv .cvfx-opener {
+ opacity:0; visibility:hidden; transform:translateY(14px); pointer-events:none;
+ transition:opacity .38s ease,transform .38s ease,visibility .38s;
+}
+body.cv.cvfx-awake .cvfx-opener {
+ opacity:1; visibility:visible; transform:none; pointer-events:auto;
+}
+body.cv .cvfx-route {
+ opacity:0; visibility:hidden; transition:opacity .4s ease,visibility .4s;
+}
+body.cv.cvfx-awake[data-cvfx="overdrive"] .cvfx-route {
+ opacity:.7; visibility:visible;
+}
+body.cv .cvfx-status{display:none}
+body.cv .cvfx-clue{
+ position:relative;display:flex;align-items:flex-start;gap:14px;max-width:720px;
+ padding:14px 18px;margin:16px 0 28px;border-left:2px dashed #43544a;
+ background:linear-gradient(90deg,rgba(101,214,201,.055),rgba(7,8,7,0) 80%);
+ font-family:'JetBrains Mono',monospace;
+}
+body.cv .cvfx-clue-n{flex:none;color:#d7b46a;font-size:10px;letter-spacing:.08em;white-space:nowrap;padding-top:2px}
+body.cv .cvfx-clue-copy{display:flex;flex-direction:column;gap:6px;min-width:0}
+body.cv .cvfx-clue-text{color:#a9b3a8;font-size:11px;letter-spacing:.01em;line-height:1.5}
+body.cv .cvfx-clue-link{color:#65d6c9!important;font-size:12px;text-decoration:underline;text-decoration-style:dotted;text-decoration-thickness:1px;text-underline-offset:5px;line-height:1.55}
+body.cv .cvfx-clue-link:hover{color:#f98e09!important;text-decoration-style:solid}
+body.cv .cvfx-clue-link:focus-visible{outline:2px solid #f98e09;outline-offset:4px}
+body.cv[data-cvfx="overdrive"] .cvfx-clue::before{content:'';position:absolute;left:-5px;top:18px;width:7px;height:7px;border-radius:50%;background:#65d6c9;box-shadow:0 0 16px #65d6c9;animation:cvfx-ping 2.2s ease-in-out infinite}
+@media(max-width:560px){
+ body.cv .cvfx-clue{gap:10px;padding:12px;margin:14px 0 24px}
+ body.cv .cvfx-clue-n{font-size:9px}
+ body.cv .cvfx-clue-link{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+ body.cv .cvfx-opener,body.cv .cvfx-route{transition:none!important}
+ body.cv .cvfx-clue::before{animation:none!important}
+}
+
+/* The still preset quiets the entire inherited Control Volume motion system,
+   not only the additional Flux Lab layer. Interactive controls continue to work. */
+body.cv[data-cvfx="calm"] *,body.cv[data-cvfx="calm"] *::before,body.cv[data-cvfx="calm"] *::after {
+ animation:none!important;transition:none!important;scroll-behavior:auto!important;
+}
+body.cv[data-cvfx="calm"] :is(.heat,.probe,.sweep,.rain,.boot,.cvfx-trail,.cvfx-portal) {display:none!important}
+
+
+/* Completion of the optional four-surface evidence trail. Not shown by default. */
+body.cv .cvfx-payoff {
+ display:flex; flex-wrap:wrap; align-items:center; gap:14px 22px;
+ grid-column:1/-1; width:100%;margin:12px auto 0;padding:14px 18px;
+ border:1px dashed #65d6c9;border-radius:9px;
+ background:linear-gradient(110deg,rgba(101,214,201,.12),rgba(13,17,14,.7) 75%);
+ font:11px/1.6 'JetBrains Mono',monospace;
+}
+body.cv .cvfx-payoff-stamp{color:#d7b46a;letter-spacing:.1em}
+body.cv .cvfx-payoff-words{color:#c9cfc6;flex:1 1 220px}
+body.cv .cvfx-payoff-enter{min-height:44px;border:1px solid #65d6c9;color:#65d6c9;border-radius:6px;background:transparent;padding:0 14px;font:600 10px 'JetBrains Mono',monospace;letter-spacing:.08em;cursor:pointer}
+body.cv .cvfx-payoff-enter:hover{background:#65d6c9;color:#071007}
+body.cv .cvfx-payoff-enter:focus-visible{outline:3px solid #f98e09;outline-offset:3px}

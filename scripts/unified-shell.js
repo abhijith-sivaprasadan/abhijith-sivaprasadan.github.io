@@ -4,12 +4,14 @@
 (() => {
   const localPath = new URL(location.href).pathname;
   const nested = /\/(?:projects|experience)\//.test(localPath);
-  const prefix = nested ? '../' : '';
+  // 404 is served at any depth, so it links from the site root.
+  const prefix = document.body?.dataset.pageKey === 'not-found' ? '/' : nested ? '../' : '';
   const isWork = /\/projects(?:\/|\.html)/.test(localPath);
   const isResearch = /\/research\.html$/.test(localPath);
+  const isHome = /\/(?:index\.html)?$/.test(localPath) && !nested;
   const isExpertise = /\/skills(?:\/|\.html)/.test(localPath);
   const isTracks = /\/tracks(?:\/|\.html)/.test(localPath);
-  const current = label => ({ Research: isResearch, Work: isWork, Experience: /\/experience(?:\/|\.html)/.test(localPath), Skills: isExpertise, Tracks: isTracks })[label];
+  const current = label => ({ System: isHome, Research: isResearch, Cases: isWork, Record: /\/experience(?:\/|\.html)/.test(localPath), Skills: isExpertise, Tracks: isTracks })[label];
   const makeLink = (href, label, className = '') => {
     const link = document.createElement('a');
     link.href = href;
@@ -35,8 +37,8 @@
 
   const mount = () => {
     document.body.classList.add('unified-site');
-    let saved = document.documentElement.dataset.theme || 'light';
-    try { saved = localStorage.getItem('portfolioTheme') || saved; } catch { /* Theme storage is optional. */ }
+    // Control volume is dark by design; the runtime's cold/hot toggle replaces the old switch.
+    const saved = 'dark';
 
     const header = document.querySelector('.site-header');
     if (header) {
@@ -44,38 +46,22 @@
       inner.className = 'unified-header-inner';
       const wordmark = makeLink(`${prefix}index.html`, 'Abhijith Sivaprasadan', 'unified-wordmark');
       const discipline = document.createElement('span');
-      discipline.textContent = 'Thermal engineering & energy systems';
+      discipline.textContent = 'Heat · Power · Code';
       wordmark.append(discipline);
       const nav = document.createElement('nav');
       nav.className = 'unified-nav';
       nav.setAttribute('aria-label', 'Main navigation');
       nav.append(
-        navLink('projects.html', 'Work'),
-        navLink('index.html#research', 'Research'),
-        navLink('experience.html', 'Experience'),
+        navLink('index.html', 'System'),
+        navLink('projects.html', 'Cases'),
+        navLink('research.html', 'Research'),
+        navLink('experience.html', 'Record'),
         navLink('skills/index.html', 'Skills'),
         navLink('tracks/index.html', 'Tracks'),
         makeLink(`${prefix}index.html#contact`, 'Contact')
       );
-      const themeSwitch = document.createElement('button');
-      themeSwitch.className = 'unified-theme-switch';
-      themeSwitch.type = 'button';
-      themeSwitch.dataset.unifiedTheme = '';
-      themeSwitch.textContent = 'Dark mode';
-      themeSwitch.setAttribute('aria-label', 'Switch to dark mode');
-      themeSwitch.setAttribute('aria-pressed', 'false');
-      inner.append(wordmark, nav, themeSwitch);
+      inner.append(wordmark, nav);
       header.replaceChildren(inner);
-      themeSwitch.addEventListener('click', () => {
-        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-        const applyTheme = () => {
-          setTheme(next);
-          try { localStorage.setItem('portfolioTheme', next); } catch { /* Keep the page usable. */ }
-        };
-        const reduce = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (!reduce && typeof document.startViewTransition === 'function') document.startViewTransition(applyTheme);
-        else applyTheme();
-      });
     }
     setTheme(saved);
 
@@ -88,9 +74,16 @@
       const nav = document.createElement('nav');
       nav.className = 'unified-footer-links';
       nav.setAttribute('aria-label', 'Footer navigation');
+      const outside = document.createElement('span');
+      outside.textContent = 'Outside the boundary';
       nav.append(
-        makeLink(`${prefix}projects.html`, 'Projects'),
-        makeLink(`${prefix}experience.html`, 'Experience'),
+        outside,
+        makeLink(`${prefix}index.html#research`, 'Open questions'),
+        makeLink(`${prefix}courses.html`, 'Courses'),
+        makeLink(`${prefix}ideas.html`, 'Ideas'),
+        makeLink(`${prefix}interests.html`, 'Interests'),
+        makeLink(`${prefix}hobbies.html`, 'Hobbies'),
+        makeLink(`${prefix}reports.html`, 'Reports'),
         makeLink(`${prefix}tracks/index.html`, 'Tracks'),
         makeLink(`${prefix}skills/index.html`, 'Skills'),
         makeLink('https://github.com/abhijith-sivaprasadan', 'GitHub'),

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <meta name="description" content="Design spike: the Control volume motion and interaction layer for Abhijith Sivaprasadan's portfolio." />
+  <title>Control volume | Abhijith Sivaprasadan</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" />
+  <link rel="stylesheet" href="../styles/control-volume.css" />
+  <link rel="stylesheet" href="../styles/flux-lab.css?v=20261027-control-volume" />
+  <style>
+    body{margin:0;background:#070807;color:#f2f0e7;font-family:Inter,system-ui,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .m{font-family:'JetBrains Mono',ui-monospace,monospace}
+    .mu{color:#a9b3a8}
+    .eb{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d7b46a}
+    .cd{border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:28px}
+    .rs{background-color:rgba(215,180,106,.04);background-image:repeating-linear-gradient(135deg,rgba(215,180,106,.14) 0 1px,transparent 1px 8px)}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 24px;box-sizing:border-box}
+    header.top{border-bottom:1px solid #2d3a31;background:#0a0d0b}
+    header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:8px 32px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}
+    header.top nav{display:flex;gap:2px 22px;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em}
+    header.top nav a{color:#a9b3a8;padding:12px 0}
+    main{display:flex;flex-direction:column;gap:104px;padding:80px 0 120px}
+    h1{margin:0;font-size:clamp(48px,8vw,84px);line-height:1;font-weight:620;letter-spacing:-.03em;display:flex;flex-wrap:wrap;gap:0 .28em}
+    h2{margin:0;font-size:clamp(28px,4vw,40px);line-height:1.12;font-weight:580;letter-spacing:-.02em}
+    .lead{margin:0;font-size:19px;line-height:1.6;color:#c9cfc6;max-width:640px}
+    .row{display:flex;flex-wrap:wrap;gap:32px 48px;align-items:center}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:12px}
+    .head{display:flex;flex-direction:column;gap:10px;max-width:680px}
+    .btn{display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:6px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em}
+    .glyph{display:flex;flex-direction:column;gap:12px;padding:20px}
+    .glyph .gl{width:36px;height:36px}
+    .glyph span{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.12em}
+    label.sl{display:flex;flex-direction:column;gap:10px}
+    label.sl span{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;color:#a9b3a8}
+    label.sl b{color:#f2f0e7;font-weight:500}
+    footer{border-top:1px solid #2d3a31}
+    footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;padding-top:32px;padding-bottom:96px}
+  </style>
+</head>
+<body class="cv" data-cv-boot data-cv-root="../" data-cv-label="S1 · SYSTEM">
+<header class="top">
+  <div class="wrap">
+    <a href="../index.html" class="m" style="font-size:13px;letter-spacing:.14em;padding:12px 0">ABHIJITH SIVAPRASADAN</a>
+    <nav aria-label="Primary">
+      <a href="../index.html">SYSTEM</a><a href="../projects.html">CASES</a><a href="../research.html">RESEARCH</a><a href="../energy-systems.html">ENERGY</a><a href="../industrial-rd.html">INDUSTRIAL R&amp;D</a><a href="../experience.html">RECORD</a><a href="../about.html">ABOUT</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="row">
+    <div style="flex:1 1 520px;display:flex;flex-direction:column;gap:26px">
+      <div class="emo eb" style="display:flex;align-items:center;gap:12px"><svg class="gl gl-flame" viewBox="0 0 24 24" aria-hidden="true"><path class="fp" d="M12 22c-4 0-7-2.8-7-6.6 0-3.4 2.4-5.2 3.6-8.4.4 1.8 1.4 3 2.6 3.4C11 6.8 12.6 4 15.4 2c-.4 3 .8 4.8 2 6.6 1.2 1.8 1.6 3.4 1.6 5.2C19 18.6 16 22 12 22z"/><path class="fi" d="M12 21c-1.8 0-3-1.2-3-2.8 0-1.6 1.2-2.6 1.8-4 .6 1 1.4 1.4 2 1.4.2-1.2.8-2 1.6-2.6 0 1.6 1.6 2.6 1.6 4.4 0 2.2-1.8 3.6-4 3.6z"/></svg><span>S<span data-cv-num="1">1</span> · System · design spike</span></div>
+      <h1><span data-probe="HEAT · q″ · T = 673 K">Heat.</span><span data-probe="POWER · ENERGY SYSTEMS">Power.</span><span data-probe="CODE · GO · PYTHON · FORTRAN">Code.</span></h1>
+      <p class="lead">This page demonstrates the Control volume layer: a physics-true motion and interaction system for the portfolio. Every case is a system with a boundary, read as boundary, method, evidence and residual.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn" href="../projects/siemens-thesis.html" style="background:#65d6c9;color:#071007;font-weight:600">SEE THE THESIS CASE →</a>
+        <button type="button" class="btn" data-cv-reboot style="background:transparent;border:1px solid #2d3a31;color:#f2f0e7">↻ RERUN THE SOLVER</button>
+      </div>
+    </div>
+    <div style="flex:1 1 380px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div class="m" style="display:flex;flex-direction:column;gap:22px;font-size:13px;letter-spacing:.12em"><span class="fl">HEAT →</span><span class="fl">POWER →</span><span class="fl">CODE →</span></div>
+      <div class="cs" data-probe="CONTROL VOLUME · ∑ IN = ∑ OUT + RESIDUAL" style="flex:1 1 200px;min-height:240px;border-radius:6px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box">
+        <div class="m" style="font-size:12px;letter-spacing:.14em;color:#65d6c9">CONTROL VOLUME</div>
+        <div class="rs m" style="padding:10px 12px;border-radius:4px;font-size:12px;letter-spacing:.12em;color:#d7b46a">RESIDUAL · STATED PER CASE</div>
+      </div>
+      <div class="m" style="font-size:13px;letter-spacing:.12em">→ EVIDENCE</div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <div class="row" style="justify-content:space-between;align-items:flex-end;gap:12px 40px">
+      <div class="head"><div class="eb">Play with it</div><h2>Drag the heat source</h2><p class="mu" style="margin:0;font-size:16px;line-height:1.6">Isotherms spread from wherever you put it. Hover to read the temperature at the probe.</p></div>
+      <div id="field-readout" class="m" style="font-size:13px;letter-spacing:.06em;padding:12px 16px;border:1px solid #2d3a31;border-radius:6px;background:#0d110e;min-width:260px" aria-live="polite">PROBE · MOVE INTO THE FIELD</div>
+    </div>
+    <div class="field" data-cv-toy="heat-field" data-readout="#field-readout" role="application" aria-label="Heat source playground: drag to move the source" style="height:380px;border:1px solid #2d3a31;border-radius:14px;background-color:#060706">
+      <div class="m mu" style="position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.1em;pointer-events:none">T(r) = T∞ + ΔT·e^(−r/λ) · T_SOURCE 673 K · T∞ 293 K · ILLUSTRATIVE</div>
+    </div>
+  </section>
+
+  <section class="cd cs" data-cv-toy="mesh" style="display:flex;flex-direction:column;gap:24px;padding:32px">
+    <div class="row" style="justify-content:space-between;align-items:flex-end;gap:16px 32px">
+      <div class="head"><div class="eb">Refine the mesh</div><h2>Three levels, the way the thesis ran them</h2><p class="mu" style="margin:0;font-size:15px;line-height:1.6">The cells and near-wall layers fill a schematic reducer. Not the real geometry.</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap" role="group" aria-label="Mesh level">
+        <button type="button" class="lvl" data-level="1" style="border:1px solid #2d3a31">L1 · COARSE</button>
+        <button type="button" class="lvl" data-level="2" style="border:1px solid #2d3a31">L2 · MEDIUM</button>
+        <button type="button" class="lvl" data-level="3" style="border:1px solid #2d3a31">L3 · FINE</button>
+      </div>
+    </div>
+    <svg viewBox="0 0 560 220" style="width:100%;height:auto;display:block;background:#060706;border:1px solid #2d3a31;border-radius:8px" role="img" aria-label="Schematic reducer with the selected mesh level">
+      <defs><clipPath id="cvduct"><path d="M20 30 L200 30 C280 30 300 85 360 85 L540 85 L540 135 L360 135 C300 135 280 190 200 190 L20 190 Z"/></clipPath></defs>
+      <path d="M20 30 L200 30 C280 30 300 85 360 85 L540 85 L540 135 L360 135 C300 135 280 190 200 190 L20 190 Z" fill="rgba(101,214,201,.05)"/>
+      <g clip-path="url(#cvduct)"><path data-out="mesh" class="mesh-lines" d="" fill="none" stroke="#3f5a4b" stroke-width="0.8"/><path data-out="infl" d="M0 0" fill="none" stroke="#f98e09" stroke-width="0.7" opacity=".85"/></g>
+      <path d="M20 30 L200 30 C280 30 300 85 360 85 L540 85 M540 135 L360 135 C300 135 280 190 200 190 L20 190" fill="none" stroke="#f2f0e7" stroke-width="1.6"/>
+      <g font-family="JetBrains Mono, monospace" font-size="10" fill="#a9b3a8" letter-spacing="1"><text x="24" y="210">INLET · T = 673 K</text><text x="420" y="160">OUTLET</text><text x="300" y="24">CONTRACTION</text></g>
+    </svg>
+    <div class="row" style="gap:12px 32px;align-items:baseline"><div data-out="cells" class="m" style="font-size:28px;font-weight:600"></div><div data-out="verdict" class="m" style="font-size:12px;letter-spacing:.12em"></div></div>
+    <div class="rs" style="padding:12px 14px;border-radius:6px;font-size:14px;line-height:1.55"><span class="m" style="font-size:11px;letter-spacing:.14em;color:#d7b46a">RESIDUAL · </span>Mesh independence is not validation. It says the answer stopped changing with the grid, not that the grid matches the rig.</div>
+  </section>
+
+  <section class="cd cs b" data-cv-toy="biot" style="display:flex;flex-direction:column;gap:30px;padding:32px">
+    <div class="head"><div class="eb">Try it</div><h2>Move the Biot number yourself</h2><p class="mu" style="margin:0;font-size:16px;line-height:1.6">Bi = h·L/k compares the resistance inside a solid with the resistance at its surface.</p></div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:24px">
+      <label class="sl"><span>h · SURFACE COEFFICIENT · <b data-out="h">50</b> W/m²K</span><input type="range" data-k="h" min="5" max="3000" step="5" value="50" /></label>
+      <label class="sl"><span>L · CHARACTERISTIC LENGTH · <b data-out="L">3</b> mm</span><input type="range" data-k="L" min="0.5" max="60" step="0.5" value="3" /></label>
+      <label class="sl"><span>k · WALL CONDUCTIVITY · <b data-out="k">43</b> W/mK</span><input type="range" data-k="k" min="0.2" max="400" step="0.2" value="43" /></label>
+    </div>
+    <div class="row" style="gap:12px 28px;align-items:baseline"><div data-out="bi" class="m" style="font-size:44px;font-weight:600" aria-live="polite"></div><div data-out="verdict" class="m" style="font-size:13px;letter-spacing:.12em;transition:color .4s"></div></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;height:40px;gap:2px"><div data-out="conv" style="flex:1;background:#8fb7ff;border-radius:4px 0 0 4px;transition:flex .5s cubic-bezier(.22,1,.36,1)"></div><div data-out="wall" style="flex:.01;border-radius:0 4px 4px 0;transition:flex .5s cubic-bezier(.22,1,.36,1),background .4s"></div></div>
+      <div class="m mu" style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.08em"><span>SURFACE RESISTANCE · 1/h</span><span>WALL RESISTANCE · L/k</span></div>
+    </div>
+    <div style="position:relative;height:8px;border-radius:999px;background:linear-gradient(90deg,#65d6c9 0 60%,#f98e09 60% 80%,#bc3754 80%)"><div data-out="needle" style="position:absolute;top:-6px;width:3px;height:20px;margin-left:-1.5px;background:#f2f0e7;border-radius:2px;transition:left .5s cubic-bezier(.22,1,.36,1)"></div></div>
+    <div class="m mu" style="font-size:11px;letter-spacing:.08em;border-top:1px solid #2d3a31;padding-top:16px">ILLUSTRATIVE INPUTS. THE THESIS VALUE FOR THE PULSATORN REDUCER WAS Bi = 0.003–0.004.</div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <div class="head"><div class="eb">Live · the year as a cycle</div><h2>Where we are on the loop today</h2></div>
+    <div class="cd row" data-cv-toy="year" style="padding:32px">
+      <svg viewBox="0 0 520 300" style="flex:1 1 380px;max-width:560px;width:100%;height:auto" role="img" aria-label="Today on an annual cycle, with the Kerala monsoon marked">
+        <path d="M40 280 H500 M40 280 V20" stroke="#2d3a31" fill="none"/>
+        <ellipse cx="270" cy="150" rx="200" ry="105" fill="rgba(101,214,201,.04)" stroke="#43544a" stroke-width="1.5"/>
+        <polyline data-out="monsoon" points="" fill="none" stroke="#8fb7ff" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+        <polyline data-out="done" points="" fill="none" stroke="#65d6c9" stroke-width="1.8"/>
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="#f2f0e7" letter-spacing="1.2"><text x="270" y="275" text-anchor="middle">WINTER</text><text x="82" y="154">SPRING</text><text x="270" y="34" text-anchor="middle">SUMMER</text><text x="458" y="154" text-anchor="end">AUTUMN</text></g>
+        
+        <circle data-out="dot" cx="0" cy="0" r="16" fill="rgba(249,142,9,.25)"/><circle data-out="dot" class="yr-dot" cx="0" cy="0" r="7" fill="#fcffa4"/>
+      </svg>
+      <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:14px">
+        <div data-out="day" class="m" style="font-size:44px;font-weight:600"></div>
+        <div data-out="pct" class="m" style="font-size:13px;letter-spacing:.12em;color:#65d6c9"></div>
+        <div data-out="montext" class="m" style="font-size:13px;letter-spacing:.12em;color:#8fb7ff"></div>
+        <div class="cv-year-controls"><label for="lab-year-day">EXPLORE THE YEAR <output data-cv-year-date aria-live="polite"></output></label><input id="lab-year-day" data-cv-year-day type="range" min="1" max="366" step="1" value="300" aria-label="Select a date in the current year" /><button type="button" data-cv-year-reset>↺ TODAY</button></div>
+        <p class="mu" style="margin:0;font-size:15px;line-height:1.6">The loop closes every 31 December. What changed in between is the net work.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cd row" data-cv-toy="cycle" data-names="S1 · KOLLAM|S2 · QBURST|S3 · KTH|S4 · SIEMENS|S1′ · BACK TO CODE" data-stages="From building with hands in Kollam to software that has to fail loudly.|From backend tests and negative paths to heat transfer and the lab at KTH.|From coursework to a calibration rig at Siemens Energy, Finspång.|Back to code, now with an energy engineer’s checks attached." style="padding:32px">
+    <div style="flex:1 1 360px;display:flex;flex-direction:column;gap:18px">
+      <div class="eb">A cycle, not a ladder</div>
+      <div data-out="title" class="m" style="font-size:28px;font-weight:600"></div>
+      <div data-out="text" style="font-size:16px;line-height:1.6;color:#c9cfc6;min-height:52px"></div>
+      <label class="sl"><span>POSITION ON THE PATH</span><input type="range" min="0" max="400" step="1" value="0" /></label>
+      <button type="button" class="btn" data-cv-lamp="cv-night" style="align-self:flex-start;border:1px dashed #6b5a2e;background:transparent;color:#d7b46a;border-radius:999px;gap:10px"><svg class="gl gl-lamp" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><path class="lf" d="M12 2.5c1.6 2 1.6 3.6 0 5-1.6-1.4-1.6-3 0-5z" fill="#f98e09" stroke="#f98e09"/><path d="M6 10h12M8 10c0 2.2 1.8 3.5 4 3.5s4-1.3 4-3.5M12 13.5v5M8.5 21.5h7M10 18.5h4"/></svg>LIGHT THE LAMP</button>
+    </div>
+    <svg viewBox="0 0 400 260" style="flex:1 1 320px;max-width:460px;width:100%;height:auto" role="img" aria-label="A four-state cycle from Kollam to QBurst to KTH to Siemens and back to code">
+      <path d="M60 50 L340 50 L340 210 L60 210 Z" fill="rgba(101,214,201,.05)" stroke="#65d6c9" stroke-width="1.5" stroke-dasharray="6 6"/>
+      <g font-family="JetBrains Mono, monospace" font-size="12" fill="#f2f0e7" letter-spacing="1"><text x="40" y="32">S1 KOLLAM</text><text x="292" y="32">S2 QBURST</text><text x="310" y="238">S3 KTH</text><text x="22" y="238">S4 SIEMENS</text></g>
+      <text x="200" y="136" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#d7b46a">NET WORK = WHAT CHANGED</text>
+      <circle data-out="dot" cx="60" cy="50" r="16" fill="rgba(249,142,9,.25)"/><circle data-out="dot" cx="60" cy="50" r="7" fill="#fcffa4"/>
+    </svg>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:24px">
+    <div class="head"><div class="eb">Emotes · reactive glyphs</div><h2>No emoji. Line glyphs that move like their subject.</h2></div>
+    <div class="grid">
+      <div class="cd glyph emo" data-probe="HEAT" style="color:#f98e09"><svg class="gl gl-flame" viewBox="0 0 24 24" aria-hidden="true"><path class="fp" d="M12 22c-4 0-7-2.8-7-6.6 0-3.4 2.4-5.2 3.6-8.4.4 1.8 1.4 3 2.6 3.4C11 6.8 12.6 4 15.4 2c-.4 3 .8 4.8 2 6.6 1.2 1.8 1.6 3.4 1.6 5.2C19 18.6 16 22 12 22z"/></svg><span>FLAME · HEAT</span></div>
+      <div class="cd glyph emo" data-probe="FLOW" style="color:#9bd69f"><svg class="gl gl-wave" viewBox="0 0 24 24" aria-hidden="true"><path class="wv" d="M1 12c2.5-5 5-5 7.5 0s5 5 7.5 0 5-5 7 0"/></svg><span>WAVE · FLOW</span></div>
+      <div class="cd glyph emo" data-probe="METHOD" style="color:#d7b46a"><svg class="gl gl-gear" viewBox="0 0 24 24" aria-hidden="true"><g class="gg"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="6.5"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></g></svg><span>GEAR · METHOD</span></div>
+      <div class="cd glyph emo" data-probe="COFFEE" style="color:#c9a27a"><svg class="gl gl-cup" viewBox="0 0 24 24" aria-hidden="true"><path class="st" d="M8 2.5c-.8 1 .8 2 0 3"/><path class="st" d="M11.5 2.5c-.8 1 .8 2 0 3"/><path class="st" d="M15 2.5c-.8 1 .8 2 0 3"/><path d="M4 8h14v5a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6z"/><path d="M18 9.5h1.5a2.5 2.5 0 0 1 0 5H17.6"/></svg><span>FILTER COFFEE</span></div>
+      <div class="cd glyph emo" data-probe="CYCLE" style="color:#65d6c9"><svg class="gl gl-cycle" viewBox="0 0 24 24" aria-hidden="true"><g class="cy"><path d="M19.5 12a7.5 7.5 0 0 1-12.8 5.3"/><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3"/><path d="M17.3 3.5v3.2h-3.2M6.7 20.5v-3.2h3.2"/></g></svg><span>CYCLE</span></div>
+      <div class="cd glyph emo" data-probe="CHECKED BY HAND" style="color:#8fb7ff"><svg class="gl gl-check" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="3"/><path class="ck" d="M7 12.5l3.2 3.2L17 8.5"/></svg><span>CHECKED BY HAND</span></div>
+    </div>
+    <div class="cd row" style="padding:28px;gap:24px">
+      <svg class="cf" viewBox="0 0 120 150" style="width:96px;height:auto" aria-hidden="true" fill="none" stroke="#c9cfc6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path class="stm" d="M50 8c-4 4 4 6 0 10"/><path class="stm" d="M70 8c-4 4 4 6 0 10"/><path d="M26 22h68M50 16h20v6"/><path d="M32 22h56v34H32z"/><path d="M40 56h40" stroke-dasharray="2 5"/><circle class="dr" cx="52" cy="60" r="2" fill="#a8683a" stroke="none"/><circle class="dr" cx="60" cy="60" r="2" fill="#a8683a" stroke="none"/><circle class="dr" cx="68" cy="60" r="2" fill="#a8683a" stroke="none"/><rect class="lv" x="31" y="92" width="58" height="46" fill="#6b3a1f" stroke="none"/><path d="M28 64h64v72a6 6 0 0 1-6 6H34a6 6 0 0 1-6-6z"/></svg>
+      <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:10px"><div class="eb">Filter coffee loader</div><div class="mu" style="font-size:15px;line-height:1.6">Decoction drips and the tumbler fills while the residual falls. Used for loading states.</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="m mu" style="font-size:12px;letter-spacing:.1em;align-self:center">GUITAR ·</span><button type="button" data-note="164.8" class="btn" aria-label="Pluck E string" style="padding:0 14px;border:1px solid #2d3a31;background:transparent;color:#9bd69f">E</button><button type="button" data-note="220" class="btn" aria-label="Pluck A string" style="padding:0 14px;border:1px solid #2d3a31;background:transparent;color:#9bd69f">A</button><button type="button" data-note="293.7" class="btn" aria-label="Pluck D string" style="padding:0 14px;border:1px solid #2d3a31;background:transparent;color:#9bd69f">D</button></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="m mu" style="font-size:12px;letter-spacing:.08em;line-height:1.8">PRESS ⌘K / CTRL+K FOR THE SOLVER CONSOLE · TRY “THEME COLD”, “MONSOON ON”, “MALAYALAM”, “LAMP”, “BOOT”</div>
+    <div class="m mu" style="font-size:12px;letter-spacing:.06em">Methods, evidence, and their limits.</div>
+  </div>
+</footer>
+
+<template id="cv-night">
+  <div class="night" role="dialog" aria-label="Night scene" tabindex="-1">
+    <div style="width:min(760px,100%);display:flex;flex-direction:column;gap:28px;align-items:center;text-align:center">
+      <svg viewBox="0 0 600 360" style="width:100%;height:auto;display:block" aria-hidden="true" fill="none" stroke="#f2f0e7" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <circle class="moon" cx="470" cy="70" r="34" fill="#f2f0e7" fill-opacity=".9" stroke="none"/>
+        <circle cx="458" cy="62" r="34" fill="#0b1222" stroke="none" opacity=".35"/>
+        <path d="M0 320 C120 300 220 312 300 306 S500 296 600 312" stroke="#43544a"/>
+        <g class="leaf"><path d="M200 320 C202 270 196 230 204 180 C210 150 206 120 214 96" stroke="#a9b3a8" stroke-width="2"/><path d="M206 200 C180 186 160 168 140 172 M208 170 C236 150 262 146 284 152 M212 130 C194 112 176 104 156 108 M214 110 C236 96 252 80 276 82"/><path d="M120 170 c-20 -8 -26 -30 -6 -40 c-4 -24 24 -34 38 -20 c12 -22 46 -18 50 6 c22 -10 44 6 36 28 c24 4 28 32 6 40 c-4 22 -34 26 -46 10 c-14 16 -44 12 -48 -8 c-20 2 -34 -8 -30 -16z" stroke="#9bd69f" stroke-opacity=".7"/></g>
+        <g class="eyes" fill="#fcffa4" stroke="none"><circle cx="196" cy="140" r="2.2"/><circle cx="210" cy="140" r="2.2"/></g>
+        <circle class="fly" cx="260" cy="230" r="2.4" fill="#fcffa4" stroke="none"/><circle class="fly" cx="120" cy="250" r="2" fill="#fcffa4" stroke="none"/><circle class="fly" cx="330" cy="200" r="2.2" fill="#fcffa4" stroke="none"/>
+        <g transform="translate(420 200)"><path class="lf" d="M0 0 c9 12 9 22 0 30 c-9 -8 -9 -18 0 -30z" fill="#f98e09" stroke="#fcffa4" stroke-width="1"/><path d="M-26 34 h52 M-20 34 c0 12 9 18 20 18 s20 -6 20 -18 M0 52 v40 M-10 70 h20 M-22 104 h44 M-14 92 h28" stroke="#d7b46a"/></g>
+      </svg>
+      <div class="m" style="font-size:12px;letter-spacing:.2em;color:#d7b46a">NIGHT MODE · NILAVILAKKU LIT</div>
+      <p style="margin:0;font-size:18px;line-height:1.7;color:#e0ded4;max-width:560px">In Kerala folklore a yakshi waits in the pala tree after dark, and the priest Kadamattathu Kathanar was said to be the one who could bind her. Some residuals are older than any solver.</p>
+      <button type="button" data-cv-close class="btn" style="border:1px solid #d7b46a;background:transparent;color:#d7b46a;border-radius:999px">PUT OUT THE LAMP</button>
+    </div>
+  </div>
+</template>
+
+<script src="../scripts/control-volume.js" defer></script>
+  <script src="../scripts/flux-lab.js?v=20261027-control-volume" defer></script>
+</body>
+</html>

@@ -141,3 +141,12 @@ for (const file of ['api/projects.json', 'api/linkedin-projects.json', 'backend/
 }
 
 console.log(`Passed: ${legacyPages.length} legacy endpoints share the modern shell; retired lens runtime stays disabled; Siemens chronology is source-aligned.`);
+
+// Ensure the optional Flux Lab layer and keyboard enhancements ship on public shells.
+const fsFlux = require('node:fs'), pathFlux = require('node:path');
+const fluxRead = p => fsFlux.readFileSync(pathFlux.resolve(__dirname, '..', p), 'utf8');
+for (const p of ['index.html','skills/index.html','tracks/index.html','404.html','for/siemens-feed.html','cet2026/index.html','labs/control-volume.html']) {
+  if (!fluxRead(p).includes('flux-lab.css') || !fluxRead(p).includes('flux-lab.js')) throw Error(p + ': Flux Lab wiring missing');
+}
+for (const p of ['scripts/build-academic.cjs','scripts/public-config.js']) if (!fluxRead(p).includes('flux-lab.js')) throw Error(p + ': shared Flux Lab wiring missing');
+for (const s of ['aria-modal','aria-keyshortcuts','manual Easter egg']) if (!fluxRead('scripts/control-volume.js').includes(s)) throw Error('Control Volume accessibility/boot regression: ' + s);

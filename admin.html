@@ -387,6 +387,24 @@
       .admin-main {
         margin-left: 0;
       }
+      /* Keep admin forms usable at 320px without masking clipped fields. */
+      .admin-shell, .admin-main, .admin-content, .admin-panel, .admin-form-row, .admin-field {
+        box-sizing: border-box;
+        min-width: 0;
+        max-width: 100%;
+      }
+      .admin-main, .admin-content { width: 100%; }
+      .admin-content { padding: clamp(12px, 4vw, 20px); }
+      .admin-panel { padding: clamp(12px, 4vw, 20px); }
+      .admin-topbar { min-width: 0; padding: 10px 14px; }
+      .admin-topbar-right { min-width: 0; max-width: 55%; flex-wrap: wrap; justify-content: flex-end; }
+      .admin-form-row { grid-template-columns: minmax(0, 1fr); }
+      .admin-field input, .admin-panel :is(input, select, textarea) {
+        box-sizing: border-box;
+        width: 100%; max-width: 100%; min-width: 0;
+      }
+      .admin-panel :is(pre, code) { overflow-wrap: anywhere; }
+      .button-row { display: flex; flex-wrap: wrap; }
     }
   </style>
   <script src="scripts/public-config.js?v=20261007-engineering-index"></script>
@@ -738,8 +756,24 @@
       /* mobile sidebar toggle */
       var toggle  = document.getElementById('sidebar-toggle');
       var sidebar = document.getElementById('admin-sidebar');
-      if (window.innerWidth <= 768) toggle.style.display = '';
-      toggle.addEventListener('click', function () { sidebar.classList.toggle('is-open'); });
+      var narrow = window.matchMedia('(max-width: 768px)');
+      var syncSidebar = function () {
+        toggle.style.display = narrow.matches ? '' : 'none';
+        if (!narrow.matches) sidebar.classList.remove('is-open');
+      };
+      syncSidebar();
+      if (narrow.addEventListener) narrow.addEventListener('change', syncSidebar);
+      toggle.addEventListener('click', function () {
+        var open = sidebar.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+      toggle.setAttribute('aria-controls', 'admin-sidebar');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+          sidebar.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); toggle.focus();
+        }
+      });
 
       /* show idea badge when count > 0 */
       var ideaBadge = document.querySelector('.admin-nav-badge[data-idea-review-count]');

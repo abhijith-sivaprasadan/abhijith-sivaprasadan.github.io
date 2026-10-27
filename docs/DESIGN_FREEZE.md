@@ -1,6 +1,12 @@
-# Portfolio design baseline — 7 October 2026
+# Portfolio design baseline — 27 October 2026
 
-## Current: engineering index
+## Current: Control volume
+
+The user asked for a total redesign of every page in the Control volume theme (27 October 2026). It supersedes the engineering-index baseline below. Every piece of work is read as a system with a boundary, in four terms: boundary, method, evidence, residual. Palette: ground `#070807`, teal `#65d6c9`, amber `#d7b46a`, blue `#8fb7ff`, green `#9bd69f`, hot `#f98e09`; Inter for text, JetBrains Mono for labels. Motion is physics-true and switches off under `prefers-reduced-motion`. Full reference: `docs/CONTROL_VOLUME.md`.
+
+Validated text, claim boundaries and the 57-endpoint shell inventory are unchanged. The `20261007-engineering-index` cache keys stay on the shared files the validators pin; the new files use `20261027-control-volume`.
+
+## Previous: engineering index (7 October 2026)
 
 The user rejected the notebook/purple theme, including its accent treatment. The active design now uses black/white, steel grey and restrained orange. No purple theme tokens remain in the active shared portfolio CSS. The heading, navigation, homepage composition, work entry points, skills layout and project-card treatment are redesigned rather than only recoloured.
 

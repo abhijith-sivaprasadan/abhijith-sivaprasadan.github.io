@@ -40,7 +40,7 @@
       color:var(--muted,#8b949e); margin-bottom:1rem; padding-bottom:0.4rem;
       border-bottom:1px solid var(--border,#30363d);
     }
-    .course-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1rem; }
+    .course-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr)); gap:1rem; }
     .course-card {
       background:var(--surface,#161b22); border:1px solid var(--border,#30363d);
       border-radius:8px; padding:1.25rem; display:flex; flex-direction:column; gap:0.6rem;
@@ -78,7 +78,7 @@
   </style>
   <link rel="stylesheet" href="styles/portfolio.css?v=20261007-engineering-index" />
 </head>
-<body class="signal-rebuild" data-motion-page-transition data-page-key="courses">
+<body class="signal-rebuild" data-cv-label="COURSES · RECORD" data-page-key="courses">
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
@@ -106,7 +106,7 @@
       <div class="container page-shell-grid">
         <div>
           <div class="hero-slab">
-            <p class="eyebrow">Academic record</p>
+            <p class="eyebrow cv-eyebrow">Academic record · /courses</p>
             <h1>Courses</h1>
             <p class="hero-text">
               Formal coursework across two degrees &mdash; M.Sc. Sustainable Energy Engineering at KTH Royal Institute of Technology (2023&ndash;2026) and B.Tech Mechanical Engineering at APJ Abdul Kalam Technological University (2017&ndash;2021). Each course is linked to related portfolio work where applicable. The linked assignments show where I have applied course methods to heat-transfer calculations, energy-system scenarios, optimisation and experimental interpretation—not just studied those subjects. </p>
@@ -168,7 +168,7 @@
                     <span class="course-credits">30 ECTS</span>
                   </div>
                   <h3>Degree Project in Heat and Power Technology</h3>
-                  <p>Independent thesis requiring the student to solve an engineering problem with significant technical content. This thesis (TRITA-ITM-EX 2026:14) was conducted at Siemens Energy Finsp&aring;ng: compressible CFD and conjugate heat transfer analysis of a reducer for the Pulsatorn high-temperature dynamic pressure sensor calibration rig, comparing legacy two-step geometry against a 150&nbsp;mm quintic C&sup2; redesign. Includes mesh independence, Biot number analysis, NI-DAQ commissioning and a formal root cause analysis of heater failure.</p>
+                  <p>Independent thesis requiring the student to solve an engineering problem with significant technical content. This thesis (TRITA-ITM-EX 2026:14) was conducted at Siemens Energy Finsp&aring;ng: compressible CFD and conjugate heat transfer analysis of a reducer for the Pulsatorn high-temperature dynamic pressure sensor calibration rig, comparing legacy two-step geometry against a 150&nbsp;mm quintic C&sup2; redesign. Includes mesh independence, Biot number analysis, NI-DAQ commissioning and documentation of the heater failure and approved scope revision.</p>
                   <div class="course-links">
                     <a href="https://www.kth.se/student/kurser/kurs/MJ232X" target="_blank" rel="noreferrer">KTH course page &rarr;</a>
                     <a href="projects/siemens-thesis.html">Case study &rarr;</a>

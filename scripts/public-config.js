@@ -26,13 +26,46 @@ globalThis.PORTFOLIO_API_BASE_URL = "";
     shell.dataset.unifiedShell = "";
     document.head.appendChild(shell);
   }
-  try {
-    const saved = localStorage.getItem("portfolioTheme");
-    document.documentElement.dataset.theme = saved || "light";
-    if (!saved) localStorage.setItem("portfolioTheme", "light");
-  } catch {
-    document.documentElement.dataset.theme = "light";
+  // Control volume theme and runtime, applied to every legacy endpoint from here.
+  // The site is dark by design; the runtime's cold/hot control replaces the old switch.
+  document.documentElement.dataset.theme = "dark";
+  try { localStorage.setItem("portfolioTheme", "dark"); } catch { /* storage is optional */ }
+  const cvAssets = [];
+  const addStyle = (href, key) => {
+    if (document.querySelector(`link[data-cv="${key}"]`)) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    link.dataset.cv = key;
+    document.head.appendChild(link);
+    cvAssets.push(link);
+  };
+  addStyle("https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=JetBrains+Mono:wght@400..600&display=swap", "fonts");
+  addStyle(new URL("styles/control-volume.css?v=20261027-control-volume", siteRoot).href, "motion");
+  addStyle(new URL("styles/cv-site.css?v=20261027-control-volume", siteRoot).href, "theme");
+  addStyle(new URL("styles/flux-lab.css?v=20261027-control-volume", siteRoot).href, "flux");
+  if (!document.querySelector("script[data-cv-runtime]")) {
+    const runtime = document.createElement("script");
+    runtime.src = new URL("scripts/control-volume.js?v=20261027-control-volume", siteRoot).href;
+    runtime.async = false;
+    runtime.dataset.cvRuntime = "";
+    document.head.appendChild(runtime);
   }
+  if (!document.querySelector("script[data-cv-flux]")) {
+    const flux = document.createElement("script");
+    flux.src = new URL("scripts/flux-lab.js?v=20261027-control-volume", siteRoot).href;
+    flux.async = false;
+    flux.dataset.cvFlux = "";
+    document.head.appendChild(flux);
+  }
+  // Mark the body the moment it exists, so the first paint is already in theme.
+  const markBody = () => { if (!document.body) return false; document.body.classList.add("cv"); return true; };
+  if (!markBody()) {
+    const watcher = new MutationObserver(() => { if (markBody()) watcher.disconnect(); });
+    watcher.observe(document.documentElement, { childList: true });
+  }
+  // Keep the theme sheets last, after any page-specific stylesheet declared later in <head>.
+  document.addEventListener("DOMContentLoaded", () => cvAssets.forEach((link) => document.head.appendChild(link)), { once: true });
 })();
 
 globalThis.PORTFOLIO_AUTH_CONFIG = {
