@@ -11,7 +11,7 @@ const legacyPages = [
   ...htmlIn('experience'),
 ];
 
-assert.equal(legacyPages.length, 53, 'Review the unified-shell inventory when public endpoints change (three new original research studies).');
+assert.equal(legacyPages.length, 57, 'Review the unified-shell inventory when public endpoints change (three original research studies and the report library added in October 2026).');
 for (const file of legacyPages) {
   const html = read(file);
   assert.ok(html.includes('styles/portfolio.css?v=20261007-engineering-index'), `${file}: missing shared portfolio art direction`);

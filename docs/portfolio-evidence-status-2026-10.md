@@ -25,3 +25,14 @@ For any new headline number, link the source run, reference table or thesis figu
 ## Reproduction
 
 The engineering repositories supply installation and example-run commands in their README files. CI smoke-test additions for TES Discharge Screen, OpenSteamOpt and Industrial Energy KPI Toolkit are proposed in separate review PRs; PyNEXUS already runs a synthetic solve and independent verifier in hosted CI. The Siemens thesis is a documented academic/industrial report, not an openly executable code project.
+
+## Addendum — 27 October 2026
+
+- **Open Energy Methods / EnerLint:** public v0.1.0a0 alpha for independent conservation checks. Four analytical cases, deliberate injections, and a compensating compressor error that passes. No PyPI/Zenodo release or independent validation claimed.
+- **ThermoTwin-F:** v2.0.0-beta.1 source-only Zenodo prerelease, DOI 10.5281/zenodo.23679426. Ten release-CI jobs passed; experimental GUI and OPC UA capabilities are not accepted production controls or measured-engine validation.
+- **Kerala2040:** 23 October public research freeze; available SLDC daily history, ERA5 retrospective demand association and bounded screening. Multi-year interval-demand source gaps persist.
+- **TES Discharge Screen:** 26 October computational freeze: original 35/36 verified grid had no ranking reversal; post-hoc 23/24 sweep contains six near-tie choices; no real plant validation.
+- **SynthSift:** 538 AI-assisted screening ledger is distinct from synthetic fixture LLM runner and offline independent-evaluation framework; no real-model/human-reviewed accuracy score.
+- **ResidualPathways:** reporting coverage of 1,202 climate-vetted scenarios with 352 aggregates; physical I3 gross/removal partitions still not verified.
+- **PathwaysHub:** synthetic protocol and checksum-verification scaffold, not real multi-team submissions or human approvals.
+- **Reports:** curated existing hosted PDFs plus source-linked technical working papers and a versioned DOI. The unpublished founder's research bible and private/proprietary materials are not silently published.
