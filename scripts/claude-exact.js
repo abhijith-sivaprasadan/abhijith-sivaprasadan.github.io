@@ -97,22 +97,6 @@ function initEnergy(){
  for(const b of buttons)b.addEventListener('click',()=>activate(b.textContent.trim().toUpperCase(),true));
  activate('BUILDINGS',false);
 }
-function initAccessibility(){
- $$('[data-cv-toy="heat-field"]').forEach(field=>{
-  if(!field.hasAttribute('tabindex'))field.tabIndex=0;
-  field.setAttribute('aria-label','Illustrative temperature field; drag the source with a pointer or use arrow keys.');
-  field.addEventListener('keydown',event=>{
-   if(!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(event.key))return;
-   event.preventDefault();
-   const rect=field.getBoundingClientRect();const dx=event.key==='ArrowRight'?16:event.key==='ArrowLeft'?-16:0;
-   const dy=event.key==='ArrowDown'?16:event.key==='ArrowUp'?-16:0;
-   const center=field.dataset.keyPos?JSON.parse(field.dataset.keyPos):[rect.width/2,rect.height/2];
-   const next=[Math.min(rect.width,Math.max(0,center[0]+dx)),Math.min(rect.height,Math.max(0,center[1]+dy))];field.dataset.keyPos=JSON.stringify(next);
-   field.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,clientX:rect.left+next[0],clientY:rect.top+next[1],pointerId:1}));
-   field.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,clientX:rect.left+next[0],clientY:rect.top+next[1],pointerId:1}));
-  });
- });
-}
-function init(){initCases();initEnergy();initAccessibility();}
+function init(){initCases();initEnergy();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
