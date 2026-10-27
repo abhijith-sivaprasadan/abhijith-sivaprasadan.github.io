@@ -20,7 +20,7 @@ assert.ok(read('scripts/claude-cases.js').includes("fetch('api/projects.json'"),
 assert.ok(read('research.html').includes('data-cv-toy="biot"'),'Research Biot toy missing');
 assert.ok(!read('scripts/control-volume.js').includes("out(root, 'monlabel').setAttribute"),'Overlapping annual diagram regression');
 const story=read('story.html');
-for(const hook of ['data-cv-toy="cycle"','data-out="title"','data-out="text"','data-stages='])
+for(const hook of ['data-cv-toy="cycle"','data-out="title"','data-out="text"','data-stages=','data-cv-lamp="cv-night"','id="cv-night"'])
  assert.ok(story.includes(hook),'Story cycle missing '+hook);
 assert.equal((story.match(/data-out="dot"/g)||[]).length,2,'Both story-cycle markers must move');
 console.log('Claude documents:',pages.length,'pages and',cases.length,'published project cases');
