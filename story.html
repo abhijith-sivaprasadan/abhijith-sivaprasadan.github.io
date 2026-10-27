@@ -131,7 +131,7 @@ body{margin:0;background:#070807}
 <div style="border:1px dashed #2d3a31;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px">
 <div style="font-size:19px;font-weight:560">Kerala folklore</div>
 <div style="font-size:15px;line-height:1.55;color:#a9b3a8">Figures such as Vada Yakshi and Kadamattathu Kathanar, which turn up in my creative work.</div>
-<button type="button" class="lamp" aria-label="Light the lamp: open the night scene"><svg class="gl gl-lamp" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><path class="lf" d="M12 2.5c1.6 2 1.6 3.6 0 5-1.6-1.4-1.6-3 0-5z" fill="#f98e09" stroke="#f98e09"></path><path d="M6 10h12M8 10c0 2.2 1.8 3.5 4 3.5s4-1.3 4-3.5M12 13.5v5M8.5 21.5h7M10 18.5h4"></path></svg>LIGHT THE LAMP</button>
+<button type="button" class="lamp" data-cv-lamp="cv-night" aria-label="Light the lamp: open the night scene"><svg class="gl gl-lamp" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><path class="lf" d="M12 2.5c1.6 2 1.6 3.6 0 5-1.6-1.4-1.6-3 0-5z" fill="#f98e09" stroke="#f98e09"></path><path d="M6 10h12M8 10c0 2.2 1.8 3.5 4 3.5s4-1.3 4-3.5M12 13.5v5M8.5 21.5h7M10 18.5h4"></path></svg>LIGHT THE LAMP</button>
 </div>
 <div style="border:1px dashed #2d3a31;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px">
 <div style="font-size:19px;font-weight:560">Modern Fortran</div>
@@ -148,5 +148,24 @@ body{margin:0;background:#070807}
 </div>
 <script src="scripts/control-volume.js?v=20261027-control-volume" defer></script>
 <script src="scripts/claude-exact.js?v=20261027-v2" defer></script>
+<template id="cv-night">
+<div class="cv-night-overlay" role="dialog" aria-modal="true" aria-labelledby="cv-night-title" tabindex="-1">
+  <div class="cv-night-scene">
+    <div class="m cv-night-kicker">OUTSIDE THE BOUNDARY · KERALA</div>
+    <button type="button" class="cv-night-close" data-cv-close aria-label="Close lamp scene">CLOSE ×</button>
+    <svg class="cv-night-lamp" viewBox="0 0 300 380" role="img" aria-labelledby="cv-night-art">
+      <title id="cv-night-art">A Kerala brass nilavilakku lamp with a glowing flame</title>
+      <defs><radialGradient id="cv-lamp-glow"><stop offset="0" stop-color="#f9bd66" stop-opacity=".65"/><stop offset="1" stop-color="#f98e09" stop-opacity="0"/></radialGradient><linearGradient id="cv-lamp-metal" x1="0" x2="1"><stop stop-color="#765129"/><stop offset=".5" stop-color="#d7b46a"/><stop offset="1" stop-color="#71502f"/></linearGradient></defs>
+      <ellipse cx="150" cy="116" rx="105" ry="105" fill="url(#cv-lamp-glow)" class="cv-night-glow"/>
+      <path d="M150 38 C176 72 164 90 150 104 C132 89 130 71 150 38 Z" fill="#f98e09" class="cv-night-flame"/>
+      <path d="M150 69 C160 86 157 94 150 99 C144 93 141 85 150 69 Z" fill="#fcffa4"/>
+      <path d="M92 129 Q150 148 208 129 L197 149 Q150 164 103 149 Z M146 153 L154 153 L154 295 L146 295 Z M129 293 Q150 280 171 293 L177 304 L123 304 Z M115 304 H185 L196 316 H104 Z M133 123 L167 123 L168 132 H132 Z" fill="url(#cv-lamp-metal)" stroke="#e6c886" stroke-width="1.2"/>
+      <ellipse cx="150" cy="321" rx="84" ry="9" fill="#d7b46a" opacity=".17"/>
+    </svg>
+    <h2 id="cv-night-title">Light the nilavilakku</h2>
+    <p>A small piece of Kollam, beyond the engineering record.</p>
+  </div>
+</div>
+</template>
 </body>
 </html>
