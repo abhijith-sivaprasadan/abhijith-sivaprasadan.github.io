@@ -38,7 +38,7 @@ if (debug) for (const name of debugRoutes) if (pages.includes(name)) tests.push(
 const failures=[], warnings=[], summaries=[];
 const severity = (where, issue, value) => {
   const info = {page:where, issue, detail:value};
-  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL/.test(issue)) failures.push(info);
+  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE/.test(issue)) failures.push(info);
   else warnings.push(info);
 };
 (async () => {
@@ -217,6 +217,22 @@ const severity = (where, issue, value) => {
     });
     if(biot.inputs!==3||!biot.before||biot.before===biot.after)
       severity('research.html@320','BIOT CONTROL',biot);
+    await page.goto(base+'/story.html',{waitUntil:'domcontentloaded'});
+    const story=await page.evaluate(()=>{
+      const root=document.querySelector('[data-cv-toy="cycle"]');
+      const slider=root?.querySelector('input[type="range"]');
+      const title=root?.querySelector('[data-out="title"]');
+      const dot=root?.querySelector('[data-out="dot"]');
+      if(!slider||!title||!dot)return {missing:true};
+      const original=dot.getAttribute('cx');
+      slider.value='200';slider.dispatchEvent(new Event('input',{bubbles:true}));
+      const midTitle=title.textContent,midDot=dot.getAttribute('cx');
+      slider.value='400';slider.dispatchEvent(new Event('input',{bubbles:true}));
+      return {missing:false,original,midTitle,midDot,finalTitle:title.textContent,finalDot:dot.getAttribute('cx')};
+    });
+    if(story.missing||story.midTitle!=='S3 · KTH'||story.midDot===story.original||
+       !story.finalTitle.includes('BACK TO CODE')||story.finalDot!==story.original)
+      severity('story.html@390','STORY CYCLE',story);
     // Dynamic interactions on the actual authored pages, not only DOM presence.
     await page.goto(base+'/energy-systems.html',{waitUntil:'domcontentloaded'});
     const lens=await page.evaluate(()=>{
