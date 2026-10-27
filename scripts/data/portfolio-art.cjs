@@ -1,6 +1,9 @@
 // Concept illustrations for navigation. Documentary photos and result plots
 // remain separate evidence assets inside the authored case studies.
 const projects = {
+  'enerlint': ['EnerLint', 'Independent physical consistency checks', 'thermal', 2],
+  'residual-pathways': ['ResidualPathways', 'Climate-scenario evidence coverage', 'market', 1],
+  'pathways-hub': ['PathwaysHub', 'Scenario release integrity', 'software', 1],
   'kerala2040': ['Kerala2040', 'Power-system resilience', 'grid', 0],
   'tes-discharge-screen': ['TES Discharge Screen', 'Thermal storage / research software', 'storage', 0],
   'opensteamopt': ['OpenSteamOpt', 'Steam, power and optimisation', 'steam', 0],
