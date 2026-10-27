@@ -81,6 +81,9 @@ const O = 'optimisation', D = 'data-software', I = 'industrial-energy', M = 'cad
 // Keys are canonical case-study basenames (or the external project ID).
 // Duplicate imported project records therefore resolve to one evidence item.
 const projectSkills = {
+  'enerlint': [C, E, D, R],
+  'residual-pathways': [E, O, D, R],
+  'pathways-hub': [E, D, R],
   'kerala2040': [E, O, D, R],
   'tes-discharge-screen': [C, E, O, D, I, R],
   'opensteamopt': [E, O, D, I, R],
@@ -193,12 +196,12 @@ const resources = [
 const projectOrder = {
   [C]: ['siemens-thesis', 'tes-discharge-screen', 'non-gray-radiation-modeling', 'thermotwin-f', 'numerical-heat-transfer'],
   [T]: ['siemens-thesis', 'mtes-pcm-thermal-lab', 'battery-cell-discharge-lab', 'rotating-machinery-vibration-minilab'],
-  [E]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'pynexus-green-hydrogen', 'finnish-grid-connection-evidence', 'gridguardpinn', 'gb-flexabm', 'pypsa-nl-grid-flexibility'],
+  [E]: ['enerlint', 'kerala2040', 'residual-pathways', 'pathways-hub', 'tes-discharge-screen', 'opensteamopt', 'pynexus-green-hydrogen', 'finnish-grid-connection-evidence', 'gridguardpinn', 'gb-flexabm', 'pypsa-nl-grid-flexibility'],
   [O]: ['tes-discharge-screen', 'kerala2040', 'opensteamopt', 'district-heating-optimisation', 'gb-flexabm', 'pynexus-green-hydrogen'],
-  [D]: ['kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gridguardpinn', 'finnish-grid-connection-evidence', 'synthsift', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
+  [D]: ['enerlint', 'residual-pathways', 'pathways-hub', 'kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gridguardpinn', 'finnish-grid-connection-evidence', 'synthsift', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
   [I]: ['tes-discharge-screen', 'opensteamopt', 'alleima-energy-efficiency', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator'],
   [M]: ['structural-fea-reactor-internals', 'siemens-thesis', 'robotic-frame-locomotion', 'bicycle-design-competition'],
-  [R]: ['siemens-thesis', 'kerala2040', 'tes-discharge-screen', 'gridguardpinn', 'synthsift', 'finnish-grid-connection-evidence', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
+  [R]: ['siemens-thesis', 'enerlint', 'residual-pathways', 'pathways-hub', 'kerala2040', 'tes-discharge-screen', 'gridguardpinn', 'synthsift', 'finnish-grid-connection-evidence', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
 };
 
 // This public case study predates its inclusion in the JSON project index.
