@@ -183,6 +183,81 @@ const severity = (where, issue, value) => {
         severity('index.html@390','DIALOG ERROR','Flux Lab panel fails Escape');
     } else severity('index.html@390','DIALOG ERROR','Flux Lab entry missing');
     await context.close();
+    // Full motion-on render checks: the reduced-motion pass is not enough to
+    // detect pointer overlays, animated motifs or first-visit obstructions.
+    if (!debug) {
+      const screenRoot=path.join(root,'ui-audit-snapshots');
+      fs.mkdirSync(screenRoot,{recursive:true});
+      const motion=await browser.newContext({viewport:{width:673,height:844},
+        reducedMotion:'no-preference', deviceScaleFactor:1});
+      await motion.route('**/*', route=>{
+        const url=new URL(route.request().url());
+        if (url.hostname==='127.0.0.1'||url.hostname==='localhost') return route.continue();
+        return route.abort();
+      });
+      const visual=await motion.newPage();
+      const visualErrors=[];
+      visual.on('pageerror',err=>visualErrors.push(err.message));
+      const shots=[
+        {name:'index.html',width:320,selector:'[data-cv-toy="year"]',file:'year-320.png'},
+        {name:'index.html',width:673,selector:'[data-cv-toy="year"]',file:'year-673.png'},
+        {name:'index.html',width:1440,selector:'[data-cv-toy="year"]',file:'year-1440.png'},
+        {name:'research.html',width:390,selector:'#biot-toy',file:'research-biot-390.png'},
+        {name:'tracks/research.html',width:320,selector:'.track-hero',file:'research-track-320.png'},
+        {name:'skills/research.html',width:320,selector:'.dossier-hero',file:'research-skill-320.png'},
+        {name:'projects/residual-pathways.html',width:320,selector:'.dossier-hero',file:'residual-320.png'},
+        {name:'for/siemens-feed.html',width:320,selector:'.track-hero',file:'feed-320.png'}
+      ];
+      for(const shot of shots) {
+        visualErrors.length=0;
+        await visual.setViewportSize({width:shot.width,height:844});
+        await visual.goto(base+'/'+shot.name,{waitUntil:'domcontentloaded'});
+        await visual.waitForTimeout(200);
+        const locus=visual.locator(shot.selector).first();
+        if(!(await locus.count())) {
+          severity(shot.name+'@'+shot.width,'PAGE ERROR','Visual sample target missing: '+shot.selector);
+          continue;
+        }
+        await locus.scrollIntoViewIfNeeded();
+        // Allow entry effects to settle, then verify the running layout.
+        await visual.waitForTimeout(220);
+        const bleed=await visual.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+        if(bleed>5)severity(shot.name+'@'+shot.width,'DOCUMENT BLEED','Full motion: '+bleed+'px');
+        if(shot.name==='index.html') {
+          const yearState=await visual.evaluate(()=>{
+            const root=document.querySelector('[data-cv-toy="year"]');
+            const svg=root.querySelector('svg');
+            const rect=svg.getBoundingClientRect();
+            const labels=[...svg.querySelectorAll('text')].filter(e=>getComputedStyle(e).visibility!=='hidden')
+              .map(e=>({text:e.textContent,rect:e.getBoundingClientRect()}));
+            const collisions=[];
+            for(let i=0;i<labels.length;i++)for(let j=i+1;j<labels.length;j++){
+              const a=labels[i].rect,b=labels[j].rect;
+              if(Math.min(a.right,b.right)-Math.max(a.left,b.left)>3 &&
+                 Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)>3)
+                  collisions.push([labels[i].text,labels[j].text]);
+            }
+            return {collisions,svgRight:Math.round(rect.right),vp:innerWidth};
+          });
+          if(yearState.collisions.length)severity(shot.name+'@'+shot.width,'YEAR CONTROL','SVG text collision: '+JSON.stringify(yearState.collisions));
+          // The custom probe must disappear over the year-card's live readout.
+          const rect=await locus.boundingBox();
+          if(rect)await visual.mouse.move(Math.min(shot.width-8,rect.x+rect.width*.48),rect.y+Math.min(80,rect.height/2));
+          await visual.waitForTimeout(100);
+          const probe=await visual.evaluate(()=>{
+            const el=document.querySelector('.probe');
+            if(!el)return {visible:false};
+            return {visible:parseFloat(getComputedStyle(el).opacity)>.05};
+          });
+          if(probe.visible)severity(shot.name+'@'+shot.width,'PROBE CLIPPED','Probe obscures year motif');
+        }
+        try {
+          await locus.screenshot({path:path.join(screenRoot,shot.file),animations:'disabled',timeout:8000});
+        } catch(err){warnings.push({page:shot.name,issue:'Screenshot unavailable',detail:err.message.slice(0,120)});}
+        if(visualErrors.length)severity(shot.name+'@'+shot.width,'PAGE ERROR',visualErrors.slice(0,5));
+      }
+      await motion.close();
+    }
   } finally {await browser.close();}
   const report={timestamp:new Date().toISOString(),pageCount:pages.length,testCount:tests.length,
     failures, warnings: warnings.slice(0,150), summaries};

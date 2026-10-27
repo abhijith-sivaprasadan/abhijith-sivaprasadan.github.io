@@ -29,8 +29,14 @@ jobs:
       - name: Audit all public routes and critical viewports
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules
-          UI_AUDIT_TARGETED: '1'
         run: node scripts/audit-ui.cjs
+      - name: Upload visual screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: control-volume-visual-samples
+          path: ui-audit-snapshots/
+          if-no-files-found: ignore
       - name: Upload audit report
         if: always()
         uses: actions/upload-artifact@v4

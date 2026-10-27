@@ -107,3 +107,7 @@ The Flux Lab expansion is progressive disclosure rather than a new navigation hi
 The STILL option also cancels inherited Control Volume animations and overlays, not merely Flux Lab particles, and the dialog remains functional. Changing from STILL back to FLOW or CHAOS while the lab is open resumes the particle field without re-opening the panel.
 
 The fourth trace completes the loop at `projects.html`, where a private, session-scoped marginal annotation appears only if the visitor has followed all four evidence links. It can open the laboratory, but the normal navigation and project catalogue work unchanged for everyone else. Nothing is registered or transmitted to a server.
+
+## Responsive browser verification
+
+PR UI audit runs headless Chromium over every public HTML route at 390px and 22 representative pages at 320/673/1024/1440px. The check detects horizontal overflow, uncaught runtime exceptions, date-slider/reset regressions and dialog keyboard controls. A second full-motion pass captures annual-cycle and high-risk page samples and checks SVG-label collisions and hover probe occlusion. Images and JSON results are uploaded as GitHub Actions artifacts. Design-preview fixture files under `.claude/` are explicitly excluded; they are not public portfolio endpoints.
