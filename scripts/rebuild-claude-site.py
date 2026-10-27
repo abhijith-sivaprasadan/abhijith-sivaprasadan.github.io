@@ -155,7 +155,7 @@ def correct_facts(s,name):
     # The thesis is a verified KTH-approved numerical study, not a validation of heater operation.
     s=s.replace('formal root cause analysis','documented failure and scope review')
     if name=='Projects':
-        s=s.replace("Redesigned reducer not manufactured or tested. Mesh independence is not validation.","Redesigned reducer not manufactured or tested. Baseline-to-fine changes below 2% indicate mesh sensitivity only; mesh independence is not experimental validation.")
+        s=s.replace("Redesigned reducer not manufactured or tested. Mesh independence is not validation.","Redesigned reducer not manufactured or tested. The baseline-to-fine changes below 2% indicate mesh sensitivity only; mesh independence is not experimental validation.")
         s=s.replace('href="index.html" style="font-size:19px;font-weight:560;line-height:1.3">Siemens Energy thesis','href="projects/siemens-thesis.html" style="font-size:19px;font-weight:560;line-height:1.3">Siemens Energy thesis')
     if name=='Record':
         s=s.replace("Test engineer and master's thesis student","Master's Thesis Researcher — Test Engineering &amp; CFD")
