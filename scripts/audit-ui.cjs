@@ -383,6 +383,20 @@ const severity = (where, issue, value) => {
       severity('projects/enerlint.html@390','CASE PROBE',evidence);
 
 
+    // Native details remain interactive, legible and source-linked in all three compact studies.
+    for(const slug of ['enerlint','residual-pathways','pathways-hub']){
+      await page.goto(base+'/projects/'+slug+'.html',{waitUntil:'domcontentloaded'});
+      const gate=await page.evaluate(()=>{
+        const entries=[...document.querySelectorAll('.cv-audit-ledger details')];
+        const first=entries[0],summary=first?.querySelector('summary');
+        if(summary)summary.click();
+        const a=first?.querySelector('a[href]');
+        return {count:entries.length,expanded:!!first?.open,summary:summary?.textContent.trim()||'',source:a?.href||'',limitations:!!document.querySelector('.scope-note')};
+      });
+      if(gate.count!==4||!gate.expanded||!gate.source||!gate.limitations)
+        severity('projects/'+slug+'.html@390','CASE PROBE',gate);
+    }
+
     await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
     const homeReset=await page.evaluate(()=>{
       const reset=document.querySelector('[data-cv-reset-workbench]');
@@ -460,6 +474,9 @@ const severity = (where, issue, value) => {
         {name:'projects/siemens-thesis.html',width:390,selector:'.cv-case-hero',file:'case-siemens-390.png'},
         {name:'projects/thermotwin-f.html',width:1440,selector:'body',file:'case-thermotwin-1440.png'},
         {name:'projects/enerlint.html',width:390,selector:'.cv-case-walkthrough',file:'case-enerlint-390.png'},
+        {name:'projects/enerlint.html',width:390,selector:'.cv-audit-ledger',file:'case-enerlint-gates-390.png'},
+        {name:'projects/residual-pathways.html',width:390,selector:'.cv-audit-ledger',file:'case-residual-gates-390.png'},
+        {name:'projects/pathways-hub.html',width:1440,selector:'.cv-audit-ledger',file:'case-pathways-gates-1440.png'},
         {name:'projects/synthsift.html',width:390,selector:'body',file:'case-synthsift-390.png'},
         {name:'projects/finnish-grid-connection-evidence.html',width:1440,selector:'.cv-case-walkthrough',file:'case-finnish-1440.png'},
         {name:'for/siemens-feed.html',width:320,selector:'.track-hero',file:'feed-320.png'},
