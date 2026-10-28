@@ -80,7 +80,7 @@
    .then(data=>{
      const seen=new Set();all=(data.projects||[]).filter(p=>p.status==='published'&&isCaseURL(p.caseStudyUrl)&&!seen.has(p.caseStudyUrl)&&seen.add(p.caseStudyUrl));
      all.sort((a,b)=>{
-      const priority=p=>p.caseStudyUrl==='projects/siemens-thesis.html'?-1:(Number(p.order)||999);
+      const priority=p=>p.caseStudyUrl==='projects/siemens-thesis.html'?-1:(p.id==='gridflex-energy-optimizer'?999:(Number(p.order)||999));
       return priority(a)-priority(b)||String(a.title).localeCompare(String(b.title));
     });
      const fragment=document.createDocumentFragment();for(const p of all)fragment.append(display(p));

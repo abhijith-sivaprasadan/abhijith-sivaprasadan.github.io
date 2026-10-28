@@ -1,42 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="OpenSteamOpt: an independent open-source steam-and-power digital twin, carbon-aware Pyomo/HiGHS scheduler, OpenModelica FMU and local Streamlit advisory GUI." />
-  <meta property="og:title" content="OpenSteamOpt — Steam &amp; Power Digital Twin and RTO" />
-  <meta property="og:description" content="Two boilers, HP/MP headers, turbine, PRV and grid exchange connected to a tested open-source optimiser and FMI 2.0 shadow twin. Synthetic educational software, not live control." />
-  <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-opensteamopt.svg" />
-  <meta property="og:url" content="https://abhijith-sivaprasadan.github.io/projects/opensteamopt.html" />
-  <link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/opensteamopt.html" />
-  <title>OpenSteamOpt — Steam &amp; Power Digital Twin and RTO | Abhijith Sivaprasadan</title>
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../styles.css?v=20260901-opensteamopt" />
-  <link rel="stylesheet" href="../styles/v4.css?v=20260901-opensteamopt" />
-  <link rel="stylesheet" href="../styles/opensteamopt.css?v=20260901" />
-  <script src="../scripts/public-config.js?v=20261007-engineering-index"></script>
-  <script src="../scripts/sections/command-palette.js?v=20260901-opensteamopt" defer></script>
-  <link rel="stylesheet" href="../styles/portfolio.css?v=20261007-engineering-index" />
-</head>
-<body class="signal-rebuild" data-page-key="case-study" data-project-slug="opensteamopt" data-paper>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <nav class="nav container" aria-label="Main navigation">
-      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
-      <div class="nav-links"><a href="../index.html#projects">Featured projects</a><a href="../projects.html">Project library</a><a href="../energy-systems.html">Energy systems</a><a href="../index.html#contact">Contact</a></div>
-    </nav>
-  </header>
-  <div class="paper-bar" aria-label="Case-study navigation">
-    <a class="paper-back" href="../index.html#projects">&larr; Featured projects</a>
-    <button class="paper-search" type="button" data-fcmd-open aria-label="Search projects, methods, and pages">Search projects <kbd>Ctrl K</kbd></button>
-  </div>
-  <main id="main" class="paper-doc os-study" tabindex="-1">
+<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>OpenSteamOpt — Steam &amp; Power Digital Twin and RTO | Abhijith Sivaprasadan</title><meta name="description" content="OpenSteamOpt: an independent open-source steam-and-power digital twin, carbon-aware Pyomo/HiGHS scheduler, OpenModelica FMU and local Streamlit advisory GUI." />
+<meta property="og:title" content="OpenSteamOpt — Steam &amp; Power Digital Twin and RTO" />
+<meta property="og:description" content="Two boilers, HP/MP headers, turbine, PRV and grid exchange connected to a tested open-source optimiser and FMI 2.0 shadow twin. Synthetic educational software, not live control." />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/thumb-opensteamopt.svg" />
+<meta property="og:url" content="https://abhijith-sivaprasadan.github.io/projects/opensteamopt.html" /><link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/opensteamopt.html" />
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" /><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="../styles/control-volume.css?v=20261028"><link rel="stylesheet" href="../styles/opensteamopt.css?v=20260901" /><link rel="stylesheet" href="../styles/claude-exact.css?v=20261028"><link rel="stylesheet" href="../styles/cv-case-detail.css?v=20261028"></head>
+<body class="cv cv-case-page" data-design-source="claude-control-volume-v1" data-page-key="case-study" data-project-slug="opensteamopt"><a class="skip-link" href="#main">Skip to case evidence</a><div class="cv-case-top-progress" aria-hidden="true"></div><div class="pg">
+<header><div class="cv-case-top"><a class="cv-case-wordmark" href="../index.html">ABHIJITH SIVAPRASADAN / CONTROL VOLUME</a><nav class="nv" aria-label="Primary"><a href="../index.html">APPLIED</a><a href="../projects.html" aria-current="page">CASES</a><a href="../research.html">RESEARCH</a><a href="../energy-systems.html">ENERGY SYSTEMS</a><a href="../about.html">ABOUT</a></nav></div></header>
+<main id="main" class="cv-case-frame" tabindex="-1"><section class="cv-case-hero"><div class="cv-case-breadcrumb"><a href="../index.html">S1 · APPLIED</a><span>/</span><a href="../projects.html">S3 · CASES</a><span>/</span>ENERGY SYSTEMS</div><div class="cv-case-hero-grid"><div><p class="cv-case-kicker">Independent educational software · Industrial energy · 2026</p><h1 class="cv-case-title">OpenSteamOpt<br />When should steam make power?</h1><p class="cv-case-lede">An inspectable steam-and-power demonstrator that connects boiler commitment, HP/MP steam transfers, turbine generation, grid exchange and carbon cost through one open-source optimisation and simulation contract. It demonstrates a working link between process topology, constraint formulation, independent balance accounting and an inspectable advisory interface. </p><div class="cv-case-tool-line"><span>Python</span><span>Modelica</span><span>Pyomo</span><span>HiGHS</span><span>FMI/FMPy</span><span>Streamlit</span><span>pytest</span></div><div class="cv-case-tools"><a href="../projects.html">BACK TO CASES ↗</a><a href="https://github.com/abhijith-sivaprasadan/opensteamopt" target="_blank" rel="noopener noreferrer">SOURCE &amp; REPRODUCIBILITY ↗</a></div></div><div class="cv-case-glyph cv-case-image"><img src="../assets/illustrations/opensteamopt.svg" alt="Project illustration; not measured evidence" width="260" height="190"><small>PROJECT REFERENCE / OPENSTEAMOPT</small></div></div><div class="cv-case-proof"><article><span class="cv-proof-number">EVIDENCE / 01</span><p>Two non-identical boilers, HP/MP headers, turbine, PRV and grid exchange share one tested plant contract.</p></article><article><span class="cv-proof-number">EVIDENCE / 02</span><p>29 tests, independent objective/balance reconstruction, byte-reproducible reference artifacts and a real 1,441-sample FMU integration check. Synthetic results are not plant-savings claims.</p></article></div></section><div class="cv-case-panel-rail"><aside class="cv-case-toc" aria-label="Case sections"><p class="cv-case-toc-title">READ THE EVIDENCE / ↘</p><div id="cv-case-toc-links"></div></aside><article class="cv-case-record">
     <section class="case-hero">
       <div class="container">
-        <p class="eyebrow">Independent educational software · Industrial energy · 2026</p>
-        <h1>OpenSteamOpt<br />When should steam make power?</h1>
-        <p class="hero-text">An inspectable steam-and-power demonstrator that connects boiler commitment, HP/MP steam transfers, turbine generation, grid exchange and carbon cost through one open-source optimisation and simulation contract. It demonstrates a working link between process topology, constraint formulation, independent balance accounting and an inspectable advisory interface. </p>
+        
+        
+        
         <p class="os-status"><strong>v0.1 · Synthetic and advisory-only.</strong> This is not an ABB product, OPTIMAX clone, commissioned plant twin or operational control system. No plant data, credentials, DCS connection or actuator writes are present.</p>
         <div class="button-row"><a class="button primary" href="https://github.com/abhijith-sivaprasadan/opensteamopt">Source &amp; reproduce</a><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/opensteamopt/blob/main/docs/VERIFICATION.md">Verification record</a><a class="button secondary" href="#gui">See the local GUI</a></div>
         <nav class="os-contents" aria-label="Case-study sections"><a href="#architecture">Architecture</a><a href="#evidence">Evidence</a><a href="#gui">GUI &amp; FMU</a><a href="#limits">Limits &amp; roadmap</a></nav>
@@ -101,8 +77,4 @@ uv run streamlit run app_streamlit.py</pre>
         <p class="os-source-note">Context: ABB publicly describes industrial steam-and-power optimisation in terms of variable demand, boiler/turbine/valve actuators, constraints and market economics. OpenSteamOpt uses that public problem framing only and includes no ABB code, data, parameters or interfaces. Sources: <a href="https://new.abb.com/industrial-software/sustainability/advanced-process-control-for-industrial-steam-automation">ABB steam and power optimisation</a>, <a href="https://www.abb.com/global/en/areas/automation/energy-management/optimax">ABB Ability OPTIMAX</a>, <a href="https://openmodelica.org/">OpenModelica</a> and <a href="https://highs.dev/">HiGHS</a>.</p>
       </div>
     </section>
-  </main>
-  <footer class="footer"><div class="container"><p>Abhijith Sivaprasadan · Independent educational research software</p><a href="../projects.html">Explore all projects</a></div></footer>
-  <script src="../scripts/site.js?v=20260901-opensteamopt"></script>
-</body>
-</html>
+  </article></div><nav class="cv-case-appendix" aria-label="Continue exploring"><a href="../projects.html">← ALL PROJECT CASE STUDIES</a><a href="../research.html">CONTINUE TO THE RESEARCH RECORD ↗</a></nav></main><footer class="cv-case-footer"><span>ABHIJITH SIVAPRASADAN · METHODS, EVIDENCE & THEIR LIMITS</span><a href="../hobbies.html">OUTSIDE THE BOUNDARY · HOBBIES ↗</a></footer></div><script src="../scripts/claude-exact.js?v=20261028" defer></script><script src="../scripts/cv-case-detail.js?v=20261028" defer></script></body></html>

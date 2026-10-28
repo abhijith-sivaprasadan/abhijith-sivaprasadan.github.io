@@ -38,7 +38,7 @@ if (debug) for (const name of debugRoutes) if (pages.includes(name)) tests.push(
 const failures=[], warnings=[], summaries=[];
 const severity = (where, issue, value) => {
   const info = {page:where, issue, detail:value};
-  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE|STORY LAMP|MOBILE CONTROLS/.test(issue)) failures.push(info);
+  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|CASE MEDIA|CASE PROBE|CASE TABS|CASE LINKS|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE|STORY LAMP|MOBILE CONTROLS/.test(issue)) failures.push(info);
   else warnings.push(info);
 };
 (async () => {
@@ -311,6 +311,131 @@ const severity = (where, issue, value) => {
        !caseFilter.offered||caseFilter.expanded!==16){
       severity('projects.html@390','CASE FILTER',caseFilter);
     }
+
+    // Every primary page must expose the destination graph; use actual navigation.
+    await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
+    const discovery=await page.evaluate(()=>{
+      const details=document.querySelector('.cv-discovery'),directory=document.getElementById('cv-site-directory');
+      const targets=['hobbies.html','interests.html','ideas.html','courses.html','projects.html','skills/index.html','reports.html','story.html'];
+      const links=[...document.querySelectorAll('.cv-discovery a,.cv-site-directory a')].map(a=>a.getAttribute('href'));
+      if(details)details.open=true;
+      return {exists:!!details,open:!!details?.open,directory:!!directory,missing:targets.filter(x=>!links.includes(x))};
+    });
+    if(!discovery.exists||!discovery.open||!discovery.directory||discovery.missing.length)
+      severity('index.html@390','CASE LINKS',discovery);
+
+    await page.goto(base+'/projects/thermotwin-f.html',{waitUntil:'domcontentloaded'});
+    const tab=await page.evaluate(()=>{
+      const group=document.querySelector('[data-evidence-tabs]');
+      const buttons=[...(group?.querySelectorAll('[data-evidence-tab]')||[])];
+      const panels=[...document.querySelectorAll('[data-evidence-panel]')];
+      const first=panels.filter(p=>!p.hidden).map(p=>p.dataset.evidencePanel);
+      buttons[2]?.click();
+      const selected=panels.filter(p=>!p.hidden).map(p=>p.dataset.evidencePanel);
+      return {buttons:buttons.length,first,selected,pressed:buttons[2]?.getAttribute('aria-pressed')};
+    });
+    if(tab.buttons<4||tab.selected.length!==1||tab.selected[0]===tab.first[0]||tab.pressed!=='true')
+      severity('projects/thermotwin-f.html@390','CASE TABS',tab);
+
+    await page.goto(base+'/projects/battery-cell-discharge-lab.html',{waitUntil:'domcontentloaded'});
+    const chart=await page.evaluate(()=>{
+      const button=document.querySelector('[data-evidence-tab="results"]');button?.click();
+      const canvas=document.querySelector('canvas[data-evidence-chart]');
+      return {has:!!canvas,drawn:!!canvas&&canvas.width>0&&canvas.height>0&&!!canvas._cvHasData,panel:!!canvas&&!canvas.closest('[hidden]')};
+    });
+    if(!chart.has||!chart.panel||!chart.drawn)severity('projects/battery-cell-discharge-lab.html@390','CASE TABS',chart);
+
+    await page.goto(base+'/projects/siemens-thesis.html',{waitUntil:'domcontentloaded'});
+    const thesis=await page.evaluate(()=>{
+      const btn=document.querySelector('button[data-thesis-media]');
+      btn?.click();
+      const dialog=document.querySelector('dialog.thesis-media-dialog');
+      return {button:!!btn,open:!!dialog?.open,image:dialog?.querySelector('img')?.getAttribute('src')||''};
+    });
+    if(!thesis.button||!thesis.open||!thesis.image)
+      severity('projects/siemens-thesis.html@390','CASE MEDIA',thesis);
+    await page.keyboard.press('Escape');
+
+    await page.goto(base+'/projects/automatic-sanitizer-dispenser.html',{waitUntil:'domcontentloaded'});
+    const photo=await page.evaluate(()=>{
+      const img=document.querySelector('.cv-case-record img.cv-case-photo-control');
+      if(img)img.click();
+      const dialog=document.querySelector('.cv-photo-viewer');
+      const next=dialog?.querySelector('.cv-photo-controls button:last-child');const old=dialog?.querySelector('figcaption')?.textContent||'';
+      next?.click();const newer=dialog?.querySelector('figcaption')?.textContent||'';
+      return {button:!!img,open:!!dialog?.open,changed:old!==newer,src:dialog?.querySelector('img')?.src||''};
+    });
+    if(!photo.button||!photo.open||!photo.changed||!photo.src)
+      severity('projects/automatic-sanitizer-dispenser.html@390','CASE MEDIA',photo);
+    await page.keyboard.press('Escape');
+
+    await page.goto(base+'/projects/enerlint.html',{waitUntil:'domcontentloaded'});
+    const evidence=await page.evaluate(()=>{
+      const btns=[...document.querySelectorAll('.cv-case-walkthrough-options button')];
+      const title=document.querySelector('.cv-case-walkthrough-panel h3');
+      const initial=title?.textContent;
+      btns[2]?.click();
+      const selected=title?.textContent;
+      const related=document.querySelector('.cv-case-connections-list');
+      return {count:btns.length,initial,selected,pressed:btns[2]?.getAttribute('aria-pressed'),related:!!related};
+    });
+    if(evidence.count!==4||evidence.initial===evidence.selected||evidence.pressed!=='true'||!evidence.related)
+      severity('projects/enerlint.html@390','CASE PROBE',evidence);
+
+
+    await page.goto(base+'/projects/synthsift.html',{waitUntil:'domcontentloaded'});
+    const synth=await page.evaluate(()=>{
+      const buttons=[...document.querySelectorAll('.cv-synth-switch button')];
+      const chart=document.querySelector('.cv-synth-chart');
+      const before=chart?.getAttribute('aria-label')||'';
+      buttons[1]?.click();
+      const after=chart?.getAttribute('aria-label')||'';
+      const parts=[...document.querySelectorAll('.cv-synth-legend strong')].map(n=>n.textContent.trim());
+      return {count:buttons.length,before,after,pressed:buttons[1]?.getAttribute('aria-pressed'),parts};
+    });
+    if(synth.count!==2||synth.before===synth.after||synth.pressed!=='true'||synth.parts.length!==3||!synth.after.includes('144')||!synth.before.includes('330'))
+      severity('projects/synthsift.html@390','CASE PROBE',synth);
+
+    // Native details remain interactive, legible and source-linked in all three compact studies.
+    for(const slug of ['enerlint','residual-pathways','pathways-hub']){
+      await page.goto(base+'/projects/'+slug+'.html',{waitUntil:'domcontentloaded'});
+      const gate=await page.evaluate(()=>{
+        const entries=[...document.querySelectorAll('.cv-audit-ledger details')];
+        const first=entries[0],summary=first?.querySelector('summary');
+        if(summary)summary.click();
+        const a=first?.querySelector('a[href]');
+        return {count:entries.length,expanded:!!first?.open,summary:summary?.textContent.trim()||'',source:a?.href||'',limitations:!!document.querySelector('.scope-note')};
+      });
+      if(gate.count!==4||!gate.expanded||!gate.source||!gate.limitations)
+        severity('projects/'+slug+'.html@390','CASE PROBE',gate);
+    }
+
+    await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
+    const homeReset=await page.evaluate(()=>{
+      const reset=document.querySelector('[data-cv-reset-workbench]');
+      const year=document.querySelector('[data-cv-year-day]');
+      const numeral=document.querySelector('[data-cv-ml]');
+      const mesh=document.querySelector('[data-cv-toy="mesh"]');
+      if(!reset||!year||!numeral||!mesh)return {missing:true};
+      const before=document.querySelector('[data-out="day"]')?.textContent||'';
+      numeral.click();
+      const after=document.querySelector('[data-out="day"]')?.textContent||'';
+      numeral.click();
+      const medium=mesh.querySelector('[data-level="2"]');medium?.click();
+      year.value='200';year.dispatchEvent(new Event('input',{bubbles:true}));
+      reset.click();
+      return {missing:false,numeralsChanged:before!==after,medium:medium?.getAttribute('aria-pressed'),coarse:mesh.querySelector('[data-level="1"]')?.getAttribute('aria-pressed'),reset:reset.getAttribute('aria-label'),day:document.querySelector('[data-out="day"]')?.textContent};
+    });
+    if(homeReset.missing||!homeReset.numeralsChanged||homeReset.coarse!=='true'||!homeReset.reset)
+      severity('index.html@390','CASE PROBE',homeReset);
+
+    await page.goto(base+'/hobbies.html',{waitUntil:'domcontentloaded'});
+    const notes=await page.evaluate(()=>{
+      const btn=document.querySelector('button[data-note]');if(!btn)return {missing:true};
+      btn.click();return {missing:false,plucked:btn.classList.contains('plucked')};
+    });
+    if(notes.missing||!notes.plucked)severity('hobbies.html@390','CASE MEDIA',notes);
+
     await context.close();
     // Full motion-on render checks: the reduced-motion pass is not enough to
     // detect pointer overlays, animated motifs or first-visit obstructions.
@@ -357,7 +482,17 @@ const severity = (where, issue, value) => {
         {name:'research.html',width:390,selector:'[data-cv-toy="biot"]',file:'research-biot-390.png'},
         {name:'tracks/research.html',width:320,selector:'.track-hero',file:'research-track-320.png'},
         {name:'skills/research.html',width:320,selector:'.dossier-hero',file:'research-skill-320.png'},
-        {name:'projects/residual-pathways.html',width:320,selector:'.dossier-hero',file:'residual-320.png'},
+        {name:'projects/residual-pathways.html',width:320,selector:'.cv-case-hero',file:'residual-320.png'},
+        {name:'projects/siemens-thesis.html',width:1440,selector:'body',file:'case-siemens-1440.png'},
+        {name:'projects/siemens-thesis.html',width:390,selector:'.cv-case-hero',file:'case-siemens-390.png'},
+        {name:'projects/thermotwin-f.html',width:1440,selector:'body',file:'case-thermotwin-1440.png'},
+        {name:'projects/enerlint.html',width:390,selector:'.cv-case-walkthrough',file:'case-enerlint-390.png'},
+        {name:'projects/enerlint.html',width:390,selector:'.cv-audit-ledger',file:'case-enerlint-gates-390.png'},
+        {name:'projects/residual-pathways.html',width:390,selector:'.cv-audit-ledger',file:'case-residual-gates-390.png'},
+        {name:'projects/pathways-hub.html',width:1440,selector:'.cv-audit-ledger',file:'case-pathways-gates-1440.png'},
+        {name:'projects/synthsift.html',width:390,selector:'body',file:'case-synthsift-390.png'},
+        {name:'projects/synthsift.html',width:390,selector:'.cv-synth-explorer',file:'case-synthsift-evidence-390.png'},
+        {name:'projects/finnish-grid-connection-evidence.html',width:1440,selector:'.cv-case-walkthrough',file:'case-finnish-1440.png'},
         {name:'for/siemens-feed.html',width:320,selector:'.track-hero',file:'feed-320.png'},
         {name:'admin.html',width:320,selector:'#panel-connection',file:'admin-320.png'}
       ];

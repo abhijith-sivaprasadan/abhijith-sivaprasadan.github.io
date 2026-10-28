@@ -130,3 +130,35 @@ body.cv .cv-legacy-anchor{position:absolute;top:0;left:0;width:1px;height:1px;op
 @keyframes cv-lamp-glow{from{opacity:.7}to{opacity:1}}
 @keyframes cv-lamp-flicker{from{transform:rotate(-2deg) scale(.98)}to{transform:rotate(2deg) scale(1.03)}}
 @media(prefers-reduced-motion:reduce){.cv-night-glow,.cv-night-flame{animation:none!important}}
+
+
+/* Discoverability is a structural part of the Control Volume, not a floating overlay. */
+body.cv .cv-discovery{z-index:4;position:relative;background:#0c110e;color:#e3eee4;border-bottom:1px solid #2d3a31;font-family:'JetBrains Mono',ui-monospace,monospace;box-sizing:border-box}
+body.cv .cv-discovery>summary{list-style:none;display:flex;align-items:center;gap:10px;min-height:42px;max-width:1180px;margin:auto;padding:5px 48px;box-sizing:border-box;font-size:11px;letter-spacing:.13em;color:#65d6c9;cursor:pointer}
+body.cv .cv-discovery>summary::-webkit-details-marker{display:none}
+body.cv .cv-discovery>summary:after{content:'+';border:1px solid #43544a;display:inline-flex;justify-content:center;align-items:center;width:22px;height:22px;border-radius:3px;color:#c5d9c8}
+body.cv .cv-discovery[open]>summary:after{content:'−'}
+body.cv .cv-discovery>summary:focus-visible{outline:3px solid #65d6c9;outline-offset:-4px}
+body.cv .cv-discovery-content{max-width:1180px;margin:auto;padding:12px 48px 34px;box-sizing:border-box;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+body.cv .cv-discovery-column{display:flex;flex-direction:column;gap:4px;min-width:0}
+body.cv .cv-discovery-column h2{font:11px 'JetBrains Mono',monospace;letter-spacing:.13em;color:#d7b46a;text-transform:uppercase;border-bottom:1px solid #324136;padding:0 0 14px;margin:12px 0!important}
+body.cv .cv-discovery-column a{color:#b4c5b8;text-decoration:none;min-height:36px;display:flex;align-items:center;padding:3px 8px;font:12px/1.5 'JetBrains Mono',monospace;letter-spacing:0;overflow-wrap:anywhere}
+body.cv .cv-discovery-column a:hover,body.cv .cv-discovery-column a:focus-visible{background:#16291d;color:#65d6c9}
+body.cv .cv-discovery-column a[aria-current='page']{color:#65d6c9}
+body.cv .cv-site-directory{width:min(100%,1180px);padding:65px 48px 110px!important;margin:0 auto;box-sizing:border-box;border-top:1px solid #43544a;background:#070b08;color:#f2f0e7;max-width:1180px}
+body.cv .cv-directory-eyebrow{font:11px 'JetBrains Mono',monospace!important;letter-spacing:.13em;color:#d7b46a!important;margin:0 0 20px}
+body.cv .cv-directory-head{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:end;margin-bottom:36px}
+body.cv .cv-directory-head h2{font:600 clamp(36px,5vw,56px)/1.15 Inter,sans-serif;letter-spacing:-.03em;color:#f2f0e7;margin:0}
+body.cv .cv-directory-head p{font:16px/1.65 Inter,sans-serif;color:#a9b3a8;margin:0}
+body.cv .cv-directory-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+body.cv .cv-directory-column{border:1px solid #293d31;padding:21px;background:#0d130f;min-width:0}
+body.cv .cv-directory-column h3{font:11px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#d7b46a;margin:0 0 13px;padding-bottom:14px;border-bottom:1px solid #2d3a31}
+body.cv .cv-directory-column a{font:13px/1.45 'JetBrains Mono',monospace;display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:45px;border-bottom:1px solid #202e25;padding:8px 0;text-decoration:none;color:#c7d8c9;overflow-wrap:anywhere}
+body.cv .cv-directory-column a span{color:#65d6c9;font-size:18px}
+body.cv .cv-directory-column a:hover,body.cv .cv-directory-column a:focus-visible{color:#65d6c9;background:#16251b}
+@media(max-width:800px){body.cv .cv-discovery-content{grid-template-columns:repeat(2,minmax(0,1fr));padding:12px 22px 30px}body.cv .cv-discovery>summary{padding:6px 22px}body.cv .cv-site-directory{padding:45px 22px 75px!important}body.cv .cv-directory-grid{grid-template-columns:1fr 1fr}body.cv .cv-directory-head{grid-template-columns:1fr}}
+@media(max-width:540px){body.cv .cv-discovery-content,body.cv .cv-directory-grid{grid-template-columns:1fr}body.cv .cv-site-directory{padding:36px 20px 65px!important}}
+
+/* Explicit contextual case references should read as sources, not decoration. */
+body.cv:not(.cv-case-page) .cv-context-link{color:#65d6c9!important;text-decoration:underline!important;text-decoration-color:#51887b!important;text-decoration-thickness:1px!important;text-underline-offset:4px}
+body.cv:not(.cv-case-page) .cv-context-link:hover,body.cv:not(.cv-case-page) .cv-context-link:focus-visible{color:#e5f7e9!important;text-decoration-color:#65d6c9!important}

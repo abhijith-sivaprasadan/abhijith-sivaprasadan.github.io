@@ -100,3 +100,119 @@ function initEnergy(){
 function init(){initCases();initEnergy();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
+
+
+/* Site-wide Control Volume discovery: real links, in normal document flow.
+   Same map on every primary page and all 40 project dossiers. */
+(()=>{
+'use strict';
+const page=document.body;
+if(!page||!page.classList.contains('cv'))return;
+const root=location.pathname.includes('/projects/')?'../':'';
+const url=path=>root+path;
+const groups=[
+ {title:'The engineering work',items:[['Applied to the site','index.html'],['Cases · full project library','projects.html'],['Research','research.html'],['Energy systems','energy-systems.html'],['Industrial R&D','industrial-rd.html'],['Professional record','experience.html']]},
+ {title:'Beyond the boundary',items:[['About','about.html'],['The path · story','story.html'],['Courses','courses.html'],['Ideas','ideas.html'],['Interests','interests.html'],['Hobbies','hobbies.html']]},
+ {title:'Evidence & tools',items:[['Skills & methods','skills/index.html'],['Research tracks','tracks/index.html'],['Reports & PDFs','reports.html'],['Control-volume laboratory','labs/control-volume.html'],['CET 2026','cet2026/'],['Contact card','tap/']]}
+];
+const a=(label,path,cls)=>{const e=document.createElement('a');e.textContent=label;e.href=url(path);if(cls)e.className=cls;return e};
+const header=document.querySelector('.pg>header');
+if(header&&!document.querySelector('.cv-discovery')){
+ const details=document.createElement('details');details.className='cv-discovery';
+ const summary=document.createElement('summary');summary.textContent='EXPLORE THE WHOLE SITE';details.append(summary);
+ const content=document.createElement('div');content.className='cv-discovery-content';
+ groups.forEach(g=>{const column=document.createElement('section');column.className='cv-discovery-column';const heading=document.createElement('h2');heading.textContent=g.title;column.append(heading);g.items.forEach(([name,path])=>column.append(a(name,path)));content.append(column)});
+ details.append(content);
+ header.insertAdjacentElement('afterend',details);
+}
+if(page.dataset.pageKey==='applied'&&!document.getElementById('cv-site-directory')){
+ const main=document.querySelector('.pg main');
+ if(main){
+ const section=document.createElement('section');section.id='cv-site-directory';section.className='cv-site-directory';
+ const kicker=document.createElement('p');kicker.className='cv-directory-eyebrow';kicker.textContent='S8 · DISCOVERY / THE OPEN BOUNDARY';section.append(kicker);
+ const head=document.createElement('div');head.className='cv-directory-head';
+ const title=document.createElement('h2');title.textContent='Keep exploring.';const desc=document.createElement('p');desc.textContent='The case studies are only one part of the control volume. Follow an interest, inspect the methods, or step outside the engineering boundary.';head.append(title,desc);section.append(head);
+ const cols=document.createElement('div');cols.className='cv-directory-grid';
+ for(const group of groups){const col=document.createElement('div');col.className='cv-directory-column';const h=document.createElement('h3');h.textContent=group.title;col.append(h);
+  for(const [label,path] of group.items){const link=a(label,path);const arrow=document.createElement('span');arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');link.append(arrow);col.append(link)}cols.append(col)}
+ section.append(cols);main.append(section);
+ }
+}
+const here=location.pathname.replace(/\/index\.html$/,'/').split('/').filter(Boolean).pop()||'index.html';
+document.querySelectorAll('.cv-discovery a,.cv-site-directory a').forEach(link=>{
+ if(link.getAttribute('href').split('/').pop()===here)link.setAttribute('aria-current','page')
+});
+})();
+
+
+/* Reconnect contextual references on the original Claude pages to the real evidence.
+   Target explicit proper names and project titles; never auto-link ordinary science text. */
+(()=>{
+'use strict';
+if(!document.body?.classList.contains('cv')||document.body.classList.contains('cv-case-page'))return;
+const refs=[
+ ['Siemens Energy thesis','projects/siemens-thesis.html'],
+ ['Siemens thesis','projects/siemens-thesis.html'],
+ ['Kerala2040','projects/kerala2040.html'],
+ ['ThermoTwin-F','projects/thermotwin-f.html'],
+ ['GridGuardPINN','projects/gridguardpinn.html'],
+ ['SynthSift','projects/synthsift.html'],
+ ['EnerLint','projects/enerlint.html'],
+ ['ResidualPathways','projects/residual-pathways.html'],
+ ['PathwaysHub','projects/pathways-hub.html'],
+ ['OpenSteamOpt','projects/opensteamopt.html'],
+ ['GB-FLEXABM','projects/gb-flexabm.html'],
+ ['Industrial energy KPI toolkit','projects/industrial-energy-kpi-toolkit.html'],
+ ['Industrial energy performance mapping','projects/alleima-energy-efficiency.html'],
+ ['District heating dispatch optimisation','projects/district-heating-optimisation.html'],
+ ['Heating demand forecasting','projects/heating-demand-forecasting.html'],
+ ['Distribution grid study','projects/distribution-grid-study.html'],
+ ['Structural FEA','projects/structural-fea-reactor-internals.html'],
+ ['Battery cell discharge','projects/battery-cell-discharge-lab.html'],
+ ['Research engagement, pyrolysis','experience/kth-pyrolysis.html'],
+ ['Energy efficiency intern','experience/alleima.html'],
+ ['Backend engineer','experience/qburst.html'],
+ ["Master's thesis researcher",'experience/siemens-energy.html'],
+];
+function linkMentions(){
+ const main=document.querySelector('.pg main');if(!main)return;
+ const used=new Set();
+ for(const box of main.querySelectorAll('h2,h3,p,li')){
+  if(box.closest('a,button,[data-cv-toy],svg,[aria-live],.cv-site-directory'))continue;
+  const walker=document.createTreeWalker(box,NodeFilter.SHOW_TEXT);
+  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  for(const node of nodes){
+   if(!node.isConnected||node.parentElement?.closest('a,button,code,pre,svg'))continue;
+   const text=node.nodeValue||'';
+   const pick=refs.find(([label])=>!used.has(label)&&text.toLowerCase().includes(label.toLowerCase()));
+   if(!pick)continue;
+   const [label,target]=pick;const pos=text.toLowerCase().indexOf(label.toLowerCase());
+   const element=document.createElement('a');element.className='cv-context-link';element.href=target;
+   element.title='Open published evidence: '+label;element.textContent=text.slice(pos,pos+label.length);
+   const frag=document.createDocumentFragment();
+   frag.append(document.createTextNode(text.slice(0,pos)),element,document.createTextNode(text.slice(pos+label.length)));
+   node.replaceWith(frag);used.add(label);
+  }
+ }
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',linkMentions,{once:true});else linkMentions();
+})();
+
+
+/* Real experiment reset. Re-centre the authored heat source, return mesh to L1,
+   and restore the date to today; never imply a numerical solver has rerun. */
+(()=>{
+ const init=()=>{
+  const reset=document.querySelector('[data-cv-reset-workbench]');
+  if(!reset)return;
+  reset.addEventListener('click',()=>{
+   document.querySelector('[data-cv-toy="heat-field"]')?.dispatchEvent(new Event('cv-reset-field'));
+   document.querySelector('[data-cv-toy="mesh"] [data-level="1"]')?.click();
+   document.querySelector('[data-cv-year-reset]')?.click();
+   const field=document.querySelector('[data-cv-toy="heat-field"]');
+   if(field){field.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'center'});field.focus({preventScroll:true})}
+   reset.setAttribute('aria-label','Workbench reset. Heat source centred, coarse mesh, today restored.');
+  });
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
