@@ -109,7 +109,7 @@ const severity = (where, issue, value) => {
           })()};
       });
       const where=test.name+'@'+test.width;
-      if(data.caseWidth&&(data.caseWidth.ratio<.86||data.caseWidth.snapshot<data.caseWidth.record*.86 ||
+      if(data.caseWidth&&(data.caseWidth.ratio<.86||(data.caseWidth.snapshot!==null&&data.caseWidth.snapshot<data.caseWidth.record*.86) ||
         (test.width>=1024&&data.caseWidth.figureColumns===1)))
         severity(where,'CASE WIDTH',data.caseWidth);
 
