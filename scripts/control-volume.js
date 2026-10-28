@@ -339,6 +339,7 @@
       paint();
     });
     root.tabIndex = 0;
+    root.addEventListener('cv-reset-field',function(){fx=Math.min(300,Math.max(16,root.clientWidth*.5));fy=Math.min(180,Math.max(16,root.clientHeight*.5));px=-1;py=-1;drag=false;paint();});
     root.setAttribute('aria-keyshortcuts', 'ArrowUp ArrowDown ArrowLeft ArrowRight');
     root.setAttribute('aria-description', 'Arrow keys move the illustrated heat source. Hold Shift for larger steps.');
     root.addEventListener('keydown', function (e) {
