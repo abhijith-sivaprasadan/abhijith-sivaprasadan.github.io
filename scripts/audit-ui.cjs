@@ -38,7 +38,7 @@ if (debug) for (const name of debugRoutes) if (pages.includes(name)) tests.push(
 const failures=[], warnings=[], summaries=[];
 const severity = (where, issue, value) => {
   const info = {page:where, issue, detail:value};
-  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE|STORY LAMP|MOBILE CONTROLS/.test(issue)) failures.push(info);
+  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|CASE MEDIA|CASE PROBE|CASE TABS|CASE LINKS|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE|STORY LAMP|MOBILE CONTROLS/.test(issue)) failures.push(info);
   else warnings.push(info);
 };
 (async () => {
@@ -311,6 +311,77 @@ const severity = (where, issue, value) => {
        !caseFilter.offered||caseFilter.expanded!==16){
       severity('projects.html@390','CASE FILTER',caseFilter);
     }
+
+    // Every primary page must expose the destination graph; use actual navigation.
+    await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
+    const discovery=await page.evaluate(()=>{
+      const details=document.querySelector('.cv-discovery'),directory=document.getElementById('cv-site-directory');
+      const targets=['hobbies.html','interests.html','ideas.html','courses.html','projects.html','skills/index.html','reports.html','story.html'];
+      const links=[...document.querySelectorAll('.cv-discovery a,.cv-site-directory a')].map(a=>a.getAttribute('href'));
+      if(details)details.open=true;
+      return {exists:!!details,open:!!details?.open,directory:!!directory,missing:targets.filter(x=>!links.includes(x))};
+    });
+    if(!discovery.exists||!discovery.open||!discovery.directory||discovery.missing.length)
+      severity('index.html@390','CASE LINKS',discovery);
+
+    await page.goto(base+'/projects/thermotwin-f.html',{waitUntil:'domcontentloaded'});
+    const tab=await page.evaluate(()=>{
+      const group=document.querySelector('[data-evidence-tabs]');
+      const buttons=[...(group?.querySelectorAll('[data-evidence-tab]')||[])];
+      const panels=[...document.querySelectorAll('[data-evidence-panel]')];
+      const first=panels.filter(p=>!p.hidden).map(p=>p.dataset.evidencePanel);
+      buttons[2]?.click();
+      const selected=panels.filter(p=>!p.hidden).map(p=>p.dataset.evidencePanel);
+      return {buttons:buttons.length,first,selected,pressed:buttons[2]?.getAttribute('aria-pressed')};
+    });
+    if(tab.buttons<4||tab.selected.length!==1||tab.selected[0]===tab.first[0]||tab.pressed!=='true')
+      severity('projects/thermotwin-f.html@390','CASE TABS',tab);
+
+    await page.goto(base+'/projects/battery-cell-discharge-lab.html',{waitUntil:'domcontentloaded'});
+    const chart=await page.evaluate(()=>{
+      const button=document.querySelector('[data-evidence-tab="results"]');button?.click();
+      const canvas=document.querySelector('canvas[data-evidence-chart]');
+      return {has:!!canvas,drawn:!!canvas&&canvas.width>0&&canvas.height>0&&!!canvas._cvHasData,panel:!!canvas&&!canvas.closest('[hidden]')};
+    });
+    if(!chart.has||!chart.panel||!chart.drawn)severity('projects/battery-cell-discharge-lab.html@390','CASE TABS',chart);
+
+    await page.goto(base+'/projects/siemens-thesis.html',{waitUntil:'domcontentloaded'});
+    const thesis=await page.evaluate(()=>{
+      const btn=document.querySelector('button[data-thesis-media]');
+      btn?.click();
+      const dialog=document.querySelector('dialog.thesis-media-dialog');
+      return {button:!!btn,open:!!dialog?.open,image:dialog?.querySelector('img')?.getAttribute('src')||''};
+    });
+    if(!thesis.button||!thesis.open||!thesis.image)
+      severity('projects/siemens-thesis.html@390','CASE MEDIA',thesis);
+    await page.keyboard.press('Escape');
+
+    await page.goto(base+'/projects/automatic-sanitizer-dispenser.html',{waitUntil:'domcontentloaded'});
+    const photo=await page.evaluate(()=>{
+      const img=document.querySelector('.cv-case-record img.cv-case-photo-control');
+      if(img)img.click();
+      const dialog=document.querySelector('.cv-photo-viewer');
+      const next=dialog?.querySelector('.cv-photo-controls button:last-child');const old=dialog?.querySelector('figcaption')?.textContent||'';
+      next?.click();const newer=dialog?.querySelector('figcaption')?.textContent||'';
+      return {button:!!img,open:!!dialog?.open,changed:old!==newer,src:dialog?.querySelector('img')?.src||''};
+    });
+    if(!photo.button||!photo.open||!photo.changed||!photo.src)
+      severity('projects/automatic-sanitizer-dispenser.html@390','CASE MEDIA',photo);
+    await page.keyboard.press('Escape');
+
+    await page.goto(base+'/projects/enerlint.html',{waitUntil:'domcontentloaded'});
+    const evidence=await page.evaluate(()=>{
+      const btns=[...document.querySelectorAll('.cv-case-walkthrough-options button')];
+      const title=document.querySelector('.cv-case-walkthrough-panel h3');
+      const initial=title?.textContent;
+      btns[2]?.click();
+      const selected=title?.textContent;
+      const related=document.querySelector('.cv-case-connections-list');
+      return {count:btns.length,initial,selected,pressed:btns[2]?.getAttribute('aria-pressed'),related:!!related};
+    });
+    if(evidence.count!==4||evidence.initial===evidence.selected||evidence.pressed!=='true'||!evidence.related)
+      severity('projects/enerlint.html@390','CASE PROBE',evidence);
+
     await context.close();
     // Full motion-on render checks: the reduced-motion pass is not enough to
     // detect pointer overlays, animated motifs or first-visit obstructions.
