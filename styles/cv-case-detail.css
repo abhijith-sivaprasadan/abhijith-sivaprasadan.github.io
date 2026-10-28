@@ -180,3 +180,26 @@ body.cv-case-page .cv-case-walkthrough-panel .cv-case-walkthrough-limit{font:12p
 body.cv-case-page .cv-case-walkthrough-note{font:11px/1.6 'JetBrains Mono',monospace;color:#93a698;margin:14px 0 0}
 @media(max-width:780px){body.cv-case-page .cv-case-walkthrough-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:500px){body.cv-case-page .cv-case-walkthrough-options{grid-template-columns:1fr 1fr}body.cv-case-page .cv-case-walkthrough-options button{font-size:10px}body.cv-case-page .cv-case-walkthrough-panel{padding:20px}}
+
+/* Inspectable verification ledgers: native accessible disclosure, no dead motifs. */
+body.cv-case-page .cv-case-record .cv-authored-depth{margin-top:12px!important}
+body.cv-case-page .cv-case-record .cv-authored-depth h2{max-width:800px}
+body.cv-case-page .cv-audit-ledger{display:grid;gap:8px;margin:25px 0 4px}
+body.cv-case-page .cv-audit-ledger details{border:1px solid #304638;border-radius:6px;background:#0b140e;overflow:hidden}
+body.cv-case-page .cv-audit-ledger details[open]{border-color:#4d8066;background:#0c1811}
+body.cv-case-page .cv-audit-ledger summary{display:flex;align-items:center;gap:17px;min-height:63px;padding:12px 18px;cursor:pointer;color:#e8f2ea;font:600 15px/1.5 Inter,system-ui,sans-serif;list-style:none}
+body.cv-case-page .cv-audit-ledger summary::-webkit-details-marker{display:none}
+body.cv-case-page .cv-audit-ledger summary:focus-visible{outline:3px solid #65d6c9;outline-offset:-4px}
+body.cv-case-page .cv-audit-ledger summary>span:first-child{font:10px/1.55 'JetBrains Mono',monospace;letter-spacing:.09em;color:#65d6c9;flex:0 0 158px}
+body.cv-case-page .cv-audit-ledger summary .cv-ledger-open{margin-left:auto;font:22px/1 'JetBrains Mono',monospace;color:#65d6c9}
+body.cv-case-page .cv-audit-ledger details[open] summary .cv-ledger-open{transform:rotate(45deg)}
+body.cv-case-page .cv-audit-ledger details>div{padding:17px 24px 20px 193px;border-top:1px solid #304638}
+body.cv-case-page .cv-audit-ledger details>div p{max-width:760px;line-height:1.72;font-size:14px}
+body.cv-case-page .cv-audit-ledger details>div p:last-child{margin:0}
+body.cv-case-page .cv-audit-ledger a{color:#65d6c9;text-underline-offset:4px}
+@media(max-width:650px){
+ body.cv-case-page .cv-audit-ledger summary{display:grid;grid-template-columns:minmax(0,1fr) 24px;gap:6px 14px;font-size:14px}
+ body.cv-case-page .cv-audit-ledger summary>span:first-child{grid-column:1 / 2;flex:initial}
+ body.cv-case-page .cv-audit-ledger summary .cv-ledger-open{grid-column:2;grid-row:1 / 3;align-self:center}
+ body.cv-case-page .cv-audit-ledger details>div{padding:17px 17px 22px}
+}
