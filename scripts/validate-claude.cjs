@@ -23,4 +23,20 @@ const story=read('story.html');
 for(const hook of ['data-cv-toy="cycle"','data-out="title"','data-out="text"','data-stages=','data-cv-lamp="cv-night"','id="cv-night"'])
  assert.ok(story.includes(hook),'Story cycle missing '+hook);
 assert.equal((story.match(/data-out="dot"/g)||[]).length,2,'Both story-cycle markers must move');
+
+const projectFiles=fs.readdirSync(path.join(root,'projects')).filter(x=>x.endsWith('.html'));
+assert.equal(projectFiles.length,40,'Project case count changed: review content changes');
+for(const name of projectFiles){
+ const page=read('projects/'+name);
+ for(const token of ['class="cv cv-case-page"','data-design-source="claude-control-volume-v1"','class="cv-case-hero"','class="cv-case-record"','cv-case-detail.js','href="../hobbies.html"'])
+  assert.ok(page.includes(token),'Unconverted project: '+name+' / '+token);
+ assert.ok(!page.includes('../styles/v4.css')&&!page.includes('../styles/portfolio.css')&&!page.includes('../styles/academic.css'),'Legacy site CSS still loaded: '+name);
+ assert.match(page,/<h1 class="cv-case-title">[\\s\\S]+?<\\/h1>/,'Missing distinct case heading: '+name);
+}
+const discovery=read('scripts/claude-exact.js');
+for(const dest of ['hobbies.html','interests.html','ideas.html','courses.html','skills/index.html','reports.html','story.html','tracks/index.html'])
+ assert.ok(discovery.includes(dest),'Missing reachable endpoint: '+dest);
+assert.ok(discovery.includes('EXPLORE THE WHOLE SITE'),'Navigation drawer missing');
+console.log('Control Volume: all '+projectFiles.length+' case-study pages migrated and navigation endpoints linked.');
+
 console.log('Claude documents:',pages.length,'pages and',cases.length,'published project cases');
