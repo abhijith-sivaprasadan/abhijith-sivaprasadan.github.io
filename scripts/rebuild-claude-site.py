@@ -29,9 +29,9 @@ filelinks.update({'#':'#'})
 
 # Every design snapshot is a complete document with its own header, page hierarchy and footer.
 # Never insert those documents into the older site shell.
-CSS='<link rel="stylesheet" href="styles/claude-exact.css?v=20261027-v2">'
-JS='<script src="scripts/claude-exact.js?v=20261027-v2" defer></script>'
-CV_SCRIPT='<script src="scripts/control-volume.js?v=20261027-control-volume" defer></script>'
+CSS='<link rel="stylesheet" href="styles/claude-exact.css?v=20261028-projects">'
+JS='<script src="scripts/claude-exact.js?v=20261028-projects" defer></script>'
+CV_SCRIPT='<script src="scripts/control-volume.js?v=20261028-controls" defer></script>'
 
 project_links={
  'Siemens Energy thesis':'projects/siemens-thesis.html',
@@ -172,7 +172,7 @@ def correct_facts(s,name):
 
 def process(s,name):
     s=s.replace('../core/control-volume.css','styles/control-volume.css?v=20261027-control-volume')
-    s=s.replace('../core/control-volume.js','scripts/control-volume.js?v=20261027-control-volume')
+    s=s.replace('../core/control-volume.js','scripts/control-volume.js?v=20261028-controls')
     s=s.replace('data-cv-focused','')
     s=s.replace('<body class="cv"',f'<body class="cv" data-design-source="claude-control-volume-v1" data-page-key="{name.lower()}"')
     s=hrefs(s)
@@ -198,7 +198,7 @@ def process(s,name):
             s=s[:end]+'\n<div id="cv-case-list" aria-live="polite" class="cv-source-driven-library"></div>'+s[end:]
         s=s.replace('8 OF 8 CASES · RESIDUAL 4/8 STATED','<span data-cv-case-count>LOADING SOURCE-LINKED CASES · …</span>')
         s=re.sub(r'(<button)( type="button"[^>]*>)(All|CFD / CHT|STRUCTURAL|ENERGY MANAGEMENT|ENERGY SYSTEMS|GRID|SOFTWARE)(</button>)',lambda m:m.group(1)+' data-cv-filter="'+m.group(3)+'"'+m.group(2)+m.group(3)+m.group(4),s,flags=re.I)
-        s=s.replace('</body>','<script src="scripts/claude-cases.js?v=20261027-v2" defer></script>\n</body>',1)
+        s=s.replace('</body>','<script src="scripts/claude-cases.js?v=20261028-projects" defer></script>\n</body>',1)
     if name=='Applied':
         aliases = {'system':['about'],'lenses':['skills','learning'],'cases':['projects'],'record':['experience','education'],'evidence':['resources'],'open-boundary':['contact','scope']}
         for section,names in aliases.items():
