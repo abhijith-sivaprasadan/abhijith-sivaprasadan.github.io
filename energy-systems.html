@@ -1,332 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Energy Systems Modelling track for Abhijith Sivaprasadan: IDA ICE, HOMER Pro, SAM, LEAP, district heating MILP, forecasting, distribution-grid studies and exploratory PyPSA work." />
-  <meta property="og:title" content="Energy Systems Modelling | Abhijith Sivaprasadan" />
-  <meta property="og:description" content="Evidence track for energy modelling, performance engineering and industrial R&D: building simulation, techno-economics, scenario modelling, optimisation, forecasting and grid studies." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png" />
-  <title>Energy Systems Modelling | Abhijith Sivaprasadan</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" /><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="styles.css?v=20260830-open-source" />
-  <link rel="stylesheet" href="styles/motion.css?v=20260830-open-source" />
-  <link rel="stylesheet" href="styles/v4.css?v=20260830-open-source" />
-  <script src="scripts/public-config.js?v=20261007-engineering-index"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" async></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js" async></script>
-  <script type="module" src="scripts/motion/index.js?v=20260830-open-source"></script>
-  <script src="scripts/motion/sw-register.js?v=20260830-open-source" defer></script>
-  <script src="scripts/sections/command-palette.js?v=20260830-open-source" defer></script>
-  <script defer data-domain="abhijith-sivaprasadan.github.io" src="https://plausible.io/js/script.js"></script>
-  <link rel="stylesheet" href="styles/portfolio.css?v=20261007-engineering-index" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energy systems · Abhijith Sivaprasadan · Control Volume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#070807}
+a{color:inherit;text-decoration:none}
+.m{font-family:'JetBrains Mono',ui-monospace,monospace}
+.eb{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d7b46a}
+.nv{display:flex;gap:2px 22px;flex-wrap:wrap;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em}
+.nv a{color:#a9b3a8;padding:10px 0}
+.nv a:hover{color:#f2f0e7}
+.cd{border:1px solid #2d3a31;border-radius:14px;background:#0d110e;padding:28px}
+.rs{background-color:rgba(215,180,106,.04);background-image:repeating-linear-gradient(135deg,rgba(215,180,106,.14) 0 1px,transparent 1px 8px)}
+.mu{color:#a9b3a8}
+.swap0{animation:sw0 .6s cubic-bezier(.22,1,.36,1)}
+.swap1{animation:sw1 .6s cubic-bezier(.22,1,.36,1)}
+@keyframes sw0{from{opacity:.2;transform:translateX(-14px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes sw1{from{opacity:.2;transform:translateX(-14px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+</style>
+<link rel="stylesheet" href="styles/control-volume.css?v=20261027-control-volume">
+<style>
+/* the canvas wraps each page in .pg; give it the header rules the runtime scopes to body children */
+.pg>header{position:relative;overflow:hidden}
+</style>
+<link rel="stylesheet" href="styles/claude-exact.css?v=20261027-v2">
 </head>
-<body class="signal-rebuild" data-cv-label="ENERGY · SYSTEMS" data-page-key="energy-systems">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <div class="scroll-progress" aria-hidden="true"></div>
-  <header class="site-header">
-    <nav class="nav container">
-      <a href="index.html" class="logo">Abhijith Sivaprasadan</a>
-      <div class="nav-links">
-        <a href="research.html">Research</a>
-        <a href="energy-systems.html" aria-current="page">Energy Systems</a>
-        <a href="industrial-rd.html">Industrial R&amp;D</a>
-        <a href="projects.html">Projects</a>
-        <a href="experience.html">Experience</a>
-        <a href="about.html">About</a>
-        <a href="index.html#cv">CVs</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <button class="fcmd-trigger" type="button" data-fcmd-open aria-label="Search projects, methods, and pages"><span>Search</span><kbd>⌘K</kbd></button>
-    </nav>
-  </header>
+<body class="cv" data-design-source="claude-control-volume-v1" data-page-key="energy" data-cv-label="ENERGY SYSTEMS" >
+<div class="pg"  style="background:#070807;color:#f2f0e7;font-family:Inter,system-ui,sans-serif;min-height:2100px;display:flex;flex-direction:column">
 
-  <main id="main" tabindex="-1">
-    <section class="page-shell research-shell">
-      <div class="container page-shell-grid">
-        <div>
-          <div class="hero-slab">
-            <p class="eyebrow cv-eyebrow">Energy systems modelling · /energy-systems</p>
-            <h1>Models that turn heat, power and demand data into engineering decisions.</h1>
-            <p class="hero-text">
-              This track now leads with two open research programmes: Kerala2040, a diagnosis-first study of power-system resilience using audited electricity history, ERA5-sensitive chronology, hydropower and network screening; and TES Discharge Screen, which connects dynamic thermal-storage physics to annual optimisation. Earlier building, district-energy, forecasting, hydrogen and grid studies remain as supporting evidence. I build scenarios around explicit system constraints and use balance, feasibility and sensitivity checks to establish what the results actually say about technology and dispatch choices. </p>
-            <div class="button-row">
-              <a class="button primary" href="https://kerala2040.github.io/">Open Kerala2040</a>
-              <a class="button secondary" href="projects/tes-discharge-screen.html">Thermal-storage research</a>
-              <a class="button secondary" href="projects/opensteamopt.html">Industrial steam/power optimisation</a>
-              <a class="button secondary" href="downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf" download>Download Modelling CV</a>
-            </div>
-            <div class="track-hero-metrics" aria-label="Energy systems modelling coverage">
-              <span><strong>System scale</strong>Components, plants, networks and whole power systems</span>
-              <span><strong>Open stack</strong>PyPSA, OSeMOSYS, Pyomo/HiGHS, ERA5, Modelica/FMI</span>
-              <span><strong>Evidence discipline</strong>Observed, derived, screening and hypothesis kept separate</span>
-            </div>
-          </div>
+<header style="border-bottom:1px solid #2d3a31;background:#0a0d0b"><div style="max-width:1180px;margin:0 auto;padding:16px 48px;display:flex;justify-content:space-between;align-items:center;gap:8px 32px;flex-wrap:wrap;box-sizing:border-box">
+<a href="index.html" class="m" style="font-size:13px;letter-spacing:.14em">ABHIJITH SIVAPRASADAN</a>
+<nav class="nv"><a href="index.html">SYSTEM</a><a href="projects.html">CASES</a><a href="research.html">RESEARCH</a><a href="energy-systems.html" style="color:#9bd69f">ENERGY</a><a href="industrial-rd.html">INDUSTRIAL R&amp;D</a><a href="experience.html">RECORD</a><a href="about.html">ABOUT</a></nav>
+</div></header>
 
-          <section class="cd cv-scale" aria-labelledby="scale-heading">
-            <p class="eyebrow cv-eyebrow emo"><svg class="gl gl-nest" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="2" stroke-dasharray="3 2"/><rect class="n2" x="6" y="6" width="12" height="12" rx="1.5"/><rect class="n3" x="10" y="10" width="4" height="4"/></svg><span>Same balance, four boundary sizes</span></p>
-            <h2 id="scale-heading">The control volume grows; the bookkeeping does not change</h2>
-            <ol class="cv-scale-row" aria-label="Modelling scales from component to whole power system">
-              <li data-probe="∂Ω · COMPONENT · CFD/CHT"><span class="cv-scale-box s1" aria-hidden="true"></span><span class="cv-label a">Component</span><span>Thermal storage bed, reducer, heat exchanger</span></li>
-              <li data-probe="∂Ω · PLANT · STEAM + HEAT"><span class="cv-scale-box s2" aria-hidden="true"></span><span class="cv-label">Plant</span><span>Steam and power systems, heat-source dispatch</span></li>
-              <li data-probe="∂Ω · NETWORK · IEEE-14 · FINGRID"><span class="cv-scale-box s3" aria-hidden="true"></span><span class="cv-label g">Network</span><span>Distribution grids, connection screening, dynamic surrogates</span></li>
-              <li data-probe="∂Ω · WHOLE SYSTEM · KERALA2040"><span class="cv-scale-box s4" aria-hidden="true"></span><span class="cv-label b">Whole system</span><span>Power-system resilience, demand, hydropower, transfers</span></li>
-            </ol>
-            <div class="cv-evclass" aria-label="Evidence classes kept separate on this track">
-              <span class="cv-label">Evidence classes, never mixed ·</span>
-              <span class="cv-pill g">Observed</span><span class="cv-pill">Derived</span><span class="cv-pill a">Screening</span><span class="cv-pill b">Hypothesis</span>
-            </div>
-          </section>
+<main style="flex:1;max-width:1180px;width:100%;margin:0 auto;padding:80px 48px 112px;box-sizing:border-box;display:flex;flex-direction:column;gap:80px">
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Current open research</p>
-              <h2>Two projects now define this track.</h2>
-            </div>
-            <div class="evidence-route-grid">
-              <a class="evidence-route-card" href="https://kerala2040.github.io/"><h3>Kerala2040</h3><p>Power-system stress, weather-sensitive demand, hydropower timing, interstate-transfer sensitivity, public-network bottlenecks and ecological feasibility.</p></a>
-              <a class="evidence-route-card" href="projects/tes-discharge-screen.html"><h3>TES Discharge Screen</h3><p>Dynamic packed-bed discharge physics, Modelica/FMU verification and annual optimisation for industrial process-heat storage.</p></a>
-            </div>
-          </section>
+<section style="display:flex;flex-direction:column;gap:22px;max-width:900px">
+<div class="emo" style="display:flex;align-items:center;gap:14px;color:#9bd69f"><svg class="gl gl-wave" viewBox="0 0 24 24" aria-hidden="true"><path class="wv" d="M1 12c2.5-5 5-5 7.5 0s5 5 7.5 0 5-5 7 0"></path><path d="M1 20h22" opacity=".4"></path></svg><div class="eb">Energy systems lens · /energy-systems</div></div>
+<h1 style="margin:0;font-size:56px;line-height:1.06;font-weight:600;letter-spacing:-.025em;text-wrap:balance">Models that turn heat, power and demand data into engineering decisions.</h1>
+<p style="margin:0;font-size:19px;line-height:1.6;color:#c9cfc6;text-wrap:pretty">The strongest energy-system evidence: building simulation, island microgrids, techno-economics, national scenarios, dispatch optimisation, forecasting and distribution-grid studies. Each is shown with its inputs, tools, assumptions and the decision it supports.</p>
+<div style="display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:8px">
+<div class="m grow" data-probe="IDA ICE · HOMER · SAM · LEAP · PuLP · sklearn" style="font-size:13px"><span style="color:#9bd69f;font-size:22px;font-weight:600">6</span> toolchains</div>
+<div class="m grow" data-probe="BUILDINGS → GRIDS" style="font-size:13px;animation-delay:1.2s"><span style="color:#9bd69f;font-size:22px;font-weight:600">7</span> core projects</div>
+<div class="m grow" data-probe="TECHNO-ECONOMIC · DISPATCH · SCENARIO" style="font-size:13px;animation-delay:1.4s"><span style="color:#9bd69f;font-size:22px;font-weight:600">3</span> decision modes</div>
+</div>
+</section>
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading"><p class="eyebrow">New independent grid work · October 2026</p><h2>Data provenance and trustworthy dynamic simulation.</h2></div>
-            <div class="evidence-route-grid">
-              <a class="evidence-route-card" href="projects/finnish-grid-connection-evidence.html"><h3>Finnish Grid Connection Evidence Screener</h3><p>Source-linked Fingrid indicative capacity records and national operational chronology, without presenting published estimates as guaranteed headroom.</p></a>
-              <a class="evidence-route-card" href="projects/gridguardpinn.html"><h3>GridGuardPINN</h3><p>Physics-informed dynamic surrogates with deterministic simulator fallback, benchmarked on a bounded IEEE-14 workload. Not an operational stability tool.</p></a>
-            </div>
-          </section>
+<section style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:10px"><div class="eb">Model stack</div><h2 style="margin:0;font-size:34px;font-weight:560;letter-spacing:-.015em">Choose the modelling lens</h2></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px" role="group" aria-label="Modelling lens">
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Evidence map</p>
-              <h2>One track, six modelling behaviours.</h2>
-            </div>
-            <div class="track-tool-grid">
-              <article class="track-tool-card">
-                <h3>Building simulation</h3>
-                <p>IDA ICE work turns building geometry, envelope assumptions and schedules into demand profiles that can feed system-level decisions.</p>
-              </article>
-              <article class="track-tool-card">
-                <h3>Microgrid and autonomy modelling</h3>
-                <p>HOMER Pro work compares renewable supply, storage, grid imports and economics for small energy systems with resilience constraints.</p>
-              </article>
-              <article class="track-tool-card">
-                <h3>Techno-economic comparison</h3>
-                <p>SAM and spreadsheet models compare CAPEX, OPEX, LCoE, payback and sensitivity across heating and solar alternatives.</p>
-              </article>
-              <article class="track-tool-card">
-                <h3>Scenario modelling</h3>
-                <p>LEAP work links demand growth, policy assumptions, technology build-out, cost and carbon outcomes in a national energy model.</p>
-              </article>
-              <article class="track-tool-card">
-                <h3>Optimisation</h3>
-                <p>Python/PuLP dispatch models formalise objective functions and constraints for heat-source allocation, storage and emissions trade-offs.</p>
-              </article>
-              <article class="track-tool-card">
-                <h3>Forecasting and grid impacts</h3>
-                <p>scikit-learn forecasting and distribution-grid studies connect demand prediction, EV/PV/storage assumptions and operational constraints.</p>
-              </article>
-            </div>
-          </section>
+<button type="button" style="min-height:44px;padding:0 18px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:#9bd69f;color:#071007;border:1px solid #9bd69f;font-weight:600;">Buildings</button>
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Interactive model stack</p>
-              <h2>Choose the modelling lens.</h2>
-            </div>
-            <div class="evidence-tabs" data-evidence-tabs>
-              <div class="evidence-tab-row" role="tablist" aria-label="Energy modelling lenses">
-                <button class="evidence-tab-button is-active" type="button" data-evidence-tab="buildings">Buildings</button>
-                <button class="evidence-tab-button" type="button" data-evidence-tab="dispatch">Dispatch</button>
-                <button class="evidence-tab-button" type="button" data-evidence-tab="scenario">Scenario</button>
-                <button class="evidence-tab-button" type="button" data-evidence-tab="forecast">Forecast</button>
-                <button class="evidence-tab-button" type="button" data-evidence-tab="grid">Grid</button>
-              </div>
+<button type="button" style="min-height:44px;padding:0 18px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:transparent;color:#c9cfc6;border:1px solid #2d3a31;">Dispatch</button>
 
-              <article class="evidence-panel" data-evidence-panel="buildings">
-                <div class="evidence-panel-grid">
-                  <div>
-                    <h3>IDA ICE, HOMER Pro and SAM: from building load to system economics</h3>
-                    <p>Hylkysaari and residential heating projects show a complete chain: estimate building demand, compare renewable supply options, size storage or heat pumps, and translate results into payback and design recommendations.</p>
-                    <div class="evidence-kpi-strip">
-                      <span><strong>IDA ICE</strong>Envelope, schedules and hourly demand</span>
-                      <span><strong>HOMER Pro</strong>PV, storage, grid and autonomy economics</span>
-                      <span><strong>SAM / Excel</strong>LCoE, payback and sensitivity</span>
-                    </div>
-                  </div>
-                  <div class="evidence-chart-shell">
-                    <canvas data-evidence-chart="energy-tool-coverage" aria-label="Energy systems tool coverage chart"></canvas>
-                    <script type="application/json" data-evidence-chart-data="energy-tool-coverage">
-                      {"title":"Tool coverage across core projects","unit":"projects","series":[{"label":"IDA ICE","value":2,"note":"Hylkysaari, built environment"},{"label":"HOMER Pro","value":2,"note":"Island and polygeneration work"},{"label":"SAM","value":1,"note":"Residential heating techno-economics"},{"label":"LEAP","value":1,"note":"Germany 3E scenario model"},{"label":"PuLP","value":1,"note":"District heating dispatch"},{"label":"scikit-learn","value":1,"note":"Heating demand forecasting"}]}
-                    </script>
-                  </div>
-                </div>
-              </article>
+<button type="button" style="min-height:44px;padding:0 18px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:transparent;color:#c9cfc6;border:1px solid #2d3a31;">Scenario</button>
 
-              <article class="evidence-panel" data-evidence-panel="dispatch" hidden>
-                <div class="evidence-panel-grid">
-                  <div>
-                    <h3>District heating MILP: objective functions make trade-offs explicit</h3>
-                    <p>The district heating project moves from base dispatch to storage, future demand, electricity-price coupling and emissions minimisation. It is the cleanest evidence that the modelling work is not only simulation, but decision optimisation.</p>
-                    <div class="project-links">
-                      <a href="projects/district-heating-optimisation.html">District heating case study</a>
-                      <a href="projects/tes-peak-shaving.html">Thermal storage case study</a>
-                    </div>
-                  </div>
-                  <div class="evidence-chart-shell">
-                    <canvas data-evidence-chart="district-dispatch-signal" aria-label="District heating dispatch signal chart"></canvas>
-                    <script type="application/json" data-evidence-chart-data="district-dispatch-signal">
-                      {"title":"Representative heat-source roles","unit":"MWh","series":[{"label":"Woodchip","value":600,"note":"Base-load renewable heat"},{"label":"CHP","value":612,"note":"Flexible dispatch asset"},{"label":"Geothermal","value":200,"note":"Stable renewable baseline"},{"label":"Heat pump","value":50,"note":"Marginal support and peak logic"}]}
-                    </script>
-                  </div>
-                </div>
-              </article>
+<button type="button" style="min-height:44px;padding:0 18px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:transparent;color:#c9cfc6;border:1px solid #2d3a31;">Forecast</button>
 
-              <article class="evidence-panel" data-evidence-panel="scenario" hidden>
-                <div class="evidence-panel-grid">
-                  <div>
-                    <h3>LEAP: national-scale assumptions made auditable</h3>
-                    <p>The Germany analysis links demand projections, eleven generation technologies, policy constraints, merit order, carbon outcomes and social cost. The value is not a single forecast; it is a transparent scenario structure that can be challenged and revised.</p>
-                    <div class="project-links">
-                      <a href="projects/germany-energy-economy-analysis.html">Germany LEAP case study</a>
-                      <a href="projects/waste-to-energy-india.html">Waste-to-energy comparison</a>
-                    </div>
-                  </div>
-                  <div class="evidence-chart-shell">
-                    <canvas data-evidence-chart="leap-demand-signal" aria-label="LEAP demand growth chart"></canvas>
-                    <script type="application/json" data-evidence-chart-data="leap-demand-signal">
-                      {"title":"Germany model demand growth signals","unit":"million GJ","series":[{"label":"Industry 2022","value":729},{"label":"Industry 2045","value":981},{"label":"Transport 2022","value":53},{"label":"Transport 2045","value":365},{"label":"Commercial 2045","value":723}]}
-                    </script>
-                  </div>
-                </div>
-              </article>
+<button type="button" style="min-height:44px;padding:0 18px;border-radius:6px;font-family:JetBrains Mono,ui-monospace,monospace;font-size:12px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;background:transparent;color:#c9cfc6;border:1px solid #2d3a31;">Grid</button>
 
-              <article class="evidence-panel" data-evidence-panel="forecast" hidden>
-                <div class="evidence-panel-grid">
-                  <div>
-                    <h3>Forecasting: model complexity judged against operational value</h3>
-                    <p>The heating-demand project compares logistic regression, shallow neural networks and deep neural networks. The important conclusion is engineering judgement: the shallow network is preferred because it generalises better and trains much faster than the DNN for a tiny accuracy penalty.</p>
-                    <div class="project-links">
-                      <a href="projects/heating-demand-forecasting.html">Heating forecast case study</a>
-                    </div>
-                  </div>
-                  <div class="evidence-chart-shell">
-                    <canvas data-evidence-chart="forecast-accuracy" aria-label="Heating forecast model accuracy chart"></canvas>
-                    <script type="application/json" data-evidence-chart-data="forecast-accuracy">
-                      {"title":"Forecast accuracy comparison","unit":"%","series":[{"label":"Logistic","value":92.03,"note":"Baseline model"},{"label":"SNN","value":93.39,"note":"Best balance"},{"label":"DNN","value":93.72,"note":"Highest test score, weaker generalisation"}]}
-                    </script>
-                  </div>
-                </div>
-              </article>
+</div>
+<article class="cd cs g swap0" data-probe="LENS · Buildings" style="border:1.5px dashed #9bd69f;padding:36px;display:flex;flex-direction:column;gap:28px">
+<h3 style="margin:0;font-size:30px;line-height:1.2;font-weight:580;letter-spacing:-.015em;max-width:860px;text-wrap:balance">IDA ICE, HOMER Pro and SAM: from building load to system economics</h3>
+<div style="display:flex;flex-direction:column;border-top:1px solid #2d3a31">
+<div style="display:flex;flex-wrap:wrap;gap:8px 32px;padding:20px 0;border-bottom:1px solid #2d3a31"><div class="m" style="flex:0 0 170px;font-size:12px;letter-spacing:.14em;color:#65d6c9">01 · BOUNDARY</div><div style="flex:1 1 400px;font-size:16px;line-height:1.6">Hylkysaari island and a Stockholm housing cooperative. Estimate building demand, compare renewable supply options, size storage or heat pumps.</div></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px 32px;padding:20px 0;border-bottom:1px solid #2d3a31"><div class="m" style="flex:0 0 170px;font-size:12px;letter-spacing:.14em;color:#9bd69f">02 · METHOD</div><div class="m" style="flex:1 1 400px;font-size:14px;line-height:1.7">IDA ICE (envelope, schedules, hourly demand) · HOMER Pro (PV, storage, grid, autonomy economics) · SAM and Excel (LCoE, payback, sensitivity)</div></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px 32px;padding:20px 0;border-bottom:1px solid #2d3a31"><div class="m" style="flex:0 0 170px;font-size:12px;letter-spacing:.14em;color:#8fb7ff">03 · EVIDENCE</div><div style="flex:1 1 400px;font-size:16px;line-height:1.6">A complete chain from demand to payback, ending in design recommendations.</div></div>
+<div class="rs" style="display:flex;flex-wrap:wrap;gap:8px 32px;padding:20px 16px;margin:0 -16px;border-radius:6px"><div class="m" style="flex:0 0 170px;font-size:12px;letter-spacing:.14em;color:#d7b46a">04 · RESIDUAL</div><div style="flex:1 1 400px;font-size:16px;line-height:1.6">Scenario or prototype study; no live operational validation is claimed.</div></div>
+</div>
+<a href="projects.html" class="m" style="font-size:12px;letter-spacing:.12em;color:#9bd69f;padding:10px 0;align-self:flex-start">OPEN THE IDA ICE AND HOMER CASE →</a>
+</article>
+</section>
 
-              <article class="evidence-panel" data-evidence-panel="grid" hidden>
-                <div class="evidence-panel-grid">
-                  <div>
-                    <h3>Distribution-grid studies, with PyPSA kept in the right place</h3>
-                    <p>The grid evidence is strongest as supporting systems work: CIGRE-style distribution analysis, N-1 checks, EV/PV/storage impacts and constrained-flow thinking. PyPSA-NL remains visible as an exploratory learning project, not as the primary proof line.</p>
-                    <div class="project-links">
-                      <a href="projects/distribution-grid-study.html">Distribution grid study</a>
-                      <a href="projects/pypsa-nl-grid-flexibility.html">Exploratory PyPSA-NL project</a>
-                    </div>
-                  </div>
-                  <div class="evidence-chart-shell">
-                    <canvas data-evidence-chart="grid-evidence-weight" aria-label="Grid evidence weighting chart"></canvas>
-                    <script type="application/json" data-evidence-chart-data="grid-evidence-weight">
-                      {"title":"Grid evidence positioning","unit":"signal","series":[{"label":"Distribution study","value":4,"note":"Primary coursework evidence"},{"label":"District coupling","value":3,"note":"Electricity-price and heat-dispatch link"},{"label":"PyPSA-NL","value":1,"note":"Exploratory learning project"}]}
-                    </script>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </section>
+<section style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:10px"><div class="eb">Decision modes</div><h2 style="margin:0;font-size:34px;font-weight:560;letter-spacing:-.015em">Three kinds of answer the models give</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:16px">
+<div class="cd" style="display:flex;flex-direction:column;gap:10px"><div class="m" style="font-size:12px;letter-spacing:.14em;color:#9bd69f">TECHNO-ECONOMIC</div><div style="font-size:15px;line-height:1.6;color:#c9cfc6">CAPEX, OPEX, LCoE, payback and sensitivity across heating and solar alternatives.</div></div>
+<div class="cd" style="display:flex;flex-direction:column;gap:10px"><div class="m" style="font-size:12px;letter-spacing:.14em;color:#9bd69f">OPERATIONAL DISPATCH</div><div style="font-size:15px;line-height:1.6;color:#c9cfc6">Objective functions and constraints for heat-source allocation, storage and emissions trade-offs.</div></div>
+<div class="cd" style="display:flex;flex-direction:column;gap:10px"><div class="m" style="font-size:12px;letter-spacing:.14em;color:#9bd69f">POLICY AND SYSTEM SCENARIOS</div><div style="font-size:15px;line-height:1.6;color:#c9cfc6">Demand growth, policy assumptions and technology build-out linked to cost and carbon outcomes.</div></div>
+</div>
+</section>
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Evidence-page standard</p>
-              <h2>How each project is now meant to be read.</h2>
-            </div>
-            <div class="method-flow">
-              <span><strong>Question</strong>What technical decision does the model answer?</span>
-              <span><strong>Inputs</strong>What data, assumptions and boundary conditions drive it?</span>
-              <span><strong>Method</strong>Which toolchain, equations or optimisation logic was used?</span>
-              <span><strong>Result</strong>What trade-off, KPI or recommendation changed?</span>
-              <span><strong>Limits</strong>Where can the model be wrong or incomplete?</span>
-            </div>
-          </section>
+<section style="display:flex;flex-direction:column;gap:20px">
+<div class="eb">Toolchain</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<span class="m" style="padding:10px 14px;border:1px solid #2d3a31;border-radius:6px;font-size:13px">IDA ICE</span><span class="m" style="padding:10px 14px;border:1px solid #2d3a31;border-radius:6px;font-size:13px">HOMER Pro</span><span class="m" style="padding:10px 14px;border:1px solid #2d3a31;border-radius:6px;font-size:13px">SAM</span><span class="m" style="padding:10px 14px;border:1px solid #2d3a31;border-radius:6px;font-size:13px">LEAP</span><span class="m" style="padding:10px 14px;border:1px solid #2d3a31;border-radius:6px;font-size:13px">Python</span><span class="m" style="padding:10px 14px;border:1px solid #2d3a31;border-radius:6px;font-size:13px">PuLP</span><span class="m" style="padding:10px 14px;border:1px solid #2d3a31;border-radius:6px;font-size:13px">scikit-learn</span><span class="m" style="padding:10px 14px;border:1px solid #2d3a31;border-radius:6px;font-size:13px">Power flow</span>
+</div>
+<a href="downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf" class="m" style="font-size:12px;letter-spacing:.12em;color:#9bd69f;padding:10px 0;align-self:flex-start">DOWNLOAD ENERGY SYSTEMS / R&amp;D CV →</a>
+</section>
 
-          <section class="section-lite">
-            <div class="section-heading compact-heading">
-              <p class="eyebrow">Core route cards</p>
-              <h2>Start with these case studies.</h2>
-            </div>
-            <div class="evidence-route-grid">
-              <a class="evidence-route-card" href="projects/hylkysaari-sustainable-tourism.html">
-                <h3>IDA ICE + HOMER Pro</h3>
-                <p>Building demand, microgrid, waste heat and economics for Hylkysaari Island.</p>
-              </a>
-              <a class="evidence-route-card" href="projects/residential-heating-technoeconomics.html">
-                <h3>SAM + heating techno-economics</h3>
-                <p>Solar thermal, PV, heat pump and district-heating comparison for a Stockholm housing cooperative.</p>
-              </a>
-              <a class="evidence-route-card" href="projects/district-heating-optimisation.html">
-                <h3>Python/PuLP MILP</h3>
-                <p>District heating dispatch with cost, storage, electricity-price and emissions trade-offs.</p>
-              </a>
-              <a class="evidence-route-card" href="projects/germany-energy-economy-analysis.html">
-                <h3>LEAP 3E scenario model</h3>
-                <p>Germany electricity demand, technology build-out, cost and CO2 scenario comparison.</p>
-              </a>
-              <a class="evidence-route-card" href="projects/heating-demand-forecasting.html">
-                <h3>Heating demand forecasting</h3>
-                <p>Weather and calendar feature modelling for building heating demand prediction.</p>
-              </a>
-              <a class="evidence-route-card" href="projects/distribution-grid-study.html">
-                <h3>Distribution-grid study</h3>
-                <p>EV, PV, storage and N-1 impacts on distribution-grid operation.</p>
-              </a>
-            </div>
-          </section>
-        </div>
+</main>
 
-        <aside class="content-rail">
-          <div class="page-panel">
-            <p class="eyebrow">Track fit</p>
-            <ul class="clean-list">
-              <li>Energy modelling and performance engineering</li>
-              <li>Power and heat technology roles</li>
-              <li>Industrial R&amp;D and decarbonisation analysis</li>
-              <li>Associate Scientist-style proof-of-concept modelling</li>
-            </ul>
-          </div>
-          <div class="page-panel">
-            <p class="eyebrow">Tool stack</p>
-            <div class="tag-row">
-              <span>IDA ICE</span><span>HOMER Pro</span><span>SAM</span><span>LEAP</span><span>Python</span><span>PuLP</span><span>scikit-learn</span><span>Power flow</span>
-            </div>
-          </div>
-          <div class="page-panel">
-            <p class="eyebrow">CV</p>
-            <p>Use the Energy Systems / R&amp;D CV for performance engineering, energy modelling and Associate Scientist-style industrial R&amp;D roles.</p>
-            <div class="project-links">
-              <a href="downloads/Abhijith_Sivaprasadan_CV_Generic_Modelling.pdf" download>Download Modelling CV</a>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-  </main>
+<footer style="border-top:1px solid #2d3a31"><div style="max-width:1180px;margin:0 auto;padding:32px 48px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;box-sizing:border-box"><nav class="nv"><span class="m" style="font-size:12px;letter-spacing:.12em;color:#d7b46a;padding:10px 0">OUTSIDE THE BOUNDARY</span><a href="courses.html">COURSES</a><a href="ideas.html">IDEAS</a><a href="interests.html">INTERESTS</a><a href="hobbies.html">HOBBIES</a></nav><div class="m mu" style="font-size:12px;letter-spacing:.06em;padding:10px 0">Methods, evidence, and their limits.</div></div></footer>
 
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2026 Abhijith Sivaprasadan. Built with GitHub Pages.</p>
-    </div>
-  </footer>
-  <script src="scripts/site.js?v=20260830-open-source"></script>
+
+
+
+
+
+
+
+
+
+</div>
+<script src="scripts/control-volume.js?v=20261027-control-volume" defer></script>
+<script src="scripts/claude-exact.js?v=20261027-v2" defer></script>
 </body>
 </html>

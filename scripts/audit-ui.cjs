@@ -12,12 +12,12 @@ const { chromium } = require('playwright');
 const root = path.resolve(__dirname, '..');
 const base = process.env.UI_AUDIT_BASE || 'http://127.0.0.1:8099';
 const REPORT = path.join(root, 'ui-audit-report.json');
-const highlight = ['index.html','404.html','admin.html','projects.html','research.html','reports.html',
+const highlight = ['index.html','story.html','404.html','admin.html','projects.html','research.html','reports.html',
   'experience.html','about.html','energy-systems.html','industrial-rd.html','interests.html',
   'hobbies.html','ideas.html','courses.html','cet2026/index.html','labs/control-volume.html',
   'for/siemens-feed.html','tracks/research.html','tracks/index.html','skills/research.html',
   'projects/siemens-thesis.html','projects/kerala2040.html','projects/thermotwin-f.html'];
-const excludedDirs = new Set(['node_modules','backend','.github','.git','.claude','scripts','docs','dist','coverage']);
+const excludedDirs = new Set(['node_modules','backend','.github','.git','.claude','scripts','docs','dist','coverage','design-legacy']);
 const pages = [];
 function walk(dir) {
   for (const item of fs.readdirSync(dir, {withFileTypes:true})) {
@@ -38,7 +38,7 @@ if (debug) for (const name of debugRoutes) if (pages.includes(name)) tests.push(
 const failures=[], warnings=[], summaries=[];
 const severity = (where, issue, value) => {
   const info = {page:where, issue, detail:value};
-  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR/.test(issue)) failures.push(info);
+  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE|STORY LAMP|MOBILE CONTROLS/.test(issue)) failures.push(info);
   else warnings.push(info);
 };
 (async () => {
@@ -181,7 +181,136 @@ const severity = (where, issue, value) => {
       await page.keyboard.press('Escape');
       if(await page.locator('dialog.cvfx-dialog[open]').count())
         severity('index.html@390','DIALOG ERROR','Flux Lab panel fails Escape');
-    } else severity('index.html@390','DIALOG ERROR','Flux Lab entry missing');
+    } else if (!(await page.locator('body[data-design-source="claude-control-volume-v1"]').count())) severity('index.html@390','DIALOG ERROR','Flux Lab entry missing');
+
+    await page.setViewportSize({width:320,height:844});
+    await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
+    const heatField=page.locator('[data-cv-toy="heat-field"]');
+    const heatBefore=await heatField.evaluate(el=>{
+      const s=el.querySelector('.src');
+      return {x:parseFloat(s?.style.left),y:parseFloat(s?.style.top),width:el.clientWidth,height:el.clientHeight};
+    });
+    await heatField.focus();
+    await page.keyboard.press('ArrowRight');
+    const heatAfter=await heatField.evaluate(el=>parseFloat(el.querySelector('.src')?.style.left));
+    if(!(heatBefore.x>=0&&heatBefore.x<heatBefore.width&&heatBefore.y>=0&&heatBefore.y<heatBefore.height)
+      ||Math.abs((heatAfter-heatBefore.x)-8)>0.1)
+      severity('index.html@320','HEAT CONTROL',{heatBefore,heatAfter});
+    const mesh=await page.evaluate(()=>{
+      const root=document.querySelector('[data-cv-toy="mesh"]');
+      const cells=root?.querySelector('[data-out="cells"]');
+      const before=cells?.textContent||'';
+      root?.querySelector('[data-level="3"]')?.click();
+      const after=cells?.textContent||'';
+      return {before,after,pressed:root?.querySelector('[data-level="3"]')?.getAttribute('aria-pressed')};
+    });
+    if(!mesh.before||mesh.before===mesh.after||mesh.pressed!=='true')
+      severity('index.html@320','MESH CONTROL',mesh);
+    await page.goto(base+'/research.html',{waitUntil:'domcontentloaded'});
+    const biot=await page.evaluate(()=>{
+      const root=document.querySelector('[data-cv-toy="biot"]');
+      const result=root?.querySelector('[data-out="bi"]');
+      const before=result?.textContent||'';
+      const slider=root?.querySelector('input[data-k="h"]');
+      if(slider){slider.value=String(Number(slider.max)||1000);slider.dispatchEvent(new Event('input',{bubbles:true}));}
+      return {before,after:result?.textContent||'',inputs:root?.querySelectorAll('input[data-k]').length};
+    });
+    if(biot.inputs!==3||!biot.before||biot.before===biot.after)
+      severity('research.html@320','BIOT CONTROL',biot);
+    await page.goto(base+'/story.html',{waitUntil:'domcontentloaded'});
+    const mobileControls=await page.evaluate(()=>{
+      const names=['.cmdbtn','.snd','.thm'];
+      return names.map(s=>{const el=document.querySelector(s);return {selector:s,present:!!el,position:el?getComputedStyle(el).position:null};});
+    });
+    if(mobileControls.some(c=>!c.present||c.position==='fixed'))
+      severity('story.html@320','MOBILE CONTROLS',mobileControls);
+
+    const story=await page.evaluate(()=>{
+      const root=document.querySelector('[data-cv-toy="cycle"]');
+      const slider=root?.querySelector('input[type="range"]');
+      const title=root?.querySelector('[data-out="title"]');
+      const dot=root?.querySelector('[data-out="dot"]');
+      if(!slider||!title||!dot)return {missing:true};
+      const original=dot.getAttribute('cx');
+      slider.value='200';slider.dispatchEvent(new Event('input',{bubbles:true}));
+      const midTitle=title.textContent,midDot=dot.getAttribute('cx');
+      slider.value='400';slider.dispatchEvent(new Event('input',{bubbles:true}));
+      return {missing:false,original,midTitle,midDot,finalTitle:title.textContent,finalDot:dot.getAttribute('cx'),columns:getComputedStyle(document.querySelector('.cyc-grid')).gridTemplateColumns.split(' ').length};
+    });
+    if(story.missing||story.midTitle!=='S3 · KTH'||story.midDot===story.original||
+       !story.finalTitle.includes('BACK TO CODE')||story.finalDot!==story.original||story.columns!==1)
+      severity('story.html@390','STORY CYCLE',story);
+    const lampTrigger=page.locator('button[data-cv-lamp="cv-night"]');
+    if(!(await lampTrigger.count()))severity('story.html@390','STORY LAMP','Lamp button missing');
+    else {
+      await lampTrigger.evaluate(el=>el.click());
+      const open=await page.locator('.cv-night-overlay[role="dialog"][aria-modal="true"]').count();
+      if(!open)severity('story.html@390','STORY LAMP','Lamp scene did not open');
+      else {
+        const buttonFocused=await page.locator('.cv-night-close').evaluate(el=>document.activeElement===el);
+        if(!buttonFocused)severity('story.html@390','STORY LAMP','Close button not focused');
+        await page.keyboard.press('Escape');
+        if(await page.locator('.cv-night-overlay').count())severity('story.html@390','STORY LAMP','Escape did not close scene');
+      }
+    }
+    // Dynamic interactions on the actual authored pages, not only DOM presence.
+    await page.goto(base+'/energy-systems.html',{waitUntil:'domcontentloaded'});
+    const lens=await page.evaluate(()=>{
+      const group=document.querySelector('[aria-label="Modelling lens"]');
+      const card=group?.nextElementSibling;
+      const buttons=[...(group?.querySelectorAll('button')||[])];
+      const read=()=>{
+        const title=card?.querySelector('h3')?.textContent||'';
+        const rows=[...(card?.querySelectorAll('div')||[])]
+          .filter(e=>/^(01 · BOUNDARY|02 · METHOD|03 · EVIDENCE|04 · RESIDUAL)$/.test(e.firstElementChild?.textContent?.trim()||'')&&e.children.length===2)
+          .map(e=>e.lastElementChild.textContent.trim());
+        return {title,rows,href:card?.querySelector('a[href]')?.getAttribute('href')||''};
+      };
+      const first=read(),states={};
+      for(const button of buttons){
+        button.click();
+        const label=button.textContent.trim().toUpperCase();
+        states[label]={...read(),pressed:button.getAttribute('aria-pressed')};
+      }
+      buttons[0]?.click();
+      return {first,states,buttonCount:buttons.length,restored:read()};
+    });
+    const energyStates=['BUILDINGS','DISPATCH','SCENARIO','FORECAST','GRID'];
+    if(lens.buttonCount!==5||lens.first.rows.length!==4||
+       energyStates.some(key=>!lens.states[key]||lens.states[key].rows.length!==4||lens.states[key].pressed!=='true')||
+       energyStates.slice(1).some(key=>lens.states[key].rows.some((s,i)=>s===lens.first.rows[i])||lens.states[key].href===lens.first.href)||
+       JSON.stringify(lens.first)!==JSON.stringify(lens.restored)){
+      severity('energy-systems.html@390','ENERGY LENS',lens);
+    }
+    await page.goto(base+'/projects.html',{waitUntil:'domcontentloaded'});
+    try{await page.waitForFunction(()=>document.querySelectorAll('#cv-case-list article').length>=30,null,{timeout:12000});}
+    catch(e){severity('projects.html@390','CASE FILTER','Source-driven cases did not load');}
+    const caseFilter=await page.evaluate(()=>{
+      const rows=[...document.querySelectorAll('#cv-case-list article')];
+      const initial=rows.filter(r=>!r.hidden).length;
+      const flagship=rows[0]?.querySelector('a[href]')?.getAttribute('href');
+      const kerala=rows.find(row=>row.querySelector('a[href]')?.getAttribute('href')==='projects/kerala2040.html')?.dataset.cvCaseCategory;
+      const button=[...document.querySelectorAll('[data-cv-filter]')]
+        .find(b=>b.dataset.cvFilter.toUpperCase()==='SOFTWARE');
+      const softwareTotal=rows.filter(r=>r.dataset.cvCaseCategory==='SOFTWARE').length;
+      button?.click();
+      const selected=rows.filter(r=>!r.hidden).length;
+      const pressed=button?.getAttribute('aria-pressed');
+      document.querySelector('[data-cv-filter="All"]')?.click();
+      const restored=rows.filter(r=>!r.hidden).length;
+      const more=document.querySelector('[data-cv-load-more]');
+      const offered=!!more&&!more.hidden;
+      more?.click();
+      const expanded=rows.filter(r=>!r.hidden).length;
+      return {total:rows.length,initial,flagship,kerala,selected,softwareTotal,pressed,restored,offered,expanded};
+    });
+    if(caseFilter.total<30||caseFilter.flagship!=='projects/siemens-thesis.html'||
+       caseFilter.initial!==8||caseFilter.kerala!=='ENERGY SYSTEMS'||caseFilter.softwareTotal<1||
+       caseFilter.selected!==Math.min(8,caseFilter.softwareTotal)||
+       caseFilter.pressed!=='true'||caseFilter.restored!==8||
+       !caseFilter.offered||caseFilter.expanded!==16){
+      severity('projects.html@390','CASE FILTER',caseFilter);
+    }
     await context.close();
     // Full motion-on render checks: the reduced-motion pass is not enough to
     // detect pointer overlays, animated motifs or first-visit obstructions.
@@ -199,10 +328,33 @@ const severity = (where, issue, value) => {
       const visualErrors=[];
       visual.on('pageerror',err=>visualErrors.push(err.message));
       const shots=[
+        {name:'index.html',width:1440,selector:'body',file:'canonical-index-1440.png'},
+        {name:'projects.html',width:1440,selector:'body',file:'canonical-projects-1440.png'},
+        {name:'research.html',width:1440,selector:'body',file:'canonical-research-1440.png'},
+        {name:'energy-systems.html',width:1440,selector:'body',file:'canonical-energy-systems-1440.png'},
+        {name:'industrial-rd.html',width:1440,selector:'body',file:'canonical-industrial-rd-1440.png'},
+        {name:'experience.html',width:1440,selector:'body',file:'canonical-experience-1440.png'},
+        {name:'about.html',width:1440,selector:'body',file:'canonical-about-1440.png'},
+        {name:'courses.html',width:1440,selector:'body',file:'canonical-courses-1440.png'},
+        {name:'ideas.html',width:1440,selector:'body',file:'canonical-ideas-1440.png'},
+        {name:'interests.html',width:1440,selector:'body',file:'canonical-interests-1440.png'},
+        {name:'hobbies.html',width:1440,selector:'body',file:'canonical-hobbies-1440.png'},
+        {name:'story.html',width:1440,selector:'body',file:'canonical-story-1440.png'},
+        {name:'story.html',width:390,selector:'body',file:'canonical-story-390.png'},
+        {name:'404.html',width:1440,selector:'body',file:'canonical-404-1440.png'},
+        {name:'index.html',width:390,selector:'body',file:'canonical-index-390.png'},
+        {name:'projects.html',width:390,selector:'body',file:'canonical-projects-390.png'},
+        {name:'research.html',width:390,selector:'body',file:'canonical-research-390.png'},
+        {name:'energy-systems.html',width:390,selector:'body',file:'canonical-energy-systems-390.png'},
+        {name:'industrial-rd.html',width:390,selector:'body',file:'canonical-industrial-rd-390.png'},
+        {name:'experience.html',width:390,selector:'body',file:'canonical-experience-390.png'},
+        {name:'about.html',width:390,selector:'body',file:'canonical-about-390.png'},
+        {name:'hobbies.html',width:390,selector:'body',file:'canonical-hobbies-390.png'},
+        {name:'404.html',width:390,selector:'body',file:'canonical-404-390.png'},
         {name:'index.html',width:320,selector:'[data-cv-toy="year"]',file:'year-320.png'},
         {name:'index.html',width:673,selector:'[data-cv-toy="year"]',file:'year-673.png'},
         {name:'index.html',width:1440,selector:'[data-cv-toy="year"]',file:'year-1440.png'},
-        {name:'research.html',width:390,selector:'#biot-toy',file:'research-biot-390.png'},
+        {name:'research.html',width:390,selector:'[data-cv-toy="biot"]',file:'research-biot-390.png'},
         {name:'tracks/research.html',width:320,selector:'.track-hero',file:'research-track-320.png'},
         {name:'skills/research.html',width:320,selector:'.dossier-hero',file:'research-skill-320.png'},
         {name:'projects/residual-pathways.html',width:320,selector:'.dossier-hero',file:'residual-320.png'},
@@ -224,7 +376,7 @@ const severity = (where, issue, value) => {
         await visual.waitForTimeout(220);
         const bleed=await visual.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
         if(bleed>5)severity(shot.name+'@'+shot.width,'DOCUMENT BLEED','Full motion: '+bleed+'px');
-        if(shot.name==='index.html') {
+        if(shot.name==='index.html' && shot.selector==='[data-cv-toy="year"]') {
           const yearState=await visual.evaluate(()=>{
             const root=document.querySelector('[data-cv-toy="year"]');
             const svg=root.querySelector('svg');
@@ -250,6 +402,9 @@ const severity = (where, issue, value) => {
             return {visible:parseFloat(getComputedStyle(el).opacity)>.05};
           });
           if(probe.visible)severity(shot.name+'@'+shot.width,'PROBE CLIPPED','Probe obscures year motif');
+          const hoverMesh=await locus.evaluate(el=>parseFloat(getComputedStyle(el,'::after').opacity)||0);
+          if(hoverMesh>0.3)severity(shot.name+'@'+shot.width,'PROBE CLIPPED','Hover mesh is too opaque over diagram: '+hoverMesh);
+
         }
         try {
           await locus.screenshot({path:path.join(screenRoot,shot.file),animations:'disabled',timeout:8000});

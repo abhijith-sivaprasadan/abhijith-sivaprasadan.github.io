@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The path · Abhijith Sivaprasadan · Control Volume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#070807}
+.m{font-family:'JetBrains Mono',ui-monospace,monospace}
+.cd{border:1px solid #2d3a31;border-radius:14px;background:#0d110e}
+.cyc-dash{animation:cv-march 1.6s linear infinite}
+@media (max-width:760px){.cyc-grid{grid-template-columns:minmax(0,1fr)!important}.cyc-grid>div[aria-hidden="true"],.cyc-grid>div:empty{display:none!important}}
+.lamp{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 14px;margin-top:6px;border-radius:999px;border:1px dashed #6b5a2e;background:transparent;color:#d7b46a;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.12em;align-self:flex-start}
+.lamp:hover{border-style:solid;box-shadow:0 0 22px rgba(249,142,9,.35)}
+</style>
+<link rel="stylesheet" href="styles/control-volume.css?v=20261027-control-volume">
+<style>
+/* the canvas wraps each page in .pg; give it the header rules the runtime scopes to body children */
+.pg>header{position:relative;overflow:hidden}
+</style>
+<link rel="stylesheet" href="styles/claude-exact.css?v=20261027-v2">
+</head>
+<body class="cv" data-design-source="claude-control-volume-v1" data-page-key="story" data-cv-label="3 · THE PERSON" >
+<div class="pg"  style="background:#070807;color:#f2f0e7;font-family:Inter,system-ui,sans-serif;min-height:2600px;box-sizing:border-box;padding:96px 48px 120px">
+<div style="max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:96px">
+
+<header style="display:flex;flex-direction:column;gap:20px;max-width:820px">
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d7b46a">The person inside the boundary</div>
+<h2 style="margin:0;font-size:60px;line-height:1.04;font-weight:600;letter-spacing:-.025em">A cycle, not a ladder</h2>
+<p style="margin:0;font-size:20px;line-height:1.55;color:#c9cfc6;text-wrap:pretty">A thermodynamic cycle ends in the state where it began. What changed is what crossed the boundary on the way round. The path below is drawn the same way: software, hardware, physics, and back to software with different habits.</p>
+</header>
+
+<section class="cd" data-cv-toy="cycle" data-names="S1 · KOLLAM|S2 · QBURST|S3 · KTH|S4 · SIEMENS|S1′ · BACK TO CODE" data-stages="From building with hands in Kollam to software that has to fail loudly.|From production APIs at QBurst to numerical heat and energy systems at KTH.|From KTH modelling and instrumented labs to Siemens Energy high-temperature testing.|From instrumentation and CFD/CHT back to code with physical checks attached." style="display:flex;flex-wrap:wrap;gap:32px 48px;align-items:center;padding:36px">
+<div style="flex:1 1 380px;display:flex;flex-direction:column;gap:18px">
+<div class="emo" style="display:flex;align-items:center;gap:12px;color:#65d6c9"><svg class="gl gl-cycle" viewBox="0 0 24 24" aria-hidden="true"><g class="cy"><path d="M19.5 12a7.5 7.5 0 0 1-12.8 5.3"></path><path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3"></path><path d="M17.3 3.5v3.2h-3.2M6.7 20.5v-3.2h3.2"></path></g></svg><span class="m" style="font-size:12px;letter-spacing:.14em">SCRUB THE CYCLE</span></div>
+<div class="m" style="font-size:30px;font-weight:600;letter-spacing:-.01em;color:#f2f0e7" data-out="title" aria-live="polite">S1 · KOLLAM</div>
+<div style="font-size:16px;line-height:1.6;color:#c9cfc6;min-height:52px" data-out="text">From building with hands in Kollam to software that has to fail loudly.</div>
+<label style="display:flex;flex-direction:column;gap:8px"><span class="m" style="font-size:11px;letter-spacing:.12em;color:#a9b3a8">POSITION ON THE PATH</span><input type="range" min="0" max="400" step="1" value="0"></label>
+</div>
+<svg viewBox="0 0 400 260" style="flex:1 1 320px;max-width:460px;width:100%;height:auto;display:block" role="img" aria-label="A four-state cycle from Kollam to QBurst to KTH to Siemens and back to code">
+<path d="M60 50 L340 50 L340 210 L60 210 Z" fill="rgba(101,214,201,.05)" stroke="#2d3a31" stroke-width="1.5"></path>
+<path d="M60 50 L340 50 L340 210 L60 210 Z" fill="none" stroke="#65d6c9" stroke-width="1.5" stroke-dasharray="6 6" class="cyc-dash"></path>
+<g font-family="JetBrains Mono, monospace" font-size="12" fill="#f2f0e7" letter-spacing="1">
+<circle cx="60" cy="50" r="6" fill="#070807" stroke="#65d6c9" stroke-width="1.5"></circle><text x="40" y="32">S1 KOLLAM</text>
+<circle cx="340" cy="50" r="6" fill="#070807" stroke="#65d6c9" stroke-width="1.5"></circle><text x="292" y="32">S2 QBURST</text>
+<circle cx="340" cy="210" r="6" fill="#070807" stroke="#65d6c9" stroke-width="1.5"></circle><text x="310" y="238">S3 KTH</text>
+<circle cx="60" cy="210" r="6" fill="#070807" stroke="#65d6c9" stroke-width="1.5"></circle><text x="22" y="238">S4 SIEMENS</text>
+</g>
+<text x="200" y="136" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#d7b46a" letter-spacing="1.2">NET WORK = WHAT CHANGED</text>
+<circle data-out="dot" cx="60.0" cy="50.0" r="16" fill="rgba(249,142,9,.25)"></circle>
+<circle data-out="dot" cx="60.0" cy="50.0" r="7" fill="#fcffa4"></circle>
+</svg>
+</section>
+
+<section class="cyc-grid" style="display:grid;grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);gap:12px;align-items:stretch">
+
+<div style="border:1px solid #2d3a31;border-radius:14px;padding:28px;background:#0d110e;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;gap:12px"><span style="width:34px;height:34px;border-radius:999px;background:#65d6c9;color:#071007;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:600">S1</span><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#f2f0e7">KOLLAM, KERALA</span></div>
+<div style="font-size:22px;font-weight:560;line-height:1.25">Building with hands first</div>
+<div style="font-size:15px;line-height:1.6;color:#c9cfc6">Mechanical engineering at College of Engineering Perumon. Captain of the SAE Bicycle Design Competition team in 2020. That year, an automatic sanitiser dispenser: a first unit from a PC chassis and e-waste, redesigned in SolidWorks, led as a team project.</div>
+<div style="margin-top:auto;padding-top:14px;border-top:1px solid #2d3a31;font-size:14px;line-height:1.55;color:#a9b3a8"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.12em;color:#d7b46a">CARRIED FORWARD · </span>Build it, then correct what the first version got wrong.</div>
+</div>
+
+<div style="display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:24px;color:#65d6c9" aria-hidden="true">→</div>
+
+<div style="border:1px solid #2d3a31;border-radius:14px;padding:28px;background:#0d110e;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;gap:12px"><span style="width:34px;height:34px;border-radius:999px;border:1px solid #65d6c9;color:#65d6c9;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">S2</span><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#f2f0e7">QBURST · 2021 TO 2023</span></div>
+<div style="font-size:22px;font-weight:560;line-height:1.25">Software that has to fail loudly</div>
+<div style="font-size:15px;line-height:1.6;color:#c9cfc6">About 21 months as a backend engineer, starting in Go. Production APIs, automated tests, negative-path validation, Docker and agile teams.</div>
+<div style="margin-top:auto;padding-top:14px;border-top:1px solid #2d3a31;font-size:14px;line-height:1.55;color:#a9b3a8"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.12em;color:#d7b46a">CARRIED FORWARD · </span>A result not tried against a failing case is not yet a result.</div>
+</div>
+
+<div style="display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.1em;color:#d7b46a;text-align:center;writing-mode:vertical-rl;transform:rotate(180deg);min-height:120px" aria-hidden="true">BACK TO CODE, WITH PHYSICS ↑</div>
+<div style="display:flex;align-items:center;justify-content:center"></div>
+<div style="display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:24px;color:#65d6c9" aria-hidden="true">↓</div>
+
+<div style="border:1px solid #2d3a31;border-radius:14px;padding:28px;background:#0d110e;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;gap:12px"><span style="width:34px;height:34px;border-radius:999px;border:1px solid #65d6c9;color:#65d6c9;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">S4</span><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#f2f0e7">FINSPÅNG · SIEMENS ENERGY</span></div>
+<div style="font-size:22px;font-weight:560;line-height:1.25">Numbers that meet a test rig</div>
+<div style="font-size:15px;line-height:1.6;color:#c9cfc6">Master thesis embedded at Siemens Energy: CFD/CHT of a reducer for a high-temperature dynamic pressure sensor calibration rig.</div>
+<div style="margin-top:auto;padding-top:14px;border-top:1px solid #2d3a31;font-size:14px;line-height:1.55;color:#a9b3a8"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.12em;color:#d7b46a">CARRIED FORWARD · </span>Every colour plot gets a hand calculation behind it.</div>
+</div>
+
+<div style="display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:24px;color:#65d6c9" aria-hidden="true">←</div>
+
+<div style="border:1px solid #2d3a31;border-radius:14px;padding:28px;background:#0d110e;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;gap:12px"><span style="width:34px;height:34px;border-radius:999px;border:1px solid #65d6c9;color:#65d6c9;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px">S3</span><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#f2f0e7">STOCKHOLM · KTH</span></div>
+<div style="font-size:22px;font-weight:560;line-height:1.25">Heat, energy systems, the lab</div>
+<div style="font-size:15px;line-height:1.6;color:#c9cfc6">M.Sc. Sustainable Energy Engineering, 2023 intake. Heat transfer, energy-system modelling and instrumented labs such as the M-TES phase-change storage test, done in a group of three.</div>
+<div style="margin-top:auto;padding-top:14px;border-top:1px solid #2d3a31;font-size:14px;line-height:1.55;color:#a9b3a8"><span style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.12em;color:#d7b46a">CARRIED FORWARD · </span>Measure it, then compare it with the equation.</div>
+</div>
+
+</section>
+
+<section style="border:1.5px dashed #d7b46a;border-radius:14px;padding:36px;background-color:#0d110e;background-image:repeating-linear-gradient(135deg,rgba(215,180,106,.1) 0 1px,transparent 1px 9px);display:flex;flex-wrap:wrap;gap:32px 56px;align-items:flex-start">
+<div style="flex:0 0 200px;display:flex;flex-direction:column;gap:10px">
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">S1′ · WHERE THE LOOP CLOSES</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;color:#a9b3a8">Same state, different habits</div>
+</div>
+<div style="flex:1 1 440px;display:flex;flex-direction:column;gap:14px">
+<div style="font-size:26px;line-height:1.3;font-weight:560;letter-spacing:-.01em;text-wrap:pretty">Back to code, now with an energy engineer's checks attached.</div>
+<div style="font-size:16px;line-height:1.6;color:#c9cfc6;text-wrap:pretty">Open Energy Methods is an independent engineering research workbench for projects, experiments and numerical models. The first upstream contribution to Open-TYNDP, a documentation change, was merged in September 2026.</div>
+</div>
+</section>
+
+<section style="display:flex;flex-wrap:wrap;gap:40px 72px">
+<div style="flex:0 0 220px;display:flex;flex-direction:column;gap:10px">
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">RESEARCH STATEMENT · FIRST PERSON</div>
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.08em;color:#a9b3a8">The one place the site says "I"</div>
+</div>
+<div style="flex:1 1 480px;display:flex;flex-direction:column;gap:20px;max-width:720px">
+<h3 style="margin:0;font-size:34px;line-height:1.2;font-weight:560;letter-spacing:-.015em;text-wrap:pretty">Why I check by hand</h3>
+<p style="margin:0;font-size:18px;line-height:1.65;color:#e0ded4;text-wrap:pretty">I came to simulation from backend software, where a wrong answer fails silently unless a test catches it. Simulation has the same failure mode. So before I trust a model I work the governing equations by hand, step by step, and compare. The plot is the last thing I believe, not the first.</p>
+<p style="margin:0;font-size:18px;line-height:1.65;color:#e0ded4;text-wrap:pretty">That habit is the reason this site lists limits next to results. It is also why I keep building small open tools that check other people's models, and my own.</p>
+</div>
+</section>
+
+<section style="display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:720px">
+<div style="font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:#d7b46a">OUTSIDE THE BOUNDARY</div>
+<h3 style="margin:0;font-size:34px;line-height:1.2;font-weight:560;letter-spacing:-.015em">What does not fit on a CV</h3>
+<p style="margin:0;font-size:16px;line-height:1.6;color:#a9b3a8;text-wrap:pretty">None of this is claimed as a skill. It sits in the residual, and it is part of why the work looks the way it does.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:16px">
+<div style="border:1px dashed #2d3a31;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:19px;font-weight:560">Generative art</div>
+<div style="font-size:15px;line-height:1.55;color:#a9b3a8">Rule-based images made with code.</div>
+</div>
+<div style="border:1px dashed #2d3a31;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:19px;font-weight:560">Kerala folklore</div>
+<div style="font-size:15px;line-height:1.55;color:#a9b3a8">Figures such as Vada Yakshi and Kadamattathu Kathanar, which turn up in my creative work.</div>
+<button type="button" class="lamp" data-cv-lamp="cv-night" aria-label="Light the lamp: open the night scene"><svg class="gl gl-lamp" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><path class="lf" d="M12 2.5c1.6 2 1.6 3.6 0 5-1.6-1.4-1.6-3 0-5z" fill="#f98e09" stroke="#f98e09"></path><path d="M6 10h12M8 10c0 2.2 1.8 3.5 4 3.5s4-1.3 4-3.5M12 13.5v5M8.5 21.5h7M10 18.5h4"></path></svg>LIGHT THE LAMP</button>
+</div>
+<div style="border:1px dashed #2d3a31;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:19px;font-weight:560">Modern Fortran</div>
+<div style="font-size:15px;line-height:1.55;color:#a9b3a8">ThermoTwin-F, a gas-turbine performance simulator, kept as a long-term project.</div>
+</div>
+<div style="border:1px dashed #2d3a31;border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:19px;font-weight:560">Filter coffee</div>
+<div style="font-size:15px;line-height:1.55;color:#a9b3a8">Kerala-style, and home is Kollam.</div>
+</div>
+</div>
+</section>
+
+</div>
+</div>
+<script src="scripts/control-volume.js?v=20261027-control-volume" defer></script>
+<script src="scripts/claude-exact.js?v=20261027-v2" defer></script>
+<template id="cv-night">
+<div class="cv-night-overlay" role="dialog" aria-modal="true" aria-labelledby="cv-night-title" tabindex="-1">
+  <div class="cv-night-scene">
+    <div class="m cv-night-kicker">OUTSIDE THE BOUNDARY · KERALA</div>
+    <button type="button" class="cv-night-close" data-cv-close aria-label="Close lamp scene">CLOSE ×</button>
+    <svg class="cv-night-lamp" viewBox="0 0 300 380" role="img" aria-labelledby="cv-night-art">
+      <title id="cv-night-art">A Kerala brass nilavilakku lamp with a glowing flame</title>
+      <defs><radialGradient id="cv-lamp-glow"><stop offset="0" stop-color="#f9bd66" stop-opacity=".65"/><stop offset="1" stop-color="#f98e09" stop-opacity="0"/></radialGradient><linearGradient id="cv-lamp-metal" x1="0" x2="1"><stop stop-color="#765129"/><stop offset=".5" stop-color="#d7b46a"/><stop offset="1" stop-color="#71502f"/></linearGradient></defs>
+      <ellipse cx="150" cy="116" rx="105" ry="105" fill="url(#cv-lamp-glow)" class="cv-night-glow"/>
+      <path d="M150 38 C176 72 164 90 150 104 C132 89 130 71 150 38 Z" fill="#f98e09" class="cv-night-flame"/>
+      <path d="M150 69 C160 86 157 94 150 99 C144 93 141 85 150 69 Z" fill="#fcffa4"/>
+      <path d="M92 129 Q150 148 208 129 L197 149 Q150 164 103 149 Z M146 153 L154 153 L154 295 L146 295 Z M129 293 Q150 280 171 293 L177 304 L123 304 Z M115 304 H185 L196 316 H104 Z M133 123 L167 123 L168 132 H132 Z" fill="url(#cv-lamp-metal)" stroke="#e6c886" stroke-width="1.2"/>
+      <ellipse cx="150" cy="321" rx="84" ry="9" fill="#d7b46a" opacity=".17"/>
+    </svg>
+    <h2 id="cv-night-title">Light the nilavilakku</h2>
+    <p>A small piece of Kollam, beyond the engineering record.</p>
+  </div>
+</div>
+</template>
+</body>
+</html>

@@ -317,7 +317,7 @@
     rings.forEach(function (r) { root.appendChild(r); });
     root.appendChild(src);
     var readout = doc.querySelector(root.getAttribute('data-readout')) || out(root, 'field');
-    var fx = 300, fy = 180, drag = false, px = -1, py = -1;
+    var fx = Math.min(300, Math.max(16, root.clientWidth * 0.5)), fy = Math.min(180, Math.max(16, root.clientHeight * 0.5)), drag = false, px = -1, py = -1;
     function paint() {
       var hot = 'radial-gradient(circle at ' + fx + 'px ' + fy + 'px,rgba(252,255,164,.75) 0,rgba(249,142,9,.5) 50px,rgba(188,55,84,.32) 120px,rgba(87,16,110,.18) 210px,rgba(7,8,7,0) 330px)';
       root.style.backgroundImage = hot + ',linear-gradient(to right,rgba(45,58,49,.6) 1px,transparent 1px),linear-gradient(to bottom,rgba(45,58,49,.6) 1px,transparent 1px)';
@@ -332,6 +332,12 @@
     root.addEventListener('pointerdown', function (e) { var p = local(e); drag = true; fx = px = p[0]; fy = py = p[1]; try { root.setPointerCapture(e.pointerId); } catch (x) {} tone(330, 0.15); paint(); });
     root.addEventListener('pointermove', function (e) { var p = local(e); px = p[0]; py = p[1]; if (drag) { fx = px; fy = py; } paint(); });
     ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (t) { root.addEventListener(t, function () { drag = false; }); });
+    window.addEventListener('resize', function () {
+      if (!root.isConnected) return;
+      fx = Math.min(root.clientWidth, Math.max(0, fx));
+      fy = Math.min(root.clientHeight, Math.max(0, fy));
+      paint();
+    });
     root.tabIndex = 0;
     root.setAttribute('aria-keyshortcuts', 'ArrowUp ArrowDown ArrowLeft ArrowRight');
     root.setAttribute('aria-description', 'Arrow keys move the illustrated heat source. Hold Shift for larger steps.');

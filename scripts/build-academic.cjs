@@ -377,7 +377,7 @@ function home() {
   `, true);
 }
 
-const outputs = new Map([['index.html', home()]]);
+const outputs = new Map(); // Canonical homepage is rebuilt from Claude-approved source.
 for (const track of tracks) outputs.set(`tracks/${track.id}.html`, trackPage(track));
 outputs.set('tracks/index.html', page('tracks/index.html', 'Choose a Portfolio Track', 'Four focused, shareable portfolios: thermal engineering, energy modelling, software, and research or PhD applications.', `
   <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Tracks</span></nav>

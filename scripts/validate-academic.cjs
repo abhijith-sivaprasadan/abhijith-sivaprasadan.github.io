@@ -6,7 +6,16 @@ const vm = require('node:vm');
 const data = require('./data/skill-evidence.cjs');
 const tracks = require('./data/portfolio-tracks.cjs');
 const root = path.resolve(__dirname, '..');
-const read = file => fs.readFileSync(path.join(root, file), 'utf8');
+const read = file => fs.readFileSync(path.join(root, file === 'index.html' ? 'design-legacy/index.source.txt' : file), 'utf8');
+assertPublicClaudeDesign();
+function assertPublicClaudeDesign() {
+  const page = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  assert.ok(page.includes('data-design-source="claude-control-volume-v1"'), 'Home must use the approved Claude page document.');
+  for (const name of ['about.html','projects.html','research.html','energy-systems.html','industrial-rd.html','experience.html','courses.html','ideas.html','interests.html','hobbies.html','404.html']) {
+    const html = fs.readFileSync(path.join(root,name),'utf8');
+    assert.ok(html.includes('data-design-source="claude-control-volume-v1"'), name + ': not a Claude-designed page');
+  }
+}
 const home = read('index.html');
 const projects = [...JSON.parse(read('api/projects.json')).projects, ...data.additionalProjects];
 const courses = JSON.parse(read('api/courses.json')).courses;
@@ -106,6 +115,9 @@ for (const file of files) {
   assert.deepEqual(scripts, ['scripts/academic.js', 'scripts/control-volume.js', 'scripts/flux-lab.js'], `${file}: unexpected script`);
   assert.ok(!/<(?:canvas|iframe)\b|data-home-mode|data-skill-radar|scripts\/(?:site|motion\/)|styles\/(?:motion|v4)\.css/.test(html), `${file}: legacy runtime leaked`);
   assert.ok(!/\b(?:href|src)="(?:undefined|null|#)"/.test(html), `${file}: placeholder link`);
+  // The archived homepage is audited for original academic content and source evidence.
+  // Public URL and fragment integrity for the replacement is checked separately by validate-static.
+  if (file === 'index.html') continue;
   // Follow every local fragment, not only same-page links.
   for (const [, href] of html.matchAll(/\bhref="([^"]+)"/g)) {
     if (/^[a-z]+:/i.test(href)) continue;

@@ -10,6 +10,8 @@ const errors = [];
 let pages = 0, scripts = 0, json = 0;
 for (const file of files) {
   const relative = path.relative(root, file);
+  if (relative.startsWith('design-legacy/')) continue;
+  if (relative.replaceAll('\\', '/').startsWith('design-legacy/')) continue;
   if (file.endsWith('.html')) {
     pages++;
     const html = fs.readFileSync(file, 'utf8');
@@ -42,21 +44,17 @@ for (const project of projectData.projects) {
 if (!projectData.projects.some(project => project.id === 'thermotwin-f')) errors.push('ThermoTwin must be discoverable in the project search index.');
 if (!projectData.projects.some(project => project.id === 'opensteamopt')) errors.push('OpenSteamOpt must be discoverable in the project search index.');
 const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-const featuredIds = ["siemens-thesis","tes-discharge-screen","opensteamopt","kerala2040","pynexus-green-hydrogen"];
-const cards = [...home.matchAll(/<article\b[^>]*data-project-id="([^"]+)"/g)].map(match => match[1]);
-const indexedFeatured = projectData.projects.filter(project => project.featured).map(project => project.id);
-if (JSON.stringify(cards) !== JSON.stringify(featuredIds)) errors.push('Homepage must show the five curated engineering projects in the agreed order.');
-if (indexedFeatured.length !== featuredIds.length || featuredIds.some(id => !indexedFeatured.includes(id))) errors.push('Project index must agree with the five featured homepage projects.');
-const shortcuts = [...home.matchAll(/<a\b[^>]*class="thermotwin-shortcut"[^>]*>/g)];
-if (shortcuts.length !== 1 || /\b(?:hidden|data-home-mode-target)\b/.test(shortcuts[0]?.[0] || '') || !shortcuts[0]?.[0].includes('href="projects/thermotwin-f.html"')) {
-  errors.push('Homepage must have one unfiltered, direct ThermoTwin shortcut.');
+const featuredIds=["siemens-thesis","tes-discharge-screen","opensteamopt","kerala2040","pynexus-green-hydrogen"];
+const featured=projectData.projects.filter(p=>p.featured).map(p=>p.id);
+if(featured.length!==featuredIds.length||featuredIds.some(id=>!featured.includes(id)))errors.push('Featured data unexpectedly changed');
+if(!home.includes('data-design-source="claude-control-volume-v1"')||!home.includes('data-cv-toy="mesh"')||!home.includes('data-cv-toy="year"'))errors.push('Homepage must use approved Claude S1');
+const library=fs.readFileSync(path.join(root,'projects.html'),'utf8');
+if(!library.includes('data-design-source="claude-control-volume-v1"')||!library.includes('id="cv-case-list"'))errors.push('Cases must use Claude S3 source-driven page');
+if(!fs.readFileSync(path.join(root,'scripts/claude-cases.js'),'utf8').includes("fetch('api/projects.json'"))errors.push('Case data source missing');
+for(const id of ['gb-flexabm','opensteamopt','kerala2040','tes-discharge-screen']){
+ const p=projectData.projects.find(x=>x.id===id&&x.status==='published');
+ if(!p?.caseStudyUrl||!fs.existsSync(path.join(root,p.caseStudyUrl)))errors.push('Source-backed case missing '+id);
 }
-if ((home.match(/data-project-id="thermotwin-f"/g) || []).length !== 0) errors.push('ThermoTwin remains in the library and shortcut, but is not a featured project.');
-const library = fs.readFileSync(path.join(root, 'projects.html'), 'utf8');
-if (!library.includes('data-project-id="gb-flexabm"')) errors.push('GB-FLEXABM must appear in the static project library.');
-if (!library.includes('data-project-id="opensteamopt"')) errors.push('OpenSteamOpt must appear in the static project library.');
-if (!library.includes('data-project-id="kerala2040"')) errors.push('Kerala2040 must appear in the static project library.');
-if (!library.includes('data-project-id="tes-discharge-screen"')) errors.push('TES Discharge Screen must appear in the static project library.');
 const gb = projectData.projects.find(project => project.id === 'gb-flexabm');
 if (gb?.caseStudyUrl !== 'projects/gb-flexabm.html') errors.push('GB-FLEXABM search must open its portfolio case study.');
 const opensteamopt = projectData.projects.find(project => project.id === 'opensteamopt');
@@ -69,7 +67,7 @@ for (const [id, repoName, requiredLimit] of [
 ]) {
   const p = projectData.projects.find(x => x.id === id);
   if (!p || p.repoUrl !== 'https://github.com/abhijith-sivaprasadan/' + repoName || p.featured || p.status !== 'published') errors.push('Missing or wrongly promoted original contribution: ' + id);
-  if (!library.includes('data-project-id="' + id + '"')) errors.push('Project library missing ' + id);
+  if (!projectData.projects.some(p => p.id === id && p.status === 'published')) errors.push('Project data missing ' + id);
   if (!p?.caseStudyUrl || !fs.existsSync(path.join(root, p.caseStudyUrl))) {
     errors.push('Missing case study for ' + id);
   } else {

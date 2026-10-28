@@ -43,6 +43,8 @@ jobs:
           node scripts/build-academic.cjs --check
           node scripts/validate-academic.cjs
           node scripts/validate-unified-ui.cjs
+          node scripts/validate-claude.cjs
+          python3 -m py_compile scripts/rebuild-claude-site.py
           node scripts/validate-feed-page.cjs
 
       - name: Check JavaScript syntax
@@ -70,7 +72,7 @@ jobs:
           const htmlFiles = [];
           const walk = (dir) => {
             for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-              if (entry.name === '.git' || entry.name === 'node_modules') continue;
+              if (entry.name === '.git' || entry.name === 'node_modules' || entry.name === 'design-legacy') continue;
               const full = path.join(dir, entry.name);
               if (entry.isDirectory()) walk(full);
               if (entry.isFile() && entry.name.endsWith('.html')) htmlFiles.push(full);
