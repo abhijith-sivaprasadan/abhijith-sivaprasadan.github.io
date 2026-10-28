@@ -627,7 +627,7 @@
       initEvidenceDensity();
       initChartFocus();
       initChartTooltips();
-      initMediaDialog();
+      // The Control Volume case runtime handles the accessible thesis image dialog.
       document.documentElement.classList.add("charts-ready");
     } catch (error) {
       document.documentElement.classList.add("charts-failed");
