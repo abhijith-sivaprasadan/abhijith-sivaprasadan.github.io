@@ -1071,10 +1071,10 @@
       "category": "Assignments",
       "status": "published",
       "featured": false,
-      "order": 999,
+      "order": 27,
       "period": "2025",
       "associatedWith": "KTH entrepreneurship assignment",
-      "summary": "KTH entrepreneurship coursework: an exploratory storage-dispatch product concept, not an implemented or validated grid-flexibility optimisation product.",
+      "summary": "Entrepreneurship assignment translating renewable-grid storage optimisation, real-time data and machine learning into a product concept and business model.",
       "audienceTags": [
         "Industrial R&D",
         "Energy Systems"
@@ -1093,9 +1093,9 @@
       "image": "assets/illustrations/gridflex-energy-optimizer.svg",
       "caseStudyUrl": "projects/gridflex-energy-optimizer.html",
       "highlights": [
-        "Coursework concept and business-model framing; no grid-connected prototype, operational integration or deployed product is claimed.",
-        "Weather-aware machine-learning storage dispatch was a proposed product feature, not experimentally demonstrated here.",
-        "Engineering evidence for actual simulation and verification work is better represented by the linked district-heating, grid and energy-modelling case studies."
+        "Developed GridFlex as a service for dynamically managing energy storage in renewable-powered solar and wind grids.",
+        "Concept uses machine learning and real-time data analysis to balance storage output against grid requirements and renewable availability.",
+        "Outlined prototype testing with simulated data, customer interviews and predictive weather-aware storage adjustment."
       ]
     },
     {
