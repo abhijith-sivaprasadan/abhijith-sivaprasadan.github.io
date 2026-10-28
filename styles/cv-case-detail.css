@@ -73,3 +73,40 @@ body.cv-case-page .cv-case-top-progress{height:2px;background:#65d6c9;position:f
 @media(max-width:700px){body.cv-case-page .cv-case-frame{padding:0 20px 52px}body.cv-case-page .cv-case-top{padding:14px 20px}body.cv-case-page .cv-case-hero{padding:36px 0}body.cv-case-page .cv-case-hero-grid{grid-template-columns:1fr;gap:22px}body.cv-case-page .cv-case-glyph{min-height:0}body.cv-case-page .cv-case-glyph svg{height:55px}body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout){grid-template-columns:1fr}body.cv-case-page .cv-case-appendix{grid-template-columns:1fr}body.cv-case-page .cv-case-footer{padding:24px 20px}body.cv-case-page .cv-case-record :is(.result-metric-row,.thesis-kpis){display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:400px){body.cv-case-page .cv-case-record :is(.result-metric-row,.thesis-kpis){grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){body.cv-case-page *{scroll-behavior:auto!important}}
+
+/* Evidence is sourced per project; each card carries its own actual method or finding. */
+body.cv-case-page .cv-case-proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:38px}
+body.cv-case-page .cv-case-proof article{border:1px solid #314437;background:#0e1510;padding:17px;border-radius:8px;min-width:0}
+body.cv-case-page .cv-case-proof article .cv-proof-number{display:block;color:#65d6c9;font:10px 'JetBrains Mono',monospace;letter-spacing:.12em;margin-bottom:15px}
+body.cv-case-page .cv-case-proof article p{font:13px/1.65 Inter,sans-serif;color:#c9d2c9;margin:0}
+body.cv-case-page .cv-case-tool-line{display:flex;flex-wrap:wrap;gap:7px;margin-top:19px}
+body.cv-case-page .cv-case-tool-line span{border:1px solid #314339;padding:5px 9px;color:#a9b3a8;font:10px/1.35 'JetBrains Mono',monospace;border-radius:3px;overflow-wrap:anywhere}
+body.cv-case-page .cv-case-glyph.cv-case-image{min-height:0;padding:0;background:#09100c}
+body.cv-case-page .cv-case-glyph.cv-case-image:before{display:none}
+body.cv-case-page .cv-case-image img{width:100%;height:auto;max-height:220px;object-fit:contain;display:block}
+body.cv-case-page .cv-case-image small{padding:10px 12px;border-top:1px solid #314437}
+body.cv-case-page .cv-case-record>.case-hero{padding:30px 0!important}
+body.cv-case-page .cv-case-record>.case-hero>.container> :is(.button-row,.result-metric-row,.thesis-hero-media,.case-visual){margin:15px 0}
+body.cv-case-page .cv-case-record>.case-hero .case-visual{max-width:100%;width:min(100%,860px);height:auto;display:block;object-fit:contain}
+body.cv-case-page .cv-case-record>.case-hero>.container:empty{display:none}
+body.cv-case-page .cv-case-record .cv-case-source-media{margin:0 0 18px}
+body.cv-case-page .cv-case-record .selected-work{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+body.cv-case-page .cv-case-record .work-row{padding:17px!important}
+body.cv-case-page .cv-case-record .work-row h3{font-size:15px}
+body.cv-case-page .cv-case-record :is(.page-shell-grid,.case-grid,.research-case-layout,.gb-method-grid,.thesis-analysis-grid,.method-grid){min-width:0;max-width:100%}
+body.cv-case-page .cv-case-record :is(img,iframe,video){border-radius:7px}
+body.cv-case-page .cv-case-record iframe{max-width:100%}
+body.cv-case-page .cv-case-record input,body.cv-case-page .cv-case-record select{max-width:100%}
+body.cv-case-page .cv-case-record :is(.thesis-media-button,button){cursor:pointer}
+body.cv-case-page .cv-case-record table{display:block;overflow-x:auto;white-space:normal;max-width:100%}
+body.cv-case-page .cv-case-record .scope-note{border:1px dashed #5c6949!important;background:#131810!important;padding:22px!important}
+body.cv-case-page .cv-case-record .scope-note :is(h2,p){color:#e5dbb6}
+body.cv-case-page .cv-case-record .case-panel li{overflow-wrap:anywhere}
+body.cv-case-page .cv-case-record .section-heading{margin:0 0 16px}
+body.cv-case-page .cv-case-record .section-intro{font-size:16px}
+body.cv-case-page .cv-case-record :is(.case-visual,.gb-figure img,.thesis-photo){max-height:580px;object-fit:contain}
+body.cv-case-page dialog.thesis-media-dialog{background:#0d110e;color:#f2f0e7;border:1px solid #43544a;border-radius:10px;max-width:95vw;max-height:95vh;padding:20px}
+body.cv-case-page dialog.thesis-media-dialog::backdrop{background:#000d}
+body.cv-case-page dialog.thesis-media-dialog img{max-width:85vw;max-height:75vh;object-fit:contain}
+@media(max-width:780px){body.cv-case-page .cv-case-proof{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){body.cv-case-page .cv-case-proof{grid-template-columns:1fr}body.cv-case-page .cv-case-record .selected-work{grid-template-columns:1fr}}
