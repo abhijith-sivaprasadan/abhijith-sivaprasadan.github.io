@@ -154,5 +154,60 @@ if(photos.length){
  viewer.addEventListener('close',()=>{lastFocus?.focus()});
 }
 
+
+/* Evidence-linked navigation uses published catalogue records, never a fake card.
+   See also the user's actual industrial experience and methods dossiers. */
+const connections=document.createElement('section');
+connections.className='cv-case-connections';connections.id='related-evidence';
+const label=document.createElement('p');label.className='cv-case-kicker';label.textContent='CONNECTED METHODS / WORK';
+const h=document.createElement('h2');h.textContent='Follow the evidence.';
+const intro=document.createElement('p');intro.textContent='Related work is linked by documented subject, tools and methods—not by arbitrary recommendation order.';
+const items=document.createElement('div');items.className='cv-case-connections-list';
+const status=document.createElement('p');status.className='cv-case-connections-status';status.textContent='Reading published case relationships…';
+connections.append(label,h,intro,items,status);
+const anchor=main.querySelector('.cv-case-appendix');
+if(anchor)anchor.before(connections);
+const currentSlug=document.body.dataset.projectSlug;
+const publicCases=async()=>{
+ const response=await fetch('../api/projects.json',{cache:'no-cache'});
+ if(!response.ok)throw Error('Index unavailable');
+ const payload=await response.json(),all=(payload.projects||[]).filter(x=>x.status==='published'&&x.caseStudyUrl&&/^projects\/[a-z\d-]+\.html$/.test(x.caseStudyUrl));
+ const own=all.find(x=>x.id===currentSlug||x.caseStudyUrl.endsWith('/'+currentSlug+'.html'));
+ if(!own)throw Error('Current work missing from catalogue');
+ const keyset=v=>new Set((v||[]).map(x=>String(x).toLowerCase()));
+ const ownTools=keyset(own.tools),ownTags=keyset(own.audienceTags),ownSkills=keyset(own.skills);
+ const overlap=(a,b)=>[...a].filter(x=>b.has(x)).length;
+ const scored=all.filter(x=>x!==own&&x.id!=='gridflex-energy-optimizer')
+ .map(x=>({p:x,score:3*overlap(ownSkills,keyset(x.skills))+2*overlap(ownTools,keyset(x.tools))+2*overlap(ownTags,keyset(x.audienceTags))+(own.category===x.category?2:0)}))
+ .filter(x=>x.score>0).sort((a,b)=>b.score-a.score||(a.p.order??100)-(b.p.order??100));
+ const unique=new Set();const chosen=scored.filter(x=>{if(unique.has(x.p.id))return false;unique.add(x.p.id);return true}).slice(0,4);
+ for(const {p,score} of chosen){
+  const card=document.createElement('a');card.className='cv-case-connection-card';card.href='../'+p.caseStudyUrl;
+  const caption=document.createElement('span');caption.className='cv-connection-tag';caption.textContent=p.category||'CASE STUDY';
+  const title=document.createElement('strong');title.textContent=p.title||p.id;
+  const description=document.createElement('span');description.className='cv-connection-description';description.textContent=p.summary||'Open the published evidence record.';
+  const more=document.createElement('span');more.className='cv-connection-open';more.textContent='OPEN CASE ↗';
+  card.append(caption,title,description,more);items.append(card);
+ }
+ status.textContent=chosen.length?chosen.length+' related case records available.':'No related published cases indexed.';
+ const paths=[];
+ const org=String(own.associatedWith||'').toLowerCase();
+ if(/siemens/.test(org)||/siemens/.test(currentSlug))paths.push(['SIEMENS ENERGY LAB','../experience/siemens-energy.html']);
+ if(/alleima/.test(org)||/alleima/.test(currentSlug))paths.push(['ALLEIMA INDUSTRIAL AUDITS','../experience/alleima.html']);
+ if(/kth|university/.test(org)||/numerical|heating|district/.test(currentSlug))paths.push(['KTH COURSE RECORD','../courses.html']);
+ if((own.audienceTags||[]).some(x=>/thermal|fluid/i.test(x)))paths.push(['THERMAL ENGINEERING METHODS','../skills/cfd-heat-transfer.html']);
+ if((own.audienceTags||[]).some(x=>/energy systems/i.test(x)))paths.push(['ENERGY SYSTEMS METHODS','../skills/energy-systems.html']);
+ if((own.audienceTags||[]).some(x=>/research/i.test(x)))paths.push(['RESEARCH PRACTICE','../research.html']);
+ if(paths.length){
+  const row=document.createElement('div');row.className='cv-case-connected-paths';
+  for(const [title,path] of paths){
+   if(row.querySelector('a[href="'+path+'"]'))continue;
+   const link=document.createElement('a');link.href=path;link.textContent=title+' ↗';row.append(link);
+  }
+  connections.append(row);
+ }
+};
+publicCases().catch(()=>{status.textContent='Case catalogue is temporarily unavailable. Browse the full cases library.';const link=document.createElement('a');link.href='../projects.html';link.textContent='ALL CASES ↗';status.append(' ',link)});
+
 /* Viewport-size-aware evidence-ledger navigation preserves the current location. */
 })();
