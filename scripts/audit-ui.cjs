@@ -383,6 +383,19 @@ const severity = (where, issue, value) => {
       severity('projects/enerlint.html@390','CASE PROBE',evidence);
 
 
+    await page.goto(base+'/projects/synthsift.html',{waitUntil:'domcontentloaded'});
+    const synth=await page.evaluate(()=>{
+      const buttons=[...document.querySelectorAll('.cv-synth-switch button')];
+      const chart=document.querySelector('.cv-synth-chart');
+      const before=chart?.getAttribute('aria-label')||'';
+      buttons[1]?.click();
+      const after=chart?.getAttribute('aria-label')||'';
+      const parts=[...document.querySelectorAll('.cv-synth-legend strong')].map(n=>n.textContent.trim());
+      return {count:buttons.length,before,after,pressed:buttons[1]?.getAttribute('aria-pressed'),parts};
+    });
+    if(synth.count!==2||synth.before===synth.after||synth.pressed!=='true'||synth.parts.length!==3||!synth.after.includes('144')||!synth.before.includes('330'))
+      severity('projects/synthsift.html@390','CASE PROBE',synth);
+
     // Native details remain interactive, legible and source-linked in all three compact studies.
     for(const slug of ['enerlint','residual-pathways','pathways-hub']){
       await page.goto(base+'/projects/'+slug+'.html',{waitUntil:'domcontentloaded'});
@@ -478,6 +491,7 @@ const severity = (where, issue, value) => {
         {name:'projects/residual-pathways.html',width:390,selector:'.cv-audit-ledger',file:'case-residual-gates-390.png'},
         {name:'projects/pathways-hub.html',width:1440,selector:'.cv-audit-ledger',file:'case-pathways-gates-1440.png'},
         {name:'projects/synthsift.html',width:390,selector:'body',file:'case-synthsift-390.png'},
+        {name:'projects/synthsift.html',width:390,selector:'.cv-synth-explorer',file:'case-synthsift-evidence-390.png'},
         {name:'projects/finnish-grid-connection-evidence.html',width:1440,selector:'.cv-case-walkthrough',file:'case-finnish-1440.png'},
         {name:'for/siemens-feed.html',width:320,selector:'.track-hero',file:'feed-320.png'},
         {name:'admin.html',width:320,selector:'#panel-connection',file:'admin-320.png'}
