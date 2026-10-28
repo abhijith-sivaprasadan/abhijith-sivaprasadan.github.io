@@ -456,6 +456,12 @@ const severity = (where, issue, value) => {
         {name:'tracks/research.html',width:320,selector:'.track-hero',file:'research-track-320.png'},
         {name:'skills/research.html',width:320,selector:'.dossier-hero',file:'research-skill-320.png'},
         {name:'projects/residual-pathways.html',width:320,selector:'.cv-case-hero',file:'residual-320.png'},
+        {name:'projects/siemens-thesis.html',width:1440,selector:'body',file:'case-siemens-1440.png'},
+        {name:'projects/siemens-thesis.html',width:390,selector:'.cv-case-hero',file:'case-siemens-390.png'},
+        {name:'projects/thermotwin-f.html',width:1440,selector:'body',file:'case-thermotwin-1440.png'},
+        {name:'projects/enerlint.html',width:390,selector:'.cv-case-walkthrough',file:'case-enerlint-390.png'},
+        {name:'projects/synthsift.html',width:390,selector:'body',file:'case-synthsift-390.png'},
+        {name:'projects/finnish-grid-connection-evidence.html',width:1440,selector:'.cv-case-walkthrough',file:'case-finnish-1440.png'},
         {name:'for/siemens-feed.html',width:320,selector:'.track-hero',file:'feed-320.png'},
         {name:'admin.html',width:320,selector:'#panel-connection',file:'admin-320.png'}
       ];
