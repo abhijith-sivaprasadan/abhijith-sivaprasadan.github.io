@@ -209,5 +209,97 @@ const publicCases=async()=>{
 };
 publicCases().catch(()=>{status.textContent='Case catalogue is temporarily unavailable. Browse the full cases library.';const link=document.createElement('a');link.href='../projects.html';link.textContent='ALL CASES ↗';status.append(' ',link)});
 
+
+/* Source-anchored interactive case probes for compact scientific dossiers.
+   Descriptions are editorial lenses on already documented case facts.
+   These are not simulated experiments or fabricated new results. */
+const walkthroughs={
+ 'enerlint':{
+  title:'Conservation is necessary. Not sufficient.',
+  subtitle:'Inspect why a balance check can detect six faults yet still miss one compensating error.',
+  stages:[
+   ['INPUT CONTRACT','Four hand-constructed analytical demonstration cases declare the quantities, SI units and tolerances before any test. SHA-256 links inputs to machine-readable reports.','A balance test only evaluates the conservation statements provided to it.'],
+   ['NEGATIVE CONTROL','Six deliberately inconsistent perturbations trigger the declared checks in the current alpha.','This demonstrates detection on constructed counterexamples, not external model validation.'],
+   ['THE FALSE PASS','A compensating compressor error survives the same conservation checks. Two wrong components can cancel in the aggregate residual.','A passing residual is not evidence that every component is correctly modelled.'],
+   ['RESEARCH BOUNDARY','EnerLint remains a review-stage v0.1.0a0 research alpha with no certified industrial or external scientific validation.','The next useful work is stronger independent physical checks, not prettier pass indicators.']
+  ]},
+ 'residual-pathways':{
+  title:'Coverage is not a carbon-flow identity.',
+  subtitle:'Explore what the climate-scenario inventory proves, and what it does not.',
+  stages:[
+   ['COVERAGE AUDIT','The frozen candidate includes 1,202 climate-vetted scenarios and 352 reporting-presence aggregates across four milestone years.','A source variable being present is a reporting observation, not a validated physical decomposition.'],
+   ['SOURCE SEPARATION','Audited AR6 IAMC reporting, historical CD-LINKS observations and hypothetical optimization cases are explicitly kept in separate evidence classes.','The numerical origin of a claim must remain attached to the claim.'],
+   ['THE UNRESOLVED GATE','No I3 gross-emissions/removal partitions have passed independent physical verification.','Zero independently verified partitions means zero verified identities—not zero emissions or removals.'],
+   ['THE PUBLIC ATLAS','The live atlas visualizes the reporting evidence and traceable source coverage, with human scientific review still pending.','The atlas is an exploration interface, not institutional endorsement or an IPCC-certified result.']
+  ]},
+ 'pathways-hub':{
+  title:'An auditable release needs a failing gate.',
+  subtitle:'Follow the synthetic intake tests rather than mistaking a workflow prototype for a real consortium.',
+  stages:[
+   ['SOURCE CONTRACT','Submissions specify protocol, release identity, expected scenario years, compatible units and SHA-256 integrity before intake.','Validation is a stated input contract, not subjective dashboard approval.'],
+   ['ACCEPTED DEMO','One of three deliberately synthetic submissions exercises a valid intake and produces a testable, versioned record.','A successful sample establishes implementation behavior, not scientific correctness of scenario values.'],
+   ['REJECTION PATH','The other demonstrations exercise incompatible units and missing expected years; the intake rejects invalid sources.','Missing or incompatible evidence is not silently converted into an accepted scenario.'],
+   ['HUMAN GATE','Review-state ledgers and release briefings are tested prototype software. No real partner approvals or external human review are claimed.','A testable review state is not the same as a genuine scientific sign-off.']
+  ]},
+ 'synthsift':{
+  title:'Recommendations are not reference labels.',
+  subtitle:'Trace the frozen corpus into AI recommendations and the still-unfinished blinded human check.',
+  stages:[
+   ['ACQUISITION','Six frozen OpenAlex retrieval arms captured 600 raw records, resulting in 538 exact-deduplicated candidates.','The source snapshot is stable; OpenAlex relevance retrieval is not an exhaustive systematic search.'],
+   ['EVIDENCE COVERAGE','Of the 538 candidates, 330 include abstracts and 208 are title-only records.','Title-only uncertainty must be visible instead of imitating a complete abstract review.'],
+   ['AI FIRST PASS','The 538 AI-attributed recommendations are 144 include, 341 exclude and 53 uncertain, with 150 unique records prioritized for recheck.','These are model-assisted preliminary decisions, not validated independent human labels.'],
+   ['HUMAN EVALUATION','The prespecified 240-record human screening set and 96-record blinded second-review subset are not yet completed and adjudicated.','Do not report screening accuracy or a completed systematic review before reference judgments exist.']
+  ]},
+ 'gridguardpinn':{
+  title:'A surrogate needs permission to predict.',
+  subtitle:'Compare the accelerated route with the deterministic fallback that refuses unsupported faults.',
+  stages:[
+   ['REFERENCE MODEL','SMIB dynamics and an ANDES IEEE-14 multi-machine case provide numerical test environments with held-out splits.','These are controlled research benchmarks, not field protection systems.'],
+   ['TRUST ROUTER','The acceptance router refuses unseen fault-bus locations by default and defers them to the full ANDES solver.','A neural surrogate cannot grant itself authority based only on a small physics residual.'],
+   ['MEASURED WORKLOAD','A pre-registered, three-seed randomized comparison reports 1.57–1.95× end-to-end routed speedup on the fixed 50% in-envelope / 50% out-of-distribution benchmark.','The measurement includes real fallback paths; it does not measure arbitrary-grid acceleration or training cost.'],
+   ['NEGATIVE RESULTS','Past false acceptances and a subsynchronous-oscillation extension with partially unresolved modal results remain documented.','The system is research software and is not certified for operational control.']
+  ]},
+ 'finnish-grid-connection-evidence':{
+  title:'Missing capacity is not zero capacity.',
+  subtitle:'Separate published indicative connection estimates from national historical series and future model assumptions.',
+  stages:[
+   ['SOURCE CAPTURE','The original Fingrid Grid Scope snapshot records 18 source-transcribed values: 17 tooltip values and one panel-value match.','Each value needs its point, direction, year, units, timestamp and captured operator caveats.'],
+   ['COVERAGE GAPS','The initial five-point / two-direction / three-year outline has 18 observed intersections and 12 absent from the compiled source capture.','An absent observation is missing evidence, not a calculated zero.'],
+   ['HISTORICAL CONTEXT','Fingrid datasets 124 and 74 and ENTSO-E provide historical national operational series.','National energy histories do not establish substation-level future connection availability.'],
+   ['SCENARIO BOUNDARY','Hypothetical future model scenarios are explicitly separate from operator-published indicative observations.','Do not add incompatible capacity estimates or interpolate unsourced years.']
+  ]}
+};
+const walk=walkthroughs[currentSlug];
+if(walk){
+ const section=document.createElement('section');section.className='cv-case-walkthrough';
+ const head=document.createElement('div');head.className='cv-case-walkthrough-head';
+ const eyebrow=document.createElement('p');eyebrow.className='cv-case-kicker';eyebrow.textContent='PROJECT-SPECIFIC EVIDENCE / INTERACTIVE READING';
+ const title=document.createElement('h2');title.textContent=walk.title;
+ const subtitle=document.createElement('p');subtitle.textContent=walk.subtitle;
+ head.append(eyebrow,title,subtitle);section.append(head);
+ const selector=document.createElement('div');selector.className='cv-case-walkthrough-options';selector.setAttribute('role','group');selector.setAttribute('aria-label','Explore project evidence stages');
+ const panel=document.createElement('div');panel.className='cv-case-walkthrough-panel';
+ const name=document.createElement('h3'),story=document.createElement('p'),limit=document.createElement('p');limit.className='cv-case-walkthrough-limit';
+ const counter=document.createElement('span');counter.className='cv-case-walkthrough-counter';
+ const buttons=walk.stages.map(([label],i)=>{
+  const btn=document.createElement('button');btn.type='button';btn.textContent=String(i+1).padStart(2,'0')+' / '+label;
+  btn.addEventListener('click',()=>activate(i));
+  btn.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();
+   const next=e.key==='Home'?0:e.key==='End'?buttons.length-1:(i+buttons.length+(e.key==='ArrowRight'?1:-1))%buttons.length;buttons[next].focus();activate(next)});
+  selector.append(btn);return btn;
+ });
+ const activate=i=>{
+  const [label,body,boundary]=walk.stages[i];name.textContent=label;story.textContent=body;limit.textContent='EVIDENCE BOUNDARY · '+boundary;
+  counter.textContent=String(i+1).padStart(2,'0')+' / '+String(walk.stages.length).padStart(2,'0');
+  buttons.forEach((b,j)=>{b.classList.toggle('is-active',j===i);b.setAttribute('aria-pressed',String(j===i))});
+ };
+ panel.setAttribute('aria-live','polite');panel.append(counter,name,story,limit);
+ const note=document.createElement('p');note.className='cv-case-walkthrough-note';note.textContent='This is an interactive explanation of the published project record, not a live simulation or a new empirical result.';
+ section.append(selector,panel,note);
+ const introEnd=main.querySelector('.cv-case-hero');
+ introEnd?.insertAdjacentElement('afterend',section);
+ activate(0);
+}
+
 /* Viewport-size-aware evidence-ledger navigation preserves the current location. */
 })();
