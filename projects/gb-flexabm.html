@@ -1,44 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="GB-FLEXABM: an open-source electricity investment ABM and shared Pyomo/HiGHS planner. Reproducible synthetic market-design experiments, scientific tests and transparent limitations." />
-  <meta property="og:title" content="GB-FLEXABM — Electricity Investment and Market Design" />
-  <meta property="og:description" content="One physical model, two investment decision systems. Exploratory research software with a reproducible 20-seed experiment—not a calibrated GB forecast." />
-  <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/gb-flexabm-comparison.png" />
-  <link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/gb-flexabm.html" />
-  <title>GB-FLEXABM — Electricity Investment &amp; Market Design | Abhijith Sivaprasadan</title>
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../styles.css?v=20260830-open-source" />
-  <link rel="stylesheet" href="../styles/v4.css?v=20260830-paper-contrast" />
-  <link rel="stylesheet" href="../styles/gb-flexabm.css?v=20260831-data" />
-  <script src="../scripts/public-config.js?v=20261007-engineering-index"></script>
-  <script src="../scripts/sections/command-palette.js?v=20260830-gb-flexabm" defer></script>
-  <script src="../scripts/sections/whiteprint.js?v=20260830-gb-flexabm" defer></script>
-  <script src="../scripts/motion/sw-register.js?v=20260830-gb-flexabm" defer></script>
-  <link rel="stylesheet" href="../styles/portfolio.css?v=20261007-engineering-index" />
-</head>
-<body class="signal-rebuild" data-page-key="case-study" data-project-slug="gb-flexabm" data-paper>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <nav class="nav container" aria-label="Main navigation">
-      <a href="../index.html" class="logo">Abhijith Sivaprasadan</a>
-      <div class="nav-links"><a href="../index.html#projects">Featured projects</a><a href="../projects.html">Project library</a><a href="../energy-systems.html">Energy systems</a><a href="../index.html#contact">Contact</a></div>
-    </nav>
-  </header>
-  <div class="paper-bar" aria-label="Case-study navigation">
-    <a class="paper-back" href="../index.html#projects">&larr; Featured projects</a>
-    <button class="paper-search" type="button" data-fcmd-open aria-label="Search projects, methods, and pages">Search projects <kbd>Ctrl K</kbd></button>
-  </div>
-  <div class="paper-progress" aria-hidden="true"></div>
-  <main id="main" class="paper-doc gb-study" tabindex="-1">
+<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GB-FLEXABM — Electricity Investment &amp; Market Design | Abhijith Sivaprasadan</title><meta name="description" content="GB-FLEXABM: an open-source electricity investment ABM and shared Pyomo/HiGHS planner. Reproducible synthetic market-design experiments, scientific tests and transparent limitations." />
+<meta property="og:title" content="GB-FLEXABM — Electricity Investment and Market Design" />
+<meta property="og:description" content="One physical model, two investment decision systems. Exploratory research software with a reproducible 20-seed experiment—not a calibrated GB forecast." />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/gb-flexabm-comparison.png" /><link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/gb-flexabm.html" />
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" /><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&amp;family=JetBrains+Mono:wght@400..600&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="../styles/control-volume.css?v=20261028"><link rel="stylesheet" href="../styles/gb-flexabm.css?v=20260831-data" /><link rel="stylesheet" href="../styles/claude-exact.css?v=20261028"><link rel="stylesheet" href="../styles/cv-case-detail.css?v=20261028"></head>
+<body class="cv cv-case-page" data-design-source="claude-control-volume-v1" data-page-key="case-study" data-project-slug="gb-flexabm"><a class="skip-link" href="#main">Skip to case evidence</a><div class="cv-case-top-progress" aria-hidden="true"></div><div class="pg">
+<header><div class="cv-case-top"><a class="cv-case-wordmark" href="../index.html">ABHIJITH SIVAPRASADAN / CONTROL VOLUME</a><nav class="nv" aria-label="Primary"><a href="../index.html">APPLIED</a><a href="../projects.html" aria-current="page">CASES</a><a href="../research.html">RESEARCH</a><a href="../energy-systems.html">ENERGY SYSTEMS</a><a href="../about.html">ABOUT</a></nav></div></header>
+<main id="main" class="cv-case-frame" tabindex="-1"><section class="cv-case-hero"><div class="cv-case-breadcrumb"><a href="../index.html">S1 · APPLIED</a><span>/</span><a href="../projects.html">S3 · CASES</a><span>/</span>ENERGY SYSTEMS</div><div class="cv-case-hero-grid"><div><p class="cv-case-kicker">Independent research software · Energy markets · 2026</p><h1 class="cv-case-title">GB-FLEXABM<br />Who builds the next megawatt?</h1><p class="cv-case-lede">A transparent electricity investment experiment: heterogeneous investor agents versus a perfect-foresight central planner, connected by the same physical dispatch model. The core contribution is a controlled comparison: separate investor behaviour from physical dispatch assumptions and expose why an experimental policy effect may be zero. </p><div class="cv-case-tool-line"><span>Python</span><span>Pyomo</span><span>HiGHS</span><span>Streamlit</span><span>NumPy</span><span>pytest</span></div><div class="cv-case-tools"><a href="../projects.html">BACK TO CASES ↗</a><a href="https://github.com/abhijith-sivaprasadan/gb-flexabm" target="_blank" rel="noopener noreferrer">SOURCE &amp; REPRODUCIBILITY ↗</a></div></div><div class="cv-case-glyph cv-case-image"><img src="../assets/illustrations/gb-flexabm.svg" alt="Project illustration; not measured evidence" width="260" height="190"><small>PROJECT REFERENCE / GB-FLEXABM</small></div></div><div class="cv-case-proof"><article><span class="cv-proof-number">EVIDENCE / 01</span><p>Local GUI and CLI share one engine, with numerical replay and verified exports.</p></article><article><span class="cv-proof-number">EVIDENCE / 02</span><p>175 public references acquired/extracted; 804 Elexon responses preserve failed coverage gates. No raw-data publication, silent target substitution or empirical calibration claim.</p></article></div></section><div class="cv-case-panel-rail"><aside class="cv-case-toc" aria-label="Case sections"><p class="cv-case-toc-title">READ THE EVIDENCE / ↘</p><div id="cv-case-toc-links"></div></aside><article class="cv-case-record">
     <section class="case-hero">
       <div class="container">
-        <p class="eyebrow">Independent research software · Energy markets · 2026</p>
-        <h1>GB-FLEXABM<br />Who builds the next megawatt?</h1>
-        <p class="hero-text">A transparent electricity investment experiment: heterogeneous investor agents versus a perfect-foresight central planner, connected by the same physical dispatch model. The core contribution is a controlled comparison: separate investor behaviour from physical dispatch assumptions and expose why an experimental policy effect may be zero. </p>
+        
+        
+        
         <p class="gb-status"><strong>Software v0.3 · Exploratory and synthetic.</strong> Local experiment GUI, training-data guards and bounded ERA5 acquisition. Not an empirically calibrated GB forecast, official market model or university-affiliated project.</p>
         <div class="button-row"><a class="button primary" href="#workbench">Launch the local GUI</a><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm">Source &amp; reproduce</a><a class="button secondary" href="#results">Read the experiment</a></div>
         <nav class="gb-contents" aria-label="On this page"><a href="#question">Question</a><a href="#methods">Methods</a><a href="#workbench">GUI</a><a href="#results">Results</a><a href="#verification">Verification</a><a href="#delivery">Delivery status</a><a href="#limits">Limits</a></nav>
@@ -161,12 +134,8 @@ uv run --locked python scripts/reproduce.py --output runs/reference</code></pre>
         <p>This project demonstrates Python optimisation, agent-based modelling, experiment design, public-data handling and reproducible technical reporting. Those methods are relevant to energy-system modelling and market-design research; the project is independent and does not imply employment, funding or institutional affiliation.</p>
         <p><strong>Not implemented or established:</strong> empirical calibration and holdout validation, transmission and unit commitment, forced-outage adequacy, probabilistic LOLE, official Capacity Market/CfD mechanisms, endogenous storage investment, or integrated heat and hydrogen behaviour.</p>
         <p>The short repeated block and the full synthetic year produce different scarcity outcomes; the former is not an established annual approximation. Next steps require multi-weather-year data, behavioural identification, sensitivity and seed-convergence studies, external model comparison and separately verified cross-vector energy balances.</p>
-        <div class="button-row"><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/MODEL_CARD.md">Model card</a><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/ROADMAP.md">Research roadmap</a><a class="button secondary" href="../index.html#projects">Back to featured projects</a></div>
+        <div class="button-row"><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/MODEL_CARD.md">Model card</a><a class="button secondary" href="https://github.com/abhijith-sivaprasadan/gb-flexabm/blob/main/docs/ROADMAP.md">Research roadmap</a><a class="button secondary" href="../projects.html">Back to featured projects</a></div>
         <p class="gb-source-note">Source context: <a href="https://www.neso.energy/data-portal/historic-demand-data">NESO Historic Demand Data</a> and <a href="https://pyomo.readthedocs.io/en/stable/howto/solver_recipes.html">Pyomo solver documentation</a>. Original code and synthetic fixtures: MIT. Publisher data retain their own terms.</p>
       </div>
     </section>
-  </main>
-  <footer class="footer"><div class="container"><p>Abhijith Sivaprasadan · Independent research software</p><a href="../projects.html">Explore all projects</a></div></footer>
-  <script src="../scripts/site.js?v=20260830-gb-flexabm"></script>
-</body>
-</html>
+  </article></div><nav class="cv-case-appendix" aria-label="Continue exploring"><a href="../projects.html">← ALL PROJECT CASE STUDIES</a><a href="../research.html">CONTINUE TO THE RESEARCH RECORD ↗</a></nav></main><footer class="cv-case-footer"><span>ABHIJITH SIVAPRASADAN · METHODS, EVIDENCE & THEIR LIMITS</span><a href="../hobbies.html">OUTSIDE THE BOUNDARY · HOBBIES ↗</a></footer></div><script src="../scripts/claude-exact.js?v=20261028" defer></script><script src="../scripts/cv-case-detail.js?v=20261028" defer></script></body></html>
