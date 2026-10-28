@@ -143,3 +143,57 @@ document.querySelectorAll('.cv-discovery a,.cv-site-directory a').forEach(link=>
  if(link.getAttribute('href').split('/').pop()===here)link.setAttribute('aria-current','page')
 });
 })();
+
+
+/* Reconnect contextual references on the original Claude pages to the real evidence.
+   Target explicit proper names and project titles; never auto-link ordinary science text. */
+(()=>{
+'use strict';
+if(!document.body?.classList.contains('cv')||document.body.classList.contains('cv-case-page'))return;
+const refs=[
+ ['Siemens Energy thesis','projects/siemens-thesis.html'],
+ ['Siemens thesis','projects/siemens-thesis.html'],
+ ['Kerala2040','projects/kerala2040.html'],
+ ['ThermoTwin-F','projects/thermotwin-f.html'],
+ ['GridGuardPINN','projects/gridguardpinn.html'],
+ ['SynthSift','projects/synthsift.html'],
+ ['EnerLint','projects/enerlint.html'],
+ ['ResidualPathways','projects/residual-pathways.html'],
+ ['PathwaysHub','projects/pathways-hub.html'],
+ ['OpenSteamOpt','projects/opensteamopt.html'],
+ ['GB-FLEXABM','projects/gb-flexabm.html'],
+ ['Industrial energy KPI toolkit','projects/industrial-energy-kpi-toolkit.html'],
+ ['Industrial energy performance mapping','projects/alleima-energy-efficiency.html'],
+ ['District heating dispatch optimisation','projects/district-heating-optimisation.html'],
+ ['Heating demand forecasting','projects/heating-demand-forecasting.html'],
+ ['Distribution grid study','projects/distribution-grid-study.html'],
+ ['Structural FEA','projects/structural-fea-reactor-internals.html'],
+ ['Battery cell discharge','projects/battery-cell-discharge-lab.html'],
+ ['Research engagement, pyrolysis','experience/kth-pyrolysis.html'],
+ ['Energy efficiency intern','experience/alleima.html'],
+ ['Backend engineer','experience/qburst.html'],
+ ["Master's thesis researcher",'experience/siemens-energy.html'],
+];
+function linkMentions(){
+ const main=document.querySelector('.pg main');if(!main)return;
+ const used=new Set();
+ for(const box of main.querySelectorAll('h2,h3,p,li')){
+  if(box.closest('a,button,[data-cv-toy],svg,[aria-live],.cv-site-directory'))continue;
+  const walker=document.createTreeWalker(box,NodeFilter.SHOW_TEXT);
+  const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  for(const node of nodes){
+   if(!node.isConnected||node.parentElement?.closest('a,button,code,pre,svg'))continue;
+   const text=node.nodeValue||'';
+   const pick=refs.find(([label])=>!used.has(label)&&text.toLowerCase().includes(label.toLowerCase()));
+   if(!pick)continue;
+   const [label,target]=pick;const pos=text.toLowerCase().indexOf(label.toLowerCase());
+   const element=document.createElement('a');element.className='cv-context-link';element.href=target;
+   element.title='Open published evidence: '+label;element.textContent=text.slice(pos,pos+label.length);
+   const frag=document.createDocumentFragment();
+   frag.append(document.createTextNode(text.slice(0,pos)),element,document.createTextNode(text.slice(pos+label.length)));
+   node.replaceWith(frag);used.add(label);
+  }
+ }
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',linkMentions,{once:true});else linkMentions();
+})();
