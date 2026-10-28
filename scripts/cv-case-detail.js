@@ -89,7 +89,7 @@ document.querySelectorAll('canvas[data-evidence-chart]').forEach(canvas=>{
   if(canvas.closest('[hidden]'))return;
   const w=Math.max(280,Math.round(canvas.getBoundingClientRect().width)||600),h=Math.max(260,Math.round(canvas.getBoundingClientRect().height)||320);
   const scale=Math.min(2,devicePixelRatio||1);canvas.width=w*scale;canvas.height=h*scale;
-  const ctx=canvas.getContext('2d');if(!ctx)return;
+  const ctx=canvas.getContext('2d');if(!ctx)return;canvas._cvHasData=true;
   ctx.setTransform(scale,0,0,scale,0,0);ctx.clearRect(0,0,w,h);
   const pad={left:48,right:20,top:25,bottom:68},sw=w-pad.left-pad.right,sh=h-pad.top-pad.bottom;
   const top=Math.max(1,...series.map(d=>Number(d.value)))*1.12;
