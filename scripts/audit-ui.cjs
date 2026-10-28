@@ -35,10 +35,11 @@ const debug = process.env.UI_AUDIT_TARGETED === '1';
 const tests = (debug ? pages.filter(p => debugRoutes.has(p)) : pages).map(name => ({name,width:390}));
 for (const name of highlight) if (pages.includes(name) && !debug) for (const width of [320,673,1024,1440]) tests.push({name,width});
 if (debug) for (const name of debugRoutes) if (pages.includes(name)) tests.push({name,width:320});
+if(!debug) for(const name of pages.filter(p=>p.startsWith('projects/')&&!highlight.includes(p))) tests.push({name,width:1440});
 const failures=[], warnings=[], summaries=[];
 const severity = (where, issue, value) => {
   const info = {page:where, issue, detail:value};
-  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|CASE MEDIA|CASE PROBE|CASE TABS|CASE LINKS|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE|STORY LAMP|MOBILE CONTROLS/.test(issue)) failures.push(info);
+  if (/DOCUMENT BLEED|PAGE ERROR|YEAR CONTROL|PROBE CLIPPED|DIALOG ERROR|CASE MEDIA|CASE PROBE|CASE WIDTH|CASE TABS|CASE LINKS|ENERGY LENS|CASE FILTER|HEAT CONTROL|MESH CONTROL|BIOT CONTROL|STORY CYCLE|STORY LAMP|MOBILE CONTROLS/.test(issue)) failures.push(info);
   else warnings.push(info);
 };
 (async () => {
@@ -96,9 +97,22 @@ const severity = (where, issue, value) => {
           monlabelPresent:!!year.querySelector('[data-out="monlabel"]'),slider:!!year.querySelector('[data-cv-year-day]')};
         return {scroll:Math.round(doc.scrollWidth-width),bodyScroll:Math.round(document.body.scrollWidth-width),text,
           year:yr,heading:document.querySelector('h1')?.textContent?.trim().slice(0,90),body:document.body.className,
-          dialog:!!document.querySelector('.cvfx-dialog')};
+          dialog:!!document.querySelector('.cvfx-dialog'),
+          caseWidth:(()=>{const r=document.querySelector('.cv-case-record');
+            const a=r?.querySelector(':is(.case-grid,.research-case-layout,.thesis-layout)>article.case-panel');
+            const panel=a?.parentElement,fig=r?.querySelector('.thesis-figure-grid');
+            if(!r||!a)return null;
+            const rr=r.getBoundingClientRect(),ar=a.getBoundingClientRect(),sr=panel.querySelector(':scope>aside.case-panel')?.getBoundingClientRect();
+            return {article:Math.round(ar.width),record:Math.round(rr.width),ratio:+(ar.width/rr.width).toFixed(3),
+              snapshot:sr?Math.round(sr.width):null,
+              figureColumns:fig?getComputedStyle(fig).gridTemplateColumns.split(' ').filter(Boolean).length:null};
+          })()};
       });
       const where=test.name+'@'+test.width;
+      if(data.caseWidth&&(data.caseWidth.ratio<.86||(data.caseWidth.snapshot!==null&&data.caseWidth.snapshot<data.caseWidth.record*.86) ||
+        (test.width>=1024&&data.caseWidth.figureColumns===1)))
+        severity(where,'CASE WIDTH',data.caseWidth);
+
       if(data.scroll>5) {
         const offenders=await page.evaluate(() => {
           const vw=innerWidth;
@@ -484,6 +498,8 @@ const severity = (where, issue, value) => {
         {name:'skills/research.html',width:320,selector:'.dossier-hero',file:'research-skill-320.png'},
         {name:'projects/residual-pathways.html',width:320,selector:'.cv-case-hero',file:'residual-320.png'},
         {name:'projects/siemens-thesis.html',width:1440,selector:'body',file:'case-siemens-1440.png'},
+        {name:'projects/siemens-thesis.html',width:1440,selector:'.thesis-figure-grid',file:'case-siemens-evidence-wide.png'},
+        {name:'projects/alleima-energy-efficiency.html',width:1440,selector:'.case-grid',file:'case-alleima-reflow.png'},
         {name:'projects/siemens-thesis.html',width:390,selector:'.cv-case-hero',file:'case-siemens-390.png'},
         {name:'projects/thermotwin-f.html',width:1440,selector:'body',file:'case-thermotwin-1440.png'},
         {name:'projects/enerlint.html',width:390,selector:'.cv-case-walkthrough',file:'case-enerlint-390.png'},

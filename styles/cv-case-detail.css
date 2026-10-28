@@ -224,3 +224,45 @@ body.cv-case-page .cv-synth-stage>a{font:11px/1.6 'JetBrains Mono',monospace;col
 body.cv-case-page .cv-synth-stage>a:hover{text-decoration:underline}
 @media(max-width:520px){body.cv-case-page .cv-synth-stage{padding:16px}body.cv-case-page .cv-synth-legend>div{grid-template-columns:11px minmax(0,1fr);gap:5px 10px}body.cv-case-page .cv-synth-legend strong{grid-column:2;white-space:normal;font-size:11px}}
 @media(prefers-reduced-motion:reduce){body.cv-case-page .cv-synth-chart>span{transition:none!important}}
+
+/* Case-study editorial width correction, 2026-10-28
+   One navigation rail is enough. The imported legacy two-column (.case-grid /
+   .research-case-layout / .thesis-layout) creates a SECOND 260px snapshot rail,
+   starving research figures on large displays. Keep the snapshot as a compact
+   full-width facts panel instead of a second permanently reserved column. */
+body.cv-case-page .cv-case-frame{width:min(100%,1520px);padding-left:clamp(20px,3.5vw,58px);padding-right:clamp(20px,3.5vw,58px)}
+body.cv-case-page .cv-case-top,body.cv-case-page .cv-case-footer{max-width:1520px;padding-left:clamp(20px,3.5vw,58px);padding-right:clamp(20px,3.5vw,58px)}
+body.cv-case-page .cv-case-panel-rail{grid-template-columns:minmax(0,215px) minmax(0,1fr);gap:clamp(22px,3vw,46px)}
+body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout){grid-template-columns:minmax(0,1fr);gap:20px}
+body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout)>:is(aside,article){min-width:0;width:100%;max-width:none}
+body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout)>aside.case-panel{padding:22px 27px}
+body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout)>aside.case-panel>h2{margin-bottom:13px}
+body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout)>aside.case-panel>ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 32px;margin:0 0 14px;padding-left:18px}
+body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout)>aside.case-panel>ul>li{min-width:0;break-inside:avoid;overflow-wrap:break-word;line-height:1.6}
+body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout)>aside.case-panel>.published-thesis-card{max-width:none}
+body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout)>article.case-panel{padding:clamp(18px,2.5vw,34px)}
+
+/* Technical diagrams should form a gallery instead of a long, narrow,
+   single-file stack; their existing click-to-enlarge behaviour is retained. */
+body.cv-case-page .cv-case-record .thesis-figure-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:18px;margin:24px 0}
+body.cv-case-page .cv-case-record .thesis-figure-grid>figure{width:100%;min-width:0;margin:0}
+body.cv-case-page .cv-case-record .thesis-figure-grid :is(.thesis-media-button,picture){display:block;width:100%;max-width:100%}
+body.cv-case-page .cv-case-record .thesis-figure-grid .thesis-media-button{padding:6px;border:1px solid #355242;background:#0a0f0d;border-radius:7px;cursor:zoom-in}
+body.cv-case-page .cv-case-record .thesis-figure-grid img{display:block;width:100%;height:auto;max-width:100%;object-fit:contain}
+body.cv-case-page .cv-case-record .thesis-figure-grid .thesis-media-button:hover,
+body.cv-case-page .cv-case-record .thesis-figure-grid .thesis-media-button:focus-visible{border-color:#65d6c9}
+body.cv-case-page .cv-case-record .thesis-figure-grid figcaption{padding:10px 2px 0}
+
+/* Keep both snapshot and evidence usable at notebook and mobile widths. */
+@media(max-width:1100px){
+ body.cv-case-page .cv-case-panel-rail{grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:26px}
+}
+@media(max-width:950px){
+ body.cv-case-page .cv-case-panel-rail{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:700px){
+ body.cv-case-page .cv-case-frame{padding-left:20px;padding-right:20px}
+ body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout)>aside.case-panel>ul{grid-template-columns:minmax(0,1fr)}
+ body.cv-case-page .cv-case-record :is(.case-grid,.research-case-layout,.thesis-layout)>aside.case-panel{padding:18px}
+ body.cv-case-page .cv-case-record .thesis-figure-grid{grid-template-columns:minmax(0,1fr)}
+}
