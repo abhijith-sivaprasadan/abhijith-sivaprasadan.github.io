@@ -161,3 +161,22 @@ body.cv-case-page .cv-case-connected-paths a:hover{background:#162d20}
 body.cv-case-page .cv-case-connections-status{font:11px 'JetBrains Mono',monospace!important;color:#8ba495!important;margin:13px 0!important}
 @media(max-width:650px){body.cv-case-page .cv-case-connections-list{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){body.cv-case-page .cv-case-connection-card{transition:none!important}}
+
+/* Method-by-method reading for compact, newly added work; all states are real content. */
+body.cv-case-page .cv-case-walkthrough{border-bottom:1px solid #314536;padding:42px 0 44px}
+body.cv-case-page .cv-case-walkthrough-head{max-width:910px}
+body.cv-case-page .cv-case-walkthrough h2{font:600 clamp(26px,3.4vw,40px)/1.18 Inter,sans-serif;letter-spacing:-.035em;color:#f2f0e7;margin:0 0 14px}
+body.cv-case-page .cv-case-walkthrough-head>p:last-child{font:15px/1.7 Inter,sans-serif;color:#bac9bd;margin:0 0 26px}
+body.cv-case-page .cv-case-walkthrough-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:12px}
+body.cv-case-page .cv-case-walkthrough-options button{display:block;text-align:left;border:1px solid #334a3a;color:#b3c5b7;background:#0a120d;border-radius:5px;padding:13px 12px;min-height:65px;font:11px/1.5 'JetBrains Mono',monospace;letter-spacing:.025em;cursor:pointer;overflow-wrap:anywhere}
+body.cv-case-page .cv-case-walkthrough-options button.is-active{color:#09150d;border-color:#65d6c9;background:#65d6c9}
+body.cv-case-page .cv-case-walkthrough-options button:hover:not(.is-active){border-color:#65d6c9;color:#65d6c9}
+body.cv-case-page .cv-case-walkthrough-options button:focus-visible{outline:3px solid #d7b46a;outline-offset:3px}
+body.cv-case-page .cv-case-walkthrough-panel{position:relative;border:1px solid #314c3a;background:radial-gradient(circle at 94% 0%,rgba(101,214,201,.095),transparent 65%),#0c130e;padding:29px 31px;border-radius:7px;min-height:195px;box-sizing:border-box}
+body.cv-case-page .cv-case-walkthrough-counter{font:11px 'JetBrains Mono',monospace;color:#65d6c9;letter-spacing:.1em}
+body.cv-case-page .cv-case-walkthrough-panel h3{font:600 21px/1.25 Inter,sans-serif;color:#f2f0e7;margin:14px 0 10px}
+body.cv-case-page .cv-case-walkthrough-panel p{font:15px/1.72 Inter,sans-serif;color:#c6d6c9;max-width:810px;margin:0 0 14px}
+body.cv-case-page .cv-case-walkthrough-panel .cv-case-walkthrough-limit{font:12px/1.72 'JetBrains Mono',monospace;color:#d7b46a;padding-top:18px;border-top:1px solid #334838;margin:18px 0 0}
+body.cv-case-page .cv-case-walkthrough-note{font:11px/1.6 'JetBrains Mono',monospace;color:#93a698;margin:14px 0 0}
+@media(max-width:780px){body.cv-case-page .cv-case-walkthrough-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:500px){body.cv-case-page .cv-case-walkthrough-options{grid-template-columns:1fr 1fr}body.cv-case-page .cv-case-walkthrough-options button{font-size:10px}body.cv-case-page .cv-case-walkthrough-panel{padding:20px}}
