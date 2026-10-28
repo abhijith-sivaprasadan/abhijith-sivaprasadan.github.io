@@ -27,4 +27,20 @@ if('IntersectionObserver' in window&&toc&&toc.children.length){
  },{rootMargin:'-10% 0px -78% 0px',threshold:0});
  headings.forEach(h=>{const target=document.getElementById(h.id);if(target)observer.observe(target)});
 }
+
+/* Preserve the original thesis figure lightbox as an accessible native dialog. */
+const dialog=document.querySelector('dialog.thesis-media-dialog');
+if(dialog){
+ const img=dialog.querySelector('[data-thesis-media-image]'),cap=dialog.querySelector('[data-thesis-media-caption]');
+ const closer=dialog.querySelector('[data-thesis-media-close]');
+ document.querySelectorAll('[data-thesis-media]').forEach(button=>button.addEventListener('click',()=>{
+  const src=button.getAttribute('data-thesis-media');if(!src||!img)return;
+  img.src=src;img.alt=button.querySelector('img')?.alt||'Thesis figure';
+  if(cap)cap.textContent=button.getAttribute('data-thesis-caption')||'';
+  if(!dialog.open)dialog.showModal();closer?.focus();
+ }));
+ closer?.addEventListener('click',()=>dialog.close());
+ dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+}
+/* Viewport-size-aware evidence-ledger navigation preserves the current location. */
 })();
