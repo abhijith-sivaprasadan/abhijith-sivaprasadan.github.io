@@ -301,5 +301,51 @@ if(walk){
  activate(0);
 }
 
+
+/* SynthSift: real frozen-corpus distribution, not a made-up scoring dashboard.
+   Switch between records with/without abstracts and provisional AI suggestions.
+   The counts are frozen and explicitly not human reference decisions. */
+if(currentSlug==='synthsift'){
+ const sets=[
+  {name:'SOURCE COVERAGE',note:'538 exact-deduplicated OpenAlex candidates. The absence of an abstract makes a source record title-only, not ineligible.',parts:[['Abstract available',330],['Title only',208]]},
+  {name:'AI RECOMMENDATIONS',note:'The 538 AI-attributed first-pass recommendations are not independent human reference labels and must not be treated as validated screening performance.',parts:[['Provisional include',144],['Provisional exclude',341],['Uncertain',53]]}
+ ];
+ const section=document.createElement('section');section.className='cv-synth-explorer';
+ section.setAttribute('aria-label','Explore the frozen SynthSift records');
+ const eyebrow=document.createElement('p');eyebrow.className='cv-case-kicker';eyebrow.textContent='FROZEN CORPUS / OCTOBER 2026';
+ const title=document.createElement('h2');title.textContent='538 records. Two different ways of counting.';
+ const intro=document.createElement('p');intro.textContent='Switch the evidence view to inspect recorded source completeness or AI recommendations. Neither view represents independently adjudicated human screening.';
+ const controls=document.createElement('div');controls.className='cv-synth-switch';controls.setAttribute('role','group');controls.setAttribute('aria-label','Choose a counted evidence layer');
+ const stage=document.createElement('div');stage.className='cv-synth-stage';stage.setAttribute('aria-live','polite');
+ const chart=document.createElement('div');chart.className='cv-synth-chart';chart.setAttribute('role','img');
+ const legend=document.createElement('div');legend.className='cv-synth-legend';
+ const explanation=document.createElement('p');explanation.className='cv-synth-explanation';
+ const foot=document.createElement('a');foot.href='https://github.com/abhijith-sivaprasadan/SynthSift';foot.textContent='SOURCE CODE, FROZEN CORPUS AND REVIEW PROTOCOL ↗';
+ const colors=['#65d6c9','#c9a764','#8ca2cc'];
+ const buttons=sets.map((item,i)=>{
+  const b=document.createElement('button');b.type='button';b.textContent=item.name;
+  b.addEventListener('click',()=>activate(i));
+  controls.append(b);return b;
+ });
+ const activate=i=>{
+  const item=sets[i];chart.replaceChildren();legend.replaceChildren();
+  chart.setAttribute('aria-label',item.name+': '+item.parts.map(([name,n])=>name+' '+n).join(', '));
+  for(const [j,[name,n]] of item.parts.entries()){
+   const slice=document.createElement('span');slice.style.flex=String(n);slice.style.background=colors[j];slice.title=name+': '+n+' of 538';
+   chart.append(slice);
+   const row=document.createElement('div');const swatch=document.createElement('span');swatch.className='cv-synth-swatch';swatch.style.background=colors[j];
+   const label=document.createElement('span');label.textContent=name;
+   const count=document.createElement('strong');count.textContent=n+' / 538 · '+(n/538*100).toFixed(1)+'%';
+   row.append(swatch,label,count);legend.append(row);
+  }
+  explanation.textContent=item.note;
+  buttons.forEach((b,j)=>{b.classList.toggle('is-active',i===j);b.setAttribute('aria-pressed',String(i===j))});
+ };
+ stage.append(chart,legend,explanation,foot);section.append(eyebrow,title,intro,controls,stage);
+ const walkSection=main.querySelector('.cv-case-walkthrough');
+ if(walkSection)walkSection.insertAdjacentElement('afterend',section);
+ activate(0);
+}
+
 /* Viewport-size-aware evidence-ledger navigation preserves the current location. */
 })();
