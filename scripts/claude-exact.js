@@ -197,3 +197,22 @@ function linkMentions(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',linkMentions,{once:true});else linkMentions();
 })();
+
+
+/* Real experiment reset. Re-centre the authored heat source, return mesh to L1,
+   and restore the date to today; never imply a numerical solver has rerun. */
+(()=>{
+ const init=()=>{
+  const reset=document.querySelector('[data-cv-reset-workbench]');
+  if(!reset)return;
+  reset.addEventListener('click',()=>{
+   document.querySelector('[data-cv-toy="heat-field"]')?.dispatchEvent(new Event('cv-reset-field'));
+   document.querySelector('[data-cv-toy="mesh"] [data-level="1"]')?.click();
+   document.querySelector('[data-cv-year-reset]')?.click();
+   const field=document.querySelector('[data-cv-toy="heat-field"]');
+   if(field){field.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'center'});field.focus({preventScroll:true})}
+   reset.setAttribute('aria-label','Workbench reset. Heat source centred, coarse mesh, today restored.');
+  });
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
