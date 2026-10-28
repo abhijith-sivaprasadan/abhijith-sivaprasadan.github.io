@@ -357,7 +357,7 @@ const severity = (where, issue, value) => {
         {name:'research.html',width:390,selector:'[data-cv-toy="biot"]',file:'research-biot-390.png'},
         {name:'tracks/research.html',width:320,selector:'.track-hero',file:'research-track-320.png'},
         {name:'skills/research.html',width:320,selector:'.dossier-hero',file:'research-skill-320.png'},
-        {name:'projects/residual-pathways.html',width:320,selector:'.dossier-hero',file:'residual-320.png'},
+        {name:'projects/residual-pathways.html',width:320,selector:'.cv-case-hero',file:'residual-320.png'},
         {name:'for/siemens-feed.html',width:320,selector:'.track-hero',file:'feed-320.png'},
         {name:'admin.html',width:320,selector:'#panel-connection',file:'admin-320.png'}
       ];
