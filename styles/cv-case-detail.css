@@ -110,3 +110,12 @@ body.cv-case-page dialog.thesis-media-dialog::backdrop{background:#000d}
 body.cv-case-page dialog.thesis-media-dialog img{max-width:85vw;max-height:75vh;object-fit:contain}
 @media(max-width:780px){body.cv-case-page .cv-case-proof{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){body.cv-case-page .cv-case-proof{grid-template-columns:1fr}body.cv-case-page .cv-case-record .selected-work{grid-template-columns:1fr}}
+
+body.cv-case-page>.skip-link{position:absolute;z-index:1000;left:14px;top:-150px;padding:10px 15px;border:2px solid #65d6c9;background:#071007;color:#f2f0e7;font:12px 'JetBrains Mono',monospace}
+body.cv-case-page>.skip-link:focus{top:12px}
+body.cv-case-page .cv-case-record .thesis-media-dialog{max-width:95vw}
+body.cv-case-page .cv-case-record .cv-case-source-media:empty{display:none}
+body.cv-case-page .cv-case-record .page-shell{margin:0;padding:0;background:transparent}
+body.cv-case-page .cv-case-record :is(.hero-slab,.page-shell-grid){padding:0;background:none}
+body.cv-case-page .cv-case-record .page-shell-grid{display:block}
+body.cv-case-page .cv-case-record a:focus-visible{outline:3px solid #65d6c9;outline-offset:3px}
