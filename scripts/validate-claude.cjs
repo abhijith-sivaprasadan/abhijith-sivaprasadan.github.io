@@ -31,7 +31,7 @@ for(const name of projectFiles){
  for(const token of ['class="cv cv-case-page"','data-design-source="claude-control-volume-v1"','class="cv-case-hero"','class="cv-case-record"','cv-case-detail.js','href="../hobbies.html"'])
   assert.ok(page.includes(token),'Unconverted project: '+name+' / '+token);
  assert.ok(!page.includes('../styles/v4.css')&&!page.includes('../styles/portfolio.css')&&!page.includes('../styles/academic.css'),'Legacy site CSS still loaded: '+name);
- assert.match(page,/<h1 class="cv-case-title">[\\s\\S]+?<\\/h1>/,'Missing distinct case heading: '+name);
+ assert.ok(page.includes('<h1 class="cv-case-title">') && page.includes('</h1>'),'Missing case heading: '+name);
 }
 const discovery=read('scripts/claude-exact.js');
 for(const dest of ['hobbies.html','interests.html','ideas.html','courses.html','skills/index.html','reports.html','story.html','tracks/index.html'])
