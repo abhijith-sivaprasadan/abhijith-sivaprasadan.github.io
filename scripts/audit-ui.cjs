@@ -382,6 +382,33 @@ const severity = (where, issue, value) => {
     if(evidence.count!==4||evidence.initial===evidence.selected||evidence.pressed!=='true'||!evidence.related)
       severity('projects/enerlint.html@390','CASE PROBE',evidence);
 
+
+    await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});
+    const homeReset=await page.evaluate(()=>{
+      const reset=document.querySelector('[data-cv-reset-workbench]');
+      const year=document.querySelector('[data-cv-year-day]');
+      const numeral=document.querySelector('[data-cv-ml]');
+      const mesh=document.querySelector('[data-cv-toy="mesh"]');
+      if(!reset||!year||!numeral||!mesh)return {missing:true};
+      const before=document.querySelector('[data-out="day"]')?.textContent||'';
+      numeral.click();
+      const after=document.querySelector('[data-out="day"]')?.textContent||'';
+      numeral.click();
+      const medium=mesh.querySelector('[data-level="2"]');medium?.click();
+      year.value='200';year.dispatchEvent(new Event('input',{bubbles:true}));
+      reset.click();
+      return {missing:false,numeralsChanged:before!==after,medium:medium?.getAttribute('aria-pressed'),coarse:mesh.querySelector('[data-level="1"]')?.getAttribute('aria-pressed'),reset:reset.getAttribute('aria-label'),day:document.querySelector('[data-out="day"]')?.textContent};
+    });
+    if(homeReset.missing||!homeReset.numeralsChanged||homeReset.coarse!=='true'||!homeReset.reset)
+      severity('index.html@390','CASE PROBE',homeReset);
+
+    await page.goto(base+'/hobbies.html',{waitUntil:'domcontentloaded'});
+    const notes=await page.evaluate(()=>{
+      const btn=document.querySelector('button[data-note]');if(!btn)return {missing:true};
+      btn.click();return {missing:false,plucked:btn.classList.contains('plucked')};
+    });
+    if(notes.missing||!notes.plucked)severity('hobbies.html@390','CASE MEDIA',notes);
+
     await context.close();
     // Full motion-on render checks: the reduced-motion pass is not enough to
     // detect pointer overlays, animated motifs or first-visit obstructions.
