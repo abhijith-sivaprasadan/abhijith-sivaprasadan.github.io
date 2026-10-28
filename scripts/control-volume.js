@@ -191,7 +191,7 @@
     ['open ideas', 'ideas.html', 'next boundaries'],
     ['open interests', 'interests.html', 'nested boundaries'],
     ['open hobbies', 'hobbies.html', 'outside the boundary'],
-    ['open contact', 'index.html#contact', 'open boundary'],
+    ['open contact', 'index.html#open-boundary', 'open boundary'],
     ['open demo', 'labs/control-volume.html', 'every toy on one page']
   ];
   var extra = [];
