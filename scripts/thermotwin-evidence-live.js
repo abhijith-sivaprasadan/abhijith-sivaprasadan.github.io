@@ -145,7 +145,7 @@
    const obj=await response.json();
    if(obj.schema!=="portfolio.thermotwin_archival_model_output_v1"||
       obj.source_commit!=="bb8fabcba9e320c144d7981c7a2eb55a47724dac"||
-      !Object.entries(expected).every(([key,count])=>obj.series?.[key]?.original_rows===count)&&false)throw Error("Archive/commit/source contract does not match");
+      obj.evidence_class!=="archived committed Fortran-generated demonstration CSV; NOT rerun in this portfolio update, NOT measured operation")throw Error("Archive/commit/source contract does not match");
    // Conditions intentionally spelled out, with no tolerance for absent or
    // incorrect archival series and no chart fabrication on invalid data.
    for(const [name,count] of Object.entries(expected)){
