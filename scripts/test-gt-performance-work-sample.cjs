@@ -73,6 +73,59 @@ const root=path.resolve(__dirname,"..");
   assert.equal(await page.locator("#pe-real-chart .pe-measured-point").count(),subset);
   await page.locator("#pe-outliers").uncheck();
   assert.equal(await page.locator("#pe-real-chart .pe-measured-point").count(),229);
+  // Pass-off module: hypothetical signal values never become actual test data.
+  assert.equal((await page.locator("#pe-po-screen").textContent()).trim(),
+    "INDUSTRIAL PASS-OFF: NOT ASSESSED");
+  assert.ok((await page.locator("#pe-po-source").textContent()).includes("SYNTHETIC"));
+  const passoffAtReference=await page.evaluate(()=>{
+    const read=id=>document.getElementById(id)?.textContent?.trim();
+    return {cp:read("pe-po-cp"),chr:read("pe-po-chr"),
+      p:read("pe-po-corrected-power"),hr:read("pe-po-corrected-hr"),
+      uP:read("pe-po-up"),uHR:read("pe-po-uhr"),
+      rho:read("pe-po-corr"),status:read("pe-po-window-status")};
+  });
+  assert.equal(passoffAtReference.cp,"1.00000");
+  assert.equal(passoffAtReference.chr,"1.00000");
+  assert.ok(passoffAtReference.p.includes("MW"));
+  assert.ok(passoffAtReference.uP.includes("MW"));
+  assert.equal(passoffAtReference.status,"ILLUSTRATIVE SCREEN / STABLE");
+  const originalU=parseFloat(passoffAtReference.uP.replaceAll(",",""));
+  assert.ok(originalU>0);
+  await page.locator("#pe-po-anomaly").selectOption("oscillation");
+  assert.equal((await page.locator("#pe-po-window-status").textContent()).trim(),"DATA HOLD");
+  await page.locator("#pe-po-anomaly").selectOption("drift");
+  assert.equal((await page.locator("#pe-po-window-status").textContent()).trim(),"DATA HOLD");
+  await page.locator("#pe-po-anomaly").selectOption("dropout");
+  assert.equal((await page.locator("#pe-po-window-status").textContent()).trim(),"DATA HOLD");
+  await page.locator("#pe-po-anomaly").selectOption("steady");
+  assert.equal((await page.locator("#pe-po-window-status").textContent()).trim(),"ILLUSTRATIVE SCREEN / STABLE");
+  await page.locator("#pe-po-scenario").selectOption("hot");
+  assert.notEqual((await page.locator("#pe-po-cp").textContent()).trim(),"1.00000",
+    "Hot-ambient hypothetical site condition must recompute actual correction ratios");
+  const changedUA=await page.evaluate(()=>{
+    const el=document.getElementById("pe-po-calibration-p");el.value="1.2";
+    el.dispatchEvent(new Event("input",{bubbles:true}));
+    return document.getElementById("pe-po-up").textContent;
+  });
+  assert.ok(parseFloat(changedUA.replaceAll(",",""))>originalU,
+    "Increasing assumed power calibration uncertainty must increase propagated u(power)");
+  const oldCorrelation=(await page.locator("#pe-po-corr").textContent()).trim();
+  const newCorrelation=await page.evaluate(()=>{
+    const el=document.getElementById("pe-po-rho");el.value="0.55";
+    el.dispatchEvent(new Event("input",{bubbles:true}));
+    return document.getElementById("pe-po-corr").textContent.trim();
+  });
+  assert.notEqual(newCorrelation,oldCorrelation,
+    "Changing P/fuel-flow instrument covariance must alter propagated output correlation");
+  assert.ok((await page.locator("#pe-po-hypothetical").textContent()).includes("ILLUSTRATIVE ONLY"));
+  assert.equal((await page.locator("#pe-po-screen").textContent()).trim(),
+    "INDUSTRIAL PASS-OFF: NOT ASSESSED");
+  await page.locator("#pe-po-reset").click();
+  assert.equal((await page.locator("#pe-po-cp").textContent()).trim(),"1.00000");
+  assert.equal((await page.locator("#pe-po-screen").textContent()).trim(),
+    "INDUSTRIAL PASS-OFF: NOT ASSESSED");
+  assert.ok(await page.locator("#pe-po-window-chart path").count()>0);
+  assert.ok(await page.locator("#pe-po-budget-chart rect").count()>=4);
   for(const width of [320,390,673,1024,1440]){
    await page.setViewportSize({width,height:900});
    await page.waitForTimeout(120);
@@ -89,6 +142,47 @@ const root=path.resolve(__dirname,"..");
   console.log(JSON.stringify({accepted:true,realDataSamples:229,highResidualSampleCount:subset,
     referencePower:initial,temp35Power:current.power,viewportTests:[320,390,673,1024,1440],
     checked:["Original source contract","ISO reset","Thermal slider","Pressure chart","Keyboard source drill-down","High residual source subset","Document overflow","JS errors","Screenshots"]},null,2));
+  // Main ThermoTwin case: original committed-model numbers drive all four SVGs.
+  await page.goto(base+"/projects/thermotwin-f.html",{waitUntil:"load"});
+  await page.waitForFunction(()=>document.querySelectorAll(".ttf-plot-ui:not([hidden])").length===4,{timeout:10000});
+  assert.equal(await page.locator(".ttf-plot-ui:not([hidden])").count(),4);
+  assert.equal(await page.locator(".ttf-plot-fallback:not([hidden])").count(),0);
+  assert.equal(await page.locator('[data-ttf-view="design"] .ttf-chart-point').count(),4);
+  const beforeTemp=(await page.locator('[data-ttf-view="design"] [data-ttf-inspect]').textContent()).trim();
+  await page.locator('[data-ttf-control="design-metric"]').selectOption("pressure");
+  const afterTemp=(await page.locator('[data-ttf-view="design"] [data-ttf-inspect]').textContent()).trim();
+  assert.notEqual(beforeTemp,afterTemp,"Station chart must switch to archived pressure measurements");
+  const degradationBefore=(await page.locator('[data-ttf-view="degradation"] [data-ttf-inspect]').textContent()).trim();
+  await page.locator('[data-ttf-control="degradation-metric"]').selectOption("heat_rate_kJ_kWh");
+  const degradationAfter=(await page.locator('[data-ttf-view="degradation"] [data-ttf-inspect]').textContent()).trim();
+  assert.notEqual(degradationBefore,degradationAfter);
+  await page.locator('[data-ttf-control="sensitivity-sweep"]').selectOption("pressureRatio");
+  assert.equal(await page.locator('[data-ttf-view="sensitivity"] .ttf-chart-point').count(),13);
+  await page.locator('[data-ttf-control="sensitivity-metric"]').selectOption("thermal_efficiency");
+  const sig=(await page.locator('[data-ttf-view="sensitivity"] .ttf-plot').getAttribute("aria-label"));
+  assert.ok(sig.includes("Thermal efficiency"));
+  const startupBefore=(await page.locator('[data-ttf-view="transient"] [data-ttf-inspect]').textContent()).trim();
+  await page.locator('[data-ttf-control="transient-index"]').evaluate(el=>{el.value="30";el.dispatchEvent(new Event("input",{bubbles:true}));});
+  const startupAfter=(await page.locator('[data-ttf-view="transient"] [data-ttf-inspect]').textContent()).trim();
+  assert.notEqual(startupBefore,startupAfter,"Scrubbing original Fortran transient must update actual source time and temperatures");
+  await page.locator('[data-ttf-control="transient-schedule"]').selectOption("shutdown");
+  assert.ok((await page.locator('[data-ttf-view="transient"] [data-ttf-inspect]').textContent()).includes("SHUTDOWN"));
+  assert.equal(await page.locator('img[src*="hmi_f1_overview.png"]').count(),1,
+    "Actual native GUI evidence screenshot must remain");
+  assert.equal(await page.locator('img[src*="uncertainty.png"]').count(),1,
+    "Original Monte Carlo distribution should remain a true image unless raw draws are supplied");
+  assert.equal(await page.locator('img[src*="diagnostics.png"]').count(),1);
+  for(const width of [320,390,673,1024,1440]){
+    await page.setViewportSize({width,height:900});
+    await page.waitForTimeout(70);
+    const bleed=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+    assert.ok(bleed<=5,"ThermoTwin main case document overflow at "+width+": "+bleed);
+  }
+  await page.setViewportSize({width:1440,height:900});
+  await page.screenshot({path:path.join(folder,"thermotwin-embedded-charts-1440.png"),fullPage:true,animations:"disabled"});
+  await page.setViewportSize({width:390,height:900});
+  await page.screenshot({path:path.join(folder,"thermotwin-embedded-charts-390.png"),fullPage:true,animations:"disabled"});
+  assert.deepEqual(errors,[],"Unexpected portfolio page JS exception");
   await c.close();
  }finally{await browser.close();}
 })().catch(e=>{console.error("GT performance browser acceptance FAILED",e);process.exitCode=1;});
