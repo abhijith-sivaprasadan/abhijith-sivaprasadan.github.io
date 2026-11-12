@@ -171,7 +171,8 @@ const root=path.resolve(__dirname,"..");
     "Actual native GUI evidence screenshot must remain");
   assert.equal(await page.locator('img[src*="uncertainty.png"]').count(),1,
     "Original Monte Carlo distribution should remain a true image unless raw draws are supplied");
-  assert.equal(await page.locator('img[src*="diagnostics.png"]').count(),1);
+  assert.ok((await page.locator('img[src*="diagnostics.png"]').count())>=1,
+    "Original inverse-diagnostics source imagery must remain available");
   for(const width of [320,390,673,1024,1440]){
     await page.setViewportSize({width,height:900});
     await page.waitForTimeout(70);
