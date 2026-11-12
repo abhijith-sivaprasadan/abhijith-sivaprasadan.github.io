@@ -9,7 +9,8 @@ on:
   workflow_dispatch:
 jobs:
   layout-interactions:
-    runs-on: ubuntu-latest
+    # Pin supported Playwright 1.56.1 OS image; ubuntu-latest moved to 26.04.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
