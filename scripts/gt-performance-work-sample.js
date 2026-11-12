@@ -158,7 +158,7 @@
     }));
   }
   document.addEventListener("thermotwin:request-educational-site-update",updateModel);
-  $("[data-pe-physical-input]").forEach(input=>input.addEventListener("input",updateModel));
+  $$("[data-pe-physical-input]").forEach(input=>input.addEventListener("input",updateModel));
   $("#pe-reset")?.addEventListener("click",()=>{
     for(const [key,value] of Object.entries(defaults)){const el=document.getElementById("pe-input-"+key);if(el)el.value=String(value);}
     updateModel();
