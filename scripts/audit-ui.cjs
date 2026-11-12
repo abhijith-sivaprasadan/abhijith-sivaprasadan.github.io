@@ -16,7 +16,8 @@ const highlight = ['index.html','story.html','404.html','admin.html','projects.h
   'experience.html','about.html','energy-systems.html','industrial-rd.html','interests.html',
   'hobbies.html','ideas.html','courses.html','cet2026/index.html','labs/control-volume.html',
   'for/siemens-feed.html','tracks/research.html','tracks/index.html','skills/research.html',
-  'projects/siemens-thesis.html','projects/kerala2040.html','projects/thermotwin-f.html'];
+  'projects/siemens-thesis.html','projects/kerala2040.html','projects/thermotwin-f.html',
+  'projects/gas-turbine-performance-work-sample.html'];
 const excludedDirs = new Set(['node_modules','backend','.github','.git','.claude','scripts','docs','dist','coverage','design-legacy']);
 const pages = [];
 function walk(dir) {
