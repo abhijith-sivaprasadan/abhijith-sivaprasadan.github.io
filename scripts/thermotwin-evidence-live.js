@@ -22,10 +22,13 @@
  };
  const staticTrace=el=>$(el,".ttf-plot");
  function inspect(box,summary){const el=$(box,"[data-ttf-inspect]");if(el)el.textContent=summary}
- function paintAxes(el,xVals,yVals,xLabel,yLabel,yUnit,labelMin=false){
+ function paintAxes(el,xVals,yVals,xLabel,yLabel,yUnit,zeroBase=false){
   const minX=Math.min(...xVals),maxX=Math.max(...xVals),
    minY=Math.min(...yVals),maxY=Math.max(...yVals),spread=Math.max(1e-9,maxY-minY);
-  const lo=minY-Math.max(spread*.12,Math.abs(minY)*.015),hi=maxY+Math.max(spread*.12,Math.abs(maxY)*.015);
+  // Bar magnitude comparisons must start at physical zero: a truncated
+  // bar axis would exaggerate small fouling-induced performance changes.
+  const lo=zeroBase?0:minY-Math.max(spread*.12,Math.abs(minY)*.015);
+  const hi=zeroBase?maxY*1.08:maxY+Math.max(spread*.12,Math.abs(maxY)*.015);
   const left=83,right=740,top=31,bottom=285;
   const xp=x=>left+(x-minX)/(maxX-minX||1)*(right-left);
   const yp=y=>bottom-(y-lo)/(hi-lo)*(bottom-top);
@@ -46,7 +49,7 @@
   el.replaceChildren();el.setAttribute("viewBox","0 0 790 350");
   const ys=items.map(x=>x.value),xs=items.map(x=>x.x);
   if(items.some(x=>!Number.isFinite(x.x)||!Number.isFinite(x.value))||!items.length){throw Error("invalid archival model series");}
-  const ax=paintAxes(el,xs,ys,opts.xLabel||"Operating parameter",opts.yLabel||"",opts.unit||"");
+  const ax=paintAxes(el,xs,ys,opts.xLabel||"Operating parameter",opts.yLabel||"",opts.unit||"",opts.type==="bars");
   if(opts.type!=="bars"){
    const d=items.map((v,i)=>(i?"L":"M")+ax.xp(v.x).toFixed(2)+","+ax.yp(v.value).toFixed(2)).join(" ");
    el.append(svg("path",{d,fill:"none",stroke:"#65d6c9","stroke-width":3,"stroke-linejoin":"round"}));
@@ -162,7 +165,7 @@
     ALL(box,"[data-ttf-control]").forEach(control=>control.addEventListener("input",redraw));
     if(which==="transient")ALL(box,"[data-ttf-control=transient-schedule]").forEach(input=>input.addEventListener("change",()=>{$(box,"[data-ttf-control=transient-index]").value="0";redraw()}));
     redraw();area.hidden=false;fallback.hidden=true;
-    if(status)status.textContent="LIVE SVG FROM PINNED COMMITTED FORTRAN CSV · NOT REGENERATED · NOT ENGINE TELEMETRY";
+    if(status)status.textContent="INTERACTIVE SVG FROM PINNED COMMITTED FORTRAN CSV · NOT REGENERATED · NOT ENGINE TELEMETRY";
    }
   }catch(e){markError(e.message);}
  }
