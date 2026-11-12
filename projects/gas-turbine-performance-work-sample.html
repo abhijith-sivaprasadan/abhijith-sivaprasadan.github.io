@@ -161,6 +161,110 @@
 <code class="pe-equation">HRsite [kJ/kWh] = 3600 × (ṁfuel [kg/s] × LHV [J/kg] / 10⁶) / Psite [MW]</code>
 <code class="pe-equation">[Pcorrected, HRcorrected] = [CP × Psite, CHR × HRsite]</code>
 <code class="pe-equation">Σcorrected = J (Σprecision + Σcalibration) Jᵀ · J = ∂[Pcorrected, HRcorrected]/∂[Psite, ṁfuel, LHV]</code>
+
+<div id="pe-passoff-desk" class="pe-po-desk" aria-labelledby="pe-po-interactive-title">
+  <div class="pe-po-head">
+    <div><p class="pe-eyebrow">Interactive methods lab / engineering rehearsal, not test-stand data</p>
+      <h3 id="pe-po-interactive-title">Reference correction, test-window QC and conditional uncertainty</h3>
+      <p>The values below are <strong>synthetic educational illustrations</strong> calculated from the browser's fixed generic gas-turbine model, with adjustable hypothetical measurement offsets. This workbench does not accept actual site records or decide a contractual pass-off. The model/site boundary controls above and these calculations remain connected.</p></div>
+    <div class="pe-po-lock"><strong id="pe-po-screen">INDUSTRIAL PASS-OFF: NOT ASSESSED</strong><span>Evidence gate remains locked · always</span></div>
+  </div>
+  <div class="pe-po-strip" aria-live="polite">
+    <div class="pe-readout"><span>ILLUSTRATIVE CORRECTED POWER</span><strong id="pe-po-corrected-power">—</strong><small>Reference-equivalent MW; no actual engine tested</small></div>
+    <div class="pe-readout"><span>ILLUSTRATIVE CORRECTED HEAT RATE</span><strong id="pe-po-corrected-hr">—</strong><small>kJ/kWh; not a manufacturer guarantee</small></div>
+    <div class="pe-readout"><span>CONDITIONAL INSTRUMENT u(P)</span><strong id="pe-po-up">—</strong><small>1σ standard uncertainty; map uncertainty excluded</small></div>
+    <div class="pe-readout"><span>CONDITIONAL INSTRUMENT u(HR)</span><strong id="pe-po-uhr">—</strong><small>1σ standard uncertainty; no OEM correction uncertainty</small></div>
+  </div>
+  <div class="pe-two">
+    <div class="pe-panel pe-controls">
+      <h3>Hypothetical test boundary</h3>
+      <div class="pe-field"><div><label for="pe-po-scenario">Reference-to-site calculation</label></div>
+        <select id="pe-po-scenario">
+          <option value="reference">ISO reference — 15°C, 101.325 kPa(a)</option>
+          <option value="hot">Hot site — 35°C, ambient reference pressure</option>
+          <option value="pressure">Low atmospheric pressure — 90 kPa(a)</option>
+          <option value="inlet">Intake restriction — 3% assumed loss</option>
+          <option value="combined">Hot/low-pressure + inlet/exhaust losses</option>
+        </select>
+      </div>
+      <p class="pe-mono" id="pe-po-site-case">Waiting for selected browser model boundary.</p>
+      <div class="pe-field"><div><label for="pe-po-power-bias">Injected measured-power offset</label><output id="pe-po-show-powerBias">−1.5 %</output></div><input id="pe-po-power-bias" type="range" min="-5" max="5" step=".5" value="-1.5"></div>
+      <div class="pe-field"><div><label for="pe-po-fuel-bias">Injected fuel-flow offset</label><output id="pe-po-show-fuelBias">1.0 %</output></div><input id="pe-po-fuel-bias" type="range" min="-5" max="5" step=".5" value="1"></div>
+      <div class="pe-field"><div><label for="pe-po-lhv">Assumed gas LHV (not measured)</label><output id="pe-po-show-lhv">50.0 MJ/kg</output></div><input id="pe-po-lhv" type="range" min="45" max="55" step=".5" value="50"></div>
+      <div class="pe-inline-control"><button type="button" id="pe-po-reset">Reset illustrative test inputs</button><button type="button" id="pe-po-export" disabled>Export source-labelled JSON</button></div>
+    </div>
+    <div class="pe-panel">
+      <h3>Corrected-value reconstruction</h3>
+      <div class="pe-table-wrap"><table><thead><tr><th>Quantity</th><th>Illustrative computation</th></tr></thead><tbody>
+        <tr><td>Assumed site power</td><td id="pe-po-observed">—</td></tr>
+        <tr><td>Assumed gas fuel flow</td><td id="pe-po-flow">—</td></tr>
+        <tr><td>Assumed fuel heat input</td><td id="pe-po-fuel-input">—</td></tr>
+        <tr><td>Site heat rate</td><td id="pe-po-site-hr">—</td></tr>
+        <tr><td>Power factor C<sub>P</sub> = P<sub>ref,model</sub>/P<sub>site,model</sub></td><td id="pe-po-cp">—</td></tr>
+        <tr><td>Heat-rate factor C<sub>HR</sub> = HR<sub>ref,model</sub>/HR<sub>site,model</sub></td><td id="pe-po-chr">—</td></tr>
+      </tbody></table></div>
+      <p class="pe-mono" id="pe-po-source">SYNTHETIC / EDUCATIONAL ARITHMETIC · no operator data</p>
+      <p>Both correction factors come from the same browser toy physics at selected site and reference boundaries. Their values are **held fixed** during instrument-only propagation. Changing the sliders above recomputes the model/site ratio, not the conditional instrument uncertainty of the correction factors themselves.</p>
+    </div>
+  </div>
+  <div class="pe-panel pe-po-panel-gap">
+    <div class="pe-po-window-head"><div><h3>Stability and anomaly screening</h3><p>Inject a deliberately artificial short trace. The checks use declared example tolerances: power coefficient of variation &lt; 0.8% and end-to-end drift &lt; 1.0%. They are illustrative, not ISO 2314/OEM test-window limits.</p></div>
+      <label for="pe-po-anomaly" class="pe-label">Test-window fixture
+        <select id="pe-po-anomaly">
+          <option value="steady">Steady synthetic baseline</option>
+          <option value="oscillation">Inject synthetic 2.1% load oscillation</option>
+          <option value="drift">Inject synthetic 3.2% sensor drift</option>
+          <option value="dropout">Inject missing source channel</option>
+        </select></label></div>
+    <div class="pe-chart-frame"><svg id="pe-po-window-chart" class="pe-chart" viewBox="0 0 730 220" role="img" aria-label="Synthetic stability trace will appear when calculated"></svg></div>
+    <div class="pe-po-window-result"><strong id="pe-po-window-status">—</strong><span id="pe-po-window-qc">Waiting for model.</span></div>
+  </div>
+  <div class="pe-panel pe-po-panel-gap">
+    <h3>Precision, systematic calibration covariance and Jacobian</h3>
+    <p>Full 3×3 instrument matrices follow the same variable order as <a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/scripts/passoff_correction.py">the Python pass-off method</a>: power [MW], fuel flow [kg/s], fuel LHV [J/kg]. Percentages here are expressly <strong>illustrative assumptions, not instrument certificates</strong>. Only power–fuel-flow systematic correlation is nonzero, so both 3×3 matrices remain positive semidefinite for the offered range.</p>
+    <details class="pe-po-details"><summary>Adjust illustrative 1σ input uncertainties and measurement correlation</summary>
+      <div class="pe-po-uncertainty">
+        <div class="pe-po-cols">
+          <div><p class="pe-label">Precision / short-term</p>
+            <div class="pe-field"><div><label for="pe-po-precision-p">Power</label><output id="pe-po-show-precisionP">0.25 %</output></div><input id="pe-po-precision-p" type="range" min="0" max="2" step=".05" value=".25"></div>
+            <div class="pe-field"><div><label for="pe-po-precision-f">Fuel mass flow</label><output id="pe-po-show-precisionF">0.45 %</output></div><input id="pe-po-precision-f" type="range" min="0" max="3" step=".05" value=".45"></div>
+            <div class="pe-field"><div><label for="pe-po-precision-l">Fuel LHV</label><output id="pe-po-show-precisionL">0.70 %</output></div><input id="pe-po-precision-l" type="range" min="0" max="3" step=".05" value=".70"></div>
+          </div>
+          <div><p class="pe-label">Systematic calibration</p>
+            <div class="pe-field"><div><label for="pe-po-calibration-p">Power</label><output id="pe-po-show-calibrationP">0.35 %</output></div><input id="pe-po-calibration-p" type="range" min="0" max="2" step=".05" value=".35"></div>
+            <div class="pe-field"><div><label for="pe-po-calibration-f">Fuel mass flow</label><output id="pe-po-show-calibrationF">0.60 %</output></div><input id="pe-po-calibration-f" type="range" min="0" max="3" step=".05" value=".60"></div>
+            <div class="pe-field"><div><label for="pe-po-calibration-l">Fuel LHV</label><output id="pe-po-show-calibrationL">0.90 %</output></div><input id="pe-po-calibration-l" type="range" min="0" max="3" step=".05" value=".90"></div>
+          </div>
+        </div>
+        <div class="pe-field"><div><label for="pe-po-rho">Systematic power–fuel-flow correlation coefficient</label><output id="pe-po-show-rho">−0.35</output></div><input id="pe-po-rho" type="range" min="-0.8" max="0.8" step=".05" value="-0.35"></div>
+      </div>
+    </details>
+    <code class="pe-equation">Jpower = [CP, 0, 0] · Jheat-rate = [−HRref/P, HRref/ṁfuel, HRref/LHV]</code>
+    <p class="pe-mono">Current J<sub>power</sub>: <span id="pe-po-jp">—</span></p>
+    <p class="pe-mono">Current J<sub>heat-rate</sub>: <span id="pe-po-jh">—</span></p>
+    <div class="pe-chart-frame"><svg id="pe-po-budget-chart" class="pe-chart" viewBox="0 0 730 198" role="img" aria-label="Conditional instrument uncertainty variance components"></svg></div>
+    <div class="pe-legend"><span>Precision contribution</span><span class="pe-accent">Calibration contribution</span></div>
+    <p class="pe-mono">Cross-output covariance <span id="pe-po-cov">—</span> · correlation <span id="pe-po-corr">—</span>. Bars are <em>within-output variance fractions</em>, not equal physical uncertainty magnitudes.</p>
+  </div>
+  <div class="pe-panel pe-po-panel-gap">
+    <h3>What the illustrative screen says — and what it cannot decide</h3>
+    <p>Adjust example comparison thresholds relative to the browser model's reference point. These are <strong>not contractual guarantees</strong> and never unlock production acceptance.</p>
+    <div class="pe-po-cols pe-po-screen-controls">
+      <div class="pe-field"><div><label for="pe-po-power-threshold">Example power floor, % reference</label><output id="pe-po-show-powerThreshold">98.0 %</output></div><input id="pe-po-power-threshold" type="range" min="92" max="102" step=".5" value="98"></div>
+      <div class="pe-field"><div><label for="pe-po-hr-threshold">Example maximum heat rate, % reference</label><output id="pe-po-show-hrThreshold">105.0 %</output></div><input id="pe-po-hr-threshold" type="range" min="98" max="112" step=".5" value="105"></div>
+    </div>
+    <p class="pe-mono" id="pe-po-targets">Illustrative target values will be calculated.</p>
+    <p id="pe-po-hypothetical" class="pe-po-hypothetical">ILLUSTRATIVE SCREEN ONLY</p>
+    <div class="pe-proof"><p><strong>Industrial result: NOT ASSESSED.</strong> A hypothetical comparison cannot establish a compliant performance test, independently measured correctable power or a Siemens Energy guarantee. Even if the toy thresholds are met, a professional pass-off decision is withheld until the following source-owner evidence exists.</p></div>
+    <div class="pe-table-wrap"><table><thead><tr><th>Non-bypassable evidence gate</th><th>Current status</th></tr></thead><tbody>
+      <tr><td>Actual named engine / signed synchronized stable test interval</td><td>Missing — synthetic window only</td></tr>
+      <tr><td>Metered gas and liquid fuel; sampled LHV; traceable power/airflow instruments</td><td>Missing — hypothetical fixture values</td></tr>
+      <tr><td>Validated OEM correction factors, site station boundaries, calibrated machine maps</td><td>Missing — independent generic browser model</td></tr>
+      <tr><td>Calibrated instrument covariance + correction-factor/model-form uncertainties</td><td>Missing — instrument-only assumptions</td></tr>
+      <tr><td>Approved contractual guarantees, uncertainties, standard procedure, review signature</td><td>Missing — no contractual threshold</td></tr>
+    </tbody></table></div>
+  </div>
+</div>
 <div class="pe-table-wrap"><table><thead><tr><th>Pass-off stage</th><th>Actual ThermoTwin-F status</th><th>Evidence needed for industrial decision</th></tr></thead><tbody>
 <tr><td>Test window and stability</td><td>Input contract and precondition checks available.</td><td>Observed engine steady-state evidence, unit/time synchronisation and signed test record.</td></tr>
 <tr><td>Corrections to reference</td><td>Same-generic-machine ISO/site factors in native Fortran, verified numerically.</td><td>OEM-calibrated maps, inlet/exhaust boundary measurements, humidity and approved correction procedure.</td></tr>
@@ -196,5 +300,6 @@
 </main>
 <footer class="pe-footer"><span>ABHIJITH SIVAPRASADAN · METHODS, EVIDENCE &amp; THEIR LIMITS</span><a href="../index.html">BACK TO PORTFOLIO ↗</a></footer>
 </div>
-<script src="../scripts/gt-performance-work-sample.js?v=20261112-pe-v1" defer></script>
+<script src="../scripts/gt-performance-work-sample.js?v=20261112-pe-v2" defer></script>
+<script src="../scripts/gt-passoff-workbench.js?v=20261112-passoff-v1" defer></script>
 </body></html>
