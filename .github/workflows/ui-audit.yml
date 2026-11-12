@@ -9,7 +9,8 @@ on:
   workflow_dispatch:
 jobs:
   layout-interactions:
-    runs-on: ubuntu-latest
+    # Pin supported Playwright 1.56.1 OS image; ubuntu-latest moved to 26.04.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -30,6 +31,10 @@ jobs:
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules
         run: node scripts/audit-ui.cjs
+      - name: Verify performance work sample source integrity, engineering controls and responsive behaviour
+        env:
+          NODE_PATH: /tmp/cv-ui-audit/node_modules
+        run: node scripts/test-gt-performance-work-sample.cjs
       - name: Upload visual screenshots
         if: always()
         uses: actions/upload-artifact@v4

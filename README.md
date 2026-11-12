@@ -319,6 +319,17 @@ See [CI coverage and limitations](CI.md) for the automated checks. The status ba
 The ThermoTwin-F and PyNEXUS case studies link the verified hosted runs and merged OpenMP/MPI implementations, with their scientific limits stated explicitly. See [CI publication record](docs/CI_PUBLICATION.md).
 
 
+## 12 November 2026 — technical gas-turbine performance work sample
+
+The portfolio now includes [Gas Turbine Performance Engineering — an interactive technical work sample](projects/gas-turbine-performance-work-sample.html), linked prominently from the homepage, the case-library work-sample spotlight and the existing [ThermoTwin-F case](projects/thermotwin-f.html).
+
+- **Interactive declared-model layer:** independent, client-side, constant-property four-station Brayton algebra with fixed generic hardware, ambient T/P, inlet/exhaust pressure losses, compressor/turbine station states, power and heat-rate correction factors, and recalculated temperature/pressure sweeps. This is explicitly **not an execution of the Fortran engine** and not a Siemens turbine predictive model. JSON export preserves full assumption and input/output provenance.
+- **Source-backed measured layer:** [Esan/Ehiaguina 2017 5.68 MW turbine original workbook](https://doi.org/10.17632/6w3vy3ybhg.3), source-pinned XLSX SHA-256, 317 worksheets, 2,966 eligible electrical observations, 838 excluded source slots. The frontend includes 229 every-13th original electrical rows in `data/performance-engineering/esan2017-measured-sample.json`, with worksheet/cell anchors and no residual-based selection, and directly computes three-phase electrical identity errors. A successful original-data pipeline in [ThermoTwin-F CI](https://github.com/abhijith-sivaprasadan/thermotwin/actions/runs/43175065668) reports later original-sheet full-audit RMSE 92.725 kW; it is not claimed to equal frontend subset RMSE.
+- **Metrology and pass-off:** dedicated stage identifies confirmed equations and covariance workflow, but actual OEM maps, fuel LHV, measured mass airflow, verified station mapping and full model-form uncertainties are missing. Contractual engine pass-off explicitly remains NOT ASSESSED.
+- **Responsive and interactive:** SVG parameter sweep, keyboard- and click-accessible source points, quality-filtered residual statistics, active section navigation and print/PDF styling. Source loading fails closed, with no synthetic telemetry fallback.
+
+Do not attribute later main-branch evidence to the older immutable v2 source-only Zenodo beta DOI. The portfolio's existing Control Volume visual system remains authoritative. For a role-specific application, share the direct work-sample URL instead of expecting reviewers to browse the whole repository.
+
 ## 27 October 2026 update
 
 The portfolio now includes [EnerLint](projects/enerlint.html) under [Open Energy Methods](https://github.com/Open-Energy-Methods), [ResidualPathways](projects/residual-pathways.html), [PathwaysHub](projects/pathways-hub.html), and an indexed [Reports & PDFs](reports.html) page. Reports are identified as actual PDFs, Markdown working papers or citable source software rather than conflated.

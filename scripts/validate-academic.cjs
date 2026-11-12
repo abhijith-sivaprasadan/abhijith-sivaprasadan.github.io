@@ -34,8 +34,22 @@ for (const [skill, order] of Object.entries(data.projectOrder)) {
   assert.ok(skills.has(skill));
   for (const project of order) assert.ok(data.projectSkills[project]?.includes(skill), `Invalid ordering: ${skill} / ${project}`);
 }
+// A technical work sample can be a documented companion to a canonical project,
+// without impersonating a separate independent research project in generated CV dossiers.
+const supplementalWorkSamples = new Map([
+  ['gas-turbine-performance-work-sample', 'thermotwin-f'],
+]);
+for (const [sample, parent] of supplementalWorkSamples) {
+  assert.ok(projectKeys.has(parent), 'Companion must have a catalogue parent: ' + parent);
+  const page=read('projects/' + sample + '.html');
+  assert.ok(page.includes('data-page-key="gt-performance-work-sample"'), 'Work sample must have its explicit identity');
+  assert.ok(read('projects/' + parent + '.html').includes(sample + '.html'), 'Canonical project must link to its technical work sample');
+  assert.ok(fs.readFileSync(path.join(root, 'index.html'), 'utf8').includes('projects/' + sample + '.html'), 'Home must link to technical work sample');
+}
 for (const file of fs.readdirSync(path.join(root, 'projects')).filter(f => f.endsWith('.html'))) {
-  assert.ok(projectKeys.has(path.basename(file, '.html')), `Case study absent from dossiers: ${file}`);
+  const slug=path.basename(file, '.html');
+  assert.ok(projectKeys.has(slug) || supplementalWorkSamples.has(slug),
+    `Case study absent from dossiers or companion registry: ${file}`);
 }
 for (const key of Object.keys(data.experienceSkills)) assert.ok(experiences.some(e => e.id === key), `Unknown experience: ${key}`);
 for (const title of Object.keys(data.certificationSkills)) assert.ok(certifications.some(c => c.title === title), `Unknown certification: ${title}`);
