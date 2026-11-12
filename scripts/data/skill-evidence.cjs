@@ -89,7 +89,6 @@ const projectSkills = {
   'opensteamopt': [E, O, D, I, R],
   'siemens-thesis': [C, T, M, R],
   'thermotwin-f': [C, E, D, R],
-  'gas-turbine-performance-work-sample': [C, T, E, D, R],
   'non-gray-radiation-modeling': [C, D, R],
   'numerical-heat-transfer': [C, D, R],
   'mtes-pcm-thermal-lab': [C, T, E, D],
