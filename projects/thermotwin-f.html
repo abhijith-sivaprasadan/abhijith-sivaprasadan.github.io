@@ -220,7 +220,7 @@
           <h2>Historical exergy examples (Revamp 7)</h2>
         </div>
         <div class="case-panel">
-          <p>Exported from the running console (<code>shift_data_t27.csv</code>, <code>[SCIENTIFIC_ANALYSIS]</code> block). All figures carry a balance-closure residual or a confidence interval; none are asserted without a stated method.</p>
+          <p>Historical console export (<code>shift_data_t27.csv</code>, <code>[SCIENTIFIC_ANALYSIS]</code> block). The table quotes selected conservation, uncertainty and sensitivity summaries; not every visual has a separately source-verified uncertainty interval. These are model-derived results, not plant measurements.</p>
           <div class="case-data-table">
             <table>
               <thead>
@@ -253,7 +253,7 @@
               </tbody>
             </table>
           </div>
-          <p style="margin-top:1rem;">The closed balance, combustor dominance, and clean single-driver Sobol decomposition are exactly what second-law theory predicts for this plant class &mdash; the analysis reproduces known physics rather than asserting numbers.</p>
+          <p style="margin-top:1rem;">Conservation closure is a numerical internal check, and combustor irreversibility is plausible for this simplified configuration. The displayed Sobol total-order estimate slightly above one can occur with finite-sample estimation error and <strong>must not be interpreted as a physical variance contribution above 100%</strong>; convergence and independent input modelling would be needed for predictive claims.</p>
         </div>
       </div>
     </section>
@@ -279,7 +279,7 @@
  <p class="ttf-plot-status" data-ttf-status>Loading pinned source CSV...</p>
  </div>
  </div>
-            <figcaption><strong>01 / Design-point thermodynamic state</strong><span>Station temperature breakdown from compressor inlet (288 K) through TIT (1400 K) to HRSG exhaust, paired with fuel-energy disposition: net electrical 29.9 MW, exhaust sensible 59.6 MW, losses 8.1 MW — the donut is the input for combined-cycle HRSG sizing.</span></figcaption>
+            <figcaption><strong>01 / Design-point thermodynamic state</strong><span>Archived simple-cycle station temperatures from compressor inlet (288 K) through turbine inlet (1400 K) to <strong>gas-turbine exhaust</strong> (~797 K), with model net electric output 29.9 MW and reported exhaust sensible energy ~59.6 MW. This exhaust is a potential HRSG inlet, <em>not</em> the HRSG outlet. A combined-cycle design requires separate heat-recovery analysis.</span></figcaption>
           </figure>
           <figure class="structural-figure-card">
             <div class="figure-kpi-row" aria-hidden="true"><span>Clean</span><span>Mild</span><span>Severe</span><span>Washed</span></div>
@@ -309,7 +309,7 @@
  <p class="ttf-plot-status" data-ttf-status>Loading pinned source CSV...</p>
  </div>
  </div>
-            <figcaption><strong>03 / Parametric sensitivity (simple cycle)</strong><span>Four one-at-a-time sweeps: net power vs ambient temperature (250–320 K); thermal efficiency vs pressure ratio (5–30); heat rate vs TIT (1200–1600 K); exhaust temperature vs turbine isentropic efficiency (0.80–0.92). Outputs span the full site-condition and design-parameter envelope.</span></figcaption>
+            <figcaption><strong>03 / Parametric sensitivity (simple cycle)</strong><span>Four one-at-a-time sweeps: net power vs ambient temperature (250–320 K); thermal efficiency vs pressure ratio (5–30); heat rate vs TIT (1200–1600 K); exhaust temperature vs turbine isentropic efficiency (0.80–0.92). These four historical one-at-a-time calculations illustrate selected idealised boundary and design sensitivities; they are not OEM operating-map or full installed-site envelopes.</span></figcaption>
           </figure>
           <figure class="structural-figure-card is-wide">
             <div class="figure-kpi-row" aria-hidden="true"><span>Cold start</span><span>Load ramp</span><span>Shutdown</span></div>
@@ -329,12 +329,12 @@
           <figure class="structural-figure-card">
             <div class="figure-kpi-row" aria-hidden="true"><span>Monte Carlo</span><span>σ net power = 0.519 MW</span><span>Bias tornado</span></div>
             <img src="../assets/projects/thermotwin-f/uncertainty.png" alt="ThermoTwin-F measurement uncertainty propagation: Monte Carlo KPI intervals and bias-sensitivity tornado" loading="lazy" width="1540" height="620" />
-            <figcaption><strong>05 / Measurement uncertainty propagation</strong><span>Left: Monte-Carlo KPI uncertainty — net power σ = 0.519 MW (about 1.74% of the nominal 29.875 MW), efficiency σ = 0.00115, heat rate σ = 44.2 kJ/kWh, all symmetric about nominal. Right: Bias-sensitivity tornado — mdot_air (+0.60 MW) and T_turbine_inlet (+0.50 MW) dominate; pressure ratio biases net power by only &minus;0.04 MW.</span></figcaption>
+            <figcaption><strong>05 / Measurement uncertainty propagation</strong><span>Left: Monte-Carlo KPI uncertainty — net power σ = 0.519 MW (about 1.74% of the nominal 29.875 MW), efficiency σ = 0.00115, heat rate σ = 44.2 kJ/kWh, model-based, approximate percentile intervals around nominal, not metrologically calibrated coverage on a tested engine. Right: Bias-sensitivity tornado — mdot_air (+0.60 MW) and T_turbine_inlet (+0.50 MW) dominate; pressure ratio biases net power by only &minus;0.04 MW.</span></figcaption>
           </figure>
           <figure class="structural-figure-card">
             <div class="figure-kpi-row" aria-hidden="true"><span>Compressor fouling</span><span>Turbine erosion</span><span>Parity plot</span></div>
             <img src="../assets/projects/thermotwin-f/diagnostics.png" alt="ThermoTwin-F inverse diagnostics: recovered degradation parameters vs true values and parity plot" loading="lazy" width="1540" height="620" />
-            <figcaption><strong>06 / Inverse diagnostics recovery</strong><span>The inverse solver recovers four injected degradation parameters (compressor fouling Δη, mass-flow loss Δṁ/ṁ, turbine erosion Δη, combustor ΔP rise) from simulated sensor observations. The parity plot confirms near-perfect alignment with the true values on all four parameters.</span></figcaption>
+            <figcaption><strong>06 / Inverse diagnostics recovery</strong><span>On the archived <strong>synthetic injection experiment</strong>, the inverse solver approximately recovers four predefined degradation parameters (compressor efficiency change, air-flow change, turbine efficiency change and combustor pressure loss). Close parity demonstrates mathematical self-consistency on this test case—not actual field fault isolation, unique parameter identification or predictive maintenance accuracy.</span></figcaption>
           </figure>
         </div>
       </div>
@@ -503,7 +503,7 @@
         <div class="case-role-grid">
           <article class="case-role-card">
             <h3>Thermodynamic rigour</h3>
-            <p>Every model closes its governing mass/energy/exergy balance to a stated tolerance. Reference formulations are named and citable: IAPWS-IF97, NASA-9 polynomials, &epsilon;-NTU, Sobol&rsquo;, Jansen, Curzon&ndash;Ahlborn.</p>
+            <p>Selected solver and analysis modules report named mass, energy and exergy balance residuals with documented numerical tests; this is verification evidence, not proof that every industrial operating condition is physically represented. Reference formulations are named and citable: IAPWS-IF97, NASA-9 polynomials, &epsilon;-NTU, Sobol&rsquo;, Jansen, Curzon&ndash;Ahlborn.</p>
           </article>
           <article class="case-role-card">
             <h3>Software-engineering maturity</h3>
