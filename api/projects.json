@@ -262,44 +262,6 @@
       ]
     },
     {
-      "id": "gas-turbine-performance-work-sample",
-      "title": "Gas Turbine Performance · Interactive Technical Work Sample",
-      "category": "Thermal Systems",
-      "status": "published",
-      "featured": false,
-      "order": 5.01,
-      "period": "2026",
-      "associatedWith": "Independent ThermoTwin-F portfolio research; source-backed public measurements",
-      "summary": "Interactive four-station educational Brayton site-boundary calculations, ISO/site power and heat-rate correction, plus 229 original-source display points from an audited 2,966-record 5.68 MW operating turbine. A real electrical meter consistency study, not industrial Brayton-model validation.",
-      "audienceTags": [
-        "Thermal & Fluid",
-        "Energy Systems",
-        "Research",
-        "Software"
-      ],
-      "tools": [
-        "Fortran 2008 (source model)",
-        "JavaScript (independent browser model)",
-        "Original turbine telemetry",
-        "Python source audit"
-      ],
-      "skills": [
-        "Gas turbine simple cycle",
-        "Site performance correction",
-        "Measurement evidence",
-        "Statistical residual analysis",
-        "Uncertainty methods"
-      ],
-      "image": "assets/illustrations/thermotwin-f.svg",
-      "caseStudyUrl": "projects/gas-turbine-performance-work-sample.html",
-      "githubUrl": "https://github.com/abhijith-sivaprasadan/thermotwin",
-      "highlights": [
-        "Interactive boundary sweeps use disclosed constant-property equations—not the native Fortran solver.",
-        "Original 2017 5.68 MW turbine workbook: 2,966 eligible electrical observations; chart displays every 13th observation with source-cell references.",
-        "Source electrical identity is not full industrial engine power prediction or an OEM pass-off guarantee."
-      ]
-    },
-    {
       "id": "thermotwin-f",
       "title": "ThermoTwin-F · Educational gas turbine",
       "category": "Thermal Systems",
