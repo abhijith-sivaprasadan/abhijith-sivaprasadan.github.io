@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gas Turbine Performance Engineering | Interactive Technical Work Sample · Abhijith Sivaprasadan</title>
+<meta name="description" content="Technical gas turbine performance-engineering work sample: live reduced-order Brayton site-condition calculations, traceable 5.68 MW measured electrical consistency, correction-factor physics and honest validation limits.">
+<link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/gas-turbine-performance-work-sample.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gas Turbine Performance Engineering — Technical Work Sample">
+<meta property="og:description" content="Interactive engineering evidence: simple-cycle site sensitivity and original-source measured gas-turbine electrical residual analysis, with full limitations.">
+<meta property="og:image" content="https://abhijith-sivaprasadan.github.io/assets/portfolio-preview.png">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/control-volume.css?v=20261112-pe">
+<link rel="stylesheet" href="../styles/claude-exact.css?v=20261112-pe">
+<link rel="stylesheet" href="../styles/gt-performance-work-sample.css?v=20261112-pe-v1">
+</head>
+<body class="cv pe-work" data-design-source="claude-control-volume-v1" data-page-key="gt-performance-work-sample">
+<a class="skip-link" href="#main">Skip to technical work sample</a>
+<div class="pg">
+<header><div class="pe-header">
+<a class="pe-wordmark" href="../index.html">ABHIJITH SIVAPRASADAN / CONTROL VOLUME</a>
+<nav class="pe-nav" aria-label="Primary"><a href="../index.html">SYSTEM</a><a href="../projects.html">CASES</a><a href="../projects/thermotwin-f.html">THERMOTWIN-F</a><a href="../research.html">RESEARCH</a><a href="../about.html">ABOUT</a></nav>
+</div></header>
+<main class="pe-frame" id="main">
+<section class="pe-hero" aria-labelledby="pe-headline">
+<p class="pe-kicker">Technical work sample / Gas Services / Thermodynamic assessment · Fortran modelling · Measured test data</p>
+<h1 id="pe-headline">Gas turbine performance: from reference conditions to measured residuals.</h1>
+<p class="pe-intro">A focused, inspectable engineering study based on ThermoTwin-F. Change atmospheric and duct-loss boundaries in a declared browser-only Brayton calculation; examine original measured electrical readings from an operating 5.68 MW turbine; then follow the distinction between performance correction, numerical verification and real engine validation.</p>
+<div class="pe-links">
+<a href="#pe-site">Explore site calculation ↓</a>
+<a href="#pe-observed">Inspect measured data ↓</a>
+<a href="thermotwin-f.html">Full ThermoTwin-F case ↗</a>
+<a href="https://github.com/abhijith-sivaprasadan/thermotwin" target="_blank" rel="noopener noreferrer">Fortran source &amp; tests ↗</a>
+</div>
+<div class="pe-hero-evidence" aria-label="Evidence summary">
+<div><span>EVIDENCE A / SIMULATION</span><strong>4-station</strong><span>simplified constant-property browser analysis; distinct from verified Fortran source</span></div>
+<div><span>EVIDENCE B / FIELD DATA</span><strong>2,966</strong><span>usable original operating records; 229 displayed as systematic sample</span></div>
+<div><span>METHOD C / METROLOGY</span><strong>Covariance</strong><span>analytical power / heat-rate uncertainty method in ThermoTwin-F</span></div>
+<div><span>ACCEPTANCE / INDUSTRIAL</span><strong>Not claimed</strong><span>no OEM pass-off guarantee, Siemens machine model or matched full-cycle measured validation</span></div>
+</div>
+</section>
+<div class="pe-page-grid">
+<div class="pe-main">
+<section id="pe-question" class="pe-section" aria-labelledby="pe-q-heading">
+<p class="pe-eyebrow">01 / Engineering problem</p>
+<h2 id="pe-q-heading">A test result is only meaningful against the right reference.</h2>
+<p>Installed gas-turbine performance depends on intake temperature and pressure, filter pressure loss, exhaust backpressure, turbine firing limits, fuel energy and mechanical/electrical boundaries. The task is to distinguish changes in operating conditions from changes in machine health, while maintaining a controlled equipment identity.</p>
+<div class="pe-two">
+<div class="pe-panel">
+<h3>Three distinct questions</h3>
+<p><strong>Predict.</strong> How does a fixed generic machine respond to changed site conditions? Evaluate thermodynamic station states and power/heat rate with a documented reference.</p>
+<p><strong>Assess.</strong> Do actual generator power, voltage, phase currents and power factor agree under the measured meter conventions?</p>
+<p><strong>Decide.</strong> Would a contractual pass-off require additional calibrated measurements, correction-model uncertainty and guaranteed performance terms? Yes. That assessment remains unperformed here.</p>
+</div>
+<div class="pe-panel">
+<h3>Source and model boundary</h3>
+<svg viewBox="0 0 570 240" role="img" aria-label="Simplified air compressor to combustor to turbine to electrical generator flow; fuel supplied to combustor and power to generator" style="display:block;width:100%;height:auto;max-width:100%;">
+<defs><marker id="pe-arrow" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="#65d6c9"></path></marker></defs>
+<g stroke="#5f8a76" stroke-width="1.5" fill="#10231a">
+<rect x="12" y="77" width="118" height="78" rx="9"/><rect x="166" y="77" width="118" height="78" rx="9"/><rect x="320" y="77" width="118" height="78" rx="9"/><rect x="465" y="77" width="95" height="78" rx="9"/>
+</g>
+<g fill="#eff6eb" font-family="JetBrains Mono,monospace" font-size="14" text-anchor="middle">
+<text x="71" y="111">COMPRESSOR</text><text x="225" y="111">COMBUSTOR</text><text x="379" y="111">TURBINE</text><text x="512" y="111">GENERATOR</text>
+<text x="71" y="133" fill="#65d6c9" font-size="12">P1 · T1 → P2 · T2</text><text x="225" y="133" fill="#65d6c9" font-size="12">P3 · T3</text><text x="379" y="133" fill="#65d6c9" font-size="12">P4 · T4</text><text x="512" y="133" fill="#65d6c9" font-size="12">NET MW</text>
+</g>
+<g stroke="#65d6c9" stroke-width="2" fill="none" marker-end="url(#pe-arrow)">
+<path d="M130 116H161"/><path d="M284 116H315"/><path d="M438 116H460"/>
+<path d="M224 28V69"/>
+</g>
+<g fill="#d7b46a" font-family="JetBrains Mono,monospace" font-size="13" text-anchor="middle"><text x="224" y="20">FUEL · LHV</text><text x="270" y="203">Model topology only; station labels are not mappings of the 2017 plant T5 / T7.</text></g>
+</svg>
+<p class="pe-mono">Station indices refer to the simplified illustrative cycle. Original field sensors use their own, different machine-specific names.</p>
+</div>
+</div>
+</section>
+<section id="pe-site" class="pe-section" aria-labelledby="pe-site-heading">
+<p class="pe-eyebrow">02 / Interactive performance assessment · independent algebra</p>
+<h2 id="pe-site-heading">ISO-flange reference versus installed conditions</h2>
+<p>Adjust ambient temperature, absolute ambient pressure, intake pressure-loss fraction and exhaust backpressure. The calculation recomputes the four gas-turbine thermodynamic stations and both reference/site correction ratios with <strong>the same explicitly fixed generic hardware</strong>. It runs entirely in your browser; it does <strong>not</strong> execute ThermoTwin-F's Fortran binary or any plant-data fit.</p>
+<div class="pe-proof"><p><strong>Engineering evidence class: educational model sensitivity.</strong> Fixed assumed pressure ratio 12, compressor/turbine isentropic efficiencies 0.84/0.87, TIT 1,350 K, dry constant-property gas/air and fixed fuel LHV 50 MJ/kg. Reference boundaries: 15 °C, 101.325 kPa(a) at ambient and zero inlet/exhaust pressure loss. Not an OEM map, a certified ISO guarantee, or live installed-power prediction.</p></div>
+<div class="pe-two">
+<div class="pe-panel pe-controls">
+<h3>Site boundary controls</h3>
+<div class="pe-field"><div><label for="pe-input-temp">Ambient dry-bulb temperature</label><output id="pe-value-temp" for="pe-input-temp">15 °C</output></div><input id="pe-input-temp" data-pe-physical-input type="range" min="-10" max="45" step="1" value="15" aria-describedby="pe-assumption-note"></div>
+<div class="pe-field"><div><label for="pe-input-pressure">Absolute ambient pressure</label><output id="pe-value-pressure" for="pe-input-pressure">101.3 kPa</output></div><input id="pe-input-pressure" data-pe-physical-input type="range" min="85" max="105" step=".5" value="101.325"></div>
+<div class="pe-field"><div><label for="pe-input-intake">Intake pressure loss</label><output id="pe-value-intake" for="pe-input-intake">0 %</output></div><input id="pe-input-intake" data-pe-physical-input type="range" min="0" max="5" step=".25" value="0"></div>
+<div class="pe-field"><div><label for="pe-input-exhaust">Exhaust pressure increase</label><output id="pe-value-exhaust" for="pe-input-exhaust">0 %</output></div><input id="pe-input-exhaust" data-pe-physical-input type="range" min="0" max="5" step=".25" value="0"></div>
+<div class="pe-inline-control"><button type="button" id="pe-reset">Reset ISO boundary</button><button type="button" id="pe-export">Export current calculation JSON</button></div>
+<p id="pe-assumption-note" class="pe-mono">Full-load scalar firing-temperature hypothesis held fixed. Humidity, variable gas properties, detailed IGV/speed scheduling, OEM maps and emissions excluded.</p>
+</div>
+<div>
+<div class="pe-measure-strip" aria-live="polite">
+<div class="pe-readout"><span>NET ELECTRIC POWER / MODEL</span><strong id="pe-power">—</strong><small id="pe-power-delta">—</small></div>
+<div class="pe-readout"><span>HEAT RATE / MODEL</span><strong id="pe-heat-rate">—</strong><small id="pe-heat-rate-delta">—</small></div>
+<div class="pe-readout"><span>MODEL REFERENCE CORRECTION</span><strong id="pe-cp">—</strong><small>Power: P<sub>ref</sub> / P<sub>site</sub></small></div>
+</div>
+<div class="pe-panel">
+<div class="pe-inline-control"><label for="pe-sweep-mode">Sweep axis:</label><select id="pe-sweep-mode"><option value="temp">Ambient temperature</option><option value="pressure">Ambient absolute pressure</option></select></div>
+<div class="pe-chart-frame"><svg id="pe-sweep-chart" class="pe-chart" viewBox="0 0 760 325" role="img" aria-label="Engineering model sweep recalculating"></svg></div>
+<div class="pe-legend"><span>Computed site power</span><span class="pe-accent">Selected boundary</span></div>
+<p class="pe-mono" id="pe-sweep-status" role="status" aria-live="polite">Awaiting first deterministic calculation.</p>
+</div>
+</div>
+</div>
+<div class="pe-measure-strip" aria-label="Calculated station states" style="margin-top:14px">
+<div class="pe-readout"><span>COMPRESSOR · T2</span><strong id="pe-t2">—</strong><small id="pe-p1">—</small></div>
+<div class="pe-readout"><span>TURBINE · T4</span><strong id="pe-t4">—</strong><small id="pe-p4">—</small></div>
+<div class="pe-readout"><span>FUEL INPUT</span><strong id="pe-mf">—</strong><small>kg/s · modelled gas mass rate</small></div>
+</div>
+<div class="pe-panel">
+<h3>What the browser computes</h3>
+<p>For fixed pressure ratio π<sub>c</sub>, compressor efficiency η<sub>c</sub> and turbine efficiency η<sub>t</sub>, two constant-property ideal-gas station relations are evaluated:</p>
+<code class="pe-equation">T₂ = T₁ [1 + (πc^((γair−1)/γair) − 1)/ηc]</code>
+<code class="pe-equation">T₄ = T₃ [1 − ηt (1 − (P₄/P₃)^((γgas−1)/γgas))]</code>
+<code class="pe-equation">ṁair = ṁref (P₁/Pref) √(Tref/T₁) · CPower = Pref,model/Psite,model · CHR = HRref,model/HRsite,model</code>
+<p>Compressor work is ṁ<sub>air</sub>c<sub>p,air</sub>(T₂−T₁); turbine work is (ṁ<sub>air</sub>+ṁ<sub>fuel</sub>)c<sub>p,gas</sub>(T₃−T₄). Burner fuel demand uses a simplified fixed-LHV sensible-enthalpy balance; mechanical/generator efficiencies and auxiliary fraction are fixed. <strong>These browser equations are a pedagogical independent cross-section</strong> and are not numerically identified against a particular turbine. For a complete Fortran implementation and verified boundary-correction workflow, follow the source-linked <a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/docs/SITE_PERFORMANCE_v0.1.md">site model methodology</a>.</p>
+<div class="pe-table-wrap"><table><thead><tr><th>Reported diagnostic</th><th>Recomputed value</th><th>Evidence interpretation</th></tr></thead><tbody>
+<tr><td>Heat-rate correction C<sub>HR</sub></td><td id="pe-chr">—</td><td>Computed model reference heat rate divided by site heat rate, not assumed equal to power correction.</td></tr>
+<tr><td>Reference-power reconstruction</td><td id="pe-reconstruction">—</td><td>C<sub>P</sub> × model site power; self-consistency identity, not a measured reference test.</td></tr>
+<tr><td>Compressor air mass rate</td><td id="pe-ma">—</td><td>Educational fixed-geometry corrected-flow scaling; no measured intake mass flow.</td></tr>
+<tr><td>Thermal efficiency</td><td id="pe-eta">—</td><td>Model net electric power divided by model fuel-LHV input.</td></tr>
+<tr><td>Assumed pressure ratio</td><td id="pe-ratio">—</td><td>Fixed educational compressor ratio; not a Siemens or Esan map.</td></tr>
+</tbody></table></div>
+</div>
+</section>
+<section id="pe-observed" class="pe-section" aria-labelledby="pe-observed-heading">
+<p class="pe-eyebrow">03 / Original-source industrial measurements · no fitted coefficients</p>
+<h2 id="pe-observed-heading">Generator electrical measurement consistency: 5.68 MW operating turbine</h2>
+<p>The source is the original published 2017 operating workbook from Esan and Ehiaguina, not a fabricated sensor log or generic simulator output. Its original 317 day/night tabs contain 3,804 nominal hourly slots. A provenance-locked audit retained 2,966 electrically usable observations and documented 838 excluded slots. This interactive chart reads a <strong>deterministic every-13th source-record display sample</strong> (229 points), preserving original worksheet number, sheet label and cell column.</p>
+<div class="pe-links"><a href="https://data.mendeley.com/datasets/6w3vy3ybhg/3" target="_blank" rel="noopener noreferrer">Original measured workbook ↗</a><a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/scripts/audit_real_esan_gt2017.py" target="_blank" rel="noopener noreferrer">Full 2,966-row reproducibility script ↗</a><a href="https://github.com/abhijith-sivaprasadan/thermotwin/actions/runs/43175065668" target="_blank" rel="noopener noreferrer">Verified original-data CI ↗</a></div>
+<div class="pe-proof"><p><strong>Important boundary:</strong> the electrical identity uses generator voltage, three reported phase currents and reported power factor, which may all originate in the same metering system. It tests internal consistency of actual recorded channels under a declared line-to-line voltage assumption. <strong>It is not a turbine Brayton prediction, independent meter calibration or Siemens Energy plant validation.</strong></p></div>
+<code class="pe-equation">Pidentity [kW] = √3 × Vline-to-line [V] × mean(IA, IB, IC) [A] × PF / 1000</code>
+<div class="pe-panel">
+<div class="pe-inline-control"><label><input type="checkbox" id="pe-outliers"> Show sampled |residual| &gt; 250 kW only</label><span class="pe-mono">The filter affects display and sampled metrics only; no data are deleted or re-fitted.</span></div>
+<div class="pe-chart-frame"><svg id="pe-real-chart" class="pe-chart" viewBox="0 0 760 360" role="img" aria-label="Waiting to load independently published field data"></svg></div>
+<div class="pe-legend"><span>Measured generator source sample</span><span class="pe-accent">Unity identity line</span></div>
+<p id="pe-source-status" class="pe-status" data-state="loading" role="status" aria-live="polite">Loading exact-source sample; no fabricated fallback permitted.</p>
+<div class="pe-point-inspector" id="pe-point-inspector" aria-live="polite"><p>Select a plotted original-source record to inspect the measured values, reconstruction and residual.</p></div>
+</div>
+<div class="pe-measure-strip" aria-live="polite">
+<div class="pe-readout"><span>DISPLAY SUBSET COUNT</span><strong id="pe-source-count">—</strong><small>Every 13th usable source row; originals preserved</small></div>
+<div class="pe-readout"><span>DISPLAY SUBSET RMSE</span><strong id="pe-sample-rmse">—</strong><small>Absolute error units: kW</small></div>
+<div class="pe-readout"><span>DISPLAY SUBSET MAE</span><strong id="pe-sample-mae">—</strong><small>Residual = source real power − reconstructed power</small></div>
+</div>
+<div class="pe-panel"><h3>Source-quality decision log</h3>
+<div class="pe-table-wrap"><table><thead><tr><th>Evidence category</th><th>Observed basis</th><th>Engineering consequence</th></tr></thead><tbody>
+<tr><td>Original source integrity</td><td>2019 original XLSX SHA-256 09b8ba80991998a370b6f8124450792a5150103383c0eff41f8f00b54d3e3bf9</td><td>Reproducible, frozen original binary and expected worksheet labels.</td></tr>
+<tr><td>Audited original records</td><td><span id="pe-raw-count">2,966</span> / 3,804 nominal slots; <span id="pe-excluded">838</span> excluded by declared numeric/nameplate gates</td><td>Source-quality exclusions are disclosed; no residual-based censoring.</td></tr>
+<tr><td>Original full-audit later-sheet result</td><td>92.725 kW RMSE (full retained audit, separate from this 229-point display sample)</td><td>Measured internal electrical identity agreement on reserved later-source-sheet observations; no fit.</td></tr>
+<tr><td>Sample bias / high residuals</td><td><span id="pe-sample-bias">—</span> signed kW bias; <span id="pe-outlier-count">—</span> sampled points above 250 kW absolute residual</td><td>Residuals trigger source review, not a fault alarm or maintenance diagnosis.</td></tr>
+<tr><td>Missing physics</td><td>Measured air mass flow, sampled fuel LHV, OEM station map and metrologically verified firing temperature absent</td><td>Full-cycle power and heat-rate validation remains blocked.</td></tr>
+</tbody></table></div></div>
+</section>
+<section id="pe-passoff" class="pe-section" aria-labelledby="pe-passoff-heading">
+<p class="pe-eyebrow">04 / From measured test to production pass-off · methodology</p>
+<h2 id="pe-passoff-heading">A correction factor is not an acceptance decision.</h2>
+<p>A production test requires a true source-identified engine/test interval, known flanges and fuel basis, calibrated instruments, independently defined customer guarantee and model-form uncertainty. ThermoTwin-F implements the relevant correction-factor and instrument-covariance mathematics, but no actual production pass-off or contractual result has been performed.</p>
+<code class="pe-equation">HRsite [kJ/kWh] = 3600 × (ṁfuel [kg/s] × LHV [J/kg] / 10⁶) / Psite [MW]</code>
+<code class="pe-equation">[Pcorrected, HRcorrected] = [CP × Psite, CHR × HRsite]</code>
+<code class="pe-equation">Σcorrected = J (Σprecision + Σcalibration) Jᵀ · J = ∂[Pcorrected, HRcorrected]/∂[Psite, ṁfuel, LHV]</code>
+<div class="pe-table-wrap"><table><thead><tr><th>Pass-off stage</th><th>Actual ThermoTwin-F status</th><th>Evidence needed for industrial decision</th></tr></thead><tbody>
+<tr><td>Test window and stability</td><td>Input contract and precondition checks available.</td><td>Observed engine steady-state evidence, unit/time synchronisation and signed test record.</td></tr>
+<tr><td>Corrections to reference</td><td>Same-generic-machine ISO/site factors in native Fortran, verified numerically.</td><td>OEM-calibrated maps, inlet/exhaust boundary measurements, humidity and approved correction procedure.</td></tr>
+<tr><td>Fuel-to-power heat rate</td><td>Dimensionally explicit balance and arithmetic tests.</td><td>Traced fuel flow, independently determined LHV and corrected electrical meter boundary.</td></tr>
+<tr><td>Uncertainty</td><td>Full 3×3 precision/calibration instrument covariance with analytical Jacobian and numerical checks.</td><td>Real instrument certificates, correlated biases, OEM correction-map/model-form uncertainties and contract tolerance.</td></tr>
+<tr><td>Contractual result</td><td><strong>NOT ASSESSED.</strong> No contractual pass/fail output.</td><td>Authorised guarantee, standard/test code, independent reviewer and traceable acceptance worksheet.</td></tr>
+</tbody></table></div>
+<div class="pe-links"><a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/docs/PASSOFF_CORRECTION_METHOD.md" target="_blank" rel="noopener noreferrer">Pass-off equations &amp; limitations ↗</a><a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/docs/GT_PHYSICAL_CALIBRATION_PROTOCOL.md" target="_blank" rel="noopener noreferrer">Turbine-specific calibration protocol ↗</a></div>
+</section>
+<section id="pe-evidence" class="pe-section" aria-labelledby="pe-evidence-heading">
+<p class="pe-eyebrow">05 / Evidence register &amp; exact reproducibility</p>
+<h2 id="pe-evidence-heading">Trace each figure back to a distinct physical evidence class.</h2>
+<div class="pe-sources">
+<div class="pe-source"><p class="pe-label">MODEL / NOT MEASURED</p><h3>Fortran site correction</h3><p>The fixed 30 MW-class generic performance-engineering model supports educational site/reference prediction and parameter checks. The browser slider above is an independent simplified calculation; its results are not reported as Fortran outputs.</p><a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/docs/SITE_PERFORMANCE_v0.1.md">Source methodology →</a></div>
+<div class="pe-source"><p class="pe-label">WEATHER / REANALYSIS</p><h3>Actual historical boundary input</h3><p>ERA5 seasonal site simulations use original, source-logged gridded weather reanalysis for Lincoln; weather estimates are not flange sensors and the model does not implement humid-air properties.</p><a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/docs/ERA5_SEASONAL_SITE_STUDY.md">672-hour seasonal protocol →</a></div>
+<div class="pe-source"><p class="pe-label">FIELD / ORIGINAL OBSERVATION</p><h3>5.68 MW real source signals</h3><p>Original 2017 operating log from Esan and Ehiaguina, reused with CC BY 4.0 attribution. The 229-point interaction above is a deterministic view of real measured channels, not the complete audit's heldout calculation.</p><a href="https://doi.org/10.17632/6w3vy3ybhg.3">Original dataset and DOI →</a></div>
+<div class="pe-source"><p class="pe-label">VALIDATION / RESTRICTED</p><h3>Industrial performance conclusion</h3><p>No OEM compressor maps, station-matched measured air flow, validated firing temperature, fuel LHV or traceable instrument covariance have been supplied. No claim of industrial pass-off, certification or full-physics predictive accuracy.</p><a href="https://github.com/abhijith-sivaprasadan/thermotwin/blob/main/docs/REAL_GT_MEASUREMENT_ACQUISITION_DOSSIER.md">Measurement acquisition gate →</a></div>
+</div>
+<p style="margin-top:20px">This public work sample demonstrates an engineer's ability to establish calculation boundaries, quantify source-based residuals, identify missing evidence and document the point at which conclusions must stop. It is a personally developed portfolio exercise and is <strong>not affiliated with, reviewed or endorsed by Siemens Energy's Lincoln Performance Group</strong>.</p>
+<div class="pe-links"><a href="thermotwin-f.html">Explore underlying ThermoTwin-F engineering project →</a><a href="siemens-thesis.html">Related Siemens Energy master's thesis →</a><a href="../projects.html">Return to project cases →</a></div>
+<p class="pe-mono pe-print-only">Print/Save as PDF from browser. Interactive controls export a separate JSON sensitivity record in the online view. Underlying real data are linked above.</p>
+</section>
+</div>
+<aside class="pe-aside" aria-label="Work sample sections">
+<p>READ THE EVIDENCE ↘</p>
+<a href="#pe-question">01 / Problem &amp; boundaries</a>
+<a href="#pe-site">02 / Site calculation</a>
+<a href="#pe-observed">03 / Measured source</a>
+<a href="#pe-passoff">04 / Pass-off method</a>
+<a href="#pe-evidence">05 / Evidence register</a>
+</aside>
+</div>
+</main>
+<footer class="pe-footer"><span>ABHIJITH SIVAPRASADAN · METHODS, EVIDENCE &amp; THEIR LIMITS</span><a href="../index.html">BACK TO PORTFOLIO ↗</a></footer>
+</div>
+<script src="../scripts/gt-performance-work-sample.js?v=20261112-pe-v1" defer></script>
+</body></html>
