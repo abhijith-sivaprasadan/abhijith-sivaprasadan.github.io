@@ -149,7 +149,15 @@
     text("pe-p4",f(v.P4/1000,2)+" kPa(a)");
     text("pe-sweep-status","Recomputed "+new Date().toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",second:"2-digit"})+" · independent browser equation; not Fortran output");
     renderSweep();
+    // Deliberately expose only the current educational equation outputs via
+    // a data-only browser event. Pass-off demonstration must not call these
+    // genuine measurements or invoke a Fortran/OEM correction service.
+    window.dispatchEvent(new CustomEvent("thermotwin:educational-site-update",{
+      detail:{source_class:"browser_constant_property_illustration",state:{...state},
+        prediction:{...v},reference:{...ref},LHV_J_kg:physical.LHV}
+    }));
   }
+  document.addEventListener("thermotwin:request-educational-site-update",updateModel);
   $$("[data-pe-physical-input]").forEach(input=>input.addEventListener("input",updateModel));
   $("#pe-reset")?.addEventListener("click",()=>{
     for(const [key,value] of Object.entries(defaults)){const el=document.getElementById("pe-input-"+key);if(el)el.value=String(value);}

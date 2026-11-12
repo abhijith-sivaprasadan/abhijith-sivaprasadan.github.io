@@ -27,14 +27,14 @@ jobs:
           echo $! >/tmp/cv-ui-http.pid
           sleep 2
           curl --fail --silent http://127.0.0.1:8099/index.html >/dev/null
-      - name: Audit all public routes and critical viewports
-        env:
-          NODE_PATH: /tmp/cv-ui-audit/node_modules
-        run: node scripts/audit-ui.cjs
       - name: Verify performance work sample source integrity, engineering controls and responsive behaviour
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules
         run: node scripts/test-gt-performance-work-sample.cjs
+      - name: Audit all public routes and critical viewports
+        env:
+          NODE_PATH: /tmp/cv-ui-audit/node_modules
+        run: node scripts/audit-ui.cjs
       - name: Upload visual screenshots
         if: always()
         uses: actions/upload-artifact@v4

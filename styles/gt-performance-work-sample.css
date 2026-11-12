@@ -94,3 +94,34 @@
 @media (max-width:650px){.pe-work .pe-two,.pe-work .pe-sources{grid-template-columns:minmax(0,1fr)}.pe-work .pe-measure-strip{grid-template-columns:minmax(0,1fr)}.pe-work .pe-hero-evidence{grid-template-columns:repeat(2,minmax(0,1fr))}.pe-work .pe-hero{padding-top:40px}.pe-work h1{font-size:clamp(31px,8vw,46px)}.pe-work .pe-panel{padding:16px}.pe-work .pe-links a{flex:1 1 190px}.pe-work .pe-section{padding:34px 0 40px}.pe-work table{min-width:475px}}
 @media (prefers-reduced-motion:reduce){.pe-work *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 @media print{.pe-work{background:#fff!important;color:#111!important}.pe-work header,.pe-work .pe-aside,.pe-work .pe-links,.pe-work .pe-inline-control,.pe-work .pe-footer,.pe-work .pe-controls,.pe-work .pe-download{display:none!important}.pe-work .pe-page-grid{display:block}.pe-work .pe-main{max-width:100%}.pe-work .pe-section{break-inside:avoid;padding:18px 0}.pe-work .pe-panel,.pe-work .pe-readout,.pe-work .pe-hero-evidence>div,.pe-work .pe-source{background:#fff!important;color:#111!important;border-color:#bbb!important}.pe-work :is(h1,h2,h3,p,small,strong,span,td,th,output,.pe-equation){color:#111!important}.pe-work .pe-print-only{display:block}.pe-work svg.pe-chart text{fill:#222!important}.pe-work svg.pe-chart .pe-grid{stroke:#ddd}}
+
+
+/* Pass-off conditional metrology desk — never mistaken for measured turbine data. */
+.pe-work .pe-po-desk{border:1px solid #425743;border-radius:11px;background:#0a100d;padding:clamp(16px,2vw,24px);margin:22px 0 30px;min-width:0}
+.pe-work .pe-po-head{display:flex;gap:20px;justify-content:space-between;align-items:start;flex-wrap:wrap;margin-bottom:20px}
+.pe-work .pe-po-head>div:first-child{flex:1 1 420px;min-width:0}
+.pe-work .pe-po-head h3{font:600 clamp(19px,2.4vw,26px)/1.28 Inter,system-ui,sans-serif;margin:0 0 14px}
+.pe-work .pe-po-lock{flex:0 1 245px;background:#211a15;border:1px solid #916146;border-radius:8px;padding:13px 15px;max-width:100%}
+.pe-work .pe-po-lock strong{display:block;color:#ffbfa5;font:600 12px/1.5 "JetBrains Mono",monospace;letter-spacing:.02em}
+.pe-work .pe-po-lock span{color:#e2c0ae;font:11px/1.5 "JetBrains Mono",monospace;display:block;margin-top:7px}
+.pe-work .pe-po-strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:15px 0 18px}
+.pe-work .pe-po-strip .pe-readout strong{font-size:clamp(18px,2vw,25px)}
+.pe-work .pe-po-panel-gap{margin-top:15px}
+.pe-work .pe-po-window-head{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:start}
+.pe-work .pe-po-window-head>div:first-child{flex:1 1 310px}
+.pe-work .pe-po-window-head label{flex:1 1 240px;min-width:0}
+.pe-work .pe-po-window-head select{display:block;width:100%;margin:8px 0 15px}
+.pe-work .pe-po-window-result{display:flex;gap:10px 18px;flex-wrap:wrap;margin:13px 0 0;align-items:baseline}
+.pe-work .pe-po-window-result strong{color:#d7b46a;font:600 12px/1.5 "JetBrains Mono",monospace}
+.pe-work .pe-po-window-result span{color:#c7d4c8;font:12px/1.6 "JetBrains Mono",monospace}
+.pe-work .pe-po-details{border:1px solid #314739;border-radius:7px;background:#111b14;margin:18px 0;padding:12px 16px}
+.pe-work .pe-po-details summary{color:#b4f5e0;cursor:pointer;font:12px/1.6 "JetBrains Mono",monospace}
+.pe-work .pe-po-uncertainty{margin-top:15px}
+.pe-work .pe-po-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.pe-work .pe-po-uncertainty .pe-field{margin:13px 0}
+.pe-work .pe-po-hypothetical{border:1px solid #476452;background:#122719;border-radius:8px;padding:12px 16px;color:#b9ead4!important;font:600 12px/1.6 "JetBrains Mono",monospace}
+.pe-work .pe-po-panel-gap .pe-mono{overflow-wrap:anywhere}
+.pe-work #pe-po-scenario{width:100%}
+.pe-work #pe-po-budget-chart text,.pe-work #pe-po-window-chart text{font-family:"JetBrains Mono",monospace}
+@media(max-width:720px){.pe-work .pe-po-head{display:block}.pe-work .pe-po-lock{margin-top:18px}.pe-work .pe-po-cols{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:460px){.pe-work .pe-po-strip{grid-template-columns:minmax(0,1fr)}.pe-work .pe-po-desk{margin-left:0;margin-right:0;padding:12px}.pe-work .pe-po-lock{flex:1 1 100%}.pe-work .pe-po-head h3{font-size:20px}}
