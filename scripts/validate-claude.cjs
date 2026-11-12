@@ -25,8 +25,18 @@ for(const hook of ['data-cv-toy="cycle"','data-out="title"','data-out="text"','d
 assert.equal((story.match(/data-out="dot"/g)||[]).length,2,'Both story-cycle markers must move');
 
 const projectFiles=fs.readdirSync(path.join(root,'projects')).filter(x=>x.endsWith('.html'));
-assert.equal(projectFiles.length,40,'Project case count changed: review content changes');
-for(const name of projectFiles){
+const supplementalWorkSamples=['gas-turbine-performance-work-sample.html'];
+const canonicalProjectFiles=projectFiles.filter(x=>!supplementalWorkSamples.includes(x));
+assert.equal(canonicalProjectFiles.length,40,'Canonical project case count changed: review content changes');
+for(const name of supplementalWorkSamples){
+ assert.ok(projectFiles.includes(name),'Missing linked gas turbine technical companion');
+ const content=read('projects/'+name);
+ for(const key of ['data-page-key="gt-performance-work-sample"','gt-performance-work-sample.css','gt-performance-work-sample.js','id="pe-real-chart"','id="pe-sweep-chart"','id="pe-site"','id="pe-passoff"'])
+  assert.ok(content.includes(key),name+': missing technical work-sample hook '+key);
+ assert.ok(home.includes('projects/'+name) && read('projects/thermotwin-f.html').includes(name),
+   'Technical sample must be accessible from homepage and canonical turbine case');
+}
+for(const name of canonicalProjectFiles){
  const page=read('projects/'+name);
  for(const token of ['class="cv cv-case-page"','data-design-source="claude-control-volume-v1"','class="cv-case-hero"','class="cv-case-record"','cv-case-detail.js','href="../hobbies.html"'])
   assert.ok(page.includes(token),'Unconverted project: '+name+' / '+token);
