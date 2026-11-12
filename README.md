@@ -319,6 +319,14 @@ See [CI coverage and limitations](CI.md) for the automated checks. The status ba
 The ThermoTwin-F and PyNEXUS case studies link the verified hosted runs and merged OpenMP/MPI implementations, with their scientific limits stated explicitly. See [CI publication record](docs/CI_PUBLICATION.md).
 
 
+## 12 November 2026 — pass-off method and source-rendered turbine engineering charts
+
+The live [technical gas turbine work sample](projects/gas-turbine-performance-work-sample.html#pe-passoff) includes an interactive *synthetic-only* pass-off assessment with linked current browser site conditions, example test-window stability checks, injected oscillation/drift/dropout, hypothetical power/fuel/LHV offsets, independent heat-rate correction ratio, and full analytical propagation of assumed 3×3 precision + systematic instrument covariances (including a tunable power/fuel-flow correlation). Outputs report conditional instrument-only standard uncertainties, output covariance and variance shares. **No real production test stand data, OEM map error or guarantee are available**; acceptance is permanently withheld even if the illustrative arithmetic compares favourably with toy thresholds.
+
+The main [ThermoTwin-F project page](projects/thermotwin-f.html) now progressively enhances four originally static simulation PNGs with responsive, keyboard-accessible SVG views sourced from a pinned historical Fortran output commit (bb8fabcba9e320c144d7981c7a2eb55a47724dac). Data are bundled with source CSV path/commit/blob SHA and original row counts under `data/thermotwin-f/archival-model-outputs.json`. Chart modes: source station T/P/shaft work, degradation power/heat rate/efficiency/exhaust, four one-at-a-time sensitivity sweeps with selectable metrics, and scrubbed startup/load-ramp/shutdown metal/gas transients. Historical PNGs remain for fetch/JavaScript failure; original uncertainty/diagnostic distribution figures and native HMI screenshots remain actual images, because recreating details absent from published raw data would invent evidence.
+
+The updated scoped front-end scripts are `scripts/thermotwin-evidence-live.js` and `scripts/gt-passoff-workbench.js`. CI browser tests cover real Esan-source loading, 3×3 covariance sensitivity, non-bypassable acceptance status, source plot controls, desktop/mobile overflow, and screenshots. The native Fortran implementation and its tests continue to live in [ThermoTwin-F](https://github.com/abhijith-sivaprasadan/thermotwin) rather than this GitHub Pages static site.
+
 ## 12 November 2026 — technical gas-turbine performance work sample
 
 The portfolio now includes [Gas Turbine Performance Engineering — an interactive technical work sample](projects/gas-turbine-performance-work-sample.html), linked prominently from the homepage, the case-library work-sample spotlight and the existing [ThermoTwin-F case](projects/thermotwin-f.html).
