@@ -80,6 +80,6 @@ const aliases = {
   'thermotwin-f': 'thermotwin-f', 'opensteamopt': 'opensteamopt', 'gb-flexabm': 'gb-flexabm',
   'backend-api': 'gridflex-energy-optimizer', 'course-assignments': 'numerical-heat-transfer',
 };
-const keyFor = project => project.id === 'gas-turbine-performance-work-sample' ? 'thermotwin-f' : /^https?:/.test(project.caseStudyUrl || '') ? project.id : (project.caseStudyUrl || '').split('/').pop().replace(/\.html$/, '');
+const keyFor = project => /^https?:/.test(project.caseStudyUrl || '') ? project.id : (project.caseStudyUrl || '').split('/').pop().replace(/\.html$/, '');
 const coverFor = project => projects[keyFor(project)] ? `assets/illustrations/${keyFor(project)}.svg` : project.image;
 module.exports = { projects, experiences, aliases, keyFor, coverFor, roleKeys };
