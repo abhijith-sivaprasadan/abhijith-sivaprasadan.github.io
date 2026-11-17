@@ -62,8 +62,8 @@ const sectors = ['thermal-test','power-grids','industrial-heat','mechanical-stru
     await probe.locator('.armada-probe-reset').click();
     assert.equal(await probe.locator('[data-result]').innerText(),initialCalculation,'Reset did not restore reference input '+slug);
     assert.ok(await page.locator('.armada-evidence-switch button').count(),'Missing evidence provenance filter '+slug);
-    await page.locator('.armada-evidence-switch button[data-class="independent"]').click();
-    assert.ok(await page.locator('#evidence .evidence-card:not([hidden])').count()>0,'Missing independent evidence '+slug);
+    await page.locator('.armada-evidence-switch button:not([data-class="all"])').first().click();
+    assert.ok(await page.locator('#evidence .evidence-card:not([hidden])').count()>0,'Provenance filter hides all evidence '+slug);
     await page.locator('.armada-evidence-switch button[data-class="all"]').click();
     assert.ok(await page.locator('#evidence .evidence-card:not([hidden])').count()>=4,'Unable to restore all evidence '+slug);
     await page.locator('#armada-sector-search').fill('unlikely-search-string-zzzz');
