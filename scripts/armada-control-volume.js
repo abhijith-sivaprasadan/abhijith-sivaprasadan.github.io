@@ -75,7 +75,7 @@
       const wrap=make('span','armada-glyph emo');
       wrap.innerHTML=icon(routeGlyphs[i%routeGlyphs.length]);
       el.prepend(wrap);
-      el.dataset.probe='SECTOR '+String(i+1).padStart(2,'0')+' / '+(one('h3',el)?.textContent||'ENGINEERING');
+      el.dataset.probe='AREA '+String(i+1).padStart(2,'0')+' / '+(one('h3',el)?.textContent||'ENGINEERING');
     });
     const sectorGlyphs={'thermal-test':'therm','power-grids':'wave','industrial-heat':'flame','mechanical-structures':'mesh','software-research':'gear','engineering-consulting':'check'};
     const picks=[
@@ -105,8 +105,8 @@
     desk.innerHTML=`
       <div class="armada-workbench-title"><span class="emo">${icon('gear')}</span>
         <div><span class="armada-console-kicker">CONTROL VOLUME / ${esc(meta.unit)}</span>
-        <h3>Follow the engineering evidence chain.</h3></div>
-        <span class="armada-console-live"><span class="dot"></span> REPRESENTATIVE METHOD · NOT A LIVE PLANT</span>
+        <h3>Engineering workflow</h3></div>
+        <span class="armada-console-live"><span class="dot"></span> ILLUSTRATIVE ENGINEERING METHOD</span>
       </div>
       <div class="armada-method-viz">
       <svg class="armada-method-svg" viewBox="0 0 740 180" role="img" aria-label="Conceptual four-step workflow from boundary to decision. The current selection is shown in the readout below.">
@@ -122,9 +122,9 @@
         ${stageNames.map((x,i)=>`<button type="button" data-stage="${i}" aria-pressed="${i===0}"><span class="mono">0${i+1}</span> ${x}</button>`).join('')}
       </div>
       <div class="armada-method-readout" aria-live="polite">
-        <span class="micro">INSPECTION CHANNEL / <span data-current-stage>01 BOUNDARY</span></span>
+        <span class="micro">WORKFLOW STAGE / <span data-current-stage>01 BOUNDARY</span></span>
         <p data-stage-note></p>
-        <div class="armada-telemetry"><span data-stage-counter></span><span>STATE: SELECT A STAGE</span><span>STATUS: INTERPRETATION ONLY</span></div>
+        <div class="armada-telemetry"><span data-stage-counter></span><span>MODEL / METHOD</span><span>WORKFLOW OVERVIEW</span></div>
       </div>`;
     target.insertAdjacentElement('afterend',desk);
     const buttons=$$('[data-stage]',desk),notes=meta.notes,bar=one('.armada-flow-active',desk),nodes=$$('.armada-node',desk);
@@ -162,7 +162,7 @@
       let n=0;
       cards.forEach(card=>{const show=type==='all'||card.dataset.evidenceClass===type;card.hidden=!show;if(show)n++;});
       $$('button',nav).forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.class===type)));
-      out.textContent=n+' / '+cards.length+' CASES IN THIS VIEW · SOURCE / LIMITS LINKED';
+      out.textContent=n+' / '+cards.length+' PROJECTS SHOWN';
     }
     $$('button',nav).forEach(button=>button.addEventListener('click',()=>update(button.dataset.class)));
     update('all');
@@ -171,7 +171,7 @@
     const grid=one('#employers .companies');
     if(!grid)return;
     const cards=$$('.company-card',grid);
-    const label=make('label','armada-find-label','FIND AN EMPLOYER ON THIS PAGE');
+    const label=make('label','armada-find-label','COMPANIES');
     const search=make('input','armada-find-input');
     search.type='search';search.autocomplete='off';search.placeholder='Filter company name or engineering topic…';
     search.id='armada-sector-search';
@@ -185,7 +185,7 @@
       let n=0;cards.forEach(card=>{
         const show=!q||card.textContent.toLocaleLowerCase().includes(q);
         card.hidden=!show;if(show)n++;
-      });status.textContent=n+' / '+cards.length+' EMPLOYERS MATCHING · NOT OPEN-VACANCY DATA';
+      });status.textContent=n+' / '+cards.length+' COMPANIES SHOWN';
       if(selected&&!selected.hidden)selected.scrollIntoView({behavior:'instant',block:'nearest'});
     }
     search.addEventListener('input',filter);filter();
@@ -201,20 +201,20 @@
     if(!cards.length)return;
     const desk=make('section','armada-route-desk cs');
     desk.id='route-console';
-    desk.setAttribute('aria-label','Interactive recruiter routing console');
+    desk.setAttribute('aria-label','Engineering areas');
     desk.innerHTML=`<div class="armada-workbench-title"><span class="emo">${icon('mesh')}</span>
-      <div><span class="armada-console-kicker">RECRUITER ROUTING / SIX ENGINEERING VIEWS</span><h3>Switch technical perspectives.</h3></div>
-      <span class="armada-console-live"><span class="dot"></span> CURATED EVIDENCE, NOT AN ALGORITHM-BASED JOB MATCH</span></div>
+      <div><span class="armada-console-kicker">ENGINEERING SPECIALISATIONS</span><h3>Explore technical work</h3></div>
+      <span class="armada-console-live"><span class="dot"></span> EXPERIENCE AND SELECTED PROJECTS</span></div>
       <div class="armada-route-layout">
       <div class="armada-route-pick" role="group" aria-label="Choose employer sector"></div>
-      <div class="armada-route-inspector" aria-live="polite"><span class="armada-console-kicker">ACTIVE ENGINEERING LENS</span><h4></h4><p></p><p class="armada-route-proof"></p><a class="armada-route-open" href="#">OPEN TECHNICAL BRIEF →</a></div></div>`;
+      <div class="armada-route-inspector" aria-live="polite"><span class="armada-console-kicker">SELECTED SPECIALISATION</span><h4></h4><p></p><p class="armada-route-proof"></p><a class="armada-route-open" href="#">VIEW EXPERIENCE AND PROJECTS →</a></div></div>`;
     grid.before(desk);
     const group=one('.armada-route-pick',desk);
     const colors=['thermal','power','heat','mechanical','software','consulting'];
     cards.forEach((card,i)=>{
       const btn=make('button','armada-route-option');
       btn.type='button';btn.dataset.index=String(i);
-      btn.dataset.probe='ROUTE '+String(i+1).padStart(2,'0')+' · '+one('h3',card).textContent;
+      btn.dataset.probe='AREA '+String(i+1).padStart(2,'0')+' · '+one('h3',card).textContent;
       btn.innerHTML='<span class="armada-route-index">'+String(i+1).padStart(2,'0')+'</span><span>'+esc(one('h3',card).textContent)+'</span><span class="armada-route-indicator" aria-hidden="true">↗</span>';
       group.append(btn);btn.addEventListener('click',()=>choose(i));
     });
