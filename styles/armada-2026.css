@@ -69,3 +69,109 @@ p{margin-bottom:18px}
 @media(max-width:950px){.hero-layout{grid-template-columns:1fr}.route-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.method-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:630px){.wrap{width:min(var(--max),calc(100% - 30px))}.hero{padding:55px 0}.section{padding:44px 0}.route-grid,.companies,.evidence-grid,.two-col,.company-index{grid-template-columns:1fr}.method-list{grid-template-columns:1fr 1fr}.topbar .wrap{min-height:70px}.route-card{min-height:220px}h1{font-size:clamp(38px,10vw,52px)}.matrix td:first-child{white-space:normal}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+/* Control Volume parity: the same ink/teal/gold, square case surfaces, moving boundaries,
+ * custom glyphs, monospace wayfinding, system controls and telemetry as the homepage.
+ * Previous card styling is overridden rather than inventing another brand.
+ */
+:root{--bg:#070807;--panel:#0d110e;--panel-2:#111a15;--line:#2d3a31;--ink:#f2f0e7;--muted:#c9cfc6;--quiet:#a9b3a8;--accent:#65d6c9;--accent-dark:#071007;--gold:#d7b46a;--max:1180px}
+html[data-theme="dark"]{background:#070807}
+body.cv{background:#070807;color:#f2f0e7;overflow-x:clip;isolation:isolate}
+body.cv .pg{overflow:clip;max-width:100%;background:#070807!important;min-height:100vh;position:relative;z-index:0}
+body.cv .pg .wrap{max-width:1180px}
+.cv .topbar{border-color:#2d3a31;background:#0a0d0b;position:relative}
+.cv .topbar .wrap{max-width:1180px;padding:16px 48px;min-height:74px}
+.cv .topbar .brand{letter-spacing:.14em;font-size:13px}
+.cv .topbar nav{gap:6px 22px}
+.cv .topbar nav a{font-size:12px;letter-spacing:.12em;padding:9px 0;color:#a9b3a8}
+.cv .topbar nav a[aria-current="page"]{color:#65d6c9}
+.cv .topbar nav a:hover{color:#65d6c9}
+.cv .hero{background:transparent;border-color:#2d3a31}
+.cv .hero-note,.cv .route-card,.cv .evidence-card,.cv .company-card,.cv .method-list li,.cv .company-index a,.cv .notebox,.cv .talk{border-radius:2px;background:#0d110e;box-shadow:none}
+.cv .hero-note{background-color:#0d110e}
+.cv .hero-note img{filter:saturate(.55);border-radius:0;border:1px solid #2d3a31}
+.cv .route-card{min-height:304px;position:relative;border-top:1px solid #2d3a31!important}
+.cv .route-card::before{content:"";height:2px;width:84px;background:#65d6c9;position:absolute;top:-1px;left:25px}
+.cv .route-card:hover,.cv .evidence-card:hover,.cv .company-card:hover{border-color:#65d6c9;transform:translateY(-2px)}
+.cv .route-card,.cv .company-card,.cv .evidence-card{transition:border-color .25s ease,transform .25s ease,background .25s ease}
+.cv .route-card h3{font-size:24px;line-height:1.17;letter-spacing:-.025em}
+.cv .route-card .micro,.cv .section-no,.cv .eyebrow,.cv .tag,.cv .company-card .micro{color:#d7b46a}
+.cv .tag{display:block}
+.cv .section{border-color:#2d3a31}
+.cv h1{letter-spacing:-.04em;line-height:1.03}
+.cv h2{letter-spacing:-.025em}
+.cv .button-row .btn{border-radius:2px;font-family:"JetBrains Mono",monospace;letter-spacing:.07em}
+.cv .button-row .btn.alt{background:transparent;border:1px solid #546456}
+.cv .subnav a,.cv .company-index a,.cv .search,.cv .armada-find-input{border-radius:2px}
+.cv .subnav a[aria-current="page"]{background:#65d6c9;color:#071007}
+.cv .subnav{border-color:#2d3a31}
+.cv .company-card:target{outline:2px solid #65d6c9;outline-offset:4px}
+.cv .notebox{border-color:#6a5539;background:#151610}
+.cv .notebox strong{color:#f2d49b}
+.cv .talk{background-color:#0d110e}
+.cv .hero .button-row{margin-top:31px}
+.cv .evidence-card{border-top:1px solid #2d3a31}
+.cv .evidence-card .limit{border-top-color:#405148}
+.cv .company-card .question{border-left:2px solid #65d6c9}
+.cv .method-list li{position:relative;padding-top:25px;overflow:hidden}
+.cv .method-list li::after{content:"";position:absolute;inset:auto -1px 0;display:block;height:3px;background:linear-gradient(90deg,transparent 0%,#65d6c9 55%,transparent 100%);opacity:.5}
+.cv .company-index a:hover{color:#65d6c9}
+.cv .evidence-grid,.cv .companies,.cv .route-grid{gap:12px}
+.cv .armada-glyph{display:flex;align-items:center;justify-content:flex-start;color:#65d6c9;margin-bottom:15px}
+.cv .armada-glyph .gl{width:30px;height:30px}
+.cv .section-head .armada-glyph{margin-bottom:10px}
+.cv .hero-note .armada-glyph{margin-bottom:17px}
+.cv .armada-selected{outline:1px solid #d7b46a;outline-offset:4px}
+.cv .armada-ticker{background:#050605;border-bottom:1px solid #2d3a31;overflow:hidden;color:#a9b3a8}
+.cv .armada-ticker-track{display:flex;white-space:nowrap;min-width:max-content;animation:armada-ticker-move 41s linear infinite}
+.cv .armada-ticker span{padding:8px 25px;font:11px/1.5 'JetBrains Mono',monospace;letter-spacing:.12em}
+.cv .armada-ticker span:nth-child(3n){color:#65d6c9}
+.cv .armada-ticker span:nth-child(4n){color:#d7b46a}
+@keyframes armada-ticker-move{to{transform:translateX(-50%)}}
+.cv .armada-workbench,.cv .armada-route-desk{border:1px dashed #65d6c9;background-color:#0c130f;position:relative;padding:clamp(16px,3vw,28px);margin-top:28px;min-width:0}
+.cv .armada-workbench:before,.cv .armada-route-desk:before{content:"";position:absolute;inset:-1px;pointer-events:none;border:1px dashed #65d6c9;opacity:.25;animation:armada-boundary 17s linear infinite}
+@keyframes armada-boundary{to{border-color:#d7b46a}}
+.cv .armada-workbench-title{display:flex;align-items:center;gap:16px 20px;flex-wrap:wrap;border-bottom:1px solid #2d3a31;padding-bottom:18px}
+.cv .armada-workbench-title .emo{color:#d7b46a;display:flex}
+.cv .armada-workbench-title h3{margin:4px 0 0;font-size:22px;line-height:1.35}
+.cv .armada-console-kicker{font:11px 'JetBrains Mono',monospace;letter-spacing:.12em;color:#65d6c9}
+.cv .armada-console-live{margin-left:auto;font:10px 'JetBrains Mono',monospace;max-width:230px;color:#a9b3a8;display:flex;gap:8px;align-items:center}
+.cv .armada-console-live .dot{flex:none;width:7px;height:7px;border-radius:50%;background:#65d6c9;box-shadow:0 0 12px #65d6c9;animation:cv-pulse 2.2s ease-in-out infinite}
+.cv .armada-method-viz{padding:24px 0 6px;overflow:hidden;max-width:100%}
+.cv .armada-method-svg{display:block;width:100%;height:auto;min-width:0;overflow:visible}
+.cv .armada-flow-baseline{fill:none;stroke:#425648;stroke-width:2}
+.cv .armada-flow-active{stroke:#65d6c9;stroke-width:3;fill:none;transition:d .45s ease}
+.cv .armada-node-core{fill:#101a15;stroke:#566a58;stroke-width:2;transition:stroke .2s,fill .2s}
+.cv .armada-node-halo{fill:none;stroke:#2d3a31;stroke-width:1;stroke-dasharray:3 5}
+.cv .armada-node.on .armada-node-core{fill:#164139;stroke:#65d6c9}
+.cv .armada-node.on .armada-node-halo{stroke:#d7b46a;animation:cv-spin 25s linear infinite;transform-origin:center}
+.cv .armada-node-symbol{font:600 16px 'JetBrains Mono',monospace;fill:#f2f0e7}
+.cv .armada-node-title{font:11px 'JetBrains Mono',monospace;fill:#a9b3a8;letter-spacing:.09em}
+.cv .armada-node.on .armada-node-title{fill:#65d6c9}
+.cv .armada-stage-choices,.cv .armada-evidence-switch{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 17px}
+.cv .armada-stage-choices button,.cv .armada-evidence-switch button{border:1px solid #405545;background:#0a0e0b;color:#c9cfc6;border-radius:2px;font:11px 'JetBrains Mono',monospace;letter-spacing:.025em;min-height:43px;padding:9px 13px;text-align:left}
+.cv .armada-stage-choices button[aria-pressed="true"],.cv .armada-evidence-switch button[aria-pressed="true"]{border-color:#65d6c9;background:#12352d;color:#f2f0e7}
+.cv .armada-stage-choices button .mono{color:#d7b46a;margin-right:7px}
+.cv .armada-method-readout{background:#09120e;border:1px solid #2d3a31;padding:19px 22px;min-height:136px}
+.cv .armada-method-readout p{font-size:15px;line-height:1.6;color:#f2f0e7;margin:8px 0 17px}
+.cv .armada-telemetry{display:flex;gap:10px 20px;flex-wrap:wrap;align-items:center;border-top:1px solid #2d3a31;padding-top:11px;color:#a9b3a8;font:10px 'JetBrains Mono',monospace}
+.cv .armada-telemetry span:first-child{color:#65d6c9}
+.cv .armada-evidence-count{font:11px 'JetBrains Mono',monospace;color:#a9b3a8;letter-spacing:.04em;margin:10px 0 17px}
+.cv .armada-find-label{display:block;color:#a9b3a8;font:11px 'JetBrains Mono',monospace;margin:24px 0 7px;letter-spacing:.07em}
+.cv .armada-find-input{background:#0a0e0b;border:1px solid #567164;width:100%;min-height:47px;padding:10px 13px;color:#f2f0e7;font:14px Inter,system-ui,sans-serif}
+.cv .armada-route-layout{display:grid;grid-template-columns:minmax(250px,1fr) minmax(260px,1.2fr);gap:18px;padding-top:23px}
+.cv .armada-route-pick{display:grid;gap:7px}
+.cv .armada-route-pick button{background:#0a110d;border:1px solid #344e3d;min-height:51px;display:flex;align-items:center;gap:14px;text-align:left;padding:8px 13px;color:#f2f0e7;font:12px 'JetBrains Mono',monospace}
+.cv .armada-route-pick button[aria-pressed="true"]{background:#133e34;border-color:#65d6c9}
+.cv .armada-route-index{font:600 14px 'JetBrains Mono',monospace;color:#d7b46a}
+.cv .armada-route-indicator{margin-left:auto;color:#65d6c9}
+.cv .armada-route-inspector{background:#111e17;border:1px solid #2d3a31;padding:22px;display:flex;flex-direction:column;min-height:265px}
+.cv .armada-route-inspector h4{font-size:clamp(22px,2.8vw,31px);line-height:1.2;margin:12px 0 14px}
+.cv .armada-route-inspector p{font-size:14px;color:#c9cfc6}
+.cv .armada-route-proof{font:11px/1.6 'JetBrains Mono',monospace!important;color:#d7b46a!important}
+.cv .armada-route-open{margin-top:auto;font:600 12px 'JetBrains Mono',monospace}
+.cv [hidden]{display:none!important}
+@media(max-width:900px){.cv .topbar .wrap{padding-inline:22px}.cv .armada-route-layout{grid-template-columns:1fr}}
+@media(max-width:650px){.cv .topbar .wrap{padding-inline:15px}.cv .route-card{min-height:215px}.cv .armada-method-svg text{font-size:9px}.cv .armada-method-svg .armada-node-symbol{font-size:13px}.cv .armada-workbench-title{align-items:flex-start}.cv .armada-console-live{margin-left:0}.cv .armada-stage-choices button{flex:1 1 42%}.cv .armada-method-readout{padding:14px}.cv .armada-evidence-switch button{flex:1 1 44%}}
+@media(prefers-reduced-motion:reduce){.cv .armada-ticker-track,.cv .armada-workbench:before,.cv .armada-route-desk:before,.cv .armada-console-live .dot,.cv .armada-node.on .armada-node-halo{animation:none!important}.cv .armada-flow-active{transition:none}.cv .route-card:hover,.cv .company-card:hover,.cv .evidence-card:hover{transform:none}}
