@@ -113,6 +113,7 @@
 <footer class="wrap footer armada-footer" aria-label="Portfolio footer">
 <span>© 2026 Abhijith Sivaprasadan · Engineering portfolio</span>
 <nav class="armada-footer-nav" aria-label="Footer navigation"><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../projects.html">Projects</a><a href="#contact">Contact</a></nav>
+<a class="armada-source-link" href="https://armada.nu/en/student/exhibitors">Official Armada 2026 exhibitor list</a>
 </footer>
 <script>
 (function(){'use strict';const input=document.getElementById('armada-company-search'),items=[...document.querySelectorAll('#armada-company-index a')],status=document.getElementById('armada-search-status');function update(){const q=input.value.toLocaleLowerCase().trim();let n=0;for(const item of items){const match=!q||(item.dataset.employer+' '+item.textContent).toLocaleLowerCase().includes(q);item.hidden=!match;if(match)n++;}status.textContent=n+' '+(n===1?'company':'companies')+' shown';}input.addEventListener('input',update);update();})();
