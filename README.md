@@ -2,6 +2,12 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
+## Armada 2026 and recent research (17 November 2026)
+
+- [Armada 2026 recruiter-facing landing page](for/armada-2026.html) — concise, employer-aligned routes to industrial evidence, thermal/test engineering, energy modelling and reproducible software; company references are conversation targets, not claims of open roles or endorsements.
+- [CarnotBatteryLab case study](projects/carnot-battery-lab.html) / [research source](https://github.com/Open-Energy-Methods/CarnotBatteryLab) — new research-stage HTHP + TES platform; no validated integrated system, and the earlier architecture ranking was withdrawn.
+- These pages distinguish employer experience from independent research and keep scientific limitations visible. `api/projects.json` carries the new project record with an authored conceptual cover.
+
 ## Engineering index — 7 October 2026
 
 This visual direction supersedes the rejected notebook theme. The shared palette is black/white and steel grey with restrained orange accents, including dark mode; purple tokens are removed from the active portfolio layer. The homepage is restructured into a large personal engineering introduction, three direct work-entry links, a separate compact skills section and an image-led project index. Desktop tracks run vertically beside the radar; mobile keeps two rows of touch-friendly controls. Navigation is unboxed and surfaces are square/flat. Assessments, scientific limitations, five shareable endpoints and CV routing are preserved. Native transitions remain lightweight and respect reduced motion.
