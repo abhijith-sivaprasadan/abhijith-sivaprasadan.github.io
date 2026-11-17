@@ -2,26 +2,35 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
-## Six Armada 2026 recruiter specialisms (17 November 2026)
+## Complete public GitHub repository directory (17 November 2026)
 
-The main [Armada hub](for/armada-2026.html) routes recruiters to **six substantive, standalone sector briefs**, each with a separate technical argument, selected evidence, limits, relevant CV and company-specific deep-link anchors:
+The main portfolio includes a [searchable repository directory](repositories.html), containing **44 public repositories** from the GitHub profile and affiliated Open-Energy-Methods and Kerala2040 organisations (33 personal + 10 Open-Energy-Methods + 1 Kerala2040 organisation).
 
-| Sector | Focused route | Discussion examples |
-| --- | --- | --- |
-| Thermal / test engineering | [thermal-test](for/armada-2026/thermal-test.html) | Siemens Energy, Kongsberg Maritime, GKN Aerospace |
-| Power / grid flexibility | [power-grids](for/armada-2026/power-grids.html) | ABB, Hitachi Energy, Ellevio, Fortum |
-| Industrial heat / efficiency | [industrial-heat](for/armada-2026/industrial-heat.html) | Alleima, Munters, Adven, SSAB |
-| Mechanical / safety-focused engineering | [mechanical-structures](for/armada-2026/mechanical-structures.html) | Westinghouse, GKN Aerospace, Epiroc, Volvo |
-| Engineering software / R&D | [software-research](for/armada-2026/software-research.html) | Dassault Systèmes, Ericsson, Syntronic, FOI |
-| Multidisciplinary consultancy | [engineering-consulting](for/armada-2026/engineering-consulting.html) | AFRY, ALTEN, Rejlers, Sweco |
+- Data: [api/public-repositories.json](api/public-repositories.json), sourced from public GitHub repository listings on 17 November 2026.
+- Public repository groups: 26 engineering/research repos, 4 website/infrastructure repos, 6 learning/example repos, and 8 forks with attribution.
+- Personal job-search and other private repositories are **excluded**. Forks and coursework are distinguished from self-authored engineering work.
+- The existing [project case library](projects.html) remains separate, with engineering descriptions, methods, findings and validation limitations. Each repository in the directory links to its real GitHub source, with a case-study link when one exists.
+- Filters support repository name, topic, account and type, and remain progressively enhanced: all entries and links are visible without JavaScript.
+- Checks: `scripts/validate-public-repositories.cjs` plus `scripts/test-repository-directory.cjs` (Chromium desktop and iPhone-sized WebKit).
 
-The 17 November enhancement reuses the published **Control Volume** shell, typography, animated SVG icon system, probe cursor, scroll-residual rail, hot/cold controls, optional sound, command console, discovery menu and Flux Lab. Each specialist also includes a stateful four-step evidence chain, a provenance filter, recruiter lookup and an original live analytical chart. The six formulas are deliberately idealised educational probes; they are not outputs of the cited industrial projects. These are covered by `scripts/test-armada-control-volume.cjs` in the Playwright UI workflow.
+## Armada 2026 technical portfolio (17 November 2026)
 
-Source of exhibitor names: [official Armada 2026 list](https://armada.nu/en/student/exhibitors). These are discussion targets, not open positions or endorsements. The hub provides a no-backend employer search linking to specific company anchors on the sector pages. Professional experience, coursework and independent research remain distinct. New checks: `scripts/validate-armada-2026.cjs` (CI) and existing static/browser audits.
+The [Armada portfolio](for/armada-2026.html) contains six specialist engineering pages to support an in-person conversation with relevant experience, selected projects, role-appropriate CVs and clear contact links. It deliberately **does not publish a list of employers being considered**.
+
+| Engineering area | Technical portfolio |
+| --- | --- |
+| Thermal and test engineering | [Thermal and test](for/armada-2026/thermal-test.html) |
+| Power systems and grid modelling | [Power grids](for/armada-2026/power-grids.html) |
+| Industrial energy and thermal systems | [Industrial heat](for/armada-2026/industrial-heat.html) |
+| Mechanical design and simulation | [Mechanical structures](for/armada-2026/mechanical-structures.html) |
+| Engineering software and research | [Software research](for/armada-2026/software-research.html) |
+| Engineering analysis and consulting | [Consulting](for/armada-2026/engineering-consulting.html) |
+
+The pages use the existing Control Volume design system and retain the working four-step engineering method illustration, technical charts, source-evidence filters, accessible navigation and reduced-motion controls. Models remain explicitly illustrative unless measured validation has been established. Browser and smartphone checks cover them in `scripts/test-armada-control-volume.cjs` and `scripts/test-armada-ios-mobile.cjs`.
 
 ## Armada 2026 and recent research (17 November 2026)
 
-- [Armada 2026 recruiter-facing landing page](for/armada-2026.html) — concise, employer-aligned routes to industrial evidence, thermal/test engineering, energy modelling and reproducible software; company references are conversation targets, not claims of open roles or endorsements.
+- [Armada 2026 recruiter-facing landing page](for/armada-2026.html) — concise, employer-aligned routes to industrial evidence, thermal/test engineering, energy modelling and reproducible software; the specialist pages focus on transferable engineering work rather than named competing employers.
 - [CarnotBatteryLab case study](projects/carnot-battery-lab.html) / [research source](https://github.com/Open-Energy-Methods/CarnotBatteryLab) — new research-stage HTHP + TES platform; no validated integrated system, and the earlier architecture ranking was withdrawn.
 - These pages distinguish employer experience from independent research and keep scientific limitations visible. `api/projects.json` carries the new project record with an authored conceptual cover.
 

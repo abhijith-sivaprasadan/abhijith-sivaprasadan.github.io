@@ -12,7 +12,7 @@ const { chromium } = require('playwright');
 const root = path.resolve(__dirname, '..');
 const base = process.env.UI_AUDIT_BASE || 'http://127.0.0.1:8099';
 const REPORT = path.join(root, 'ui-audit-report.json');
-const highlight = ['index.html','story.html','404.html','admin.html','projects.html','research.html','reports.html',
+const highlight = ['index.html','repositories.html','story.html','404.html','admin.html','projects.html','research.html','reports.html',
   'experience.html','about.html','energy-systems.html','industrial-rd.html','interests.html',
   'hobbies.html','ideas.html','courses.html','cet2026/index.html','labs/control-volume.html',
   'for/siemens-feed.html','tracks/research.html','tracks/index.html','skills/research.html',

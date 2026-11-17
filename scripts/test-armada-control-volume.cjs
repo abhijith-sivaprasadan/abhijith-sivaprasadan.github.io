@@ -26,11 +26,8 @@ const sectors = ['thermal-test','power-grids','industrial-heat','mechanical-stru
   assert.ok((await page.locator('.armada-route-open').getAttribute('href')).includes('power-grids.html'),'Sector inspector has wrong destination');
   const nav=await page.locator('.cv-discovery a').first().getAttribute('href');
   assert.ok(new URL(nav,base).pathname.endsWith('/index.html'),'Discovery links must lead to site root');
-  const input=page.locator('#armada-company-search');
-  await input.fill('Hitachi');
-  assert.equal(await page.locator('#armada-company-index a:not([hidden])').count(),1,'Company lookup must filter actual choices');
-  assert.ok((await page.locator('#armada-company-index a:not([hidden])').getAttribute('href')).includes('power-grids.html#hitachi-energy'));
-  await input.fill('');
+  assert.equal(await page.locator('#armada-company-index').count(),0,'Public portfolio should not expose an employer consideration list');
+  assert.ok(await page.locator('a[href="../repositories.html"]').count()>0,'Hub should lead to public GitHub work');
 
   const snapshots=[];
   for(const slug of sectors){
@@ -66,10 +63,8 @@ const sectors = ['thermal-test','power-grids','industrial-heat','mechanical-stru
     assert.ok(await page.locator('#evidence .evidence-card:not([hidden])').count()>0,'Provenance filter hides all evidence '+slug);
     await page.locator('.armada-evidence-switch button[data-class="all"]').click();
     assert.ok(await page.locator('#evidence .evidence-card:not([hidden])').count()>=4,'Unable to restore all evidence '+slug);
-    await page.locator('#armada-sector-search').fill('unlikely-search-string-zzzz');
-    assert.equal(await page.locator('.company-card:not([hidden])').count(),0,'Company search not reactive '+slug);
-    await page.locator('#armada-sector-search').fill('');
-    assert.ok(await page.locator('.company-card:not([hidden])').count()>=4,'Employer search reset broken '+slug);
+    assert.equal(await page.locator('.company-card').count(),0,'Company-specific pitches should not be shown '+slug);
+    assert.ok(await page.locator('a[href="../../repositories.html"]').count()>0,'Missing public repository link '+slug);
     const topNav=await page.locator('.cv-discovery a').first().getAttribute('href');
     assert.ok(new URL(topNav,base).pathname.endsWith('/index.html'),'Nested discovery link wrong '+slug);
     snapshots.push({slug,first,third});
@@ -83,6 +78,6 @@ const sectors = ['thermal-test','power-grids','industrial-heat','mechanical-stru
   const tickerAnimation=await page.locator('.armada-ticker-track').evaluate(el=>getComputedStyle(el).animationName);
   assert.equal(tickerAnimation,'none','Reduced-motion visitor should not see moving telemetry ticker');
   assert.deepEqual(errors,[],'Runtime JavaScript errors: '+errors.join('\n'));
-  console.log('PASS: six sector workbenches, real Control Volume shell/Flux Lab, routing, deep links, evidence and employer controls, reduced-motion/mobile');
+  console.log('PASS: six sector workbenches, real Control Volume shell/Flux Lab, routing, project evidence and employer-neutral presentation, reduced-motion/mobile');
  } finally {await browser.close();}
 })().catch(err=>{console.error(err);process.exitCode=1;});

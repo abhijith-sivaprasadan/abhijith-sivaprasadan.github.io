@@ -39,6 +39,10 @@ jobs:
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules
         run: node scripts/test-armada-ios-mobile.cjs
+      - name: Verify all public GitHub repositories in desktop Chromium and iPhone WebKit
+        env:
+          NODE_PATH: /tmp/cv-ui-audit/node_modules
+        run: node scripts/test-repository-directory.cjs
       - name: Audit all public routes and critical viewports
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules

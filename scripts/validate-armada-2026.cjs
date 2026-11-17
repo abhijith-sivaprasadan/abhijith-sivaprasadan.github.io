@@ -22,10 +22,11 @@ assert.ok(hub.indexOf('id="credentials"')<hub.indexOf('id="choose"'), 'Industria
 assert.ok(!hub.includes('Different roles need different evidence'), 'Do not use abstract or instructive public headings');
 
 assert.ok(css.includes('@media(max-width:630px)'), 'Missing responsive layout');
-assert.ok(hub.includes('id="armada-company-search"'), 'Missing employer search input');
-assert.ok(hub.includes('id="armada-search-status"'), 'Missing accessible search status');
+assert.ok(!hub.includes('id="armada-company-search"'), 'Public hub should not show a competing-employer list');
+assert.ok(!hub.includes('Companies of interest'), 'Public portfolio should not name competing employers as personal preferences');
+assert.ok(hub.includes('href="../repositories.html"'), 'Hub must link the complete public GitHub directory');
 assert.ok(hub.includes('Official Armada 2026 exhibitor list'), 'Missing authoritative source label');
-const titles = new Set(),companyIds = new Map();
+const titles = new Set();
 for (const sector of sectors) {
  const route = 'for/armada-2026/' + sector + '.html';
  const html = read(route);
@@ -33,16 +34,14 @@ for (const sector of sectors) {
  const title = html.match(/<h1>([^<]+)<\/h1>/);
  assert.ok(title && !titles.has(title[1]), 'Missing/distinct sector headline: '+sector);
  titles.add(title[1]);
- for (const anchor of ['id="evidence"','id="employers"','id="contact"','id="contribution"']) {
+ for (const anchor of ['id="evidence"','id="contact"','id="contribution"']) {
   assert.ok(html.includes(anchor), 'Missing '+anchor+' in '+sector);
  }
  assert.ok(html.includes('href="../../styles/armada-2026.css') || html.includes('href="../styles/armada-2026.css'), 'Styles missing: '+sector);
  const evidenceCount = (html.match(/class="evidence-card"/g)||[]).length;
  assert.ok(evidenceCount >= 4, 'Sector lacks differentiated evidence '+sector);
- const ids=[...html.matchAll(/class="company-card" id="([^"]+)"/g)].map(m=>m[1]);
- assert.ok(ids.length>=4, 'Sector lacks employer focus: '+sector);
- assert.equal(new Set(ids).size,ids.length,'Duplicate employer anchor: '+sector);
- companyIds.set(sector,new Set(ids));
+ assert.ok(!html.includes('Companies of interest') && !html.includes('COMPANIES OF INTEREST') && !html.includes('class="company-card"'),'No employer consideration list should appear on public sector page '+sector);
+ assert.ok(html.includes('href="../../repositories.html"'),'Missing complete GitHub directory link '+sector);
  assert.ok(html.includes('data-sector="'+sector+'"'),'Missing sector identity '+sector);
  assert.ok(html.includes('class="armada-profile-links"'), 'Missing links to about, experience and full projects '+sector);
  for(const item of ['../../about.html','../../experience.html','../../projects.html','../../story.html']) {
@@ -55,14 +54,7 @@ for (const sector of sectors) {
  assert.ok(html.includes('scripts/control-volume.js') && html.includes('scripts/flux-lab.js') && html.includes('scripts/armada-control-volume.js') && html.includes('scripts/armada-engineering-lab.js'),'Missing dynamic shared/sector scripts '+sector);
  assert.ok(html.includes('source') || html.includes('limitations'), 'Missing evidence constraints '+sector);
 }
-let n=0;
-for (const m of hub.matchAll(/<a data-employer="[^"]+" data-sector="([^"]+)" href="armada-2026\/([^".]+)\.html#([^"]+)"/g)) {
- n++;
- assert.equal(m[1],m[2], 'Search entry/route mismatch');
- assert.ok(companyIds.get(m[1])?.has(m[3]), 'Company deep-link missing target '+m[3]);
-}
-assert.ok(n>=30, 'Too few employer deep-links');
-assert.ok(hub.includes('aria-live="polite"') && hub.includes("input.addEventListener('input',update)"),'Lookup must work without backend calls');
+assert.ok(!hub.includes('data-employer='),'Do not expose employer targeting metadata in public site');
 const contactLinks=['mailto:abhijithsivaprasadan@gmail.com','https://github.com/abhijith-sivaprasadan','https://www.linkedin.com/in/abhijith-sivaprasadan/'];
 for(const route of ['for/armada-2026.html',...sectors.map(x=>'for/armada-2026/'+x+'.html')]){
  const page=read(route);
@@ -76,4 +68,4 @@ for(const route of ['for/armada-2026.html',...sectors.map(x=>'for/armada-2026/'+
  for(const link of contactLinks)assert.ok(page.includes('href="'+link+'"'),'Missing contact link '+link+' in '+route);
 }
 assert.match(css,/\.cv \.armada-footer\{[^}]*padding-bottom:calc\(44px \+ env\(safe-area-inset-bottom,0px\)\)/,'Footer must explicitly include iOS home-indicator safe area in its bottom padding');
-console.log('Armada 2026: validated '+sectors.length+' unique specialist pages and '+n+' company deep-links.');
+console.log('Armada 2026: validated '+sectors.length+' employer-neutral specialist pages with project and GitHub navigation.');

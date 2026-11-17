@@ -116,7 +116,7 @@ const relativeDirectory=currentDirectory.startsWith(siteRoot.pathname)?currentDi
 const linkPrefix='../'.repeat(relativeDirectory.split('/').filter(Boolean).length);
 const url=path=>linkPrefix+path;
 const groups=[
- {title:'The engineering work',items:[['Applied to the site','index.html'],['Cases · full project library','projects.html'],['Research','research.html'],['Energy systems','energy-systems.html'],['Industrial R&D','industrial-rd.html'],['Professional record','experience.html']]},
+ {title:'The engineering work',items:[['Applied to the site','index.html'],['Cases · full project library','projects.html'],['All public code repositories','repositories.html'],['Research','research.html'],['Energy systems','energy-systems.html'],['Industrial R&D','industrial-rd.html'],['Professional record','experience.html']]},
  {title:'Beyond the boundary',items:[['About','about.html'],['The path · story','story.html'],['Courses','courses.html'],['Ideas','ideas.html'],['Interests','interests.html'],['Hobbies','hobbies.html']]},
  {title:'Evidence & tools',items:[['Skills & methods','skills/index.html'],['Research tracks','tracks/index.html'],['Reports & PDFs','reports.html'],['Control-volume laboratory','labs/control-volume.html'],['CET 2026','cet2026/'],['Contact card','tap/']]}
 ];
