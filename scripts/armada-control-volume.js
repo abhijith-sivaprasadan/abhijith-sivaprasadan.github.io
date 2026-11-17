@@ -209,7 +209,7 @@
       group.append(btn);btn.addEventListener('click',()=>choose(i));
     });
     function choose(i){
-      const card=cards[i],link=one('a[href]',card);
+      const card=cards[i],link=one('a[href^="armada-2026/"]',card);
       $$('button',group).forEach((b,j)=>b.setAttribute('aria-pressed',String(i===j)));
       one('h4',desk).textContent=one('h3',card).textContent;
       one('.armada-route-inspector>p',desk).textContent=one('h3',card)?.nextElementSibling?.textContent||'';
