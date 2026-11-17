@@ -216,3 +216,7 @@ body.cv .pg>main{padding:0!important}
 @media(max-width:650px){.cv .armada-physics{padding:14px}.cv .armada-physics-display{padding:11px}.cv .armada-physics-display svg text{font-size:10px}.cv .armada-physics-controls label{flex-wrap:wrap}}
 
 .cv .armada-plot-method{font:10px/1.6 'JetBrains Mono',monospace;color:#a9b3a8;margin:12px 0 0;letter-spacing:.015em}
+
+/* Accessible skip link: off-canvas by transform, not 10,000px outside text audit bounds. */
+.cv .skip{left:12px;top:0;transform:translateY(-150%);opacity:0;pointer-events:none;z-index:100;transition:opacity .12s,transform .12s}
+.cv .skip:focus{left:12px;top:12px;transform:none;opacity:1;pointer-events:auto}
