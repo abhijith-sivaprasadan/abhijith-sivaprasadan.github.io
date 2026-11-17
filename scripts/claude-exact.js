@@ -108,8 +108,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 'use strict';
 const page=document.body;
 if(!page||!page.classList.contains('cv'))return;
-const root=location.pathname.includes('/projects/')?'../':'';
-const url=path=>root+path;
+// Resolve shared navigation relative to this script: works in /, /projects/, /for/ and nested /for/armada-2026/.
+const script=document.querySelector('script[src*="scripts/claude-exact.js"]');
+const siteRoot=new URL('../', script?.src || location.href);
+const url=path=>new URL(path,siteRoot).href;
 const groups=[
  {title:'The engineering work',items:[['Applied to the site','index.html'],['Cases · full project library','projects.html'],['Research','research.html'],['Energy systems','energy-systems.html'],['Industrial R&D','industrial-rd.html'],['Professional record','experience.html']]},
  {title:'Beyond the boundary',items:[['About','about.html'],['The path · story','story.html'],['Courses','courses.html'],['Ideas','ideas.html'],['Interests','interests.html'],['Hobbies','hobbies.html']]},
@@ -175,6 +177,8 @@ const refs=[
  ["Master's thesis researcher",'experience/siemens-energy.html'],
 ];
 function linkMentions(){
+ const script=document.querySelector('script[src*="scripts/claude-exact.js"]');
+ const siteRoot=new URL('../',script?.src || location.href);
  const main=document.querySelector('.pg main');if(!main)return;
  const used=new Set();
  for(const box of main.querySelectorAll('h2,h3,p,li')){
@@ -187,7 +191,7 @@ function linkMentions(){
    const pick=refs.find(([label])=>!used.has(label)&&text.toLowerCase().includes(label.toLowerCase()));
    if(!pick)continue;
    const [label,target]=pick;const pos=text.toLowerCase().indexOf(label.toLowerCase());
-   const element=document.createElement('a');element.className='cv-context-link';element.href=target;
+   const element=document.createElement('a');element.className='cv-context-link';element.href=new URL(target,siteRoot).href;
    element.title='Open published evidence: '+label;element.textContent=text.slice(pos,pos+label.length);
    const frag=document.createDocumentFragment();
    frag.append(document.createTextNode(text.slice(0,pos)),element,document.createTextNode(text.slice(pos+label.length)));
