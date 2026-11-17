@@ -214,3 +214,5 @@ body.cv .pg .wrap{max-width:1180px}
 body.cv .pg>main{padding:0!important}
 @media(max-width:900px){.cv .armada-physics-layout{grid-template-columns:1fr}}
 @media(max-width:650px){.cv .armada-physics{padding:14px}.cv .armada-physics-display{padding:11px}.cv .armada-physics-display svg text{font-size:10px}.cv .armada-physics-controls label{flex-wrap:wrap}}
+
+.cv .armada-plot-method{font:10px/1.6 'JetBrains Mono',monospace;color:#a9b3a8;margin:12px 0 0;letter-spacing:.015em}
