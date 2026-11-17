@@ -167,33 +167,6 @@
     $$('button',nav).forEach(button=>button.addEventListener('click',()=>update(button.dataset.class)));
     update('all');
   }
-  function employerDesk(){
-    const grid=one('#employers .companies');
-    if(!grid)return;
-    const cards=$$('.company-card',grid);
-    const label=make('label','armada-find-label','COMPANIES');
-    const search=make('input','armada-find-input');
-    search.type='search';search.autocomplete='off';search.placeholder='Filter company name or engineering topic…';
-    search.id='armada-sector-search';
-    label.htmlFor=search.id;
-    const status=make('p','armada-evidence-count');
-    status.setAttribute('aria-live','polite');
-    grid.before(label,search,status);
-    let selected=null;
-    function filter(){
-      const q=search.value.toLocaleLowerCase().trim();
-      let n=0;cards.forEach(card=>{
-        const show=!q||card.textContent.toLocaleLowerCase().includes(q);
-        card.hidden=!show;if(show)n++;
-      });status.textContent=n+' / '+cards.length+' COMPANIES SHOWN';
-      if(selected&&!selected.hidden)selected.scrollIntoView({behavior:'instant',block:'nearest'});
-    }
-    search.addEventListener('input',filter);filter();
-    // Deep-link highlights are genuine company/role links, never invented vacancies.
-    const hash=decodeURIComponent(location.hash.slice(1));
-    const current=hash&&doc.getElementById(hash);
-    if(current&&current.classList.contains('company-card')){selected=current;current.classList.add('armada-selected');}
-  }
   function hubDesk(){
     const grid=one('#choose .route-grid');
     if(!grid)return;
@@ -206,7 +179,7 @@
       <div><span class="armada-console-kicker">ENGINEERING SPECIALISATIONS</span><h3>Explore technical work</h3></div>
       <span class="armada-console-live"><span class="dot"></span> EXPERIENCE AND SELECTED PROJECTS</span></div>
       <div class="armada-route-layout">
-      <div class="armada-route-pick" role="group" aria-label="Choose employer sector"></div>
+      <div class="armada-route-pick" role="group" aria-label="Choose engineering specialisation"></div>
       <div class="armada-route-inspector" aria-live="polite"><span class="armada-console-kicker">SELECTED SPECIALISATION</span><h4></h4><p></p><p class="armada-route-proof"></p><a class="armada-route-open" href="#">VIEW EXPERIENCE AND PROJECTS →</a></div></div>`;
     grid.before(desk);
     const group=one('.armada-route-pick',desk);
@@ -228,12 +201,12 @@
       desk.dataset.selected=colors[i];
     }
     choose(0);
-    if(window.ControlVolume)window.ControlVolume.register('route','inspect recruiter route 1–6',args=>{const idx=Math.max(0,Math.min(5,Number(args||1)-1));choose(idx);return 'route '+(idx+1)+' / '+one('h4',desk).textContent;});
+    if(window.ControlVolume)window.ControlVolume.register('route','inspect engineering area 1–6',args=>{const idx=Math.max(0,Math.min(5,Number(args||1)-1));choose(idx);return 'route '+(idx+1)+' / '+one('h4',desk).textContent;});
   }
   function start(){
     if(!doc.body?.classList.contains('cv'))return;
     decorate();
-    methodDesk();evidenceDesk();employerDesk();hubDesk();
+    methodDesk();evidenceDesk();hubDesk();
   }
   if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
