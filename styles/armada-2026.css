@@ -175,3 +175,42 @@ body.cv .pg .wrap{max-width:1180px}
 @media(max-width:900px){.cv .topbar .wrap{padding-inline:22px}.cv .armada-route-layout{grid-template-columns:1fr}}
 @media(max-width:650px){.cv .topbar .wrap{padding-inline:15px}.cv .route-card{min-height:215px}.cv .armada-method-svg text{font-size:9px}.cv .armada-method-svg .armada-node-symbol{font-size:13px}.cv .armada-workbench-title{align-items:flex-start}.cv .armada-console-live{margin-left:0}.cv .armada-stage-choices button{flex:1 1 42%}.cv .armada-method-readout{padding:14px}.cv .armada-evidence-switch button{flex:1 1 44%}}
 @media(prefers-reduced-motion:reduce){.cv .armada-ticker-track,.cv .armada-workbench:before,.cv .armada-route-desk:before,.cv .armada-console-live .dot,.cv .armada-node.on .armada-node-halo{animation:none!important}.cv .armada-flow-active{transition:none}.cv .route-card:hover,.cv .company-card:hover,.cv .evidence-card:hover{transform:none}}
+
+
+/* Working analytical instruments: preserve homepage-style plotted responses,
+ * cursor/telemetry and visible equations while avoiding invented empirical curves.
+ */
+.cv .armada-physics{border:1px solid #496655;background:#0a110e;margin:27px 0 8px;padding:clamp(17px,3vw,29px);position:relative;min-width:0}
+.cv .armada-physics::before{content:"ANALYTICAL / NOT VALIDATED";display:block;color:#d7b46a;letter-spacing:.11em;font:10px 'JetBrains Mono',monospace;margin-bottom:18px}
+.cv .armada-physics-header{border-bottom:1px solid #2d3a31;padding-bottom:12px;margin-bottom:22px}
+.cv .armada-physics-header h3{margin:8px 0 6px;font-size:24px}
+.cv .armada-physics-small{color:#a9b3a8;font:11px 'JetBrains Mono',monospace;letter-spacing:.07em;margin:0}
+.cv .armada-physics-layout{display:grid;grid-template-columns:minmax(235px,.85fr) minmax(310px,1.45fr);gap:24px;min-width:0}
+.cv .armada-physics-controls{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cv .armada-physics-controls label{display:flex;align-items:baseline;justify-content:space-between;gap:10px;color:#c9cfc6;font:11px 'JetBrains Mono',monospace;line-height:1.6;margin:9px 0 0}
+.cv .armada-physics-controls output{color:#65d6c9;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cv .armada-physics-controls input[type=range]{accent-color:#65d6c9;width:100%;height:33px;margin:0}
+.cv .armada-probe-reset{background:#0d110e;border:1px solid #526953;color:#f2f0e7;padding:11px;font:11px 'JetBrains Mono',monospace;margin:13px 0 0;min-height:44px;text-align:left}
+.cv .armada-probe-reset:hover{border-color:#65d6c9;color:#65d6c9}
+.cv .armada-physics-formula{display:grid;gap:8px;margin-top:14px;padding:14px;border:1px dashed #405c4b;min-width:0}
+.cv .armada-physics-formula strong{color:#d7b46a;font:10px 'JetBrains Mono',monospace;text-transform:uppercase}
+.cv .armada-physics-formula code{color:#c9cfc6;font:11px/1.7 'JetBrains Mono',monospace;white-space:normal;overflow-wrap:anywhere}
+.cv .armada-physics-display{background:#0d160f;border:1px solid #2d3a31;padding:17px 19px;min-width:0}
+.cv .armada-physics-metric{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 11px}
+.cv .armada-physics-metric .armada-console-kicker{flex:1 1 100%}
+.cv .armada-physics-metric strong{font-size:clamp(26px,4vw,43px);font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace;font-weight:500;color:#65d6c9}
+.cv .armada-physics-metric [data-units]{font:12px 'JetBrains Mono',monospace;color:#d7b46a}
+.cv .armada-physics-display svg{width:100%;height:auto;display:block;overflow:visible;margin:18px 0}
+.cv .armada-chart-grid{stroke:#3f5444;stroke-width:1;fill:none}
+.cv .armada-physics-curve{fill:none;stroke:#65d6c9;stroke-width:3;stroke-linejoin:round}
+.cv .armada-physics-cursor{stroke:#d7b46a;stroke-dasharray:4 5;stroke-width:1.6}
+.cv .armada-physics-dot{fill:#d7b46a;stroke:#071007;stroke-width:2}
+.cv .armada-physics-display svg text{font:11px 'JetBrains Mono',monospace;fill:#a9b3a8}
+.cv .armada-physics-reading{display:flex;flex-direction:column;gap:6px;padding-top:13px;border-top:1px solid #2d3a31;margin:0;color:#c9cfc6;font-size:12px}
+.cv .armada-detail{display:block}
+.cv .armada-detail:before{content:"→ ";color:#65d6c9}
+.cv .armada-physics-boundary{border-left:2px solid #d7b46a;padding-left:16px;color:#a9b3a8;font:12px/1.8 Inter,system-ui,sans-serif;margin:21px 0 0}
+.cv .armada-physics-boundary strong{color:#f2f0e7}
+body.cv .pg>main{padding:0!important}
+@media(max-width:900px){.cv .armada-physics-layout{grid-template-columns:1fr}}
+@media(max-width:650px){.cv .armada-physics{padding:14px}.cv .armada-physics-display{padding:11px}.cv .armada-physics-display svg text{font-size:10px}.cv .armada-physics-controls label{flex-wrap:wrap}}
