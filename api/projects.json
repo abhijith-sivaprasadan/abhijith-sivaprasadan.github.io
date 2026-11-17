@@ -1,6 +1,45 @@
 {
   "projects": [
     {
+      "id": "carnot-battery-lab",
+      "title": "CarnotBatteryLab · High-temperature heat pumps and thermal storage",
+      "category": "Research",
+      "status": "published",
+      "featured": false,
+      "order": 0.16,
+      "period": "2026",
+      "associatedWith": "Open Energy Methods / independent research software",
+      "summary": "Verification-first research platform for industrial high-temperature heat pumps, thermal energy storage and power-to-heat. Core typed inputs, energy/exergy and hydraulic primitives, finite-HX R718 screening and charge-side packed-bed coupling; no validated integrated heat-delivery system or architecture ranking.",
+      "audienceTags": [
+        "Thermal & Fluid",
+        "Energy Systems",
+        "Research",
+        "Software"
+      ],
+      "tools": [
+        "Python",
+        "CoolProp",
+        "finite heat exchangers",
+        "packed-bed model",
+        "pytest"
+      ],
+      "skills": [
+        "Thermal modelling",
+        "Energy and exergy balances",
+        "Numerical verification",
+        "Research methodology"
+      ],
+      "image": "assets/illustrations/carnot-battery-lab.svg",
+      "coverSource": "authored",
+      "caseStudyUrl": "projects/carnot-battery-lab.html",
+      "githubUrl": "https://github.com/Open-Energy-Methods/CarnotBatteryLab",
+      "highlights": [
+        "v0.1.0 research foundation with later screening/charging increments; scientific v1.0 not established.",
+        "Previously reported architecture rankings withdrawn following a 15 November 2026 audit.",
+        "Original compressor envelope, measured storage response and matched-service discharge not yet qualified."
+      ]
+    },
+    {
       "id": "enerlint",
       "title": "EnerLint · Independent physics consistency checks",
       "category": "Research",
