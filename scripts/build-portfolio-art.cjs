@@ -6,7 +6,7 @@ const art = require('./data/portfolio-art.cjs');
 const root = path.resolve(__dirname, '..');
 const check = process.argv.includes('--check');
 const publicProjects = [...JSON.parse(fs.readFileSync(path.join(root,'api/projects.json'),'utf8')).projects, ...require('./data/skill-evidence.cjs').additionalProjects];
-for (const project of publicProjects) if (project.status === 'published' && !art.projects[art.keyFor(project)]) throw new Error(`Missing project cover specification: ${project.id}`);
+for (const project of publicProjects) if (project.status === 'published' && !art.projects[art.keyFor(project)] && !(project.coverSource === 'authored' && project.image && fs.existsSync(path.join(root, project.image)))) throw new Error(`Missing project cover specification: ${project.id}`);
 for (const role of JSON.parse(fs.readFileSync(path.join(root,'api/linkedin-experience.json'),'utf8')).experience) if (!art.roleKeys[role.id]) throw new Error(`Missing experience cover specification: ${role.id}`);
 const C = { ink: '#24443f', green: '#8eafa0', pale: '#dce6da', rust: '#b6623c', gold: '#d6ab68', blue: '#789eae', white: '#fffcf6' };
 const esc = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[char]));
