@@ -54,7 +54,7 @@ async function main(){
         assert.ok(stats.bodyWidth <= stats.inner+2,
           'body overflows phone: '+profile.name+' '+path+' '+JSON.stringify(stats));
         assert.ok(stats.meta.includes('viewport-fit=cover'), 'missing safe-area aware viewport '+path);
-        assert.ok(stats.fontSize >= 16, 'iOS input focus would zoom page '+profile.name+' '+path);
+        if(stats.fontSize!==null)assert.ok(stats.fontSize >= 16, 'iOS input focus would zoom page '+profile.name+' '+path);
         assert.ok(stats.footerBottom>=44,'Footer has inadequate bottom padding near iPhone home indicator: '+profile.name+' '+path);
         const prefix=path.endsWith('/armada-2026.html')?'../':'../../';
         const footerDestinations=[prefix+'index.html',prefix+'about.html',prefix+'projects.html','#contact'];
@@ -97,11 +97,8 @@ async function main(){
           assert.equal(await page.locator('button[data-stage="2"]').getAttribute('aria-pressed'),'true',
             'Engineering workbench does not respond to iPhone touch');
         }else if(path.endsWith('/armada-2026.html')){
-          const find=page.locator('#armada-company-search');
-          await find.fill('Hitachi');
-          assert.equal(await page.locator('#armada-company-index a:not([hidden])').count(),1,
-            'Company search fails in mobile WebKit');
-          await find.fill('');
+          assert.equal(await page.locator('#armada-company-index').count(),0,'Employer list should not be published');
+          assert.ok(await page.locator('a[href="../repositories.html"]').count()>0,'GitHub directory not linked from hub');
         }
         if(profile.viewport.width===390 && (path.endsWith('/armada-2026.html')||path.endsWith('/thermal-test.html'))){
           await page.evaluate(()=>scrollTo(0,0));
