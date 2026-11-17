@@ -63,12 +63,12 @@ function run(){
  const anchor=document.querySelector('#approach #method-console');
  if(!anchor)return;
  const section=create('div','armada-physics cs');
- section.id='armada-live-probe';section.dataset.probe='LIVE EDUCATIONAL PROBE / NOT A FIELD MEASUREMENT';
+ section.id='armada-live-probe';section.dataset.probe='ILLUSTRATIVE ENGINEERING CALCULATION';
  section.innerHTML=`
   <div class="armada-physics-header">
-    <span class="armada-console-kicker">NUMERICAL INSTRUMENT / ORIGINAL ANALYTICAL EXAMPLE</span>
+    <span class="armada-console-kicker">INTERACTIVE CALCULATION / ILLUSTRATIVE EXAMPLE</span>
     <h3>${conf.title}</h3>
-    <p class="armada-physics-small">${conf.kind} · deterministic arithmetic only</p>
+    <p class="armada-physics-small">${conf.kind} · analytical calculation</p>
   </div>
   <div class="armada-physics-layout">
    <div class="armada-physics-controls">
@@ -76,7 +76,7 @@ function run(){
      <input type="range" id="armada-probe-x" min="${conf.x.min}" max="${conf.x.max}" step="${conf.x.step}" value="${conf.x.value}">
      <label for="armada-probe-y">${conf.y.name} <output data-yvalue></output></label>
      <input type="range" id="armada-probe-y" min="${conf.y.min}" max="${conf.y.max}" step="${conf.y.step}" value="${conf.y.value}">
-     <button class="armada-probe-reset" type="button">RESET REFERENCE CASE ↻</button>
+     <button class="armada-probe-reset" type="button">RESET VALUES ↻</button>
      <div class="armada-physics-formula"><strong>Analytical relation</strong><code></code></div>
    </div>
    <div class="armada-physics-display">
@@ -97,10 +97,10 @@ function run(){
        <text data-min-label x="45" y="170" text-anchor="end">0</text>
      </svg>
      <p class="armada-physics-reading" data-calculation-details></p>
-     <p class="armada-plot-method">PLOT: the y-axis is fixed across both control ranges; the marker follows the selected inputs.</p>
+     <p class="armada-plot-method">Plot scale is fixed for comparison across the input ranges.</p>
    </div>
   </div>
-  <p class="armada-physics-boundary"><strong>Boundary / validity:</strong> ${conf.caution}</p>`;
+  <p class="armada-physics-boundary"><strong>Model assumptions:</strong> ${conf.caution}</p>`;
  anchor.insertAdjacentElement('afterend',section);
  const a=section.querySelector('#armada-probe-x'),b=section.querySelector('#armada-probe-y');
  section.querySelector('.armada-physics-formula code').textContent=conf.formula;
