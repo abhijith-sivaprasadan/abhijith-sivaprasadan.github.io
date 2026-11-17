@@ -43,8 +43,11 @@ async function main(){
           documentWidth:document.documentElement.scrollWidth,
           bodyWidth:document.body.scrollWidth,
           meta:document.querySelector('meta[name="viewport"]')?.content,
-          fontSize:Number.parseFloat(getComputedStyle(document.querySelector(
-            '#armada-company-search, #armada-sector-search')).fontSize),
+          fontSize:(()=>{
+            const input=document.querySelector('#armada-company-search, #armada-sector-search');
+            return input?Number.parseFloat(getComputedStyle(input).fontSize):null;
+          })(),
+          footerBottom:Number.parseFloat(getComputedStyle(document.querySelector('.armada-footer')).paddingBottom),
         }));
         assert.ok(stats.documentWidth <= stats.inner+2,
           'document overflows phone: '+profile.name+' '+path+' '+JSON.stringify(stats));
@@ -52,6 +55,12 @@ async function main(){
           'body overflows phone: '+profile.name+' '+path+' '+JSON.stringify(stats));
         assert.ok(stats.meta.includes('viewport-fit=cover'), 'missing safe-area aware viewport '+path);
         assert.ok(stats.fontSize >= 16, 'iOS input focus would zoom page '+profile.name+' '+path);
+        assert.ok(stats.footerBottom>=44,'Footer has inadequate bottom padding near iPhone home indicator: '+profile.name+' '+path);
+        const prefix=path.endsWith('/armada-2026.html')?'../':'../../';
+        const footerDestinations=[prefix+'index.html',prefix+'about.html',prefix+'projects.html','#contact'];
+        const actualFooter=await page.locator('.armada-footer-nav a').evaluateAll(items=>items.map(x=>x.getAttribute('href')));
+        assert.deepEqual(actualFooter,footerDestinations,'Invalid footer navigation destinations '+path);
+
         const links=page.locator('.armada-contact-grid .armada-contact-link');
         assert.equal(await links.count(),3,'Missing email/LinkedIn/GitHub contact '+path);
         for(const [key,href] of Object.entries(expected)){
@@ -84,7 +93,6 @@ async function main(){
           const input=page.locator('#armada-probe-x');
           const touch=await input.evaluate(el=>getComputedStyle(el).height);
           assert.ok(parseFloat(touch)>=44,'Engineering slider has insufficient touch height: '+touch);
-          await page.locator('[data-stage="2"]').first().count(); // workbench exists
           await page.locator('button[data-stage="2"]').click();
           assert.equal(await page.locator('button[data-stage="2"]').getAttribute('aria-pressed'),'true',
             'Engineering workbench does not respond to iPhone touch');
