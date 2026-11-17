@@ -63,4 +63,13 @@ for (const m of hub.matchAll(/<a data-employer="[^"]+" data-sector="([^"]+)" hre
 }
 assert.ok(n>=30, 'Too few employer deep-links');
 assert.ok(hub.includes('aria-live="polite"') && hub.includes("input.addEventListener('input',update)"),'Lookup must work without backend calls');
+const contactLinks=['mailto:abhijithsivaprasadan@gmail.com','https://github.com/abhijith-sivaprasadan','https://www.linkedin.com/in/abhijith-sivaprasadan/'];
+for(const route of ['for/armada-2026.html',...sectors.map(x=>'for/armada-2026/'+x+'.html')]){
+ const page=read(route);
+ assert.ok(page.includes('viewport-fit=cover'),'Missing iOS safe area viewport: '+route);
+ assert.ok(page.includes('class="armada-contact-grid"'),'Missing contact panel '+route);
+ assert.ok(page.includes('class="armada-footer-nav"'),'Missing accessible footer links '+route);
+ for(const link of contactLinks)assert.ok(page.includes('href="'+link+'"'),'Missing contact link '+link+' in '+route);
+}
+assert.ok(css.includes('safe-area-inset-bottom'),'Footer does not account for iPhone home indicator');
 console.log('Armada 2026: validated '+sectors.length+' unique specialist pages and '+n+' company deep-links.');
