@@ -16,6 +16,11 @@ const sectors = [
 ];
 const hub = read('for/armada-2026.html');
 const css = read('styles/armada-2026.css');
+assert.ok(hub.includes('<h1>Abhijith Sivaprasadan</h1>'), 'Hub should introduce the engineer by name');
+assert.ok(hub.includes('class="armada-profile-links"'), 'Hub should link to the wider professional profile');
+assert.ok(hub.indexOf('id="credentials"')<hub.indexOf('id="choose"'), 'Industrial experience should precede specialisations');
+assert.ok(!hub.includes('Different roles need different evidence'), 'Do not use abstract or instructive public headings');
+
 assert.ok(css.includes('@media(max-width:630px)'), 'Missing responsive layout');
 assert.ok(hub.includes('id="armada-company-search"'), 'Missing employer search input');
 assert.ok(hub.includes('id="armada-search-status"'), 'Missing accessible search status');
@@ -39,6 +44,13 @@ for (const sector of sectors) {
  assert.equal(new Set(ids).size,ids.length,'Duplicate employer anchor: '+sector);
  companyIds.set(sector,new Set(ids));
  assert.ok(html.includes('data-sector="'+sector+'"'),'Missing sector identity '+sector);
+ assert.ok(html.includes('class="armada-profile-links"'), 'Missing links to about, experience and full projects '+sector);
+ for(const item of ['../../about.html','../../experience.html','../../projects.html','../../story.html']) {
+  assert.ok(html.includes('href="'+item+'"'), 'Missing personal background link '+item+' in '+sector);
+ }
+ assert.ok(html.indexOf('id="evidence"')<html.indexOf('id="approach"'), 'Projects should appear before educational methods '+sector);
+ assert.ok(!/Question to ask:|Three questions for the engineering team|A useful 30-second introduction|How I approach this type of problem/.test(html),'Internal interview-preparation text leaked into '+sector);
+
  assert.ok(html.includes('styles/control-volume.css') && html.includes('styles/claude-exact.css') && html.includes('styles/flux-lab.css'),'Must reuse homepage theme '+sector);
  assert.ok(html.includes('scripts/control-volume.js') && html.includes('scripts/flux-lab.js') && html.includes('scripts/armada-control-volume.js') && html.includes('scripts/armada-engineering-lab.js'),'Missing dynamic shared/sector scripts '+sector);
  assert.ok(html.includes('source') || html.includes('limitations'), 'Missing evidence constraints '+sector);
