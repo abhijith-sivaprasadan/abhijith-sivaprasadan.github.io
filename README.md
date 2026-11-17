@@ -15,6 +15,8 @@ The main [Armada hub](for/armada-2026.html) routes recruiters to **six substanti
 | Engineering software / R&D | [software-research](for/armada-2026/software-research.html) | Dassault Systèmes, Ericsson, Syntronic, FOI |
 | Multidisciplinary consultancy | [engineering-consulting](for/armada-2026/engineering-consulting.html) | AFRY, ALTEN, Rejlers, Sweco |
 
+The 17 November enhancement reuses the published **Control Volume** shell, typography, animated SVG icon system, probe cursor, scroll-residual rail, hot/cold controls, optional sound, command console, discovery menu and Flux Lab. Each specialist also includes a stateful four-step evidence chain, a provenance filter, recruiter lookup and an original live analytical chart. The six formulas are deliberately idealised educational probes; they are not outputs of the cited industrial projects. These are covered by `scripts/test-armada-control-volume.cjs` in the Playwright UI workflow.
+
 Source of exhibitor names: [official Armada 2026 list](https://armada.nu/en/student/exhibitors). These are discussion targets, not open positions or endorsements. The hub provides a no-backend employer search linking to specific company anchors on the sector pages. Professional experience, coursework and independent research remain distinct. New checks: `scripts/validate-armada-2026.cjs` (CI) and existing static/browser audits.
 
 ## Armada 2026 and recent research (17 November 2026)
