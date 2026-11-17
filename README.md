@@ -2,6 +2,23 @@
 
 Static GitHub Pages portfolio for thermal-fluid engineering, gas turbine CFD/CHT, test instrumentation, energy management and energy systems modelling applications.
 
+## Six Armada 2026 recruiter specialisms (17 November 2026)
+
+The main [Armada hub](for/armada-2026.html) routes recruiters to **six substantive, standalone sector briefs**, each with a separate technical argument, selected evidence, limits, relevant CV and company-specific deep-link anchors:
+
+| Sector | Focused route | Discussion examples |
+| --- | --- | --- |
+| Thermal / test engineering | [thermal-test](for/armada-2026/thermal-test.html) | Siemens Energy, Kongsberg Maritime, GKN Aerospace |
+| Power / grid flexibility | [power-grids](for/armada-2026/power-grids.html) | ABB, Hitachi Energy, Ellevio, Fortum |
+| Industrial heat / efficiency | [industrial-heat](for/armada-2026/industrial-heat.html) | Alleima, Munters, Adven, SSAB |
+| Mechanical / safety-focused engineering | [mechanical-structures](for/armada-2026/mechanical-structures.html) | Westinghouse, GKN Aerospace, Epiroc, Volvo |
+| Engineering software / R&D | [software-research](for/armada-2026/software-research.html) | Dassault Systèmes, Ericsson, Syntronic, FOI |
+| Multidisciplinary consultancy | [engineering-consulting](for/armada-2026/engineering-consulting.html) | AFRY, ALTEN, Rejlers, Sweco |
+
+The 17 November enhancement reuses the published **Control Volume** shell, typography, animated SVG icon system, probe cursor, scroll-residual rail, hot/cold controls, optional sound, command console, discovery menu and Flux Lab. Each specialist also includes a stateful four-step evidence chain, a provenance filter, recruiter lookup and an original live analytical chart. The six formulas are deliberately idealised educational probes; they are not outputs of the cited industrial projects. These are covered by `scripts/test-armada-control-volume.cjs` in the Playwright UI workflow.
+
+Source of exhibitor names: [official Armada 2026 list](https://armada.nu/en/student/exhibitors). These are discussion targets, not open positions or endorsements. The hub provides a no-backend employer search linking to specific company anchors on the sector pages. Professional experience, coursework and independent research remain distinct. New checks: `scripts/validate-armada-2026.cjs` (CI) and existing static/browser audits.
+
 ## Armada 2026 and recent research (17 November 2026)
 
 - [Armada 2026 recruiter-facing landing page](for/armada-2026.html) — concise, employer-aligned routes to industrial evidence, thermal/test engineering, energy modelling and reproducible software; company references are conversation targets, not claims of open roles or endorsements.

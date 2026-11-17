@@ -31,6 +31,10 @@ jobs:
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules
         run: node scripts/test-gt-performance-work-sample.cjs
+      - name: Exercise Armada recruiter Control Volume interactions
+        env:
+          NODE_PATH: /tmp/cv-ui-audit/node_modules
+        run: node scripts/test-armada-control-volume.cjs
       - name: Audit all public routes and critical viewports
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules
