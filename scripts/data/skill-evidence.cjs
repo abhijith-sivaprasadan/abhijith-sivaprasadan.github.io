@@ -200,7 +200,7 @@ const projectOrder = {
   [E]: ['enerlint', 'kerala2040', 'residual-pathways', 'pathways-hub', 'tes-discharge-screen', 'carnot-battery-lab', 'opensteamopt', 'pynexus-green-hydrogen', 'finnish-grid-connection-evidence', 'gridguardpinn', 'gb-flexabm', 'pypsa-nl-grid-flexibility'],
   [O]: ['tes-discharge-screen', 'carnot-battery-lab', 'kerala2040', 'opensteamopt', 'district-heating-optimisation', 'gb-flexabm', 'pynexus-green-hydrogen'],
   [D]: ['enerlint', 'residual-pathways', 'pathways-hub', 'kerala2040', 'tes-discharge-screen', 'carnot-battery-lab', 'opensteamopt', 'gridguardpinn', 'finnish-grid-connection-evidence', 'synthsift', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
-  [I]: ['tes-discharge-screen', 'carnot-battery-lab', 'opensteamopt', 'alleima-energy-efficiency', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator'],
+  [I]: ['tes-discharge-screen', 'opensteamopt', 'alleima-energy-efficiency', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator'],
   [M]: ['structural-fea-reactor-internals', 'siemens-thesis', 'robotic-frame-locomotion', 'bicycle-design-competition'],
   [R]: ['siemens-thesis', 'enerlint', 'residual-pathways', 'pathways-hub', 'kerala2040', 'tes-discharge-screen', 'carnot-battery-lab', 'gridguardpinn', 'synthsift', 'finnish-grid-connection-evidence', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
 };
