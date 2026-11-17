@@ -35,6 +35,10 @@ jobs:
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules
         run: node scripts/test-armada-control-volume.cjs
+      - name: Check iPhone-sized layouts in WebKit and verify contact links
+        env:
+          NODE_PATH: /tmp/cv-ui-audit/node_modules
+        run: node scripts/test-armada-ios-mobile.cjs
       - name: Audit all public routes and critical viewports
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules
