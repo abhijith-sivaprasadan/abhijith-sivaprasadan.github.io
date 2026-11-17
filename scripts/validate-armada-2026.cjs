@@ -39,6 +39,8 @@ for (const sector of sectors) {
  assert.equal(new Set(ids).size,ids.length,'Duplicate employer anchor: '+sector);
  companyIds.set(sector,new Set(ids));
  assert.ok(html.includes('data-sector="'+sector+'"'),'Missing sector identity '+sector);
+ assert.ok(html.includes('styles/control-volume.css') && html.includes('styles/claude-exact.css') && html.includes('styles/flux-lab.css'),'Must reuse homepage theme '+sector);
+ assert.ok(html.includes('scripts/control-volume.js') && html.includes('scripts/flux-lab.js') && html.includes('scripts/armada-control-volume.js') && html.includes('scripts/armada-engineering-lab.js'),'Missing dynamic shared/sector scripts '+sector);
  assert.ok(html.includes('source') || html.includes('limitations'), 'Missing evidence constraints '+sector);
 }
 let n=0;
