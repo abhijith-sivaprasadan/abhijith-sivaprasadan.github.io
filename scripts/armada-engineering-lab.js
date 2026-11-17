@@ -97,6 +97,7 @@ function run(){
        <text data-min-label x="45" y="170" text-anchor="end">0</text>
      </svg>
      <p class="armada-physics-reading" data-calculation-details></p>
+     <p class="armada-plot-method">PLOT: the y-axis is fixed across both control ranges; the marker follows the selected inputs.</p>
    </div>
   </div>
   <p class="armada-physics-boundary"><strong>Boundary / validity:</strong> ${conf.caution}</p>`;
@@ -117,7 +118,12 @@ function run(){
       const line=create('span','armada-detail',v);line.dataset.probe='MODEL ASSUMPTION / '+(i+1);return line;
    }));
    const points=Array.from({length:55},(_,i)=>{const px=conf.x.min+(conf.x.max-conf.x.min)*(i/54);return [px,conf.calculate(px,y).value];});
-   const max=Math.max(0.001,...points.map(p=>p[1]))*1.08;
+   // Keep one fixed y-axis across both adjustable inputs; otherwise a purely
+   // proportional family (e.g. hydraulic K) appears stationary when K changes.
+   const max=Math.max(0.001,...points.flatMap(p=>[
+     conf.calculate(p[0],conf.y.min).value,
+     conf.calculate(p[0],conf.y.max).value
+   ]))*1.08;
    const scaledX=v=>52+(v-conf.x.min)/(conf.x.max-conf.x.min)*547;
    const scaledY=v=>171-Math.min(1,Math.max(0,v/max))*151;
    curve.setAttribute('d',points.map((p,i)=>(i?'L':'M')+scaledX(p[0]).toFixed(2)+' '+scaledY(p[1]).toFixed(2)).join(' '));
