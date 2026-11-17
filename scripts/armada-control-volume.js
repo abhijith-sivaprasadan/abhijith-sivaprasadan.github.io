@@ -70,7 +70,7 @@
   }
   function decorate(){
     const routeGlyphs=['therm','wave','flame','mesh','gear','check'];
-    $('.route-card').forEach((el,i)=>{
+    doc.querySelectorAll('.route-card').forEach((el,i)=>{
       if(el.querySelector('.armada-glyph'))return;
       const wrap=make('span','armada-glyph emo');
       wrap.innerHTML=icon(routeGlyphs[i%routeGlyphs.length]);
