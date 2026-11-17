@@ -27,7 +27,7 @@ assert.equal((story.match(/data-out="dot"/g)||[]).length,2,'Both story-cycle mar
 const projectFiles=fs.readdirSync(path.join(root,'projects')).filter(x=>x.endsWith('.html'));
 const supplementalWorkSamples=['gas-turbine-performance-work-sample.html'];
 const canonicalProjectFiles=projectFiles.filter(x=>!supplementalWorkSamples.includes(x));
-assert.equal(canonicalProjectFiles.length,40,'Canonical project case count changed: review content changes');
+assert.equal(canonicalProjectFiles.length,41,'Canonical project case count changed: review content changes');
 for(const name of supplementalWorkSamples){
  assert.ok(projectFiles.includes(name),'Missing linked gas turbine technical companion');
  const content=read('projects/'+name);

@@ -86,6 +86,7 @@ const projectSkills = {
   'pathways-hub': [E, D, R],
   'kerala2040': [E, O, D, R],
   'tes-discharge-screen': [C, E, O, D, I, R],
+  'carnot-battery-lab': [C, E, O, D, R],
   'opensteamopt': [E, O, D, I, R],
   'siemens-thesis': [C, T, M, R],
   'thermotwin-f': [C, E, D, R],
@@ -194,14 +195,14 @@ const resources = [
 
 // Lead with the most directly relevant work, then retain the complete record.
 const projectOrder = {
-  [C]: ['siemens-thesis', 'tes-discharge-screen', 'non-gray-radiation-modeling', 'thermotwin-f', 'numerical-heat-transfer'],
+  [C]: ['siemens-thesis', 'tes-discharge-screen', 'carnot-battery-lab', 'non-gray-radiation-modeling', 'thermotwin-f', 'numerical-heat-transfer'],
   [T]: ['siemens-thesis', 'mtes-pcm-thermal-lab', 'battery-cell-discharge-lab', 'rotating-machinery-vibration-minilab'],
-  [E]: ['enerlint', 'kerala2040', 'residual-pathways', 'pathways-hub', 'tes-discharge-screen', 'opensteamopt', 'pynexus-green-hydrogen', 'finnish-grid-connection-evidence', 'gridguardpinn', 'gb-flexabm', 'pypsa-nl-grid-flexibility'],
-  [O]: ['tes-discharge-screen', 'kerala2040', 'opensteamopt', 'district-heating-optimisation', 'gb-flexabm', 'pynexus-green-hydrogen'],
-  [D]: ['enerlint', 'residual-pathways', 'pathways-hub', 'kerala2040', 'tes-discharge-screen', 'opensteamopt', 'gridguardpinn', 'finnish-grid-connection-evidence', 'synthsift', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
+  [E]: ['enerlint', 'kerala2040', 'residual-pathways', 'pathways-hub', 'tes-discharge-screen', 'carnot-battery-lab', 'opensteamopt', 'pynexus-green-hydrogen', 'finnish-grid-connection-evidence', 'gridguardpinn', 'gb-flexabm', 'pypsa-nl-grid-flexibility'],
+  [O]: ['tes-discharge-screen', 'carnot-battery-lab', 'kerala2040', 'opensteamopt', 'district-heating-optimisation', 'gb-flexabm', 'pynexus-green-hydrogen'],
+  [D]: ['enerlint', 'residual-pathways', 'pathways-hub', 'kerala2040', 'tes-discharge-screen', 'carnot-battery-lab', 'opensteamopt', 'gridguardpinn', 'finnish-grid-connection-evidence', 'synthsift', 'gb-flexabm', 'industrial-energy-kpi-toolkit', 'heating-demand-forecasting'],
   [I]: ['tes-discharge-screen', 'opensteamopt', 'alleima-energy-efficiency', 'industrial-energy-kpi-toolkit', 'eu-ets-exposure-calculator'],
   [M]: ['structural-fea-reactor-internals', 'siemens-thesis', 'robotic-frame-locomotion', 'bicycle-design-competition'],
-  [R]: ['siemens-thesis', 'enerlint', 'residual-pathways', 'pathways-hub', 'kerala2040', 'tes-discharge-screen', 'gridguardpinn', 'synthsift', 'finnish-grid-connection-evidence', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
+  [R]: ['siemens-thesis', 'enerlint', 'residual-pathways', 'pathways-hub', 'kerala2040', 'tes-discharge-screen', 'carnot-battery-lab', 'gridguardpinn', 'synthsift', 'finnish-grid-connection-evidence', 'opensteamopt', 'gb-flexabm', 'non-gray-radiation-modeling'],
 };
 
 // This public case study predates its inclusion in the JSON project index.

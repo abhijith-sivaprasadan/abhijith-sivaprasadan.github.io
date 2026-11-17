@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CarnotBatteryLab — HTHP + Thermal Energy Storage Research | Abhijith Sivaprasadan</title>
+<meta name="description" content="Verification-first research foundation for high-temperature heat pumps, thermal storage and industrial power-to-heat. Current scope, evidence gates and unresolved hardware validation.">
+<link rel="canonical" href="https://abhijith-sivaprasadan.github.io/projects/carnot-battery-lab.html">
+<meta property="og:type" content="article"><meta property="og:title" content="CarnotBatteryLab — Research foundation and scientific limits">
+<meta property="og:description" content="High-temperature heat pumps, coupled thermal storage and industrial heat: implemented foundation, measured-evidence gaps and next verification gates.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--bg:#070b09;--panel:#101713;--fg:#f3f3ea;--muted:#c5d3c9;--dim:#a0b5a6;--line:#32493b;--accent:#65d6c9;--warn:#efc17b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.7 Inter,system-ui,sans-serif}a{color:var(--accent)}a:focus-visible{outline:3px solid var(--warn);outline-offset:3px}main,header>div,footer{max-width:990px;margin:0 auto;padding-left:22px;padding-right:22px}
+header{border-bottom:1px solid var(--line);padding:20px 0;background:#0b100d}header>div{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}header a{font:600 12px "JetBrains Mono",monospace;letter-spacing:.03em}
+main{padding-top:66px;padding-bottom:70px}.eyebrow,.label{font:500 11px "JetBrains Mono",monospace;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(38px,6vw,64px);line-height:1.08;letter-spacing:-.04em;margin:16px 0 22px}h2{font-size:clamp(24px,3vw,32px);letter-spacing:-.02em;line-height:1.25;margin-top:0}p{margin:0 0 20px}.lead{font-size:19px;line-height:1.6;color:var(--muted);max-width:830px}.pills{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0}.pill{border:1px solid var(--line);border-radius:6px;font:12px "JetBrains Mono",monospace;padding:8px 11px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.panel{border:1px solid var(--line);background:var(--panel);padding:24px;border-radius:10px}.panel h3{margin:8px 0 9px;font-size:18px}.panel p,.panel li{color:var(--muted);font-size:14px}.panel ul{padding-left:20px;margin:0}.section{margin:48px 0 0;padding-top:36px;border-top:1px solid var(--line)}.notice{background:#1c1912;border:1px solid #786345;padding:22px;border-radius:10px;color:#eddfc8}.notice strong{color:var(--warn)}.numbers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.numbers div{padding:20px;background:var(--panel);border:1px solid var(--line)}.numbers strong{display:block;font:600 18px "JetBrains Mono",monospace;color:var(--accent)}.numbers span{font-size:12px;color:var(--muted)}.links{display:flex;gap:12px;flex-wrap:wrap}.links a{padding:12px 16px;border:1px solid var(--line);border-radius:7px;text-decoration:none;font:600 12px "JetBrains Mono",monospace}.links a.primary{background:var(--accent);color:#07130d;border-color:var(--accent)}.check li{margin:8px 0}footer{padding-top:30px;padding-bottom:60px;border-top:1px solid var(--line);color:var(--dim);font-size:12px}
+@media(max-width:640px){.grid,.numbers{grid-template-columns:1fr}main{padding-top:45px}}
+</style>
+<script src="../scripts/cv-case-detail.js" defer></script></head><body class="cv cv-case-page" data-design-source="claude-control-volume-v1" data-page-key="case-study" data-project-slug="carnot-battery-lab">
+<header><div><a href="../index.html">ABHIJITH SIVAPRASADAN</a><a href="../projects.html">PROJECT INDEX</a><a href="../for/armada-2026.html">ARMADA 2026 SELECTION</a></div></header>
+<main class="cv-case-record"><section class="cv-case-hero">
+<p class="eyebrow">Independent research software · Current development · November 2026</p>
+<h1 class="cv-case-title">CarnotBatteryLab</h1>
+<p class="lead">A verification-first research platform for industrial high-temperature heat pumps (HTHP), thermal energy storage (TES), flexible process heat and possible Carnot-battery architectures. The project is intended to expose modelling assumptions and hardware feasibility before any architecture or investment recommendation.</p>
+<div class="pills"><span class="pill">Heat pumps / thermal storage</span><span class="pill">Python · scientific methods</span><span class="pill">Energy and exergy balances</span><span class="pill">Independent research</span></div>
+<div class="notice"><strong>Scientific status: research foundation, not a validated system.</strong> The repository documents v0.1.0 core contracts, energy/exergy and hydraulic primitives, test/CI workflows, and subsequent unvalidated screening and charging-model increments. It does not establish a complete experimentally validated heat-pump/storage/heat-delivery cycle. The earlier A/B/C architecture ranking was withdrawn in the 15 November 2026 audit; it must not be quoted as a valid design ranking.</div>
+</section><section class="section"><h2>What is implemented — and what is not</h2>
+<div class="grid">
+<article class="panel"><p class="label">01 / Reproducible foundation</p><h3>Cases, identities and checks</h3><p>Typed input validation, dimensionally explicit energy/exergy identities, storage hydraulic primitives, unit-aware cost arithmetic, provenance manifests, tests and CI. These verify parts of the implementation rather than industrial prediction accuracy.</p></article>
+<article class="panel"><p class="label">02 / Real-fluid research screen</p><h3>R718 cycle and finite heat exchangers</h3><p>R718 water-vapour screening with heat-exchanger approach/UA checks, temperature and flow constraints and guarded compressor-stage assumptions. Illustrative numerical controls are not manufacturer qualification.</p></article>
+<article class="panel"><p class="label">03 / Coupled charging model</p><h3>Storage state changes required temperature</h3><p>A 1-D two-temperature gas/rock packed-bed charging model includes state-dependent condenser conditions, transient thermal behavior, Ergun pressure loss and blower electricity. This is charging-side research, not a completed discharge or cyclic plant model.</p></article>
+<article class="panel"><p class="label">04 / Blocked claims</p><h3>Hardware and experimental validation</h3><p>The evidence does not yet support a qualified high-lift compressor for the original source envelope, independently measured packed-bed breakthrough, matched useful process-heat discharge or electricity-to-electricity round-trip performance.</p></article>
+</div></section>
+<section class="section"><h2>Scientific comparison contract</h2>
+<p class="lead">A useful result must satisfy the same delivered energy service, temperature window, time basis and operating constraints across architectures. Infeasible compressor or storage states are rejected—not hidden inside a worse efficiency or cost metric.</p>
+<div class="numbers"><div><strong>P2H + TES</strong><span>Primary target: qualified useful process heat</span></div><div><strong>P2H2P</strong><span>Separate future research track; requires a real heat engine and electrical output</span></div><div><strong>Heat + power</strong><span>Distinct service ledgers; no adding electrical and thermal kWh</span></div></div>
+</section>
+<section class="section"><h2>Next evidence gates</h2>
+<ol class="check">
+<li>Establish operating-envelope-supported compressor or alternative cycle architecture; clearly separate source temperatures and vendor equipment evidence.</li>
+<li>Independently reproduce packed-bed breakthrough, pressure loss and transient temperatures using measured data with documented uncertainty.</li>
+<li>Develop and verify discharge, actual process-heat delivery and repeatable cyclic boundary conditions.</li>
+<li>Only then run matched-service cost, dispatch and architecture comparisons with source-year traceability.</li>
+</ol>
+<p>These are research objectives, not completed results. The precise status and limitations are maintained in the source repository rather than implied from this short project page.</p>
+<div class="links"><a class="primary" href="https://github.com/Open-Energy-Methods/CarnotBatteryLab">SOURCE / METHODS ↗</a><a href="https://github.com/Open-Energy-Methods/CarnotBatteryLab/blob/main/docs/SCIENTIFIC_CONTRACT.md">SCIENTIFIC CONTRACT ↗</a><a href="https://github.com/Open-Energy-Methods/CarnotBatteryLab/blob/main/docs/VALIDATION_AND_RELEASE_GATES.md">VALIDATION GATES ↗</a></div>
+</section>
+<section class="section"><h2>Why this is relevant to engineering teams</h2>
+<p>For high-temperature heating, heat-recovery, storage and industrial flexibility roles, CarnotBatteryLab demonstrates my approach to decomposing coupled physical systems, implementing guardrails and tests, and reporting blockers instead of manufacturing numerical answers. It complements my actual Siemens Energy test-rig/CFD experience and Alleima energy-performance methodology; it is not work performed for either employer.</p>
+<div class="links"><a href="../for/armada-2026.html">2026 EMPLOYER-FACING SELECTION</a><a href="siemens-thesis.html">SIEMENS THESIS</a><a href="tes-discharge-screen.html">TES DISCHARGE SCREEN</a><a href="mailto:abhijithsivaprasadan@gmail.com">CONTACT</a></div></section>
+</main><footer>© 2026 Abhijith Sivaprasadan · Independent public research record · No industrial validation or institutional endorsement implied.</footer>
+ <a href="../hobbies.html" style="color:#65d6c9">Other interests</a></body></html>
