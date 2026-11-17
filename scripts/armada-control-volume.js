@@ -69,9 +69,18 @@
     return '<svg class="gl gl-'+key+'" viewBox="0 0 24 24" aria-hidden="true">'+shapes[key]+'</svg>';
   }
   function decorate(){
+    const routeGlyphs=['therm','wave','flame','mesh','gear','check'];
+    $('.route-card').forEach((el,i)=>{
+      if(el.querySelector('.armada-glyph'))return;
+      const wrap=make('span','armada-glyph emo');
+      wrap.innerHTML=icon(routeGlyphs[i%routeGlyphs.length]);
+      el.prepend(wrap);
+      el.dataset.probe='SECTOR '+String(i+1).padStart(2,'0')+' / '+(one('h3',el)?.textContent||'ENGINEERING');
+    });
+    const sectorGlyphs={'thermal-test':'therm','power-grids':'wave','industrial-heat':'flame','mechanical-structures':'mesh','software-research':'gear','engineering-consulting':'check'};
     const picks=[
-      ['.route-card','gear'],['.evidence-card','check'],['.company-card','wave'],
-      ['.hero-note','therm'],['.section-head','mesh']
+      ['.evidence-card','check'],['.company-card','wave'],
+      ['.hero-note',sectorGlyphs[doc.body.dataset.sector]||'therm'],['.section-head','mesh']
     ];
     for(const [selector,kind] of picks){
       for(const el of $$(selector)){
