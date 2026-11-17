@@ -141,7 +141,8 @@
       const tag=one('.tag',c)?.textContent||'';
       c.dataset.evidenceClass=/INDUSTRIAL|PROFESSIONAL/.test(tag)?'industrial':/ACADEMIC|EDUCATIONAL/.test(tag)?'academic':'independent';
     }
-    const labels=[['all','ALL EVIDENCE'],['industrial','PROFESSIONAL / INDUSTRIAL'],['independent','INDEPENDENT RESEARCH'],['academic','ACADEMIC']];
+    const present=new Set(cards.map(c=>c.dataset.evidenceClass));
+    const labels=[['all','ALL EVIDENCE'],['industrial','PROFESSIONAL / INDUSTRIAL'],['independent','INDEPENDENT RESEARCH'],['academic','ACADEMIC']].filter(([key])=>key==='all'||present.has(key));
     const nav=make('div','armada-evidence-switch');
     nav.setAttribute('role','group');nav.setAttribute('aria-label','Filter evidence by provenance');
     nav.innerHTML=labels.map(([val,name])=>'<button type="button" data-class="'+val+'" aria-pressed="'+(val==='all')+'">'+name+'</button>').join('');
