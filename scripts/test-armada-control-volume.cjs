@@ -41,10 +41,10 @@ const sectors = ['thermal-test','power-grids','industrial-heat','mechanical-stru
     assert.ok(await page.locator('#method-console').count(),'Missing method workbench '+slug);
     assert.ok(await page.locator('[data-stage-note]').count(),'Missing live stage readout '+slug);
     const first=await page.locator('[data-stage-note]').innerText();
-    await page.locator('[data-stage="2"]').click();
+    await page.locator('button[data-stage="2"]').click();
     const third=await page.locator('[data-stage-note]').innerText();
     assert.notEqual(first,third,'Stage controls are inert '+slug);
-    assert.equal(await page.locator('[data-stage="2"]').getAttribute('aria-pressed'),'true');
+    assert.equal(await page.locator('button[data-stage="2"]').getAttribute('aria-pressed'),'true');
     assert.equal(await page.locator('#method-console').getAttribute('data-stage'),'2');
     assert.ok((await page.locator('.armada-flow-active').getAttribute('d')).includes('464.6'),'Animated method chain did not advance '+slug);
     const probe=page.locator('#armada-live-probe');
