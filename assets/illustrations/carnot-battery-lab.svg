@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+<title id="title">CarnotBatteryLab conceptual high-temperature heat-pump and storage system</title>
+<desc id="desc">Concept-only schematic showing a heat source, heat-pump cycle, packed-bed storage, and qualified process-heat delivery. Not measured data or a complete validated system.</desc>
+<rect width="960" height="540" fill="#0d1815"/>
+<path d="M0 65H960M0 150H960M0 235H960M0 320H960M0 405H960M0 490H960M100 0V540M220 0V540M340 0V540M460 0V540M580 0V540M700 0V540M820 0V540" stroke="#264039" stroke-width="1" opacity=".5"/>
+<text x="52" y="62" fill="#65d6c9" font-family="monospace" font-size="18" letter-spacing="3">CARNOT BATTERY LAB / RESEARCH CONCEPT</text>
+<text x="52" y="97" fill="#d9e6dc" font-family="sans-serif" font-size="26" font-weight="600">Heat-pump charging · Storage · Useful heat</text>
+<rect x="56" y="196" width="184" height="158" rx="10" fill="#142922" stroke="#65d6c9" stroke-width="3"/>
+<text x="148" y="253" fill="#f2f0e7" font-family="sans-serif" font-size="24" font-weight="600" text-anchor="middle">HEAT SOURCE</text>
+<text x="148" y="287" fill="#bdd0c3" font-family="monospace" font-size="14" text-anchor="middle">finite temperature</text>
+<text x="148" y="312" fill="#bdd0c3" font-family="monospace" font-size="14" text-anchor="middle">and flow</text>
+<rect x="303" y="196" width="202" height="158" rx="10" fill="#13241f" stroke="#d7b46a" stroke-width="3"/>
+<text x="404" y="253" fill="#f2f0e7" font-family="sans-serif" font-size="24" font-weight="600" text-anchor="middle">HEAT PUMP</text>
+<text x="404" y="287" fill="#d7b46a" font-family="monospace" font-size="14" text-anchor="middle">compressor envelope</text>
+<text x="404" y="312" fill="#bdd0c3" font-family="monospace" font-size="14" text-anchor="middle">finite HX / UA</text>
+<rect x="566" y="177" width="180" height="196" rx="10" fill="#1c2b24" stroke="#9bd69f" stroke-width="3"/>
+<path d="M592 216H720M592 239H720M592 262H720M592 285H720M592 308H720M592 331H720" stroke="#96b79a" stroke-width="7" stroke-linecap="round" opacity=".75"/>
+<text x="656" y="164" text-anchor="middle" fill="#f2f0e7" font-family="sans-serif" font-size="23" font-weight="600">TES BED</text>
+<rect x="802" y="196" width="107" height="158" rx="10" fill="#123027" stroke="#65d6c9" stroke-width="3"/>
+<text x="855" y="252" text-anchor="middle" fill="#f2f0e7" font-family="sans-serif" font-size="19" font-weight="600">PROCESS</text>
+<text x="855" y="277" text-anchor="middle" fill="#f2f0e7" font-family="sans-serif" font-size="19" font-weight="600">HEAT</text>
+<text x="855" y="306" text-anchor="middle" fill="#bdd0c3" font-family="monospace" font-size="12">not qualified</text>
+<path d="M240 275H301M503 275H563M748 275H800" stroke="#65d6c9" stroke-width="5" stroke-linecap="round"/>
+<path d="m292 264 11 11-11 11m260-22 11 11-11 11m226-22 11 11-11 11" fill="none" stroke="#65d6c9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="48" y="429" width="864" height="66" rx="6" fill="#111d19" stroke="#345447"/>
+<text x="70" y="455" fill="#eac182" font-family="monospace" font-size="15">RESEARCH STATE: MODELLING AND VERIFICATION IN PROGRESS</text>
+<text x="70" y="479" fill="#c2d1c6" font-family="monospace" font-size="13">This is a conceptual topology, not a verified operating plant or Carnot battery.</text>
+</svg>
