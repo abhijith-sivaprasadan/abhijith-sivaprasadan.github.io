@@ -48,6 +48,7 @@ jobs:
           node scripts/validate-feed-page.cjs
           node scripts/validate-armada-2026.cjs
           node --check scripts/armada-control-volume.js
+          node --check scripts/armada-engineering-lab.js
           node --check scripts/test-armada-control-volume.cjs
 
       - name: Check JavaScript syntax
