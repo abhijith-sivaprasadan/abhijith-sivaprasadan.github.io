@@ -111,7 +111,10 @@ if(!page||!page.classList.contains('cv'))return;
 // Resolve shared navigation relative to this script: works in /, /projects/, /for/ and nested /for/armada-2026/.
 const script=document.querySelector('script[src*="scripts/claude-exact.js"]');
 const siteRoot=new URL('../', script?.src || location.href);
-const url=path=>new URL(path,siteRoot).href;
+const currentDirectory=new URL('.',location.href).pathname;
+const relativeDirectory=currentDirectory.startsWith(siteRoot.pathname)?currentDirectory.slice(siteRoot.pathname.length):'';
+const linkPrefix='../'.repeat(relativeDirectory.split('/').filter(Boolean).length);
+const url=path=>linkPrefix+path;
 const groups=[
  {title:'The engineering work',items:[['Applied to the site','index.html'],['Cases · full project library','projects.html'],['Research','research.html'],['Energy systems','energy-systems.html'],['Industrial R&D','industrial-rd.html'],['Professional record','experience.html']]},
  {title:'Beyond the boundary',items:[['About','about.html'],['The path · story','story.html'],['Courses','courses.html'],['Ideas','ideas.html'],['Interests','interests.html'],['Hobbies','hobbies.html']]},
