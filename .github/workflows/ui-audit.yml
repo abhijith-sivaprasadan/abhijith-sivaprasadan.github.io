@@ -20,7 +20,7 @@ jobs:
       - name: Install browser runner
         run: |
           npm install --prefix /tmp/cv-ui-audit --no-audit --no-fund --no-save playwright@1.56.1
-          NODE_PATH=/tmp/cv-ui-audit/node_modules /tmp/cv-ui-audit/node_modules/.bin/playwright install --with-deps chromium
+          NODE_PATH=/tmp/cv-ui-audit/node_modules /tmp/cv-ui-audit/node_modules/.bin/playwright install --with-deps chromium webkit
       - name: Launch static site
         run: |
           python3 -m http.server 8099 --bind 127.0.0.1 >/tmp/cv-ui-http.log 2>&1 &
@@ -35,6 +35,10 @@ jobs:
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules
         run: node scripts/test-armada-control-volume.cjs
+      - name: Check iPhone-sized layouts in WebKit and verify contact links
+        env:
+          NODE_PATH: /tmp/cv-ui-audit/node_modules
+        run: node scripts/test-armada-ios-mobile.cjs
       - name: Audit all public routes and critical viewports
         env:
           NODE_PATH: /tmp/cv-ui-audit/node_modules

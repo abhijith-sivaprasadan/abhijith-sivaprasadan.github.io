@@ -63,4 +63,17 @@ for (const m of hub.matchAll(/<a data-employer="[^"]+" data-sector="([^"]+)" hre
 }
 assert.ok(n>=30, 'Too few employer deep-links');
 assert.ok(hub.includes('aria-live="polite"') && hub.includes("input.addEventListener('input',update)"),'Lookup must work without backend calls');
+const contactLinks=['mailto:abhijithsivaprasadan@gmail.com','https://github.com/abhijith-sivaprasadan','https://www.linkedin.com/in/abhijith-sivaprasadan/'];
+for(const route of ['for/armada-2026.html',...sectors.map(x=>'for/armada-2026/'+x+'.html')]){
+ const page=read(route);
+ assert.ok(page.includes('viewport-fit=cover'),'Missing iOS safe area viewport: '+route);
+ assert.ok(page.includes('class="armada-contact-grid"'),'Missing contact panel '+route);
+ assert.ok(page.includes('class="armada-footer-nav"'),'Missing accessible footer links '+route);
+ const prefix=route==='for/armada-2026.html'?'../':'../../';
+ for(const dest of [prefix+'index.html',prefix+'about.html',prefix+'projects.html','#contact']){
+  assert.ok(page.includes('href="'+dest+'"'), 'Footer navigation missing '+dest+' in '+route);
+ }
+ for(const link of contactLinks)assert.ok(page.includes('href="'+link+'"'),'Missing contact link '+link+' in '+route);
+}
+assert.match(css,/\.cv \.armada-footer\{[^}]*padding-bottom:calc\(44px \+ env\(safe-area-inset-bottom,0px\)\)/,'Footer must explicitly include iOS home-indicator safe area in its bottom padding');
 console.log('Armada 2026: validated '+sectors.length+' unique specialist pages and '+n+' company deep-links.');

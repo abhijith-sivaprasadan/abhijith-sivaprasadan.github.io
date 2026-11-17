@@ -50,6 +50,7 @@ jobs:
           node --check scripts/armada-control-volume.js
           node --check scripts/armada-engineering-lab.js
           node --check scripts/test-armada-control-volume.cjs
+          node --check scripts/test-armada-ios-mobile.cjs
 
       - name: Check JavaScript syntax
         run: |
